@@ -1,0 +1,78 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@-moz-document { 
+  #header-buttons ul ul{margin:1px 0 0 0 0 }
+}
+
+@-moz-document anything else or whatever 4711 { 
+  #header-buttons ul ul{margin:1px 0 0 0 0 }
+}
+
+@-moz-document url-prefix(){ 
+  #header-buttons ul ul{margin:1px 0 0 0 0 }
+}
+
+@-moz-document expression(content is ignored){ 
+  #header-buttons ul ul{margin:1px 0 0 0 0 }
+}
+
+@-moz-document url-prefix() {
+  .fl { float:left; margin:12px 4px 0 0; padding:0; font-size:65px;  line-height:62%;  color:#ba1820; }
+  .fs { float:left; margin:12px 4px 10px 0; padding:0; font-size:65px; line-height:62%; color:#ba1820; }
+}
+
+@-moz-document url(http://www.w3.org/),
+                   url-prefix("http://www.w3.org/Style/"),
+                   domain("mozilla.org")
+    {
+      /* CSS rules here apply to:
+         + The page "http://www.w3.org/".
+         + Any page whose URL begins with "http://www.w3.org/Style/"
+         + Any page whose URL's host is "mozilla.org" or ends with
+           ".mozilla.org"
+       */
+
+      /* make the above-mentioned pages really ugly */
+      body { color: purple; background: yellow; }
+}
+
+@document url(http://www.w3.org/),
+               url-prefix(http://www.w3.org/Style/),
+               domain(mozilla.org),
+               regexp("https:.*")
+{
+  /* CSS rules here apply to:
+     + The page "http://www.w3.org/".
+     + Any page whose URL begins with "http://www.w3.org/Style/"
+     + Any page whose URL's host is "mozilla.org" or ends with
+       ".mozilla.org"
+     + Any page whose URL starts with "https:" */
+
+  /* make the above-mentioned pages really ugly */
+  body { color: purple; background: yellow; }
+}
+ 
+@three-dee {
+	@background-lighting {
+    azimuth: 30deg;
+    elevation: 190deg;
+  }
+  h1 { color: red }
+}
+h1 { color: blue }
+

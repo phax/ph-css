@@ -1,0 +1,6 @@
+ @namespace a url(test-a);
+   @namespace b url('test-b');
+   @namespace c url("test-c");
+   @namespace d 'test-d';
+   @namespace e "test-e";
+   a|test, b|test, c|test, d|test, e|test { background:lime }

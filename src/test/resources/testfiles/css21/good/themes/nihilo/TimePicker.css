@@ -1,0 +1,66 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.nihilo .dijitTimePickerTick,
+.nihilo .dijitTimePickerMarker {
+	border-color: #eeeeee;
+}
+.nihilo .dijitTimePickerTick {
+	color:white;
+}
+.nihilo .dijitTimePickerMarker {
+	background:#d3d3d3 url("images/titleBar.png") repeat-x top;
+	color:#293a4b;
+	font-weight: bold;
+}
+.nihilo .dijitTimePickerItemSelected {
+	color: black;
+	background: #ffe284 none;
+}
+.nihilo .dijitTimePickerItemHover {
+	background: #d6d6dd none;
+	color:black;
+}
+.nihilo .dijitTimePickerItemHover,
+.nihilo .dijitTimePickerItemSelected {
+	position: relative;
+	z-index: 10;
+}
+.nihilo .dijitTimePickerTick .dijitTimePickerItemInner {
+	font-size:0.4em;
+}
+.nihilo .dijitTimePickerItemHover .dijitTimePickerItemInner,
+.nihilo .dijitTimePickerItemSelected .dijitTimePickerItemInner {
+	font-size:1em;
+}
+.nihilo .dijitTimePickerMarkerHover {
+	border-top: 1px solid #eeeeee;
+}
+.nihilo .dijitTimePickerTickHover,
+.nihilo .dijitTimePickerTickSelected {
+	margin-top:-0.3em;
+	margin-bottom:-0.3em;
+	border-bottom: none;
+}
+.dijit_a11y .dijitTimePickerTickHover {
+	background-color: #CCC !important;
+	border-top: 1px solid #333 !important;
+	border-bottom: 1px solid #333 !important;
+}
+.dijit_a11y .dijitTimePickerMarkerHover {
+	border-bottom-width: 2px;
+}

@@ -1,0 +1,181 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#logo
+{
+  height:98px !important;
+  background:url("../imgs/logo_bg.jpg") repeat-x 0px 0px;
+  overflow:visible;
+}
+
+#logo_img
+{
+  width:234px;
+  height:70px !important;
+  background:url("../imgs/logo.gif") repeat-x 0px 0px;
+  position:absolute;
+  top:8px;
+  left:0px;
+}
+
+#header
+{
+  height:98px !important;
+  /* this image resides in the user/UI directory */
+  background:url("../../user/mod-test/UI/header_bg.jpg") repeat-x 0px 0px;
+  position:relative;
+}
+
+tr.header,
+tr.header td
+{
+  height:98px;
+}
+
+tr.footer,
+tr.footer td
+{
+  height:34px;
+}
+
+#header_content
+{
+  position:relative;
+  height:98px;
+  width:802px;
+}
+
+#shadow_top
+{
+  background-color:#b1d486;
+  /* opacity: always set all 3 values for cross-browser compatibility*/
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=41)";
+  filter: alpha(opacity=41);
+  opacity: 0.41;
+  height:15px;
+  width:802px;
+  position:absolute;
+  display:none;
+  top:0px;
+  left:0px;
+}
+
+#shadow_bottom
+{
+  background-color:#b1d486;
+  /* opacity: always set all 3 values for cross-browser compatibility*/
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=41)";
+  filter: alpha(opacity=41);
+  opacity: 0.41;
+  height:24px;
+  width:802px;
+  position:absolute;  
+  bottom:0px;
+  display:none;
+  left:0px;
+}
+
+
+
+#header_r
+{
+  height:98px;
+  background:url("../imgs/header_bg_r.jpg") repeat-x 0px 0px;
+}
+
+
+#footer
+{
+  height:34px !important;
+  background:url("../imgs/footer_bg.jpg") repeat-x 0px 0px;
+}
+
+tr.footer,
+tr.footer td
+{
+  height:34px;
+}
+
+#footercontent
+{
+  font-size:10px;
+  width:100%;
+  text-align:right;
+  position:relative;
+  background:none;
+  position:relative;
+}
+
+#footercontent a
+{
+  color:#6aac16;
+  position:absolute;
+  top:-10px;
+}
+
+#cat_labels
+{
+  position:absolute;
+  right:0px;
+  bottom:2px;
+}
+
+#cat_labels span.cat_a,
+#cat_labels span.cat_f,
+#cat_labels span.cat_w,
+#cat_labels span.cat_v,
+#cat_labels span.cat_s
+{
+  color:#ffffff;
+  padding-left:17px;
+  font-size:9px;
+  line-height:18px;
+  background:url("../imgs/cat_selector.gif") no-repeat 0px 0px;
+  width:130px;
+  font-weight:bold;
+  margin-right:-7px;
+  position:absolute;
+  bottom:0px;
+}
+
+#cat_labels span.cat_0
+{
+  right:235px;
+}
+#cat_labels span.cat_1
+{
+  right:160px;
+}
+#cat_labels span.cat_2
+{
+  right:80px;
+}
+#cat_labels span.cat_3
+{
+  right:0px;
+}
+
+a.WCMSlogo
+{
+  width:100px;
+  height:32px;
+  background:url("../imgs/WCMS-green.jpg") no-repeat 0px 0px;
+  position:absolute;
+  right:3px;
+  bottom:0px;
+  text-align:right;
+}

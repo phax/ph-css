@@ -1,0 +1,5 @@
+  @namespace url(test-a);
+   @namespace url('test-b');
+   @namespace url("test-c");
+   @namespace 'test-d';
+   @namespace "test-e";

@@ -1,0 +1,1239 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+options {
+// JavaCC options
+  // LOOKAHEAD = 2;
+  CHOICE_AMBIGUITY_CHECK = 5;
+  STATIC = false;  // to allow for multiple parser instances
+  // DEBUG_PARSER = true;
+  // DEBUG_LOOKAHEAD = true;
+  // DEBUG_TOKEN_MANAGER = true;
+  // ERROR_REPORTING = false;
+  JAVA_UNICODE_ESCAPE = true;
+  UNICODE_INPUT = true;
+  IGNORE_CASE = true;
+  // USER_TOKEN_MANAGER = true;
+  // SUPPORT_CLASS_VISIBILITY_PUBLIC = false;
+  // USER_CHAR_STREAM = true;
+  FORCE_LA_CHECK = true;
+
+// JJTree options
+  // MULTI = true;
+  // VISITOR = true;
+  // BUILD_NODE_FILES = false;
+  // NODE_DEFAULT_VOID = true;
+  NODE_CLASS = "com.helger.css.parser.CSSNode";
+  NODE_PREFIX = "";
+  // NODE_USES_PARSER = true;
+  TRACK_TOKENS = true;
+  // NODE_SCOPE_HOOK = true;
+}
+
+PARSER_BEGIN(ParserCSS30)
+package com.helger.css.parser;
+
+public class ParserCSS30
+{
+  private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS30.class);
+  
+  private com.helger.css.reader.errorhandler.ICSSParseErrorHandler m_aCustomErrorHandler;
+  
+  public void setCustomErrorHandler (final com.helger.css.reader.errorhandler.ICSSParseErrorHandler aCustomErrorHandler)
+  {
+    m_aCustomErrorHandler = aCustomErrorHandler;
+  }
+  
+  // Used when NODE_SCOPE_HOOK is true - for debugging only
+  // Package scope to avoid warning when NODE_SCOPE_HOOK is false
+  void jjtreeOpenNodeScope (final Node aNode)
+  {
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Opening scope for " + aNode.toString ());
+  }
+  
+  void jjtreeCloseNodeScope (final Node aNode)
+  {
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Closing scope for " + aNode.toString ());
+  }
+}
+PARSER_END(ParserCSS30)
+
+TOKEN_MGR_DECLS :
+{
+  private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS30TokenManager.class);
+}
+
+<DEFAULT>
+MORE :
+{
+  < "/*" > : IN_COMMENT
+}
+
+<IN_COMMENT>
+MORE :
+{
+  < ~[] > : IN_COMMENT
+}
+
+<IN_COMMENT>
+SPECIAL_TOKEN :
+{
+  < "*/" > : DEFAULT
+}
+    
+<DEFAULT, IN_NTH, IN_UNKNOWN_RULE>
+TOKEN :
+{
+  < S: (" "|"\t"|"\r"|"\n"|"\f")+ >
+| < W: ( <S> )? >
+}
+
+<IN_NTH>
+TOKEN :
+{
+  < N: "n" >
+| < ODD: "odd" >
+| < EVEN: "even" >
+| < INTEGER: ( ["0"-"9"] )+ >  
+}
+
+<DEFAULT, IN_NTH, IN_UNKNOWN_RULE>
+TOKEN :
+{
+  < PLUS: "+" >
+| < MINUS: "-" >
+| < LROUND: "(" >
+| < RROUND: ")" > : DEFAULT
+}
+
+<DEFAULT, IN_UNKNOWN_RULE>
+TOKEN :
+{
+// private reg ex come first (no actions possible!)
+  < #H: ["0"-"9","a"-"f"] >
+| < #HNUM: <H>
+         | <H><H>
+         | <H><H><H>
+         | <H><H><H><H>
+         | <H><H><H><H><H>
+         | <H><H><H><H><H><H>
+         >
+
+// nonascii  [^\0-\177] - everything except 0x00-0x7f
+| < #NONASCII: ["\u0080"-"\uffff"] >
+
+| < #ESCAPE_UNICODE: "\\" <HNUM> ( "\r\n"
+                                 | [" ","\t","\r","\n","\f"]
+                                 )? >   
+| < #ESCAPE_OTHER: "\\" ~["\r","\n","\f","0"-"9","a"-"f"] >
+| < #ESCAPE: <ESCAPE_UNICODE>
+           | <ESCAPE_OTHER> >
+// nmstart      [_a-z]|{nonascii}|{escape}
+| < #NMSTART: ["_","a"-"z"]
+            | <NONASCII>
+            | <ESCAPE>
+            >
+// nmchar       [_a-z0-9-]|{nonascii}|{escape}
+| < #NMCHAR: ["_","a"-"z","0"-"9","-"]
+           | <NONASCII>
+           | <ESCAPE>
+           >
+// First, inside a string, a backslash followed by a newline is ignored (i.e., the string is deemed not to contain either the backslash or the newline).           
+| < STRING_EOL: "\\" ( "\n"
+                     | "\r\n"
+                     | "\r"
+                     | "\f" ) >  { matchedToken.image = ""; }    
+| < STRING1: "\"" ( ~["\n","\r","\f","\\","\""]
+                  | <STRING_EOL>
+                  | <ESCAPE>
+                  )* "\"" >
+| < STRING2: "'" ( ~["\n","\r","\f","\\","'"]
+                 | <STRING_EOL>
+                 | <ESCAPE>
+                 )* "'" >
+| < INVALID_STRING1: "\"" ( ~["\n","\r","\f","\\","\""]
+                          | <STRING_EOL>
+	                        | <ESCAPE>
+	                        )* >
+| < INVALID_STRING2: "'" ( ~["\n","\r","\f","\\","'"]
+                         | <STRING_EOL>
+                         | <ESCAPE>
+                         )* >
+| < #NAME: ( <NMCHAR> )+ >
+| < #NUM: ( ["0"-"9"] )+
+        | ( ["0"-"9"] )* "." ( ["0"-"9"] )+ >
+| < #URLCHAR: ["!","#","$","%","&","*"-"[","]"-"~"]
+            | <NONASCII>
+            | <ESCAPE> >
+| < #URANGE_H: <H> 
+             | "?" >
+| < #URANGE_PLACEHOLDER: <URANGE_H>
+                       | <URANGE_H><URANGE_H>
+                       | <URANGE_H><URANGE_H><URANGE_H>
+                       | <URANGE_H><URANGE_H><URANGE_H><URANGE_H>
+                       | <URANGE_H><URANGE_H><URANGE_H><URANGE_H><URANGE_H>
+                       | <URANGE_H><URANGE_H><URANGE_H><URANGE_H><URANGE_H><URANGE_H>
+                       >
+| < NUMBER: <NUM> >
+
+| < LBRACE: <W> "{" >
+| < RBRACE: "}" >
+| < LSQUARE: "[" >
+| < RSQUARE: "]" >
+| < DOT: "." >
+| < COMMA: <W> "," >
+| < SEMICOLON: ";" >
+| < COLON: ":" >
+| < ASTERISK: "*" >
+| < SLASH: "/" >
+| < EQUALS: "=" >
+| < DASH: "|" >
+| < GREATER: ">" >
+| < TILDE: "~" >
+| < HASH: "#" <NAME> >
+| < INCLUDES: "~=" >
+| < DASHMATCH: "|=" >
+| < PREFIXMATCH: "^=" >
+| < SUBFIXMATCH: "$=" >
+| < SUBSTRINGMATCH: "*=" >
+| < CDO: "<!--" >
+| < CDC: "-->" >
+| < CHARSET_SYM: "@charset" >
+| < IMPORT_SYM: "@import" >
+| < NAMESPACE_SYM: "@namespace" >
+| < PAGE_SYM: "@page" >
+| < MEDIA_SYM: "@media" >
+| < FONTFACE_SYM: "@font-face" >
+| < KEYFRAMES_SYM: "@-" <IDENT> "-keyframes" 
+                 | "@keyframes" >
+| < VIEWPORT_SYM: "@-" <IDENT> "-viewport"
+                | "@viewport" >
+| < SUPPORTS_SYM: "@supports" >
+| < AT_UNKNOWN: "@" <IDENT> > : IN_UNKNOWN_RULE
+| < IMPORTANT_SYM: "!" ( <S> )* "important" >
+
+// before ident!
+| < INHERIT: "inherit" >
+| < AND_SYM: "and" >
+| < NOT_SYM: "not" >
+| < ONLY_SYM: "only" >
+| < FROM_SYM: "from" >
+| < TO_SYM: "to" >
+| < OR_SYM: "or" >
+
+// ident        -?{nmstart}{nmchar}*
+// Note: "*" hack for IE <= 6
+// Note: "$" hack for IE <= 7
+| < IDENT: ( "-"
+           | "$" ( <S> )*
+           | "*" ( <S> )* )? 
+           <NMSTART> 
+           ( <NMCHAR> )* > { matchedToken.image = ParseUtils.validateIdentifier(image); }
+
+
+| < EM: <NUM> "em" >           { matchedToken.image = ParseUtils.splitNumber(image) + "em"; }
+| < EX: <NUM> "ex" >           { matchedToken.image = ParseUtils.splitNumber(image) + "ex"; }
+| < PX: <NUM> "px" >           { matchedToken.image = ParseUtils.splitNumber(image) + "px"; }
+| < REM: <NUM> "rem" >         { matchedToken.image = ParseUtils.splitNumber(image) + "rem"; }
+| < VW: <NUM> "vw" >           { matchedToken.image = ParseUtils.splitNumber(image) + "vw"; }
+| < VH: <NUM> "vh" >           { matchedToken.image = ParseUtils.splitNumber(image) + "vh"; }
+| < VMIN: <NUM> "vmin" >       { matchedToken.image = ParseUtils.splitNumber(image) + "vmin"; }
+| < CH: <NUM> "ch" >           { matchedToken.image = ParseUtils.splitNumber(image) + "ch"; }
+| < DPI: <NUM> "dpi" >         { matchedToken.image = ParseUtils.splitNumber(image) + "dpi"; }
+| < DPCM: <NUM> "dpcm" >       { matchedToken.image = ParseUtils.splitNumber(image) + "dpcm"; }
+| < DPPX: <NUM> "dppx" >       { matchedToken.image = ParseUtils.splitNumber(image) + "dppx"; }
+| < LENGTH_CM: <NUM> "cm" >    { matchedToken.image = ParseUtils.splitNumber(image) + "cm"; }
+| < LENGTH_MM: <NUM> "mm" >    { matchedToken.image = ParseUtils.splitNumber(image) + "mm"; }
+| < LENGTH_IN: <NUM> "in" >    { matchedToken.image = ParseUtils.splitNumber(image) + "in"; }
+| < LENGTH_PT: <NUM> "pt" >    { matchedToken.image = ParseUtils.splitNumber(image) + "pt"; }
+| < LENGTH_PC: <NUM> "pc" >    { matchedToken.image = ParseUtils.splitNumber(image) + "pc"; }
+| < ANGLE_DEG: <NUM> "deg" >   { matchedToken.image = ParseUtils.splitNumber(image) + "deg"; }
+| < ANGLE_RAD: <NUM> "rad" >   { matchedToken.image = ParseUtils.splitNumber(image) + "rad"; }
+| < ANGLE_GRAD: <NUM> "grad" > { matchedToken.image = ParseUtils.splitNumber(image) + "grad"; }
+| < ANGLE_TURN: <NUM> "turn" > { matchedToken.image = ParseUtils.splitNumber(image) + "turn"; }
+| < TIME_MS: <NUM> "ms" >      { matchedToken.image = ParseUtils.splitNumber(image) + "ms"; }
+| < TIME_S: <NUM> "s" >        { matchedToken.image = ParseUtils.splitNumber(image) + "s"; }
+| < FREQ_HZ: <NUM> "hz" >      { matchedToken.image = ParseUtils.splitNumber(image) + "hz"; }
+| < FREQ_KHZ: <NUM> "khz" >    { matchedToken.image = ParseUtils.splitNumber(image) + "khz"; }
+| < PERCENTAGE: <NUM> "%" >    { matchedToken.image = ParseUtils.splitNumber(image) + "%"; }
+// | < DIMENSION: <NUM> <IDENT> >
+
+| < #URL_CONTENT: ( <S> )* ( <STRING1>
+                           | <STRING2>
+                           | ( <URLCHAR> )*
+                           ) ( <S> )* >
+| < URL: "url(" <URL_CONTENT> ")" >  { matchedToken.image = ParseUtils.trimUrl(image); }
+
+| < FUNCTION_CALC: "calc(" >
+| < FUNCTION_NOT: ":not(" >
+| < FUNCTION_NTH: "nth-child(" 
+                | "nth-last-child(" 
+                | "nth-of-type(" 
+                | "nth-last-of-type(" > : IN_NTH
+// Expressions were abandoned after IE8
+| < FUNCTION_EXPRESSION: "expression(" >
+// Extension for IE
+//   filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+| < FUNCTION: <IDENT> "(" 
+            | "progid" ( <S> )* <COLON> ( <S> )* <IDENT> ( <DOT> <IDENT> )* ( <S> )* "(" 
+            > { matchedToken.image = image.toString (); }
+// Unicode range  
+| < URANGE: "u+" ( <HNUM> 
+                 | <HNUM> "-" <HNUM> 
+                 | <URANGE_PLACEHOLDER> 
+                 ) >  
+}
+
+// Single line comments are handled in all states except in unknown rules, because
+// there, tokens are simply chained together to a string 
+<DEFAULT, IN_NTH>
+SPECIAL_TOKEN :
+{
+  // Skip until end of line or ";"
+  < SINGLE_LINE_COMMENT: "//" (~["\n","\r",";"])* (";" | ("\n"|"\r"|"\r\n")?) >
+}
+
+<*> TOKEN:
+{
+  < UNKNOWN: ~[] >
+  {
+    s_aLogger.error("Illegal character: " + image.toString());
+  }
+}
+
+JAVACODE
+private void errorUnexpectedRule(final String sRule, final String sMsg) #void
+{
+  if (m_aCustomErrorHandler != null)
+    m_aCustomErrorHandler.onCSSUnexpectedRule (token, sRule, sMsg);
+  else  
+    s_aLogger.warn("[" + token.beginLine + ":" + token.beginColumn + "] Unexpected rule '" + sRule + "': " + sMsg);
+}
+
+JAVACODE
+private Token errorSkipTo(final ParseException ex, final int... aKinds) throws ParseException
+{
+  // Skip until (including) the first matching token
+  Token tok = null;
+  do
+  {
+    tok = getNextToken();
+    if (tok.kind == EOF)
+    {
+      // Encountered EOF while skipping - throw the original exception!
+      throw ex;
+    }
+  } while (!com.helger.commons.collections.ArrayHelper.contains (aKinds, tok.kind));
+  if (s_aLogger.isDebugEnabled ())
+    s_aLogger.debug ("Skipped until token " + tok.toString ());
+  if (m_aCustomErrorHandler != null)
+    m_aCustomErrorHandler.onCSSParseError (ex.currentToken, ex.expectedTokenSequences, ex.tokenImage, tok);
+  else  
+    s_aLogger.warn("CSS recoverable parse error", ex);
+  return tok;
+}
+
+JAVACODE
+private String javaSkipToClosingParantheses() throws ParseException #void {
+  final StringBuilder aSB = new StringBuilder ();
+  int nNesting = 1;
+  while (true) {
+    final Token tok = getNextToken();
+    aSB.append (tok.image);
+    if (tok.kind == LROUND) 
+      nNesting++;
+    else
+      if (tok.kind == RROUND) {
+        nNesting--;
+        if (nNesting == 0)
+          break;
+      }
+      else
+        if (tok.kind == EOF)
+          throw new ParseException ("EOF while searching for matching closing ')'.");
+  }
+  return aSB.toString ();
+}
+
+JAVACODE
+private String javaSkipToOpeningBrace() throws ParseException #void {
+  final StringBuilder aSB = new StringBuilder ();
+  Token tok;
+  while (true) {
+    tok = getNextToken();
+    if (tok.kind == EOF)
+      throw new ParseException ("EOF while searching for opening '{'.");
+    if (tok.kind == LBRACE)
+      break;
+    aSB.append (tok.image);
+  }
+  return aSB.toString ();
+}
+
+JAVACODE
+private String javaSkipToClosingBrace() throws ParseException #void {
+  final StringBuilder aSB = new StringBuilder ();
+  int nNesting = 1;
+  while (true) {
+    final Token tok = getNextToken();
+    if (tok.kind == LBRACE) 
+      nNesting++;
+    else
+      if (tok.kind == RBRACE) {
+        nNesting--;
+        if (nNesting == 0)
+          break;
+      }
+      else
+        if (tok.kind == EOF)
+          throw new ParseException ("EOF while searching for matching closing '}'.");
+    aSB.append (tok.image);
+  }
+  return aSB.toString ();
+}
+
+//
+// whole stylesheet
+//
+CSSNode styleSheet() #Root : {}
+{
+  ( <S> | <CDO> | <CDC> )*
+  ( LOOKAHEAD( <CHARSET_SYM> )
+    charsetRule()
+    ( <S> | <CDO> | <CDC> )*
+  )?
+  ( LOOKAHEAD( <IMPORT_SYM> )
+    importRule()
+    ( <S> | <CDO> | <CDC> )*
+  )*
+  ( LOOKAHEAD( <NAMESPACE_SYM> )
+    namespaceRule()
+    ( <S> | <CDO> | <CDC> )*
+  )*
+  ( ( styleRule()
+    | mediaRule()
+    | pageRule()
+    | fontfaceRule()
+    | keyframesRule()
+    | viewportRule()
+    | supportsRule()
+    | unknownRule()
+    | charsetRule() { errorUnexpectedRule ("@charset", "charset rule in the middle of the file is not allowed!"); }
+    | importRule() { errorUnexpectedRule ("@import", "import rule in the middle of the file is not allowed!"); }
+    | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of the file is not allowed!"); }
+    )
+    ( <S> | <CDO> | <CDC> )*
+// ignore too many closing brackets
+    ( <RBRACE> 
+      ( <S> | <CDO> | <CDC> )*
+    )* 
+  )*
+  <EOF>
+  { return jjtThis; }
+}
+
+//
+// Generic utility rules
+//
+String string() #void : {}
+{
+  ( <STRING1> { return token.image; }
+  | <STRING2> { return token.image; }
+  )
+}
+
+String anyIdentifier() #void : {}
+{
+  ( <IDENT>    { return token.image; }
+  | <INHERIT>  { return token.image; }
+  | <AND_SYM>  { return token.image; }
+  | <NOT_SYM>  { return token.image; }
+  | <ONLY_SYM> { return token.image; }
+  | <FROM_SYM> { return token.image; }
+  | <TO_SYM>   { return token.image; }
+  | <OR_SYM>   { return token.image; }
+  )
+}
+
+void url() : {}
+{
+  <URL>  { jjtThis.setText (token.image); } 
+}
+
+void function() : 
+{ String sPlain; }
+{
+  ( <FUNCTION> { jjtThis.setText (token.image + ")"); }
+    ( <S> )*
+    // Support functions without parameters (e.g. "gray ()")
+    ( expr() )?
+    <RROUND>
+  | <FUNCTION_EXPRESSION> { jjtThis.setText (token.image); }
+    // get content of all skipped chars 
+    sPlain = javaSkipToClosingParantheses() { jjtThis.appendText (sPlain); }
+  )
+}
+
+String unaryOperator() #void : {}
+{
+  ( <MINUS> { return "-"; }
+  | <PLUS>  { return "+"; }
+  )
+}
+
+Token dimension() #void :
+{ Token t; }
+{
+  ( t = <EM>          
+  | t = <EX>          
+  | t = <PX>          
+  | t = <REM>         
+  | t = <VW>          
+  | t = <VH>          
+  | t = <VMIN>        
+  | t = <CH>          
+  | t = <DPI>         
+  | t = <DPCM>        
+  | t = <DPPX>        
+  | t = <LENGTH_CM>   
+  | t = <LENGTH_MM>   
+  | t = <LENGTH_IN>   
+  | t = <LENGTH_PT>   
+  | t = <LENGTH_PC>   
+  | t = <ANGLE_DEG>   
+  | t = <ANGLE_RAD>   
+  | t = <ANGLE_GRAD>  
+  | t = <ANGLE_TURN>  
+  | t = <TIME_MS>     
+  | t = <TIME_S>      
+  | t = <FREQ_HZ>     
+  | t = <FREQ_KHZ>
+  )
+  { return t; }   
+}
+
+void mathUnit() : 
+{ 
+  String sPrefix = null;
+  Token t = null; 
+}
+{
+  ( sPrefix = unaryOperator() )?
+  ( t = <NUMBER>
+  | t = <PERCENTAGE>
+  | t = dimension()
+  | <LROUND>
+    ( <S> )*
+    mathSum()
+    ( <S> )*
+    <RROUND>
+  )  
+  {
+    if (sPrefix != null)
+      jjtThis.appendText (sPrefix);
+    if (t != null)
+      jjtThis.appendText (t.image);
+  }
+}
+
+void mathProductOperator() : {}
+{
+  <ASTERISK> { jjtThis.setText ("*"); }
+| <SLASH>    { jjtThis.setText ("/"); }
+}
+
+void mathProduct() : {}
+{
+  mathUnit()
+  ( LOOKAHEAD(2)
+    ( <S> )*
+    mathProductOperator()
+    ( <S> )*
+    mathUnit()
+  )*   
+}
+
+void mathSumOperator() : {}
+{
+  ( <PLUS>  { jjtThis.setText ("+"); } 
+  | <MINUS> { jjtThis.setText ("-"); }
+  )
+}
+
+void mathSum() #void : {}
+{
+  mathProduct()
+  ( <S>
+    mathSumOperator()
+    <S>
+    mathProduct ()
+  )*   
+}
+
+void math() : {}
+{
+  <FUNCTION_CALC>
+  ( <S> )*
+  mathSum()
+  ( <S> )*
+  <RROUND> 
+}
+
+void exprTerm() :
+{
+  String sPrefix = null;
+  Token t = null;
+}
+{
+  ( ( sPrefix = unaryOperator() )?
+    ( t = <NUMBER>
+    | t = <PERCENTAGE>
+    | t = dimension()
+    )
+  | sPrefix = string()
+  | t = <IDENT>
+// Hack to allow "from" and "to" as identifiers (e.g. in linear-gradient)
+  | t = <FROM_SYM>
+  | t = <TO_SYM>
+  | url()
+  | t = <HASH>
+  | function()
+  | math()
+  | t = <INHERIT>
+  | t = <URANGE>
+  )
+  ( <S> )*
+  {
+    if (sPrefix != null)
+      jjtThis.appendText (sPrefix);
+    if (t != null)
+      jjtThis.appendText (t.image);
+  }
+}
+
+void exprOperator() : {}
+{
+  ( <SLASH> ( <S> )*  { jjtThis.setText ("/"); }
+  | <COMMA> ( <S> )*  { jjtThis.setText (","); }
+  /* Extension for Microsoft filters (alpha=50) */
+  | <EQUALS> ( <S> )* { jjtThis.setText ("="); }
+  )
+}
+
+void expr() : {}
+{
+  exprTerm()
+  ( ( exprOperator() )?
+    exprTerm()
+  )*
+}
+
+
+//
+// Charset rule
+//
+void charsetRule() :
+{ String sStr; }
+{
+  <CHARSET_SYM>
+  ( <S> )+
+  sStr = string() { jjtThis.setText (sStr); }
+  ( <S> )*
+  <SEMICOLON>
+}
+
+//
+// Import rule
+//
+void importRule() :
+{ String sUrl; }
+{
+  <IMPORT_SYM>
+  ( <S> )*
+  ( sUrl = string() { jjtThis.setText (sUrl); }
+  | url()
+  )
+  ( <S> )*
+  ( mediaList() )?
+  <SEMICOLON>
+}
+
+//
+// Namespace rule
+//
+void namespaceRulePrefix() : {}
+{
+  <IDENT> { jjtThis.setText (token.image); }
+} 
+
+void namespaceRuleURL() : 
+{ String s; }
+{
+  // URL tokens are always passed without the quotes!
+  ( <URL>        { jjtThis.setText (token.image); }
+  | s = string() { jjtThis.setText (ParseUtils.unescapeURL (s)); }
+  )
+} 
+
+void namespaceRule() : {}
+{
+  <NAMESPACE_SYM>
+  ( <S> )*
+  ( namespaceRulePrefix()
+    ( <S> )* 
+  )?
+  namespaceRuleURL()
+  ( <S> )*
+  <SEMICOLON>
+} 
+
+//
+// Style rule
+//
+void namespacePrefix() : {}
+{
+  ( <IDENT>    { jjtThis.setText (token.image); }
+  | <ASTERISK> { jjtThis.setText (token.image); }
+  )?    
+  <DASH>        { jjtThis.appendText ("|"); }
+}
+
+void elementName() : {}
+{
+  ( <IDENT>    { jjtThis.setText (token.image); }
+  | <ASTERISK> { jjtThis.setText (token.image); }
+  )
+}
+
+void typeSelector() #void : {}
+{
+  ( LOOKAHEAD(2)
+    namespacePrefix()
+  )?
+  elementName()
+}
+
+void hash() : {}
+{
+  <HASH> { jjtThis.setText (token.image); }
+}
+
+void _class() #Class : 
+{ String sIdentifier; }
+{
+  <DOT>
+  sIdentifier = anyIdentifier() { jjtThis.setText ("." + sIdentifier); }
+}
+
+void attribOperator() : {}
+{
+  ( <EQUALS>         { jjtThis.setText ("=");  }
+  | <INCLUDES>       { jjtThis.setText ("~="); }
+  | <DASHMATCH>      { jjtThis.setText ("|="); }
+  | <PREFIXMATCH>    { jjtThis.setText ("^="); }  /* new in 3.0 */
+  | <SUBFIXMATCH>    { jjtThis.setText ("$="); }  /* new in 3.0 */
+  | <SUBSTRINGMATCH> { jjtThis.setText ("*="); }  /* new in 3.0 */
+  )
+}
+
+void attribValue() :
+{ String sStr; }
+{
+  ( <IDENT>         { jjtThis.setText (token.image); }
+  | sStr = string() { jjtThis.setText (sStr); }
+  )
+}
+
+void attrib() : {}
+{
+  <LSQUARE>
+  ( <S> )*
+  ( LOOKAHEAD(2)
+    namespacePrefix() 
+  )?
+  <IDENT> { jjtThis.setText (token.image); }
+  /* Hack for html[xmlns*=""] */
+  ( <ASTERISK> { jjtThis.appendText ("*"); } )?          
+  ( <S> )*
+  ( attribOperator()
+    ( <S> )*
+    attribValue()
+    ( <S> )*
+  )?
+  <RSQUARE>
+}
+
+void pseudoNth () #nth : 
+{ Token t; String s; }
+{
+  ( <S> )*
+  ( LOOKAHEAD(3)
+    ( s = unaryOperator() { jjtThis.appendText (s); } )?
+    ( t = <INTEGER> { jjtThis.appendText (t.image); } )? 
+    t = <N>        { jjtThis.appendText ("n"); }
+    ( LOOKAHEAD(2)
+      ( <S> )*
+      s = unaryOperator() { jjtThis.appendText (s); }
+      ( <S> )*
+      t = <INTEGER> { jjtThis.appendText (t.image); }
+    )?
+  | LOOKAHEAD(2)
+    ( s = unaryOperator() { jjtThis.appendText (s); } )?
+    t = <INTEGER> { jjtThis.appendText (t.image); }
+  | t = <EVEN>    { jjtThis.appendText (t.image); }
+  | t = <ODD>     { jjtThis.appendText (t.image); }
+  )
+  ( <S> )* 
+}
+
+void pseudo() : {}
+{
+  <COLON> { jjtThis.setText (":"); }
+  /* Extension for "::-moz-selection */
+  ( <COLON> { jjtThis.appendText (":"); } ) ?
+  ( <FUNCTION_NTH> { jjtThis.appendText (token.image); }
+    pseudoNth()
+    <RROUND>  // do not append because of expression!
+  | LOOKAHEAD( <FUNCTION> )
+    <FUNCTION> { jjtThis.appendText (token.image); }
+    ( <S> )*
+    ( expr() )?
+    <RROUND>  // do not append because of expression!
+  | <IDENT> { jjtThis.appendText (token.image); }
+  )
+}
+
+void negation() : {}
+{
+  <FUNCTION_NOT> { jjtThis.setText (":not("); }
+  ( <S> )*
+  ( selector ()
+    ( <S> )*
+    ( <COMMA>
+      ( <S> )*
+      selector()
+      ( <S> )*
+    )*
+  )?
+  <RROUND>
+}
+
+void simpleSelectorSequence() #void : {}
+{
+  LOOKAHEAD(2)
+  ( typeSelector()
+    ( hash()
+    | _class()
+    | attrib()
+    | pseudo()
+    | negation()
+    )*
+  )
+  | ( hash()
+    | _class()
+    | attrib()
+    | pseudo()
+    | negation()
+    )+
+// Extension for CSS animations (e.g. 50%)
+  | <PERCENTAGE>  
+}
+
+void selectorCombinator() : {}
+{
+  ( LOOKAHEAD(2)
+    ( <S> )* 
+    <PLUS>       { jjtThis.setText ("+"); }
+  | LOOKAHEAD(2)
+    ( <S> )* 
+    <GREATER>    { jjtThis.setText (">"); }
+  | LOOKAHEAD(2)
+    ( <S> )*
+    <TILDE>      { jjtThis.setText ("~"); }
+  | <S>          { jjtThis.setText (" "); }
+  )
+}
+
+void selector() : {}
+{
+  simpleSelectorSequence()
+  ( LOOKAHEAD(3)
+    selectorCombinator()
+    ( <S> )*
+    simpleSelectorSequence()
+  )*
+}
+
+void property() : {}
+{
+  <IDENT> { jjtThis.setText (token.image); }
+  ( <S> )*
+}
+
+void important() : {}
+{
+  <IMPORTANT_SYM> { jjtThis.setText (token.image); }
+  ( <S> )*
+}
+
+void styleDeclaration() : {}
+{
+  property()
+  <COLON>
+  ( <S> )*
+  /* Optional to handle e.g. "background-color:;" */
+  ( expr() )?
+  ( important() )?
+}
+
+CSSNode styleDeclarationList() : {}
+{
+  ( <S> )*
+  ( styleDeclaration() )?
+  ( <SEMICOLON>
+    ( <S> )*
+    ( styleDeclaration() )?
+  )*
+  { return jjtThis; }
+}
+
+void styleDeclarationBlock() #void : {}
+{
+try{
+  <LBRACE>
+  styleDeclarationList()
+  <RBRACE>
+} catch (ParseException ex) {
+  errorSkipTo (ex, RBRACE);
+}
+}
+
+void styleRule() : {}
+{
+  selector ()
+  ( <S> )*
+  ( <COMMA>
+    ( <S> )*
+    selector()
+    ( <S> )*
+  )*
+  styleDeclarationBlock()
+}
+
+//
+// Media rule
+//
+void mediaModifier() : {}
+{
+  ( <ONLY_SYM> { jjtThis.setText (token.image); }
+    <S>
+  | <NOT_SYM>  { jjtThis.setText (token.image); } 
+    <S>
+  )?
+}
+
+void medium() : {}
+{
+  <IDENT> { jjtThis.setText (token.image); }
+}
+
+void mediaFeature() : {}
+{
+  <IDENT>  { jjtThis.setText (token.image); }
+}
+
+void mediaExpr() : {}
+{
+  <LROUND>
+  ( <S> )*
+  mediaFeature()
+  ( <S> )*
+  ( <COLON>
+    ( <S> )*
+    expr()
+  )?
+  <RROUND>
+  ( <S> )*
+}
+
+void mediaQuery() : {}
+{
+  ( mediaModifier()
+    medium()
+    ( <S> )*
+    ( <AND_SYM>
+      ( <S> )*
+      mediaExpr()
+    )*
+  | mediaExpr()
+    ( <AND_SYM>
+      ( <S> )*
+      mediaExpr()
+    )*
+  )  
+}
+
+void mediaList() : {}
+{
+  mediaQuery()
+  ( <COMMA>
+    ( <S> )*
+    mediaQuery()
+  )*
+}
+
+void mediaRuleList() #void : {}
+{
+  ( ( styleRule()
+    | mediaRule()
+    | pageRule()
+    | fontfaceRule()
+    | keyframesRule()
+    | viewportRule()
+    | supportsRule()
+    | unknownRule()
+    | charsetRule() { errorUnexpectedRule ("@charset", "charset rule in the middle of a @media rule is not allowed!"); }
+    | importRule() { errorUnexpectedRule ("@import", "import rule in the middle of a @media rule is not allowed!"); }
+    | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @media rule is not allowed!"); }
+    )
+    ( <S> )*
+  )+
+}
+
+void mediaRule() : {}
+{
+  <MEDIA_SYM>
+  ( <S> )*
+  ( mediaList() )?
+try{
+  <LBRACE>
+  ( <S> )*
+  ( mediaRuleList() )?
+  <RBRACE>
+} catch (ParseException ex) {
+  errorSkipTo (ex, RBRACE);
+}
+}
+
+
+//
+// Page rule
+//
+void pseudoPage() : {}
+{
+  <COLON>
+  <IDENT> { jjtThis.setText (":" + token.image); }
+}
+
+void pageRule() : {}
+{
+  <PAGE_SYM>
+  ( <S> )*
+  ( pseudoPage()
+    ( <S> )*
+  )?
+  styleDeclarationBlock()
+}
+
+//
+// Font face rule
+//
+void fontfaceRule() : {}
+{
+  <FONTFACE_SYM>
+  styleDeclarationBlock()
+}
+
+//
+// Keyframes rule
+// http://dev.w3.org/csswg/css3-animations/#keyframes
+//
+void keyframesIdentifier() :  {}
+{
+  <IDENT> { jjtThis.setText (token.image); }    
+}
+
+void singleKeyframeSelector() : {}
+{
+  ( <FROM_SYM>   { jjtThis.setText (token.image); }
+  | <TO_SYM>     { jjtThis.setText (token.image); }
+  | <PERCENTAGE> { jjtThis.setText (token.image); }  
+  )
+}
+
+void keyframesSelector() : {}
+{
+  singleKeyframeSelector()
+  ( <S> )*
+  ( <COMMA>
+    ( <S> )*
+    singleKeyframeSelector()
+    ( <S> )*
+  )*  
+}
+
+void keyframesBlocks() #void : {}
+{
+  ( keyframesSelector()
+    styleDeclarationBlock()
+    ( <S> )*
+  )*
+}
+
+void keyframesRule() : {}
+{
+  <KEYFRAMES_SYM> { jjtThis.setText (token.image); }    
+  <S>
+  keyframesIdentifier()
+try{
+  <LBRACE>
+  ( <S> )*
+  keyframesBlocks()
+  <RBRACE>
+} catch (ParseException ex) {
+  errorSkipTo (ex, RBRACE);
+}
+}
+
+//
+// Viewport rule
+// http://dev.w3.org/csswg/css-device-adapt/#the-atviewport-rule
+//
+void viewportRule() : {}
+{
+  <VIEWPORT_SYM> { jjtThis.setText (token.image); }
+  styleDeclarationBlock()
+}
+
+//
+// Supports rule
+// http://www.w3.org/TR/2013/CR-css3-conditional-20130404/#at-supports
+//
+void supportsConditionInParens() : {}
+{
+  "(" 
+  ( <S> )*
+  ( styleDeclaration()
+  | supportsCondition()
+    ( <S> )*
+  )  
+  ")"
+/* | general_enclosed */  
+}
+
+void supportsNegation() : {}
+{
+  <NOT_SYM>
+  ( <S> )+
+  supportsConditionInParens()
+}
+
+void supportsConditionOperator() : {}
+{
+  ( <AND_SYM> { jjtThis.setText (token.image); }
+  | <OR_SYM>  { jjtThis.setText (token.image); }
+  )
+}
+
+void supportsCondition() : {}
+{
+  ( supportsNegation()
+  | supportsConditionInParens()
+    ( LOOKAHEAD(2)
+      ( <S> )+
+      supportsConditionOperator()
+      ( <S> )+
+      supportsConditionInParens()
+    )*
+  )
+}
+
+void supportsRuleBodyRule() #void : {}
+{
+  ( styleRule()
+  | mediaRule()
+  | pageRule()
+  | fontfaceRule()
+  | keyframesRule()
+  | supportsRule()
+  | unknownRule()
+  | charsetRule() { errorUnexpectedRule ("@charset", "charset rule in the middle of a @supports rule is not allowed!"); }
+  | importRule() { errorUnexpectedRule ("@import", "import rule in the middle of a @supports rule is not allowed!"); }
+  | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @supports rule is not allowed!"); }
+  | viewportRule() { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a @supports rule is not allowed!"); }
+  )
+}
+
+void supportsRuleBody() #void : {}
+{
+try{
+  <LBRACE>
+  ( <S> )*
+  ( supportsRuleBodyRule()
+    ( <S> )*
+  )* 
+  <RBRACE>
+} catch (ParseException ex) {
+  errorSkipTo (ex, RBRACE);
+}
+}
+
+void supportsRule() : {}
+{
+  <SUPPORTS_SYM>    
+  ( <S> )*
+  supportsCondition() 
+  ( <S> )*
+  supportsRuleBody()
+}
+
+//
+// Unknown rule
+//
+void unknownRuleParameterList() : 
+{ String s; }
+{
+  s = javaSkipToOpeningBrace() { jjtThis.setText (s); }
+}  
+
+void unknownRuleBody() : 
+{ String s; }
+{
+  s = javaSkipToClosingBrace() { jjtThis.setText (s); }
+}
+
+// Any unsupported rule
+void unknownRule() : {}
+{
+  <AT_UNKNOWN> { jjtThis.setText (token.image); }
+  unknownRuleParameterList()
+  unknownRuleBody()
+  // Manually switch from IN_UNKNOWN_RULE to DEFAULT again
+  { token_source.SwitchTo (DEFAULT); }
+}
+
+//
+// Error handling
+// 
+void invalid () : {}
+{
+  ( <INVALID_STRING1>
+  | <INVALID_STRING2>
+  )
+}

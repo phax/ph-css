@@ -1,0 +1,46 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Ensure this is truly a 3.0 CSS :) */
+E ~ F {}
+
+div { max-width:1em; }
+div { max-width:1ex; }
+div { max-width:1px; }
+div { max-width:1gd; }
+div { max-width:1rem; }
+div { max-width:1vw; }
+div { max-width:1vh; }
+div { max-width:1vmin; }
+div { max-width:1ch; }
+div { max-width:1in; }
+div { max-width:1cm; }
+div { max-width:1mm; }
+div { max-width:1pt; }
+div { max-width:1pc; }
+div { max-width:1%; }
+div { max-width:1deg; }
+div { max-width:1rad; }
+div { max-width:1grad; }
+div { max-width:1turn; }
+div { max-width:1ms; }
+div { max-width:1s; }
+div { max-width:1hz; }
+div { max-width:1khz; }
+div { max-width:1dpi; }
+div { max-width:1dpcm; }
+div { max-width:1dppx; }

@@ -1,0 +1,134 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Ensure this is truly a 3.0 CSS :) */
+E ~ F {}
+
+#stage {
+  position: relative;
+  margin: 1em auto;
+  width: 660px;
+  height: 240px;
+  border: 2px solid #666;
+  background: #cff;
+}
+
+@keyframes identifier {  
+  0% { top: 0; left: 0; }  
+  30% { top: 50px; }  
+  68%, 72% { left: 50px; }  
+  100% { top: 100px; left: 100%; }  
+}
+
+@-webkit-keyframes travel {
+  from {              }
+  to   { left: 640px; }
+}
+
+@-moz-keyframes travel {
+  from { left: 0;     }
+  to   { left: 640px; }
+}
+
+@-webkit-keyframes bounce {
+  from, to  {
+    -webkit-animation-timing-function: ease-out;
+  }
+  50% {
+    bottom: 220px;
+    -webkit-animation-timing-function: ease-in;
+  }
+}
+
+@-moz-keyframes bounce {
+  from, to  {
+    bottom: 0;
+    -moz-animation-timing-function: ease-out;
+  }
+  50% {
+    bottom: 220px;
+    -moz-animation-timing-function: ease-in;
+    background: url(../images/email.png) left center no-repeat;
+  }
+}
+
+@-webkit-keyframes spin {
+  from { }
+  to   { -webkit-transform: rotateZ(360deg); }
+}
+
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0);     }
+  to   { -moz-transform: rotate(360deg); }
+}
+
+#traveler {
+  position: absolute;
+  width: 20px;
+  height: 236px;
+  border: 1px dashed #ccc;
+  border-top: 2px solid #999;
+  border-bottom: 2px solid #999;
+
+  -webkit-animation-name: travel;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  -webkit-animation-duration: 4.8s;
+
+  -moz-animation-name: travel;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-direction: alternate;
+  -moz-animation-duration: 4.8s;
+}
+
+#bouncer {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: red;
+  background: -webkit-gradient(radial, 60% 40%, 0, 60% 40%, 10, from(rgba(255,255,255,0.8)), to(red)) red;
+  background: -moz-radial-gradient(60% 40%, circle, rgba(255,255,255,0.8), red 50%) red;
+
+  -webkit-animation-name: bounce,spin;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 4.2s;
+
+  -moz-animation-name: bounce,spin;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-duration: 4.2s;
+}
+
+#sides {
+  position: absolute;
+  height: 20px;
+  width: 656px;
+  border: 1px dashed #ccc;
+  border-left: 2px solid #999;
+  border-right: 2px solid #999;
+  -webkit-animation-name: bounce;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 4.2s;
+
+  -moz-animation-name: bounce;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-duration: 4.2s;
+
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+}

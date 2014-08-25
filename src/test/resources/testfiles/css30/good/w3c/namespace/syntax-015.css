@@ -1,0 +1,4 @@
+@namespace x url("test");
+   @namespace x url("}x&lt; >x{");
+   t { background:lime }
+   x|t { background:red }

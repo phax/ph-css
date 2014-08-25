@@ -1,0 +1,71 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.tundra .dijitBorderContainer {
+	background-color: #fcfcfc;
+	padding: 5px;
+}
+.tundra .dijitSplitContainer-child,
+.tundra .dijitBorderContainer-child {
+	
+	border: 1px #ccc solid;
+}
+.tundra .dijitBorderContainer-dijitTabContainerTop,
+.tundra .dijitBorderContainer-dijitTabContainerBottom,
+.tundra .dijitBorderContainer-dijitTabContainerLeft,
+.tundra .dijitBorderContainer-dijitTabContainerRight {
+	
+	 border: none;
+}
+.tundra .dijitBorderContainer-dijitBorderContainer {
+	
+	border: none;
+	padding: 0px;
+}
+.tundra .dijitSplitterH,
+.tundra .dijitGutterH {
+	background:#fcfcfc;
+	border:0;
+	height:5px;
+}
+.tundra .dijitSplitterH .dijitSplitterThumb {
+	background:url("../images/splitContainerSizerH-thumb.png") no-repeat;
+	top:1px;
+	width:19px;
+	height:2px;
+}
+.tundra .dijitSplitterV,
+.tundra .dijitGutterV {
+	background:#fcfcfc;
+	border:0;
+	width:5px;
+}
+.tundra .dijitSplitterV .dijitSplitterThumb {
+	background:url("../images/splitContainerSizerV-thumb.png") no-repeat;
+	left:1px;
+	height:19px;
+	width:5px;
+}
+.tundra .dijitSplitterActive {
+	font-size: 1px;
+	background-image: none;
+	background-color: #aaa;
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	filter: Alpha(Opacity=60);
+	margin: 0;
+}

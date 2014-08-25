@@ -1,0 +1,4 @@
+@namespace x "test";
+   test { background:red }
+   x|test { background:lime }
+   x\00007Ctest { background:red }

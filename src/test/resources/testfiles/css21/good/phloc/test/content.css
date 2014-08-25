@@ -1,0 +1,247 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#content
+{
+  padding:10px;
+  font-size:13px;  
+}
+
+/*** this makes paragraphs and breaks look the same for easy handling ***/
+p
+{
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+/***********  TEXT ***********/
+
+#content,
+.mceContentBody,
+.text
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;  
+}
+
+/***********  HEADINGS ***********/
+
+.heading_1
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#6aac16;
+  font-style:normal;
+  font-weight:normal;
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+span.heading_1
+{
+  display:block;
+}
+
+
+.heading_2
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#6aac16;
+  font-style:normal;
+  font-weight:normal;
+  font-size:17px;
+  margin-bottom:7px;
+  margin-top:7px; 
+}
+
+span.heading_2
+{
+  display:block;
+}
+
+.heading_2b
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#000000;
+  font-style:normal;
+  font-weight:normal;
+  font-size:17px;
+  margin-bottom:7px;
+  margin-top:7px;   
+}
+
+span.heading_2b
+{
+  display:block;
+}
+
+.heading_3
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-weight:bold;
+  color:#6aac16;
+  font-style:normal;
+  font-weight:normal;
+  font-size:14px;
+  margin-bottom:5px;
+  margin-top:5px;  
+}
+
+span.heading_3
+{
+  display:block;
+}
+
+.heading_3b
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-weight:bold;
+  color:#000000;
+  font-style:normal;
+  font-weight:normal;
+  font-size:14px;
+  margin-bottom:5px;
+  margin-top:5px;  
+}
+
+span.heading_3b
+{
+  display:block;
+}
+
+/***********  TABLES ***********/
+
+.table_header,
+.table_header td
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-weight:normal;
+  font-size:13px;
+  color:#ffffff;
+  background:url("../imgs/table_header_bg_uni.jpg") repeat-x 0px center;
+  background-color:#3e6530;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  line-height:18px;
+  height:1px;
+}
+
+.table_content
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;
+  background-color:#daedb5;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  vertical-align:top;
+}
+
+.table_content_nocol
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  vertical-align:top;
+}
+
+.table_cell
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;
+  background-color:#daedb5;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.table_cell_nocol
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.table_collight
+{
+  background-color:#daedb5;
+}
+
+.table_colstrong
+{
+  background-color:#3e6530;
+}
+
+/***********  HACKS ***********/
+
+/* THIS IS FOR LINKS TO ACTUALLY BE DISPLAYED AS THEY SHOULD */
+
+/* Important is needed in Gecko browsers inorder to style links */
+
+a {
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#1f6201 !important;
+  font-weight:bold !important;
+}
+
+.table_header a {
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#ffffff !important;
+  font-weight:bold !important;
+  text-decoration:underline;
+}
+
+a:hover {
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color: #6aac16 !important;
+  font-weight:bold !important;
+}
+
+.table_header a:hover {
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#6aac16 !important;
+  font-weight:bold !important;
+  text-decoration:underline;
+}
+
+a img {
+  border:2px solid #1f6201 !important;
+}
+
+a:hover img{
+  border:2px solid #6aac16 !important;
+}
+
+/* Style selection range colors in Gecko browsers */
+
+::-moz-selection {
+  background-color: #d3e9f7;
+  color: #114669;
+}
+
+empty {
+  /* Some comment */
+}

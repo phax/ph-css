@@ -1,0 +1,130 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+options {
+// JavaCC options
+  // LOOKAHEAD = 2;
+  CHOICE_AMBIGUITY_CHECK = 5;
+  STATIC = false;  // to allow for multiple parser instances
+  // DEBUG_PARSER = true;
+  // DEBUG_LOOKAHEAD = true;
+  // DEBUG_TOKEN_MANAGER = true;
+  // ERROR_REPORTING = false;
+  JAVA_UNICODE_ESCAPE = true;
+  UNICODE_INPUT = true;
+  IGNORE_CASE = true;
+  // USER_TOKEN_MANAGER = true;
+  // SUPPORT_CLASS_VISIBILITY_PUBLIC = false;
+  // USER_CHAR_STREAM = true;
+  FORCE_LA_CHECK = true;
+
+// JJTree options
+  // MULTI = true;
+  // VISITOR = true;
+  // BUILD_NODE_FILES = false;
+  // NODE_DEFAULT_VOID = true;
+  NODE_CLASS = "com.helger.css.parser.CSSNode";
+  NODE_PREFIX = "";
+  // NODE_USES_PARSER = true;
+  // TRACK_TOKENS = true;
+  // NODE_SCOPE_HOOK = true;
+}
+
+PARSER_BEGIN(ParserCSSCharsetDetector)
+package com.helger.css.parser;
+
+public class ParserCSSCharsetDetector
+{
+}
+PARSER_END(ParserCSSCharsetDetector)
+
+TOKEN_MGR_DECLS :
+{}
+
+<DEFAULT>
+TOKEN :
+{
+  < S: ( " "|"\t"|"\r"|"\n"|"\f" )+ >
+}
+
+<DEFAULT>
+MORE :
+{
+  < "/*" > : IN_COMMENT
+}
+
+<IN_COMMENT>
+MORE :
+{
+  < ~[] > : IN_COMMENT
+}
+
+<IN_COMMENT>
+SKIP :
+{
+  < "*/" > : DEFAULT
+}
+
+<DEFAULT>
+TOKEN :
+{
+  < #H: ["0"-"9","a"-"f"] >
+| < #HNUM: <H> 
+         | <H><H> 
+         | <H><H><H> 
+         | <H><H><H><H> 
+         | <H><H><H><H><H> 
+         | <H><H><H><H><H><H> >
+| < #ESCAPE_UNICODE: "\\" <HNUM> ( "\r\n"
+                                 | [" ","\t","\r","\n","\f"]
+                                 )? >   
+| < #ESCAPE_OTHER: "\\" ~["\r","\n","\f","0"-"9","a"-"f"] >
+| < #ESCAPE: <ESCAPE_UNICODE>
+           | <ESCAPE_OTHER> >
+| < SEMICOLON: ";" >
+| < #STRING_EOL: "\n" 
+               | "\r\n" 
+               | "\r" 
+               | "\f" >
+| < STRING1: "\"" ( ~["\n","\r","\f","\\","\""] 
+                  | "\\" <STRING_EOL> 
+                  | <ESCAPE> )* "\"" >
+| < STRING2: "'"  ( ~["\n","\r","\f","\\","'"] 
+                  | "\\" <STRING_EOL> 
+                  | <ESCAPE> )* "'" >
+| < CDO: "<!--" >
+| < CDC: "-->" >
+| < CHARSET_SYM: "@charset" >
+| < REST: ~[] >
+}
+
+CSSNode styleSheetCharset() #Root : {}
+{
+  try
+  {
+    ( <S> | <CDO> | <CDC> )*
+    <CHARSET_SYM>
+    ( <S> )+
+    ( <STRING1> { jjtThis.setText (token.image); }
+    | <STRING2> { jjtThis.setText (token.image); }
+    )
+    <SEMICOLON>
+  } catch (ParseException e) {
+    /* ignore */
+  }
+  { return jjtThis; }
+}

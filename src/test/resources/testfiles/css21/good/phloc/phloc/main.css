@@ -1,0 +1,247 @@
+/**
+ * Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+ * Copyright (C) 2014 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+html
+{
+  height:100%;
+  background:url("../imgs/body_fade.png") repeat-y center 0px;
+  background-color:#e1e1e1;
+}
+
+body
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-weight:normal;
+  font-size:13px;
+  text-align:center;
+  background:url("../imgs/body_stripes.png") no-repeat center 0px;
+  padding:0px;
+  margin:0px;  
+  height:100%;
+}
+
+center
+{
+  height:100%;
+}
+
+#vp
+{
+  width:960px;
+  height:100%;
+  table-layout:fixed;
+  text-align:left;
+}
+
+/**********************************/
+/* STARKL STUFF */
+
+
+
+
+#viewport
+{
+  position:relative;
+  width:1024px;
+}
+
+/* description of sitemap entries */
+span.description
+{
+  font-size:10px;
+  margin-left:20px;
+}
+
+/* styles of dynamic contents */
+
+.header_1
+{
+  font-family:Arial, Helvetica, Sans-serif;
+  color:#6aac16;
+  font-style:normal;
+  font-weight:normal;
+  font-size:20px;
+}
+
+.subtitle
+{
+  font-family:Arial, Helvetica, Sans-serif;
+  color:#1F6201;
+  font-style:italic;
+  font-weight:normal;
+  font-size:12px;
+  margin-left:30px;
+}
+
+td.cell_image_newsletter
+{
+  background:url("../imgs/letter.gif") no-repeat 0px 0px;
+  width:314px;
+  height:206px;
+}
+
+div.messagebox
+{
+  border:1px solid #dddddd;
+  background-color:#f8f8f8;
+  padding:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  padding-left:40px;
+  background:url("../imgs/pdaf_message_success_small.gif") no-repeat 8px 8px;
+}
+
+div.messagebox_error
+{
+  border:1px solid #dddddd;
+  background-color:#f8f8f8;
+  padding:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  padding-left:40px;
+  background:url("../imgs/pdaf_message_error_small.gif") no-repeat 8px 8px;
+}
+
+/* forms */
+
+form
+{
+}
+
+table.form_legend
+{
+  border:1px solid #dddddd;
+  background-color:#f8f8f8;
+  margin-top:10px;
+}
+
+
+form.contact
+{
+  background:url("../../../../user/mod-phloc/UI/form_contact.jpg") no-repeat 475px 3px; 
+}
+
+form.newsletter
+{
+  background:url("../../../../user/mod-phloc/UI/form_newsletter.jpg") no-repeat 475px 3px; 
+}
+
+
+form table td
+{
+  vertical-align:top;
+  text-align:left;
+}
+
+form table td.form_label
+{
+  color:#880000;
+  width:180px;
+}
+
+form table td.form_label_error
+{
+  color:#ca5656;
+}
+
+form table tr.form_field_description td,
+form div.form_field_description
+{
+  font-size:9px;
+  color:#777777;
+  padding-top:5px;
+}
+
+form table td.form_validator_error
+{
+  color:#AB1616;
+  font-size:9px;
+  /* opacity: always set all 3 values for cross-browser compatibility*/
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  filter: alpha(opacity=70);
+  opacity: 0.70;
+  background-color:#ffffff;  
+}
+
+.form_info
+{
+  text-align:justify;
+}
+
+form input
+{
+  width:250px;
+  border:1px solid #cdcdcd;
+}
+
+form textarea.textinput
+{
+  width:250px;
+  border:1px solid #cdcdcd;
+  height:180px;
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:10px;
+}
+
+form input.checkboxinput
+{
+  width:auto;
+  border:none;  
+}
+
+form select
+{
+  width:252px;
+  border:1px solid #cdcdcd;
+}
+
+div.planting_selectors
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-weight:bold;
+  font-size:13px;
+  color:#ffffff;
+  background-color:#3e6530;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  line-height:18px; 
+}
+
+table.planting_table
+{
+  width:100%; 
+}
+
+#sitemap_hier_list li.separator
+{
+  list-style-type:none;
+  height:10px;
+}
+
+#sitemap_hier_list li span.description
+{
+  padding-left:10px;
+}
+
+/* File info (size) shown for links pointing to user files */
+#content span.pdaf_link_fileinfo
+{
+  display:inline;
+  color:#555555;  
+}
