@@ -26,7 +26,7 @@ import com.helger.commons.name.IHasName;
 
 /**
  * This enum represents the W3C standard media query expression features.
- * 
+ *
  * @author Philip Helger
  */
 public enum ECSSMediaExpressionFeature implements IHasName
@@ -65,7 +65,9 @@ public enum ECSSMediaExpressionFeature implements IHasName
   SCAN ("scan"),
   GRID ("grid"),
   _WEBKIT_MAX_DEVICE_PIXEL_RATIO ("-webkit-max-device-pixel-ratio"),
-  _WEBKIT_MIN_DEVICE_PIXEL_RATIO ("-webkit-min-device-pixel-ratio");
+  _WEBKIT_MIN_DEVICE_PIXEL_RATIO ("-webkit-min-device-pixel-ratio"),
+  _MOZ_MAX_DEVICE_PIXEL_RATIO ("-moz-max-device-pixel-ratio"),
+  _MOZ_MIN_DEVICE_PIXEL_RATIO ("-moz-min-device-pixel-ratio");
 
   private final String m_sName;
 
@@ -91,6 +93,15 @@ public enum ECSSMediaExpressionFeature implements IHasName
   public boolean isWebkitSpecific ()
   {
     return m_sName.startsWith ("-webkit-");
+  }
+
+  /**
+   * @return <code>true</code> if this media expression feature is Mozilla
+   *         specific, <code>false</code> if not.
+   */
+  public boolean isMozillaSpecific ()
+  {
+    return m_sName.startsWith ("-moz-");
   }
 
   /**
