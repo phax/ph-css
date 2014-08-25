@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (C) 2006-2014 phloc systems (www.phloc.com)
+    Copyright (C) 2006-2014 phloc systems (www.helger.com)
     Copyright (C) 2014 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
@@ -20,21 +20,21 @@
 <FindBugsFilter>
   <!-- Docs: http://findbugs.sourceforge.net/manual/filter.html -->
   <Match>
-    <Class name="com.phloc.css.parser.ParseException" />
+    <Class name="com.helger.css.parser.ParseException" />
   </Match>
   <Match>
-    <Class name="~com\.phloc\.css\.parser\.ParserCSS21.*" />
+    <Class name="~com\.helger\.css\.parser\.ParserCSS21.*" />
   </Match>
   <Match>
-    <Class name="~com\.phloc\.css\.parser\.ParserCSS30.*" />
+    <Class name="~com\.helger\.css\.parser\.ParserCSS30.*" />
   </Match>
   <Match>
-    <Class name="~com\.phloc\.css\.parser\.ParserCSSCharsetDetector.*" />
+    <Class name="~com\.helger\.css\.parser\.ParserCSSCharsetDetector.*" />
   </Match>
   <Match>
-    <Class name="com.phloc.css.parser.SimpleNode" />
+    <Class name="com.helger.css.parser.SimpleNode" />
   </Match>
   <Match>
-    <Class name="com.phloc.css.parser.TokenMgrError" />
+    <Class name="com.helger.css.parser.TokenMgrError" />
   </Match>
 </FindBugsFilter>
