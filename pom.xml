@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2006-2014 phloc systems (www.phloc.com)
     Copyright (C) 2014 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
@@ -31,6 +30,7 @@
   <name>ph-css</name>
   <description>Java CSS 3 parser and builder</description>
   <url>https://github.com/phax/ph-css</url>
+  <inceptionYear>2014</inceptionYear>
   
   <licenses>
     <license>
@@ -60,15 +60,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-  
-  <contributors>
-    <contributor>
-      <name>Boris Gregorcic</name>
-      <email>bg(at)phloc.com</email>
-      <organization>phloc systems</organization>
-      <organizationUrl>http://www.phloc.com</organizationUrl>
-    </contributor>
-  </contributors>
 
   <dependencies>
     <dependency>
