@@ -51,7 +51,7 @@ public class MainCreateSupportedCSSPropertiesFile
 
     final IMicroElement html = new MicroElement ("html");
     final IMicroElement head = html.appendElement ("head");
-    head.appendElement ("title").appendText ("Supported CSS properties in phloc-css");
+    head.appendElement ("title").appendText ("Supported CSS properties in ph-css");
     head.appendElement ("style")
         .appendText ("* {font-family:Arial,Helvetica;} table{border-collapse:collapse;} td,th { border:solid 1px black; } .odd{background-color:#ddd;} .center{text-align:center;} a, a:link, a:visited, a:hover, a:active{color:blue;}");
 
@@ -147,9 +147,8 @@ public class MainCreateSupportedCSSPropertiesFile
 
     String sHTML = "<!--\r\n"
                    + "\r\n"
-                   + "    Copyright (C) 2006-2013 phloc systems\r\n"
-                   + "    http://www.phloc.com\r\n"
-                   + "    office[at]phloc[dot]com\r\n"
+                   + "    Copyright (C) 2014 Philip Helger (www.helger.com)\r\n"
+                   + "    philip[at]helger[dot]com\r\n"
                    + "\r\n"
                    + "    Licensed under the Apache License, Version 2.0 (the \"License\");\r\n"
                    + "    you may not use this file except in compliance with the License.\r\n"

@@ -34,9 +34,8 @@ import com.helger.css.utils.CSSDataURL;
 
 /**
  * Example how to extract all URLs from a certain CSS file using an
- * {@link ICSSUrlVisitor} and handle them as data URLs. This example works with
- * phloc-css >= 3.5.7
- * 
+ * {@link ICSSUrlVisitor} and handle them as data URLs.
+ *
  * @author Philip Helger
  */
 public final class WikiVisitDataUrls
