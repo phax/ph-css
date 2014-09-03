@@ -16,7 +16,6 @@
  */
 package com.helger.css.media;
 
-import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,7 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.IHasSize;
+import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
@@ -35,11 +34,11 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Manages an ordered set of {@link ECSSMedium} objects.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSMediaList implements Serializable, IHasSize
+public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
 {
   public static final String DEFAULT_MEDIA_STRING_SEPARATOR = ", ";
 
@@ -54,7 +53,7 @@ public class CSSMediaList implements Serializable, IHasSize
 
   /**
    * Constructor with a single medium
-   * 
+   *
    * @param eMedium
    *        The medium to be added. May not be <code>null</code>.
    */
@@ -65,7 +64,7 @@ public class CSSMediaList implements Serializable, IHasSize
 
   /**
    * Constructor with an array of media.
-   * 
+   *
    * @param aMedia
    *        The array of media to be added. The array may be <code>null</code>
    *        but it may not contain <code>null</code> elements.
@@ -79,7 +78,7 @@ public class CSSMediaList implements Serializable, IHasSize
 
   /**
    * Constructor with a collection of media.
-   * 
+   *
    * @param aMedia
    *        The collection of media to be added. The collection may be
    *        <code>null</code> but it may not contain <code>null</code> elements.
@@ -92,8 +91,20 @@ public class CSSMediaList implements Serializable, IHasSize
   }
 
   /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        The object to copy from. May not be <code>null</code>.
+   */
+  public CSSMediaList (@Nonnull final CSSMediaList aOther)
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+    m_aMedia.addAll (aOther.m_aMedia);
+  }
+
+  /**
    * Add a new medium to the list
-   * 
+   *
    * @param eMedium
    *        The medium to be added. May not be <code>null</code>.
    * @return <code>this</code>
@@ -109,7 +120,7 @@ public class CSSMediaList implements Serializable, IHasSize
 
   /**
    * Remove the passed medium
-   * 
+   *
    * @param eMedium
    *        The medium to be removed. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if the medium was removed,
@@ -123,7 +134,7 @@ public class CSSMediaList implements Serializable, IHasSize
 
   /**
    * Remove all media.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any medium was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -137,112 +148,57 @@ public class CSSMediaList implements Serializable, IHasSize
     return EChange.CHANGED;
   }
 
-  /**
-   * @return The number of contained media. Always &ge; 0.
-   */
   @Nonnegative
   public int getMediaCount ()
   {
     return m_aMedia.size ();
   }
 
-  /**
-   * @return <code>true</code> if any explicit media is defined,
-   *         <code>false</code> if not.
-   */
   public boolean hasAnyMedia ()
   {
     return !m_aMedia.isEmpty ();
   }
 
-  /**
-   * @return <code>true</code> if no explicit media is defined,
-   *         <code>false</code> if a media is defined.
-   */
   public boolean hasNoMedia ()
   {
     return m_aMedia.isEmpty ();
   }
 
-  /**
-   * @return <code>true</code> if no explicit media is defined or if
-   *         {@link ECSSMedium#ALL} is contained.
-   */
   public boolean hasNoMediaOrAll ()
   {
     return hasNoMedia () || containsMedium (ECSSMedium.ALL);
   }
 
-  /**
-   * Check if the passed medium is explicitly specified
-   * 
-   * @param eMedium
-   *        The medium to be checked. May be <code>null</code>.
-   * @return <code>true</code> if it is contained, <code>false</code> otherwise
-   */
   public boolean containsMedium (@Nullable final ECSSMedium eMedium)
   {
     return m_aMedia.contains (eMedium);
   }
 
-  /**
-   * Check if the passed medium or the {@link ECSSMedium#ALL} is explicitly
-   * specified
-   * 
-   * @param eMedium
-   *        The medium to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed medium or the "all" medium is
-   *         contained, <code>false</code> otherwise
-   */
   public boolean containsMediumOrAll (@Nullable final ECSSMedium eMedium)
   {
     // Either the specific medium is contained, or the "all" medium is contained
     return containsMedium (eMedium) || containsMedium (ECSSMedium.ALL);
   }
 
-  /**
-   * Check if the passed medium is usable for the screen. This is the case if
-   * either the "screen" medium, the "all" medium or no medium at all is
-   * contained.
-   * 
-   * @return <code>true</code> if the media list is usable for screen display
-   */
   public boolean isForScreen ()
   {
     // Default is "screen" if none is provided
     return hasNoMedia () || containsMediumOrAll (ECSSMedium.SCREEN);
   }
 
-  /**
-   * @return A copy of all specified media. Never <code>null</code> but maybe
-   *         empty.
-   */
   @Nonnull
   @ReturnsMutableCopy
   public Set <ECSSMedium> getAllMedia ()
   {
-    return ContainerHelper.newSet (m_aMedia);
+    return ContainerHelper.newSortedSet (m_aMedia);
   }
 
-  /**
-   * @return A non-<code>null</code> but maybe empty String with all media in
-   *         the order they where inserted and separated by
-   *         {@value #DEFAULT_MEDIA_STRING_SEPARATOR}
-   * @see #getMediaString(String)
-   */
   @Nonnull
   public String getMediaString ()
   {
     return getMediaString (DEFAULT_MEDIA_STRING_SEPARATOR);
   }
 
-  /**
-   * @param sSeparator
-   *        The separator to be used. May not be <code>null</code>.
-   * @return A non-<code>null</code> but maybe empty String with all media in
-   *         the order they where inserted and separated by the specified
-   *         separator
-   */
   @Nonnull
   public String getMediaString (@Nonnull final String sSeparator)
   {
@@ -270,6 +226,13 @@ public class CSSMediaList implements Serializable, IHasSize
   public boolean isEmpty ()
   {
     return hasNoMedia ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CSSMediaList getClone ()
+  {
+    return new CSSMediaList (this);
   }
 
   @Override
