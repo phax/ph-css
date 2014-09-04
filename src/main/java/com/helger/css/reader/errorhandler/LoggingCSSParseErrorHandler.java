@@ -76,25 +76,6 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return createLoggingStringParseError (ex.currentToken, ex.expectedTokenSequences, ex.tokenImage, null);
   }
 
-  /**
-   * @deprecated Use
-   *             {@link #createLoggingStringParseError(Token,int[][],String[],Token)}
-   *             instead
-   */
-  @Deprecated
-  @Nonnull
-  @Nonempty
-  public static String createLoggingString (@Nonnull final Token aLastValidToken,
-                                            @Nonnull final int [][] aExpectedTokenSequencesVal,
-                                            @Nonnull final String [] aTokenImageVal,
-                                            @Nullable final Token aLastSkippedToken)
-  {
-    return createLoggingStringParseError (aLastValidToken,
-                                          aExpectedTokenSequencesVal,
-                                          aTokenImageVal,
-                                          aLastSkippedToken);
-  }
-
   @Nonnull
   @Nonempty
   public static String createLoggingStringParseError (@Nonnull final Token aLastValidToken,

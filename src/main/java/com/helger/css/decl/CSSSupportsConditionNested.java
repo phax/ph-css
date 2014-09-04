@@ -38,7 +38,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single negation supports condition
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -53,16 +53,6 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   public boolean hasMembers ()
   {
     return !m_aMembers.isEmpty ();
-  }
-
-  /**
-   * @deprecated Use {@link #getMemberCount()} instead
-   */
-  @Deprecated
-  @Nonnegative
-  public int getSupportsMemberCount ()
-  {
-    return getMemberCount ();
   }
 
   @Nonnegative
@@ -94,30 +84,10 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return this;
   }
 
-  /**
-   * @deprecated Use {@link #removeMember(ICSSSupportsConditionMember)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public EChange removeSupportsMember (@Nonnull final ICSSSupportsConditionMember aMember)
-  {
-    return removeMember (aMember);
-  }
-
   @Nonnull
   public EChange removeMember (@Nonnull final ICSSSupportsConditionMember aMember)
   {
     return EChange.valueOf (m_aMembers.remove (aMember));
-  }
-
-  /**
-   * @deprecated Use {@link #removeMember(int)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public EChange removeSupportsMember (@Nonnegative final int nIndex)
-  {
-    return removeMember (nIndex);
   }
 
   @Nonnull
@@ -131,7 +101,7 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
 
   /**
    * Remove all members.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any member was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -143,16 +113,6 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
       return EChange.UNCHANGED;
     m_aMembers.clear ();
     return EChange.CHANGED;
-  }
-
-  /**
-   * @deprecated Use {@link #getMemberAtIndex(int)} instead
-   */
-  @Deprecated
-  @Nullable
-  public ICSSSupportsConditionMember getSupportsMemberAtIndex (@Nonnegative final int nIndex)
-  {
-    return getMemberAtIndex (nIndex);
   }
 
   @Nullable

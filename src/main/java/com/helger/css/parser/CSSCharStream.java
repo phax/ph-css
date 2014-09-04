@@ -192,6 +192,7 @@ public final class CSSCharStream implements CharStream
   /**
    * @return starting character for token.
    * @throws IOException
+   *         from readChar
    */
   public char BeginToken () throws IOException
   {
@@ -400,6 +401,11 @@ public final class CSSCharStream implements CharStream
 
   /**
    * Method to adjust line and column numbers for the start of a token.
+   * 
+   * @param newLine
+   *        line index
+   * @param newCol
+   *        column index
    */
   public void adjustBeginLineColumn (int newLine, final int newCol)
   {

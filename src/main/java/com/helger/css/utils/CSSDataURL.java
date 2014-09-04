@@ -241,6 +241,7 @@ public class CSSDataURL implements IHasStringRepresentation, Serializable
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>.
    * @throws IOException
+   *         from OutputStream
    */
   public void writeContentBytes (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
@@ -321,6 +322,8 @@ public class CSSDataURL implements IHasStringRepresentation, Serializable
   }
 
   /**
+   * @param bOptimizedVersion
+   *        <code>true</code> to create optimized version
    * @return The complete representation of the data URL, starting with "data:".
    *         All data is emitted, even if it is the default value.
    */

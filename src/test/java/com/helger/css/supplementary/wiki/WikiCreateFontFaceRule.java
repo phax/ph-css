@@ -29,7 +29,7 @@ import com.helger.css.decl.ECSSExpressionOperator;
 
 /**
  * This is example code to create a font-face rule from scratch
- * 
+ *
  * @author Philip Helger
  */
 public final class WikiCreateFontFaceRule
@@ -42,7 +42,7 @@ public final class WikiCreateFontFaceRule
 
   /**
    * Create a single font-face rule.
-   * 
+   *
    * <pre>
    * @font-face {
    *   font-family: "Your typeface";
@@ -53,7 +53,7 @@ public final class WikiCreateFontFaceRule
    *        url("path/basename.svg#filename") format("svg");
    * }
    * </pre>
-   * 
+   *
    * @param sTypefaceName
    *        The name of the font-face in CSS. May neither be <code>null</code>
    *        nor empty.
@@ -65,6 +65,7 @@ public final class WikiCreateFontFaceRule
    * @param sBasename
    *        the base name of the font-files (without extension). May neither be
    *        <code>null</code> nor empty
+   * @return The created {@link CascadingStyleSheet}.
    */
   @Nonnull
   public static CascadingStyleSheet createFontFace (@Nonnull @Nonempty final String sTypefaceName,

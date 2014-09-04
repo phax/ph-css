@@ -38,7 +38,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Provides color handling sanity methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -127,7 +127,7 @@ public final class CSSColorHelper
 
   /**
    * Check if the passed string is any color value.
-   * 
+   *
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if the passed value is not <code>null</code>, not
@@ -161,7 +161,7 @@ public final class CSSColorHelper
   /**
    * Check if the passed String is valid CSS RGB color value. Example value:
    * <code>rgb(255,0,0)</code>
-   * 
+   *
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if it is a CSS RGB color value,
@@ -176,7 +176,7 @@ public final class CSSColorHelper
   /**
    * Extract the CSS RGB color value from the passed String. Example value:
    * <code>rgb(255,0,0)</code>
-   * 
+   *
    * @param sValue
    *        The value to extract the value from. May be <code>null</code>.
    * @return <code>null</code> if the passed value is not a valid CSS RGB color
@@ -198,7 +198,7 @@ public final class CSSColorHelper
   /**
    * Check if the passed String is valid CSS RGBA color value. Example value:
    * <code>rgba(255,0,0, 0.1)</code>
-   * 
+   *
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if it is a CSS RGBA color value,
@@ -226,7 +226,7 @@ public final class CSSColorHelper
   /**
    * Check if the passed String is valid CSS HSL color value. Example value:
    * <code>hsl(255,0%,0%)</code>
-   * 
+   *
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if it is a CSS HSL color value,
@@ -254,7 +254,7 @@ public final class CSSColorHelper
   /**
    * Check if the passed String is valid CSS HSLA color value. Example value:
    * <code>hsla(255,0%,0%, 0.1)</code>
-   * 
+   *
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if it is a CSS HSLA color value,
@@ -282,7 +282,7 @@ public final class CSSColorHelper
   /**
    * Check if the passed String is valid CSS hex color value. Example value:
    * <code>#ff0000</code>
-   * 
+   *
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if it is a CSS hex color value,
@@ -318,7 +318,7 @@ public final class CSSColorHelper
 
   /**
    * Convert the passed value to a valid RGB value in the range 0-255.
-   * 
+   *
    * @param nRGBPart
    *        The original value
    * @return The value between 0 and 255.
@@ -332,7 +332,7 @@ public final class CSSColorHelper
   /**
    * Ensure that the passed opacity value is in the range {@link #OPACITY_MIN}
    * and {@link #OPACITY_MAX}.
-   * 
+   *
    * @param fOpacity
    *        The original opacity
    * @return The opacity in the correct range between 0 and 1.
@@ -345,7 +345,7 @@ public final class CSSColorHelper
 
   /**
    * Get the passed values as CSS RGB color value
-   * 
+   *
    * @param nRed
    *        Red - is scaled to 0-255
    * @param nGreen
@@ -370,7 +370,7 @@ public final class CSSColorHelper
 
   /**
    * Get the passed values as CSS RGBA color value
-   * 
+   *
    * @param nRed
    *        Red - is scaled to 0-255
    * @param nGreen
@@ -398,19 +398,9 @@ public final class CSSColorHelper
   }
 
   /**
-   * @deprecated Use {@link #getHSLHueValue(int)} instead
-   */
-  @Deprecated
-  @Nonnegative
-  public static int getHSLValue (final int nHSLPart)
-  {
-    return getHSLHueValue (nHSLPart);
-  }
-
-  /**
    * Get the passed value as a valid HSL Hue value in the range of
    * {@value #HSL_MIN}-{@value #HSL_MAX}
-   * 
+   *
    * @param nHSLPart
    *        Source Hue
    * @return Hue value in the range of {@value #HSL_MIN}-{@value #HSL_MAX}
@@ -424,7 +414,7 @@ public final class CSSColorHelper
   /**
    * Get the passed value as a valid HSL Hue value in the range of
    * {@value #HSL_MIN}-{@value #HSL_MAX}
-   * 
+   *
    * @param fHSLPart
    *        Source Hue
    * @return Hue value in the range of {@value #HSL_MIN}-{@value #HSL_MAX}
@@ -438,7 +428,7 @@ public final class CSSColorHelper
   /**
    * Get the passed value as a valid HSL Saturation or Lightness value in the
    * range of {@value #PERCENTAGE_MIN}-{@value #PERCENTAGE_MAX} (percentage).
-   * 
+   *
    * @param nHSLPart
    *        Source value
    * @return Target value in the range of {@value #PERCENTAGE_MIN}-
@@ -453,7 +443,7 @@ public final class CSSColorHelper
   /**
    * Get the passed value as a valid HSL Saturation or Lightness value in the
    * range of {@link #PERCENTAGE_MIN}-{@link #PERCENTAGE_MAX} (percentage).
-   * 
+   *
    * @param nHSLPart
    *        Source value
    * @return Target value in the range of {@value #PERCENTAGE_MIN}-
@@ -467,7 +457,7 @@ public final class CSSColorHelper
 
   /**
    * Get the passed values as CSS HSL color value
-   * 
+   *
    * @param nHue
    *        Hue - is scaled to 0-359
    * @param nSaturation
@@ -493,7 +483,7 @@ public final class CSSColorHelper
 
   /**
    * Get the passed values as CSS HSL color value
-   * 
+   *
    * @param fHue
    *        Hue - is scaled to 0-359
    * @param fSaturation
@@ -519,7 +509,7 @@ public final class CSSColorHelper
 
   /**
    * Get the passed values as CSS HSLA color value
-   * 
+   *
    * @param nHue
    *        Hue - is scaled to 0-359
    * @param nSaturation
@@ -551,7 +541,7 @@ public final class CSSColorHelper
 
   /**
    * Get the passed values as CSS HSLA color value
-   * 
+   *
    * @param fHue
    *        Hue - is scaled to 0-359
    * @param fSaturation
@@ -602,7 +592,7 @@ public final class CSSColorHelper
   /**
    * Get the passed RGB values as HSL values compliant for CSS in the CSS range
    * (0-359, 0-100, 0-100)
-   * 
+   *
    * @param nRed
    *        red value
    * @param nGreen
@@ -626,7 +616,7 @@ public final class CSSColorHelper
   /**
    * Get the passed RGB values as HSL values compliant for CSS in the CSS range
    * (0-359, 0-100, 0-100)
-   * 
+   *
    * @param fHue
    *        the hue component of the color - in the range 0-359
    * @param fSaturation
