@@ -30,7 +30,7 @@ import com.helger.css.propertyvalue.CCSSValue;
 
 /**
  * Provides URL handling sanity methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -49,7 +49,7 @@ public final class CSSURLHelper
   /**
    * Check if the passed CSS value is an URL value. This is either a URL
    * starting with "url(" or it is the string "none".
-   * 
+   *
    * @param sValue
    *        The value to be checked.
    * @return <code>true</code> if the passed value starts with "url(" and ends
@@ -72,7 +72,7 @@ public final class CSSURLHelper
 
   /**
    * Extract the real URL contained in a CSS URL value.
-   * 
+   *
    * @param sValue
    *        The value containing the CSS value
    * @return <code>null</code> if the passed value is not an URL value
@@ -90,7 +90,7 @@ public final class CSSURLHelper
 
   /**
    * Surround the passed URL with the CSS "url(...)"
-   * 
+   *
    * @param aURL
    *        URL to be wrapped. May not be <code>null</code>.
    * @param bQuoteURL
@@ -109,7 +109,7 @@ public final class CSSURLHelper
   /**
    * Check if the passed character is a valid character inside a URL. Characters
    * for which this method returns <code>false</code> must be escaped!
-   * 
+   *
    * @param c
    *        The character to be checked.
    * @return <code>true</code> if the passed character can be directly contained
@@ -130,7 +130,7 @@ public final class CSSURLHelper
 
   /**
    * Check if any character inside the passed URL needs escaping.
-   * 
+   *
    * @param sURL
    *        The URL to be checked. May not be <code>null</code>.
    * @return <code>true</code> if any of the contained characters needs
@@ -149,7 +149,7 @@ public final class CSSURLHelper
   /**
    * Internal method to escape a CSS URL. Because this method is only called for
    * quoted URLs, only the quote character itself needs to be quoted.
-   * 
+   *
    * @param sURL
    *        The URL to be escaped. May not be <code>null</code>.
    * @param cQuoteChar
@@ -182,18 +182,18 @@ public final class CSSURLHelper
   /**
    * Surround the passed URL with the CSS "url(...)". When the passed URL
    * contains characters that require quoting, quotes are automatically added!
-   * 
+   *
    * @param sURL
-   *        URL to be wrapped. May neither be <code>null</code> nor empty.
+   *        URL to be wrapped. May not be <code>null</code> but maybe empty.
    * @param bForceQuoteURL
    *        if <code>true</code> single quotes are added around the URL
    * @return <code>url(<i>sURL</i>)</code> or <code>url('<i>sURL</i>')</code>
    */
   @Nonnull
   @Nonempty
-  public static String getAsCSSURL (@Nonnull @Nonempty final String sURL, final boolean bForceQuoteURL)
+  public static String getAsCSSURL (@Nonnull final String sURL, final boolean bForceQuoteURL)
   {
-    ValueEnforcer.notEmpty (sURL, "URL");
+    ValueEnforcer.notNull (sURL, "URL");
 
     final StringBuilder aSB = new StringBuilder (CCSSValue.PREFIX_URL_OPEN);
     final boolean bAreQuotesRequired = bForceQuoteURL || isCSSURLRequiringQuotes (sURL);

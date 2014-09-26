@@ -36,7 +36,7 @@ import com.helger.css.utils.CSSURLHelper;
 /**
  * Represents a single CSS URI. The contained URI might be modified using
  * {@link #setURI(String)}.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -45,7 +45,7 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   private String m_sURI;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSURI (@Nonnull @Nonempty final String sURI)
+  public CSSURI (@Nonnull final String sURI)
   {
     setURI (sURI);
   }
@@ -54,7 +54,6 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
    * @return The URI string (without the leading "url(" and the closing ")")
    */
   @Nonnull
-  @Nonempty
   public String getURI ()
   {
     return m_sURI;
@@ -64,15 +63,16 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
    * Set the URI string of this object. This may either be a regular URI or a
    * data URL string (starting with "data:"). The passed string may not start
    * with the prefix "url(" and end with ")".
-   * 
+   *
    * @param sURI
-   *        The URI to be set. May neither be <code>null</code> nor empty.
+   *        The URI to be set. May not be <code>null</code> but may be empty
+   *        (even though an empty URL usually does not make sense).
    * @return this
    */
   @Nonnull
-  public CSSURI setURI (@Nonnull @Nonempty final String sURI)
+  public CSSURI setURI (@Nonnull final String sURI)
   {
-    ValueEnforcer.notEmpty (sURI, "URI");
+    ValueEnforcer.notNull (sURI, "URI");
     if (CSSURLHelper.isURLValue (sURI))
       throw new IllegalArgumentException ("Only the URI and not the CSS-URI value must be passed!");
 
@@ -82,7 +82,7 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Check if this URI is a data URL (starting with "data:")
-   * 
+   *
    * @return <code>true</code> if the URI is a data URL, <code>false</code>
    *         otherwise.
    */
@@ -93,7 +93,7 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Try to convert the contained URI to a Data URL object.
-   * 
+   *
    * @return <code>null</code> if conversion to a data URL failed, the
    *         {@link CSSDataURL} object otherwise.
    */

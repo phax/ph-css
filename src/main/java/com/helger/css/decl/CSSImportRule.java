@@ -41,7 +41,7 @@ import com.helger.css.ICSSWriterSettings;
  * and an optional list of media queries.<br>
  * Example:<br>
  * <code>@import url("style.css") screen;</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -51,7 +51,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   private final List <CSSMediaQuery> m_aMediaQueries = new ArrayList <CSSMediaQuery> ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSImportRule (@Nonnull @Nonempty final String sLocation)
+  public CSSImportRule (@Nonnull final String sLocation)
   {
     this (new CSSURI (sLocation));
   }
@@ -81,7 +81,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Add a media query at the end of the list.
-   * 
+   *
    * @param aMediaQuery
    *        The media query to be added. May not be <code>null</code>.
    * @return this
@@ -97,7 +97,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Add a media query at the specified index of the list.
-   * 
+   *
    * @param nIndex
    *        The index where to add the media query. Must be &ge; 0.
    * @param aMediaQuery
@@ -119,7 +119,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove the specified media query.
-   * 
+   *
    * @param aMediaQuery
    *        The media query to be removed. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if removal was successful.
@@ -132,7 +132,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove the media query at the specified index.
-   * 
+   *
    * @param nMediumIndex
    *        The index of the media query to be removed.
    * @return {@link EChange#CHANGED} if removal was successful.
@@ -148,7 +148,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove all contained media queries.
-   * 
+   *
    * @return {@link EChange#CHANGED} if at least one media query was contained.
    */
   @Nonnull
@@ -193,7 +193,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Set the URI of the file to be imported.
-   * 
+   *
    * @param aLocation
    *        The location to use. May not be <code>null</code>.
    * @return this;
@@ -209,13 +209,13 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Set the URI of the file to be imported.
-   * 
+   *
    * @param sLocationURI
    *        The location URI to use. May not be <code>null</code>.
    * @return this;
    */
   @Nonnull
-  public CSSImportRule setLocationString (@Nonnull @Nonempty final String sLocationURI)
+  public CSSImportRule setLocationString (@Nonnull final String sLocationURI)
   {
     m_aLocation.setURI (sLocationURI);
     return this;

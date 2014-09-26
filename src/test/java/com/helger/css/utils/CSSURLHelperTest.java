@@ -18,18 +18,16 @@ package com.helger.css.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import com.helger.commons.url.SMap;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.parser.ParseUtils;
-import com.helger.css.utils.CSSURLHelper;
 
 /**
  * Test class for class {@link CSSURLHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSURLHelperTest
@@ -101,13 +99,8 @@ public final class CSSURLHelperTest
     // SimpleURL -> CSS URL -> String -> SimpleURL
     assertEquals (aURL, new SimpleURL (CSSURLHelper.getURLValue (CSSURLHelper.getAsCSSURL (aURL, true))));
 
-    try
-    {
-      // empty URL!
-      CSSURLHelper.getAsCSSURL ("", false);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    // empty URL!
+    assertEquals ("url()", CSSURLHelper.getAsCSSURL ("", false));
+    assertEquals ("url('')", CSSURLHelper.getAsCSSURL ("", true));
   }
 }

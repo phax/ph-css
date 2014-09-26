@@ -31,7 +31,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents an expression member URI
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -39,7 +39,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
 {
   private CSSURI m_aURI;
 
-  public CSSExpressionMemberTermURI (@Nonnull @Nonempty final String sURIString)
+  public CSSExpressionMemberTermURI (@Nonnull final String sURIString)
   {
     this (new CSSURI (sURIString));
   }
@@ -70,7 +70,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
 
   /**
    * Set a new URI
-   * 
+   *
    * @param aURI
    *        The new URI to set. May not be <code>null</code>.
    * @return this
@@ -84,14 +84,14 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
 
   /**
    * Replace the URI string in the existing {@link CSSURI} object.
-   * 
+   *
    * @param sURIString
-   *        The new URI string to set. May neither be <code>null</code> nor
+   *        The new URI string to set. May not be <code>null</code> but may be
    *        empty.
    * @return this
    */
   @Nonnull
-  public CSSExpressionMemberTermURI setURIString (@Nonnull @Nonempty final String sURIString)
+  public CSSExpressionMemberTermURI setURIString (@Nonnull final String sURIString)
   {
     m_aURI.setURI (sURIString);
     return this;
