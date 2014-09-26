@@ -107,11 +107,11 @@ public final class CSSDataURLHelper
   @Nullable
   public static CSSDataURL parseDataURL (@Nullable final String sDataURL)
   {
-    if (!CSSDataURLHelper.isDataURL (sDataURL))
+    if (!isDataURL (sDataURL))
       return null;
 
     // Skip the constant prefix
-    final String sRest = StringHelper.trimStart (sDataURL.trim (), CSSDataURLHelper.PREFIX_DATA_URL);
+    final String sRest = StringHelper.trimStart (sDataURL.trim (), PREFIX_DATA_URL);
     if (StringHelper.hasNoText (sRest))
     {
       // Plain "data:" URL - no content
@@ -120,7 +120,7 @@ public final class CSSDataURLHelper
 
     // comma is a special character and must be quoted in MIME type parameters
     final int nIndexComma = sRest.indexOf (SEPARATOR_CONTENT);
-    int nIndexBase64 = sRest.indexOf (CSSDataURLHelper.BASE64_MARKER);
+    int nIndexBase64 = sRest.indexOf (BASE64_MARKER);
     boolean bBase64EncodingUsed = false;
 
     int nMIMETypeEnd;
@@ -146,8 +146,7 @@ public final class CSSDataURLHelper
           }
 
           // base64 as a MIME type parameter - check for next ;base64
-          nIndexBase64 = sRest.indexOf (CSSDataURLHelper.BASE64_MARKER,
-                                        nIndexBase64 + CSSDataURLHelper.BASE64_MARKER.length ());
+          nIndexBase64 = sRest.indexOf (BASE64_MARKER, nIndexBase64 + BASE64_MARKER.length ());
           if (nIndexBase64 < 0)
           {
             // Found no base64 encoding
