@@ -363,9 +363,13 @@ private String javaSkipToClosingParantheses() throws ParseException #void {
         if (nNesting == 0)
           break;
       }
-      else
+      else {
         if (tok.kind == EOF)
           throw new ParseException ("EOF while searching for matching closing ')'.");
+        // Sometimes token images contain paranthesis
+        nNesting += com.helger.commons.string.StringHelper.getCharCount (tok.image, '(');
+        nNesting -= com.helger.commons.string.StringHelper.getCharCount (tok.image, ')');
+      }  
   }
   return aSB.toString ();
 }
