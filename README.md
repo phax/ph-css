@@ -1,8 +1,6 @@
-ph-css
-======
+#ph-css
 
-Java CSS 3 parser and builder
-
+Java CSS 2 and CSS 3 parser and builder. This version supercedes phloc-css.
 
 #Maven usage
 Add the following to your pom.xml to use this artifact:
@@ -13,3 +11,7 @@ Add the following to your pom.xml to use this artifact:
   <version>3.8.0</version>
 </dependency>
 ```
+
+---
+
+On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
