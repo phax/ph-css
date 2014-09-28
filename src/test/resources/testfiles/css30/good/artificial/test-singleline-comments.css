@@ -65,35 +65,51 @@ E ~ F {}
 	//background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
 }
 
+/** Declaration after ";" in single line comment */
 .test1 {
 color:red;
 // color:blue; color: green;
 }
+
+/** Single line comment without a ";" in the line */
 .test2 {
 color:red;
 // color:blue
 color: green;
 color: cyan;
 }
+
+/** Comment as last and with a ';' */
 .test3 {
 color:red;
 // color:blue;
 }
+
+/** Comment as last but without a ';' */
 .test4 {
 color:red
-// color:blue;
+// color:blue
 }
+
+/** Multiple ';' in the same line */
 .test5 {
 color:red
 // color:blue;;
 color:green
 }
+
+/** Multiple ';' in all lines */
 .test6 {
 ;;;;;;
 color:red
 // color:blue;;;;;;;
 ;;;;;;color:green;;;;;;
 }
+
+/* Special formatting: closing bracket in same line */
+.test7 {
+color:red
+// color:blue }
 
 // Test comment
 // EOF

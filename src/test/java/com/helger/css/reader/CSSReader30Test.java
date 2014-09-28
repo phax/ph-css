@@ -39,7 +39,6 @@ import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSExpressionMember;
-import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.DoNothingCSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
@@ -48,7 +47,7 @@ import com.helger.css.writer.CSSWriterSettings;
 
 /**
  * Test reading CSS 3.0 stuff
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSReader30Test extends AbstractFuncTestCSSReader
@@ -434,13 +433,22 @@ public final class CSSReader30Test extends AbstractFuncTestCSSReader
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-singleline-comments.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
-    assertEquals (12, aCSS.getRuleCount ());
-    assertEquals (12, aCSS.getStyleRuleCount ());
+    assertEquals (13, aCSS.getRuleCount ());
+    assertEquals (13, aCSS.getStyleRuleCount ());
 
+    // #any1 - #any5
     assertEquals (2, aCSS.getStyleRuleAtIndex (1).getDeclarationCount ());
     assertEquals (1, aCSS.getStyleRuleAtIndex (2).getDeclarationCount ());
     assertEquals (1, aCSS.getStyleRuleAtIndex (3).getDeclarationCount ());
     assertEquals (0, aCSS.getStyleRuleAtIndex (4).getDeclarationCount ());
     assertEquals (0, aCSS.getStyleRuleAtIndex (5).getDeclarationCount ());
+    // .test1 - .test7
+    assertEquals (2, aCSS.getStyleRuleAtIndex (6).getDeclarationCount ());
+    assertEquals (3, aCSS.getStyleRuleAtIndex (7).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (8).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (9).getDeclarationCount ());
+    assertEquals (2, aCSS.getStyleRuleAtIndex (10).getDeclarationCount ());
+    assertEquals (2, aCSS.getStyleRuleAtIndex (11).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (12).getDeclarationCount ());
   }
 }

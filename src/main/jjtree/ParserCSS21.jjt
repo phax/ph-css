@@ -246,8 +246,9 @@ TOKEN :
 <DEFAULT>
 SPECIAL_TOKEN :
 {
-  // Skip until end of line or ";"
-  < SINGLE_LINE_COMMENT: "//" (~["\n","\r",";"])* (";" | ("\n"|"\r"|"\r\n")?) >
+  // Skip until end of line or ";" or "}"
+  // Don't consume ";" or "}" characters!
+  < SINGLE_LINE_COMMENT: "//" (~["\n","\r",";","}"])* ("\n"|"\r"|"\r\n")? >
 }
 
 <*> TOKEN:
