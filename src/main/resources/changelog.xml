@@ -19,9 +19,20 @@
 -->
 <changelog xmlns="http://www.phloc.com/ns/changelog/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.phloc.com/ns/changelog/1.0 schemas/changelog-1.0.xsd" version="1.0" component="ph-css">
+  <release date="2014-09-29" version="3.8.1" />
+  <entry date="2014-09-28" category="tech" action="fix">
+    <change>
+      <text locale="en">Improved parsing of single line comments</text>
+    </change>
+  </entry>
   <entry date="2014-09-28" category="tech" action="fix">
     <change>
       <text locale="en">Fixed parsing of IE "expression()" stuff - see GoogleCode issue 22</text>
+    </change>
+  </entry>
+  <entry date="2014-09-26" category="api" action="change">
+    <change>
+      <text locale="en">Allowing for empty URIs</text>
     </change>
   </entry>
   <entry date="2014-09-03" category="api" action="add">
