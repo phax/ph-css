@@ -1,0 +1,8 @@
+/* Ensure this is truly a 3.0 CSS :) */
+E ~ F {}
+
+.box {
+    background: gray; /* standard */
+    *background: green; /* IE 7 and below */
+    border-color: red;
+}

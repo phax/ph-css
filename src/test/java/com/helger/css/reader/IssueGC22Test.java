@@ -33,18 +33,18 @@ import com.helger.css.writer.CSSWriter;
  *
  * @author Philip Helger
  */
-public final class Issue22Test
+public final class IssueGC22Test
 {
   @Test
   public void testIssue22 ()
   {
-    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue22.css");
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue-gc-22.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,
                                                                new LoggingCSSParseErrorHandler ());
     assertNotNull (aCSS);
-    if (true)
+    if (false)
       System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
   }
 }

@@ -25,27 +25,26 @@ import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
-import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 
 /**
  * Test for issue 18: http://code.google.com/p/phloc-css/issues/detail?id=18
- * 
+ *
  * @author Philip Helger
  */
-public final class Issue18Test
+public final class Issue4Test
 {
   @Test
   public void testIssue18 ()
   {
-    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue18.css");
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue4.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,
                                                                new LoggingCSSParseErrorHandler ());
     assertNotNull (aCSS);
-    if (false)
+    if (true)
       System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
   }
 }
