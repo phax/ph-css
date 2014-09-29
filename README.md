@@ -1,6 +1,7 @@
 #ph-css
 
 Java CSS 2 and CSS 3 parser and builder. This version supercedes phloc-css.
+The Maven plugin to compress CSS files at build time is located in project [ph-csscompress-maven-plugin](https://github.com/phax/ph-csscompress-maven-plugin).
 
 ## News and noteworthy
 
