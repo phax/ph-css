@@ -309,7 +309,7 @@ private String javaSkipToClosingParantheses() throws ParseException #void {
       else {
         if (tok.kind == EOF)
           throw new ParseException ("EOF while searching for matching closing ')'.");
-        // Sometimes token images contain paranthesis
+        // Sometimes token images contain parenthesis
         nNesting += com.helger.commons.string.StringHelper.getCharCount (tok.image, '(');
         nNesting -= com.helger.commons.string.StringHelper.getCharCount (tok.image, ')');
       }  

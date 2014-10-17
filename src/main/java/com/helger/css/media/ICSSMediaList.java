@@ -27,7 +27,7 @@ import com.helger.commons.IHasSize;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 
 /**
- * A readonly version of a CSS media list
+ * A read only version of a CSS media list
  *
  * @author Philip Helger
  */
