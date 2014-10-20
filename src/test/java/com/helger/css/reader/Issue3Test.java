@@ -38,7 +38,7 @@ public final class Issue3Test
   @Test
   public void testErrorInStyleDeclarationBlock ()
   {
-    // Parse error in " unexpected::;"
+    // Parse error in "unexpected::;"
     final String sTest1 = "div { color:red; unexpected::; align:top; } span {color:blue;}";
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sTest1,
                                                                CCharset.CHARSET_UTF_8_OBJ,
@@ -54,7 +54,7 @@ public final class Issue3Test
   @Test
   public void testErrorInMediaRule ()
   {
-    // Parse error in " unexpected::;"
+    // Parse error in "unexpected::;"
     final String sTest1 = "@media print { div { color:red; unexpected::; align:top; } } span {color:blue;}";
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sTest1,
                                                                CCharset.CHARSET_UTF_8_OBJ,
@@ -71,8 +71,8 @@ public final class Issue3Test
   @Test
   public void testErrorInKeyframeRule ()
   {
-    // Parse error in " unexpected::;"
-    final String sTest1 = "@keyframes identifier { bla::; } span {color:blue;}";
+    // Parse error in "unexpected::;"
+    final String sTest1 = "@keyframes identifier { unexpected::; } span {color:blue;}";
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sTest1,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,
@@ -82,6 +82,40 @@ public final class Issue3Test
       System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
     assertEquals (1, aCSS.getKeyframesRuleCount ());
     assertEquals (0, aCSS.getKeyframesRuleAtIndex (0).getBlockCount ());
+    assertEquals (1, aCSS.getStyleRuleCount ());
+  }
+
+  @Test
+  public void testErrorInKeyframeRule2 ()
+  {
+    // Parse error in "unexpected::;"
+    final String sTest1 = "@keyframes identifier { 0% { unexpected::; } 30% { top: 50px; }   } span {color:blue;}";
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sTest1,
+                                                               CCharset.CHARSET_UTF_8_OBJ,
+                                                               ECSSVersion.CSS30,
+                                                               new LoggingCSSParseErrorHandler ());
+    assertNotNull (aCSS);
+    if (true)
+      System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
+    assertEquals (1, aCSS.getKeyframesRuleCount ());
+    assertEquals (2, aCSS.getKeyframesRuleAtIndex (0).getBlockCount ());
+    assertEquals (1, aCSS.getStyleRuleCount ());
+  }
+
+  @Test
+  public void testErrorInSupportsRule ()
+  {
+    // Parse error in "unexpected::;"
+    final String sTest1 = "@supports(column-count: 1) { unexpected::; } span {color:blue;}";
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sTest1,
+                                                               CCharset.CHARSET_UTF_8_OBJ,
+                                                               ECSSVersion.CSS30,
+                                                               new LoggingCSSParseErrorHandler ());
+    assertNotNull (aCSS);
+    if (true)
+      System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
+    assertEquals (1, aCSS.getSupportsRuleCount ());
+    assertEquals (0, aCSS.getSupportsRuleAtIndex (0).getRuleCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
   }
 }
