@@ -483,8 +483,9 @@ public final class CSSReader
                                                     @Nonnull final String sFallbackCharset,
                                                     @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (new StringInputStreamProvider (sCSS, sFallbackCharset),
-                           new CSSReaderSettings ().setFallbackCharset (sFallbackCharset).setCSSVersion (eVersion));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
+                                                         .setCSSVersion (eVersion));
   }
 
   /**
@@ -506,8 +507,9 @@ public final class CSSReader
                                                     @Nonnull final Charset aFallbackCharset,
                                                     @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (new StringInputStreamProvider (sCSS, aFallbackCharset),
-                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                         .setCSSVersion (eVersion));
   }
 
   /**
@@ -534,10 +536,10 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromStream (new StringInputStreamProvider (sCSS, sFallbackCharset),
-                           new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
+                                                         .setCSSVersion (eVersion)
+                                                         .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -563,10 +565,10 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromStream (new StringInputStreamProvider (sCSS, aFallbackCharset),
-                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                         .setCSSVersion (eVersion)
+                                                         .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -593,10 +595,10 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (new StringInputStreamProvider (sCSS, sFallbackCharset),
-                           new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
+                                                         .setCSSVersion (eVersion)
+                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -622,10 +624,10 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (new StringInputStreamProvider (sCSS, aFallbackCharset),
-                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                         .setCSSVersion (eVersion)
+                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -656,11 +658,11 @@ public final class CSSReader
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                     @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (new StringInputStreamProvider (sCSS, sFallbackCharset),
-                           new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
+                                                         .setCSSVersion (eVersion)
+                                                         .setCustomErrorHandler (aCustomErrorHandler)
+                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -691,11 +693,31 @@ public final class CSSReader
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                     @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (new StringInputStreamProvider (sCSS, aFallbackCharset),
-                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                         .setCSSVersion (eVersion)
+                                                         .setCustomErrorHandler (aCustomErrorHandler)
+                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
+  }
+
+  /**
+   * Read the CSS from the passed String using a byte stream.
+   *
+   * @param sCSS
+   *        The source string containing the CSS to be parsed. May not be
+   *        <code>null</code>.
+   * @param aSettings
+   *        The settings to be used for reading the CSS. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations
+   *         otherwise.
+   * @since 3.8.2
+   */
+  @Nullable
+  public static CascadingStyleSheet readFromStringStream (@Nonnull final String sCSS,
+                                                          @Nonnull final CSSReaderSettings aSettings)
+  {
+    return readFromStream (new StringInputStreamProvider (sCSS, aSettings.getFallbackCharset ()), aSettings);
   }
 
   /**
@@ -714,7 +736,7 @@ public final class CSSReader
   @Nullable
   public static CascadingStyleSheet readFromString (@Nonnull final String sCSS, @Nonnull final ECSSVersion eVersion)
   {
-    return readFromReader (new StringReaderProvider (sCSS), new CSSReaderSettings ().setCSSVersion (eVersion));
+    return readFromStringReader (sCSS, new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   /**
@@ -738,8 +760,9 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromReader (new StringReaderProvider (sCSS),
-                           new CSSReaderSettings ().setCSSVersion (eVersion).setCustomErrorHandler (aCustomErrorHandler));
+    return readFromStringReader (sCSS,
+                                 new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                         .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -763,9 +786,9 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromReader (new StringReaderProvider (sCSS),
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromStringReader (sCSS,
+                                 new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -793,10 +816,31 @@ public final class CSSReader
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                     @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromReader (new StringReaderProvider (sCSS),
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromStringReader (sCSS,
+                                 new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                         .setCustomErrorHandler (aCustomErrorHandler)
+                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
+  }
+
+  /**
+   * Read the CSS from the passed String using a character stream. An eventually
+   * contained <code>@charset</code> rule is ignored.
+   *
+   * @param sCSS
+   *        The source string containing the CSS to be parsed. May not be
+   *        <code>null</code>.
+   * @param aSettings
+   *        The settings to be used for reading the CSS. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations
+   *         otherwise.
+   * @since 3.8.2
+   */
+  @Nullable
+  public static CascadingStyleSheet readFromStringReader (@Nonnull final String sCSS,
+                                                          @Nonnull final CSSReaderSettings aSettings)
+  {
+    return readFromReader (new StringReaderProvider (sCSS), aSettings);
   }
 
   /**
@@ -819,8 +863,7 @@ public final class CSSReader
                                                   @Nonnull final String sFallbackCharset,
                                                   @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (new FileSystemResource (aFile),
-                           new CSSReaderSettings ().setFallbackCharset (sFallbackCharset).setCSSVersion (eVersion));
+    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (sFallbackCharset).setCSSVersion (eVersion));
   }
 
   /**
@@ -842,8 +885,7 @@ public final class CSSReader
                                                   @Nonnull final Charset aFallbackCharset,
                                                   @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (new FileSystemResource (aFile),
-                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
+    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
   }
 
   /**
@@ -870,10 +912,9 @@ public final class CSSReader
                                                   @Nonnull final ECSSVersion eVersion,
                                                   @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromStream (new FileSystemResource (aFile),
-                           new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler));
+    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
+                                                        .setCSSVersion (eVersion)
+                                                        .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -899,10 +940,9 @@ public final class CSSReader
                                                   @Nonnull final ECSSVersion eVersion,
                                                   @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromStream (new FileSystemResource (aFile),
-                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler));
+    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                        .setCSSVersion (eVersion)
+                                                        .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -929,10 +969,9 @@ public final class CSSReader
                                                   @Nonnull final ECSSVersion eVersion,
                                                   @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (new FileSystemResource (aFile),
-                           new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
+                                                        .setCSSVersion (eVersion)
+                                                        .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -958,10 +997,9 @@ public final class CSSReader
                                                   @Nonnull final ECSSVersion eVersion,
                                                   @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (new FileSystemResource (aFile),
-                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                        .setCSSVersion (eVersion)
+                                                        .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -992,11 +1030,10 @@ public final class CSSReader
                                                   @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                   @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (new FileSystemResource (aFile),
-                           new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
+                                                        .setCSSVersion (eVersion)
+                                                        .setCustomErrorHandler (aCustomErrorHandler)
+                                                        .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -1026,11 +1063,29 @@ public final class CSSReader
                                                   @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                   @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (new FileSystemResource (aFile),
-                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                   .setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                        .setCSSVersion (eVersion)
+                                                        .setCustomErrorHandler (aCustomErrorHandler)
+                                                        .setCustomExceptionHandler (aCustomExceptionHandler));
+  }
+
+  /**
+   * Read the CSS from the passed File.
+   *
+   * @param aFile
+   *        The file containing the CSS to be parsed. May not be
+   *        <code>null</code>.
+   * @param aSettings
+   *        The settings to be used for reading the CSS. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations
+   *         otherwise.
+   * @since 3.8.2
+   */
+  @Nullable
+  public static CascadingStyleSheet readFromFile (@Nonnull final File aFile, @Nonnull final CSSReaderSettings aSettings)
+  {
+    return readFromStream (new FileSystemResource (aFile), aSettings);
   }
 
   /**
@@ -1057,7 +1112,8 @@ public final class CSSReader
                                                     @Nonnull final String sFallbackCharset,
                                                     @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (sFallbackCharset).setCSSVersion (eVersion));
+    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (sFallbackCharset)
+                                                         .setCSSVersion (eVersion));
   }
 
   /**
@@ -1116,7 +1172,8 @@ public final class CSSReader
                                                     @Nonnull final Charset aFallbackCharset,
                                                     @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
+    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                         .setCSSVersion (eVersion));
   }
 
   /**
@@ -1552,7 +1609,8 @@ public final class CSSReader
   /**
    * Read the CSS from the passed {@link IReaderProvider}. If the CSS contains
    * an explicit <code>@charset</code> rule, it is ignored and the charset used
-   * to create the reader is used instead!
+   * to create the reader is used instead! Also the fallback charset from the
+   * {@link CSSReaderSettings} is ignored.
    *
    * @param aRP
    *        The reader provider to use. The reader is retrieved exactly once and
