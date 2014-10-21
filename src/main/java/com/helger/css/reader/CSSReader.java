@@ -1293,10 +1293,11 @@ public final class CSSReader
       aStreamCharset = CCharset.CHARSET_ISO_8859_1_OBJ;
     }
 
+    final Reader aReader = StreamUtils.createReader (aIS, aStreamCharset);
     try
     {
       // Read with the Stream charset
-      final CSSCharStream aCharStream = new CSSCharStream (StreamUtils.createReader (aIS, aStreamCharset));
+      final CSSCharStream aCharStream = new CSSCharStream (aReader);
       final ParserCSSCharsetDetectorTokenManager aTokenHdl = new ParserCSSCharsetDetectorTokenManager (aCharStream);
       final ParserCSSCharsetDetector aParser = new ParserCSSCharsetDetector (aTokenHdl);
       final String sCharsetName = aParser.styleSheetCharset ().getText ();
@@ -1329,7 +1330,7 @@ public final class CSSReader
     }
     finally
     {
-      StreamUtils.close (aIS);
+      StreamUtils.close (aReader);
     }
   }
 
@@ -1424,10 +1425,10 @@ public final class CSSReader
     }
 
     final InputStream aIS = aISAndBOM.getFirst ();
-
+    final Reader aReader = StreamUtils.createReader (aIS, aCharsetToUse);
     try
     {
-      final CSSCharStream aCharStream = new CSSCharStream (StreamUtils.createReader (aIS, aCharsetToUse));
+      final CSSCharStream aCharStream = new CSSCharStream (aReader);
 
       // Use the default CSS parse error handler if none is provided
       final ICSSParseErrorHandler aRealErrorHandler = aCustomErrorHandler == null ? getDefaultParseErrorHandler ()
@@ -1446,7 +1447,7 @@ public final class CSSReader
     }
     finally
     {
-      StreamUtils.close (aIS);
+      StreamUtils.close (aReader);
     }
   }
 
