@@ -34,7 +34,6 @@ import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.commons.mock.PHTestUtils;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
-import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;

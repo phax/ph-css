@@ -76,6 +76,10 @@ PARSER_END(ParserCSS30)
 TOKEN_MGR_DECLS :
 {
   private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS30TokenManager.class);
+  
+  void backup(final int nChars) { 
+    input_stream.backup(nChars);
+  } 
 }
 
 <DEFAULT>
@@ -340,8 +344,10 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
       throw ex;
     }
   } while (!com.helger.commons.collections.ArrayHelper.contains (aKinds, tok.kind));
+  
   if (s_aLogger.isDebugEnabled ())
     s_aLogger.debug ("Skipped until token " + tok.toString ());
+    
   if (m_aCustomErrorHandler != null)
     m_aCustomErrorHandler.onCSSParseError (ex.currentToken, ex.expectedTokenSequences, ex.tokenImage, tok);
   else  
@@ -404,12 +410,40 @@ private String javaSkipToClosingBrace() throws ParseException #void {
         if (nNesting == 0)
           break;
       }
-      else
+      else {
         if (tok.kind == EOF)
           throw new ParseException ("EOF while searching for matching closing '}'.");
+        // Token images never contain brackets
+      }  
     aSB.append (tok.image);
   }
   return aSB.toString ();
+}
+
+JAVACODE
+private void javaSkipToClosingBraceOrSemicolon() throws ParseException #void {
+  int nNesting = 1;
+  while (true) {
+    final Token tok = getNextToken();
+    if (tok.kind == LBRACE) 
+      nNesting++;
+    else
+      if (tok.kind == RBRACE) {
+        nNesting--;
+        if (nNesting == 0)
+          break;
+      }
+      else
+        if (tok.kind == SEMICOLON) {
+          if (nNesting == 0)
+            break;
+        }  
+        else {
+          if (tok.kind == EOF)
+            throw new ParseException ("EOF while searching for matching closing '}'.");
+          // Token images never contain brackets
+        }  
+  }
 }
 
 //
@@ -898,12 +932,19 @@ void important() : {}
 
 void styleDeclaration() : {}
 {
+try{
   property()
   <COLON>
   ( <S> )*
   /* Optional to handle e.g. "background-color:;" */
   ( expr() )?
   ( important() )?
+} catch (ParseException ex) {
+  // javaSkipToClosingBraceOrSemicolon ();
+  // push back last token! 
+  // token_source.backup(1);
+  throw ex;
+}
 }
 
 CSSNode styleDeclarationList() : {}

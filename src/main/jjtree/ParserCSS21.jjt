@@ -76,6 +76,10 @@ PARSER_END(ParserCSS21)
 TOKEN_MGR_DECLS :
 {
   private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS21TokenManager.class);
+  
+  void backup(final int nChars) { 
+    input_stream.backup(nChars);
+  } 
 }
 
 <DEFAULT>
@@ -282,8 +286,10 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
       throw ex;
     }  
   } while (!com.helger.commons.collections.ArrayHelper.contains (aKinds, tok.kind));
+
   if (s_aLogger.isDebugEnabled ())
     s_aLogger.debug ("Skipped until token " + tok.toString ());
+
   if (m_aCustomErrorHandler != null)
     m_aCustomErrorHandler.onCSSParseError (ex.currentToken, ex.expectedTokenSequences, ex.tokenImage, tok);
   else  
@@ -346,9 +352,11 @@ private String javaSkipToClosingBrace() throws ParseException #void {
         if (nNesting == 0)
           break;
       }
-      else
+      else {
         if (tok.kind == EOF)
           throw new ParseException ("EOF while searching for matching closing '}'.");
+        // Token images never contain brackets
+      }  
     aSB.append (tok.image);
   }
   return aSB.toString ();
