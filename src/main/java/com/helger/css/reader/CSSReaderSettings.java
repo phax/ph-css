@@ -115,6 +115,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    * @return this
    */
   @Nonnull
+  @Deprecated
   public CSSReaderSettings setFallbackCharset (@Nonnull @Nonempty final String sFallbackCharset)
   {
     final Charset aFallbackCharset = CharsetManager.getCharsetFromName (sFallbackCharset);
