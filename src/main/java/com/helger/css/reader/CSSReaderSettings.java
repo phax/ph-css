@@ -35,13 +35,14 @@ import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
  * A settings class for usage with {@link CSSReader}.
  *
  * @author Philip Helger
+ * @since 3.8.2
  */
 public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
 {
   public static final ECSSVersion DEFAULT_VERSION = ECSSVersion.CSS30;
   public static final Charset DEFAULT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
 
-  private ECSSVersion m_eVersion = DEFAULT_VERSION;
+  private ECSSVersion m_eCSSVersion = DEFAULT_VERSION;
   private Charset m_aFallbackCharset = DEFAULT_CHARSET;
   private ICSSParseErrorHandler m_aCustomErrorHandler;
   private ICSSParseExceptionHandler m_aCustomExceptionHandler;
@@ -52,7 +53,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public CSSReaderSettings (@Nonnull final CSSReaderSettings aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    m_eVersion = aOther.m_eVersion;
+    m_eCSSVersion = aOther.m_eCSSVersion;
     m_aFallbackCharset = aOther.m_aFallbackCharset;
     m_aCustomErrorHandler = aOther.m_aCustomErrorHandler;
     m_aCustomExceptionHandler = aOther.m_aCustomExceptionHandler;
@@ -63,23 +64,23 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    *         {@link #DEFAULT_VERSION}. Never <code>null</code>.
    */
   @Nonnull
-  public ECSSVersion getVersion ()
+  public ECSSVersion getCSSVersion ()
   {
-    return m_eVersion;
+    return m_eCSSVersion;
   }
 
   /**
    * Set the CSS version to be read.
    *
-   * @param eVersion
+   * @param eCSSVersion
    *        The version number to use. May not be <code>null</code>.
    * @return this
    */
   @Nonnull
-  public CSSReaderSettings setVersion (@Nonnull final ECSSVersion eVersion)
+  public CSSReaderSettings setCSSVersion (@Nonnull final ECSSVersion eCSSVersion)
   {
-    ValueEnforcer.notNull (eVersion, "Version");
-    m_eVersion = eVersion;
+    ValueEnforcer.notNull (eCSSVersion, "CSSVersion");
+    m_eCSSVersion = eCSSVersion;
     return this;
   }
 
@@ -190,7 +191,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Version", m_eVersion)
+    return new ToStringGenerator (this).append ("CSSVersion", m_eCSSVersion)
                                        .append ("FallbackCharset", m_aFallbackCharset)
                                        .append ("CustomErrorHandler", m_aCustomErrorHandler)
                                        .append ("CustomExceptionHandler", m_aCustomExceptionHandler)

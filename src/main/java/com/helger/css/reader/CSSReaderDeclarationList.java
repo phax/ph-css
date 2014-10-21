@@ -173,7 +173,7 @@ public final class CSSReaderDeclarationList
   /**
    * Main reading of the CSS
    *
-   * @param aStream
+   * @param aCharStream
    *        The stream to read from. May not be <code>null</code>.
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
@@ -189,7 +189,7 @@ public final class CSSReaderDeclarationList
    *         was used or non-<code>null</code> if parsing succeeded.
    */
   @Nullable
-  private static CSSNode _readStyleDeclaration (@Nonnull final CharStream aStream,
+  private static CSSNode _readStyleDeclaration (@Nonnull final CharStream aCharStream,
                                                 @Nonnull final ECSSVersion eVersion,
                                                 @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                 @Nonnull final ICSSParseExceptionHandler aCustomExceptionHandler)
@@ -198,7 +198,7 @@ public final class CSSReaderDeclarationList
     {
       case CSS21:
       {
-        final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aStream);
+        final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aCharStream);
         final ParserCSS21 aParser = new ParserCSS21 (aTokenHdl);
         aParser.setCustomErrorHandler (aCustomErrorHandler);
         try
@@ -215,7 +215,7 @@ public final class CSSReaderDeclarationList
       }
       case CSS30:
       {
-        final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aStream);
+        final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);
         final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
         aParser.setCustomErrorHandler (aCustomErrorHandler);
         try
@@ -448,7 +448,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   public static CSSDeclarationList readFromString (@Nonnull final String sCSS, @Nonnull final ECSSVersion eVersion)
   {
-    return readFromString (sCSS, eVersion, null, null);
+    return readFromReader (new NonBlockingStringReader (sCSS), new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   @Nullable
@@ -456,7 +456,9 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromString (sCSS, eVersion, aCustomErrorHandler, null);
+    return readFromReader (new NonBlockingStringReader (sCSS),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   @Nullable
@@ -464,7 +466,9 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromString (sCSS, eVersion, null, aCustomExceptionHandler);
+    return readFromReader (new NonBlockingStringReader (sCSS),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   @Nullable
@@ -473,7 +477,10 @@ public final class CSSReaderDeclarationList
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                    @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromReader (new NonBlockingStringReader (sCSS), eVersion, aCustomErrorHandler, aCustomExceptionHandler);
+    return readFromReader (new NonBlockingStringReader (sCSS),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   @Nullable
@@ -482,7 +489,8 @@ public final class CSSReaderDeclarationList
                                                  @Nonnull final String sCharset,
                                                  @Nonnull final ECSSVersion eVersion)
   {
-    return readFromFile (aFile, sCharset, eVersion, null, null);
+    return readFromReader (new FileSystemResource (aFile).getReader (sCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   @Nullable
@@ -490,7 +498,8 @@ public final class CSSReaderDeclarationList
                                                  @Nonnull final Charset aCharset,
                                                  @Nonnull final ECSSVersion eVersion)
   {
-    return readFromFile (aFile, aCharset, eVersion, null, null);
+    return readFromReader (new FileSystemResource (aFile).getReader (aCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   @Nullable
@@ -500,7 +509,9 @@ public final class CSSReaderDeclarationList
                                                  @Nonnull final ECSSVersion eVersion,
                                                  @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromFile (aFile, sCharset, eVersion, aCustomErrorHandler, null);
+    return readFromReader (new FileSystemResource (aFile).getReader (sCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   @Nullable
@@ -509,7 +520,9 @@ public final class CSSReaderDeclarationList
                                                  @Nonnull final ECSSVersion eVersion,
                                                  @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromFile (aFile, aCharset, eVersion, aCustomErrorHandler, null);
+    return readFromReader (new FileSystemResource (aFile).getReader (aCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   @Nullable
@@ -519,7 +532,9 @@ public final class CSSReaderDeclarationList
                                                  @Nonnull final ECSSVersion eVersion,
                                                  @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromFile (aFile, sCharset, eVersion, null, aCustomExceptionHandler);
+    return readFromReader (new FileSystemResource (aFile).getReader (sCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   @Nullable
@@ -528,7 +543,9 @@ public final class CSSReaderDeclarationList
                                                  @Nonnull final ECSSVersion eVersion,
                                                  @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromFile (aFile, aCharset, eVersion, null, aCustomExceptionHandler);
+    return readFromReader (new FileSystemResource (aFile).getReader (aCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   @Nullable
@@ -539,8 +556,10 @@ public final class CSSReaderDeclarationList
                                                  @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                  @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    final Charset aCharset = CharsetManager.getCharsetFromName (sCharset);
-    return readFromFile (aFile, aCharset, eVersion, aCustomErrorHandler, aCustomExceptionHandler);
+    return readFromReader (new FileSystemResource (aFile).getReader (sCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   @Nullable
@@ -551,9 +570,9 @@ public final class CSSReaderDeclarationList
                                                  @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
     return readFromReader (new FileSystemResource (aFile).getReader (aCharset),
-                           eVersion,
-                           aCustomErrorHandler,
-                           aCustomExceptionHandler);
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -755,9 +774,9 @@ public final class CSSReaderDeclarationList
     if (aIS == null)
       return null;
     return readFromReader (StreamUtils.createReader (aIS, aCharset),
-                           eVersion,
-                           aCustomErrorHandler,
-                           aCustomExceptionHandler);
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -775,11 +794,12 @@ public final class CSSReaderDeclarationList
    * @since 3.7.4
    */
   @Nullable
+  @Deprecated
   public static CSSDeclarationList readFromStream (@Nonnull @WillClose final InputStream aIS,
                                                    @Nonnull final String sCharset,
                                                    @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (aIS, sCharset, eVersion, null, null);
+    return readFromReader (StreamUtils.createReader (aIS, sCharset), new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   /**
@@ -801,7 +821,7 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final Charset aCharset,
                                                    @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (aIS, aCharset, eVersion, null, null);
+    return readFromReader (StreamUtils.createReader (aIS, aCharset), new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   /**
@@ -828,7 +848,9 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromStream (aIS, sCharset, eVersion, aCustomErrorHandler, null);
+    return readFromReader (StreamUtils.createReader (aIS, sCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -854,7 +876,9 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromStream (aIS, aCharset, eVersion, aCustomErrorHandler, null);
+    return readFromReader (StreamUtils.createReader (aIS, aCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -881,7 +905,9 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (aIS, sCharset, eVersion, null, aCustomExceptionHandler);
+    return readFromReader (StreamUtils.createReader (aIS, sCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -907,7 +933,9 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromStream (aIS, aCharset, eVersion, null, aCustomExceptionHandler);
+    return readFromReader (StreamUtils.createReader (aIS, aCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -938,8 +966,10 @@ public final class CSSReaderDeclarationList
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                    @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    final Charset aCharset = CharsetManager.getCharsetFromName (sCharset);
-    return readFromStream (aIS, aCharset, eVersion, aCustomErrorHandler, aCustomExceptionHandler);
+    return readFromReader (StreamUtils.createReader (aIS, sCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -972,9 +1002,9 @@ public final class CSSReaderDeclarationList
     ValueEnforcer.notNull (aIS, "InputStream");
 
     return readFromReader (StreamUtils.createReader (aIS, aCharset),
-                           eVersion,
-                           aCustomErrorHandler,
-                           aCustomExceptionHandler);
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -992,7 +1022,7 @@ public final class CSSReaderDeclarationList
   public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader,
                                                    @Nonnull final ECSSVersion eVersion)
   {
-    return readFromReader (aReader, eVersion, null, null);
+    return readFromReader (aReader, new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   /**
@@ -1014,7 +1044,9 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromReader (aReader, eVersion, aCustomErrorHandler, null);
+    return readFromReader (aReader,
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -1036,7 +1068,9 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    return readFromReader (aReader, eVersion, null, aCustomExceptionHandler);
+    return readFromReader (aReader,
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -1062,18 +1096,47 @@ public final class CSSReaderDeclarationList
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                    @Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    ValueEnforcer.notNull (aReader, "Reader");
-    ValueEnforcer.notNull (eVersion, "Version");
+    return readFromReader (aReader,
+                           new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+  }
 
+  /**
+   * Read the CSS from the passed {@link Reader}.
+   *
+   * @param aReader
+   *        The reader to use. Will be closed automatically after reading -
+   *        independent of success or error. May not be <code>null</code>.
+   * @param aSettings
+   *        The settings to be used for reading the CSS. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations
+   *         otherwise.
+   * @since 3.8.2
+   */
+  @Nullable
+  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader,
+                                                   @Nonnull final CSSReaderSettings aSettings)
+  {
+    ValueEnforcer.notNull (aReader, "Reader");
+    ValueEnforcer.notNull (aSettings, "Settings");
+
+    final ECSSVersion eVersion = aSettings.getCSSVersion ();
     try
     {
       final CSSCharStream aCharStream = new CSSCharStream (aReader);
+
       // Use the default CSS parse error handler if none is provided
-      final ICSSParseErrorHandler aRealErrorHandler = aCustomErrorHandler == null ? getDefaultParseErrorHandler ()
-                                                                                 : aCustomErrorHandler;
+      ICSSParseErrorHandler aRealErrorHandler = aSettings.getCustomErrorHandler ();
+      if (aRealErrorHandler == null)
+        aRealErrorHandler = getDefaultParseErrorHandler ();
+
       // Use the default CSS exception handler if none is provided
-      final ICSSParseExceptionHandler aRealExceptionHandler = aCustomExceptionHandler == null ? getDefaultParseExceptionHandler ()
-                                                                                             : aCustomExceptionHandler;
+      ICSSParseExceptionHandler aRealExceptionHandler = aSettings.getCustomExceptionHandler ();
+      if (aRealExceptionHandler == null)
+        aRealExceptionHandler = getDefaultParseExceptionHandler ();
+
       final CSSNode aNode = _readStyleDeclaration (aCharStream, eVersion, aRealErrorHandler, aRealExceptionHandler);
 
       // Failed to interpret content as CSS?
