@@ -435,12 +435,12 @@ private void javaSkipToClosingBraceOrSemicolon() throws ParseException #void {
       }
       else
         if (tok.kind == SEMICOLON) {
-          if (nNesting == 0)
+          if (nNesting == 1)
             break;
         }  
         else {
           if (tok.kind == EOF)
-            throw new ParseException ("EOF while searching for matching closing '}'.");
+            throw new ParseException ("EOF while searching for matching closing '}' or ';'.");
           // Token images never contain brackets
         }  
   }
@@ -932,19 +932,12 @@ void important() : {}
 
 void styleDeclaration() : {}
 {
-try{
   property()
   <COLON>
   ( <S> )*
   /* Optional to handle e.g. "background-color:;" */
   ( expr() )?
   ( important() )?
-} catch (ParseException ex) {
-  // javaSkipToClosingBraceOrSemicolon ();
-  // push back last token! 
-  // token_source.backup(1);
-  throw ex;
-}
 }
 
 CSSNode styleDeclarationList() : {}

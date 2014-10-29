@@ -81,7 +81,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * This class converts the jjtree node to a domain object. This is where the
  * hard work happens.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -93,7 +93,7 @@ final class CSSNodeToDomainObject
 
   /**
    * Constructor
-   * 
+   *
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
    */
