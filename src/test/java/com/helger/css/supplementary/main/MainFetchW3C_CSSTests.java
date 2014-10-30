@@ -70,7 +70,7 @@ public class MainFetchW3C_CSSTests
           final IMicroElement e = (IMicroElement) aItem;
           if (e.getTagName ().equals ("a"))
           {
-            final String sHref = e.getAttribute ("href");
+            final String sHref = e.getAttributeValue ("href");
             if (sHref.endsWith (".xml"))
               aCSSFilenames.add (sHref.replace (".xml", ".css"));
           }
