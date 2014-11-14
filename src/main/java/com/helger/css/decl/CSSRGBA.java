@@ -31,11 +31,11 @@ import com.helger.css.utils.CSSColorHelper;
 
 /**
  * Represents a single RGBA color value (red, green, blue, opacity)
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSRGBA implements ICSSWriteable
+public class CSSRGBA implements ICSSWriteable, ICSSColor
 {
   private String m_sRed;
   private String m_sGreen;
@@ -44,7 +44,7 @@ public class CSSRGBA implements ICSSWriteable
 
   /**
    * Copy constructor
-   * 
+   *
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
@@ -55,7 +55,7 @@ public class CSSRGBA implements ICSSWriteable
 
   /**
    * Constructor
-   * 
+   *
    * @param nRed
    *        Red part. Is fitted to a value between 0 and 255.
    * @param nGreen
@@ -75,7 +75,7 @@ public class CSSRGBA implements ICSSWriteable
 
   /**
    * Constructor
-   * 
+   *
    * @param sRed
    *        Red part.
    * @param sGreen
@@ -174,7 +174,7 @@ public class CSSRGBA implements ICSSWriteable
 
   @Nonnull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsString ()
   {
     return CCSSValue.PREFIX_RGBA_OPEN +
            m_sRed +
@@ -185,6 +185,13 @@ public class CSSRGBA implements ICSSWriteable
            ',' +
            m_sOpacity +
            CCSSValue.SUFFIX_RGBA_CLOSE;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  {
+    return getAsString ();
   }
 
   @Override

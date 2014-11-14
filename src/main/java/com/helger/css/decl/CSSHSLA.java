@@ -33,11 +33,11 @@ import com.helger.css.utils.CSSColorHelper;
 
 /**
  * Represents a single HSLA color value (hue, saturation, lightness, opacity).
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSHSLA implements ICSSWriteable, ICSSVersionAware
+public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor
 {
   private String m_sHue;
   private String m_sSaturation;
@@ -46,7 +46,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware
 
   /**
    * Copy constructor
-   * 
+   *
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
@@ -57,7 +57,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware
 
   /**
    * Constructor
-   * 
+   *
    * @param nHue
    *        Hue value. Is scaled to the range 0-360
    * @param nSaturation
@@ -77,7 +77,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware
 
   /**
    * Constructor
-   * 
+   *
    * @param fHue
    *        Hue value. Is scaled to the range 0-360
    * @param fSaturation
@@ -184,9 +184,8 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware
 
   @Nonnull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsString ()
   {
-    aSettings.checkVersionRequirements (this);
     return CCSSValue.PREFIX_HSLA_OPEN +
            m_sHue +
            ',' +
@@ -196,6 +195,14 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware
            ',' +
            m_sOpacity +
            CCSSValue.SUFFIX_HSLA_CLOSE;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  {
+    aSettings.checkVersionRequirements (this);
+    return getAsString ();
   }
 
   @Nonnull

@@ -31,11 +31,11 @@ import com.helger.css.utils.CSSColorHelper;
 
 /**
  * Represents a single RGB color value (red, green, blue)
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSRGB implements ICSSWriteable
+public class CSSRGB implements ICSSWriteable, ICSSColor
 {
   private String m_sRed;
   private String m_sGreen;
@@ -43,7 +43,7 @@ public class CSSRGB implements ICSSWriteable
 
   /**
    * Copy constructor
-   * 
+   *
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
@@ -54,7 +54,7 @@ public class CSSRGB implements ICSSWriteable
 
   /**
    * Constructor
-   * 
+   *
    * @param nRed
    *        Red part. Is fitted to a value between 0 and 255.
    * @param nGreen
@@ -71,7 +71,7 @@ public class CSSRGB implements ICSSWriteable
 
   /**
    * Constructor
-   * 
+   *
    * @param sRed
    *        Red part.
    * @param sGreen
@@ -147,9 +147,16 @@ public class CSSRGB implements ICSSWriteable
 
   @Nonnull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsString ()
   {
     return CCSSValue.PREFIX_RGB_OPEN + m_sRed + ',' + m_sGreen + ',' + m_sBlue + CCSSValue.SUFFIX_RGB_CLOSE;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  {
+    return getAsString ();
   }
 
   @Override

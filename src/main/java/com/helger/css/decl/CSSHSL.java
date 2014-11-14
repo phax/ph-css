@@ -33,11 +33,11 @@ import com.helger.css.utils.CSSColorHelper;
 
 /**
  * Represents a single HSL color value (hue, saturation, lightness).
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSHSL implements ICSSWriteable, ICSSVersionAware
+public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor
 {
   private String m_sHue;
   private String m_sSaturation;
@@ -45,7 +45,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware
 
   /**
    * Copy constructor
-   * 
+   *
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
@@ -56,7 +56,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware
 
   /**
    * Constructor
-   * 
+   *
    * @param nHue
    *        Hue value. Is scaled to the range 0-360
    * @param nSaturation
@@ -73,7 +73,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware
 
   /**
    * Constructor
-   * 
+   *
    * @param fHue
    *        Hue value. Is scaled to the range 0-360
    * @param fSaturation
@@ -156,10 +156,17 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware
 
   @Nonnull
   @Nonempty
+  public String getAsString ()
+  {
+    return CCSSValue.PREFIX_HSL_OPEN + m_sHue + ',' + m_sSaturation + ',' + m_sLightness + CCSSValue.SUFFIX_HSL_CLOSE;
+  }
+
+  @Nonnull
+  @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     aSettings.checkVersionRequirements (this);
-    return CCSSValue.PREFIX_HSL_OPEN + m_sHue + ',' + m_sSaturation + ',' + m_sLightness + CCSSValue.SUFFIX_HSL_CLOSE;
+    return getAsString ();
   }
 
   @Nonnull
