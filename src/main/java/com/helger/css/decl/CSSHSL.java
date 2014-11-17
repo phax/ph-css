@@ -20,6 +20,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -37,7 +38,7 @@ import com.helger.css.utils.CSSColorHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor
+public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, ICloneable <CSSHSL>
 {
   private String m_sHue;
   private String m_sSaturation;
@@ -154,6 +155,20 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor
     return this;
   }
 
+  /**
+   * Convert this value to an HSLA value.
+   *
+   * @param fOpacity
+   *        Opacity part. Is fitted to a value between 0 and 1.
+   * @return This value as HSLA value with the passed opacity. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public CSSHSLA getAsHSLA (final float fOpacity)
+  {
+    return new CSSHSLA (this, fOpacity);
+  }
+
   @Nonnull
   @Nonempty
   public String getAsString ()
@@ -173,6 +188,12 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor
   public ECSSVersion getMinimumCSSVersion ()
   {
     return ECSSVersion.CSS30;
+  }
+
+  @Nonnull
+  public CSSHSL getClone ()
+  {
+    return new CSSHSL (this);
   }
 
   @Override

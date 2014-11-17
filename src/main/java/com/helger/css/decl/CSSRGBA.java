@@ -20,6 +20,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -35,7 +36,7 @@ import com.helger.css.utils.CSSColorHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSRGBA implements ICSSWriteable, ICSSColor
+public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
 {
   private String m_sRed;
   private String m_sGreen;
@@ -51,6 +52,22 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor
   public CSSRGBA (@Nonnull final CSSRGBA aOther)
   {
     this (aOther.getRed (), aOther.getGreen (), aOther.getBlue (), aOther.getOpacity ());
+  }
+
+  /**
+   * Constructor
+   *
+   * @param aOther
+   *        The RGB value to use as the basis. May not be <code>null</code>.
+   * @param fOpacity
+   *        Opacity part. Is fitted to a value between 0 and 1.
+   */
+  public CSSRGBA (@Nonnull final CSSRGB aOther, final float fOpacity)
+  {
+    this (aOther.getRed (),
+          aOther.getGreen (),
+          aOther.getBlue (),
+          Float.toString (CSSColorHelper.getOpacityToUse (fOpacity)));
   }
 
   /**
@@ -172,6 +189,16 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor
     return this;
   }
 
+  /**
+   * @return This value as RGB value without the opacity. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public CSSRGB getAsRGB ()
+  {
+    return new CSSRGB (m_sRed, m_sGreen, m_sBlue);
+  }
+
   @Nonnull
   @Nonempty
   public String getAsString ()
@@ -192,6 +219,12 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return getAsString ();
+  }
+
+  @Nonnull
+  public CSSRGBA getClone ()
+  {
+    return new CSSRGBA (this);
   }
 
   @Override

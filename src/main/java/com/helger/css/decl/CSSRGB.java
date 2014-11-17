@@ -20,6 +20,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -35,7 +36,7 @@ import com.helger.css.utils.CSSColorHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSRGB implements ICSSWriteable, ICSSColor
+public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
 {
   private String m_sRed;
   private String m_sGreen;
@@ -145,6 +146,20 @@ public class CSSRGB implements ICSSWriteable, ICSSColor
     return this;
   }
 
+  /**
+   * Convert this value to an RGBA value.
+   *
+   * @param fOpacity
+   *        Opacity part. Is fitted to a value between 0 and 1.
+   * @return This value as RGBA value with the passed opacity. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public CSSRGBA getAsRGBA (final float fOpacity)
+  {
+    return new CSSRGBA (this, fOpacity);
+  }
+
   @Nonnull
   @Nonempty
   public String getAsString ()
@@ -157,6 +172,12 @@ public class CSSRGB implements ICSSWriteable, ICSSColor
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return getAsString ();
+  }
+
+  @Nonnull
+  public CSSRGB getClone ()
+  {
+    return new CSSRGB (this);
   }
 
   @Override

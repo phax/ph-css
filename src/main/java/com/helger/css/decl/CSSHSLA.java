@@ -20,6 +20,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
@@ -37,7 +38,7 @@ import com.helger.css.utils.CSSColorHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor
+public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, ICloneable <CSSHSLA>
 {
   private String m_sHue;
   private String m_sSaturation;
@@ -53,6 +54,22 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor
   public CSSHSLA (@Nonnull final CSSHSLA aOther)
   {
     this (aOther.getHue (), aOther.getSaturation (), aOther.getLightness (), aOther.getOpacity ());
+  }
+
+  /**
+   * Constructor
+   *
+   * @param aOther
+   *        The HSL value to use as the basis. May not be <code>null</code>.
+   * @param fOpacity
+   *        Opacity part. Is fitted to a value between 0 and 1.
+   */
+  public CSSHSLA (@Nonnull final CSSHSL aOther, final float fOpacity)
+  {
+    this (aOther.getHue (),
+          aOther.getSaturation (),
+          aOther.getLightness (),
+          Float.toString (CSSColorHelper.getOpacityToUse (fOpacity)));
   }
 
   /**
@@ -182,6 +199,16 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor
     return this;
   }
 
+  /**
+   * @return This value as HSL value without the opacity. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public CSSHSL getAsHSL ()
+  {
+    return new CSSHSL (m_sHue, m_sSaturation, m_sLightness);
+  }
+
   @Nonnull
   @Nonempty
   public String getAsString ()
@@ -209,6 +236,12 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor
   public ECSSVersion getMinimumCSSVersion ()
   {
     return ECSSVersion.CSS30;
+  }
+
+  @Nonnull
+  public CSSHSLA getClone ()
+  {
+    return new CSSHSLA (this);
   }
 
   @Override
