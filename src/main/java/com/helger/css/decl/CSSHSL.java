@@ -169,6 +169,20 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
     return new CSSHSLA (this, fOpacity);
   }
 
+  /**
+   * Convert this value to an HSLA value.
+   *
+   * @param sOpacity
+   *        Opacity part. May neither be <code>null</code> nor empty.
+   * @return This value as HSLA value with the passed opacity. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public CSSHSLA getAsHSLA (@Nonnull @Nonempty final String sOpacity)
+  {
+    return new CSSHSLA (this, sOpacity);
+  }
+
   @Nonnull
   @Nonempty
   public String getAsString ()

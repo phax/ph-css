@@ -160,6 +160,20 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
     return new CSSRGBA (this, fOpacity);
   }
 
+  /**
+   * Convert this value to an RGBA value.
+   *
+   * @param sOpacity
+   *        Opacity part. May neither be <code>null</code> nor empty.
+   * @return This value as RGBA value with the passed opacity. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public CSSRGBA getAsRGBA (@Nonnull @Nonempty final String sOpacity)
+  {
+    return new CSSRGBA (this, sOpacity);
+  }
+
   @Nonnull
   @Nonempty
   public String getAsString ()

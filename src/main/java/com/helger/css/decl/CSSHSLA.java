@@ -66,10 +66,20 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
    */
   public CSSHSLA (@Nonnull final CSSHSL aOther, final float fOpacity)
   {
-    this (aOther.getHue (),
-          aOther.getSaturation (),
-          aOther.getLightness (),
-          Float.toString (CSSColorHelper.getOpacityToUse (fOpacity)));
+    this (aOther, Float.toString (CSSColorHelper.getOpacityToUse (fOpacity)));
+  }
+
+  /**
+   * Constructor
+   *
+   * @param aOther
+   *        The HSL value to use as the basis. May not be <code>null</code>.
+   * @param sOpacity
+   *        Opacity part. May neither be <code>null</code> nor empty.
+   */
+  public CSSHSLA (@Nonnull final CSSHSL aOther, @Nonnull @Nonempty final String sOpacity)
+  {
+    this (aOther.getHue (), aOther.getSaturation (), aOther.getLightness (), sOpacity);
   }
 
   /**

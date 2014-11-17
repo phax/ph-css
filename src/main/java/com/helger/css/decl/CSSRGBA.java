@@ -64,10 +64,20 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
    */
   public CSSRGBA (@Nonnull final CSSRGB aOther, final float fOpacity)
   {
-    this (aOther.getRed (),
-          aOther.getGreen (),
-          aOther.getBlue (),
-          Float.toString (CSSColorHelper.getOpacityToUse (fOpacity)));
+    this (aOther, Float.toString (CSSColorHelper.getOpacityToUse (fOpacity)));
+  }
+
+  /**
+   * Constructor
+   *
+   * @param aOther
+   *        The RGB value to use as the basis. May not be <code>null</code>.
+   * @param sOpacity
+   *        Opacity part. May neither be <code>null</code> nor empty.
+   */
+  public CSSRGBA (@Nonnull final CSSRGB aOther, @Nonnull @Nonempty final String sOpacity)
+  {
+    this (aOther.getRed (), aOther.getGreen (), aOther.getBlue (), sOpacity);
   }
 
   /**
@@ -94,13 +104,13 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
    * Constructor
    *
    * @param sRed
-   *        Red part.
+   *        Red part. May neither be <code>null</code> nor empty.
    * @param sGreen
-   *        Green part.
+   *        Green part. May neither be <code>null</code> nor empty.
    * @param sBlue
-   *        Blue part.
+   *        Blue part. May neither be <code>null</code> nor empty.
    * @param sOpacity
-   *        Opacity part.
+   *        Opacity part. May neither be <code>null</code> nor empty.
    */
   public CSSRGBA (@Nonnull @Nonempty final String sRed,
                   @Nonnull @Nonempty final String sGreen,
