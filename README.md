@@ -153,7 +153,15 @@ Even though no color value was provided, the default value `black` is returned. 
 
 ##Code Examples
   * [Reading a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiReadCSS.java)
-  
+  * [Writing a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiWriteCSS.java)
+  * [Creating a @font-face rule from scratch](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiCreateFontFaceRule.java)
+  * [Read the CSS content of a HTML style attribute](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiReadFromHtml.java)
+  * [Visiting all declarations contained in an HTML style attribute](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiVisitFromHtml.java)
+    * Similar to the above example, but visiting all declarations and printing them on stdout. Two different approaches are shown: first all declarations are retrieved via the native API, and second a custom visitor is used to determine all declarations. The result of this method looks like this:
+```    
+color: red (not important)
+background: fixed (important)
+```    
  
 ---
 
