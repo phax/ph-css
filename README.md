@@ -53,7 +53,7 @@ A complete stylesheet is represented as an instance of `com.helger.css.decl.Casc
 ph-css contains two different possibilities to read CSS data:
 
   * Reading a complete CSS file can be achieved using `com.helger.css.reader.CSSReader`. The result in this case will be an instance of `com.helger.css.decl.CascadingStyleSheet`.
-  * Reading only a list of style information (as e.g. present in an HTML style element can be achieved using `com.helger.css.reader.CSSReaderDeclarationList`. The result in this case will be an instance of `com.helger.css.decl.CSSDeclarationList`. 
+  * Reading only a list of style information (as e.g. present in an HTML `style` element) can be achieved using `com.helger.css.reader.CSSReaderDeclarationList`. The result in this case will be an instance of `com.helger.css.decl.CSSDeclarationList`. 
 
 Both reading classes support the reading from either a `java.io.File`, a `java.io.Reader`, a `com.helger.commons.io.IInputStreamProvider` or a `String`. The reason why `java.io.InputStream` is not supported directly is because internally the stream is passed twice - first to determine a potentially available charset and second to read the content with the correctly determined charset. That's why an `IInputStreamProvider` must be used, that creates 2 unique input streams! 
 
@@ -192,7 +192,8 @@ Even though no color value was provided, the default value `black` is returned. 
 #Known shortcomings
 The following list gives an overview of known shortcomings in ph-css
 
-  * Escaped characters (like \26) are not interpreted correctly.      
+  * Escaped characters (like \26) are not interpreted correctly.
+  * Browser-like bracket handling is not supported (issue #3)
 
 ---
 
