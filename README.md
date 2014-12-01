@@ -1,6 +1,6 @@
 #ph-css
 
-Java CSS 2 and CSS 3 parser and builder. This version supercedes phloc-css.
+Java CSS 2 and CSS 3 parser and builder. This version supersedes phloc-css.
 The Maven plugin to compress CSS files at build time is located in project [ph-csscompress-maven-plugin](https://github.com/phax/ph-csscompress-maven-plugin).
 
 ph-css has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use. 
@@ -113,9 +113,6 @@ CSS writing is performed with the class `com.helger.css.writer.CSSWriter`. The m
 
 By default all CSS code is pretty-printed. To create a minified version of the CSS code call `setOptimizedOutput (true)` and `setRemoveUnnecessaryCode (true)` on your `CSSWriterSettings` object.
 
-##CSS utilities
-TODO
-
 ##Data URL handling
 Data URLs are URLs that directly contain the content inline. A regular use case is referencing small images directly inside a CSS. During CSS parsing no special handling for data URLs is added. Instead they are stored in a `String` like any other URL.
 
@@ -159,6 +156,15 @@ In the above example, `aSplittedDecls` will contain 3 elements with the followin
   * `border-color:black` 
 
 Even though no color value was provided, the default value `black` is returned. For all "sub-declarations", sensible default values are defined.
+
+##CSS utilities
+ph-css contains a multitude of small utility class covering different aspects of CSS
+  * `com.helger.css.utils.CSSColorHelper` contains methods to read and write the different types of CSS color values (rgb, rgba, hsl, hsla and hex value)
+  * `com.helger.css.utils.ECSSColor` contains the basic CSS colors as an enumeration
+  * `com.helger.css.ECSSUnit` contains all the default CSS units (like. `px` or `em`)
+  * `com.helger.css.utils.CSSNumberHelper` contains methods for handling the combination of numeric values and units.
+  * `com.helger.css.utils.CSSRectHelper` contains methods for handling CSS `rect` values.
+  * `com.helger.css.tools.MediaQueryTools` provides shortcut methods for wrapping a complete `CascadingStyleSheet` in one or more media queries
 
 #Code Examples
   * [Reading a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiReadCSS.java)
