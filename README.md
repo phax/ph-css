@@ -75,6 +75,25 @@ new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ())
 
 Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a default recoverable error handler using the method `setDefaultParseErrorHandler(ICSSParseErrorHandler)`. If a reading method is invoked without an explicit `ICSSParseErrorHandler` than this default error handler is used. 
 
+###Unrecoverable Errors
+
+In case of an unrecoverable error, the underlying parser engine of JavaCC throws a `com.helger.css.parser.ParseException`. This exception contains all the necessary information on where the error occurred. In case of such an unrecoverable error, the result of the reading will always be `null` and the exception is not automatically propagated to the caller. To explicitly get notified when such a parse error occurs, the handler interface `com.helger.css.handler.ICSSParseExceptionHandler` is available. The available implementations are (all residing in package `com.helger.css.handler`):
+
+  * `DoNothingCSSParseExceptionHandler` - silently ignore all unrecoverable errors
+  * `LoggingCSSParseExceptionHandler` - log all unrecoverable errors to an SLF4J logger 
+
+As there is at most one unrecoverable error per parse there is no collecting implementation of an `ICSSParseExceptionHandler` available. If it is desired to propagate the Exception to the caller you need to implement your own `ICSSParseExceptionHandler` subclass that throws an unchecked exception (one derived from `RuntimeException`). Example:
+
+```java
+  final ICSSParseExceptionHandler aThrowingExceptionHandler = new ICSSParseExceptionHandler () {
+    public void onException (final ParseException ex) {
+      throw new IllegalStateException ("Failed to parse CSS", ex);
+    }
+  };
+```
+
+Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a default unrecoverable error handler using the method `setDefaultParseExceptionHandler(ICSSParseExceptionHandler)`. If a reading method is invoked without an explicit `ICSSParseExceptionHandler` than this default exception handler is used. 
+
 ---
 
 On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
