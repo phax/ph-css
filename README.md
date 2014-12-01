@@ -23,7 +23,7 @@ Add the following to your pom.xml to use this artifact:
 
 To build ph-css from source, Maven 3.0.4 is required. Any Maven version below does **NOT** work! 
 
-#Main classes
+#Documentation
 As ph-css is mainly concerned about the grammatical structure of CSS, the main classes are for reading and writing CSS. Additionally it offers the possibility to traverse the elements in a CSS and make modifications on them.
 
 ##Coding paradigms used
@@ -151,7 +151,7 @@ In the above example, `aSplittedDecls` will contain 3 elements with the followin
 
 Even though no color value was provided, the default value `black` is returned. For all "sub-declarations", sensible default values are defined.
 
-##Code Examples
+#Code Examples
   * [Reading a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiReadCSS.java)
   * [Writing a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiWriteCSS.java)
   * [Creating a @font-face rule from scratch](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiCreateFontFaceRule.java)
@@ -167,7 +167,7 @@ Even though no color value was provided, the default value `black` is returned. 
     }
     ```
   * [Read the CSS content of a HTML style attribute](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiReadFromHtml.java)
-    * reads the CSS content of "sStyle" as CSS 3.0 and creates a CSSDeclarationList from it
+    * Reads the CSS content of `sStyle` as CSS 3.0 and creates a `CSSDeclarationList` from it
   * [Visiting all declarations contained in an HTML style attribute](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiVisitFromHtml.java)
     * Similar to the above example, but visiting all declarations and printing them on stdout. Two different approaches are shown: first all declarations are retrieved via the native API, and second a custom visitor is used to determine all declarations. The result of this method looks like this:
     ```    
