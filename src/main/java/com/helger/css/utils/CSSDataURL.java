@@ -94,7 +94,7 @@ public class CSSDataURL implements IHasStringRepresentation, Serializable
    *        encoded. It is recommended to set this to <code>true</code> if you
    *        have binary data like images.
    * @param aContent
-   *        The content od the data URL as a byte array. May not be
+   *        The content of the data URL as a byte array. May not be
    *        <code>null</code>.
    */
   public CSSDataURL (@Nonnull final IMimeType aMimeType, final boolean bBase64Encoded, @Nonnull final byte [] aContent)

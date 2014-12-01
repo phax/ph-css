@@ -109,18 +109,20 @@ For modifying URLs (e.g. to adopt paths to a different environment) a special ba
 **Note**: it is safe to modify a CSS while iterating it, but only changes affecting children of the current node may be considered during the same iteration run.
 
 ##CSS writing
-CSS writing is performed with the class `com.helger.css.writer.CSSWriter`. The most basic settings can be passed either directly to the constructor or using an instance of `com.helger.css.writer.CSSWriterSettings` which offers a quite find grained control of the output process. To write the content of a `CascadingStyleSheet` or any `ICSSWriteable` to an arbitrary writer, the method `writeCSS` is what you need. If you want the CSS serialized to a `String` the shortcut method `getCSSAsString` is available. For the rest please check the JavaDoc.
+CSS writing is performed with the class `com.helger.css.writer.CSSWriter`. The most basic settings can be passed either directly to the constructor or using an instance of `com.helger.css.writer.CSSWriterSettings` which offers a quite find grained control of the output process. To write the content of a `CascadingStyleSheet` or any `ICSSWriteable` to an arbitrary `java.io.Writer`, the method `writeCSS` is what you need. If you want the CSS serialized to a `String` the shortcut method `getCSSAsString` is available. For the remaining configuration methods please check the JavaDoc.
 
 By default all CSS code is pretty-printed. To create a minified version of the CSS code call `setOptimizedOutput (true)` and `setRemoveUnnecessaryCode (true)` on your `CSSWriterSettings` object.
 
 ##CSS utilities
 TODO
 
-##DataURL handling
-TODO
+##Data URL handling
+Data URLs are URLs that directly contain the content inline. A regular use case is referencing small images directly inside a CSS. During CSS parsing no special handling for data URLs is added. Instead they are stored in a `String` like any other URL.
+
+To special handle data URLs the class `com.helger.css.utils.CSSDataURLHelper` offers the possibility to check if a URL is a data URL via `public static boolean isDataURL (String)`. If this method returns `true` the method `public static CSSDataURL parseDataURL (String)` can be used to extract all the information contained in the data URL. This method returns `null` if the passed URL is not a data URL.  
 
 ##Shorthand property handling
-A "CSS shorthand" property is a property that consists of multiple values. Classical examples are margin or border. ph-css contains support for selected shorthand properties. All shorthand related classes can be found in package `com.helger.css.decl.shorthand`. The supported shorthand properties are:
+A *CSS shorthand property* is a property that consists of multiple values. Classical examples are `margin` or `border`. ph-css contains support for selected shorthand properties. All shorthand related classes can be found in package `com.helger.css.decl.shorthand`. The supported shorthand properties are:
 
   * `background`
   * `font`
@@ -135,7 +137,7 @@ A "CSS shorthand" property is a property that consists of multiple values. Class
   * `margin`
   * `padding`
   * `outline`
-  * `list-style` 
+  * `list-style`
 
 All of these shorthand properties are registered in class `CSSShortHandRegistry` and you can manually register your own shorthand descriptors. The `CSSShortHandRegistry` allows you to split a single `CSSDeclaration` like `border:1px dashed` into the corresponding "sub-declarations":
 
