@@ -61,6 +61,7 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
    *        The RGB value to use as the basis. May not be <code>null</code>.
    * @param fOpacity
    *        Opacity part. Is fitted to a value between 0 and 1.
+   * @since 3.8.3
    */
   public CSSRGBA (@Nonnull final CSSRGB aOther, final float fOpacity)
   {
@@ -74,6 +75,7 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
    *        The RGB value to use as the basis. May not be <code>null</code>.
    * @param sOpacity
    *        Opacity part. May neither be <code>null</code> nor empty.
+   * @since 3.8.3
    */
   public CSSRGBA (@Nonnull final CSSRGB aOther, @Nonnull @Nonempty final String sOpacity)
   {
@@ -202,6 +204,7 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
   /**
    * @return This value as RGB value without the opacity. Never
    *         <code>null</code>.
+   * @since 3.8.3
    */
   @Nonnull
   public CSSRGB getAsRGB ()
@@ -209,6 +212,11 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
     return new CSSRGB (m_sRed, m_sGreen, m_sBlue);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @since 3.8.3
+   */
   @Nonnull
   @Nonempty
   public String getAsString ()
@@ -231,6 +239,11 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
     return getAsString ();
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @since 3.8.3
+   */
   @Nonnull
   public CSSRGBA getClone ()
   {

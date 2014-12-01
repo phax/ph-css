@@ -63,6 +63,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
    *        The HSL value to use as the basis. May not be <code>null</code>.
    * @param fOpacity
    *        Opacity part. Is fitted to a value between 0 and 1.
+   * @since 3.8.3
    */
   public CSSHSLA (@Nonnull final CSSHSL aOther, final float fOpacity)
   {
@@ -76,6 +77,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
    *        The HSL value to use as the basis. May not be <code>null</code>.
    * @param sOpacity
    *        Opacity part. May neither be <code>null</code> nor empty.
+   * @since 3.8.3
    */
   public CSSHSLA (@Nonnull final CSSHSL aOther, @Nonnull @Nonempty final String sOpacity)
   {
@@ -212,6 +214,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
   /**
    * @return This value as HSL value without the opacity. Never
    *         <code>null</code>.
+   * @since 3.8.3
    */
   @Nonnull
   public CSSHSL getAsHSL ()
@@ -219,6 +222,11 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
     return new CSSHSL (m_sHue, m_sSaturation, m_sLightness);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @since 3.8.3
+   */
   @Nonnull
   @Nonempty
   public String getAsString ()
@@ -248,6 +256,11 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
     return ECSSVersion.CSS30;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @since 3.8.3
+   */
   @Nonnull
   public CSSHSLA getClone ()
   {
