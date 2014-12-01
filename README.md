@@ -31,6 +31,7 @@ As ph-css is mainly concerned about the grammatical structure of CSS, the main c
 The following list gives a short overview of special programming techniques that are used inside ph-css
 
   * All interfaces are named starting with a capital 'I' (like in `ICSSVisitor`)
+  * All enumerations are named starting with a capital 'E' (like in `ECSSColor`)
   * All member variables are private and use the Hungarian notation (like `m_aList`)
   * All methods returning collections (lists, sets, maps etc.) are returning copies of the content. This helps ensuring thread-safety (where applicable) but also means that modifying returned collections has no impact on the content of the "owning" object. In more or less all cases, there are "add", "remove" and "clear" methods available to modify the content of an object directly. All the methods returning copies of collections should be annotated with `@ReturnsMutableCopy`. In contrast if the inner collection is returned directly (for whatever reason) it should be annotated with `@ReturnsMutableObject`. If an unmodifiable collection is returned, the corresponding annotation is `@ReturnsImmutableObject` (e.g. for `Collections.unmodifiableList` etc.)
   * For all non primitive parameter the annotations `@Nonnull` or `@Nullable` are used, indicating whether a parameter can be `null` or not. Additionally for Strings and collections the annotation `@Nonempty` may be present, indicating that empty values are also not allowed.
