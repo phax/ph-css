@@ -41,7 +41,7 @@ import com.helger.css.reader.CSSReader;
  * A small utility class to wrap an existing {@link CascadingStyleSheet} within
  * a specific media, if possible. {@link CascadingStyleSheet} can only be
  * wrapped, if they don't contain a media rule themselves.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -63,6 +63,17 @@ public final class MediaQueryTools
     return parseToMediaQuery (sMediaQuery, eVersion);
   }
 
+  /**
+   * Utility method to convert a media query string to a structured list of
+   * {@link CSSMediaQuery} objects.
+   * 
+   * @param sMediaQuery
+   *        The media query string to parse. May be <code>null</code>.
+   * @param eVersion
+   *        The CSS version to use. May not be <code>null</code>.
+   * @return <code>null</code> if the passed media query is <code>null</code> or
+   *         empty or not parsable.
+   */
   @Nullable
   public static List <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery,
                                                         @Nonnull final ECSSVersion eVersion)
@@ -82,7 +93,7 @@ public final class MediaQueryTools
   /**
    * Check if the passed CSS can be wrapped in an external media rule. This
    * method is now deprecated because nested media queries are now allowed.
-   * 
+   *
    * @param aCSS
    *        The CSS to be checked for wrapping. May be <code>null</code>.
    * @return <code>true</code> if the CSS can be wrapped, <code>false</code> if
@@ -97,7 +108,7 @@ public final class MediaQueryTools
 
   /**
    * Check if the passed CSS can be wrapped in an external media rule.
-   * 
+   *
    * @param aCSS
    *        The CSS to be checked for wrapping. May be <code>null</code>.
    * @param bAllowNestedMediaQueries
@@ -121,7 +132,7 @@ public final class MediaQueryTools
   /**
    * Get the CSS wrapped in the specified media query. Note: all existing rule
    * objects are reused, so modifying them also modifies the original CSS!
-   * 
+   *
    * @param aCSS
    *        The CSS to be wrapped. May not be <code>null</code>.
    * @param aMediaQuery
@@ -141,7 +152,7 @@ public final class MediaQueryTools
   /**
    * Get the CSS wrapped in the specified media query. Note: all existing rule
    * objects are reused, so modifying them also modifies the original CSS!
-   * 
+   *
    * @param aCSS
    *        The CSS to be wrapped. May not be <code>null</code>.
    * @param aMediaQuery
@@ -163,7 +174,7 @@ public final class MediaQueryTools
   /**
    * Get the CSS wrapped in the specified media query. Note: all existing rule
    * objects are reused, so modifying them also modifies the original CSS!
-   * 
+   *
    * @param aCSS
    *        The CSS to be wrapped. May not be <code>null</code>.
    * @param aMediaQueries
@@ -184,7 +195,7 @@ public final class MediaQueryTools
   /**
    * Get the CSS wrapped in the specified media query. Note: all existing rule
    * objects are reused, so modifying them also modifies the original CSS!
-   * 
+   *
    * @param aCSS
    *        The CSS to be wrapped. May not be <code>null</code>.
    * @param aMediaQueries

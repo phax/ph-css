@@ -29,12 +29,11 @@ import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSMediaQuery;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
-import com.helger.css.tools.MediaQueryTools;
 import com.helger.css.writer.CSSWriter;
 
 /**
  * Test class for class {@link MediaQueryTools}.
- * 
+ *
  * @author Philip Helger
  */
 public final class MediaQueryToolsTest
@@ -85,12 +84,15 @@ public final class MediaQueryToolsTest
   @Test
   public void testGetWrapped ()
   {
+    // Read and arbitrary CSS
     final CascadingStyleSheet aBaseCSS = CSSReader.readFromString ("p { color:red;}", s_eVersion);
     assertNotNull (aBaseCSS);
 
+    // Create structured media queries
     final List <CSSMediaQuery> aMQs = MediaQueryTools.parseToMediaQuery ("screen", s_eVersion);
     assertNotNull (aMQs);
 
+    // Wrap the source CSS with the specified media queries
     final CascadingStyleSheet aWrappedCSS = MediaQueryTools.getWrappedInMediaQuery (aBaseCSS, aMQs, false);
     assertNotNull (aWrappedCSS);
     assertEquals ("@media screen{p{color:red}}", new CSSWriter (s_eVersion, true).getCSSAsString (aWrappedCSS));
