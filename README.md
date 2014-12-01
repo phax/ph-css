@@ -103,6 +103,58 @@ For modifying URLs (e.g. to adopt paths to a different environment) a special ba
 
 **Note**: it is safe to modify a CSS while iterating it, but only changes affecting children of the current node may be considered during the same iteration run.
 
+##CSS writing
+TODO
+
+##CSS utilities
+TODO
+
+##DataURL handling
+TODO
+
+##Shorthand property handling
+A "CSS shorthand" property is a property that consists of multiple values. Classical examples are margin or border. ph-css contains support for selected shorthand properties. All shorthand related classes can be found in package `com.helger.css.decl.shorthand`. The supported shorthand properties are:
+
+  * `background`
+  * `font`
+  * `border`
+  * `border-top`
+  * `border-right`
+  * `border-bottom`
+  * `border-left`
+  * `border-width`
+  * `border-style`
+  * `border-color`
+  * `margin`
+  * `padding`
+  * `outline`
+  * `list-style` 
+
+All of these shorthand properties are registered in class `CSSShortHandRegistry` and you can manually register your own shorthand descriptors. The `CSSShortHandRegistry` allows you to split a single `CSSDeclaration` like `border:1px dashed` into the corresponding "sub-declarations":
+
+```java
+  // Parse a dummy declaration
+  final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+
+  // Get the Shorthand descriptor for "border"    
+  final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
+
+  // And now split it into pieces
+  final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+```
+
+In the above example, `aSplittedDecls` will contain 3 elements with the following content:
+
+  * `border-width:1px`
+  * `border-style:dashed`
+  * `border-color:black` 
+
+Even though no color value was provided, the default value `black` is returned. For all "sub-declarations", sensible default values are defined.
+
+##Code Examples
+  * [Reading a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiReadCSS.java)
+  
+ 
 ---
 
 On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
