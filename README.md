@@ -49,6 +49,32 @@ A complete stylesheet is represented as an instance of `com.helger.css.decl.Casc
   * Supports rules (`@supports`) - `com.helger.css.decl.CSSSupportsRule`
   * Any other unknown rules (`@foo`) - `com.helger.css.decl.CSSUnknownRule`
 
+##CSS reading
+ph-css contains two different possibilities to read CSS data:
+
+  * Reading a complete CSS file can be achieved using `com.helger.css.reader.CSSReader`. The result in this case will be an instance of `com.helger.css.decl.CascadingStyleSheet`.
+  * Reading only a list of style information (as e.g. present in an HTML style element can be achieved using `com.helger.css.reader.CSSReaderDeclarationList`. The result in this case will be an instance of `com.helger.css.decl.CSSDeclarationList`. 
+
+Both reading classes support the reading from either a `java.io.File`, a `java.io.Reader`, a `com.helger.commons.io.IInputStreamProvider` or a `String`. The reason why `java.io.InputStream` is not supported directly is because internally the stream is passed twice - first to determine a potentially available charset and second to read the content with the correctly determined charset. That's why an `IInputStreamProvider` must be used, that creates 2 unique input streams! 
+
+###Recoverable Errors
+ph-css differentiates between recoverable errors and unrecoverable errors. An example for a recoverable error is e.g. an `@import` rule in the wrong place or a missing closing bracket within a style declaration. For recoverable errors a special handler interface `com.helger.css.reader.errorhandler.ICSSParseErrorHandler` is present. You can pass an implementation of this error handler to the CSS reader (see above). The following implementations are present by default (all residing in package `com.helger.css.reader.errorhandler`):
+
+  * `DoNothingCSSParseErrorHandler` - silently ignoring all recoverable errors
+  * `LoggingCSSParseErrorHandler` - logging all recoverable errors to an SLF4J logger
+  * `ThrowingCSSParseErrorHandler` - throws a `com.helger.css.parser.ParseException` in case of a recoverable error which is afterwards handled by the unrecoverable error handler (see below). This can be used to enforce handling only 100% valid CSS files. This is the default setting, if no error handler is specified during reading.
+  * `CollectingCSSParseErrorHandler` - collects all recoverable errors into a list of `com.helger.css.reader.errorhandler.CSSParseError` instances for later evaluation. 
+
+Some error handlers can be nested so that a combination of a logging handler and a collecting handler can easily be achieved like:
+
+```java
+new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ())
+```
+
+`DoNothingCSSParseErrorHandler` and `ThrowingCSSParseErrorHandler` cannot be nested because it makes no sense.
+
+Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a default recoverable error handler using the method `setDefaultParseErrorHandler(ICSSParseErrorHandler)`. If a reading method is invoked without an explicit `ICSSParseErrorHandler` than this default error handler is used. 
+
 ---
 
 On Twitter: <a href="https://twitter.com/philiphelger">Follow @philiphelger</a>
