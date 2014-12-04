@@ -91,6 +91,19 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   }
 
   /**
+   * Constructor using another media list.
+   *
+   * @param aOther
+   *        The object to copy from. May not be <code>null</code>.
+   * @since 3.8.3
+   */
+  public CSSMediaList (@Nonnull final ICSSMediaList aOther)
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+    m_aMedia.addAll (aOther.getAllMedia ());
+  }
+
+  /**
    * Copy constructor.
    *
    * @param aOther
@@ -115,6 +128,59 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
     ValueEnforcer.notNull (eMedium, "Medium");
 
     m_aMedia.add (eMedium);
+    return this;
+  }
+
+  /**
+   * Add a media list to the list
+   *
+   * @param aMediaList
+   *        The media list to be added. May not be <code>null</code>.
+   * @return <code>this</code>
+   * @since 3.8.3
+   */
+  @Nonnull
+  public CSSMediaList addMedia (@Nonnull final ECSSMedium... aMediaList)
+  {
+    ValueEnforcer.notNull (aMediaList, "MediaList");
+
+    for (final ECSSMedium eMedium : aMediaList)
+      m_aMedia.add (eMedium);
+    return this;
+  }
+
+  /**
+   * Add a media list to the list
+   *
+   * @param aMediaList
+   *        The media list to be added. May not be <code>null</code>.
+   * @return <code>this</code>
+   * @since 3.8.3
+   */
+  @Nonnull
+  public CSSMediaList addMedia (@Nonnull final ICSSMediaList aMediaList)
+  {
+    ValueEnforcer.notNull (aMediaList, "MediaList");
+
+    m_aMedia.addAll (aMediaList.getAllMedia ());
+    return this;
+  }
+
+  /**
+   * Add a media list to the list
+   *
+   * @param aMediaList
+   *        The media list to be added. May not be <code>null</code>.
+   * @return <code>this</code>
+   * @since 3.8.3
+   */
+  @Nonnull
+  public CSSMediaList addMedia (@Nonnull final Iterable <ECSSMedium> aMediaList)
+  {
+    ValueEnforcer.notNull (aMediaList, "MediaList");
+
+    for (final ECSSMedium eMedium : aMediaList)
+      m_aMedia.add (eMedium);
     return this;
   }
 

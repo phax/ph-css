@@ -87,8 +87,8 @@ public interface ICSSMediaList extends Serializable, IHasSize
   boolean isForScreen ();
 
   /**
-   * @return A copy of all specified media. Never <code>null</code> but maybe
-   *         empty.
+   * @return A copy of all specified media in the order they were specified.
+   *         Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
