@@ -16,6 +16,7 @@
  */
 package com.helger.css.reader;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -24,27 +25,31 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.css.ECSSVersion;
+import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
-import com.helger.css.writer.CSSWriter;
 
 /**
- * Test for issue 4: https://github.com/phax/ph-css/issues/4
+ * Test for issue 8: https://github.com/phax/ph-css/issues/8
  *
  * @author Philip Helger
  */
-public final class Issue4Test
+public final class Issue8Test
 {
   @Test
-  public void testIssue4 ()
+  public void testIssue8 ()
   {
-    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue4.css");
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue8.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,
                                                                new LoggingCSSParseErrorHandler ());
     assertNotNull (aCSS);
-    if (false)
-      System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
+
+    assertEquals (1, aCSS.getStyleRuleCount ());
+    final CSSStyleRule aStyleRule = aCSS.getStyleRuleAtIndex (0);
+    assertNotNull (aStyleRule);
+
+    assertEquals (4, aStyleRule.getDeclarationCount ());
   }
 }

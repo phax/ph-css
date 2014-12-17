@@ -283,7 +283,10 @@ TOKEN :
                            ) ( <S> )* >
 | < URL: "url(" <URL_CONTENT> ")" >  { matchedToken.image = ParseUtils.trimUrl(image); }
 
-| < FUNCTION_CALC: "calc(" >
+| < FUNCTION_CALC: "calc("
+                 | "-moz-calc("
+                 | "-webkit-calc("
+                 | "-o-calc(" >
 | < FUNCTION_NOT: ":not(" >
 | < FUNCTION_NTH: "nth-child(" 
                 | "nth-last-child(" 
