@@ -23,12 +23,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
 
 /**
  * CSS property that is a number (e.g. line-height)
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -38,14 +39,22 @@ public class CSSPropertyNumber extends AbstractCSSProperty
 
   public CSSPropertyNumber (@Nonnull final ECSSProperty eProp, final boolean bWithPercentage)
   {
-    this (eProp, null, bWithPercentage);
+    this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage);
   }
 
   public CSSPropertyNumber (@Nonnull final ECSSProperty eProp,
                             @Nullable final ICSSPropertyCustomizer aCustomizer,
                             final boolean bWithPercentage)
   {
-    super (eProp, aCustomizer);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage);
+  }
+
+  public CSSPropertyNumber (@Nonnull final ECSSProperty eProp,
+                            @Nullable final ECSSVendorPrefix eVendorPrefix,
+                            @Nullable final ICSSPropertyCustomizer aCustomizer,
+                            final boolean bWithPercentage)
+  {
+    super (eProp, eVendorPrefix, aCustomizer);
     m_bWithPercentage = bWithPercentage;
   }
 
@@ -59,7 +68,13 @@ public class CSSPropertyNumber extends AbstractCSSProperty
   @Nonnull
   public CSSPropertyNumber getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyNumber (eProp, getCustomizer (), m_bWithPercentage);
+    return new CSSPropertyNumber (eProp, getVendorPrefix (), getCustomizer (), m_bWithPercentage);
+  }
+
+  @Nonnull
+  public CSSPropertyNumber getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyNumber (getProp (), eVendorPrefix, getCustomizer (), m_bWithPercentage);
   }
 
   @Override

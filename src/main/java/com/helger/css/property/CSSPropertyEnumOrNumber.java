@@ -24,13 +24,14 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
 
 /**
  * CSS property that is either an enumeration or a numeric value (e.g.
  * font-size)
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -42,7 +43,7 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
                                   final boolean bWithPercentage,
                                   @Nonnull @Nonempty final String... aEnumValues)
   {
-    this (eProp, null, bWithPercentage, aEnumValues);
+    this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, aEnumValues);
   }
 
   public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
@@ -50,7 +51,16 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
                                   final boolean bWithPercentage,
                                   @Nonnull @Nonempty final String... aEnumValues)
   {
-    super (eProp, aCustomizer, aEnumValues);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, aEnumValues);
+  }
+
+  public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
+                                  @Nullable final ECSSVendorPrefix eVendorPrefix,
+                                  @Nullable final ICSSPropertyCustomizer aCustomizer,
+                                  final boolean bWithPercentage,
+                                  @Nonnull @Nonempty final String... aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     m_bWithPercentage = bWithPercentage;
   }
 
@@ -58,7 +68,7 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
                                   final boolean bWithPercentage,
                                   @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
-    this (eProp, null, bWithPercentage, aEnumValues);
+    this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, aEnumValues);
   }
 
   public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
@@ -66,7 +76,16 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
                                   final boolean bWithPercentage,
                                   @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
-    super (eProp, aCustomizer, aEnumValues);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, aEnumValues);
+  }
+
+  public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
+                                  @Nullable final ECSSVendorPrefix eVendorPrefix,
+                                  @Nullable final ICSSPropertyCustomizer aCustomizer,
+                                  final boolean bWithPercentage,
+                                  @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     m_bWithPercentage = bWithPercentage;
   }
 
@@ -81,7 +100,22 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
   @Nonnull
   public CSSPropertyEnumOrNumber getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyEnumOrNumber (eProp, getCustomizer (), m_bWithPercentage, directGetEnumValues ());
+    return new CSSPropertyEnumOrNumber (eProp,
+                                        getVendorPrefix (),
+                                        getCustomizer (),
+                                        m_bWithPercentage,
+                                        directGetEnumValues ());
+  }
+
+  @Override
+  @Nonnull
+  public CSSPropertyEnumOrNumber getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyEnumOrNumber (getProp (),
+                                        eVendorPrefix,
+                                        getCustomizer (),
+                                        m_bWithPercentage,
+                                        directGetEnumValues ());
   }
 
   @Override

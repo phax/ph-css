@@ -22,12 +22,13 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSRectHelper;
 
 /**
  * CSS property that is either an enumeration or a rectangle (e.g. clip)
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -46,6 +47,14 @@ public class CSSPropertyEnumOrRect extends CSSPropertyEnum
   }
 
   public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp,
+                                @Nullable final ECSSVendorPrefix eVendorPrefix,
+                                @Nullable final ICSSPropertyCustomizer aCustomizer,
+                                @Nonnull @Nonempty final String... aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
+  }
+
+  public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp,
                                 @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
@@ -56,6 +65,14 @@ public class CSSPropertyEnumOrRect extends CSSPropertyEnum
                                 @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aCustomizer, aEnumValues);
+  }
+
+  public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp,
+                                @Nullable final ECSSVendorPrefix eVendorPrefix,
+                                @Nullable final ICSSPropertyCustomizer aCustomizer,
+                                @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
   @Override
@@ -69,6 +86,13 @@ public class CSSPropertyEnumOrRect extends CSSPropertyEnum
   @Nonnull
   public CSSPropertyEnumOrRect getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyEnumOrRect (eProp, getCustomizer (), directGetEnumValues ());
+    return new CSSPropertyEnumOrRect (eProp, getVendorPrefix (), getCustomizer (), directGetEnumValues ());
+  }
+
+  @Override
+  @Nonnull
+  public CSSPropertyEnumOrRect getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyEnumOrRect (getProp (), eVendorPrefix, getCustomizer (), directGetEnumValues ());
   }
 }

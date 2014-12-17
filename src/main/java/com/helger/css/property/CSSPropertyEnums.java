@@ -27,11 +27,12 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 
 /**
  * CSS property that is a list of enumeration entries (e.g. border-style)
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -45,7 +46,7 @@ public class CSSPropertyEnums extends CSSPropertyEnum
                            @Nonnegative final int nMaxNumbers,
                            @Nonnull @Nonempty final String... aEnumValues)
   {
-    this (eProp, null, nMinNumbers, nMaxNumbers, aEnumValues);
+    this (eProp, (ICSSPropertyCustomizer) null, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
   public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
@@ -54,7 +55,17 @@ public class CSSPropertyEnums extends CSSPropertyEnum
                            @Nonnegative final int nMaxNumbers,
                            @Nonnull @Nonempty final String... aEnumValues)
   {
-    super (eProp, aCustomizer, aEnumValues);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, nMinNumbers, nMaxNumbers, aEnumValues);
+  }
+
+  public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+                           @Nullable final ECSSVendorPrefix eVendorPrefix,
+                           @Nullable final ICSSPropertyCustomizer aCustomizer,
+                           @Nonnegative final int nMinNumbers,
+                           @Nonnegative final int nMaxNumbers,
+                           @Nonnull @Nonempty final String... aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
     ValueEnforcer.isGT0 (nMaxNumbers, "MaxNumbers");
     if (nMaxNumbers < nMinNumbers)
@@ -72,7 +83,7 @@ public class CSSPropertyEnums extends CSSPropertyEnum
                            @Nonnegative final int nMaxNumbers,
                            @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
-    this (eProp, null, nMinNumbers, nMaxNumbers, aEnumValues);
+    this (eProp, (ICSSPropertyCustomizer) null, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
   public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
@@ -81,7 +92,17 @@ public class CSSPropertyEnums extends CSSPropertyEnum
                            @Nonnegative final int nMaxNumbers,
                            @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
-    super (eProp, aCustomizer, aEnumValues);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, nMinNumbers, nMaxNumbers, aEnumValues);
+  }
+
+  public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+                           @Nullable final ECSSVendorPrefix eVendorPrefix,
+                           @Nullable final ICSSPropertyCustomizer aCustomizer,
+                           @Nonnegative final int nMinNumbers,
+                           @Nonnegative final int nMaxNumbers,
+                           @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
     ValueEnforcer.isGT0 (nMaxNumbers, "MaxNumbers");
     if (nMaxNumbers < nMinNumbers)
@@ -128,7 +149,24 @@ public class CSSPropertyEnums extends CSSPropertyEnum
   @Nonnull
   public CSSPropertyEnums getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyEnums (eProp, getCustomizer (), m_nMinNumbers, m_nMaxNumbers, directGetEnumValues ());
+    return new CSSPropertyEnums (eProp,
+                                 getVendorPrefix (),
+                                 getCustomizer (),
+                                 m_nMinNumbers,
+                                 m_nMaxNumbers,
+                                 directGetEnumValues ());
+  }
+
+  @Override
+  @Nonnull
+  public CSSPropertyEnums getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyEnums (getProp (),
+                                 eVendorPrefix,
+                                 getCustomizer (),
+                                 m_nMinNumbers,
+                                 m_nMaxNumbers,
+                                 directGetEnumValues ());
   }
 
   @Override

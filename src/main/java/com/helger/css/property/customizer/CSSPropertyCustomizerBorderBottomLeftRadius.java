@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
 import com.helger.css.propertyvalue.CSSValueMultiProperty;
@@ -28,7 +29,7 @@ import com.helger.css.propertyvalue.ICSSValue;
 
 /**
  * Special customizer for the "border-bottom-left-radius" property.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -42,8 +43,8 @@ public class CSSPropertyCustomizerBorderBottomLeftRadius extends AbstractCSSProp
     return new CSSValueMultiProperty (aProperty.getProp (),
                                       new ICSSProperty [] { aProperty,
                                                            aProperty.getClone (ECSSProperty._MOZ_BORDER_RADIUS_BOTTOMLEFT),
-                                                           aProperty.getClone (ECSSProperty._WEBKIT_BORDER_BOTTOM_LEFT_RADIUS),
-                                                           aProperty.getClone (ECSSProperty._KHTML_BORDER_BOTTOM_LEFT_RADIUS) },
+                                                           aProperty.getClone (ECSSVendorPrefix.WEBKIT),
+                                                           aProperty.getClone (ECSSVendorPrefix.KHTML) },
                                       sValue,
                                       bIsImportant);
   }

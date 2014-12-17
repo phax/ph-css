@@ -573,16 +573,26 @@ public final class CCSSProperties
   public static final ICSSProperty LINE_STACKING_STRATEGY = new CSSPropertyFree (ECSSProperty.LINE_STACKING_STRATEGY);
   public static final ICSSProperty LIST_STYLE = new CSSPropertyFree (ECSSProperty.LIST_STYLE);
   public static final ICSSProperty MARKS = new CSSPropertyFree (ECSSProperty.MARKS);
+  @Deprecated
   public static final ICSSProperty MARQUEE_DIRECTION = new CSSPropertyFree (ECSSProperty.MARQUEE_DIRECTION);
+  @Deprecated
   public static final ICSSProperty MARQUEE_PLAY_COUNT = new CSSPropertyFree (ECSSProperty.MARQUEE_PLAY_COUNT);
+  @Deprecated
   public static final ICSSProperty MARQUEE_SPEED = new CSSPropertyFree (ECSSProperty.MARQUEE_SPEED);
+  @Deprecated
   public static final ICSSProperty MARQUEE_STYLE = new CSSPropertyFree (ECSSProperty.MARQUEE_STYLE);
   public static final ICSSProperty MASK = new CSSPropertyFree (ECSSProperty.MASK);
+  @Deprecated
   public static final ICSSProperty MASK_BOX_IMAGE = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE);
+  @Deprecated
   public static final ICSSProperty MASK_BOX_IMAGE_OUTSET = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE_OUTSET);
+  @Deprecated
   public static final ICSSProperty MASK_BOX_IMAGE_REPEAT = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE_REPEAT);
+  @Deprecated
   public static final ICSSProperty MASK_BOX_IMAGE_SLICE = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE_SLICE);
+  @Deprecated
   public static final ICSSProperty MASK_BOX_IMAGE_SOURCE = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE_SOURCE);
+  @Deprecated
   public static final ICSSProperty MASK_BOX_IMAGE_WIDTH = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE_WIDTH);
   public static final ICSSProperty MASK_CLIP = new CSSPropertyFree (ECSSProperty.MASK_CLIP);
   public static final ICSSProperty MASK_IMAGE = new CSSPropertyFree (ECSSProperty.MASK_IMAGE);
@@ -590,6 +600,7 @@ public final class CCSSProperties
   public static final ICSSProperty MASK_POSITION = new CSSPropertyFree (ECSSProperty.MASK_POSITION);
   public static final ICSSProperty MASK_REPEAT = new CSSPropertyFree (ECSSProperty.MASK_REPEAT);
   public static final ICSSProperty MASK_SIZE = new CSSPropertyFree (ECSSProperty.MASK_SIZE);
+  @Deprecated
   public static final ICSSProperty MASK_SOURCE_TYPE = new CSSPropertyFree (ECSSProperty.MASK_SOURCE_TYPE);
   public static final ICSSProperty MASK_TYPE = new CSSPropertyFree (ECSSProperty.MASK_TYPE);
   public static final ICSSProperty MAX_LINES = new CSSPropertyFree (ECSSProperty.MAX_LINES);
@@ -605,6 +616,7 @@ public final class CCSSProperties
   public static final ICSSProperty ORPHANS = new CSSPropertyFree (ECSSProperty.ORPHANS);
   public static final ICSSProperty OUTLINE = new CSSPropertyFree (ECSSProperty.OUTLINE);
   public static final ICSSProperty OUTLINE_OFFSET = new CSSPropertyFree (ECSSProperty.OUTLINE_OFFSET);
+  @Deprecated
   public static final ICSSProperty OVERFLOW_STYLE = new CSSPropertyFree (ECSSProperty.OVERFLOW_STYLE);
   public static final ICSSProperty OVERFLOW_WRAP = new CSSPropertyFree (ECSSProperty.OVERFLOW_WRAP);
   public static final ICSSProperty OVERFLOW_X = new CSSPropertyFree (ECSSProperty.OVERFLOW_X);

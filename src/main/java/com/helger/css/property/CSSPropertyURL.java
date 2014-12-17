@@ -21,12 +21,13 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSURLHelper;
 
 /**
  * CSS property that needs to be an URL
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -34,12 +35,19 @@ public class CSSPropertyURL extends AbstractCSSProperty
 {
   public CSSPropertyURL (@Nonnull final ECSSProperty eProp)
   {
-    this (eProp, null);
+    this (eProp, (ICSSPropertyCustomizer) null);
   }
 
   public CSSPropertyURL (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
-    super (eProp, aCustomizer);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer);
+  }
+
+  public CSSPropertyURL (@Nonnull final ECSSProperty eProp,
+                         @Nullable final ECSSVendorPrefix eVendorPrefix,
+                         @Nullable final ICSSPropertyCustomizer aCustomizer)
+  {
+    super (eProp, eVendorPrefix, aCustomizer);
   }
 
   public static boolean isValidPropertyValue (@Nullable final String sValue)
@@ -57,6 +65,12 @@ public class CSSPropertyURL extends AbstractCSSProperty
   @Nonnull
   public CSSPropertyURL getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyURL (eProp, getCustomizer ());
+    return new CSSPropertyURL (eProp, getVendorPrefix (), getCustomizer ());
+  }
+
+  @Nonnull
+  public CSSPropertyURL getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyURL (getProp (), eVendorPrefix, getCustomizer ());
   }
 }

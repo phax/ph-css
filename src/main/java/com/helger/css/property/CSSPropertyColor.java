@@ -21,12 +21,13 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
 
 /**
  * Represents a color value
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -34,12 +35,19 @@ public class CSSPropertyColor extends AbstractCSSProperty
 {
   public CSSPropertyColor (@Nonnull final ECSSProperty eProp)
   {
-    this (eProp, null);
+    this (eProp, (ICSSPropertyCustomizer) null);
   }
 
   public CSSPropertyColor (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
-    super (eProp, aCustomizer);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer);
+  }
+
+  public CSSPropertyColor (@Nonnull final ECSSProperty eProp,
+                           @Nullable final ECSSVendorPrefix eVendorPrefix,
+                           @Nullable final ICSSPropertyCustomizer aCustomizer)
+  {
+    super (eProp, eVendorPrefix, aCustomizer);
   }
 
   public static boolean isValidPropertyValue (@Nullable final String sValue)
@@ -57,6 +65,12 @@ public class CSSPropertyColor extends AbstractCSSProperty
   @Nonnull
   public CSSPropertyColor getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyColor (eProp, getCustomizer ());
+    return new CSSPropertyColor (eProp, getVendorPrefix (), getCustomizer ());
+  }
+
+  @Nonnull
+  public CSSPropertyColor getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyColor (getProp (), eVendorPrefix, getCustomizer ());
   }
 }

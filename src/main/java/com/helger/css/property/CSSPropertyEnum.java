@@ -31,11 +31,12 @@ import com.helger.commons.collections.ContainerHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 
 /**
  * CSS property with a predefined list of possible values (e.g. "cursor")
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -45,14 +46,22 @@ public class CSSPropertyEnum extends AbstractCSSProperty
 
   public CSSPropertyEnum (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final String... aEnumValues)
   {
-    this (eProp, null, aEnumValues);
+    this (eProp, (ICSSPropertyCustomizer) null, aEnumValues);
   }
 
   public CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
                           @Nullable final ICSSPropertyCustomizer aCustomizer,
                           @Nonnull @Nonempty final String... aEnumValues)
   {
-    super (eProp, aCustomizer);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, aEnumValues);
+  }
+
+  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
+                          @Nullable final ECSSVendorPrefix eVendorPrefix,
+                          @Nullable final ICSSPropertyCustomizer aCustomizer,
+                          @Nonnull @Nonempty final String... aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.notEmptyNoNullValue (aEnumValues, "EnumValues");
     m_aEnumValues = new HashSet <String> (aEnumValues.length);
     for (final String sPotentialValue : aEnumValues)
@@ -65,14 +74,22 @@ public class CSSPropertyEnum extends AbstractCSSProperty
 
   public CSSPropertyEnum (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
-    this (eProp, null, aEnumValues);
+    this (eProp, (ICSSPropertyCustomizer) null, aEnumValues);
   }
 
   public CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
                           @Nullable final ICSSPropertyCustomizer aCustomizer,
                           @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
-    super (eProp, aCustomizer);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, aEnumValues);
+  }
+
+  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
+                          @Nullable final ECSSVendorPrefix eVendorPrefix,
+                          @Nullable final ICSSPropertyCustomizer aCustomizer,
+                          @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.notEmptyNoNullValue (aEnumValues, "EnumValues");
     m_aEnumValues = new HashSet <String> ();
     for (final String sPotentialValue : aEnumValues)
@@ -85,19 +102,22 @@ public class CSSPropertyEnum extends AbstractCSSProperty
 
   /**
    * Private constructor for {@link #getClone(ECSSProperty)}
-   * 
+   *
    * @param eProp
    *        Property to use
+   * @param eVendorPrefix
+   *        The vendor prefix to be used. May be <code>null</code>.
    * @param aCustomizer
    *        Customizer to use.
    * @param aEnumValues
    *        Enum values to use. May neither be <code>null</code> nor empty.
    */
   private CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
+                           @Nullable final ECSSVendorPrefix eVendorPrefix,
                            @Nullable final ICSSPropertyCustomizer aCustomizer,
                            @Nonnull @Nonempty final Set <String> aEnumValues)
   {
-    super (eProp, aCustomizer);
+    super (eProp, eVendorPrefix, aCustomizer);
     m_aEnumValues = ContainerHelper.newSet (aEnumValues);
   }
 
@@ -122,7 +142,13 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   @Nonnull
   public CSSPropertyEnum getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyEnum (eProp, getCustomizer (), m_aEnumValues);
+    return new CSSPropertyEnum (eProp, getVendorPrefix (), getCustomizer (), m_aEnumValues);
+  }
+
+  @Nonnull
+  public CSSPropertyEnum getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyEnum (getProp (), eVendorPrefix, getCustomizer (), m_aEnumValues);
   }
 
   @Override

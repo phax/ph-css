@@ -23,12 +23,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringParser;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 
 /**
  * CSS property that is either an enumeration or a numeric value without a unit
  * (e.g. z-index)
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -46,6 +47,14 @@ public class CSSPropertyEnumOrInt extends CSSPropertyEnum
     super (eProp, aCustomizer, aEnumValues);
   }
 
+  public CSSPropertyEnumOrInt (@Nonnull final ECSSProperty eProp,
+                               @Nullable final ECSSVendorPrefix eVendorPrefix,
+                               @Nullable final ICSSPropertyCustomizer aCustomizer,
+                               @Nonnull @Nonempty final String... aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
+  }
+
   public CSSPropertyEnumOrInt (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
@@ -56,6 +65,14 @@ public class CSSPropertyEnumOrInt extends CSSPropertyEnum
                                @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aCustomizer, aEnumValues);
+  }
+
+  public CSSPropertyEnumOrInt (@Nonnull final ECSSProperty eProp,
+                               @Nullable final ECSSVendorPrefix eVendorPrefix,
+                               @Nullable final ICSSPropertyCustomizer aCustomizer,
+                               @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  {
+    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
   @Override
@@ -69,6 +86,13 @@ public class CSSPropertyEnumOrInt extends CSSPropertyEnum
   @Nonnull
   public CSSPropertyEnumOrInt getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyEnumOrInt (eProp, getCustomizer (), directGetEnumValues ());
+    return new CSSPropertyEnumOrInt (eProp, getVendorPrefix (), getCustomizer (), directGetEnumValues ());
+  }
+
+  @Override
+  @Nonnull
+  public CSSPropertyEnumOrInt getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyEnumOrInt (getProp (), eVendorPrefix, getCustomizer (), directGetEnumValues ());
   }
 }

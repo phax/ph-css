@@ -22,11 +22,12 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.string.StringHelper;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 
 /**
  * CSS property without any value constraints, except that it may not be empty.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -34,12 +35,24 @@ public class CSSPropertyFree extends AbstractCSSProperty
 {
   public CSSPropertyFree (@Nonnull final ECSSProperty eProp)
   {
-    this (eProp, null);
+    this (eProp, (ICSSPropertyCustomizer) null);
+  }
+
+  public CSSPropertyFree (@Nonnull final ECSSProperty eProp, @Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    this (eProp, eVendorPrefix, (ICSSPropertyCustomizer) null);
   }
 
   public CSSPropertyFree (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
-    super (eProp, aCustomizer);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer);
+  }
+
+  public CSSPropertyFree (@Nonnull final ECSSProperty eProp,
+                          @Nullable final ECSSVendorPrefix eVendorPrefix,
+                          @Nullable final ICSSPropertyCustomizer aCustomizer)
+  {
+    super (eProp, eVendorPrefix, aCustomizer);
   }
 
   public static boolean isValidPropertyValue (@Nullable final String sValue)
@@ -57,6 +70,12 @@ public class CSSPropertyFree extends AbstractCSSProperty
   @Nonnull
   public CSSPropertyFree getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyFree (eProp, getCustomizer ());
+    return new CSSPropertyFree (eProp, getVendorPrefix (), getCustomizer ());
+  }
+
+  @Nonnull
+  public CSSPropertyFree getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyFree (getProp (), eVendorPrefix, getCustomizer ());
   }
 }

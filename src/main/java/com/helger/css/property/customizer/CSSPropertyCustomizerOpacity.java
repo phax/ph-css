@@ -22,6 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.string.StringParser;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.CSSPropertyFree;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
@@ -30,7 +31,7 @@ import com.helger.css.propertyvalue.ICSSValue;
 
 /**
  * Special customizer for the "opacity" property.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -46,10 +47,11 @@ public class CSSPropertyCustomizerOpacity extends AbstractCSSPropertyCustomizer
     {
       final int nPerc = (int) (dValue * 100);
       return new CSSValueList (ECSSProperty.OPACITY,
-                               new ICSSProperty [] { new CSSPropertyFree (ECSSProperty._MS_FILTER),
+                               new ICSSProperty [] { new CSSPropertyFree (ECSSProperty.FILTER,
+                                                                          ECSSVendorPrefix.MICROSOFT),
                                                     new CSSPropertyFree (ECSSProperty.FILTER),
-                                                    aProperty.getClone (ECSSProperty._MOZ_OPACITY),
-                                                    aProperty.getClone (ECSSProperty._WEBKIT_OPACITY),
+                                                    aProperty.getClone (ECSSVendorPrefix.MOZILLA),
+                                                    aProperty.getClone (ECSSVendorPrefix.WEBKIT),
                                                     aProperty },
                                new String [] { "\"progid:DXImageTransform.Microsoft.Alpha(Opacity=" + nPerc + ")\"",
                                               "alpha(opacity=" + nPerc + ")",

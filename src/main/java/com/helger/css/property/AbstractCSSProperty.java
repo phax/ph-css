@@ -27,6 +27,7 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ECSSVersion;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -36,26 +37,46 @@ import com.helger.css.utils.ICSSNamedColor;
 
 /**
  * Abstract base class for implementing {@link ICSSProperty}
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
 public abstract class AbstractCSSProperty implements ICSSProperty
 {
   private final ECSSProperty m_eProp;
+  private final ECSSVendorPrefix m_eVendorPrefix;
   private final ICSSPropertyCustomizer m_aCustomizer;
 
   /**
    * Constructor
-   * 
+   *
    * @param eProp
    *        The base property to use. May not be <code>null</code>.
    * @param aCustomizer
    *        The customizer to be used. May be <code>null</code>.
    */
+  @Deprecated
   protected AbstractCSSProperty (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer);
+  }
+
+  /**
+   * Constructor
+   *
+   * @param eProp
+   *        The base property to use. May not be <code>null</code>.
+   * @param eVendorPrefix
+   *        The vendor prefix to be used. May be <code>null</code>.
+   * @param aCustomizer
+   *        The customizer to be used. May be <code>null</code>.
+   */
+  protected AbstractCSSProperty (@Nonnull final ECSSProperty eProp,
+                                 @Nullable final ECSSVendorPrefix eVendorPrefix,
+                                 @Nullable final ICSSPropertyCustomizer aCustomizer)
+  {
     m_eProp = ValueEnforcer.notNull (eProp, "Property");
+    m_eVendorPrefix = eVendorPrefix;
     m_aCustomizer = aCustomizer;
   }
 
@@ -69,6 +90,25 @@ public abstract class AbstractCSSProperty implements ICSSProperty
   public final ECSSProperty getProp ()
   {
     return m_eProp;
+  }
+
+  @Nullable
+  public final ECSSVendorPrefix getVendorPrefix ()
+  {
+    return m_eVendorPrefix;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getPropertyName ()
+  {
+    if (m_eVendorPrefix != null)
+    {
+      // Use vendor prefix
+      return m_eVendorPrefix.getPrefix () + m_eProp.getName ();
+    }
+
+    return m_eProp.getName ();
   }
 
   @Nullable

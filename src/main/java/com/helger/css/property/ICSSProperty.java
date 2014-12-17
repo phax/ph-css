@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.ICSSValue;
@@ -30,7 +31,7 @@ import com.helger.css.utils.ICSSNamedColor;
 
 /**
  * Base interface for a single CSS property.
- * 
+ *
  * @see com.helger.css.property.CCSSProperties CCSSProperties for a list of
  *      default CSS properties
  * @author Philip Helger
@@ -42,6 +43,20 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
    */
   @Nonnull
   ECSSProperty getProp ();
+
+  /**
+   * @return The vendor prefix to be used. May be <code>null</code>.
+   */
+  @Nullable
+  ECSSVendorPrefix getVendorPrefix ();
+
+  /**
+   * @return The property name including an eventually contained prefix. Neither
+   *         <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  String getPropertyName ();
 
   /**
    * @return The CSS customizer assigned to this property. May be
@@ -67,7 +82,7 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
   /**
    * Check if the passed value is valid for this property according to the
    * defined rule.
-   * 
+   *
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
@@ -77,7 +92,7 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
 
   /**
    * Create a new CSS value with this property and the specified value.
-   * 
+   *
    * @param sValue
    *        The CSS String value. May neither be <code>null</code> nor empty.
    * @param bImportant
@@ -91,7 +106,7 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
   /**
    * Create a new CSS value with this property and the specified value. This is
    * a shortcut for <code>newValue (sValue, false)</code>.
-   * 
+   *
    * @param sValue
    *        The CSS String value. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
@@ -102,7 +117,7 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
   /**
    * Create a new important CSS value with this property and the specified
    * value. This is a shortcut for <code>newValue (sValue, true)</code>.
-   * 
+   *
    * @param sValue
    *        The CSS String value. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
@@ -112,7 +127,7 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
 
   /**
    * Create a new CSS value with this property and the specified named color.
-   * 
+   *
    * @param aColor
    *        The CSS color value
    * @param bImportant
@@ -126,7 +141,7 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
   /**
    * Create a new CSS value with this property and the specified named color.
    * This is a shortcut for <code>newValue (aColor, false)</code>.
-   * 
+   *
    * @param aColor
    *        The CSS color value
    * @return Never <code>null</code>.
@@ -137,7 +152,7 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
   /**
    * Create a new important CSS value with this property and the specified named
    * color. This is a shortcut for <code>newValue (aColor, true)</code>.
-   * 
+   *
    * @param aColor
    *        The CSS color value
    * @return Never <code>null</code>.
@@ -147,11 +162,22 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
 
   /**
    * Get a clone of this property with another (or the same) base property.
-   * 
+   *
    * @param eProp
    *        The base property to use. May not be <code>null</code>.
    * @return Never <code>null</code>
    */
   @Nonnull
   ICSSProperty getClone (@Nonnull ECSSProperty eProp);
+
+  /**
+   * Get a clone of this property with the same base property but a different
+   * vendor prefix.
+   *
+   * @param eVendorPrefix
+   *        The new vendor prefix to use. May be <code>null</code>.
+   * @return Never <code>null</code>
+   */
+  @Nonnull
+  ICSSProperty getClone (@Nullable ECSSVendorPrefix eVendorPrefix);
 }

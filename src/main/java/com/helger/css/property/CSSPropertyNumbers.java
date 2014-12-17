@@ -26,12 +26,13 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
 
 /**
  * CSS property with a list of numbers (e.g. padding)
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -46,7 +47,7 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
                              @Nonnegative final int nMinNumbers,
                              @Nonnegative final int nMaxNumbers)
   {
-    this (eProp, null, bWithPercentage, nMinNumbers, nMaxNumbers);
+    this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, nMinNumbers, nMaxNumbers);
   }
 
   public CSSPropertyNumbers (@Nonnull final ECSSProperty eProp,
@@ -55,7 +56,17 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
                              @Nonnegative final int nMinNumbers,
                              @Nonnegative final int nMaxNumbers)
   {
-    super (eProp, aCustomizer);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, nMinNumbers, nMaxNumbers);
+  }
+
+  public CSSPropertyNumbers (@Nonnull final ECSSProperty eProp,
+                             @Nullable final ECSSVendorPrefix eVendorPrefix,
+                             @Nullable final ICSSPropertyCustomizer aCustomizer,
+                             final boolean bWithPercentage,
+                             @Nonnegative final int nMinNumbers,
+                             @Nonnegative final int nMaxNumbers)
+  {
+    super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
     ValueEnforcer.isGT0 (nMaxNumbers, "MaxNumbers");
     if (nMaxNumbers < nMinNumbers)
@@ -106,7 +117,23 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
   @Nonnull
   public CSSPropertyNumbers getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyNumbers (eProp, getCustomizer (), m_bWithPercentage, m_nMinNumbers, m_nMaxNumbers);
+    return new CSSPropertyNumbers (eProp,
+                                   getVendorPrefix (),
+                                   getCustomizer (),
+                                   m_bWithPercentage,
+                                   m_nMinNumbers,
+                                   m_nMaxNumbers);
+  }
+
+  @Nonnull
+  public CSSPropertyNumbers getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
+  {
+    return new CSSPropertyNumbers (getProp (),
+                                   eVendorPrefix,
+                                   getCustomizer (),
+                                   m_bWithPercentage,
+                                   m_nMinNumbers,
+                                   m_nMaxNumbers);
   }
 
   @Override
