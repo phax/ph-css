@@ -46,13 +46,15 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
 
   /**
    * @return The vendor prefix to be used. May be <code>null</code>.
+   * @since 3.9.0
    */
   @Nullable
   ECSSVendorPrefix getVendorPrefix ();
 
   /**
-   * @return The property name including an eventually contained prefix. Neither
-   *         <code>null</code> nor empty.
+   * @return The property name including an eventually contained vendor prefix.
+   *         Neither <code>null</code> nor empty.
+   * @since 3.9.0
    */
   @Nonnull
   @Nonempty
@@ -177,6 +179,7 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
    * @param eVendorPrefix
    *        The new vendor prefix to use. May be <code>null</code>.
    * @return Never <code>null</code>
+   * @since 3.9.0
    */
   @Nonnull
   ICSSProperty getClone (@Nullable ECSSVendorPrefix eVendorPrefix);

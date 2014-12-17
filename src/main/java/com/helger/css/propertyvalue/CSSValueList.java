@@ -38,7 +38,7 @@ import com.helger.css.property.ICSSProperty;
  * with the value <code>inline-block</code> than the result coding should first
  * emit <code>display:-moz-inline-block;</code> and them
  * <code>display:inline-block;</code> for FireFox 2.x specific support.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

@@ -93,7 +93,7 @@ public class CSSShortHandDescriptor
 
   /**
    * Modify the passed expression members before they are splitted
-   * 
+   *
    * @param aExpressionMembers
    *        The list to be modified. Never <code>null</code> but maybe empty.
    */
@@ -158,7 +158,7 @@ public class CSSShortHandDescriptor
               final CSSExpression aExpr = new CSSExpression ();
               for (int k = 0; k < nMinArgs; ++k)
                 aExpr.addMember (aExpressionMembers.get (nExprMemberIndex + k));
-              ret.add (new CSSDeclaration (aSubProp.getProperty ().getProp ().getName (), aExpr));
+              ret.add (new CSSDeclaration (aSubProp.getProperty ().getPropertyName (), aExpr));
               nExprMemberIndex += nMinArgs - 1;
 
               // Remember as handled
@@ -179,7 +179,7 @@ public class CSSShortHandDescriptor
         // assign default value
         final CSSExpression aExpr = new CSSExpression ();
         aExpr.addMember (new CSSExpressionMemberTermSimple (aSubProp.getDefaultValue ()));
-        ret.add (new CSSDeclaration (aSubProp.getProperty ().getProp ().getName (), aExpr));
+        ret.add (new CSSDeclaration (aSubProp.getProperty ().getPropertyName (), aExpr));
       }
 
     return ret;

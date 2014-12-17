@@ -24,6 +24,7 @@ import com.helger.commons.annotations.Nonempty;
  * Enumeration containing all known CSS vendor prefixes
  *
  * @author Philip Helger
+ * @since 3.9.0
  */
 public enum ECSSVendorPrefix
 {

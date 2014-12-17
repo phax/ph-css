@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -37,8 +38,8 @@ import com.helger.css.property.ICSSProperty;
  * and it's according value plus the important state (<code>!important</code> or
  * not). The main purpose of this class to make building a CSS from scratch
  * simpler. When an existing CSS is read the information resides in a
- * {@link com.helger.css.decl.CSSDeclaration} because it contains the declaration
- * value in a more structured form.<br>
+ * {@link com.helger.css.decl.CSSDeclaration} because it contains the
+ * declaration value in a more structured form.<br>
  * Instances of this class are mutable since 3.7.3.
  *
  * @author Philip Helger
@@ -91,6 +92,18 @@ public class CSSValue implements ICSSValue
   }
 
   /**
+   * @return The property name including an eventually contained vendor prefix.
+   *         Neither <code>null</code> nor empty.
+   * @since 3.9.0
+   */
+  @Nonnull
+  @Nonempty
+  public String getPropertyName ()
+  {
+    return m_aProperty.getPropertyName ();
+  }
+
+  /**
    * Set the property of this CSS value (e.g. <code>background-color</code>).
    *
    * @param aProperty
@@ -133,7 +146,7 @@ public class CSSValue implements ICSSValue
       s_aLogger.warn ("CSS: the value '" +
                       sValue +
                       "' is not valid for property '" +
-                      m_aProperty.getProp ().getName () +
+                      m_aProperty.getPropertyName () +
                       "'");
     if (sValue.contains (CCSS.IMPORTANT_SUFFIX))
       s_aLogger.warn ("CSS: the value '" +
@@ -173,7 +186,7 @@ public class CSSValue implements ICSSValue
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     aSettings.checkVersionRequirements (m_aProperty);
-    return m_aProperty.getProp ().getName () +
+    return m_aProperty.getPropertyName () +
            CCSS.SEPARATOR_PROPERTY_VALUE +
            m_sValue +
            (StringHelper.hasText (m_sValue) && m_bIsImportant ? CCSS.IMPORTANT_SUFFIX : "") +
@@ -188,7 +201,6 @@ public class CSSValue implements ICSSValue
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSValue rhs = (CSSValue) o;
-    // Important flag is contained in the value!
     return m_aProperty.getProp ().equals (rhs.m_aProperty.getProp ()) &&
            m_sValue.equals (rhs.m_sValue) &&
            m_bIsImportant == rhs.m_bIsImportant;
