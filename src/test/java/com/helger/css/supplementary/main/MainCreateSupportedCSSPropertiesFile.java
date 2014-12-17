@@ -29,12 +29,19 @@ import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.name.ComparatorHasName;
 import com.helger.commons.version.Version;
+import com.helger.commons.xml.serialize.EXMLSerializeFormat;
 import com.helger.commons.xml.serialize.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.XMLWriterSettings;
 import com.helger.css.ECSSSpecification;
 import com.helger.css.ECSSVersion;
 import com.helger.css.property.ECSSProperty;
 
+/**
+ * Create the src/main/resources/supported-css-properties.html file with all
+ * supported properties.
+ *
+ * @author Philip Helger
+ */
 public class MainCreateSupportedCSSPropertiesFile
 {
   private static void _boolean (final IMicroElement td, final boolean bSet)
@@ -52,8 +59,12 @@ public class MainCreateSupportedCSSPropertiesFile
     final IMicroElement html = new MicroElement ("html");
     final IMicroElement head = html.appendElement ("head");
     head.appendElement ("title").appendText ("Supported CSS properties in ph-css");
-    head.appendElement ("style")
-        .appendText ("* {font-family:Arial,Helvetica;} table{border-collapse:collapse;} td,th { border:solid 1px black; } .odd{background-color:#ddd;} .center{text-align:center;} a, a:link, a:visited, a:hover, a:active{color:blue;}");
+    head.appendElement ("style").appendText ("* {font-family:Arial,Helvetica;}"
+                                             + " table{border-collapse:collapse;}"
+                                             + " td,th { border:solid 1px black;padding:3px;vertical-align:top; }"
+                                             + " .odd{background-color:#ddd;}"
+                                             + " .center{text-align:center;}"
+                                             + " a, a:link, a:visited, a:hover, a:active{color:blue;}");
 
     final IMicroElement body = html.appendElement ("body");
 
@@ -68,9 +79,9 @@ public class MainCreateSupportedCSSPropertiesFile
     IMicroElement thead = table.appendElement ("thead");
     IMicroElement tr = thead.appendElement ("tr");
     tr.appendElement ("th").appendText ("Name");
-    tr.appendElement ("th").appendText ("CSS10");
-    tr.appendElement ("th").appendText ("CSS21");
-    tr.appendElement ("th").appendText ("CSS30");
+    tr.appendElement ("th").appendText ("CSS 1.0");
+    tr.appendElement ("th").appendText ("CSS 2.1");
+    tr.appendElement ("th").appendText ("CSS 3.0");
     tr.appendElement ("th").appendText ("Links");
 
     IMicroElement tbody = table.appendElement ("tbody");
@@ -163,10 +174,12 @@ public class MainCreateSupportedCSSPropertiesFile
                    + "    limitations under the License.\r\n"
                    + "\r\n"
                    + "-->\r\n";
-    sHTML += MicroWriter.getNodeAsString (html, new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY));
+    sHTML += MicroWriter.getNodeAsString (html, new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY)
+                                                                        .setFormat (EXMLSerializeFormat.HTML));
 
     SimpleFileIO.writeFile (new File ("src/main/resources/supported-css-properties.html"),
                             sHTML,
                             CCharset.CHARSET_UTF_8_OBJ);
+    System.out.println ("Done");
   }
 }

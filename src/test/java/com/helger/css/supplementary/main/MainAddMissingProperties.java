@@ -19,6 +19,12 @@ package com.helger.css.supplementary.main;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.property.ECSSProperty;
 
+/**
+ * Helper class to create all constants for {@link CCSSProperties} based on
+ * {@link ECSSProperty} that are missing.
+ *
+ * @author Philip Helger
+ */
 public class MainAddMissingProperties
 {
   public static void main (final String [] args) throws Exception
