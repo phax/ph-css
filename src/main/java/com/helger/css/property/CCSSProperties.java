@@ -681,9 +681,11 @@ public final class CCSSProperties
   @Deprecated
   public static final ICSSProperty RUBY_SPAN = new CSSPropertyFree (ECSSProperty.RUBY_SPAN);
   public static final ICSSProperty RUNNING = new CSSPropertyFree (ECSSProperty.RUNNING);
+  public static final ICSSProperty SCROLL_BEHAVIOR = new CSSPropertyFree (ECSSProperty.SCROLL_BEHAVIOR);
   public static final ICSSProperty SHAPE_OUTSIDE = new CSSPropertyFree (ECSSProperty.SHAPE_OUTSIDE);
   public static final ICSSProperty SHAPE_IMAGE_THRESHOLD = new CSSPropertyFree (ECSSProperty.SHAPE_IMAGE_THRESHOLD);
   public static final ICSSProperty SHAPE_MARGIN = new CSSPropertyFree (ECSSProperty.SHAPE_MARGIN);
+  public static final ICSSProperty SIZE = new CSSPropertyFree (ECSSProperty.SIZE);
   public static final ICSSProperty SPEAK = new CSSPropertyFree (ECSSProperty.SPEAK);
   public static final ICSSProperty SPEAK_AS = new CSSPropertyFree (ECSSProperty.SPEAK_AS);
   public static final ICSSProperty SPEAK_NUMERAL = new CSSPropertyFree (ECSSProperty.SPEAK_NUMERAL);
@@ -704,10 +706,22 @@ public final class CCSSProperties
   public static final ICSSProperty TEXT_ALIGN_LAST = new CSSPropertyFree (ECSSProperty.TEXT_ALIGN_LAST);
   @Deprecated
   public static final ICSSProperty TEXT_COMBINE_HORIZONTAL = new CSSPropertyFree (ECSSProperty.TEXT_COMBINE_HORIZONTAL);
+  public static final ICSSProperty TEXT_COMBINE_UPRIGHT = new CSSPropertyFree (ECSSProperty.TEXT_COMBINE_UPRIGHT);
+  public static final ICSSProperty TEXT_DECORATION_COLOR = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_COLOR);
+  public static final ICSSProperty TEXT_DECORATION_LINE = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_LINE);
+  public static final ICSSProperty TEXT_DECORATION_SKIP = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_SKIP);
+  public static final ICSSProperty TEXT_DECORATION_STYLE = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_STYLE);
+  public static final ICSSProperty TEXT_EMPHASIS = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS);
+  public static final ICSSProperty TEXT_EMPHASIS_COLOR = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_COLOR);
+  public static final ICSSProperty TEXT_EMPHASIS_POSITION = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_POSITION);
+  public static final ICSSProperty TEXT_EMPHASIS_STYLE = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_STYLE);
   public static final ICSSProperty TEXT_HEIGHT = new CSSPropertyFree (ECSSProperty.TEXT_HEIGHT);
   public static final ICSSProperty TEXT_JUSTIFY = new CSSPropertyFree (ECSSProperty.TEXT_JUSTIFY);
   public static final ICSSProperty TEXT_ORIENTATION = new CSSPropertyFree (ECSSProperty.TEXT_ORIENTATION);
   public static final ICSSProperty TEXT_OVERFLOW = new CSSPropertyFree (ECSSProperty.TEXT_OVERFLOW);
+  public static final ICSSProperty TEXT_SHADOW = new CSSPropertyFree (ECSSProperty.TEXT_SHADOW);
+  public static final ICSSProperty TEXT_UNDERLINE_POSITION = new CSSPropertyFree (ECSSProperty.TEXT_UNDERLINE_POSITION);
+  public static final ICSSProperty TOUCH_ACTION = new CSSPropertyFree (ECSSProperty.TOUCH_ACTION);
   public static final ICSSProperty TRANSFORM = new CSSPropertyFree (ECSSProperty.TRANSFORM);
   public static final ICSSProperty TRANSFORM_ORIGIN = new CSSPropertyFree (ECSSProperty.TRANSFORM_ORIGIN);
   public static final ICSSProperty TRANSFORM_STYLE = new CSSPropertyFree (ECSSProperty.TRANSFORM_STYLE);
@@ -729,29 +743,13 @@ public final class CCSSProperties
   public static final ICSSProperty VOICE_VOLUME = new CSSPropertyFree (ECSSProperty.VOICE_VOLUME);
   public static final ICSSProperty VOLUME = new CSSPropertyFree (ECSSProperty.VOLUME);
   public static final ICSSProperty WIDOWS = new CSSPropertyFree (ECSSProperty.WIDOWS);
+  public static final ICSSProperty WILL_CHANGE = new CSSPropertyFree (ECSSProperty.WILL_CHANGE);
   public static final ICSSProperty WORD_BREAK = new CSSPropertyFree (ECSSProperty.WORD_BREAK);
   public static final ICSSProperty WORD_WRAP = new CSSPropertyFree (ECSSProperty.WORD_WRAP);
   public static final ICSSProperty WRAP_FLOW = new CSSPropertyFree (ECSSProperty.WRAP_FLOW);
   public static final ICSSProperty WRAP_THROUGH = new CSSPropertyFree (ECSSProperty.WRAP_THROUGH);
   public static final ICSSProperty WRITING_MODE = new CSSPropertyFree (ECSSProperty.WRITING_MODE);
   public static final ICSSProperty ZOOM = new CSSPropertyFree (ECSSProperty.ZOOM);
-
-  // XXX to order
-  public static final ICSSProperty SCROLL_BEHAVIOR = new CSSPropertyFree (ECSSProperty.SCROLL_BEHAVIOR);
-  public static final ICSSProperty SIZE = new CSSPropertyFree (ECSSProperty.SIZE);
-  public static final ICSSProperty TEXT_COMBINE_UPRIGHT = new CSSPropertyFree (ECSSProperty.TEXT_COMBINE_UPRIGHT);
-  public static final ICSSProperty TEXT_DECORATION_COLOR = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_COLOR);
-  public static final ICSSProperty TEXT_DECORATION_LINE = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_LINE);
-  public static final ICSSProperty TEXT_DECORATION_SKIP = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_SKIP);
-  public static final ICSSProperty TEXT_DECORATION_STYLE = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_STYLE);
-  public static final ICSSProperty TEXT_EMPHASIS = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS);
-  public static final ICSSProperty TEXT_EMPHASIS_COLOR = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_COLOR);
-  public static final ICSSProperty TEXT_EMPHASIS_POSITION = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_POSITION);
-  public static final ICSSProperty TEXT_EMPHASIS_STYLE = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_STYLE);
-  public static final ICSSProperty TEXT_SHADOW = new CSSPropertyFree (ECSSProperty.TEXT_SHADOW);
-  public static final ICSSProperty TEXT_UNDERLINE_POSITION = new CSSPropertyFree (ECSSProperty.TEXT_UNDERLINE_POSITION);
-  public static final ICSSProperty TOUCH_ACTION = new CSSPropertyFree (ECSSProperty.TOUCH_ACTION);
-  public static final ICSSProperty WILL_CHANGE = new CSSPropertyFree (ECSSProperty.WILL_CHANGE);
 
   // Special predefined properties that are used quite often
   public static final ICSSValue DISPLAY_BLOCK = DISPLAY.newValue (CCSSValue.BLOCK);

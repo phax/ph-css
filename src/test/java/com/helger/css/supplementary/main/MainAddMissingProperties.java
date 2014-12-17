@@ -23,6 +23,7 @@ public class MainAddMissingProperties
 {
   public static void main (final String [] args) throws Exception
   {
+    boolean bFieldEmitted = false;
     final Class <?> aCClass = CCSSProperties.class;
     for (final ECSSProperty e : ECSSProperty.values ())
       if (!e.isBrowserSpecific ())
@@ -43,7 +44,10 @@ public class MainAddMissingProperties
                               " = new CSSPropertyFree (ECSSProperty." +
                               e.name () +
                               ");");
+          bFieldEmitted = true;
         }
       }
+    if (!bFieldEmitted)
+      System.out.println ("All fields present");
   }
 }
