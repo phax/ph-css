@@ -20,7 +20,7 @@ package com.helger.css;
  * Enumeration containing all W3C CSS specifications status. Source:
  * http://www.w3.org/Style/CSS/current-work<br>
  * For regular CSS parsing/writing this enum has no impact!
- * 
+ *
  * @author Philip Helger
  */
 public enum ECSSSpecificationStatus
@@ -32,5 +32,10 @@ public enum ECSSSpecificationStatus
   REVISING,
   EXPLORING,
   REWRITING,
-  ABANDONED;
+  ABANDONED,
+  /**
+   * Special status that indicates that a CSS property is defined outside the
+   * scope of the CSS specifications.
+   */
+  OUTSIDE_CSS;
 }

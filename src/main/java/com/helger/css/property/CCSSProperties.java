@@ -464,11 +464,14 @@ public final class CCSSProperties
   public static final ICSSProperty ANIMATION_TIMING_FUNCTION = new CSSPropertyFree (ECSSProperty.ANIMATION_TIMING_FUNCTION);
   public static final ICSSProperty AZIMUTH = new CSSPropertyFree (ECSSProperty.AZIMUTH);
   public static final ICSSProperty BACKFACE_VISIBILITY = new CSSPropertyFree (ECSSProperty.BACKFACE_VISIBILITY);
+  public static final ICSSProperty BACKGROUND_BLEND_MODE = new CSSPropertyFree (ECSSProperty.BACKGROUND_BLEND_MODE);
   public static final ICSSProperty BASELINE_SHIFT = new CSSPropertyFree (ECSSProperty.BASELINE_SHIFT);
+  @Deprecated
   public static final ICSSProperty BLEED = new CSSPropertyFree (ECSSProperty.BLEED);
   public static final ICSSProperty BOOKMARK_LABEL = new CSSPropertyFree (ECSSProperty.BOOKMARK_LABEL);
   public static final ICSSProperty BOOKMARK_LEVEL = new CSSPropertyFree (ECSSProperty.BOOKMARK_LEVEL);
   public static final ICSSProperty BOOKMARK_STATE = new CSSPropertyFree (ECSSProperty.BOOKMARK_STATE);
+  @Deprecated
   public static final ICSSProperty BOOKMARK_TARGET = new CSSPropertyFree (ECSSProperty.BOOKMARK_TARGET);
   public static final ICSSProperty BORDER_IMAGE = new CSSPropertyFree (ECSSProperty.BORDER_IMAGE);
   public static final ICSSProperty BORDER_IMAGE_OUTSET = new CSSPropertyFree (ECSSProperty.BORDER_IMAGE_OUTSET);
@@ -479,9 +482,12 @@ public final class CCSSProperties
   public static final ICSSProperty BOX_DECORATION_BREAK = new CSSPropertyFree (ECSSProperty.BOX_DECORATION_BREAK);
   public static final ICSSProperty BOX_SHADOW = new CSSPropertyFree (ECSSProperty.BOX_SHADOW);
   public static final ICSSProperty BOX_SIZING = new CSSPropertyFree (ECSSProperty.BOX_SIZING);
+  public static final ICSSProperty BOX_SNAP = new CSSPropertyFree (ECSSProperty.BOX_SNAP);
+  public static final ICSSProperty BOX_SUPPRESS = new CSSPropertyFree (ECSSProperty.BOX_SUPPRESS);
   public static final ICSSProperty BREAK_AFTER = new CSSPropertyFree (ECSSProperty.BREAK_AFTER);
   public static final ICSSProperty BREAK_BEFORE = new CSSPropertyFree (ECSSProperty.BREAK_BEFORE);
   public static final ICSSProperty BREAK_INSIDE = new CSSPropertyFree (ECSSProperty.BREAK_INSIDE);
+  public static final ICSSProperty CHAINS = new CSSPropertyFree (ECSSProperty.CHAINS);
   public static final ICSSProperty CLIP_PATH = new CSSPropertyFree (ECSSProperty.CLIP_PATH);
   public static final ICSSProperty CLIP_RULE = new CSSPropertyFree (ECSSProperty.CLIP_RULE);
   public static final ICSSProperty COLOR_INTERPOLATION_FILTERS = new CSSPropertyFree (ECSSProperty.COLOR_INTERPOLATION_FILTERS);
@@ -499,9 +505,13 @@ public final class CCSSProperties
   public static final ICSSProperty CONTENT = new CSSPropertyFree (ECSSProperty.CONTENT);
   public static final ICSSProperty COUNTER_INCREMENT = new CSSPropertyFree (ECSSProperty.COUNTER_INCREMENT);
   public static final ICSSProperty COUNTER_RESET = new CSSPropertyFree (ECSSProperty.COUNTER_RESET);
+  public static final ICSSProperty COUNTER_SET = new CSSPropertyFree (ECSSProperty.COUNTER_SET);
   public static final ICSSProperty CUE = new CSSPropertyFree (ECSSProperty.CUE);
   public static final ICSSProperty CUE_AFTER = new CSSPropertyFree (ECSSProperty.CUE_AFTER);
   public static final ICSSProperty CUE_BEFORE = new CSSPropertyFree (ECSSProperty.CUE_BEFORE);
+  public static final ICSSProperty DISPLAY_INSIDE = new CSSPropertyFree (ECSSProperty.DISPLAY_INSIDE);
+  public static final ICSSProperty DISPLAY_LIST = new CSSPropertyFree (ECSSProperty.DISPLAY_LIST);
+  public static final ICSSProperty DISPLAY_OUTSIDE = new CSSPropertyFree (ECSSProperty.DISPLAY_OUTSIDE);
   public static final ICSSProperty DOMINANT_BASELINE = new CSSPropertyFree (ECSSProperty.DOMINANT_BASELINE);
   public static final ICSSProperty DROP_INITIAL_AFTER_ADJUST = new CSSPropertyFree (ECSSProperty.DROP_INITIAL_AFTER_ADJUST);
   public static final ICSSProperty DROP_INITIAL_AFTER_ALIGN = new CSSPropertyFree (ECSSProperty.DROP_INITIAL_AFTER_ALIGN);
@@ -510,6 +520,7 @@ public final class CCSSProperties
   public static final ICSSProperty DROP_INITIAL_SIZE = new CSSPropertyFree (ECSSProperty.DROP_INITIAL_SIZE);
   public static final ICSSProperty DROP_INITIAL_VALUE = new CSSPropertyFree (ECSSProperty.DROP_INITIAL_VALUE);
   public static final ICSSProperty ELEVATION = new CSSPropertyFree (ECSSProperty.ELEVATION);
+  @Deprecated
   public static final ICSSProperty ENABLE_BACKGROUND = new CSSPropertyFree (ECSSProperty.ENABLE_BACKGROUND);
   public static final ICSSProperty FILTER = new CSSPropertyFree (ECSSProperty.FILTER);
   public static final ICSSProperty FLEX = new CSSPropertyFree (ECSSProperty.FLEX);
@@ -519,6 +530,7 @@ public final class CCSSProperties
   public static final ICSSProperty FLEX_GROW = new CSSPropertyFree (ECSSProperty.FLEX_GROW);
   public static final ICSSProperty FLEX_SHRINK = new CSSPropertyFree (ECSSProperty.FLEX_SHRINK);
   public static final ICSSProperty FLEX_WRAP = new CSSPropertyFree (ECSSProperty.FLEX_WRAP);
+  @Deprecated
   public static final ICSSProperty FLOAT_OFFSET = new CSSPropertyFree (ECSSProperty.FLOAT_OFFSET);
   public static final ICSSProperty FLOOD_COLOR = new CSSPropertyFree (ECSSProperty.FLOOD_COLOR);
   public static final ICSSProperty FLOOD_OPACITY = new CSSPropertyFree (ECSSProperty.FLOOD_OPACITY);
@@ -537,10 +549,13 @@ public final class CCSSProperties
   public static final ICSSProperty FONT_VARIANT_LIGATURES = new CSSPropertyFree (ECSSProperty.FONT_VARIANT_LIGATURES);
   public static final ICSSProperty FONT_VARIANT_NUMERIC = new CSSPropertyFree (ECSSProperty.FONT_VARIANT_NUMERIC);
   public static final ICSSProperty FONT_VARIANT_POSITION = new CSSPropertyFree (ECSSProperty.FONT_VARIANT_POSITION);
+  public static final ICSSProperty FOOTNOTE_DISPLAY = new CSSPropertyFree (ECSSProperty.FOOTNOTE_DISPLAY);
+  public static final ICSSProperty FOOTNOTE_POLICY = new CSSPropertyFree (ECSSProperty.FOOTNOTE_POLICY);
   public static final ICSSProperty GRID = new CSSPropertyFree (ECSSProperty.GRID);
   public static final ICSSProperty GRID_AREA = new CSSPropertyFree (ECSSProperty.GRID_AREA);
   public static final ICSSProperty GRID_AUTO_COLUMNS = new CSSPropertyFree (ECSSProperty.GRID_AUTO_COLUMNS);
   public static final ICSSProperty GRID_AUTO_FLOW = new CSSPropertyFree (ECSSProperty.GRID_AUTO_FLOW);
+  @Deprecated
   public static final ICSSProperty GRID_AUTO_POSITION = new CSSPropertyFree (ECSSProperty.GRID_AUTO_POSITION);
   public static final ICSSProperty GRID_AUTO_ROWS = new CSSPropertyFree (ECSSProperty.GRID_AUTO_ROWS);
   public static final ICSSProperty GRID_COLUMN = new CSSPropertyFree (ECSSProperty.GRID_COLUMN);
@@ -560,18 +575,24 @@ public final class CCSSProperties
   public static final ICSSProperty HANGING_PUNCTUATION = new CSSPropertyFree (ECSSProperty.HANGING_PUNCTUATION);
   public static final ICSSProperty HYPHENS = new CSSPropertyFree (ECSSProperty.HYPHENS);
   public static final ICSSProperty ICON = new CSSPropertyFree (ECSSProperty.ICON);
+  public static final ICSSProperty IMAGE_ORIENTATION = new CSSPropertyFree (ECSSProperty.IMAGE_ORIENTATION);
+  public static final ICSSProperty IMAGE_RESOLUTION = new CSSPropertyFree (ECSSProperty.IMAGE_RESOLUTION);
   public static final ICSSProperty IME_MODE = new CSSPropertyFree (ECSSProperty.IME_MODE);
   public static final ICSSProperty INLINE_BOX_ALIGN = new CSSPropertyFree (ECSSProperty.INLINE_BOX_ALIGN);
+  public static final ICSSProperty ISOLATION = new CSSPropertyFree (ECSSProperty.ISOLATION);
   public static final ICSSProperty JUSITFY_CONTENT = new CSSPropertyFree (ECSSProperty.JUSITFY_CONTENT);
   public static final ICSSProperty JUSITFY_ITEMS = new CSSPropertyFree (ECSSProperty.JUSITFY_ITEMS);
   public static final ICSSProperty JUSITFY_SELF = new CSSPropertyFree (ECSSProperty.JUSITFY_SELF);
   public static final ICSSProperty LIGHTING_COLOR = new CSSPropertyFree (ECSSProperty.LIGHTING_COLOR);
   public static final ICSSProperty LINE_BREAK = new CSSPropertyFree (ECSSProperty.LINE_BREAK);
+  public static final ICSSProperty LINE_GRID = new CSSPropertyFree (ECSSProperty.LINE_GRID);
+  public static final ICSSProperty LINE_SNAP = new CSSPropertyFree (ECSSProperty.LINE_SNAP);
   public static final ICSSProperty LINE_STACKING = new CSSPropertyFree (ECSSProperty.LINE_STACKING);
   public static final ICSSProperty LINE_STACKING_RUBY = new CSSPropertyFree (ECSSProperty.LINE_STACKING_RUBY);
   public static final ICSSProperty LINE_STACKING_SHIFT = new CSSPropertyFree (ECSSProperty.LINE_STACKING_SHIFT);
   public static final ICSSProperty LINE_STACKING_STRATEGY = new CSSPropertyFree (ECSSProperty.LINE_STACKING_STRATEGY);
   public static final ICSSProperty LIST_STYLE = new CSSPropertyFree (ECSSProperty.LIST_STYLE);
+  @Deprecated
   public static final ICSSProperty MARKS = new CSSPropertyFree (ECSSProperty.MARKS);
   @Deprecated
   public static final ICSSProperty MARQUEE_DIRECTION = new CSSPropertyFree (ECSSProperty.MARQUEE_DIRECTION);
@@ -581,6 +602,7 @@ public final class CCSSProperties
   public static final ICSSProperty MARQUEE_SPEED = new CSSPropertyFree (ECSSProperty.MARQUEE_SPEED);
   @Deprecated
   public static final ICSSProperty MARQUEE_STYLE = new CSSPropertyFree (ECSSProperty.MARQUEE_STYLE);
+  public static final ICSSProperty MARKER_SIDE = new CSSPropertyFree (ECSSProperty.MARKER_SIDE);
   public static final ICSSProperty MASK = new CSSPropertyFree (ECSSProperty.MASK);
   @Deprecated
   public static final ICSSProperty MASK_BOX_IMAGE = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE);
@@ -594,8 +616,16 @@ public final class CCSSProperties
   public static final ICSSProperty MASK_BOX_IMAGE_SOURCE = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE_SOURCE);
   @Deprecated
   public static final ICSSProperty MASK_BOX_IMAGE_WIDTH = new CSSPropertyFree (ECSSProperty.MASK_BOX_IMAGE_WIDTH);
+  public static final ICSSProperty MASK_BORDER = new CSSPropertyFree (ECSSProperty.MASK_BORDER);
+  public static final ICSSProperty MASK_BORDER_MODE = new CSSPropertyFree (ECSSProperty.MASK_BORDER_MODE);
+  public static final ICSSProperty MASK_BORDER_REPEAT = new CSSPropertyFree (ECSSProperty.MASK_BORDER_REPEAT);
+  public static final ICSSProperty MASK_BORDER_SLICE = new CSSPropertyFree (ECSSProperty.MASK_BORDER_SLICE);
+  public static final ICSSProperty MASK_BORDER_SOURCE = new CSSPropertyFree (ECSSProperty.MASK_BORDER_SOURCE);
+  public static final ICSSProperty MASK_BORDER_WIDTH = new CSSPropertyFree (ECSSProperty.MASK_BORDER_WIDTH);
   public static final ICSSProperty MASK_CLIP = new CSSPropertyFree (ECSSProperty.MASK_CLIP);
+  public static final ICSSProperty MASK_COMPOSITE = new CSSPropertyFree (ECSSProperty.MASK_COMPOSITE);
   public static final ICSSProperty MASK_IMAGE = new CSSPropertyFree (ECSSProperty.MASK_IMAGE);
+  public static final ICSSProperty MASK_MODE = new CSSPropertyFree (ECSSProperty.MASK_MODE);
   public static final ICSSProperty MASK_ORIGIN = new CSSPropertyFree (ECSSProperty.MASK_ORIGIN);
   public static final ICSSProperty MASK_POSITION = new CSSPropertyFree (ECSSProperty.MASK_POSITION);
   public static final ICSSProperty MASK_REPEAT = new CSSPropertyFree (ECSSProperty.MASK_REPEAT);
@@ -606,11 +636,14 @@ public final class CCSSProperties
   public static final ICSSProperty MAX_LINES = new CSSPropertyFree (ECSSProperty.MAX_LINES);
   public static final ICSSProperty MAX_ZOOM = new CSSPropertyFree (ECSSProperty.MAX_ZOOM);
   public static final ICSSProperty MIN_ZOOM = new CSSPropertyFree (ECSSProperty.MIN_ZOOM);
+  public static final ICSSProperty MIX_BLEND_MODE = new CSSPropertyFree (ECSSProperty.MIX_BLEND_MODE);
   public static final ICSSProperty NAV_DOWN = new CSSPropertyFree (ECSSProperty.NAV_DOWN);
   public static final ICSSProperty NAV_INDEX = new CSSPropertyFree (ECSSProperty.NAV_INDEX);
   public static final ICSSProperty NAV_LEFT = new CSSPropertyFree (ECSSProperty.NAV_LEFT);
   public static final ICSSProperty NAV_RIGHT = new CSSPropertyFree (ECSSProperty.NAV_RIGHT);
   public static final ICSSProperty NAV_UP = new CSSPropertyFree (ECSSProperty.NAV_UP);
+  public static final ICSSProperty OBJECT_FIT = new CSSPropertyFree (ECSSProperty.OBJECT_FIT);
+  public static final ICSSProperty OBJECT_POSITION = new CSSPropertyFree (ECSSProperty.OBJECT_POSITION);
   public static final ICSSProperty ORDER = new CSSPropertyFree (ECSSProperty.ORDER);
   public static final ICSSProperty ORIENTATION = new CSSPropertyFree (ECSSProperty.ORIENTATION);
   public static final ICSSProperty ORPHANS = new CSSPropertyFree (ECSSProperty.ORPHANS);
@@ -641,9 +674,13 @@ public final class CCSSProperties
   public static final ICSSProperty REST_BEFORE = new CSSPropertyFree (ECSSProperty.REST_BEFORE);
   public static final ICSSProperty RICHNESS = new CSSPropertyFree (ECSSProperty.RICHNESS);
   public static final ICSSProperty RUBY_ALIGN = new CSSPropertyFree (ECSSProperty.RUBY_ALIGN);
+  public static final ICSSProperty RUBY_MERGE = new CSSPropertyFree (ECSSProperty.RUBY_MERGE);
+  @Deprecated
   public static final ICSSProperty RUBY_OVERHANG = new CSSPropertyFree (ECSSProperty.RUBY_OVERHANG);
   public static final ICSSProperty RUBY_POSITION = new CSSPropertyFree (ECSSProperty.RUBY_POSITION);
+  @Deprecated
   public static final ICSSProperty RUBY_SPAN = new CSSPropertyFree (ECSSProperty.RUBY_SPAN);
+  public static final ICSSProperty RUNNING = new CSSPropertyFree (ECSSProperty.RUNNING);
   public static final ICSSProperty SHAPE_OUTSIDE = new CSSPropertyFree (ECSSProperty.SHAPE_OUTSIDE);
   public static final ICSSProperty SHAPE_IMAGE_THRESHOLD = new CSSPropertyFree (ECSSProperty.SHAPE_IMAGE_THRESHOLD);
   public static final ICSSProperty SHAPE_MARGIN = new CSSPropertyFree (ECSSProperty.SHAPE_MARGIN);
@@ -665,6 +702,7 @@ public final class CCSSProperties
   @Deprecated
   public static final ICSSProperty TARGET_POSITION = new CSSPropertyFree (ECSSProperty.TARGET_POSITION);
   public static final ICSSProperty TEXT_ALIGN_LAST = new CSSPropertyFree (ECSSProperty.TEXT_ALIGN_LAST);
+  @Deprecated
   public static final ICSSProperty TEXT_COMBINE_HORIZONTAL = new CSSPropertyFree (ECSSProperty.TEXT_COMBINE_HORIZONTAL);
   public static final ICSSProperty TEXT_HEIGHT = new CSSPropertyFree (ECSSProperty.TEXT_HEIGHT);
   public static final ICSSProperty TEXT_JUSTIFY = new CSSPropertyFree (ECSSProperty.TEXT_JUSTIFY);
@@ -697,6 +735,23 @@ public final class CCSSProperties
   public static final ICSSProperty WRAP_THROUGH = new CSSPropertyFree (ECSSProperty.WRAP_THROUGH);
   public static final ICSSProperty WRITING_MODE = new CSSPropertyFree (ECSSProperty.WRITING_MODE);
   public static final ICSSProperty ZOOM = new CSSPropertyFree (ECSSProperty.ZOOM);
+
+  // XXX to order
+  public static final ICSSProperty SCROLL_BEHAVIOR = new CSSPropertyFree (ECSSProperty.SCROLL_BEHAVIOR);
+  public static final ICSSProperty SIZE = new CSSPropertyFree (ECSSProperty.SIZE);
+  public static final ICSSProperty TEXT_COMBINE_UPRIGHT = new CSSPropertyFree (ECSSProperty.TEXT_COMBINE_UPRIGHT);
+  public static final ICSSProperty TEXT_DECORATION_COLOR = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_COLOR);
+  public static final ICSSProperty TEXT_DECORATION_LINE = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_LINE);
+  public static final ICSSProperty TEXT_DECORATION_SKIP = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_SKIP);
+  public static final ICSSProperty TEXT_DECORATION_STYLE = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_STYLE);
+  public static final ICSSProperty TEXT_EMPHASIS = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS);
+  public static final ICSSProperty TEXT_EMPHASIS_COLOR = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_COLOR);
+  public static final ICSSProperty TEXT_EMPHASIS_POSITION = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_POSITION);
+  public static final ICSSProperty TEXT_EMPHASIS_STYLE = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_STYLE);
+  public static final ICSSProperty TEXT_SHADOW = new CSSPropertyFree (ECSSProperty.TEXT_SHADOW);
+  public static final ICSSProperty TEXT_UNDERLINE_POSITION = new CSSPropertyFree (ECSSProperty.TEXT_UNDERLINE_POSITION);
+  public static final ICSSProperty TOUCH_ACTION = new CSSPropertyFree (ECSSProperty.TOUCH_ACTION);
+  public static final ICSSProperty WILL_CHANGE = new CSSPropertyFree (ECSSProperty.WILL_CHANGE);
 
   // Special predefined properties that are used quite often
   public static final ICSSValue DISPLAY_BLOCK = DISPLAY.newValue (CCSSValue.BLOCK);

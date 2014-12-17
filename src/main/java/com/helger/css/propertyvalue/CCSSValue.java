@@ -104,6 +104,7 @@ public final class CCSSValue
   public static final String DOUBLE = "double";
   public static final String E_RESIZE = "e-resize";
   public static final String FANTASY = "fantasy";
+  public static final String FILL = "fill";
   public static final String FIXED = "fixed";
   public static final String GROOVE = "groove";
   public static final String HELP = "help";
@@ -164,6 +165,7 @@ public final class CCSSValue
   public static final String RUN_IN = "run-in";
   public static final String S_RESIZE = "s-resize";
   public static final String SANS_SERIF = "sans-serif";
+  public static final String SCALE_DOWN = "scale-down";
   public static final String SCROLL = "scroll";
   public static final String SE_RESIZE = "se-resize";
   public static final String SEPARATE = "separate";
