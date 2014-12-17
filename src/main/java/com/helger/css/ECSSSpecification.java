@@ -29,7 +29,7 @@ import com.helger.commons.string.StringHelper;
  * Source: http://www.w3.org/Style/CSS/current-work<br>
  * Last update: 27.8.2013<br>
  * For regular CSS parsing/writing this enum has no impact!
- * 
+ *
  * @author Philip Helger
  */
 public enum ECSSSpecification implements IHasID <String>
@@ -57,8 +57,6 @@ public enum ECSSSpecification implements IHasID <String>
   CSS3_CONDITIONAL ("css3-conditional", ECSSSpecificationStatus.TESTING),
   /** CSS Image Values and Replaced Content Level 3 */
   CSS3_IMAGES ("css3-images", ECSSSpecificationStatus.TESTING),
-  /** CSS Marquee */
-  CSS3_MARQUEE ("css3-marquee", ECSSSpecificationStatus.TESTING, "http://www.w3.org/TR/2008/CR-css3-marquee-20081205/"),
   /** CSS Multi-column Layout */
   CSS3_MULTICOL ("css3-multicol", ECSSSpecificationStatus.TESTING, "http://www.w3.org/TR/2011/CR-css3-multicol-20110412/"),
   /** CSS Speech */
@@ -73,31 +71,29 @@ public enum ECSSSpecification implements IHasID <String>
   CSS3_CASCADE ("css3-cascade", ECSSSpecificationStatus.TESTING, "http://www.w3.org/TR/2013/CR-css-cascade-3-20131003/"),
   /** CSS Fonts Level 3 */
   CSS3_FONTS ("css3-fonts", ECSSSpecificationStatus.TESTING, "http://www.w3.org/TR/2013/CR-css-fonts-3-20131003/"),
+  /** CSS Writing Modes Level 3 */
+  CSS3_WRITING_MODES ("css3-writing-modes", ECSSSpecificationStatus.TESTING, "http://www.w3.org/TR/2012/WD-css3-writing-modes-20121115/"),
+  /** CSS Shapes Module Level 1 */
+  CSS_SHAPES ("css-shapes-1", ECSSSpecificationStatus.TESTING, "http://www.w3.org/TR/2014/CR-css-shapes-1-20140320/"),
+  /** CSS Masking */
+  CSS_MASKING ("css-masking", ECSSSpecificationStatus.TESTING, "http://www.w3.org/TR/2014/CR-css-masking-1-20140826/"),
   /** CSS Mobile Profile 2.0 */
-  CSS_MOBILE ("css-mobile", ECSSSpecificationStatus.TESTING),
-  /** CSS TV Profile 1.0 */
-  CSS_TV ("css-tv", ECSSSpecificationStatus.TESTING),
+  CSS_MOBILE ("css-mobile", ECSSSpecificationStatus.TESTING, "http://www.w3.org/TR/2014/NOTE-css-mobile-20141014/"),
 
   /** CSS Animations */
   CSS3_ANIMATIONS ("css3-animations", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2013/WD-css3-animations-20130219/"),
   /** CSS Counter Styles Level 3 */
   CSS_COUNTER_STYLES_3 ("css-counter-styles-3", ECSSSpecificationStatus.REFINING),
-  /** CSS Masking */
-  CSS_MASKING ("css-masking", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2013/WD-css-masking-1-20131029/"),
   /** CSS Text Level 3 */
   CSS3_TEXT ("css3-text", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2012/WD-css3-text-20121113/"),
   /** CSS Fragmentation Level 3 */
   CSS3_BREAK ("css3-break", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2012/WD-css3-break-20120823/"),
-  /** CSS Shapes Module Level 1 */
-  CSS_SHAPES ("css-shapes-1", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2013/WD-css-shapes-1-20131203/"),
   /** CSS Transforms */
   CSS3_TRANSFORMS ("css3-transforms", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2012/WD-css3-transforms-20120911/"),
   /** CSS Transitions */
   CSS3_TRANSITIONS ("css3-transitions", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2013/WD-css3-transitions-20130212/"),
   /** Cascading Variables */
   CSS_VARIABLES ("css-variables", ECSSSpecificationStatus.REFINING),
-  /** CSS Writing Modes Level 3 */
-  CSS3_WRITING_MODES ("css3-writing-modes", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2012/WD-css3-writing-modes-20121115/"),
   /** Compositing and Blending */
   COMPOSITING ("compositing", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2013/WD-compositing-1-20131010/"),
 
@@ -136,8 +132,6 @@ public enum ECSSSpecification implements IHasID <String>
   CSS3_LISTS ("css3-lists", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2011/WD-css3-lists-20110524/"),
   /** CSS Positioned Layout Level 3 */
   CSS3_POSITIONING ("css3-positioning", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2012/WD-css3-positioning-20120207/"),
-  /** CSS Presentation Levels */
-  CSS3_PRESLEV ("css3-preslev", ECSSSpecificationStatus.EXPLORING),
   /** CSS Regions */
   CSS3_REGIONS ("css3-regions", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2013/WD-css3-regions-20130528/"),
   /** CSS Ruby */
@@ -156,6 +150,18 @@ public enum ECSSSpecification implements IHasID <String>
   /** CSS Line Layout Level 3 */
   CSS3_LINEBOX ("css3-linebox", ECSSSpecificationStatus.REWRITING, "http://www.w3.org/TR/2002/WD-css3-linebox-20020515/"),
 
+  /** The CSS 'Reader' Media Type - Abandoned */
+  @Deprecated
+  CSS3_READER ("css3-reader", ECSSSpecificationStatus.ABANDONED),
+  /** CSS Presentation Levels - Abandoned */
+  @Deprecated
+  CSS3_PRESLEV ("css3-preslev", ECSSSpecificationStatus.ABANDONED),
+  /** CSS TV Profile 1.0 - Abandoned */
+  @Deprecated
+  CSS_TV ("css-tv", ECSSSpecificationStatus.ABANDONED),
+  /** CSS Marquee - Abandoned */
+  @Deprecated
+  CSS3_MARQUEE ("css3-marquee", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2014/NOTE-css3-marquee-20141014/"),
   /** Behavioral Extensions to CSS - Abandoned */
   @Deprecated
   BECSS ("becss", ECSSSpecificationStatus.ABANDONED),
@@ -164,7 +170,10 @@ public enum ECSSSpecification implements IHasID <String>
   CSS3_HYPERLINKS ("css3-hyperlinks", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2004/WD-css3-hyperlinks-20040224/"),
   /** CSS Grid Positioning - Abandoned */
   @Deprecated
-  CSS3_GRID ("css3-grid", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2007/WD-css3-grid-20070905/");
+  CSS3_GRID ("css3-grid", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2007/WD-css3-grid-20070905/"),
+  /** Fullscreen - Abandoned */
+  @Deprecated
+  FULLSCREEN ("fullscreen", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2014/NOTE-fullscreen-20141118/");
 
   private final String m_sID;
   private final ECSSSpecificationStatus m_eStatus;
