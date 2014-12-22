@@ -21,6 +21,7 @@ import java.util.EnumSet;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.ContainerHelper;
@@ -28,6 +29,7 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.ECSSSpecification;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.annotations.DeprecatedInCSS30;
@@ -653,15 +655,18 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
     return m_sName;
   }
 
+  /**
+   * @return The name of the property without an eventually present vendor
+   *         prefix.
+   * @since 3.9.0
+   */
   @Nonnull
   @Nonempty
   public String getVendorIndependentName ()
   {
-    if (isVendorSpecific ())
-    {
-      final int nIndex = m_sName.indexOf ('-', 1);
-      return m_sName.substring (nIndex + 1);
-    }
+    final ECSSVendorPrefix eVendorPrefix = getUsedVendorPrefix ();
+    if (eVendorPrefix != null)
+      return m_sName.substring (eVendorPrefix.getPrefix ().length ());
 
     return m_sName;
   }
@@ -683,34 +688,55 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
     return ContainerHelper.newEnumSet (ECSSSpecification.class, m_aSpecifications);
   }
 
+  /**
+   * Check if this property is specific to the passed vendor prefix.
+   *
+   * @param eVendorPrefix
+   *        The vendor prefix to check. May not be <code>null</code>.
+   * @return <code>true</code> if this property is specific to this vendor,
+   *         <code>false</code> otherwise.
+   * @since 3.9.0
+   */
+  public boolean isVendorSpecific (@Nonnull final ECSSVendorPrefix eVendorPrefix)
+  {
+    ValueEnforcer.notNull (eVendorPrefix, "VendorPrefix");
+    return m_sName.startsWith (eVendorPrefix.getPrefix ());
+  }
+
+  @Deprecated
   public boolean isKHTMLSpecific ()
   {
-    return m_sName.startsWith ("-khtml-");
+    return isVendorSpecific (ECSSVendorPrefix.KHTML);
   }
 
+  @Deprecated
   public boolean isMicrosoftSpecific ()
   {
-    return m_sName.startsWith ("-ms-") || m_sName.startsWith ("scrollbar-");
+    return isVendorSpecific (ECSSVendorPrefix.MICROSOFT) || m_sName.startsWith ("scrollbar-");
   }
 
+  @Deprecated
   public boolean isMozillaSpecific ()
   {
-    return m_sName.startsWith ("-moz-");
+    return isVendorSpecific (ECSSVendorPrefix.MOZILLA);
   }
 
+  @Deprecated
   public boolean isOperaSpecific ()
   {
-    return m_sName.startsWith ("-o-");
+    return isVendorSpecific (ECSSVendorPrefix.OPERA);
   }
 
+  @Deprecated
   public boolean isEPubSpecific ()
   {
-    return m_sName.startsWith ("-epub-");
+    return isVendorSpecific (ECSSVendorPrefix.EPUB);
   }
 
+  @Deprecated
   public boolean isWebkitSpecific ()
   {
-    return m_sName.startsWith ("-webkit-");
+    return isVendorSpecific (ECSSVendorPrefix.WEBKIT);
   }
 
   /**
@@ -723,11 +749,29 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   }
 
   /**
-   * @return <code>true</code> if this property is vendir specific.
+   * @return <code>true</code> if this property is vendor specific.
+   * @since 3.9.0
    */
   public boolean isVendorSpecific ()
   {
-    return m_sName.startsWith ("-") || m_sName.startsWith ("scrollbar-");
+    for (final ECSSVendorPrefix eVendorPrefix : ECSSVendorPrefix.values ())
+      if (isVendorSpecific (eVendorPrefix))
+        return true;
+    return false;
+  }
+
+  /**
+   * @return The vendor prefix used by this property or <code>null</code> if
+   *         this property is vendor independent.
+   * @since 3.9.0
+   */
+  @Nullable
+  public ECSSVendorPrefix getUsedVendorPrefix ()
+  {
+    for (final ECSSVendorPrefix eVendorPrefix : ECSSVendorPrefix.values ())
+      if (isVendorSpecific (eVendorPrefix))
+        return eVendorPrefix;
+    return null;
   }
 
   @Nullable

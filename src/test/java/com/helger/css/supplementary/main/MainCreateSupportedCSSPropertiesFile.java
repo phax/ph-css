@@ -18,21 +18,28 @@ package com.helger.css.supplementary.main;
 
 import java.io.File;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.Locale;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.compare.AbstractCollationComparator;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.lang.CGStringHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.name.ComparatorHasName;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.version.Version;
 import com.helger.commons.xml.serialize.EXMLSerializeFormat;
 import com.helger.commons.xml.serialize.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.XMLWriterSettings;
 import com.helger.css.ECSSSpecification;
+import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ECSSVersion;
 import com.helger.css.property.ECSSProperty;
 
@@ -44,10 +51,14 @@ import com.helger.css.property.ECSSProperty;
  */
 public class MainCreateSupportedCSSPropertiesFile
 {
-  private static void _boolean (final IMicroElement td, final boolean bSet)
+  private static void _boolean (@Nonnull final IMicroElement td, final boolean bSet, @Nullable final String sTitle)
   {
     if (bSet)
+    {
       td.setAttribute ("class", "center").appendText ("X");
+      if (StringHelper.hasText (sTitle))
+        td.setAttribute ("title", sTitle);
+    }
     else
       td.appendText ("");
   }
@@ -61,9 +72,10 @@ public class MainCreateSupportedCSSPropertiesFile
     head.appendElement ("title").appendText ("Supported CSS properties in ph-css");
     head.appendElement ("style").appendText ("* {font-family:Arial,Helvetica;}"
                                              + " table{border-collapse:collapse;}"
-                                             + " td,th { border:solid 1px black;padding:3px;vertical-align:top; }"
+                                             + " td,th {border:solid 1px black;padding:3px;vertical-align:top; }"
                                              + " .odd{background-color:#ddd;}"
                                              + " .center{text-align:center;}"
+                                             + " .nowrap{white-space:nowrap;}"
                                              + " a, a:link, a:visited, a:hover, a:active{color:blue;}");
 
     final IMicroElement body = html.appendElement ("body");
@@ -74,6 +86,13 @@ public class MainCreateSupportedCSSPropertiesFile
                      " on " +
                      new Date ().toString ());
 
+    body.appendElement ("div").appendElement ("a").setAttribute ("href", "#generic").appendText ("Generic properties");
+    body.appendElement ("div")
+        .appendElement ("a")
+        .setAttribute ("href", "#vendor")
+        .appendText ("Vendor specific properties");
+
+    body.appendElement ("a").setAttribute ("name", "generic").appendText ("");
     body.appendElement ("h1").appendText ("Generic properties");
     IMicroElement table = body.appendElement ("table");
     IMicroElement thead = table.appendElement ("thead");
@@ -98,10 +117,10 @@ public class MainCreateSupportedCSSPropertiesFile
         tr = tbody.appendElement ("tr");
         if ((nIndex & 1) == 1)
           tr.setAttribute ("class", "odd");
-        tr.appendElement ("td").appendText (eProperty.getName ());
-        _boolean (tr.appendElement ("td"), bCSS10);
-        _boolean (tr.appendElement ("td"), bCSS21);
-        _boolean (tr.appendElement ("td"), bCSS30);
+        tr.appendElement ("td").setAttribute ("class", "nowrap").appendText (eProperty.getName ());
+        _boolean (tr.appendElement ("td"), bCSS10, null);
+        _boolean (tr.appendElement ("td"), bCSS21, null);
+        _boolean (tr.appendElement ("td"), bCSS30, null);
 
         final IMicroElement td = tr.appendElement ("td");
         for (final ECSSSpecification eSpecs : eProperty.getAllSpecifications ())
@@ -117,44 +136,57 @@ public class MainCreateSupportedCSSPropertiesFile
         ++nIndex;
       }
 
-    body.appendElement ("h1").appendText ("Browser specific properties");
+    // Determine all used vendor prefixes
+    final EnumSet <ECSSVendorPrefix> aRequiredPrefixes = EnumSet.noneOf (ECSSVendorPrefix.class);
+    for (final ECSSVendorPrefix eVendorPrefix : ECSSVendorPrefix.values ())
+    {
+      for (final ECSSProperty eProperty : ECSSProperty.values ())
+        if (eProperty.isVendorSpecific (eVendorPrefix))
+        {
+          aRequiredPrefixes.add (eVendorPrefix);
+          break;
+        }
+    }
+
+    body.appendElement ("a").setAttribute ("name", "vendor").appendText ("");
+    body.appendElement ("h1").appendText ("Vendor specific properties");
     table = body.appendElement ("table");
     thead = table.appendElement ("thead");
     tr = thead.appendElement ("tr");
     tr.appendElement ("th").appendText ("Name");
-    tr.appendElement ("th").appendText ("KHTML");
-    tr.appendElement ("th").appendText ("Microsoft");
-    tr.appendElement ("th").appendText ("Mozilla");
-    tr.appendElement ("th").appendText ("Opera");
-    tr.appendElement ("th").appendText ("EPub");
-    tr.appendElement ("th").appendText ("Webkit");
+    for (final ECSSVendorPrefix e : aRequiredPrefixes)
+    {
+      final IMicroElement th = tr.appendElement ("th");
+      th.appendText (e.getDisplayName ());
+      th.appendElement ("span").setAttribute ("class", "nowrap").appendText (" (" + e.getPrefix () + ")");
+    }
 
     tbody = table.appendElement ("tbody");
     nIndex = 0;
+
     for (final ECSSProperty eProperty : ContainerHelper.getSorted (ECSSProperty.values (),
-                                                                   new ComparatorHasName <ECSSProperty> (aLocale)))
+                                                                   new AbstractCollationComparator <ECSSProperty> (aLocale)
+                                                                   {
+                                                                     @Override
+                                                                     protected String asString (final ECSSProperty aObject)
+                                                                     {
+                                                                       return aObject.getVendorIndependentName ();
+                                                                     }
+                                                                   }))
       if (eProperty.isVendorSpecific ())
       {
-        final boolean bKHTML = eProperty.isKHTMLSpecific ();
-        final boolean bMS = eProperty.isMicrosoftSpecific ();
-        final boolean bMoz = eProperty.isMozillaSpecific ();
-        final boolean bOpera = eProperty.isOperaSpecific ();
-        final boolean bEPub = eProperty.isEPubSpecific ();
-        final boolean bWebkit = eProperty.isWebkitSpecific ();
-
         tr = tbody.appendElement ("tr");
         if ((nIndex & 1) == 1)
           tr.setAttribute ("class", "odd");
-        tr.appendElement ("td").appendText (eProperty.getName ());
-        _boolean (tr.appendElement ("td"), bKHTML);
-        _boolean (tr.appendElement ("td"), bMS);
-        _boolean (tr.appendElement ("td"), bMoz);
-        _boolean (tr.appendElement ("td"), bOpera);
-        _boolean (tr.appendElement ("td"), bEPub);
-        _boolean (tr.appendElement ("td"), bWebkit);
+        tr.appendElement ("td").setAttribute ("class", "nowrap").appendText (eProperty.getVendorIndependentName ());
+
+        for (final ECSSVendorPrefix e : aRequiredPrefixes)
+          _boolean (tr.appendElement ("td"), eProperty.isVendorSpecific (e), eProperty.getName ());
 
         ++nIndex;
       }
+
+    body.appendElement ("div").setAttribute ("style", "margin:2em 0").appendText ("That's it.");
 
     String sHTML = "<!--\r\n"
                    + "\r\n"

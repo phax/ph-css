@@ -19,6 +19,7 @@ package com.helger.css;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.name.IHasDisplayName;
 
 /**
  * Enumeration containing all known CSS vendor prefixes
@@ -26,26 +27,55 @@ import com.helger.commons.annotations.Nonempty;
  * @author Philip Helger
  * @since 3.9.0
  */
-public enum ECSSVendorPrefix
+public enum ECSSVendorPrefix implements IHasDisplayName
 {
-  KHTML ("-khtml-"),
-  MICROSOFT ("-ms-"),
-  MOZILLA ("-moz-"),
-  OPERA ("-o-"),
-  EPUB ("-epub-"),
-  WEBKIT ("-webkit-");
+  /** Safari alternative prefix */
+  APPLE ("-apple-", "Safari"),
+  /** Advanced Television Standards Committee */
+  ATSC ("-atsc-", "Advanced Television Standards Committee"),
+  /** EPUB */
+  EPUB ("-epub-", "EPUB"),
+  /** Konqueror browser */
+  KHTML ("-khtml-", "Konqueror browser"),
+  /** Microsoft */
+  MICROSOFT ("-ms-", "Microsoft"),
+  /** Microsoft Office - no leading dash! */
+  MICROSOFT_OFFICE ("mso-", "Microsoft Office"),
+  /** Mozilla */
+  MOZILLA ("-moz-", "Mozilla"),
+  /** Opera */
+  OPERA ("-o-", "Opera"),
+  /** Microsoft - scrollbars - no leading dash! */
+  SCROLLBAR ("scrollbar-", "Scrollbars"),
+  /** The WAP forum */
+  WAP ("-wap-", "The WAP forum"),
+  /** Safari and other WebKit-based browsers */
+  WEBKIT ("-webkit-", "WebKit-based browsers");
 
   private final String m_sPrefix;
+  private final String m_sDisplayName;
 
-  private ECSSVendorPrefix (@Nonnull @Nonempty final String sPrefix)
+  private ECSSVendorPrefix (@Nonnull @Nonempty final String sPrefix, @Nonnull @Nonempty final String sDisplayName)
   {
     m_sPrefix = sPrefix;
+    m_sDisplayName = sDisplayName;
   }
 
+  /**
+   * @return The prefix used by this CSS vendor. Neither <code>null</code> nor
+   *         empty.
+   */
   @Nonnull
   @Nonempty
   public String getPrefix ()
   {
     return m_sPrefix;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getDisplayName ()
+  {
+    return m_sDisplayName;
   }
 }
