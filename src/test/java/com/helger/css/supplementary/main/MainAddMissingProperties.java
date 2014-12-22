@@ -32,7 +32,7 @@ public class MainAddMissingProperties
     boolean bFieldEmitted = false;
     final Class <?> aCClass = CCSSProperties.class;
     for (final ECSSProperty e : ECSSProperty.values ())
-      if (!e.isBrowserSpecific ())
+      if (!e.isVendorSpecific ())
       {
         boolean bHasField = false;
         try

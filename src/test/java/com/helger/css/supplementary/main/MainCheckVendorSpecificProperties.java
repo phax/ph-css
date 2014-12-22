@@ -23,16 +23,14 @@ import com.helger.css.property.ECSSProperty;
  *
  * @author Philip Helger
  */
-public class MainCheckBrowserSpecificProperties
+public class MainCheckVendorSpecificProperties
 {
   public static void main (final String [] args) throws Exception
   {
     for (final ECSSProperty e : ECSSProperty.values ())
-      if (e.isBrowserSpecific ())
+      if (e.isVendorSpecific ())
       {
-        String sGenericName = e.getName ();
-        final int nIndex = sGenericName.substring (1).indexOf ('-');
-        sGenericName = sGenericName.substring (1 + nIndex + 1);
+        final String sGenericName = e.getVendorIndependentName ();
         if (ECSSProperty.getFromNameOrNull (sGenericName) != null)
           System.out.println (e + " can be replaced!");
       }

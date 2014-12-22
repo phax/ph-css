@@ -654,6 +654,19 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   }
 
   @Nonnull
+  @Nonempty
+  public String getVendorIndependentName ()
+  {
+    if (isVendorSpecific ())
+    {
+      final int nIndex = m_sName.indexOf ('-', 1);
+      return m_sName.substring (nIndex + 1);
+    }
+
+    return m_sName;
+  }
+
+  @Nonnull
   public ECSSVersion getMinimumCSSVersion ()
   {
     return m_eVersion;
@@ -700,7 +713,19 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
     return m_sName.startsWith ("-webkit-");
   }
 
+  /**
+   * @deprecated Use {@link #isVendorSpecific()} instead
+   */
+  @Deprecated
   public boolean isBrowserSpecific ()
+  {
+    return isVendorSpecific ();
+  }
+
+  /**
+   * @return <code>true</code> if this property is vendir specific.
+   */
+  public boolean isVendorSpecific ()
   {
     return m_sName.startsWith ("-") || m_sName.startsWith ("scrollbar-");
   }
@@ -733,6 +758,17 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
     return sRealName;
   }
 
+  /**
+   * Get the CSS property with the specified name, but without hacking prefixes.
+   * This method strips the first leading '*', '_' or '$' from the name before
+   * it searches.
+   *
+   * @param sName
+   *        The source name. May be <code>null</code>.
+   * @return <code>null</code> if the source was <code>null</code> or if no such
+   *         property is known.
+   * @see #getPropertyNameHandlingHacks(String)
+   */
   @Nullable
   public static ECSSProperty getFromNameOrNullHandlingHacks (@Nullable final String sName)
   {

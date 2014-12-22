@@ -88,7 +88,7 @@ public class MainCreateSupportedCSSPropertiesFile
     int nIndex = 0;
     for (final ECSSProperty eProperty : ContainerHelper.getSorted (ECSSProperty.values (),
                                                                    new ComparatorHasName <ECSSProperty> (aLocale)))
-      if (!eProperty.isBrowserSpecific ())
+      if (!eProperty.isVendorSpecific ())
       {
         final Version eMinVersion = eProperty.getMinimumCSSVersion ().getVersion ();
         final boolean bCSS10 = eMinVersion.isLowerOrEqualThan (ECSSVersion.CSS10.getVersion ());
@@ -133,7 +133,7 @@ public class MainCreateSupportedCSSPropertiesFile
     nIndex = 0;
     for (final ECSSProperty eProperty : ContainerHelper.getSorted (ECSSProperty.values (),
                                                                    new ComparatorHasName <ECSSProperty> (aLocale)))
-      if (eProperty.isBrowserSpecific ())
+      if (eProperty.isVendorSpecific ())
       {
         final boolean bKHTML = eProperty.isKHTMLSpecific ();
         final boolean bMS = eProperty.isMicrosoftSpecific ();
