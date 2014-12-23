@@ -621,6 +621,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   _WEBKIT_USER_DRAG ("-webkit-user-drag");
 
   private final String m_sName;
+  private final ECSSVendorPrefix m_eVendorPrefix;
   private final ECSSVersion m_eVersion;
   private final EnumSet <ECSSSpecification> m_aSpecifications;
 
@@ -640,6 +641,14 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
                         @Nullable final ECSSSpecification... aSpecifications)
   {
     m_sName = sName;
+    ECSSVendorPrefix eUsedVendorPrefix = null;
+    for (final ECSSVendorPrefix eVendorPrefix : ECSSVendorPrefix.values ())
+      if (sName.startsWith (eVendorPrefix.getPrefix ()))
+      {
+        eUsedVendorPrefix = eVendorPrefix;
+        break;
+      }
+    m_eVendorPrefix = eUsedVendorPrefix;
     m_eVersion = eVersion;
     m_aSpecifications = ContainerHelper.newEnumSet (ECSSSpecification.class, aSpecifications);
   }
@@ -664,9 +673,8 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   @Nonempty
   public String getVendorIndependentName ()
   {
-    final ECSSVendorPrefix eVendorPrefix = getUsedVendorPrefix ();
-    if (eVendorPrefix != null)
-      return m_sName.substring (eVendorPrefix.getPrefix ().length ());
+    if (m_eVendorPrefix != null)
+      return m_sName.substring (m_eVendorPrefix.getPrefix ().length ());
 
     return m_sName;
   }
@@ -700,7 +708,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   public boolean isVendorSpecific (@Nonnull final ECSSVendorPrefix eVendorPrefix)
   {
     ValueEnforcer.notNull (eVendorPrefix, "VendorPrefix");
-    return m_sName.startsWith (eVendorPrefix.getPrefix ());
+    return eVendorPrefix.equals (m_eVendorPrefix);
   }
 
   @Deprecated
@@ -712,7 +720,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   @Deprecated
   public boolean isMicrosoftSpecific ()
   {
-    return isVendorSpecific (ECSSVendorPrefix.MICROSOFT) || m_sName.startsWith ("scrollbar-");
+    return isVendorSpecific (ECSSVendorPrefix.MICROSOFT) || isVendorSpecific (ECSSVendorPrefix.SCROLLBAR);
   }
 
   @Deprecated
@@ -754,10 +762,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
    */
   public boolean isVendorSpecific ()
   {
-    for (final ECSSVendorPrefix eVendorPrefix : ECSSVendorPrefix.values ())
-      if (isVendorSpecific (eVendorPrefix))
-        return true;
-    return false;
+    return m_eVendorPrefix != null;
   }
 
   /**
@@ -768,10 +773,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   @Nullable
   public ECSSVendorPrefix getUsedVendorPrefix ()
   {
-    for (final ECSSVendorPrefix eVendorPrefix : ECSSVendorPrefix.values ())
-      if (isVendorSpecific (eVendorPrefix))
-        return eVendorPrefix;
-    return null;
+    return m_eVendorPrefix;
   }
 
   @Nullable

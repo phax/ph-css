@@ -78,6 +78,11 @@ public abstract class AbstractCSSProperty implements ICSSProperty
     m_eProp = ValueEnforcer.notNull (eProp, "Property");
     m_eVendorPrefix = eVendorPrefix;
     m_aCustomizer = aCustomizer;
+    if (eProp.isVendorSpecific () && eVendorPrefix != null)
+      throw new IllegalStateException ("You cannot use the vendor prefix " +
+                                       eVendorPrefix +
+                                       " on the already vendor specific property " +
+                                       eProp);
   }
 
   @Nonnull
@@ -100,7 +105,7 @@ public abstract class AbstractCSSProperty implements ICSSProperty
 
   @Nonnull
   @Nonempty
-  public String getPropertyName ()
+  public final String getPropertyName ()
   {
     if (m_eVendorPrefix != null)
     {
