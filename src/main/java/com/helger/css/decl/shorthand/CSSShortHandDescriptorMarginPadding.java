@@ -16,13 +16,9 @@
  */
 package com.helger.css.decl.shorthand;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.OverrideOnDemand;
-import com.helger.css.decl.ICSSExpressionMember;
 import com.helger.css.property.ECSSProperty;
 
 /**
@@ -31,42 +27,12 @@ import com.helger.css.property.ECSSProperty;
  *
  * @author Philip Helger
  */
-public class CSSShortHandDescriptorMarginPadding extends CSSShortHandDescriptor
+@Deprecated
+public class CSSShortHandDescriptorMarginPadding extends CSSShortHandDescriptorWithAlignment
 {
   public CSSShortHandDescriptorMarginPadding (@Nonnull final ECSSProperty eProperty,
                                               @Nonnull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
   {
     super (eProperty, aSubProperties);
-  }
-
-  @Override
-  @OverrideOnDemand
-  protected void modifyExpressionMembers (@Nonnull final List <ICSSExpressionMember> aExpressionMembers)
-  {
-    final int nSize = aExpressionMembers.size ();
-    if (nSize == 1)
-    {
-      // 4px -> 4px 4px 4px 4px
-      final ICSSExpressionMember aMember = aExpressionMembers.get (0);
-      for (int i = 0; i < 3; ++i)
-        aExpressionMembers.add (aMember.getClone ());
-    }
-    else
-      if (nSize == 2)
-      {
-        // 4px 10px -> 4px 10px 4px 10px
-        final ICSSExpressionMember aMemberY = aExpressionMembers.get (0);
-        final ICSSExpressionMember aMemberX = aExpressionMembers.get (1);
-        aExpressionMembers.add (aMemberY.getClone ());
-        aExpressionMembers.add (aMemberX.getClone ());
-      }
-      else
-        if (nSize == 3)
-        {
-          // 4px 10px 6px -> 4px 10px 6px 10px
-          final ICSSExpressionMember aMemberX = aExpressionMembers.get (1);
-          aExpressionMembers.add (aMemberX.getClone ());
-        }
-    // else nothing to do
   }
 }

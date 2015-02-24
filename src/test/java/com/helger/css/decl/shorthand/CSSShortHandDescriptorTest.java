@@ -27,8 +27,6 @@ import org.junit.Test;
 
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
-import com.helger.css.decl.shorthand.CSSShortHandDescriptor;
-import com.helger.css.decl.shorthand.CSSShortHandRegistry;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.reader.CSSReaderDeclarationList;
 import com.helger.css.writer.CSSWriterSettings;
@@ -304,5 +302,43 @@ public class CSSShortHandDescriptorTest
     assertEquals ("background-attachment:scroll", aSplittedDecls.get (5).getAsCSSString (CWS, 0));
     assertEquals ("background-clip:border-box", aSplittedDecls.get (6).getAsCSSString (CWS, 0));
     assertEquals ("background-origin:padding-box", aSplittedDecls.get (7).getAsCSSString (CWS, 0));
+  }
+
+  @Test
+  public void testBorderColor1 ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_COLOR);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color: red", ECSSVersion.CSS30)
+                                                         .getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (4, aSplittedDecls.size ());
+    assertEquals ("border-top-color:red", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
+    assertEquals ("border-right-color:red", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
+    assertEquals ("border-bottom-color:red", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
+    assertEquals ("border-left-color:red", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+  }
+
+  @Test
+  public void testBorderColor2 ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_COLOR);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color: red blue", ECSSVersion.CSS30)
+                                                         .getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (4, aSplittedDecls.size ());
+    assertEquals ("border-top-color:red", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
+    assertEquals ("border-right-color:blue", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
+    assertEquals ("border-bottom-color:red", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
+    assertEquals ("border-left-color:blue", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
   }
 }
