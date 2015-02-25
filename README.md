@@ -3,7 +3,9 @@
 Java CSS 2 and CSS 3 parser and builder. This version supersedes phloc-css.
 The Maven plugin to compress CSS files at build time is located in project [ph-csscompress-maven-plugin](https://github.com/phax/ph-csscompress-maven-plugin).
 
-ph-css has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use. 
+ph-css has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use.
+
+ph-css is licensed under Apache 2.0 license.
 
 ## News and noteworthy
 
