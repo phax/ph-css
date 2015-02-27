@@ -323,4 +323,11 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   {
     return new ToStringGenerator (this).append ("media", m_aMedia).toString ();
   }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static CSSMediaList createOnDemand (@Nullable final ICSSMediaList aMediaList)
+  {
+    return aMediaList == null ? new CSSMediaList () : new CSSMediaList (aMediaList);
+  }
 }
