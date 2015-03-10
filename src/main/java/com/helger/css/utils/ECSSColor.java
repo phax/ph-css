@@ -28,11 +28,10 @@ import com.helger.css.decl.CSSHSLA;
 import com.helger.css.decl.CSSRGB;
 import com.helger.css.decl.CSSRGBA;
 
-// ESCA-JAVA0076:
 /**
  * CSS basic colors. Source: http://www.w3.org/TR/css3-color/ chapter 4.1 and
  * 4.3
- * 
+ *
  * @author Philip Helger
  */
 public enum ECSSColor implements ICSSNamedColor
@@ -385,7 +384,7 @@ public enum ECSSColor implements ICSSNamedColor
 
   /**
    * Check if the passed color name is a default color name.
-   * 
+   *
    * @param sName
    *        The color name to check.
    * @return <code>true</code> if the passed color name is a default color name,

@@ -30,7 +30,6 @@ import com.helger.css.property.customizer.CSSPropertyCustomizerOpacity;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.propertyvalue.ICSSValue;
 
-// ESCA-JAVA0116:
 /**
  * Contains the most commonly used CSS properties plus the available value
  * ranges.
