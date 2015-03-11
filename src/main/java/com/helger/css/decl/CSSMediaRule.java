@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
     display: none;
   }
 }</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -108,7 +108,7 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 
   /**
    * Remove all media queries.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any media query was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -134,7 +134,7 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @ReturnsMutableCopy
   public List <CSSMediaQuery> getAllMediaQueries ()
   {
-    return ContainerHelper.newList (m_aMediaQueries);
+    return CollectionHelper.newList (m_aMediaQueries);
   }
 
   public boolean hasRules ()
@@ -187,7 +187,7 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 
   /**
    * Remove all rules.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any rule was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -213,7 +213,7 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @ReturnsMutableCopy
   public List <ICSSTopLevelRule> getAllRules ()
   {
-    return ContainerHelper.newList (m_aRules);
+    return CollectionHelper.newList (m_aRules);
   }
 
   @Nonnull

@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -118,7 +118,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
                            @Nonnull @Nonempty final Set <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer);
-    m_aEnumValues = ContainerHelper.newSet (aEnumValues);
+    m_aEnumValues = CollectionHelper.newSet (aEnumValues);
   }
 
   /**

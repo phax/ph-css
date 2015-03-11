@@ -26,7 +26,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ICSSWriterSettings;
@@ -39,7 +39,7 @@ import com.helger.css.property.ICSSProperty;
  * case also <code>-moz-border-radius</code> should be emitted (with the same
  * value).<br>
  * For consistency issues,
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -78,7 +78,7 @@ public class CSSValueMultiProperty implements ICSSMultiValue
   @ReturnsMutableCopy
   public List <CSSValue> getContainedValues ()
   {
-    return ContainerHelper.newList (m_aValues);
+    return CollectionHelper.newList (m_aValues);
   }
 
   @Nonnull

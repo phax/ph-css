@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.compare.AbstractCollationComparator;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.lang.CGStringHelper;
@@ -105,7 +105,7 @@ public class MainCreateSupportedCSSPropertiesFile
 
     IMicroElement tbody = table.appendElement ("tbody");
     int nIndex = 0;
-    for (final ECSSProperty eProperty : ContainerHelper.getSorted (ECSSProperty.values (),
+    for (final ECSSProperty eProperty : CollectionHelper.getSorted (ECSSProperty.values (),
                                                                    new ComparatorHasName <ECSSProperty> (aLocale)))
       if (!eProperty.isVendorSpecific ())
       {
@@ -164,7 +164,7 @@ public class MainCreateSupportedCSSPropertiesFile
     tbody = table.appendElement ("tbody");
     nIndex = 0;
 
-    for (final ECSSProperty eProperty : ContainerHelper.getSorted (ECSSProperty.values (),
+    for (final ECSSProperty eProperty : CollectionHelper.getSorted (ECSSProperty.values (),
                                                                    new AbstractCollationComparator <ECSSProperty> (aLocale)
                                                                    {
                                                                      @Override

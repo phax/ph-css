@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -39,7 +39,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single media query
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -47,7 +47,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 {
   /**
    * A global modifier that can be used in front of a single CSS media query.
-   * 
+   *
    * @author Philip Helger
    */
   public static enum EModifier
@@ -78,7 +78,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * Constructor without a modifier. This implicitly uses the modifier
    * {@link EModifier#NONE}.
-   * 
+   *
    * @param sMedium
    *        The medium to use. May be <code>null</code>.
    */
@@ -89,7 +89,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Constructor
-   * 
+   *
    * @param eModifier
    *        The modifier to use. May not be <code>null</code>.
    * @param sMedium
@@ -157,7 +157,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Append a media expression to the list.
-   * 
+   *
    * @param aMediaExpression
    *        The media expression to be added. May not be <code>null</code>.
    * @return this
@@ -173,7 +173,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Add a media expression to the list at the specified index.
-   * 
+   *
    * @param nIndex
    *        The index where the media expression should be added. Must be &ge;
    *        0.
@@ -197,7 +197,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove the specified media expression.
-   * 
+   *
    * @param aMediaExpression
    *        The media expression to be removed. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if removal succeeded,
@@ -211,7 +211,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove the media expression at the specified index.
-   * 
+   *
    * @param nExpressionIndex
    *        The index of the media expression to be removed.
    * @return {@link EChange#CHANGED} if removal succeeded,
@@ -227,7 +227,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove all media expressions.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any media expression was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -243,7 +243,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Get the media expression at the specified index.
-   * 
+   *
    * @param nExpressionIndex
    *        The index to be retrieved.
    * @return <code>null</code> if the index is &lt; 0 or too large.
@@ -264,7 +264,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   @ReturnsMutableCopy
   public List <CSSMediaExpression> getAllMediaExpressions ()
   {
-    return ContainerHelper.newList (m_aMediaExpressions);
+    return CollectionHelper.newList (m_aMediaExpressions);
   }
 
   @Nonnull

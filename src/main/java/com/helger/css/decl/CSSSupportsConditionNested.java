@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -127,7 +127,7 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   @ReturnsMutableCopy
   public List <ICSSSupportsConditionMember> getAllMembers ()
   {
-    return ContainerHelper.newList (m_aMembers);
+    return CollectionHelper.newList (m_aMembers);
   }
 
   @Nonnull

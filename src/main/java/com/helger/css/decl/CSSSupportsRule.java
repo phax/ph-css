@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -46,7 +46,7 @@ import com.helger.css.ICSSWriterSettings;
  * <code>@supports (transition-property: color) {
   div { color:red; }
 }</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -110,7 +110,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
 
   /**
    * Remove all supports condition members.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any supports condition was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -136,7 +136,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
   @ReturnsMutableCopy
   public List <ICSSSupportsConditionMember> getAllSupportConditionMembers ()
   {
-    return ContainerHelper.newList (m_aConditionMembers);
+    return CollectionHelper.newList (m_aConditionMembers);
   }
 
   public boolean hasRules ()
@@ -197,7 +197,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
 
   /**
    * Remove all rules.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any rule was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -215,7 +215,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
   @ReturnsMutableCopy
   public List <ICSSTopLevelRule> getAllRules ()
   {
-    return ContainerHelper.newList (m_aRules);
+    return CollectionHelper.newList (m_aRules);
   }
 
   @Nonnull

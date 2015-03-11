@@ -29,7 +29,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
@@ -145,7 +145,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
     m_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newList (m_aErrors);
+      return CollectionHelper.newList (m_aErrors);
     }
     finally
     {

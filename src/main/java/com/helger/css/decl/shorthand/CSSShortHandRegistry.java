@@ -29,7 +29,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.css.ECSSUnit;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.property.ECSSProperty;
@@ -210,7 +210,7 @@ public final class CSSShortHandRegistry
     s_aRWLock.readLock ().lock ();
     try
     {
-      return ContainerHelper.newSet (s_aMap.keySet ());
+      return CollectionHelper.newSet (s_aMap.keySet ());
     }
     finally
     {

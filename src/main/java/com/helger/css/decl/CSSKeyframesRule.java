@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -41,11 +41,11 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Represents a single @keyframes rule.<br>
  * Example:<br>
- * <code>@keyframes identifier {  
-  0% { top: 0; left: 0; }  
-  30% { top: 50px; }  
+ * <code>@keyframes identifier {
+  0% { top: 0; left: 0; }
+  30% { top: 50px; }
  }</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -137,7 +137,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
 
   /**
    * Remove all blocks.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any block was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -163,7 +163,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
   @ReturnsMutableCopy
   public List <CSSKeyframesBlock> getAllBlocks ()
   {
-    return ContainerHelper.newList (m_aBlocks);
+    return CollectionHelper.newList (m_aBlocks);
   }
 
   @Nonnull

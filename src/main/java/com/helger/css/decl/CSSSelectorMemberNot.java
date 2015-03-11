@@ -26,7 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -39,7 +39,7 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Represents an inverted CSS selector, used for the ":not()" CSS function.<br>
  * Note: this class was completely redesigned for version 3.7.4
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -51,19 +51,19 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   public CSSSelectorMemberNot (@Nonnull final CSSSelector aNestedSelector)
   {
     ValueEnforcer.notNull (aNestedSelector, "NestedSelector");
-    m_aNestedSelectors = ContainerHelper.newList (aNestedSelector);
+    m_aNestedSelectors = CollectionHelper.newList (aNestedSelector);
   }
 
   public CSSSelectorMemberNot (@Nonnull final CSSSelector... aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
-    m_aNestedSelectors = ContainerHelper.newList (aNestedSelectors);
+    m_aNestedSelectors = CollectionHelper.newList (aNestedSelectors);
   }
 
   public CSSSelectorMemberNot (@Nonnull final List <CSSSelector> aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
-    m_aNestedSelectors = ContainerHelper.newList (aNestedSelectors);
+    m_aNestedSelectors = CollectionHelper.newList (aNestedSelectors);
   }
 
   public boolean hasSelectors ()
@@ -133,7 +133,7 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
 
   /**
    * Remove all selectors.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any selector was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
@@ -149,14 +149,14 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   @Nullable
   public CSSSelector getSelectorAtIndex (@Nonnegative final int nSelectorIndex)
   {
-    return ContainerHelper.getSafe (m_aNestedSelectors, nSelectorIndex);
+    return CollectionHelper.getSafe (m_aNestedSelectors, nSelectorIndex);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public List <CSSSelector> getAllSelectors ()
   {
-    return ContainerHelper.newList (m_aNestedSelectors);
+    return CollectionHelper.newList (m_aNestedSelectors);
   }
 
   @Nonnull

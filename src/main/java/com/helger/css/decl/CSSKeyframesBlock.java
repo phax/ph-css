@@ -26,7 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -38,7 +38,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * keyframes block
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -51,20 +51,20 @@ public class CSSKeyframesBlock implements IHasCSSDeclarations, ICSSVersionAware,
   public CSSKeyframesBlock (@Nonnull @Nonempty final String... aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
-    m_aKeyframesSelectors = ContainerHelper.newList (aKeyframesSelectors);
+    m_aKeyframesSelectors = CollectionHelper.newList (aKeyframesSelectors);
   }
 
   public CSSKeyframesBlock (@Nonnull @Nonempty final List <String> aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
-    m_aKeyframesSelectors = ContainerHelper.newList (aKeyframesSelectors);
+    m_aKeyframesSelectors = CollectionHelper.newList (aKeyframesSelectors);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public List <String> getAllKeyframesSelectors ()
   {
-    return ContainerHelper.newList (m_aKeyframesSelectors);
+    return CollectionHelper.newList (m_aKeyframesSelectors);
   }
 
   @Nonnull

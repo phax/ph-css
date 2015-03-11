@@ -26,7 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -40,7 +40,7 @@ import com.helger.css.ICSSWriterSettings;
  * example for a selector is e.g. <code>div</code> or <code>.class</code> or
  * <code>h1.class</code> or <code>#id</code> or
  * <code>table tbody td .class</code> etc.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -102,7 +102,7 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove all members.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any member was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
@@ -127,7 +127,7 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
   @ReturnsMutableCopy
   public List <ICSSSelectorMember> getAllMembers ()
   {
-    return ContainerHelper.newList (m_aMembers);
+    return CollectionHelper.newList (m_aMembers);
   }
 
   @Nonnull

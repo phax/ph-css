@@ -26,7 +26,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSImportRule;
@@ -66,7 +66,7 @@ public final class MediaQueryTools
   /**
    * Utility method to convert a media query string to a structured list of
    * {@link CSSMediaQuery} objects.
-   * 
+   *
    * @param sMediaQuery
    *        The media query string to parse. May be <code>null</code>.
    * @param eVersion
@@ -168,7 +168,7 @@ public final class MediaQueryTools
                                                             @Nonnull final CSSMediaQuery aMediaQuery,
                                                             final boolean bAllowNestedMediaQueries)
   {
-    return getWrappedInMediaQuery (aCSS, ContainerHelper.newList (aMediaQuery), bAllowNestedMediaQueries);
+    return getWrappedInMediaQuery (aCSS, CollectionHelper.newList (aMediaQuery), bAllowNestedMediaQueries);
   }
 
   /**

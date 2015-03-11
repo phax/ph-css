@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
@@ -37,12 +37,12 @@ import com.helger.css.reader.CSSReaderDeclarationList;
 
 /**
  * Test class for class {@link CSSReaderDeclarationList}
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSReaderDeclarationListTest
 {
-  private static final List <String> VALID = ContainerHelper.newList ("",
+  private static final List <String> VALID = CollectionHelper.newList ("",
                                                                       "    ",
                                                                       ";",
                                                                       ";;",
@@ -59,7 +59,7 @@ public final class CSSReaderDeclarationListTest
                                                                       " color : ",
                                                                       " color :  !important ",
                                                                       " color :  !  important ");
-  private static final List <String> INVALID = ContainerHelper.newList ("color", " color ");
+  private static final List <String> INVALID = CollectionHelper.newList ("color", " color ");
 
   @Test
   public void testIsValidCSS21 ()

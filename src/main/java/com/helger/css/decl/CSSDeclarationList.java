@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -40,7 +40,7 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Represents a list of {@link CSSDeclaration} objects. This class emits all
  * declarations in a row, without any surrounding block elements.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -98,7 +98,7 @@ public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocati
 
   /**
    * Remove all declarations.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any declaration was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -116,13 +116,13 @@ public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocati
   @ReturnsMutableCopy
   public final List <CSSDeclaration> getAllDeclarations ()
   {
-    return ContainerHelper.newList (m_aDeclarations);
+    return CollectionHelper.newList (m_aDeclarations);
   }
 
   @Nullable
   public final CSSDeclaration getDeclarationAtIndex (@Nonnegative final int nIndex)
   {
-    return ContainerHelper.getSafe (m_aDeclarations, nIndex);
+    return CollectionHelper.getSafe (m_aDeclarations, nIndex);
   }
 
   @Nonnull
@@ -207,7 +207,7 @@ public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocati
     {
       // A single declaration
       final StringBuilder aSB = new StringBuilder ();
-      aSB.append (ContainerHelper.getFirstElement (m_aDeclarations).getAsCSSString (aSettings, nIndentLevel));
+      aSB.append (CollectionHelper.getFirstElement (m_aDeclarations).getAsCSSString (aSettings, nIndentLevel));
       // No ';' at the last entry
       if (!bOptimizedOutput)
         aSB.append (CCSS.DEFINITION_END);

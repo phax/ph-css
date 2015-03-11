@@ -25,7 +25,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
@@ -56,7 +56,7 @@ public class CSSShortHandDescriptor
     ValueEnforcer.notNull (eProperty, "Property");
     ValueEnforcer.notEmptyNoNullValue (aSubProperties, "SubProperties");
     m_eProperty = eProperty;
-    m_aSubProperties = ContainerHelper.newList (aSubProperties);
+    m_aSubProperties = CollectionHelper.newList (aSubProperties);
 
     // Check that a free text property may only be at the end
     int nMinArgs = 0;
@@ -88,7 +88,7 @@ public class CSSShortHandDescriptor
   @ReturnsMutableCopy
   public List <CSSPropertyWithDefaultValue> getAllSubProperties ()
   {
-    return ContainerHelper.newList (m_aSubProperties);
+    return CollectionHelper.newList (m_aSubProperties);
   }
 
   /**

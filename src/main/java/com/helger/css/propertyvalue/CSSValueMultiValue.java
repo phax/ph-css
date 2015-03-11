@@ -26,7 +26,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ICSSWriterSettings;
@@ -62,13 +62,13 @@ public class CSSValueMultiValue implements ICSSMultiValue
   @ReturnsMutableCopy
   public List <CSSValue> getContainedValues ()
   {
-    return ContainerHelper.newList (m_aValues);
+    return CollectionHelper.newList (m_aValues);
   }
 
   @Nonnull
   public ECSSProperty getProp ()
   {
-    return ContainerHelper.getFirstElement (m_aValues).getProp ();
+    return CollectionHelper.getFirstElement (m_aValues).getProp ();
   }
 
   @Nonnull

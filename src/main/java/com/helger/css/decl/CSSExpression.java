@@ -27,7 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -39,7 +39,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single expression consisting of several expression members
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -53,7 +53,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Add an expression member
-   * 
+   *
    * @param aMember
    *        The member to be added. May not be <code>null</code>.
    * @return this
@@ -69,7 +69,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Add an expression member
-   * 
+   *
    * @param nIndex
    *        The index where the member should be added. Must be &ge; 0.
    * @param aMember
@@ -91,7 +91,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a simple text value.
-   * 
+   *
    * @param sValue
    *        The value to be added. May neither be <code>null</code> nor empty.
    * @return this
@@ -104,7 +104,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a simple text value.
-   * 
+   *
    * @param nIndex
    *        The index where the member should be added. Must be &ge; 0.
    * @param sValue
@@ -119,7 +119,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a numeric value
-   * 
+   *
    * @param nValue
    *        The value to be added.
    * @return this
@@ -132,7 +132,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a numeric value
-   * 
+   *
    * @param nIndex
    *        The index where the member should be added. Must be &ge; 0.
    * @param nValue
@@ -147,7 +147,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a numeric value
-   * 
+   *
    * @param nValue
    *        The value to be added.
    * @return this
@@ -160,7 +160,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a numeric value
-   * 
+   *
    * @param nIndex
    *        The index where the member should be added. Must be &ge; 0.
    * @param nValue
@@ -175,7 +175,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a numeric value
-   * 
+   *
    * @param fValue
    *        The value to be added.
    * @return this
@@ -188,7 +188,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a numeric value
-   * 
+   *
    * @param nIndex
    *        The index where the member should be added. Must be &ge; 0.
    * @param fValue
@@ -203,7 +203,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a numeric value
-   * 
+   *
    * @param dValue
    *        The value to be added.
    * @return this
@@ -216,7 +216,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a numeric value
-   * 
+   *
    * @param nIndex
    *        The index where the member should be added. Must be &ge; 0.
    * @param dValue
@@ -238,7 +238,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a string value that is automatically quoted inside
-   * 
+   *
    * @param sValue
    *        The value to be quoted and than added. May not be <code>null</code>.
    * @return this
@@ -251,7 +251,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a string value that is automatically quoted inside
-   * 
+   *
    * @param nIndex
    *        The index where the member should be added. Must be &ge; 0.
    * @param sValue
@@ -266,7 +266,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a URI value
-   * 
+   *
    * @param sURI
    *        The value to be added. May neither be <code>null</code> nor empty
    * @return this
@@ -279,7 +279,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Shortcut method to add a URI value
-   * 
+   *
    * @param nIndex
    *        The index where the member should be added. Must be &ge; 0.
    * @param sURI
@@ -294,7 +294,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove the passed expression member
-   * 
+   *
    * @param aMember
    *        The member to be removed. May be <code>null</code>.
    * @return {@link EChange}
@@ -307,7 +307,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove the expression member at the specified in
-   * 
+   *
    * @param nMemberIndex
    *        the index of the member to be removed. May not be &lt; 0.
    * @return {@link EChange}
@@ -323,7 +323,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Remove all members.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any member was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -345,12 +345,12 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @ReturnsMutableCopy
   public List <ICSSExpressionMember> getAllMembers ()
   {
-    return ContainerHelper.newList (m_aMembers);
+    return CollectionHelper.newList (m_aMembers);
   }
 
   /**
    * Get the expression member at the specified index.
-   * 
+   *
    * @param nIndex
    *        The index to be retrieved
    * @return <code>null</code> if an invalid member index was passed.
@@ -358,7 +358,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nullable
   public ICSSExpressionMember getMemberAtIndex (@Nonnegative final int nIndex)
   {
-    return ContainerHelper.getSafe (m_aMembers, nIndex);
+    return CollectionHelper.getSafe (m_aMembers, nIndex);
   }
 
   /**
@@ -441,7 +441,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Create a CSS expression only containing a text value
-   * 
+   *
    * @param sValue
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
@@ -454,7 +454,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Create a CSS expression only containing a string
-   * 
+   *
    * @param sValue
    *        The value to be wrapped in a string
    * @return The CSS expression to be used.
@@ -467,7 +467,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Create a CSS expression only containing a numeric value
-   * 
+   *
    * @param nValue
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
@@ -480,7 +480,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Create a CSS expression only containing a numeric value
-   * 
+   *
    * @param nValue
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
@@ -493,7 +493,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Create a CSS expression only containing a numeric value
-   * 
+   *
    * @param fValue
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
@@ -506,7 +506,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Create a CSS expression only containing a numeric value
-   * 
+   *
    * @param dValue
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
@@ -519,7 +519,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Create a CSS expression only containing a URI
-   * 
+   *
    * @param sURI
    *        The URI to be wrapped in an expression
    * @return The CSS expression to be used.

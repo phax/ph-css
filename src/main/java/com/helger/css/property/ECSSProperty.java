@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.string.StringHelper;
@@ -650,7 +650,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
       }
     m_eVendorPrefix = eUsedVendorPrefix;
     m_eVersion = eVersion;
-    m_aSpecifications = ContainerHelper.newEnumSet (ECSSSpecification.class, aSpecifications);
+    m_aSpecifications = CollectionHelper.newEnumSet (ECSSSpecification.class, aSpecifications);
   }
 
   /**
@@ -693,7 +693,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   @ReturnsMutableCopy
   public EnumSet <ECSSSpecification> getAllSpecifications ()
   {
-    return ContainerHelper.newEnumSet (ECSSSpecification.class, m_aSpecifications);
+    return CollectionHelper.newEnumSet (ECSSSpecification.class, m_aSpecifications);
   }
 
   /**
