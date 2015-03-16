@@ -20,7 +20,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -31,11 +33,11 @@ import com.helger.css.utils.CSSURLHelper;
 
 /**
  * This class represents the options required for writing
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSWriterSettings implements ICSSWriterSettings
+public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWriterSettings>
 {
   /** By default no optimized output */
   public static final boolean DEFAULT_OPTIMIZED_OUTPUT = false;
@@ -102,7 +104,7 @@ public class CSSWriterSettings implements ICSSWriterSettings
 
   /**
    * Copy constructor.
-   * 
+   *
    * @param aBase
    *        The base settings to copy everything from.
    */
@@ -285,6 +287,13 @@ public class CSSWriterSettings implements ICSSWriterSettings
                                        m_eVersion.getVersion ().getAsString () +
                                        " but requires at least " +
                                        eMinCSSVersion.getVersion ().getAsString ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public CSSWriterSettings getClone ()
+  {
+    return new CSSWriterSettings (this);
   }
 
   @Override
