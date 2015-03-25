@@ -170,17 +170,16 @@ public final class ParseUtils
     if (c1 == '-' || c1 == '$' || c1 == '*')
     {
       if (nLength > 1 && Character.isDigit (c2))
-        throw new TokenMgrError ("Identifier may not start with a hyphen and a digit: " + aPattern,
-                                 TokenMgrError.LEXICAL_ERROR);
+        throw new IllegalArgumentException ("Identifier may not start with a hyphen and a digit: " + aPattern);
     }
     else
     {
       if (Character.isDigit (c1))
-        throw new TokenMgrError ("Identifier may not start with a digit: " + aPattern, TokenMgrError.LEXICAL_ERROR);
+        throw new IllegalArgumentException ("Identifier may not start with a digit: " + aPattern);
     }
 
     if (nLength > 1 && c1 == '-' && c2 == '-')
-      throw new TokenMgrError ("Identifier may not start with two hyphens: " + aPattern, TokenMgrError.LEXICAL_ERROR);
+      throw new IllegalArgumentException ("Identifier may not start with two hyphens: " + aPattern);
 
     return aPattern.toString ();
   }
