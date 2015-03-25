@@ -18,6 +18,7 @@ package com.helger.css.reader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -400,6 +401,39 @@ public final class CSSReader30Test extends AbstractFuncTestCSSReader
     assertNotNull (aCSS);
     assertEquals ("div{color:red}",
                   new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
+
+    // Invalid identifier 1
+    sCSS = "-0{color:red;}";
+    aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
+    assertNull (aCSS);
+
+    // Invalid identifier 2
+    sCSS = "$0{color:red;}";
+    aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
+    assertNull (aCSS);
+
+    // Invalid identifier 3
+    sCSS = "*0{color:red;}";
+    aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
+    assertNotNull (aCSS);
+    assertEquals ("*{}",
+                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
+    // Valid version of previous variant
+    sCSS = "*abc{color:red;}";
+    aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
+    assertNotNull (aCSS);
+    assertEquals ("*abc{color:red}",
+                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
+
+    // Invalid identifier 4
+    sCSS = "0{color:red;}";
+    aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
+    assertNull (aCSS);
+
+    // Invalid identifier 5
+    sCSS = "--{color:red;}";
+    aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
+    assertNull (aCSS);
   }
 
   @Test
