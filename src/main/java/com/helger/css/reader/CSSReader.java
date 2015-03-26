@@ -67,6 +67,7 @@ import com.helger.css.parser.ParserCSS30;
 import com.helger.css.parser.ParserCSS30TokenManager;
 import com.helger.css.parser.ParserCSSCharsetDetector;
 import com.helger.css.parser.ParserCSSCharsetDetectorTokenManager;
+import com.helger.css.parser.TokenMgrError;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 
@@ -205,44 +206,40 @@ public final class CSSReader
                                           @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                           @Nonnull final ICSSParseExceptionHandler aCustomExceptionHandler)
   {
-    switch (eVersion)
+    try
     {
-      case CSS21:
+      switch (eVersion)
       {
-        final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aCharStream);
-        final ParserCSS21 aParser = new ParserCSS21 (aTokenHdl);
-        aParser.setCustomErrorHandler (aCustomErrorHandler);
-        try
+        case CSS21:
         {
+          final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aCharStream);
+          final ParserCSS21 aParser = new ParserCSS21 (aTokenHdl);
+          aParser.setCustomErrorHandler (aCustomErrorHandler);
           // Main parsing
           return aParser.styleSheet ();
         }
-        catch (final ParseException ex)
+        case CSS30:
         {
-          // Unrecoverable error
-          aCustomExceptionHandler.onException (ex);
-          return null;
-        }
-      }
-      case CSS30:
-      {
-        final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);
-        final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
-        aParser.setCustomErrorHandler (aCustomErrorHandler);
-        try
-        {
+          final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);
+          final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
+          aParser.setCustomErrorHandler (aCustomErrorHandler);
           // Main parsing
           return aParser.styleSheet ();
         }
-        catch (final ParseException ex)
-        {
-          // Unrecoverable error
-          aCustomExceptionHandler.onException (ex);
-          return null;
-        }
+        default:
+          throw new IllegalArgumentException ("Unsupported CSS version " + eVersion);
       }
-      default:
-        throw new IllegalArgumentException ("Unsupported CSS version " + eVersion);
+    }
+    catch (final ParseException ex)
+    {
+      // Unrecoverable error
+      aCustomExceptionHandler.onException (ex);
+      return null;
+    }
+    catch (final TokenMgrError ex)
+    {
+      // As e.g. indicated by https://github.com/phax/ph-css/issues/9
+      throw new IllegalStateException ("Failed to parse CSS charset definition", ex);
     }
   }
 
@@ -1418,6 +1415,11 @@ public final class CSSReader
       // grammar!
       throw new IllegalStateException ("Failed to parse CSS charset definition", ex);
     }
+    catch (final TokenMgrError ex)
+    {
+      // As e.g. indicated by https://github.com/phax/ph-css/issues/9
+      throw new IllegalStateException ("Failed to parse CSS charset definition", ex);
+    }
     finally
     {
       StreamUtils.close (aReader);
@@ -1521,7 +1523,16 @@ public final class CSSReader
 
     // Check if the CSS contains a declared charset or as an alternative use the
     // Charset from the BOM
-    final Charset aDeclaredCharset = getCharsetDeclaredInCSS (aISP);
+    Charset aDeclaredCharset;
+    try
+    {
+      aDeclaredCharset = getCharsetDeclaredInCSS (aISP);
+    }
+    catch (final IllegalStateException ex)
+    {
+      // Failed to parse CSS at a very low level
+      return null;
+    }
     if (aDeclaredCharset != null)
     {
       if (s_aLogger.isDebugEnabled ())
