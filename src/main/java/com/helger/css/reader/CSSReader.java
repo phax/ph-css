@@ -1353,7 +1353,7 @@ public final class CSSReader
    * @return <code>null</code> if the input stream could not be opened or if
    *         neither a BOM nor a charset is specified. Otherwise a non-
    *         <code>null</code> Charset is returned.
-   * @throws IllegalArgumentException
+   * @throws IllegalStateException
    *         if an invalid charset is supplied
    */
   @Nullable
