@@ -239,7 +239,8 @@ public final class CSSReader
     catch (final TokenMgrError ex)
     {
       // As e.g. indicated by https://github.com/phax/ph-css/issues/9
-      throw new IllegalStateException ("Failed to parse CSS charset definition", ex);
+      aCustomExceptionHandler.onException (new ParseException (ex.getMessage ()));
+      return null;
     }
   }
 

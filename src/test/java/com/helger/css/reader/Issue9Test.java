@@ -37,7 +37,20 @@ public final class Issue9Test
   @Test
   public void testIssue9 ()
   {
+    // File starts (and ends) with an invalid comment
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad/issue9.css");
+    final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
+                                                               CCharset.CHARSET_UTF_8_OBJ,
+                                                               ECSSVersion.CSS30,
+                                                               new LoggingCSSParseErrorHandler ());
+    assertNull (aCSS);
+  }
+
+  @Test
+  public void testIssue9b ()
+  {
+    // File only ends with an invalid comment
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad/issue9b.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,
