@@ -9,6 +9,7 @@ ph-css is licensed under Apache 2.0 license.
 
 ## News and noteworthy
 
+  * v3.9.2 - Updated to ph-commons 5.7.1 and fix for some minor issues
   * v3.9.1 - Updated to ph-commons 5.6.0 and fix for some shorthand handling
   * v3.9.0 - API improvements and support for vendor specific "-calc" added
   * v3.8.2 - small bugfix release
@@ -21,7 +22,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>3.9.1</version>
+  <version>3.9.2</version>
 </dependency>
 ```
 
