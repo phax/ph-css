@@ -28,31 +28,35 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
-import com.helger.css.AbstractCSS21Test;
+import com.helger.css.AbstractCSS30TestCase;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.visit.CSSVisitor;
 import com.helger.css.reader.CSSReader;
+import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 /**
  * Test class for class {@link CSSVisitor}.
  * 
  * @author Philip Helger
  */
-public final class CSSVisitor21Test extends AbstractCSS21Test
+public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSVisitor21Test.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSVisitor30FuncTest.class);
 
   @Test
-  public void testVisitContent21 ()
+  public void testVisitContent30 ()
   {
-    for (final File aFile : FileSystemRecursiveIterator.create (new File ("src/test/resources/testfiles/css21/good"),
+    for (final File aFile : FileSystemRecursiveIterator.create (new File ("src/test/resources/testfiles/css30/good"),
                                                                 new FilenameFilterEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
-      if (false)
+      if (true)
         s_aLogger.info (sKey);
-      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, CCharset.CHARSET_UTF_8_OBJ, ECSSVersion.CSS21);
+      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
+                                                               CCharset.CHARSET_UTF_8_OBJ,
+                                                               ECSSVersion.CSS30,
+                                                               new LoggingCSSParseErrorHandler ());
       assertNotNull (sKey, aCSS);
       CSSVisitor.visitCSSUrl (aCSS, new MockUrlVisitor (sKey));
     }
@@ -62,17 +66,38 @@ public final class CSSVisitor21Test extends AbstractCSS21Test
   public void testVisitConstantCSS ()
   {
     // CSS 1
-    CascadingStyleSheet aCSS = CSSReader.readFromString (CSS1, ECSSVersion.CSS21);
+    CascadingStyleSheet aCSS = CSSReader.readFromString (CSS1, ECSSVersion.CSS30);
     assertNotNull (aCSS);
     MockCountingUrlVisitor aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
     assertEquals (4, aVisitor.getCount ());
 
     // CSS 2
-    aCSS = CSSReader.readFromString (CSS2, ECSSVersion.CSS21);
+    aCSS = CSSReader.readFromString (CSS2, ECSSVersion.CSS30);
     assertNotNull (aCSS);
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
-    assertEquals (2, aVisitor.getCount ());
+    assertEquals (18, aVisitor.getCount ());
+
+    // CSS 3
+    aCSS = CSSReader.readFromString (CSS3, ECSSVersion.CSS30);
+    assertNotNull (aCSS);
+    aVisitor = new MockCountingUrlVisitor ();
+    CSSVisitor.visitCSSUrl (aCSS, aVisitor);
+    assertEquals (1, aVisitor.getCount ());
+
+    // CSS 4
+    aCSS = CSSReader.readFromString (CSS4, ECSSVersion.CSS30);
+    assertNotNull (aCSS);
+    aVisitor = new MockCountingUrlVisitor ();
+    CSSVisitor.visitCSSUrl (aCSS, aVisitor);
+    assertEquals (1, aVisitor.getCount ());
+
+    // CSS 5
+    aCSS = CSSReader.readFromString (CSS5, ECSSVersion.CSS30);
+    assertNotNull (aCSS);
+    aVisitor = new MockCountingUrlVisitor ();
+    CSSVisitor.visitCSSUrl (aCSS, aVisitor);
+    assertEquals (0, aVisitor.getCount ());
   }
 }

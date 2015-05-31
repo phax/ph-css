@@ -21,14 +21,14 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.io.streams.NonBlockingStringReader;
-import com.helger.css.AbstractCSS21Test;
+import com.helger.css.AbstractCSS21TestCase;
 
 /**
  * Test class for class {@link ParserCSS21}.
  *
  * @author Philip Helger
  */
-public final class ParserCSS21Test extends AbstractCSS21Test
+public final class ParserCSS21Test extends AbstractCSS21TestCase
 {
   @Test
   public void test1 () throws ParseException

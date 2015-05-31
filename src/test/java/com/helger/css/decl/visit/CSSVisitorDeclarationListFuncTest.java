@@ -42,7 +42,7 @@ import com.helger.css.writer.CSSWriter;
  * 
  * @author Philip Helger
  */
-public final class CSSVisitorDeclarationListTest
+public final class CSSVisitorDeclarationListFuncTest
 {
   @Test
   public void testVisitConstantCSS ()

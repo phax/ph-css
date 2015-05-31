@@ -51,9 +51,9 @@ import com.helger.css.writer.CSSWriterSettings;
  *
  * @author Philip Helger
  */
-public final class CSSReader30Test extends AbstractFuncTestCSSReader
+public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 {
-  public CSSReader30Test ()
+  public CSSReader30FuncTest ()
   {
     super (ECSSVersion.CSS30, CCharset.CHARSET_UTF_8_OBJ, false);
   }

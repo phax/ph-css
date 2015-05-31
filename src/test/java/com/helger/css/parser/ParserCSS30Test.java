@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.io.streams.NonBlockingStringReader;
-import com.helger.css.AbstractCSS30Test;
+import com.helger.css.AbstractCSS30TestCase;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSTopLevelRule;
@@ -33,7 +33,7 @@ import com.helger.css.handler.CSSHandler;
  *
  * @author Philip Helger
  */
-public final class ParserCSS30Test extends AbstractCSS30Test
+public final class ParserCSS30Test extends AbstractCSS30TestCase
 {
   @Test
   public void test1 () throws ParseException

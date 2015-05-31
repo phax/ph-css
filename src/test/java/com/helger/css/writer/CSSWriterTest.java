@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.css.AbstractCSS30Test;
+import com.helger.css.AbstractCSS30TestCase;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
@@ -33,7 +33,7 @@ import com.helger.css.writer.CSSWriterSettings;
  * 
  * @author Philip Helger
  */
-public final class CSSWriterTest extends AbstractCSS30Test
+public final class CSSWriterTest extends AbstractCSS30TestCase
 {
   @Test
   public void testIndentation ()

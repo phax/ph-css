@@ -40,9 +40,9 @@ import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
 
-public final class CSSWriterExtendedTest
+public final class CSSWriterFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSWriterExtendedTest.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSWriterFuncTest.class);
 
   private void _testMe (@Nonnull final File aFile, @Nonnull final ECSSVersion eVersion)
   {

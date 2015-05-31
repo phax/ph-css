@@ -34,9 +34,9 @@ import com.helger.css.writer.CSSWriter;
  * 
  * @author Philip Helger
  */
-public final class CSSReader21Test extends AbstractFuncTestCSSReader
+public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
 {
-  public CSSReader21Test ()
+  public CSSReader21FuncTest ()
   {
     super (ECSSVersion.CSS21, CCharset.CHARSET_UTF_8_OBJ, false);
   }

@@ -31,7 +31,7 @@ import com.helger.css.writer.CSSWriter;
  * 
  * @author Philip Helger
  */
-public final class WikiTest
+public final class WikiCreateFontFaceRuleFuncTest
 {
   @Test
   public void test ()
