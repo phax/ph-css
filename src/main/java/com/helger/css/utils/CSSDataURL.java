@@ -30,18 +30,18 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import org.omg.CORBA_2_3.portable.OutputStream;
 
-import com.helger.commons.IHasStringRepresentation;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.lang.IHasStringRepresentation;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.mime.MimeType;
-import com.helger.commons.mime.MimeTypeUtils;
+import com.helger.commons.mime.MimeTypeHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -71,7 +71,7 @@ public class CSSDataURL implements IHasStringRepresentation, Serializable
   @Nonnull
   public static Charset getCharsetFromMimeTypeOrDefault (@Nullable final IMimeType aMimeType)
   {
-    final Charset ret = MimeTypeUtils.getCharsetFromMimeType (aMimeType);
+    final Charset ret = MimeTypeHelper.getCharsetFromMimeType (aMimeType);
     return ret != null ? ret : CSSDataURLHelper.DEFAULT_CHARSET;
   }
 
@@ -139,7 +139,7 @@ public class CSSDataURL implements IHasStringRepresentation, Serializable
 
     // Check if a charset is contained in the MIME type and if it matches the
     // provided charset
-    final Charset aMimeTypeCharset = MimeTypeUtils.getCharsetFromMimeType (aMimeType);
+    final Charset aMimeTypeCharset = MimeTypeHelper.getCharsetFromMimeType (aMimeType);
     if (aMimeTypeCharset == null)
     {
       // No charset found in MIME type
@@ -390,7 +390,7 @@ public class CSSDataURL implements IHasStringRepresentation, Serializable
     final CSSDataURL rhs = (CSSDataURL) o;
     return m_aMimeType.equals (rhs.m_aMimeType) &&
            m_bBase64Encoded == rhs.m_bBase64Encoded &&
-           EqualsUtils.equals (m_aContent, rhs.m_aContent) &&
+           EqualsHelper.equals (m_aContent, rhs.m_aContent) &&
            m_aCharset.equals (rhs.m_aCharset);
   }
 

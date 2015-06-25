@@ -22,15 +22,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.hierarchy.DefaultHierarchyWalkerCallback;
+import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.IMicroNode;
 import com.helger.commons.microdom.serialize.MicroReader;
-import com.helger.commons.microdom.utils.MicroWalker;
+import com.helger.commons.microdom.util.MicroVisitor;
 import com.helger.commons.string.StringHelper;
 
 public class MainFetchW3C_CSSTests
@@ -45,8 +46,8 @@ public class MainFetchW3C_CSSTests
   {
     final List <String> aCSSFilenames = new ArrayList <String> ();
     System.out.println ("Fetching from " + sURL);
-    final List <String> aIndex = StreamUtils.readStreamLines (new URLResource (sURL + "index.html"),
-                                                              CCharset.CHARSET_UTF_8_OBJ);
+    final List <String> aIndex = StreamHelper.readStreamLines (new URLResource (sURL + "index.html"),
+                                                               CCharset.CHARSET_UTF_8_OBJ);
     {
       // Remove doctype
       aIndex.remove (0);
@@ -60,10 +61,10 @@ public class MainFetchW3C_CSSTests
       }
     }
     final IMicroDocument aDoc = MicroReader.readMicroXML (StringHelper.getImploded ('\n', aIndex));
-    MicroWalker.walkNode (aDoc, new DefaultHierarchyWalkerCallback <IMicroNode> ()
+    MicroVisitor.visit (aDoc, new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
-      public void onItemBeforeChildren (final IMicroNode aItem)
+      public EHierarchyVisitorReturn onItemBeforeChildren (final IMicroNode aItem)
       {
         if (aItem.isElement ())
         {
@@ -75,6 +76,7 @@ public class MainFetchW3C_CSSTests
               aCSSFilenames.add (sHref.replace (".xml", ".css"));
           }
         }
+        return EHierarchyVisitorReturn.CONTINUE;
       }
     });
 
@@ -83,8 +85,8 @@ public class MainFetchW3C_CSSTests
     for (final String sCSSFilename : aCSSFilenames)
     {
       System.out.println ("  " + (++i) + ".: " + sCSSFilename);
-      final String sContent = StreamUtils.getAllBytesAsString (new URLResource (sURL + sCSSFilename),
-                                                               CCharset.CHARSET_UTF_8_OBJ);
+      final String sContent = StreamHelper.getAllBytesAsString (new URLResource (sURL + sCSSFilename),
+                                                                CCharset.CHARSET_UTF_8_OBJ);
       SimpleFileIO.writeFile (new File (sDestDir, sCSSFilename), sContent, CCharset.CHARSET_UTF_8_OBJ);
     }
   }

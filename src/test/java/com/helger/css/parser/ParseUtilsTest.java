@@ -20,10 +20,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.css.parser.ParseUtils;
-
 /**
- * Test class for class {@link ParseUtils}.
+ * Test class for class {@link CSSParseHelper}.
  * 
  * @author Philip Helger
  */
@@ -31,7 +29,7 @@ public final class ParseUtilsTest
 {
   private static String _split (final String s)
   {
-    return ParseUtils.splitNumber (new StringBuilder (s));
+    return CSSParseHelper.splitNumber (new StringBuilder (s));
   }
 
   @Test
@@ -58,9 +56,9 @@ public final class ParseUtilsTest
   @Test
   public void testUnescapeCSSURL ()
   {
-    assertEquals ("bla.gif", ParseUtils.unescapeURL ("bla.gif"));
-    assertEquals ("/foo/bla.gif", ParseUtils.unescapeURL ("/foo/bla.gif"));
-    assertEquals ("/foo/bla().gif", ParseUtils.unescapeURL ("/foo/bla\\(\\).gif"));
-    assertEquals ("\\\\server\\foo\\bla.gif", ParseUtils.unescapeURL ("\\\\\\\\server\\\\foo\\\\bla.gif"));
+    assertEquals ("bla.gif", CSSParseHelper.unescapeURL ("bla.gif"));
+    assertEquals ("/foo/bla.gif", CSSParseHelper.unescapeURL ("/foo/bla.gif"));
+    assertEquals ("/foo/bla().gif", CSSParseHelper.unescapeURL ("/foo/bla\\(\\).gif"));
+    assertEquals ("\\\\server\\foo\\bla.gif", CSSParseHelper.unescapeURL ("\\\\\\\\server\\\\foo\\\\bla.gif"));
   }
 }

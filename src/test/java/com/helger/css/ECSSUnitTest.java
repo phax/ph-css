@@ -26,7 +26,6 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
-import com.helger.css.ECSSUnit;
 
 /**
  * Test class for class {@link ECSSUnit}.

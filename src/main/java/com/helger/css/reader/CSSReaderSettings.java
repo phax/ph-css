@@ -21,14 +21,14 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.ICloneable;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVersion;
-import com.helger.css.handler.ICSSParseExceptionHandler;
+import com.helger.css.handler.ICSSParseExceptionCallback;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 
 /**
@@ -45,7 +45,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   private ECSSVersion m_eCSSVersion = DEFAULT_VERSION;
   private Charset m_aFallbackCharset = DEFAULT_CHARSET;
   private ICSSParseErrorHandler m_aCustomErrorHandler;
-  private ICSSParseExceptionHandler m_aCustomExceptionHandler;
+  private ICSSParseExceptionCallback m_aCustomExceptionHandler;
 
   public CSSReaderSettings ()
   {}
@@ -165,7 +165,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    *         the unrecoverable parsing errors. May be <code>null</code>.
    */
   @Nullable
-  public ICSSParseExceptionHandler getCustomExceptionHandler ()
+  public ICSSParseExceptionCallback getCustomExceptionHandler ()
   {
     return m_aCustomExceptionHandler;
   }
@@ -177,7 +177,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    * @return this
    */
   @Nonnull
-  public CSSReaderSettings setCustomExceptionHandler (@Nullable final ICSSParseExceptionHandler aCustomExceptionHandler)
+  public CSSReaderSettings setCustomExceptionHandler (@Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     m_aCustomExceptionHandler = aCustomExceptionHandler;
     return this;

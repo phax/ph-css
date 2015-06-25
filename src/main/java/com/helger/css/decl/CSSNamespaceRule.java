@@ -22,9 +22,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
@@ -37,7 +37,7 @@ import com.helger.css.utils.CSSURLHelper;
  * Represents a single namespace rule on top level.<br>
  * Example:<br>
  * <code>@namespace Q "http://example.com/q-markup";</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -49,7 +49,7 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Constructor for the default namespace
-   * 
+   *
    * @param sURL
    *        The namespace URL to use. May not be <code>null</code>.
    */
@@ -60,7 +60,7 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Constructor
-   * 
+   *
    * @param sNamespacePrefix
    *        The namespace prefix to use. May be <code>null</code> or empty for
    *        the default namespace.
@@ -142,7 +142,7 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSNamespaceRule rhs = (CSSNamespaceRule) o;
-    return EqualsUtils.equals (m_sPrefix, rhs.m_sPrefix) && m_sURL.equals (rhs.m_sURL);
+    return EqualsHelper.equals (m_sPrefix, rhs.m_sPrefix) && m_sURL.equals (rhs.m_sURL);
   }
 
   @Override

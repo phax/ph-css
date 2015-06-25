@@ -26,17 +26,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
+import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.css.AbstractCSS21TestCase;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
-import com.helger.css.decl.visit.CSSVisitor;
 import com.helger.css.reader.CSSReader;
 
 /**
  * Test class for class {@link CSSVisitor}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSVisitor21FuncTest extends AbstractCSS21TestCase
@@ -47,7 +46,7 @@ public final class CSSVisitor21FuncTest extends AbstractCSS21TestCase
   public void testVisitContent21 ()
   {
     for (final File aFile : FileSystemRecursiveIterator.create (new File ("src/test/resources/testfiles/css21/good"),
-                                                                new FilenameFilterEndsWith (".css")))
+                                                                new FileFilterFilenameEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
       if (false)

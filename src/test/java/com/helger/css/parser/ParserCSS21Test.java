@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.io.streams.NonBlockingStringReader;
+import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.css.AbstractCSS21TestCase;
 
 /**

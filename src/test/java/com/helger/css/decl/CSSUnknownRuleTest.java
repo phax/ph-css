@@ -25,8 +25,6 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CSSUnknownRule;
-import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 
 /**

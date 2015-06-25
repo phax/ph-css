@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import com.helger.commons.url.SMap;
 import com.helger.commons.url.SimpleURL;
-import com.helger.css.parser.ParseUtils;
+import com.helger.css.parser.CSSParseHelper;
 
 /**
  * Test class for class {@link CSSURLHelper}.
@@ -63,7 +63,7 @@ public final class CSSURLHelperTest
                                             "a\\(\\).gif" })
     {
       final String sEscaped = CSSURLHelper.getAsCSSURL (sURL, false);
-      assertEquals (sURL, ParseUtils.trimUrl (sEscaped));
+      assertEquals (sURL, CSSParseHelper.trimUrl (sEscaped));
     }
 
     assertEquals ("url(a.gif)", CSSURLHelper.getAsCSSURL ("a.gif", false));

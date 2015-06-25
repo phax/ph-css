@@ -24,12 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
+import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
-import com.helger.commons.mutable.Wrapper;
+import com.helger.commons.wrapper.Wrapper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
-import com.helger.css.handler.ICSSParseExceptionHandler;
+import com.helger.css.handler.ICSSParseExceptionCallback;
 import com.helger.css.parser.ParseException;
 import com.helger.css.reader.CSSReader;
 
@@ -51,14 +51,14 @@ public final class MainReadAllCSSOnDisc
     int nFilesError = 0;
     final Map <File, ParseException> aErrors = new LinkedHashMap <File, ParseException> ();
     final Wrapper <File> aCurrentFile = new Wrapper <File> ();
-    final ICSSParseExceptionHandler aHdl = new ICSSParseExceptionHandler ()
+    final ICSSParseExceptionCallback aHdl = new ICSSParseExceptionCallback ()
     {
       public void onException (final ParseException ex)
       {
         aErrors.put (aCurrentFile.get (), ex);
       }
     };
-    for (final File aFile : FileSystemRecursiveIterator.create (new File ("/"), new FilenameFilterEndsWith (".css")))
+    for (final File aFile : FileSystemRecursiveIterator.create (new File ("/"), new FileFilterFilenameEndsWith (".css")))
     {
       if (false)
         s_aLogger.info (aFile.getAbsolutePath ());

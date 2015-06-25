@@ -22,9 +22,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
@@ -32,7 +32,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a CSS function element
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -53,7 +53,7 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
 
   /**
    * Constructor without an expression
-   * 
+   *
    * @param sFunctionName
    *        Function name. May neither be <code>null</code> nor empty.
    */
@@ -64,7 +64,7 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
 
   /**
    * Constructor
-   * 
+   *
    * @param sFunctionName
    *        Function name. May neither be <code>null</code> nor empty.
    * @param aExpression
@@ -151,7 +151,7 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSExpressionMemberFunction rhs = (CSSExpressionMemberFunction) o;
-    return m_sFunctionName.equals (rhs.m_sFunctionName) && EqualsUtils.equals (m_aExpression, rhs.m_aExpression);
+    return m_sFunctionName.equals (rhs.m_sFunctionName) && EqualsHelper.equals (m_aExpression, rhs.m_aExpression);
   }
 
   @Override

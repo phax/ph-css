@@ -29,9 +29,9 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.filter.FilenameFilterEndsWith;
+import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
@@ -66,7 +66,7 @@ public abstract class AbstractFuncTestCSSReader
     if (!aBaseDir.exists ())
       throw new IllegalArgumentException ("BaseDir " + sBaseDir + " does not exist!");
 
-    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FilenameFilterEndsWith (".css")))
+    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FileFilterFilenameEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
       if (m_bDebug)
@@ -79,7 +79,7 @@ public abstract class AbstractFuncTestCSSReader
       if (m_bDebug)
         m_aLogger.info (aErrorHdl.getAllParseErrors ().toString ());
 
-      PHTestUtils.testDefaultSerialization (aCSS);
+      CommonsTestHelper.testDefaultSerialization (aCSS);
 
       // Write optimized version and compare it
       String sCSS = new CSSWriter (m_eVersion, true).getCSSAsString (aCSS);
@@ -112,7 +112,7 @@ public abstract class AbstractFuncTestCSSReader
     if (!aBaseDir.exists ())
       throw new IllegalArgumentException ("BaseDir " + sBaseDir + " does not exist!");
 
-    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FilenameFilterEndsWith (".css")))
+    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FileFilterFilenameEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
       if (m_bDebug)
@@ -130,7 +130,7 @@ public abstract class AbstractFuncTestCSSReader
     if (!aBaseDir.exists ())
       throw new IllegalArgumentException ("BaseDir " + sBaseDir + " does not exist!");
 
-    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FilenameFilterEndsWith (".css")))
+    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FileFilterFilenameEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
       if (m_bDebug)

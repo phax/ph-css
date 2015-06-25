@@ -21,9 +21,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
@@ -32,7 +32,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single <code>@</code> rule that is non-standard and/or unknown.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -155,8 +155,8 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
       return false;
     final CSSUnknownRule rhs = (CSSUnknownRule) o;
     return m_sDeclaration.equals (rhs.m_sDeclaration) &&
-           EqualsUtils.equals (m_sParameterList, rhs.m_sParameterList) &&
-           EqualsUtils.equals (m_sBody, rhs.m_sBody);
+           EqualsHelper.equals (m_sParameterList, rhs.m_sParameterList) &&
+           EqualsHelper.equals (m_sBody, rhs.m_sBody);
   }
 
   @Override

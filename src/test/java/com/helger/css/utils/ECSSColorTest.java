@@ -25,8 +25,6 @@ import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
 import com.helger.css.ECSSVersion;
-import com.helger.css.utils.CSSColorHelper;
-import com.helger.css.utils.ECSSColor;
 import com.helger.css.writer.CSSWriter;
 
 /**

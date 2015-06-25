@@ -26,7 +26,6 @@ import org.junit.Test;
 
 import com.helger.css.ECSSUnit;
 import com.helger.css.propertyvalue.CSSSimpleValueWithUnit;
-import com.helger.css.utils.CSSNumberHelper;
 
 /**
  * Test class for class {@link CSSNumberHelper}.

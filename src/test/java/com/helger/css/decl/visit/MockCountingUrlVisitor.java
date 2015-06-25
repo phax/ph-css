@@ -25,7 +25,6 @@ import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.ICSSTopLevelRule;
-import com.helger.css.decl.visit.DefaultCSSUrlVisitor;
 
 final class MockCountingUrlVisitor extends DefaultCSSUrlVisitor
 {

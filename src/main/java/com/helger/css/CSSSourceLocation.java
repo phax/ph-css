@@ -24,9 +24,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -34,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * Defines the source location of an object when reading CSS from a stream. It
  * consists of the position of the start token and the position of the end
  * token.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -45,7 +45,7 @@ public class CSSSourceLocation implements Serializable
 
   /**
    * Constructor.
-   * 
+   *
    * @param aFirstTokenArea
    *        Area of the first token. May be <code>null</code> if the last token
    *        area is not <code>null</code>.
@@ -216,8 +216,8 @@ public class CSSSourceLocation implements Serializable
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSourceLocation rhs = (CSSSourceLocation) o;
-    return EqualsUtils.equals (m_aFirstTokenArea, rhs.m_aFirstTokenArea) &&
-           EqualsUtils.equals (m_aLastTokenArea, rhs.m_aLastTokenArea);
+    return EqualsHelper.equals (m_aFirstTokenArea, rhs.m_aFirstTokenArea) &&
+           EqualsHelper.equals (m_aLastTokenArea, rhs.m_aLastTokenArea);
   }
 
   @Override

@@ -24,9 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
-import com.helger.css.utils.CSSDataURL;
-import com.helger.css.utils.CSSDataURLHelper;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link CSSDataURLHelper}.<br>
@@ -123,24 +121,24 @@ public final class CSSDataURLHelperTest
       final CSSDataURL aURL = CSSDataURLHelper.parseDataURL (sValid);
       assertNotNull ("Failed to parse: " + sValid, aURL);
       assertFalse ("Should not be Base64: " + sValid, aURL.isBase64Encoded ());
-      PHTestUtils.testDefaultSerialization (aURL);
+      CommonsTestHelper.testDefaultSerialization (aURL);
 
       // Convert to string and parse again
       String sAsString = aURL.getAsString ();
       assertNotNull (sAsString);
       CSSDataURL aURL2 = CSSDataURLHelper.parseDataURL (sAsString);
       assertNotNull ("Failed to parse: " + sAsString, aURL2);
-      PHTestUtils.testDefaultSerialization (aURL2);
+      CommonsTestHelper.testDefaultSerialization (aURL2);
 
       assertEquals (aURL, aURL2);
-      PHTestUtils.testDefaultImplementationWithEqualContentObject (aURL, aURL2);
+      CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aURL, aURL2);
 
       // Convert to optimized string and parse again
       sAsString = aURL.getAsString (true);
       assertNotNull (sAsString);
       aURL2 = CSSDataURLHelper.parseDataURL (sAsString);
       assertNotNull ("Failed to parse: " + sAsString, aURL2);
-      PHTestUtils.testDefaultSerialization (aURL2);
+      CommonsTestHelper.testDefaultSerialization (aURL2);
       // -> not necessarily equals because of optional Base64 marker
     }
 
@@ -149,24 +147,24 @@ public final class CSSDataURLHelperTest
       final CSSDataURL aURL = CSSDataURLHelper.parseDataURL (sValid);
       assertNotNull ("Failed to parse: " + sValid, aURL);
       assertTrue ("Should be Base64: " + sValid, aURL.isBase64Encoded ());
-      PHTestUtils.testDefaultSerialization (aURL);
+      CommonsTestHelper.testDefaultSerialization (aURL);
 
       // Convert to string and parse again
       String sAsString = aURL.getAsString ();
       assertNotNull (sAsString);
       CSSDataURL aURL2 = CSSDataURLHelper.parseDataURL (sAsString);
       assertNotNull ("Failed to parse: " + sAsString, aURL2);
-      PHTestUtils.testDefaultSerialization (aURL2);
+      CommonsTestHelper.testDefaultSerialization (aURL2);
 
       assertEquals (aURL, aURL2);
-      PHTestUtils.testDefaultImplementationWithEqualContentObject (aURL, aURL2);
+      CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aURL, aURL2);
 
       // Convert to optimized string and parse again
       sAsString = aURL.getAsString (true);
       assertNotNull (sAsString);
       aURL2 = CSSDataURLHelper.parseDataURL (sAsString);
       assertNotNull ("Failed to parse: " + sAsString, aURL2);
-      PHTestUtils.testDefaultSerialization (aURL2);
+      CommonsTestHelper.testDefaultSerialization (aURL2);
       // -> not necessarily equals because of optional Base64 marker
     }
 

@@ -31,9 +31,6 @@ import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.ICSSTopLevelRule;
-import com.helger.css.decl.visit.CSSVisitor;
-import com.helger.css.decl.visit.DefaultCSSUrlVisitor;
-import com.helger.css.decl.visit.DefaultCSSVisitor;
 import com.helger.css.reader.CSSReaderDeclarationList;
 import com.helger.css.writer.CSSWriter;
 

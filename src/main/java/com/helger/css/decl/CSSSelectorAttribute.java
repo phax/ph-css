@@ -22,9 +22,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
@@ -33,7 +33,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * A single CSS selector attribute.
- * 
+ *
  * @see ECSSAttributeOperator
  * @author Philip Helger
  */
@@ -138,10 +138,10 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSelectorAttribute rhs = (CSSSelectorAttribute) o;
-    return EqualsUtils.equals (m_sNamespacePrefix, rhs.m_sNamespacePrefix) &&
+    return EqualsHelper.equals (m_sNamespacePrefix, rhs.m_sNamespacePrefix) &&
            m_sAttrName.equals (rhs.m_sAttrName) &&
-           EqualsUtils.equals (m_eOperator, rhs.m_eOperator) &&
-           EqualsUtils.equals (m_sAttrValue, rhs.m_sAttrValue);
+           EqualsHelper.equals (m_eOperator, rhs.m_eOperator) &&
+           EqualsHelper.equals (m_sAttrValue, rhs.m_sAttrValue);
   }
 
   @Override

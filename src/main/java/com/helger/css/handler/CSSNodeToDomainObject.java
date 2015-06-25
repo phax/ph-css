@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
@@ -74,7 +74,7 @@ import com.helger.css.decl.ICSSSupportsConditionMember;
 import com.helger.css.media.ECSSMediaExpressionFeature;
 import com.helger.css.media.ECSSMedium;
 import com.helger.css.parser.CSSNode;
-import com.helger.css.parser.ParseUtils;
+import com.helger.css.parser.CSSParseHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -149,7 +149,7 @@ final class CSSNodeToDomainObject
     {
       // No URI child node present, so the location is printed directly
       // E.g. @import "abc.css"
-      aImportURI = new CSSURI (ParseUtils.extractStringValue (aNode.getText ()));
+      aImportURI = new CSSURI (CSSParseHelper.extractStringValue (aNode.getText ()));
     }
 
     // Import rule
@@ -946,7 +946,7 @@ final class CSSNodeToDomainObject
 
     final CSSNode aURLNode = aNode.jjtGetChild (nURLIndex);
     _expectNodeType (aURLNode, ECSSNodeType.NAMESPACERULEURL);
-    final String sURL = ParseUtils.extractStringValue (aURLNode.getText ());
+    final String sURL = CSSParseHelper.extractStringValue (aURLNode.getText ());
 
     final CSSNamespaceRule ret = new CSSNamespaceRule (sPrefix, sURL);
     ret.setSourceLocation (aNode.getSourceLocation ());

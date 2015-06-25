@@ -23,15 +23,14 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.IHasSize;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 /**
  * A read only version of a CSS media list
  *
  * @author Philip Helger
  */
-public interface ICSSMediaList extends Serializable, IHasSize
+public interface ICSSMediaList extends Serializable
 {
   /**
    * @return The number of contained media. Always &ge; 0.

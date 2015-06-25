@@ -24,9 +24,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CSSURI;
 import com.helger.css.utils.CSSDataURL;
 import com.helger.css.writer.CSSWriterSettings;
 
@@ -49,8 +48,8 @@ public final class CSSURITest
     assertFalse (aURI.isDataURL ());
     assertNull (aURI.getAsDataURL ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aURI, new CSSURI ("a.gif"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aURI, new CSSURI ("b.gif"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aURI, new CSSURI ("a.gif"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aURI, new CSSURI ("b.gif"));
   }
 
   @Test

@@ -16,7 +16,7 @@
  */
 package com.helger.css.decl;
 
-import com.helger.commons.IHasStringRepresentation;
+import com.helger.commons.lang.IHasStringRepresentation;
 
 /**
  * Base interface for a CSS color definition

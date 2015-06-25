@@ -16,7 +16,7 @@
  */
 package com.helger.css.decl;
 
-import com.helger.commons.ICloneable;
+import com.helger.commons.lang.ICloneable;
 import com.helger.css.ICSSWriteable;
 
 /**

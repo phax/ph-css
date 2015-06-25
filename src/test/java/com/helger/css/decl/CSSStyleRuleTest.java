@@ -24,17 +24,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CSSExpression;
-import com.helger.css.decl.CSSExpressionMemberTermSimple;
-import com.helger.css.decl.CSSSelector;
-import com.helger.css.decl.CSSSelectorAttribute;
-import com.helger.css.decl.CSSSelectorSimpleMember;
-import com.helger.css.decl.CSSStyleRule;
-import com.helger.css.decl.CascadingStyleSheet;
-import com.helger.css.decl.ECSSAttributeOperator;
-import com.helger.css.decl.ECSSSelectorCombinator;
 import com.helger.css.reader.CSSReader;
 
 /**
@@ -77,7 +68,7 @@ public final class CSSStyleRuleTest
     final CSSStyleRule aCreated = new CSSStyleRule ();
     aCreated.addSelector (new CSSSelectorSimpleMember ("div"));
     aCreated.addDeclaration ("color", CSSExpression.createSimple ("red"), false);
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 
   @Test
@@ -118,6 +109,6 @@ public final class CSSStyleRuleTest
                                                                                   "href",
                                                                                   ECSSAttributeOperator.BEGINMATCH,
                                                                                   "red")));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 }

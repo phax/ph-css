@@ -18,7 +18,7 @@ package com.helger.css.propertyvalue;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.property.ECSSProperty;
 

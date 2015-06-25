@@ -24,16 +24,16 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.base64.Base64Helper;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mime.EMimeQuoting;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.mime.MimeType;
+import com.helger.commons.mime.MimeTypeHelper;
 import com.helger.commons.mime.MimeTypeParser;
-import com.helger.commons.mime.MimeTypeUtils;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -197,7 +197,7 @@ public final class CSSDataURLHelper
       }
 
       // Check if a "charset" MIME type parameter is present
-      final String sCharsetParam = MimeTypeUtils.getCharsetNameFromMimeType (aMimeType);
+      final String sCharsetParam = MimeTypeHelper.getCharsetNameFromMimeType (aMimeType);
       if (sCharsetParam != null)
       {
         try
@@ -228,7 +228,15 @@ public final class CSSDataURLHelper
     if (bBase64EncodingUsed)
     {
       // Base64 decode the content data
-      aContent = Base64Helper.safeDecode (aContent);
+      try
+      {
+        aContent = Base64.safeDecode (aContent);
+      }
+      catch (final IllegalArgumentException ex)
+      {
+        // XXX work around for ph-commons 6.0.0-beta1
+        aContent = null;
+      }
       if (aContent == null)
       {
         s_aLogger.warn ("Failed to decode Base64 value: " + sContent);

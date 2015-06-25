@@ -24,9 +24,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.ReturnsMutableObject;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
@@ -39,7 +39,7 @@ import com.helger.css.property.ECSSProperty;
  * Represents a single element in a CSS style rule. (eg. <code>color:red;</code>
  * or <code>background:uri(a.gif) !important;</code>)<br>
  * Instances of this class are mutable since 3.7.4.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -54,7 +54,7 @@ public class CSSDeclaration implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Constructor for non-important values.
-   * 
+   *
    * @param sProperty
    *        The name of the property. E.g. "color". May neither be
    *        <code>null</code> nor empty. The property value is automatically
@@ -69,7 +69,7 @@ public class CSSDeclaration implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Constructor.
-   * 
+   *
    * @param sProperty
    *        The name of the property. E.g. "color". May neither be
    *        <code>null</code> nor empty. The property value is automatically
@@ -101,7 +101,7 @@ public class CSSDeclaration implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Set the property of this CSS value (e.g. <code>background-color</code>).
-   * 
+   *
    * @param sProperty
    *        The CSS property name to set. May neither be <code>null</code> nor
    *        empty. The property value is automatically lowercased!
@@ -117,7 +117,7 @@ public class CSSDeclaration implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Set the property of this CSS value (e.g. <code>background-color</code>).
-   * 
+   *
    * @param eProperty
    *        The CSS property to set. May not be <code>null</code>.
    * @return this
@@ -136,7 +136,7 @@ public class CSSDeclaration implements ICSSWriteable, ICSSSourceLocationAware
    *         <code>null</code>.
    */
   @Nonnull
-  @ReturnsMutableObject (reason = "design")
+  @ReturnsMutableObject ("design")
   public CSSExpression getExpression ()
   {
     return m_aExpression;
@@ -144,7 +144,7 @@ public class CSSDeclaration implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Set the expression (= value) of this declaration.
-   * 
+   *
    * @param aExpression
    *        The value of the property. May not be <code>null</code>.
    * @return this
@@ -168,7 +168,7 @@ public class CSSDeclaration implements ICSSWriteable, ICSSSourceLocationAware
 
   /**
    * Set the important flag of this value.
-   * 
+   *
    * @param bIsImportant
    *        <code>true</code> to mark it important, <code>false</code> to remove
    *        it.

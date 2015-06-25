@@ -24,11 +24,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.css.property.CCSSProperties;
-import com.helger.css.propertyvalue.CCSSValue;
-import com.helger.css.propertyvalue.CSSValue;
-import com.helger.css.propertyvalue.CSSValueList;
-import com.helger.css.propertyvalue.CSSValueMultiValue;
-import com.helger.css.propertyvalue.ICSSValue;
 import com.helger.css.utils.ECSSColor;
 
 /**

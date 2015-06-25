@@ -18,7 +18,7 @@ package com.helger.css;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Contains CSS style constants and utility stuff. Only constants that are part

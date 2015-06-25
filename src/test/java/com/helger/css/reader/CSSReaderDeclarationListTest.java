@@ -26,14 +26,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
-import com.helger.css.handler.DoNothingCSSParseExceptionHandler;
-import com.helger.css.handler.ICSSParseExceptionHandler;
-import com.helger.css.reader.CSSReaderDeclarationList;
+import com.helger.css.handler.DoNothingCSSParseExceptionCallback;
+import com.helger.css.handler.ICSSParseExceptionCallback;
 
 /**
  * Test class for class {@link CSSReaderDeclarationList}
@@ -82,7 +81,7 @@ public final class CSSReaderDeclarationListTest
   @Test
   public void testRead21 ()
   {
-    final ICSSParseExceptionHandler aHdl = DoNothingCSSParseExceptionHandler.getInstance ();
+    final ICSSParseExceptionCallback aHdl = DoNothingCSSParseExceptionCallback.getInstance ();
     for (final String sCSS : VALID)
     {
       final CSSDeclarationList aDL = CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS21, aHdl);
@@ -95,7 +94,7 @@ public final class CSSReaderDeclarationListTest
   @Test
   public void testRead30 ()
   {
-    final ICSSParseExceptionHandler aHdl = DoNothingCSSParseExceptionHandler.getInstance ();
+    final ICSSParseExceptionCallback aHdl = DoNothingCSSParseExceptionCallback.getInstance ();
     for (final String sCSS : VALID)
       assertNotNull (sCSS, CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS30, aHdl));
     for (final String sCSS : INVALID)

@@ -26,20 +26,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CSSExpression;
-import com.helger.css.decl.CSSExpressionMemberTermSimple;
-import com.helger.css.decl.CSSSelectorSimpleMember;
-import com.helger.css.decl.CSSStyleRule;
-import com.helger.css.decl.CSSSupportsConditionDeclaration;
-import com.helger.css.decl.CSSSupportsConditionNegation;
-import com.helger.css.decl.CSSSupportsConditionNested;
-import com.helger.css.decl.CSSSupportsRule;
-import com.helger.css.decl.CascadingStyleSheet;
-import com.helger.css.decl.ECSSSupportsConditionOperator;
-import com.helger.css.decl.ICSSExpressionMember;
-import com.helger.css.decl.ICSSSupportsConditionMember;
 import com.helger.css.reader.CSSReader;
 
 /**
@@ -86,7 +74,7 @@ public final class CSSSupportsRuleTest
     final CSSSupportsRule aCreated = new CSSSupportsRule ();
     aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count",
                                                                              CSSExpression.createNumber (1)));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 
   @Test
@@ -141,6 +129,6 @@ public final class CSSSupportsRuleTest
                                                                                                                                                             CSSExpression.createSimple ("blue")))));
     aCreated.addRule (new CSSStyleRule ().addSelector (new CSSSelectorSimpleMember ("div"))
                                          .addDeclaration ("color", CSSExpression.createSimple ("red"), false));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 }

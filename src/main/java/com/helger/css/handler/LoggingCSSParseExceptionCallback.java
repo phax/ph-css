@@ -26,18 +26,18 @@ import com.helger.css.parser.ParseException;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 /**
- * An implementation of {@link ICSSParseExceptionHandler} that logs all
+ * An implementation of {@link ICSSParseExceptionCallback} that logs all
  * {@link ParseException}s to a Logger.
  *
  * @author Philip Helger
  * @since 3.7.4
  */
 @Immutable
-public class LoggingCSSParseExceptionHandler implements ICSSParseExceptionHandler
+public class LoggingCSSParseExceptionCallback implements ICSSParseExceptionCallback
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingCSSParseExceptionHandler.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingCSSParseExceptionCallback.class);
 
-  public LoggingCSSParseExceptionHandler ()
+  public LoggingCSSParseExceptionCallback ()
   {}
 
   public void onException (@Nonnull final com.helger.css.parser.ParseException ex)

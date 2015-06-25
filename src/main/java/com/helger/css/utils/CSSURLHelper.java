@@ -21,11 +21,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
-import com.helger.css.parser.ParseUtils;
+import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.propertyvalue.CCSSValue;
 
 /**
@@ -83,7 +83,7 @@ public final class CSSURLHelper
   {
     if (isURLValue (sValue))
     {
-      return ParseUtils.trimUrl (sValue);
+      return CSSParseHelper.trimUrl (sValue);
     }
     return null;
   }
@@ -162,7 +162,7 @@ public final class CSSURLHelper
   {
     ValueEnforcer.notNull (sURL, "URL");
 
-    if (sURL.indexOf (cQuoteChar) < 0 && sURL.indexOf (ParseUtils.URL_ESCAPE_CHAR) < 0)
+    if (sURL.indexOf (cQuoteChar) < 0 && sURL.indexOf (CSSParseHelper.URL_ESCAPE_CHAR) < 0)
     {
       // Found nothing to quote
       return sURL;
@@ -172,8 +172,8 @@ public final class CSSURLHelper
     for (final char c : sURL.toCharArray ())
     {
       // Escape the quote char and the escape char itself
-      if (c == cQuoteChar || c == ParseUtils.URL_ESCAPE_CHAR)
-        aSB.append (ParseUtils.URL_ESCAPE_CHAR);
+      if (c == cQuoteChar || c == CSSParseHelper.URL_ESCAPE_CHAR)
+        aSB.append (CSSParseHelper.URL_ESCAPE_CHAR);
       aSB.append (c);
     }
     return aSB.toString ();

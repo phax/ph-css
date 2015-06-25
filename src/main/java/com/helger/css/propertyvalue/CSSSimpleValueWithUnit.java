@@ -26,16 +26,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.ECSSUnit;
 
 /**
  * This class encapsulates a single numeric value and a unit ({@link ECSSUnit}).
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -46,7 +46,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Constructor
-   * 
+   *
    * @param aValue
    *        Numeric value. May not be <code>null</code>.
    * @param eUnit
@@ -60,7 +60,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Constructor
-   * 
+   *
    * @param dValue
    *        Numeric value
    * @param eUnit
@@ -73,7 +73,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Set the numerical value.
-   * 
+   *
    * @param aValue
    *        The new value to set. May not be <code>null</code>.
    * @return this
@@ -88,7 +88,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Set the numerical value.
-   * 
+   *
    * @param dValue
    *        The new value to set.
    * @return this
@@ -138,7 +138,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Set the unit type.
-   * 
+   *
    * @param eUnit
    *        The new unit to set. May not be <code>null</code>.
    * @return this
@@ -174,7 +174,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Get a new object with the same unit but an added value.
-   * 
+   *
    * @param aDelta
    *        The delta to be added. May not be <code>null</code>.
    * @return A new object. Never <code>null</code>.
@@ -189,7 +189,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Get a new object with the same unit but an added value.
-   * 
+   *
    * @param dDelta
    *        The delta to be added.
    * @return A new object. Never <code>null</code>.
@@ -203,7 +203,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Get a new object with the same unit but a subtracted value.
-   * 
+   *
    * @param aDelta
    *        The delta to be subtracted. May not be <code>null</code>.
    * @return A new object. Never <code>null</code>.
@@ -218,7 +218,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Get a new object with the same unit but a subtracted value.
-   * 
+   *
    * @param dDelta
    *        The delta to be subtracted.
    * @return A new object. Never <code>null</code>.
@@ -232,7 +232,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Get a new object with the same unit but a multiplied value.
-   * 
+   *
    * @param aValue
    *        The value to be multiply with this value. May not be
    *        <code>null</code>.
@@ -248,7 +248,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Get a new object with the same unit but a multiplied value.
-   * 
+   *
    * @param dValue
    *        The value to be multiply with this value.
    * @return A new object. Never <code>null</code>.
@@ -262,7 +262,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Get a new object with the same unit but an divided value.
-   * 
+   *
    * @param aDivisor
    *        The divisor to use. May not be <code>null</code>.
    * @param nScale
@@ -285,7 +285,7 @@ public class CSSSimpleValueWithUnit implements Serializable
    * Get a new object with the same unit but an divided value. By default
    * {@link CCSS#CSS_MAXIMUM_FRACTION_DIGITS} is used as scale and
    * {@link RoundingMode#HALF_UP} is used as rounding mode.
-   * 
+   *
    * @param aDivisor
    *        The divisor to use. May not be <code>null</code>.
    * @return A new object. Never <code>null</code>.
@@ -300,7 +300,7 @@ public class CSSSimpleValueWithUnit implements Serializable
 
   /**
    * Get a new object with the same unit but an divided value.
-   * 
+   *
    * @param dDivisor
    *        The divisor to use.
    * @return A new object. Never <code>null</code>.
@@ -320,7 +320,7 @@ public class CSSSimpleValueWithUnit implements Serializable
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSimpleValueWithUnit rhs = (CSSSimpleValueWithUnit) o;
-    return EqualsUtils.equals (m_aValue, rhs.m_aValue) && m_eUnit.equals (rhs.m_eUnit);
+    return EqualsHelper.equals (m_aValue, rhs.m_aValue) && m_eUnit.equals (rhs.m_eUnit);
   }
 
   @Override

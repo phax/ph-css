@@ -247,41 +247,41 @@ TOKEN :
            | "$" ( <S> )*
            | "*" ( <S> )* )? 
            <NMSTART> 
-           ( <NMCHAR> )* > { matchedToken.image = ParseUtils.validateIdentifier(image); }
+           ( <NMCHAR> )* > { matchedToken.image = CSSParseHelper.validateIdentifier(image); }
 
 
-| < EM: <NUM> "em" >           { matchedToken.image = ParseUtils.splitNumber(image) + "em"; }
-| < EX: <NUM> "ex" >           { matchedToken.image = ParseUtils.splitNumber(image) + "ex"; }
-| < PX: <NUM> "px" >           { matchedToken.image = ParseUtils.splitNumber(image) + "px"; }
-| < REM: <NUM> "rem" >         { matchedToken.image = ParseUtils.splitNumber(image) + "rem"; }
-| < VW: <NUM> "vw" >           { matchedToken.image = ParseUtils.splitNumber(image) + "vw"; }
-| < VH: <NUM> "vh" >           { matchedToken.image = ParseUtils.splitNumber(image) + "vh"; }
-| < VMIN: <NUM> "vmin" >       { matchedToken.image = ParseUtils.splitNumber(image) + "vmin"; }
-| < CH: <NUM> "ch" >           { matchedToken.image = ParseUtils.splitNumber(image) + "ch"; }
-| < DPI: <NUM> "dpi" >         { matchedToken.image = ParseUtils.splitNumber(image) + "dpi"; }
-| < DPCM: <NUM> "dpcm" >       { matchedToken.image = ParseUtils.splitNumber(image) + "dpcm"; }
-| < DPPX: <NUM> "dppx" >       { matchedToken.image = ParseUtils.splitNumber(image) + "dppx"; }
-| < LENGTH_CM: <NUM> "cm" >    { matchedToken.image = ParseUtils.splitNumber(image) + "cm"; }
-| < LENGTH_MM: <NUM> "mm" >    { matchedToken.image = ParseUtils.splitNumber(image) + "mm"; }
-| < LENGTH_IN: <NUM> "in" >    { matchedToken.image = ParseUtils.splitNumber(image) + "in"; }
-| < LENGTH_PT: <NUM> "pt" >    { matchedToken.image = ParseUtils.splitNumber(image) + "pt"; }
-| < LENGTH_PC: <NUM> "pc" >    { matchedToken.image = ParseUtils.splitNumber(image) + "pc"; }
-| < ANGLE_DEG: <NUM> "deg" >   { matchedToken.image = ParseUtils.splitNumber(image) + "deg"; }
-| < ANGLE_RAD: <NUM> "rad" >   { matchedToken.image = ParseUtils.splitNumber(image) + "rad"; }
-| < ANGLE_GRAD: <NUM> "grad" > { matchedToken.image = ParseUtils.splitNumber(image) + "grad"; }
-| < ANGLE_TURN: <NUM> "turn" > { matchedToken.image = ParseUtils.splitNumber(image) + "turn"; }
-| < TIME_MS: <NUM> "ms" >      { matchedToken.image = ParseUtils.splitNumber(image) + "ms"; }
-| < TIME_S: <NUM> "s" >        { matchedToken.image = ParseUtils.splitNumber(image) + "s"; }
-| < FREQ_HZ: <NUM> "hz" >      { matchedToken.image = ParseUtils.splitNumber(image) + "hz"; }
-| < FREQ_KHZ: <NUM> "khz" >    { matchedToken.image = ParseUtils.splitNumber(image) + "khz"; }
-| < PERCENTAGE: <NUM> "%" >    { matchedToken.image = ParseUtils.splitNumber(image) + "%"; }
+| < EM: <NUM> "em" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "em"; }
+| < EX: <NUM> "ex" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ex"; }
+| < PX: <NUM> "px" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "px"; }
+| < REM: <NUM> "rem" >         { matchedToken.image = CSSParseHelper.splitNumber(image) + "rem"; }
+| < VW: <NUM> "vw" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "vw"; }
+| < VH: <NUM> "vh" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "vh"; }
+| < VMIN: <NUM> "vmin" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "vmin"; }
+| < CH: <NUM> "ch" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ch"; }
+| < DPI: <NUM> "dpi" >         { matchedToken.image = CSSParseHelper.splitNumber(image) + "dpi"; }
+| < DPCM: <NUM> "dpcm" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "dpcm"; }
+| < DPPX: <NUM> "dppx" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "dppx"; }
+| < LENGTH_CM: <NUM> "cm" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "cm"; }
+| < LENGTH_MM: <NUM> "mm" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "mm"; }
+| < LENGTH_IN: <NUM> "in" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "in"; }
+| < LENGTH_PT: <NUM> "pt" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "pt"; }
+| < LENGTH_PC: <NUM> "pc" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "pc"; }
+| < ANGLE_DEG: <NUM> "deg" >   { matchedToken.image = CSSParseHelper.splitNumber(image) + "deg"; }
+| < ANGLE_RAD: <NUM> "rad" >   { matchedToken.image = CSSParseHelper.splitNumber(image) + "rad"; }
+| < ANGLE_GRAD: <NUM> "grad" > { matchedToken.image = CSSParseHelper.splitNumber(image) + "grad"; }
+| < ANGLE_TURN: <NUM> "turn" > { matchedToken.image = CSSParseHelper.splitNumber(image) + "turn"; }
+| < TIME_MS: <NUM> "ms" >      { matchedToken.image = CSSParseHelper.splitNumber(image) + "ms"; }
+| < TIME_S: <NUM> "s" >        { matchedToken.image = CSSParseHelper.splitNumber(image) + "s"; }
+| < FREQ_HZ: <NUM> "hz" >      { matchedToken.image = CSSParseHelper.splitNumber(image) + "hz"; }
+| < FREQ_KHZ: <NUM> "khz" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "khz"; }
+| < PERCENTAGE: <NUM> "%" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "%"; }
 // | < DIMENSION: <NUM> <IDENT> >
 
 | < #URL_CONTENT: ( <S> )* ( <STRING1>
                            | <STRING2>
                            | ( <URLCHAR> )*
                            ) ( <S> )* >
-| < URL: "url(" <URL_CONTENT> ")" >  { matchedToken.image = ParseUtils.trimUrl(image); }
+| < URL: "url(" <URL_CONTENT> ")" >  { matchedToken.image = CSSParseHelper.trimUrl(image); }
 
 | < FUNCTION_CALC: "calc("
                  | "-moz-calc("
@@ -346,7 +346,7 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
       // Encountered EOF while skipping - throw the original exception!
       throw ex;
     }
-  } while (!com.helger.commons.collections.ArrayHelper.contains (aKinds, tok.kind));
+  } while (!com.helger.commons.collection.ArrayHelper.contains (aKinds, tok.kind));
   
   if (s_aLogger.isDebugEnabled ())
     s_aLogger.debug ("Skipped until token " + tok.toString ());
@@ -728,7 +728,7 @@ void namespaceRuleURL() :
 {
   // URL tokens are always passed without the quotes!
   ( <URL>        { jjtThis.setText (token.image); }
-  | s = string() { jjtThis.setText (ParseUtils.unescapeURL (s)); }
+  | s = string() { jjtThis.setText (CSSParseHelper.unescapeURL (s)); }
   )
 } 
 

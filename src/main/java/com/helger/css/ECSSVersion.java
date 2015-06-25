@@ -18,7 +18,7 @@ package com.helger.css;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.DevelopersNote;
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.version.IHasVersion;
 import com.helger.commons.version.Version;
 

@@ -24,11 +24,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CSSImportRule;
-import com.helger.css.decl.CSSMediaQuery;
-import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriterSettings;
 
@@ -74,7 +71,7 @@ public final class CSSImportRuleTest
     // Create the same rule by application
     final CSSImportRule aCreated = new CSSImportRule ("a.gif");
     aCreated.addMediaQuery (new CSSMediaQuery ("print")).addMediaQuery (new CSSMediaQuery ("screen"));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aIR, aCreated);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aIR, aCreated);
   }
 
   @Test

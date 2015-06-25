@@ -18,7 +18,7 @@ package com.helger.css.property.customizer;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

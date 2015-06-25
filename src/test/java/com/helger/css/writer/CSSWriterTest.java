@@ -25,8 +25,6 @@ import com.helger.css.AbstractCSS30TestCase;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
-import com.helger.css.writer.CSSWriter;
-import com.helger.css.writer.CSSWriterSettings;
 
 /**
  * Test class for class {@link CSSWriter}.

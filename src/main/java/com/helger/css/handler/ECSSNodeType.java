@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.css.ECSSVersion;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.ParserCSS21TreeConstants;

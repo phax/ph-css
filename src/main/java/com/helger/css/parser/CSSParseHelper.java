@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.RegEx;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -34,7 +34,7 @@ import com.helger.css.propertyvalue.CCSSValue;
  * @author Philip Helger
  */
 @Immutable
-public final class ParseUtils
+public final class CSSParseHelper
 {
   /** The character used to quote elements in CSS URLs */
   public static final char URL_ESCAPE_CHAR = '\\';
@@ -45,9 +45,9 @@ public final class ParseUtils
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
-  private static final ParseUtils s_aInstance = new ParseUtils ();
+  private static final CSSParseHelper s_aInstance = new CSSParseHelper ();
 
-  private ParseUtils ()
+  private CSSParseHelper ()
   {}
 
   @Nonnull

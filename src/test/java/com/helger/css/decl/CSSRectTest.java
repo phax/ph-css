@@ -20,9 +20,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CSSRect;
 import com.helger.css.writer.CSSWriterSettings;
 
 /**
@@ -42,12 +41,12 @@ public final class CSSRectTest
     assertEquals ("4", aRect.getLeft ());
     assertEquals ("rect(1,2,3,4)", aRect.getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30), 0));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aRect, new CSSRect (aRect));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aRect, new CSSRect ("1", "2", "3", "4"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRect, new CSSRect ("0", "2", "3", "4"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRect, new CSSRect ("1", "0", "3", "4"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRect, new CSSRect ("2", "2", "0", "4"));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aRect, new CSSRect ("3", "2", "3", "0"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aRect, new CSSRect (aRect));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aRect, new CSSRect ("1", "2", "3", "4"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRect, new CSSRect ("0", "2", "3", "4"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRect, new CSSRect ("1", "0", "3", "4"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRect, new CSSRect ("2", "2", "0", "4"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aRect, new CSSRect ("3", "2", "3", "0"));
 
     aRect.setTop ("5");
     assertEquals ("5", aRect.getTop ());

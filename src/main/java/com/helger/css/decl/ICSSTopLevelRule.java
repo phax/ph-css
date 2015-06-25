@@ -16,7 +16,7 @@
  */
 package com.helger.css.decl;
 
-import com.helger.commons.annotations.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.css.ICSSWriteable;
 
 /**

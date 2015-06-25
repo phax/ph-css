@@ -28,7 +28,6 @@ import com.helger.css.decl.CSSHSL;
 import com.helger.css.decl.CSSHSLA;
 import com.helger.css.decl.CSSRGB;
 import com.helger.css.decl.CSSRGBA;
-import com.helger.css.utils.CSSColorHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

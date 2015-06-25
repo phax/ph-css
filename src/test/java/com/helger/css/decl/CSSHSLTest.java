@@ -20,9 +20,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CSSHSL;
 import com.helger.css.writer.CSSWriterSettings;
 
 /**
@@ -39,10 +38,10 @@ public final class CSSHSLTest
     final CSSHSL aColor = new CSSHSL (1, 2, 3);
     assertEquals ("hsl(1,2%,3%)", aColor.getAsCSSString (aSettings, 0));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aColor, new CSSHSL (aColor));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aColor, new CSSHSL (1, 2, 3));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aColor, new CSSHSL (0, 2, 3));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aColor, new CSSHSL (1, 0, 3));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aColor, new CSSHSL (1, 2, 0));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSHSL (aColor));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSHSL (1, 2, 3));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSHSL (0, 2, 3));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSHSL (1, 0, 3));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSHSL (1, 2, 0));
   }
 }

@@ -210,31 +210,31 @@ TOKEN :
            | "$" ( <S> )*
            | "*" ( <S> )* )? 
            <NMSTART> 
-           ( <NMCHAR> )* > { matchedToken.image = ParseUtils.validateIdentifier(image); }
+           ( <NMCHAR> )* > { matchedToken.image = CSSParseHelper.validateIdentifier(image); }
 
-| < EM: <NUM> "em" >           { matchedToken.image = ParseUtils.splitNumber(image) + "em"; }
-| < EX: <NUM> "ex" >           { matchedToken.image = ParseUtils.splitNumber(image) + "ex"; }
-| < PX: <NUM> "px" >           { matchedToken.image = ParseUtils.splitNumber(image) + "px"; }
-| < LENGTH_CM: <NUM> "cm" >    { matchedToken.image = ParseUtils.splitNumber(image) + "cm"; }
-| < LENGTH_MM: <NUM> "mm" >    { matchedToken.image = ParseUtils.splitNumber(image) + "mm"; }
-| < LENGTH_IN: <NUM> "in" >    { matchedToken.image = ParseUtils.splitNumber(image) + "in"; }
-| < LENGTH_PT: <NUM> "pt" >    { matchedToken.image = ParseUtils.splitNumber(image) + "pt"; }
-| < LENGTH_PC: <NUM> "pc" >    { matchedToken.image = ParseUtils.splitNumber(image) + "pc"; }
-| < ANGLE_DEG: <NUM> "deg" >   { matchedToken.image = ParseUtils.splitNumber(image) + "deg"; }
-| < ANGLE_RAD: <NUM> "rad" >   { matchedToken.image = ParseUtils.splitNumber(image) + "rad"; }
-| < ANGLE_GRAD: <NUM> "grad" > { matchedToken.image = ParseUtils.splitNumber(image) + "grad"; }
-| < TIME_MS: <NUM> "ms" >      { matchedToken.image = ParseUtils.splitNumber(image) + "ms"; }
-| < TIME_S: <NUM> "s" >        { matchedToken.image = ParseUtils.splitNumber(image) + "s"; }
-| < FREQ_HZ: <NUM> "hz" >      { matchedToken.image = ParseUtils.splitNumber(image) + "hz"; }
-| < FREQ_KHZ: <NUM> "khz" >    { matchedToken.image = ParseUtils.splitNumber(image) + "khz"; }
-| < PERCENTAGE: <NUM> "%" >    { matchedToken.image = ParseUtils.splitNumber(image) + "%"; }
+| < EM: <NUM> "em" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "em"; }
+| < EX: <NUM> "ex" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ex"; }
+| < PX: <NUM> "px" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "px"; }
+| < LENGTH_CM: <NUM> "cm" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "cm"; }
+| < LENGTH_MM: <NUM> "mm" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "mm"; }
+| < LENGTH_IN: <NUM> "in" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "in"; }
+| < LENGTH_PT: <NUM> "pt" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "pt"; }
+| < LENGTH_PC: <NUM> "pc" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "pc"; }
+| < ANGLE_DEG: <NUM> "deg" >   { matchedToken.image = CSSParseHelper.splitNumber(image) + "deg"; }
+| < ANGLE_RAD: <NUM> "rad" >   { matchedToken.image = CSSParseHelper.splitNumber(image) + "rad"; }
+| < ANGLE_GRAD: <NUM> "grad" > { matchedToken.image = CSSParseHelper.splitNumber(image) + "grad"; }
+| < TIME_MS: <NUM> "ms" >      { matchedToken.image = CSSParseHelper.splitNumber(image) + "ms"; }
+| < TIME_S: <NUM> "s" >        { matchedToken.image = CSSParseHelper.splitNumber(image) + "s"; }
+| < FREQ_HZ: <NUM> "hz" >      { matchedToken.image = CSSParseHelper.splitNumber(image) + "hz"; }
+| < FREQ_KHZ: <NUM> "khz" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "khz"; }
+| < PERCENTAGE: <NUM> "%" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "%"; }
 | < DIMENSION: <NUM> <IDENT> >
 
 | < #URL_CONTENT: ( <S> )* ( <STRING1>
                            | <STRING2>
                            | ( <URLCHAR> )*
                            ) ( <S> )* >
-| < URL: "url(" <URL_CONTENT> ")" >  { matchedToken.image = ParseUtils.trimUrl(image); }
+| < URL: "url(" <URL_CONTENT> ")" >  { matchedToken.image = CSSParseHelper.trimUrl(image); }
 
 // Expressions were abandoned after IE8
 | < FUNCTION_EXPRESSION: "expression(" >
@@ -285,7 +285,7 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
       // Encountered EOF while skipping - throw the original exception!
       throw ex;
     }  
-  } while (!com.helger.commons.collections.ArrayHelper.contains (aKinds, tok.kind));
+  } while (!com.helger.commons.collection.ArrayHelper.contains (aKinds, tok.kind));
 
   if (s_aLogger.isDebugEnabled ())
     s_aLogger.debug ("Skipped until token " + tok.toString ());
@@ -551,7 +551,7 @@ void namespaceRuleURL() :
 {
   // URL tokens are always passed without the quotes!
   ( <URL>        { jjtThis.setText (token.image); }
-  | s = string() { jjtThis.setText (ParseUtils.unescapeURL (s)); }
+  | s = string() { jjtThis.setText (CSSParseHelper.unescapeURL (s)); }
   )
 } 
 

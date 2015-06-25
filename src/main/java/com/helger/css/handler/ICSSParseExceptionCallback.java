@@ -14,25 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.css.supplementary.main;
+package com.helger.css.handler;
 
-import java.io.File;
-import java.io.IOException;
-
-import com.helger.jdk5.CreateJava5Version;
+import com.helger.commons.callback.exception.IExceptionCallback;
+import com.helger.css.parser.ParseException;
 
 /**
- * This file is responsible for creating the JDK 5 version of this project!<br>
- * Just copy this file to each project which should be available in a JDK5
- * version
- * 
+ * Special CSS exception handler. It is called in case of an unrecoverable error
+ * while parsing a CSS.
+ *
  * @author Philip Helger
  */
-// SKIPJDK5
-public class MainCreateJava5VersionCSS
+public interface ICSSParseExceptionCallback extends IExceptionCallback <ParseException>
 {
-  public static void main (final String [] args) throws IOException
-  {
-    CreateJava5Version.createJDK5Version (new File (""));
-  }
+  /* empty */
 }

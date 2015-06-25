@@ -29,7 +29,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collections.ArrayHelper;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
@@ -445,7 +445,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
       final Charset aDeterminedCharset = eBOM.getCharset ();
       if (aDeterminedCharset != null)
       {
-        final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ByteArrayInputStreamProvider (ArrayHelper.getConcatenated (eBOM.getBytes (),
+        final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ByteArrayInputStreamProvider (ArrayHelper.getConcatenated (eBOM.getAllBytes (),
                                                                                                                                   CharsetManager.getAsBytes (sCSSBase,
                                                                                                                                                              aDeterminedCharset))),
                                                                    aDeterminedCharset,

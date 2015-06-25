@@ -25,11 +25,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
@@ -326,7 +326,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
       return false;
     final CSSMediaQuery rhs = (CSSMediaQuery) o;
     return m_eModifier.equals (rhs.m_eModifier) &&
-           EqualsUtils.equals (m_sMedium, rhs.m_sMedium) &&
+           EqualsHelper.equals (m_sMedium, rhs.m_sMedium) &&
            m_aMediaExpressions.equals (rhs.m_aMediaExpressions);
   }
 

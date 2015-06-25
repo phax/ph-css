@@ -23,7 +23,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -75,7 +75,7 @@ public final class CSSCharStream implements CharStream
   {
     ValueEnforcer.isGE0 (nBufferSize, "BufferSize");
     // Using a buffered reader gives a minimal speedup
-    m_aReader = StreamUtils.getBuffered (ValueEnforcer.notNull (aReader, "Reader"));
+    m_aReader = StreamHelper.getBuffered (ValueEnforcer.notNull (aReader, "Reader"));
     m_nLine = ValueEnforcer.isGE0 (nStartLine, "StartLine");
     m_nColumn = ValueEnforcer.isGE0 (nStartColumn, "StartColumn") - 1;
 
@@ -401,7 +401,7 @@ public final class CSSCharStream implements CharStream
 
   /**
    * Method to adjust line and column numbers for the start of a token.
-   * 
+   *
    * @param newLine
    *        line index
    * @param newCol

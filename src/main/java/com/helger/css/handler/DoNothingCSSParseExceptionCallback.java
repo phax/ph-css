@@ -16,16 +16,34 @@
  */
 package com.helger.css.handler;
 
-import com.helger.commons.callback.IExceptionHandler;
+import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
+
 import com.helger.css.parser.ParseException;
 
 /**
- * Special CSS exception handler. It is called in case of an unrecoverable error
- * while parsing a CSS.
+ * An implementation of {@link ICSSParseExceptionCallback} that silently ignores
+ * all errors.
  *
  * @author Philip Helger
  */
-public interface ICSSParseExceptionHandler extends IExceptionHandler <ParseException>
+@Immutable
+public final class DoNothingCSSParseExceptionCallback implements ICSSParseExceptionCallback
 {
-  /* empty */
+  private static final DoNothingCSSParseExceptionCallback s_aInstance = new DoNothingCSSParseExceptionCallback ();
+
+  @Deprecated
+  public DoNothingCSSParseExceptionCallback ()
+  {}
+
+  @Nonnull
+  public static DoNothingCSSParseExceptionCallback getInstance ()
+  {
+    return s_aInstance;
+  }
+
+  public void onException (@Nonnull final ParseException ex)
+  {
+    // ignore
+  }
 }

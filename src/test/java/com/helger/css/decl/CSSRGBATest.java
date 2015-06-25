@@ -20,9 +20,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CSSRGBA;
 import com.helger.css.writer.CSSWriterSettings;
 
 /**
@@ -39,11 +38,11 @@ public final class CSSRGBATest
     final CSSRGBA aColor = new CSSRGBA (1, 2, 3, 0.5f);
     assertEquals ("rgba(1,2,3,0.5)", aColor.getAsCSSString (aSettings, 0));
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGBA (aColor));
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGBA (1, 2, 3, 0.5f));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGBA (0, 2, 3, 0.5f));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGBA (1, 0, 3, 0.5f));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGBA (1, 2, 0, 0.5f));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGBA (1, 2, 3, 0f));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGBA (aColor));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGBA (1, 2, 3, 0.5f));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGBA (0, 2, 3, 0.5f));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGBA (1, 0, 3, 0.5f));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGBA (1, 2, 0, 0.5f));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGBA (1, 2, 3, 0f));
   }
 }
