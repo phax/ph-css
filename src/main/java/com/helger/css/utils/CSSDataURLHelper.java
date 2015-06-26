@@ -228,15 +228,7 @@ public final class CSSDataURLHelper
     if (bBase64EncodingUsed)
     {
       // Base64 decode the content data
-      try
-      {
-        aContent = Base64.safeDecode (aContent);
-      }
-      catch (final IllegalArgumentException ex)
-      {
-        // XXX work around for ph-commons 6.0.0-beta1
-        aContent = null;
-      }
+      aContent = Base64.safeDecode (aContent);
       if (aContent == null)
       {
         s_aLogger.warn ("Failed to decode Base64 value: " + sContent);
