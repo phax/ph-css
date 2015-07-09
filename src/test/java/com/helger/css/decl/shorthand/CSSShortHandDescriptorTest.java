@@ -36,7 +36,7 @@ import com.helger.css.writer.CSSWriterSettings;
  *
  * @author Philip Helger
  */
-public class CSSShortHandDescriptorTest
+public final class CSSShortHandDescriptorTest
 {
   private static final CSSWriterSettings CWS = new CSSWriterSettings (ECSSVersion.CSS30, false);
 

@@ -25,7 +25,7 @@ import org.junit.Test;
  * 
  * @author Philip Helger
  */
-public final class ParseUtilsTest
+public final class ParseHelperTest
 {
   private static String _split (final String s)
   {
