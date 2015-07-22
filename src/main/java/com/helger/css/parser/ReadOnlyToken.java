@@ -30,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class ReadonlyToken
+public class ReadOnlyToken
 {
   private final int m_nKind;
   private final int m_nBeginLine;
@@ -39,7 +39,7 @@ public class ReadonlyToken
   private final int m_nEndColumn;
   private final String m_sImage;
 
-  public ReadonlyToken (@Nonnull final Token aToken)
+  public ReadOnlyToken (@Nonnull final Token aToken)
   {
     ValueEnforcer.notNull (aToken, "Token");
 

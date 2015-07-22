@@ -23,7 +23,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.css.parser.ReadonlyToken;
+import com.helger.css.parser.ReadOnlyToken;
 import com.helger.css.parser.Token;
 
 /**
@@ -35,10 +35,10 @@ import com.helger.css.parser.Token;
 @Immutable
 public class CSSParseError
 {
-  private final ReadonlyToken m_aLastValidToken;
+  private final ReadOnlyToken m_aLastValidToken;
   private final String m_sExpectedTokens;
-  private final ReadonlyToken m_aFirstSkippedToken;
-  private final ReadonlyToken m_aLastSkippedToken;
+  private final ReadOnlyToken m_aFirstSkippedToken;
+  private final ReadOnlyToken m_aLastSkippedToken;
   private final String m_sErrorMessage;
 
   public CSSParseError (@Nonnull @Nonempty final String sErrorMsg)
@@ -61,7 +61,7 @@ public class CSSParseError
     ValueEnforcer.notNull (aExpectedTokenSequencesVal, "ExpectedTokenSequencesVal");
     ValueEnforcer.notNull (aTokenImageVal, "TokenImageVal");
 
-    m_aLastValidToken = new ReadonlyToken (aLastValidToken);
+    m_aLastValidToken = new ReadOnlyToken (aLastValidToken);
     final StringBuilder aExpected = new StringBuilder ();
     for (final int [] aExpectedTokens : aExpectedTokenSequencesVal)
     {
@@ -71,8 +71,8 @@ public class CSSParseError
         aExpected.append (' ').append (aTokenImageVal[nExpectedToken]);
     }
     m_sExpectedTokens = aExpected.toString ();
-    m_aFirstSkippedToken = new ReadonlyToken (aLastValidToken.next);
-    m_aLastSkippedToken = aLastSkippedToken == null ? null : new ReadonlyToken (aLastSkippedToken);
+    m_aFirstSkippedToken = new ReadOnlyToken (aLastValidToken.next);
+    m_aLastSkippedToken = aLastSkippedToken == null ? null : new ReadOnlyToken (aLastSkippedToken);
     m_sErrorMessage = LoggingCSSParseErrorHandler.createLoggingStringParseError (aLastValidToken,
                                                                                  aExpectedTokenSequencesVal,
                                                                                  aTokenImageVal,
@@ -83,7 +83,7 @@ public class CSSParseError
    * @return The last valid token read. May be <code>null</code>.
    */
   @Nullable
-  public ReadonlyToken getLastValidToken ()
+  public ReadOnlyToken getLastValidToken ()
   {
     return m_aLastValidToken;
   }
@@ -103,7 +103,7 @@ public class CSSParseError
    *         start position of the error. May be <code>null</code>.
    */
   @Nullable
-  public ReadonlyToken getFirstSkippedToken ()
+  public ReadOnlyToken getFirstSkippedToken ()
   {
     return m_aFirstSkippedToken;
   }
@@ -113,7 +113,7 @@ public class CSSParseError
    *         end position of the error. May be <code>null</code>.
    */
   @Nullable
-  public ReadonlyToken getLastSkippedToken ()
+  public ReadOnlyToken getLastSkippedToken ()
   {
     return m_aLastSkippedToken;
   }
