@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.css.reader;
+package com.helger.css.supplementary.issues;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,6 +27,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
+import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 /**

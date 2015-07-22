@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.css.reader;
+package com.helger.css.supplementary.issues;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
+import com.helger.css.reader.CSSReader;
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 
@@ -73,7 +74,6 @@ public final class Issue3Test
   }
 
   @Test
-  @Ignore ("failing")
   public void testErrorInStyleDeclarationBlock1a ()
   {
     // Parse error in "unexpected background"
@@ -90,15 +90,14 @@ public final class Issue3Test
   }
 
   @Test
-  @Ignore ("failing")
   public void testErrorInStyleDeclarationBlock2 ()
   {
     // Parse error at ".class" - nesting error which is afterwards closed
-    final String sTest = "body {background:red;}"
-                         + "body {background:blue;.class{color:green}"
-                         + "  body {background:green;}"
-                         + "}"
-                         + "body{background:orange;}";
+    final String sTest = "body {background:red;}" +
+                         "body {background:blue;.class{color:green}" +
+                         "  body {background:green;}" +
+                         "}" +
+                         "body{background:orange;}";
     final CascadingStyleSheet aCSS = _parse (sTest);
     assertNotNull (aCSS);
     if (true)
@@ -110,14 +109,13 @@ public final class Issue3Test
   }
 
   @Test
-  @Ignore ("failing")
   public void testErrorInStyleDeclarationBlock2a ()
   {
     // Parse error at ".class" - nesting error which is not closed afterwards
-    final String sTest = "body {background:red;}"
-                         + "body {background:blue;.class{color:green}"
-                         + "  body {background:green;}"
-                         + "body{background:orange;}";
+    final String sTest = "body {background:red;}" +
+                         "body {background:blue;.class{color:green}" +
+                         "  body {background:green;}" +
+                         "body{background:orange;}";
     final CascadingStyleSheet aCSS = _parse (sTest);
     assertNotNull (aCSS);
     if (true)

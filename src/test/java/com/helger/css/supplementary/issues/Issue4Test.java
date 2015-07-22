@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.css.reader;
+package com.helger.css.supplementary.issues;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -25,20 +25,21 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
+import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 
 /**
- * Test for issue 22: http://code.google.com/p/phloc-css/issues/detail?id=22
+ * Test for issue 4: https://github.com/phax/ph-css/issues/4
  *
  * @author Philip Helger
  */
-public final class IssueGC22Test
+public final class Issue4Test
 {
   @Test
-  public void testIssue22 ()
+  public void testIssue4 ()
   {
-    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue-gc-22.css");
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue4.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,
