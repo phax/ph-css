@@ -51,10 +51,16 @@ public class ParserCSS30
   private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS30.class);
   
   private com.helger.css.reader.errorhandler.ICSSParseErrorHandler m_aCustomErrorHandler;
+  private boolean m_bBrowserCompliantMode = false;
   
   public void setCustomErrorHandler (final com.helger.css.reader.errorhandler.ICSSParseErrorHandler aCustomErrorHandler)
   {
     m_aCustomErrorHandler = aCustomErrorHandler;
+  }
+  
+  public void setBrowserCompliantMode (final boolean bBrowserCompliantMode)
+  {
+    m_bBrowserCompliantMode = bBrowserCompliantMode;
   }
   
   // Used when NODE_SCOPE_HOOK is true - for debugging only

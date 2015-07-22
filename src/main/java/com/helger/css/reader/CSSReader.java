@@ -57,9 +57,9 @@ import com.helger.css.handler.ICSSParseExceptionCallback;
 import com.helger.css.handler.LoggingCSSParseExceptionCallback;
 import com.helger.css.parser.CSSCharStream;
 import com.helger.css.parser.CSSNode;
+import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.parser.CharStream;
 import com.helger.css.parser.ParseException;
-import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.parser.ParserCSS21;
 import com.helger.css.parser.ParserCSS21TokenManager;
 import com.helger.css.parser.ParserCSS30;
@@ -214,6 +214,8 @@ public final class CSSReader
           final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aCharStream);
           final ParserCSS21 aParser = new ParserCSS21 (aTokenHdl);
           aParser.setCustomErrorHandler (aCustomErrorHandler);
+          // XXX test only
+          aParser.setBrowserCompliantMode (true);
           // Main parsing
           return aParser.styleSheet ();
         }
@@ -222,6 +224,8 @@ public final class CSSReader
           final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);
           final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
           aParser.setCustomErrorHandler (aCustomErrorHandler);
+          // XXX test only
+          aParser.setBrowserCompliantMode (true);
           // Main parsing
           return aParser.styleSheet ();
         }
@@ -659,7 +663,8 @@ public final class CSSReader
                                                   @Nonnull final Charset aFallbackCharset,
                                                   @Nonnull final ECSSVersion eVersion)
   {
-    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
+    return readFromFile (aFile,
+                         new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
   }
 
   /**
@@ -685,9 +690,10 @@ public final class CSSReader
                                                   @Nonnull final ECSSVersion eVersion,
                                                   @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                        .setCSSVersion (eVersion)
-                                                        .setCustomErrorHandler (aCustomErrorHandler));
+    return readFromFile (aFile,
+                         new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                 .setCSSVersion (eVersion)
+                                                 .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -713,9 +719,10 @@ public final class CSSReader
                                                   @Nonnull final ECSSVersion eVersion,
                                                   @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
-    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                        .setCSSVersion (eVersion)
-                                                        .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromFile (aFile,
+                         new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                 .setCSSVersion (eVersion)
+                                                 .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -745,10 +752,11 @@ public final class CSSReader
                                                   @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                   @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
-    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                        .setCSSVersion (eVersion)
-                                                        .setCustomErrorHandler (aCustomErrorHandler)
-                                                        .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromFile (aFile,
+                         new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                 .setCSSVersion (eVersion)
+                                                 .setCustomErrorHandler (aCustomErrorHandler)
+                                                 .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -793,8 +801,8 @@ public final class CSSReader
                                                     @Nonnull final Charset aFallbackCharset,
                                                     @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                         .setCSSVersion (eVersion));
+    return readFromStream (aISP,
+                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
   }
 
   /**
@@ -824,9 +832,10 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                         .setCSSVersion (eVersion)
-                                                         .setCustomErrorHandler (aCustomErrorHandler));
+    return readFromStream (aISP,
+                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                   .setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   private static final class InputStreamAndCharset implements IHasInputStream
@@ -1034,9 +1043,10 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
-    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                         .setCSSVersion (eVersion)
-                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromStream (aISP,
+                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                   .setCSSVersion (eVersion)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -1070,10 +1080,11 @@ public final class CSSReader
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                     @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
-    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-                                                         .setCSSVersion (eVersion)
-                                                         .setCustomErrorHandler (aCustomErrorHandler)
-                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromStream (aISP,
+                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                   .setCSSVersion (eVersion)
+                                                   .setCustomErrorHandler (aCustomErrorHandler)
+                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
