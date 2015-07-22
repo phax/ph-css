@@ -23,8 +23,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
@@ -51,11 +56,18 @@ import com.helger.css.writer.CSSWriterSettings;
  *
  * @author Philip Helger
  */
+@RunWith (Parameterized.class)
 public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 {
-  public CSSReader30FuncTest ()
+  @Parameters (name = "{index}: browserCompliant={0}")
+  public static List <Object> data ()
   {
-    super (ECSSVersion.CSS30, CCharset.CHARSET_UTF_8_OBJ, false);
+    return Arrays.asList (new Object [] { true, false });
+  }
+
+  public CSSReader30FuncTest (final boolean bBrowserCompliant)
+  {
+    super (ECSSVersion.CSS30, CCharset.CHARSET_UTF_8_OBJ, false, bBrowserCompliant);
   }
 
   @Test
@@ -86,6 +98,12 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   public void testReadAll30BadBadButRecoverable ()
   {
     testReadBadButRecoverable ("src/test/resources/testfiles/css30/bad_but_recoverable");
+  }
+
+  @Test
+  public void testReadAll30BadBadButBrowserCompliant ()
+  {
+    testReadBadButBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_recoverable");
   }
 
   @Test
@@ -334,12 +352,15 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   @Test
   public void testSpecialCasesAsString ()
   {
+    final boolean bBrowserCompliantMode = true;
+
     // Parsing problem
     String sCSS = ".class{color:red;.class{color:green}.class{color:blue}";
     CascadingStyleSheet aCSS, aCSS2;
     aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
     assertNotNull (aCSS);
-    assertEquals (".class{color:red}.class{color:blue}", new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
+    assertEquals (bBrowserCompliantMode ? "" : ".class{color:red}.class{color:blue}",
+                  new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
 
     sCSS = "  \n/* comment */\n  \n.class{color:red;}";
     aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
@@ -415,9 +436,17 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     // Invalid identifier 3
     sCSS = "*0{color:red;}";
     aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());
-    assertNotNull (aCSS);
-    assertEquals ("*{}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
+    if (bBrowserCompliantMode)
+    {
+      assertNull (aCSS);
+    }
+    else
+    {
+      assertNotNull (aCSS);
+      assertEquals ("*{}",
+                    new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
+    }
+
     // Valid version of previous variant
     sCSS = "*abc{color:red;}";
     aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30, new LoggingCSSParseErrorHandler ());

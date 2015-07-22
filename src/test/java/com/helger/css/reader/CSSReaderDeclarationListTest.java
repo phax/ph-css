@@ -42,23 +42,21 @@ import com.helger.css.handler.ICSSParseExceptionCallback;
 public final class CSSReaderDeclarationListTest
 {
   private static final List <String> VALID = CollectionHelper.newList ("",
-                                                                      "    ",
-                                                                      ";",
-                                                                      ";;",
-                                                                      "  ;     ;     ;   ",
-                                                                      "color:red; background:fixed;",
-                                                                      "  color:red; background:fixed;  ",
-                                                                      "color:red; background:fixed",
-                                                                      "color:red; background:fixed !important",
-                                                                      /*
-                                                                       * invalid
-                                                                       * but
-                                                                       * parsed
-                                                                       */
-                                                                      " color : ",
-                                                                      " color :  !important ",
-                                                                      " color :  !  important ");
-  private static final List <String> INVALID = CollectionHelper.newList ("color", " color ");
+                                                                       "    ",
+                                                                       ";",
+                                                                       ";;",
+                                                                       "  ;     ;     ;   ",
+                                                                       "color:red; background:fixed;",
+                                                                       "  color:red; background:fixed;  ",
+                                                                       "color:red; background:fixed",
+                                                                       "color:red; background:fixed !important");
+  private static final List <String> INVALID = CollectionHelper.newList ("color",
+                                                                         " color ",
+                                                                         // previously
+                                                                         // parsed:
+                                                                         " color : ",
+                                                                         " color :  !important ",
+                                                                         " color :  !  important ");
 
   @Test
   public void testIsValidCSS21 ()

@@ -50,14 +50,17 @@ public abstract class AbstractFuncTestCSSReader
   private final ECSSVersion m_eVersion;
   private final Charset m_aCharset;
   private final boolean m_bDebug;
+  private final boolean m_bBrowserCompliant;
 
   protected AbstractFuncTestCSSReader (@Nonnull final ECSSVersion eVersion,
                                        @Nonnull final Charset aCharset,
-                                       final boolean bDebug)
+                                       final boolean bDebug,
+                                       final boolean bBrowserCompliant)
   {
     m_eVersion = eVersion;
     m_aCharset = aCharset;
     m_bDebug = bDebug;
+    m_bBrowserCompliant = bBrowserCompliant;
   }
 
   protected final void testReadGood (final String sBaseDir)
@@ -100,7 +103,8 @@ public abstract class AbstractFuncTestCSSReader
 
       // Write non-optimized and code-removed version and ensure it is not
       // null
-      sCSS = new CSSWriter (new CSSWriterSettings (m_eVersion, false).setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
+      sCSS = new CSSWriter (new CSSWriterSettings (m_eVersion,
+                                                   false).setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
       assertNotNull (sKey, sCSS);
       assertNotNull (sKey, CSSReader.readFromString (sCSS, m_eVersion));
     }
@@ -155,5 +159,13 @@ public abstract class AbstractFuncTestCSSReader
       assertNotNull ("Failed to parse:\n" + sCSS, aCSSReRead);
       assertEquals (sKey, aCSS, aCSSReRead);
     }
+  }
+
+  protected final void testReadBadButBrowserCompliant (final String sBaseDir)
+  {
+    if (m_bBrowserCompliant)
+      testReadGood (sBaseDir);
+    else
+      testReadBadButRecoverable (sBaseDir);
   }
 }

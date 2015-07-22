@@ -20,8 +20,13 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.css.ECSSVersion;
@@ -30,14 +35,21 @@ import com.helger.css.writer.CSSWriter;
 
 /**
  * Test reading CSS 2.1 files
- * 
+ *
  * @author Philip Helger
  */
+@RunWith (Parameterized.class)
 public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
 {
-  public CSSReader21FuncTest ()
+  @Parameters (name = "{index}: browserCompliant={0}")
+  public static List <Object> data ()
   {
-    super (ECSSVersion.CSS21, CCharset.CHARSET_UTF_8_OBJ, false);
+    return Arrays.asList (new Object [] { true, false });
+  }
+
+  public CSSReader21FuncTest (final boolean bBrowserCompliant)
+  {
+    super (ECSSVersion.CSS21, CCharset.CHARSET_UTF_8_OBJ, false, bBrowserCompliant);
   }
 
   @Test
@@ -58,6 +70,12 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   public void testReadAll21BadButRecoverable ()
   {
     testReadBadButRecoverable ("src/test/resources/testfiles/css21/bad_but_recoverable");
+  }
+
+  @Test
+  public void testReadAll21BadButBrowserCompliant ()
+  {
+    testReadBadButBrowserCompliant ("src/test/resources/testfiles/css21/bad_but_browsercompliant");
   }
 
   @Test

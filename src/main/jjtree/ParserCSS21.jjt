@@ -277,7 +277,7 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
     {
       // Encountered EOF while skipping - throw the original exception!
       throw ex;
-    }  
+    }
   } while (!com.helger.commons.collection.ArrayHelper.contains (aKinds, tok.kind));
 
   if (s_aLogger.isDebugEnabled ())
@@ -291,6 +291,10 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
 }
 
 JAVACODE
+/** 
+ * Skip to matching closing ')'
+ * @return all the string that was skipped. Never <code>null</code>
+ */
 private String javaSkipToClosingParantheses() throws ParseException #void {
   final StringBuilder aSB = new StringBuilder ();
   int nNesting = 1;
@@ -307,7 +311,7 @@ private String javaSkipToClosingParantheses() throws ParseException #void {
       }
       else {
         if (tok.kind == EOF)
-          throw new ParseException ("EOF while searching for matching closing ')'.");
+          throw new ParseEOFException ("EOF while searching for matching closing ')'.");
         // Sometimes token images contain parenthesis
         nNesting += com.helger.commons.string.StringHelper.getCharCount (tok.image, '(');
         nNesting -= com.helger.commons.string.StringHelper.getCharCount (tok.image, ')');
@@ -317,13 +321,17 @@ private String javaSkipToClosingParantheses() throws ParseException #void {
 }
 
 JAVACODE
+/** 
+ * Skip to next opening '{'
+ * @return all the string that was skipped. Never <code>null</code>
+ */ 
 private String javaSkipToOpeningBrace() throws ParseException #void {
   final StringBuilder aSB = new StringBuilder ();
   Token tok;
   while (true) {
     tok = getNextToken();
     if (tok.kind == EOF)
-      throw new ParseException ("EOF while searching for opening '{'.");
+      throw new ParseEOFException ("EOF while searching for opening '{'.");
     if (tok.kind == LBRACE)
       break;
     aSB.append (tok.image);
@@ -332,7 +340,12 @@ private String javaSkipToOpeningBrace() throws ParseException #void {
 }
 
 JAVACODE
-private String javaSkipToClosingBrace() throws ParseException #void {
+/** 
+ * Skip to matching closing '}'
+ * @return all the string that was skipped. Never <code>null</code>
+ * @throws ParseEOFException If EOF occurs while skipping
+ */
+private String javaSkipToClosingBrace() throws ParseEOFException #void {
   final StringBuilder aSB = new StringBuilder ();
   int nNesting = 1;
   while (true) {
@@ -347,12 +360,70 @@ private String javaSkipToClosingBrace() throws ParseException #void {
       }
       else {
         if (tok.kind == EOF)
-          throw new ParseException ("EOF while searching for matching closing '}'.");
+          throw new ParseEOFException ("EOF while searching for matching closing '}'.");
         // Token images never contain brackets
       }  
     aSB.append (tok.image);
   }
+  // System.out.println ("SKIPPED1: '" + aSB + "'");
   return aSB.toString ();
+}
+
+JAVACODE
+/** 
+ * Skip to matching closing '}' or the next ';' on the same level
+ * @return all the string that was skipped. Never <code>null</code>
+ * @throws ParseEOFException If EOF occurs while skipping
+ */
+private String javaSkipToClosingBraceOrSemicolon() throws ParseEOFException #void {
+  final StringBuilder aSB = new StringBuilder ();
+  int nNesting = 1;
+  while (true) {
+    final Token tok = getNextToken();
+    if (tok.kind == LBRACE) 
+      nNesting++;
+    else
+      if (tok.kind == RBRACE) {
+        nNesting--;
+        if (nNesting == 0)
+          break;
+      }
+      else
+        if (tok.kind == SEMICOLON) {
+          if (nNesting == 1)
+            break;
+        }  
+        else {
+          if (tok.kind == EOF)
+            throw new ParseEOFException ("EOF while searching for matching closing '}' or ';'.");
+          // Token images never contain brackets
+        }
+    aSB.append (tok.image);
+  }
+  // System.out.println ("SKIPPED2: '" + aSB + "'");
+  return aSB.toString ();
+}
+
+JAVACODE
+/** 
+ * Browser compliant skip to matching closing '}'
+ * @throws ParseEOFException If EOF occurs while skipping
+ */
+private void browserCompliantSkip() throws ParseEOFException #void {
+  javaSkipToClosingBrace ();
+  // push back last token!
+  token_source.backup(1);
+}
+
+JAVACODE
+/** 
+ * Browser compliant skip to matching closing '}' or ';'
+ * @throws ParseEOFException If EOF occurs while skipping
+ */
+private void browserCompliantSkipDecl() throws ParseEOFException #void {
+  javaSkipToClosingBraceOrSemicolon ();
+  // push back last token!
+  token_source.backup(1);
 }
 
 //
@@ -360,6 +431,7 @@ private String javaSkipToClosingBrace() throws ParseException #void {
 //
 CSSNode styleSheet() #Root : {}
 {
+try{
   ( <S> | <CDO> | <CDC> )*
   ( LOOKAHEAD( <CHARSET_SYM> )
     charsetRule()
@@ -388,6 +460,13 @@ CSSNode styleSheet() #Root : {}
     )* 
   )*
   <EOF>
+} catch (ParseEOFException ex) {
+  if (m_bBrowserCompliantMode) {
+    /* ignore special EOF excpetion */
+  }
+  else
+    throw ex;  
+}
   { return jjtThis; }
 }
 
@@ -509,7 +588,7 @@ void charsetRule() :
 {
   <CHARSET_SYM>
   ( <S> )+
-  sStr = string () { jjtThis.setText (sStr); }
+  sStr = string() { jjtThis.setText (sStr); }
   ( <S> )*
   <SEMICOLON>
 }
@@ -529,7 +608,6 @@ void importRule() :
   ( mediaList() )?
   <SEMICOLON>
 }
-
 
 //
 // Namespace rule
@@ -688,7 +766,7 @@ void selector() : {}
 
 void property() : {}
 {
-  <IDENT> { jjtThis.setText (token.image); } 
+  <IDENT> { jjtThis.setText (token.image); }
   ( <S> )*
 }
 
@@ -700,12 +778,21 @@ void important() : {}
 
 void styleDeclaration() : {}
 {
+try{
   property()
   <COLON>
   ( <S> )*
-  /* Optional to handle e.g. "background-color:;" */
-  ( expr() )?
+  /* Was before version 4 optional ->
+     to handle e.g. "background-color:;"
+     Rule: ( expr() )? */
+  expr()
   ( important() )?
+} catch (ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl ();
+  else  
+    throw ex;
+}
 }
 
 CSSNode styleDeclarationList() : {}
@@ -721,12 +808,15 @@ CSSNode styleDeclarationList() : {}
 
 void styleDeclarationBlock() #void : {}
 {
-try{
   <LBRACE>
+try{
   styleDeclarationList()
   <RBRACE>
 } catch (ParseException ex) {
-  errorSkipTo (ex, RBRACE);
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkip ();
+  else  
+    errorSkipTo (ex, RBRACE);
 }
 }
 
@@ -780,13 +870,16 @@ void mediaRule() : {}
   <MEDIA_SYM>
   ( <S> )*
   mediaList()
-try{  
   <LBRACE>
+try{
   ( <S> )*
   ( mediaRuleList() )?
   <RBRACE>
 } catch (ParseException ex) {
-  errorSkipTo (ex, RBRACE);
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkip ();
+  else  
+    errorSkipTo (ex, RBRACE);
 }
 }
 
@@ -822,7 +915,7 @@ void unknownRuleBody() :
 { String s; }
 {
   s = javaSkipToClosingBrace() { jjtThis.setText (s); }
-}  
+}
 
 // Any unsupported rule
 void unknownRule() : {}
@@ -837,7 +930,6 @@ void unknownRule() : {}
 //
 // Error handling
 // 
-
 void invalid () : {}
 {
   ( <INVALID_STRING1>

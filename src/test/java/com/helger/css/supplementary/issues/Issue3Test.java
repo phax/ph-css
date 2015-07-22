@@ -112,10 +112,10 @@ public final class Issue3Test
   public void testErrorInStyleDeclarationBlock2a ()
   {
     // Parse error at ".class" - nesting error which is not closed afterwards
-    final String sTest = "body {background:red;}" +
-                         "body {background:blue;.class{color:green}" +
-                         "  body {background:green;}" +
-                         "body{background:orange;}";
+    final String sTest = "body1 {background:red;}\n" +
+                         "body2 {background:blue;.class{color:green}\n" +
+                         "  body3 {background:green;}\n" +
+                         "body4{background:orange;}";
     final CascadingStyleSheet aCSS = _parse (sTest);
     assertNotNull (aCSS);
     if (true)
@@ -159,11 +159,27 @@ public final class Issue3Test
     final String sTest = "@keyframes identifier { 0% { unexpected::; } 30% { top: 50px; }   } span {color:blue;}";
     final CascadingStyleSheet aCSS = _parse (sTest);
     assertNotNull (aCSS);
-    if (false)
+    if (true)
       _print (aCSS);
     assertEquals (1, aCSS.getKeyframesRuleCount ());
     assertEquals (2, aCSS.getKeyframesRuleAtIndex (0).getBlockCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
+  }
+
+  @Test
+  public void testErrorInKeyframeRule3 ()
+  {
+    final String sTest = "body {background:red;}\n" +
+                         "@keyframes identifier { .class{color:red;.class{color:green} } \n" +
+                         "/* No  matching closing bracket: the block is not closed and all the following rules are ignored. */\n" +
+                         "/* Add the \"}\" before the following rule to close the block and enable the rule */\n" +
+                         "body {background:green;}";
+    final CascadingStyleSheet aCSS = _parse (sTest);
+    assertNotNull (aCSS);
+    if (true)
+      _print (aCSS);
+    assertEquals (1, aCSS.getRuleCount ());
+    assertEquals (0, aCSS.getKeyframesRuleCount ());
   }
 
   @Test
