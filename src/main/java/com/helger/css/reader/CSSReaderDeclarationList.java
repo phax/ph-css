@@ -35,7 +35,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.provider.IInputStreamProvider;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingStringReader;
@@ -450,7 +449,7 @@ public final class CSSReaderDeclarationList
   }
 
   /**
-   * Read the CSS from the passed {@link IInputStreamProvider}.
+   * Read the CSS from the passed {@link IHasInputStream}.
    *
    * @param aISP
    *        The input stream provider to use. May not be <code>null</code>.
@@ -470,7 +469,7 @@ public final class CSSReaderDeclarationList
   }
 
   /**
-   * Read the CSS from the passed {@link IInputStreamProvider}.
+   * Read the CSS from the passed {@link IHasInputStream}.
    *
    * @param aISP
    *        The input stream provider to use. May not be <code>null</code>.
@@ -494,7 +493,7 @@ public final class CSSReaderDeclarationList
   }
 
   /**
-   * Read the CSS from the passed {@link IInputStreamProvider}.
+   * Read the CSS from the passed {@link IHasInputStream}.
    *
    * @param aISP
    *        The input stream provider to use. May not be <code>null</code>.
@@ -518,7 +517,7 @@ public final class CSSReaderDeclarationList
   }
 
   /**
-   * Read the CSS from the passed {@link IInputStreamProvider}.
+   * Read the CSS from the passed {@link IHasInputStream}.
    *
    * @param aISP
    *        The input stream provider to use. May not be <code>null</code>.
@@ -572,7 +571,8 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final Charset aCharset,
                                                    @Nonnull final ECSSVersion eVersion)
   {
-    return readFromReader (StreamHelper.createReader (aIS, aCharset), new CSSReaderSettings ().setCSSVersion (eVersion));
+    return readFromReader (StreamHelper.createReader (aIS, aCharset),
+                           new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   /**
