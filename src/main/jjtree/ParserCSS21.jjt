@@ -46,22 +46,9 @@ options {
 PARSER_BEGIN(ParserCSS21)
 package com.helger.css.parser;
 
-public class ParserCSS21
+public class ParserCSS21 extends com.helger.css.parser.AbstractParserCSS
 {
   private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS21.class);
-  
-  private com.helger.css.reader.errorhandler.ICSSParseErrorHandler m_aCustomErrorHandler;
-  private boolean m_bBrowserCompliantMode = false;
-  
-  public void setCustomErrorHandler (final com.helger.css.reader.errorhandler.ICSSParseErrorHandler aCustomErrorHandler)
-  {
-    m_aCustomErrorHandler = aCustomErrorHandler;
-  }
-  
-  public void setBrowserCompliantMode (final boolean bBrowserCompliantMode)
-  {
-    m_bBrowserCompliantMode = bBrowserCompliantMode;
-  }
   
   // Used when NODE_SCOPE_HOOK is true - for debugging only
   // Package scope to avoid warning when NODE_SCOPE_HOOK is false

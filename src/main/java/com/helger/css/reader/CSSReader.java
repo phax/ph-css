@@ -188,6 +188,8 @@ public final class CSSReader
    *        The stream to read from. May not be <code>null</code>.
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
+   * @param aParserCustomizer
+   *        The optional parser customizer. May be <code>null</code>.
    * @param aCustomErrorHandler
    *        A custom handler for recoverable errors. May be <code>null</code>.
    * @param aCustomExceptionHandler
@@ -202,6 +204,7 @@ public final class CSSReader
   @Nullable
   private static CSSNode _readStyleSheet (@Nonnull final CharStream aCharStream,
                                           @Nonnull final ECSSVersion eVersion,
+                                          @Nullable final IParserCSSCustomizeCallback aParserCustomizer,
                                           @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                           @Nonnull final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
@@ -214,6 +217,8 @@ public final class CSSReader
           final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aCharStream);
           final ParserCSS21 aParser = new ParserCSS21 (aTokenHdl);
           aParser.setCustomErrorHandler (aCustomErrorHandler);
+          if (aParserCustomizer != null)
+            aParserCustomizer.customizeParserCSS (aParser);
           // XXX test only
           aParser.setBrowserCompliantMode (true);
           // Main parsing
@@ -224,6 +229,8 @@ public final class CSSReader
           final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);
           final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
           aParser.setCustomErrorHandler (aCustomErrorHandler);
+          if (aParserCustomizer != null)
+            aParserCustomizer.customizeParserCSS (aParser);
           // XXX test only
           aParser.setBrowserCompliantMode (true);
           // Main parsing
@@ -374,6 +381,7 @@ public final class CSSReader
       final CSSCharStream aCharStream = new CSSCharStream (aReader);
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
+                                             (IParserCSSCustomizeCallback) null,
                                              getDefaultParseErrorHandler (),
                                              DoNothingCSSParseExceptionCallback.getInstance ());
       return aNode != null;
@@ -1162,7 +1170,11 @@ public final class CSSReader
       if (aRealExceptionHandler == null)
         aRealExceptionHandler = getDefaultParseExceptionHandler ();
 
-      final CSSNode aNode = _readStyleSheet (aCharStream, eVersion, aRealErrorHandler, aRealExceptionHandler);
+      final CSSNode aNode = _readStyleSheet (aCharStream,
+                                             eVersion,
+                                             (IParserCSSCustomizeCallback) null,
+                                             aRealErrorHandler,
+                                             aRealExceptionHandler);
 
       // Failed to interpret content as CSS?
       if (aNode == null)
@@ -1256,7 +1268,11 @@ public final class CSSReader
       if (aRealExceptionHandler == null)
         aRealExceptionHandler = getDefaultParseExceptionHandler ();
 
-      final CSSNode aNode = _readStyleSheet (aCharStream, eVersion, aRealErrorHandler, aRealExceptionHandler);
+      final CSSNode aNode = _readStyleSheet (aCharStream,
+                                             eVersion,
+                                             (IParserCSSCustomizeCallback) null,
+                                             aRealErrorHandler,
+                                             aRealExceptionHandler);
 
       // Failed to interpret content as CSS?
       if (aNode == null)
