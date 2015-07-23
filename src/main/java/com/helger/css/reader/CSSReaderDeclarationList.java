@@ -71,7 +71,7 @@ public final class CSSReaderDeclarationList
 
   // Use the ThrowingCSSParseErrorHandler for maximum backward compatibility
   @GuardedBy ("s_aRWLock")
-  private static ICSSParseErrorHandler s_aDefaultParseErrorHandler = ThrowingCSSParseErrorHandler.getInstance ();
+  private static ICSSParseErrorHandler s_aDefaultParseErrorHandler = new ThrowingCSSParseErrorHandler ();
 
   // Use the LoggingCSSParseExceptionHandler for maximum backward compatibility
   @GuardedBy ("s_aRWLock")

@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.css.annotations.DeprecatedInCSS30;
+import com.helger.css.annotation.DeprecatedInCSS30;
 
 /**
  * Contains a list of predefined color values in CSS 2.1.<br>

@@ -36,5 +36,5 @@ public interface ICSSMultiValue extends ICSSValue
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <CSSValue> getContainedValues ();
+  List <CSSValue> getAllContainedValues ();
 }

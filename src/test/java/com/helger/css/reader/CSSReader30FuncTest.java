@@ -479,7 +479,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
                                                                                                                                                              aDeterminedCharset))),
                                                                    aDeterminedCharset,
                                                                    ECSSVersion.CSS30,
-                                                                   DoNothingCSSParseErrorHandler.getInstance ());
+                                                                   new DoNothingCSSParseErrorHandler ());
         assertNotNull ("Failed to read with BOM " + eBOM, aCSS);
         assertEquals (".class{color:red}.class{color:blue}",
                       new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));

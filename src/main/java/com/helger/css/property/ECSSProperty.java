@@ -32,7 +32,7 @@ import com.helger.css.ECSSSpecification;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
-import com.helger.css.annotations.DeprecatedInCSS30;
+import com.helger.css.annotation.DeprecatedInCSS30;
 
 /**
  * Contains a list of most CSS property names.<br>

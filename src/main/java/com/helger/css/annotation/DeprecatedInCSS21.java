@@ -14,25 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.css.decl.shorthand;
+package com.helger.css.annotation;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.css.property.ECSSProperty;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * A special {@link CSSShortHandDescriptor} implementation for margin and
- * padding
- *
+ * Marker annotation that denotes all CSS elements that are marked deprecated in
+ * CSS 2.1
+ * 
  * @author Philip Helger
  */
-@Deprecated
-public class CSSShortHandDescriptorMarginPadding extends CSSShortHandDescriptorWithAlignment
+@Documented
+@Retention (RetentionPolicy.RUNTIME)
+public @interface DeprecatedInCSS21
 {
-  public CSSShortHandDescriptorMarginPadding (@Nonnull final ECSSProperty eProperty,
-                                              @Nonnull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
-  {
-    super (eProperty, aSubProperties);
-  }
+  String value() default "";
 }

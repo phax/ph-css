@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.css.annotations;
+package com.helger.css.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

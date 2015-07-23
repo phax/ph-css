@@ -24,7 +24,7 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
-import com.helger.css.annotations.DeprecatedInCSS21;
+import com.helger.css.annotation.DeprecatedInCSS21;
 
 /**
  * Defines all default CSS media types.

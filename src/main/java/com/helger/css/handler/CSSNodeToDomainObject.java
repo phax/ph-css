@@ -105,7 +105,8 @@ final class CSSNodeToDomainObject
   private void _expectNodeType (@Nonnull final CSSNode aNode, @Nonnull final ECSSNodeType eExpected)
   {
     if (!eExpected.isNode (aNode, m_eVersion))
-      throw new CSSHandlingException (aNode, "Expected a '" +
+      throw new CSSHandlingException (aNode,
+                                      "Expected a '" +
                                              eExpected.getNodeName (m_eVersion) +
                                              "' node but received a '" +
                                              ECSSNodeType.getNodeName (aNode, m_eVersion) +
@@ -202,7 +203,8 @@ final class CSSNodeToDomainObject
     {
       final int nExpectedChildCount = nOperatorIndex + 2;
       if (nChildren != nExpectedChildCount)
-        _throwUnexpectedChildrenCount (aNode, "Illegal number of children present (" +
+        _throwUnexpectedChildrenCount (aNode,
+                                       "Illegal number of children present (" +
                                               nChildren +
                                               ") - expected " +
                                               nExpectedChildCount);
@@ -528,7 +530,7 @@ final class CSSNodeToDomainObject
   {
     _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATION);
     final int nChildCount = aNode.jjtGetNumChildren ();
-    if (nChildCount < 1 && nChildCount > 1)
+    if (nChildCount < 1 || nChildCount > 3)
       _throwUnexpectedChildrenCount (aNode, "Expected 1-3 children but got " + nChildCount + "!");
 
     if (nChildCount == 1)
@@ -932,9 +934,8 @@ final class CSSNodeToDomainObject
     _expectNodeType (aNode, ECSSNodeType.NAMESPACERULE);
     final int nChildCount = aNode.jjtGetNumChildren ();
     if (nChildCount < 1 || nChildCount > 2)
-      _throwUnexpectedChildrenCount (aNode, "Expected at least 1 child and at last 2 children but got " +
-                                            nChildCount +
-                                            "!");
+      _throwUnexpectedChildrenCount (aNode,
+                                     "Expected at least 1 child and at last 2 children but got " + nChildCount + "!");
 
     String sPrefix = null;
     int nURLIndex = 0;

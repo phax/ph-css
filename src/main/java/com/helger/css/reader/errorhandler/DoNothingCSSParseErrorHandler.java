@@ -26,27 +26,16 @@ import com.helger.css.parser.Token;
 /**
  * An implementation of {@link ICSSParseErrorHandler} that does nothing. So in
  * case a recoverable error occurs it is silently ignored.
- * 
+ *
  * @author Philip Helger
  */
-public final class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
+public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
-  private static final DoNothingCSSParseErrorHandler s_aInstance = new DoNothingCSSParseErrorHandler ();
-
-  private DoNothingCSSParseErrorHandler ()
+  public DoNothingCSSParseErrorHandler ()
   {}
 
-  /**
-   * @return The singleton instance. Never <code>null</code>.
-   */
-  @Nonnull
-  public static DoNothingCSSParseErrorHandler getInstance ()
-  {
-    return s_aInstance;
-  }
-
   public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                               @Nonnull final int [][] aExpectedTokenSequencesVal,
+                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
                                @Nonnull final String [] aTokenImageVal,
                                @Nullable final Token aLastSkippedToken)
   {

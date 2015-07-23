@@ -18,6 +18,7 @@ package com.helger.css.reader.errorhandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.ToStringGenerator;
@@ -32,24 +33,14 @@ import com.helger.css.parser.Token;
  *
  * @author Philip Helger
  */
+@Immutable
 public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
-  private static final ThrowingCSSParseErrorHandler s_aInstance = new ThrowingCSSParseErrorHandler ();
-
-  private ThrowingCSSParseErrorHandler ()
+  public ThrowingCSSParseErrorHandler ()
   {}
 
-  /**
-   * @return The singleton instance. Never <code>null</code>.
-   */
-  @Nonnull
-  public static ThrowingCSSParseErrorHandler getInstance ()
-  {
-    return s_aInstance;
-  }
-
   public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                               @Nonnull final int [][] aExpectedTokenSequencesVal,
+                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
                                @Nonnull final String [] aTokenImageVal,
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
@@ -60,7 +51,9 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sRule,
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
-    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken,
+                                                                                             sRule,
+                                                                                             sMsg));
   }
 
   @Override

@@ -76,7 +76,7 @@ public class CSSValueMultiProperty implements ICSSMultiValue
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSValue> getContainedValues ()
+  public List <CSSValue> getAllContainedValues ()
   {
     return CollectionHelper.newList (m_aValues);
   }
