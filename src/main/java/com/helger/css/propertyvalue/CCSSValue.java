@@ -209,8 +209,6 @@ public final class CCSSValue
   public static final String XX_SMALL = "xx-small";
   public static final String ZOOM = "zoom";
 
-  @Deprecated
-  public static final String PX0 = ECSSUnit.px (0);
   /** 10% */
   public static final String PERC10 = ECSSUnit.perc (10);
   /** 20% */

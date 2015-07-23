@@ -383,7 +383,7 @@ public final class CSSReader
                                              eVersion,
                                              (IParserCSSCustomizeCallback) null,
                                              getDefaultParseErrorHandler (),
-                                             DoNothingCSSParseExceptionCallback.getInstance ());
+                                             new DoNothingCSSParseExceptionCallback ());
       return aNode != null;
     }
     finally

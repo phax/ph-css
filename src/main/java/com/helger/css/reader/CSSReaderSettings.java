@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVersion;
@@ -105,21 +104,6 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public String getFallbackCharsetName ()
   {
     return m_aFallbackCharset.name ();
-  }
-
-  /**
-   * @param sFallbackCharset
-   *        The charset to be used for reading the CSS file in case neither a
-   *        <code>@charset</code> rule nor a BOM is present. May neither be
-   *        <code>null</code> nor empty.
-   * @return this
-   */
-  @Nonnull
-  @Deprecated
-  public CSSReaderSettings setFallbackCharset (@Nonnull @Nonempty final String sFallbackCharset)
-  {
-    final Charset aFallbackCharset = CharsetManager.getCharsetFromName (sFallbackCharset);
-    return setFallbackCharset (aFallbackCharset);
   }
 
   /**

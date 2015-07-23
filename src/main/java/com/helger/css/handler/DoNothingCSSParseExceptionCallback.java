@@ -28,19 +28,10 @@ import com.helger.css.parser.ParseException;
  * @author Philip Helger
  */
 @Immutable
-public final class DoNothingCSSParseExceptionCallback implements ICSSParseExceptionCallback
+public class DoNothingCSSParseExceptionCallback implements ICSSParseExceptionCallback
 {
-  private static final DoNothingCSSParseExceptionCallback s_aInstance = new DoNothingCSSParseExceptionCallback ();
-
-  @Deprecated
   public DoNothingCSSParseExceptionCallback ()
   {}
-
-  @Nonnull
-  public static DoNothingCSSParseExceptionCallback getInstance ()
-  {
-    return s_aInstance;
-  }
 
   public void onException (@Nonnull final ParseException ex)
   {

@@ -357,7 +357,7 @@ public final class CSSReaderDeclarationList
       final CSSNode aNode = _readStyleDeclaration (aCharStream,
                                                    eVersion,
                                                    getDefaultParseErrorHandler (),
-                                                   DoNothingCSSParseExceptionCallback.getInstance ());
+                                                   new DoNothingCSSParseExceptionCallback ());
       return aNode != null;
     }
     finally

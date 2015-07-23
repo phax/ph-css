@@ -52,20 +52,6 @@ public abstract class AbstractCSSProperty implements ICSSProperty
    *
    * @param eProp
    *        The base property to use. May not be <code>null</code>.
-   * @param aCustomizer
-   *        The customizer to be used. May be <code>null</code>.
-   */
-  @Deprecated
-  protected AbstractCSSProperty (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
-  {
-    this (eProp, (ECSSVendorPrefix) null, aCustomizer);
-  }
-
-  /**
-   * Constructor
-   *
-   * @param eProp
-   *        The base property to use. May not be <code>null</code>.
    * @param eVendorPrefix
    *        The vendor prefix to be used. May be <code>null</code>.
    * @param aCustomizer

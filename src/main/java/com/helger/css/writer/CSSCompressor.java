@@ -16,8 +16,6 @@
  */
 package com.helger.css.writer;
 
-import java.nio.charset.Charset;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -32,7 +30,7 @@ import com.helger.css.reader.CSSReader;
 
 /**
  * Utility class to compress CSS content
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -49,31 +47,25 @@ public final class CSSCompressor
 
   /**
    * Get the compressed version of the passed CSS code.
-   * 
+   *
    * @param sOriginalCSS
    *        The original CSS code to be compressed.
-   * @param aCharset
-   *        The character set to be used. May not be <code>null</code>.
    * @param eCSSVersion
    *        The CSS version to use.
    * @return If compression failed because the CSS is invalid or whatsoever, the
    *         original CSS is returned, else the compressed version is returned.
    */
   @Nonnull
-  public static String getCompressedCSS (@Nonnull final String sOriginalCSS,
-                                         @Nonnull final Charset aCharset,
-                                         @Nonnull final ECSSVersion eCSSVersion)
+  public static String getCompressedCSS (@Nonnull final String sOriginalCSS, @Nonnull final ECSSVersion eCSSVersion)
   {
-    return getCompressedCSS (sOriginalCSS, aCharset, eCSSVersion, false);
+    return getCompressedCSS (sOriginalCSS, eCSSVersion, false);
   }
 
   /**
    * Get the compressed version of the passed CSS code.
-   * 
+   *
    * @param sOriginalCSS
    *        The original CSS code to be compressed.
-   * @param aCharset
-   *        The character set to be used. May not be <code>null</code>.
    * @param eCSSVersion
    *        The CSS version to use.
    * @param bRemoveUnnecessaryCode
@@ -83,36 +75,11 @@ public final class CSSCompressor
    */
   @Nonnull
   public static String getCompressedCSS (@Nonnull final String sOriginalCSS,
-                                         @Nonnull final Charset aCharset,
                                          @Nonnull final ECSSVersion eCSSVersion,
                                          final boolean bRemoveUnnecessaryCode)
   {
     final CSSWriterSettings aSettings = new CSSWriterSettings (eCSSVersion, true);
     aSettings.setRemoveUnnecessaryCode (bRemoveUnnecessaryCode);
-    return getRewrittenCSS (sOriginalCSS, aCharset, aSettings);
-  }
-
-  /**
-   * Get the rewritten version of the passed CSS code. This is done by
-   * interpreting the CSS and than writing it again with the passed settings.
-   * This can e.g. be used to create a compressed version of a CSS.
-   * 
-   * @param sOriginalCSS
-   *        The original CSS code to be compressed.
-   * @param aCharset
-   *        The character set to be used. May not be <code>null</code>.
-   * @param aSettings
-   *        The CSS writer settings to use. The version is used to read the
-   *        original CSS.
-   * @return If compression failed because the CSS is invalid or whatsoever, the
-   *         original CSS is returned, else the rewritten version is returned.
-   */
-  @Nonnull
-  @Deprecated
-  public static String getRewrittenCSS (@Nonnull final String sOriginalCSS,
-                                        @Nonnull final Charset aCharset,
-                                        @Nonnull final CSSWriterSettings aSettings)
-  {
     return getRewrittenCSS (sOriginalCSS, aSettings);
   }
 
@@ -120,7 +87,7 @@ public final class CSSCompressor
    * Get the rewritten version of the passed CSS code. This is done by
    * interpreting the CSS and than writing it again with the passed settings.
    * This can e.g. be used to create a compressed version of a CSS.
-   * 
+   *
    * @param sOriginalCSS
    *        The original CSS code to be compressed.
    * @param aSettings
