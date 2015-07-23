@@ -40,11 +40,13 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
 {
   public static final ECSSVersion DEFAULT_VERSION = ECSSVersion.CSS30;
   public static final Charset DEFAULT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
+  public static final boolean DEFAULT_BROWSER_COMPLIANT_MODE = false;
 
   private ECSSVersion m_eCSSVersion = DEFAULT_VERSION;
   private Charset m_aFallbackCharset = DEFAULT_CHARSET;
   private ICSSParseErrorHandler m_aCustomErrorHandler;
   private ICSSParseExceptionCallback m_aCustomExceptionHandler;
+  private boolean m_bBrowserCompliantMode = DEFAULT_BROWSER_COMPLIANT_MODE;
 
   public CSSReaderSettings ()
   {}
@@ -56,6 +58,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     m_aFallbackCharset = aOther.m_aFallbackCharset;
     m_aCustomErrorHandler = aOther.m_aCustomErrorHandler;
     m_aCustomExceptionHandler = aOther.m_aCustomExceptionHandler;
+    m_bBrowserCompliantMode = aOther.m_bBrowserCompliantMode;
   }
 
   /**
@@ -167,6 +170,31 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     return this;
   }
 
+  /**
+   * @return <code>true</code> if browser compliant parsing is enabled,
+   *         <code>false</code> otherwise. The default is
+   *         {@link #DEFAULT_BROWSER_COMPLIANT_MODE}.
+   */
+  public boolean isBrowserCompliantMode ()
+  {
+    return m_bBrowserCompliantMode;
+  }
+
+  /**
+   * Change the browser compliant mode to use.
+   * 
+   * @param bBrowserCompliantMode
+   *        <code>true</code> to use enable browser compliant parsing,
+   *        <code>false</code> to disable it.
+   * @return this
+   */
+  @Nonnull
+  public CSSReaderSettings setBrowserCompliantMode (final boolean bBrowserCompliantMode)
+  {
+    m_bBrowserCompliantMode = bBrowserCompliantMode;
+    return this;
+  }
+
   @Nonnull
   public CSSReaderSettings getClone ()
   {
@@ -180,6 +208,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
                                        .append ("FallbackCharset", m_aFallbackCharset)
                                        .append ("CustomErrorHandler", m_aCustomErrorHandler)
                                        .append ("CustomExceptionHandler", m_aCustomExceptionHandler)
+                                       .append ("BrowserCompliantMode", m_bBrowserCompliantMode)
                                        .toString ();
   }
 }

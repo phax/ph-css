@@ -114,6 +114,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
 
     m_eVersion = aBase.getVersion ();
     m_bOptimizedOutput = aBase.isOptimizedOutput ();
+    m_bRemoveUnnecessaryCode = aBase.isRemoveUnnecessaryCode ();
     m_sIndent = aBase.getIndent (1);
     m_bQuoteURLs = aBase.isQuoteURLs ();
     m_bWriteNamespaceRules = aBase.isWriteNamespaceRules ();

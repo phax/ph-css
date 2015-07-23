@@ -47,20 +47,25 @@ import com.helger.css.writer.CSSWriterSettings;
 public abstract class AbstractFuncTestCSSReader
 {
   protected final Logger m_aLogger = LoggerFactory.getLogger (getClass ());
-  private final ECSSVersion m_eVersion;
-  private final Charset m_aCharset;
   private final boolean m_bDebug;
-  private final boolean m_bBrowserCompliant;
+  private final CSSReaderSettings m_aReaderSettings;
+  private final CSSWriterSettings m_aWriterSettings;
 
-  protected AbstractFuncTestCSSReader (@Nonnull final ECSSVersion eVersion,
+  protected AbstractFuncTestCSSReader (@Nonnull final ECSSVersion eCSSVersion,
                                        @Nonnull final Charset aCharset,
                                        final boolean bDebug,
-                                       final boolean bBrowserCompliant)
+                                       final boolean bBrowserCompliantMode)
   {
-    m_eVersion = eVersion;
-    m_aCharset = aCharset;
     m_bDebug = bDebug;
-    m_bBrowserCompliant = bBrowserCompliant;
+    m_aReaderSettings = new CSSReaderSettings ().setCSSVersion (eCSSVersion)
+                                                .setFallbackCharset (aCharset)
+                                                .setBrowserCompliantMode (bBrowserCompliantMode);
+    m_aWriterSettings = new CSSWriterSettings (eCSSVersion);
+  }
+
+  protected final boolean isBrowserCompliantMode ()
+  {
+    return m_aReaderSettings.isBrowserCompliantMode ();
   }
 
   protected final void testReadGood (final String sBaseDir)
@@ -73,40 +78,44 @@ public abstract class AbstractFuncTestCSSReader
     {
       final String sKey = aFile.getAbsolutePath ();
       if (m_bDebug)
-        m_aLogger.info (sKey);
+        m_aLogger.info ("Filename: " + sKey);
       final CollectingCSSParseErrorHandler aErrorHdl = new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ());
-      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aCharset, m_eVersion, aErrorHdl);
+      m_aReaderSettings.setCustomErrorHandler (aErrorHdl);
+      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aReaderSettings);
       assertNotNull (sKey, aCSS);
 
       // May have errors or not
       if (m_bDebug)
-        m_aLogger.info (aErrorHdl.getAllParseErrors ().toString ());
+        m_aLogger.info ("Parse errors: " + aErrorHdl.getAllParseErrors ().toString ());
 
       CommonsTestHelper.testDefaultSerialization (aCSS);
 
       // Write optimized version and compare it
-      String sCSS = new CSSWriter (m_eVersion, true).getCSSAsString (aCSS);
+      String sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (true)).getCSSAsString (aCSS);
       assertNotNull (sKey, sCSS);
       if (m_bDebug)
-        m_aLogger.info (sCSS);
+        m_aLogger.info ("Created CSS: " + sCSS);
 
-      final CascadingStyleSheet aCSSReRead = CSSReader.readFromString (sCSS, m_eVersion);
+      final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
       assertNotNull ("Failed to parse " + sKey + ":\n" + sCSS, aCSSReRead);
       assertEquals (sKey, aCSS, aCSSReRead);
 
       // Write non-optimized version and compare it
-      sCSS = new CSSWriter (m_eVersion, false).getCSSAsString (aCSS);
+      sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)).getCSSAsString (aCSS);
       assertNotNull (sKey, sCSS);
       if (m_bDebug)
-        m_aLogger.info (sCSS);
-      assertEquals (sKey, aCSS, CSSReader.readFromString (sCSS, m_eVersion));
+        m_aLogger.info ("Read and re-created CSS: " + sCSS);
+      assertEquals (sKey, aCSS, CSSReader.readFromStringReader (sCSS, m_aReaderSettings));
 
       // Write non-optimized and code-removed version and ensure it is not
       // null
-      sCSS = new CSSWriter (new CSSWriterSettings (m_eVersion,
-                                                   false).setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
+      sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)
+                                             .setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
       assertNotNull (sKey, sCSS);
-      assertNotNull (sKey, CSSReader.readFromString (sCSS, m_eVersion));
+      assertNotNull (sKey, CSSReader.readFromStringReader (sCSS, m_aReaderSettings));
+
+      // Restore value :)
+      m_aWriterSettings.setRemoveUnnecessaryCode (false);
     }
   }
 
@@ -123,7 +132,7 @@ public abstract class AbstractFuncTestCSSReader
         m_aLogger.info (sKey);
 
       // Handle each error as a fatal error!
-      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aCharset, m_eVersion);
+      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aReaderSettings);
       assertNull (sKey, aCSS);
     }
   }
@@ -142,7 +151,8 @@ public abstract class AbstractFuncTestCSSReader
 
       // Handle each error as a fatal error!
       final CollectingCSSParseErrorHandler aErrorHdl = new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ());
-      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aCharset, m_eVersion, aErrorHdl);
+      m_aReaderSettings.setCustomErrorHandler (aErrorHdl);
+      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aReaderSettings);
       assertNotNull (sKey, aCSS);
       assertTrue (sKey, aErrorHdl.hasParseErrors ());
       assertTrue (sKey, aErrorHdl.getParseErrorCount () > 0);
@@ -150,12 +160,12 @@ public abstract class AbstractFuncTestCSSReader
         m_aLogger.info (aErrorHdl.getAllParseErrors ().toString ());
 
       // Write optimized version and re-read it
-      final String sCSS = new CSSWriter (m_eVersion, true).getCSSAsString (aCSS);
+      final String sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (true)).getCSSAsString (aCSS);
       assertNotNull (sKey, sCSS);
       if (m_bDebug)
         m_aLogger.info (sCSS);
 
-      final CascadingStyleSheet aCSSReRead = CSSReader.readFromString (sCSS, m_eVersion);
+      final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
       assertNotNull ("Failed to parse:\n" + sCSS, aCSSReRead);
       assertEquals (sKey, aCSS, aCSSReRead);
     }
@@ -163,7 +173,7 @@ public abstract class AbstractFuncTestCSSReader
 
   protected final void testReadBadButBrowserCompliant (final String sBaseDir)
   {
-    if (m_bBrowserCompliant)
+    if (m_aReaderSettings.isBrowserCompliantMode ())
       testReadGood (sBaseDir);
     else
       testReadBadButRecoverable (sBaseDir);

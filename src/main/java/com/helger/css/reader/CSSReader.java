@@ -19,7 +19,6 @@ package com.helger.css.reader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PushbackInputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -45,6 +44,7 @@ import com.helger.commons.io.IHasReader;
 import com.helger.commons.io.provider.IReaderProvider;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.io.stream.NonBlockingPushbackInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
@@ -188,13 +188,14 @@ public final class CSSReader
    *        The stream to read from. May not be <code>null</code>.
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
-   * @param aParserCustomizer
-   *        The optional parser customizer. May be <code>null</code>.
    * @param aCustomErrorHandler
    *        A custom handler for recoverable errors. May be <code>null</code>.
    * @param aCustomExceptionHandler
    *        A custom handler for unrecoverable errors. May not be
    *        <code>null</code>.
+   * @param bBrowserCompliantMode
+   *        <code>true</code> for browser compliant parsing, <code>false</code>
+   *        for default parsing.
    * @return <code>null</code> if parsing failed with an unrecoverable error
    *         (and no throwing exception handler is used), or <code>null</code>
    *         if a recoverable error occurred and no
@@ -204,9 +205,9 @@ public final class CSSReader
   @Nullable
   private static CSSNode _readStyleSheet (@Nonnull final CharStream aCharStream,
                                           @Nonnull final ECSSVersion eVersion,
-                                          @Nullable final IParserCSSCustomizeCallback aParserCustomizer,
                                           @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
-                                          @Nonnull final ICSSParseExceptionCallback aCustomExceptionHandler)
+                                          @Nonnull final ICSSParseExceptionCallback aCustomExceptionHandler,
+                                          final boolean bBrowserCompliantMode)
   {
     try
     {
@@ -217,10 +218,7 @@ public final class CSSReader
           final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aCharStream);
           final ParserCSS21 aParser = new ParserCSS21 (aTokenHdl);
           aParser.setCustomErrorHandler (aCustomErrorHandler);
-          if (aParserCustomizer != null)
-            aParserCustomizer.customizeParserCSS (aParser);
-          // XXX test only
-          aParser.setBrowserCompliantMode (true);
+          aParser.setBrowserCompliantMode (bBrowserCompliantMode);
           // Main parsing
           return aParser.styleSheet ();
         }
@@ -229,10 +227,7 @@ public final class CSSReader
           final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);
           final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
           aParser.setCustomErrorHandler (aCustomErrorHandler);
-          if (aParserCustomizer != null)
-            aParserCustomizer.customizeParserCSS (aParser);
-          // XXX test only
-          aParser.setBrowserCompliantMode (true);
+          aParser.setBrowserCompliantMode (bBrowserCompliantMode);
           // Main parsing
           return aParser.styleSheet ();
         }
@@ -381,9 +376,9 @@ public final class CSSReader
       final CSSCharStream aCharStream = new CSSCharStream (aReader);
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
-                                             (IParserCSSCustomizeCallback) null,
                                              getDefaultParseErrorHandler (),
-                                             new DoNothingCSSParseExceptionCallback ());
+                                             new DoNothingCSSParseExceptionCallback (),
+                                             false);
       return aNode != null;
     }
     finally
@@ -896,7 +891,7 @@ public final class CSSReader
 
     // Check for BOM
     final int nMaxBOMBytes = EUnicodeBOM.getMaximumByteCount ();
-    final PushbackInputStream aPIS = new PushbackInputStream (aIS, nMaxBOMBytes);
+    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (aIS, nMaxBOMBytes);
     try
     {
       final byte [] aBOM = new byte [nMaxBOMBytes];
@@ -1002,7 +997,7 @@ public final class CSSReader
                         aReadCharset.name () +
                         ") differs from the charset determined by the BOM (" +
                         aBOMCharset.name () +
-                        ")!");
+                        ") -> Using the read charset");
       }
 
       return aReadCharset;
@@ -1170,11 +1165,13 @@ public final class CSSReader
       if (aRealExceptionHandler == null)
         aRealExceptionHandler = getDefaultParseExceptionHandler ();
 
+      final boolean bBrowserCompliantMode = aSettings.isBrowserCompliantMode ();
+
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
-                                             (IParserCSSCustomizeCallback) null,
                                              aRealErrorHandler,
-                                             aRealExceptionHandler);
+                                             aRealExceptionHandler,
+                                             bBrowserCompliantMode);
 
       // Failed to interpret content as CSS?
       if (aNode == null)
@@ -1268,11 +1265,13 @@ public final class CSSReader
       if (aRealExceptionHandler == null)
         aRealExceptionHandler = getDefaultParseExceptionHandler ();
 
+      final boolean bBrowserCompliantMode = aSettings.isBrowserCompliantMode ();
+
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
-                                             (IParserCSSCustomizeCallback) null,
                                              aRealErrorHandler,
-                                             aRealExceptionHandler);
+                                             aRealExceptionHandler,
+                                             bBrowserCompliantMode);
 
       // Failed to interpret content as CSS?
       if (aNode == null)
