@@ -17,9 +17,6 @@
 /* Ensure this is truly a 3.0 CSS :) */
 E ~ F {}
 
-/* Issue 13 */
-
-.class{color:red;.class{color:green}.class{color:blue}
 
 /** Error in declaration */
 a:hover {
