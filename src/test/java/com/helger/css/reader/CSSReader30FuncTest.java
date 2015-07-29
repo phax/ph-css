@@ -422,16 +422,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     // Invalid identifier 3
     sCSS = "*0{color:red;}";
     aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    if (bBrowserCompliantMode)
-    {
-      assertNull (aCSS);
-    }
-    else
-    {
-      assertNotNull (aCSS);
-      assertEquals ("*{}",
-                    new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-    }
+    assertNull (aCSS);
 
     // Valid version of previous variant
     sCSS = "*abc{color:red;}";
