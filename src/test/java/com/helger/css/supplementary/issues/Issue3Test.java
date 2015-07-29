@@ -65,7 +65,7 @@ public final class Issue3Test
     final String sTest = "body { background:red; unexpected:; background:blue; } span {color:blue;}";
     // Expected output:
     // body { background:red; background:blue; } span {color:blue;}
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (true)
       _print (aCSS);
@@ -81,7 +81,7 @@ public final class Issue3Test
     final String sTest = "body { background:red; unexpected background:blue; } span {color:blue;}";
     // Expected output:
     // body { background:red; background:blue; } span {color:blue;}
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (true)
       _print (aCSS);
@@ -99,7 +99,7 @@ public final class Issue3Test
                          "  body {background:green;}" +
                          "}" +
                          "body{background:orange;}";
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (true)
       _print (aCSS);
@@ -117,7 +117,7 @@ public final class Issue3Test
                          "body2 {background:blue;.class{color:green}\n" +
                          "  body3 {background:green;}\n" +
                          "body4{background:orange;}";
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (true)
       _print (aCSS);
@@ -130,7 +130,7 @@ public final class Issue3Test
   {
     // Parse error in "unexpected:;"
     final String sTest = "@media print { div { color:red; unexpected:; align:top; } } span {color:blue;}";
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (false)
       _print (aCSS);
@@ -144,7 +144,7 @@ public final class Issue3Test
   {
     // Parse error in "unexpected::;"
     final String sTest = "@keyframes identifier { unexpected::; } span {color:blue;}";
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (false)
       _print (aCSS);
@@ -158,7 +158,7 @@ public final class Issue3Test
   {
     // Parse error in "unexpected::;"
     final String sTest = "@keyframes identifier { 0% { unexpected::; } 30% { top: 50px; }   } span {color:blue;}";
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (true)
       _print (aCSS);
@@ -175,7 +175,7 @@ public final class Issue3Test
                          "/* No  matching closing bracket: the block is not closed and all the following rules are ignored. */\n" +
                          "/* Add the \"}\" before the following rule to close the block and enable the rule */\n" +
                          "body {background:green;}";
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (true)
       _print (aCSS);
@@ -188,7 +188,7 @@ public final class Issue3Test
   {
     // Parse error in "unexpected::;"
     final String sTest = "@supports(column-count: 1) { unexpected::; } span {color:blue;}";
-    final CascadingStyleSheet aCSS = _parse (sTest, false);
+    final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
     if (false)
       _print (aCSS);
