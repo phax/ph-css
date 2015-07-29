@@ -18,20 +18,20 @@ package com.helger.css.reader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.EUnicodeBOM;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberFunction;
@@ -41,6 +41,8 @@ import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSExpressionMember;
+import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
+import com.helger.css.reader.errorhandler.DoNothingCSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
@@ -50,55 +52,9 @@ import com.helger.css.writer.CSSWriterSettings;
  *
  * @author Philip Helger
  */
-@RunWith (Parameterized.class)
-public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
+public final class CSSReader30SpecialFuncTest
 {
-  @Parameters (name = "{index}: browserCompliant={0}")
-  public static List <Object> data ()
-  {
-    return Arrays.asList (new Object [] { true, false });
-  }
-
-  public CSSReader30FuncTest (final boolean bBrowserCompliant)
-  {
-    super (ECSSVersion.CSS30, CCharset.CHARSET_UTF_8_OBJ, true, bBrowserCompliant);
-  }
-
-  @Test
-  public void testReadAll30Good ()
-  {
-    testReadGood ("src/test/resources/testfiles/css30/good");
-  }
-
-  @Test
-  public void testReadAll30BadButSucceeding ()
-  {
-    testReadGood ("src/test/resources/testfiles/css30/bad_but_succeeding");
-  }
-
-  @Test
-  public void testReadAll30Bad ()
-  {
-    testReadBad ("src/test/resources/testfiles/css30/bad");
-  }
-
-  @Test
-  public void testReadAll30GoodButFailing ()
-  {
-    testReadBad ("src/test/resources/testfiles/css30/good_but_failing");
-  }
-
-  @Test
-  public void testReadAll30BadBadButRecoverable ()
-  {
-    testReadBadButRecoverable ("src/test/resources/testfiles/css30/bad_but_recoverable");
-  }
-
-  @Test
-  public void testReadAll30BadBadButBrowserCompliant ()
-  {
-    testReadBadButBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_browsercompliant");
-  }
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReader30SpecialFuncTest.class);
 
   @Test
   public void testReadSpecialGood ()
@@ -110,7 +66,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     assertNotNull (aCSS);
 
     final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
-    m_aLogger.info (sCSS);
+    s_aLogger.info (sCSS);
   }
 
   @Test
@@ -329,125 +285,67 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 
     // Write result
     final String sCSS = new CSSWriter (aCSSWS).getCSSAsString (aCSS);
-    m_aLogger.info (sCSS);
+    s_aLogger.info (sCSS);
   }
 
   @Test
-  public void testSpecialCasesAsString ()
+  public void testReadSpecialBadButRecoverable ()
   {
-    final boolean bBrowserCompliantMode = isBrowserCompliantMode ();
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
-                                                                .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
-                                                                .setBrowserCompliantMode (bBrowserCompliantMode);
+    final CollectingCSSParseErrorHandler aErrors = new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ());
+    final ECSSVersion eVersion = ECSSVersion.CSS30;
+    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final File aFile = new File ("src/test/resources/testfiles/css30/bad_but_browsercompliant/test-string.css");
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion, aErrors);
+    assertNotNull (aFile.getAbsolutePath (), aCSS);
+  }
 
-    // Parsing problem
-    String sCSS = ".class{color:red;.class{color:green}.class{color:blue}";
-    CascadingStyleSheet aCSS, aCSS2;
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals (bBrowserCompliantMode ? "" : ".class{color:red}.class{color:blue}",
-                  new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
-
-    sCSS = "  \n/* comment */\n  \n.class{color:red;}";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals (".class{color:red}", new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
-
-    // With Umlauts
-    sCSS = "div { colör: räd; }";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals ("div{colör:räd}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-    aCSS2 = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS2);
-    assertEquals ("div{colör:räd}", new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS2));
-    assertEquals (aCSS, aCSS2);
-
-    // With masking
-    sCSS = "#mask\\26{ color: red; }";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals ("#mask\\26{color:red}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-
-    sCSS = "#mask\\26 { color: red; }";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals ("#mask\\26 {color:red}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-
-    sCSS = "#mask\\26   { color: red; }";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals ("#mask\\26 {color:red}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-
-    // With masking
-    sCSS = "#mask\\x{ color: red; }";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals ("#mask\\x{color:red}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-
-    sCSS = "#mask\\x { color: red; }";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals ("#mask\\x{color:red}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-
-    sCSS = "#mask\\x   { color: red; }";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals ("#mask\\x{color:red}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-
-    // With charset rule defined
-    sCSS = "@charset \"iso-8859-1\"; div{color:red ; }";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNotNull (aCSS);
-    assertEquals ("div{color:red}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-
-    // Invalid identifier 1
-    sCSS = "-0{color:red;}";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNull (aCSS);
-
-    // Invalid identifier 2
-    sCSS = "$0{color:red;}";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNull (aCSS);
-
-    // Invalid identifier 3
-    sCSS = "*0{color:red;}";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    if (bBrowserCompliantMode)
+  @Test
+  public void testReadWithBOM ()
+  {
+    final String sCSSBase = "/* comment */.class{color:red}.class{color:blue}";
+    for (final EUnicodeBOM eBOM : EUnicodeBOM.values ())
     {
-      assertNull (aCSS);
+      final Charset aDeterminedCharset = eBOM.getCharset ();
+      if (aDeterminedCharset != null)
+      {
+        final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ByteArrayInputStreamProvider (ArrayHelper.getConcatenated (eBOM.getAllBytes (),
+                                                                                                                                  CharsetManager.getAsBytes (sCSSBase,
+                                                                                                                                                             aDeterminedCharset))),
+                                                                   aDeterminedCharset,
+                                                                   ECSSVersion.CSS30,
+                                                                   new DoNothingCSSParseErrorHandler ());
+        assertNotNull ("Failed to read with BOM " + eBOM, aCSS);
+        assertEquals (".class{color:red}.class{color:blue}",
+                      new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
+      }
     }
-    else
-    {
-      assertNotNull (aCSS);
-      assertEquals ("*{}",
-                    new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
-    }
+  }
 
-    // Valid version of previous variant
-    sCSS = "*abc{color:red;}";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
+  @Test
+  public void testReadSingleLineComments ()
+  {
+    final ECSSVersion eVersion = ECSSVersion.CSS30;
+    final CSSWriterSettings aCSSWS = new CSSWriterSettings (eVersion, false);
+    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-singleline-comments.css");
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
-    assertEquals ("*abc{color:red}",
-                  new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).getCSSAsString (aCSS));
+    assertEquals (13, aCSS.getRuleCount ());
+    assertEquals (13, aCSS.getStyleRuleCount ());
 
-    // Invalid identifier 4
-    sCSS = "0{color:red;}";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNull (aCSS);
-
-    // Invalid identifier 5
-    sCSS = "--{color:red;}";
-    aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNull (aCSS);
+    // #any1 - #any5
+    assertEquals (2, aCSS.getStyleRuleAtIndex (1).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (2).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (3).getDeclarationCount ());
+    assertEquals (0, aCSS.getStyleRuleAtIndex (4).getDeclarationCount ());
+    assertEquals (0, aCSS.getStyleRuleAtIndex (5).getDeclarationCount ());
+    // .test1 - .test7
+    assertEquals (2, aCSS.getStyleRuleAtIndex (6).getDeclarationCount ());
+    assertEquals (3, aCSS.getStyleRuleAtIndex (7).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (8).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (9).getDeclarationCount ());
+    assertEquals (2, aCSS.getStyleRuleAtIndex (10).getDeclarationCount ());
+    assertEquals (2, aCSS.getStyleRuleAtIndex (11).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (12).getDeclarationCount ());
   }
 }
