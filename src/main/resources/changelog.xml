@@ -18,6 +18,17 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-css">
+  <release date="2015-07-29" version="4.0.0" />
+  <entry date="2015-07-22" category="tech" action="add">
+    <change>
+      <text locale="en">Adding "browser compliant mode" to CSSReader</text>
+    </change>
+  </entry>
+  <entry date="2015-07-02" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to ph-commons 6.0.0</text>
+    </change>
+  </entry>
   <release date="2015-04-30" version="3.9.2" />
   <release date="2015-03-11" version="3.9.1" />
   <entry date="2015-02-24" category="tech" action="fix">

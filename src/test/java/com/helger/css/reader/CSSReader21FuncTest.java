@@ -16,10 +16,6 @@
  */
 package com.helger.css.reader;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,8 +26,6 @@ import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.css.ECSSVersion;
-import com.helger.css.decl.CascadingStyleSheet;
-import com.helger.css.writer.CSSWriter;
 
 /**
  * Test reading CSS 2.1 files
@@ -76,18 +70,5 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   public void testReadAll21BadButBrowserCompliant ()
   {
     testReadBadButBrowserCompliant ("src/test/resources/testfiles/css21/bad_but_browsercompliant");
-  }
-
-  @Test
-  public void testReadSpecialGood ()
-  {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
-    final File aFile = new File ("src/test/resources/testfiles/css21/good/artificial/test-url.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
-    assertNotNull (aCSS);
-
-    final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
-    m_aLogger.info (sCSS);
   }
 }
