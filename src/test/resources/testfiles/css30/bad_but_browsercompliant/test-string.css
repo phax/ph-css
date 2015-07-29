@@ -46,18 +46,6 @@ error-at-the-end {
 
 error-at-the-end {
   color: red;
-  padding: 2px;
-  background: url("abc.css);
-}
-
-error-at-the-end {
-  color: red;
-  background: url(abc.css");
-}
-
-error-at-the-end {
-  color: red;
-  padding: 2px;
   background: url(abc.css");
 }
 
