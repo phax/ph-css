@@ -42,7 +42,7 @@ import com.helger.css.ICSSWriterSettings;
     src: url(path/to/font.woff) format('woff');
     unicode-range: U+E000-E005;
 }</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -169,7 +169,7 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations, I
     final StringBuilder aSB = new StringBuilder ("@font-face");
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     if (!aSettings.isOptimizedOutput ())
-      aSB.append ('\n');
+      aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
   }
 

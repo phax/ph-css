@@ -38,7 +38,8 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Represents a single CSS style rule. A style rule consists of a number of
  * selectors (determine the element to which the style rule applies) and a
- * number of declarations (the rules to be applied to the selected elements).<br>
+ * number of declarations (the rules to be applied to the selected elements).
+ * <br>
  * Example:<br>
  * <code>div { color: red; }</code>
  *
@@ -260,10 +261,9 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSS
         bFirst = false;
       else
       {
-        if (bOptimizedOutput)
-          aSB.append (',');
-        else
-          aSB.append (",\n").append (aSettings.getIndent (nIndentLevel));
+        aSB.append (',');
+        if (!bOptimizedOutput)
+          aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
       }
       aSB.append (aSelector.getAsCSSString (aSettings, nIndentLevel));
     }
@@ -286,7 +286,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSS
     // Append the declarations
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     if (!bOptimizedOutput)
-      aSB.append ('\n');
+      aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
   }
 

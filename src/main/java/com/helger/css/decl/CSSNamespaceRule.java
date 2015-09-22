@@ -120,7 +120,7 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
       aSB.append (CSSURLHelper.getAsCSSURL (m_sURL, false));
     else
       aSB.append ("\"\"");
-    return aSB.append (";\n").toString ();
+    return aSB.append (';').append (aSettings.getNewLineString ()).toString ();
   }
 
   public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)

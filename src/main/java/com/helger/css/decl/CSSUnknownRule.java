@@ -117,12 +117,12 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 
     if (StringHelper.hasNoText (m_sBody))
     {
-      aSB.append (bOptimizedOutput ? "{}" : " {}\n");
+      aSB.append (bOptimizedOutput ? "{}" : " {}" + aSettings.getNewLineString ());
     }
     else
     {
       // At least one rule present
-      aSB.append (bOptimizedOutput ? "{" : " {\n");
+      aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
       if (!bOptimizedOutput)
         aSB.append (aSettings.getIndent (nIndentLevel));
       aSB.append (m_sBody);
@@ -130,7 +130,7 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
         aSB.append (aSettings.getIndent (nIndentLevel));
       aSB.append ('}');
       if (!bOptimizedOutput)
-        aSB.append ('\n');
+        aSB.append (aSettings.getNewLineString ());
     }
     return aSB.toString ();
   }

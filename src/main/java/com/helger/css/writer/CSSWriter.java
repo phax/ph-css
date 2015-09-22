@@ -257,7 +257,8 @@ public class CSSWriter
    *         the constructor.
    * @see #getCSSAsString(CascadingStyleSheet)
    */
-  public void writeCSS (@Nonnull final CascadingStyleSheet aCSS, @Nonnull @WillClose final Writer aWriter) throws IOException
+  public void writeCSS (@Nonnull final CascadingStyleSheet aCSS,
+                        @Nonnull @WillClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aCSS, "CSS");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -265,14 +266,20 @@ public class CSSWriter
     try
     {
       final boolean bOptimizedOutput = m_aSettings.isOptimizedOutput ();
+      final String sNewLineString = m_aSettings.getNewLineString ();
 
       // Write file header
       if (m_bWriteHeaderText && StringHelper.hasText (m_sHeaderText))
       {
-        aWriter.write ("/*\n");
+        aWriter.write ("/*");
+        aWriter.write (sNewLineString);
         for (final String sLine : StringHelper.getExploded ("\n", m_sHeaderText))
-          aWriter.write (" * " + sLine + "\n");
-        aWriter.write (" */\n");
+        {
+          aWriter.write (" * " + sLine);
+          aWriter.write (sNewLineString);
+        }
+        aWriter.write (" */");
+        aWriter.write (sNewLineString);
       }
 
       // Charset? Must be the first element before the import
@@ -280,7 +287,7 @@ public class CSSWriter
       {
         aWriter.write ("@charset \"" + m_sContentCharset + "\";");
         if (!bOptimizedOutput)
-          aWriter.write ('\n');
+          aWriter.write (sNewLineString);
       }
 
       // Import rules
@@ -313,7 +320,7 @@ public class CSSWriter
         if (StringHelper.hasText (sRuleCSS))
         {
           if (!bOptimizedOutput && nRulesEmitted > 0)
-            aWriter.write ('\n');
+            aWriter.write (sNewLineString);
 
           aWriter.write (sRuleCSS);
           ++nRulesEmitted;
@@ -323,10 +330,15 @@ public class CSSWriter
       // Write file footer
       if (m_bWriteFooterText && StringHelper.hasText (m_sFooterText))
       {
-        aWriter.write ("/*\n");
+        aWriter.write ("/*");
+        aWriter.write (sNewLineString);
         for (final String sLine : StringHelper.getExploded ("\n", m_sFooterText))
-          aWriter.write (" * " + sLine + "\n");
-        aWriter.write (" */\n");
+        {
+          aWriter.write (" * " + sLine);
+          aWriter.write (sNewLineString);
+        }
+        aWriter.write (" */");
+        aWriter.write (sNewLineString);
       }
     }
     finally

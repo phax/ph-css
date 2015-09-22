@@ -42,7 +42,7 @@ import com.helger.css.ICSSWriterSettings;
   size: auto;
   margin: 10%;
 }</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -118,7 +118,8 @@ public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSV
   }
 
   @Nonnull
-  public CSSPageRule setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSPageRule setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                            @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -183,7 +184,7 @@ public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSV
 
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     if (!bOptimizedOutput)
-      aSB.append ('\n');
+      aSB.append (aSettings.getNewLineString ());
 
     return aSB.toString ();
   }

@@ -184,7 +184,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     final StringBuilder aSB = new StringBuilder (m_sDeclaration);
     aSB.append (' ').append (m_sAnimationName).append (bOptimizedOutput ? "{" : " {");
     if (!bOptimizedOutput)
-      aSB.append ('\n');
+      aSB.append (aSettings.getNewLineString ());
 
     // Add all blocks
     for (final CSSKeyframesBlock aBlock : m_aBlocks)
@@ -196,14 +196,14 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
           aSB.append (aSettings.getIndent (nIndentLevel + 1));
         aSB.append (sBlockCSS);
         if (!bOptimizedOutput)
-          aSB.append ('\n');
+          aSB.append (aSettings.getNewLineString ());
       }
     }
     if (!bOptimizedOutput)
       aSB.append (aSettings.getIndent (nIndentLevel));
     aSB.append ('}');
     if (!bOptimizedOutput)
-      aSB.append ('\n');
+      aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
   }
 

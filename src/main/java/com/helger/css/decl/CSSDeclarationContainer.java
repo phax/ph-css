@@ -27,7 +27,7 @@ import com.helger.css.ICSSWriterSettings;
  * Represents a common container of {@link CSSDeclaration} objects. In contrary
  * to {@link CSSDeclarationList} this class emits block level elements around
  * the declarations as used in style rules etc.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -61,7 +61,7 @@ public class CSSDeclarationContainer extends CSSDeclarationList
       else
       {
         // More than one declaration
-        aSB.append (bOptimizedOutput ? "{" : " {\n");
+        aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
         aSB.append (super.getAsCSSString (aSettings, nIndentLevel));
         if (!bOptimizedOutput)
           aSB.append (aSettings.getIndent (nIndentLevel));

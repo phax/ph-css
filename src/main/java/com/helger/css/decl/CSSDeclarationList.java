@@ -70,7 +70,8 @@ public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocati
   }
 
   @Nonnull
-  public CSSDeclarationList addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSDeclarationList addDeclaration (@Nonnegative final int nIndex,
+                                            @Nonnull final CSSDeclaration aNewDeclaration)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aNewDeclaration, "NewDeclaration");
@@ -228,7 +229,7 @@ public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocati
       if (!bOptimizedOutput || nIndex < nDeclCount - 1)
         aSB.append (CCSS.DEFINITION_END);
       if (!bOptimizedOutput)
-        aSB.append ('\n');
+        aSB.append (aSettings.getNewLineString ());
       ++nIndex;
     }
     return aSB.toString ();

@@ -39,7 +39,7 @@ import com.helger.css.ICSSWriterSettings;
  * Represents a single <code>@viewport</code> rule.<br>
  * Example:<br>
  * <code>@viewport { width: device-width; }</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -188,7 +188,7 @@ public class CSSViewportRule implements ICSSTopLevelRule, IHasCSSDeclarations, I
     final StringBuilder aSB = new StringBuilder (m_sDeclaration);
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     if (!aSettings.isOptimizedOutput ())
-      aSB.append ('\n');
+      aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
   }
 

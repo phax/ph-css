@@ -242,7 +242,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
         aSB.append (aMediaQuery.getAsCSSString (aSettings, nIndentLevel));
       }
     }
-    return aSB.append (";\n").toString ();
+    return aSB.append (';').append (aSettings.getNewLineString ()).toString ();
   }
 
   public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)

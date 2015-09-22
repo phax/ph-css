@@ -21,11 +21,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.system.ENewLineMode;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
@@ -43,6 +45,10 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   public static final boolean DEFAULT_OPTIMIZED_OUTPUT = false;
   /** By default unnecessary code is not removed */
   public static final boolean DEFAULT_REMOVE_UNNECESSARY_CODE = false;
+  /**
+   * By default unix line endings are used - for backwards compatibility reasons
+   */
+  public static final ENewLineMode DEFAULT_NEW_LINE_MODE = ENewLineMode.UNIX;
   /** By default indentation is done by 2 spaces */
   public static final String DEFAULT_INDENT = "  ";
   /** By default URLs are not quoted */
@@ -67,6 +73,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   private final ECSSVersion m_eVersion;
   private boolean m_bOptimizedOutput;
   private boolean m_bRemoveUnnecessaryCode = DEFAULT_REMOVE_UNNECESSARY_CODE;
+  private ENewLineMode m_eNewLineMode = DEFAULT_NEW_LINE_MODE;
   private String m_sIndent = DEFAULT_INDENT;
   private boolean m_bQuoteURLs = DEFAULT_QUOTE_URLS;
   private boolean m_bWriteNamespaceRules = DEFAULT_WRITE_NAMESPACE_RULES;
@@ -115,6 +122,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     m_eVersion = aBase.getVersion ();
     m_bOptimizedOutput = aBase.isOptimizedOutput ();
     m_bRemoveUnnecessaryCode = aBase.isRemoveUnnecessaryCode ();
+    m_eNewLineMode = aBase.getNewLineMode ();
     m_sIndent = aBase.getIndent (1);
     m_bQuoteURLs = aBase.isQuoteURLs ();
     m_bWriteNamespaceRules = aBase.isWriteNamespaceRules ();
@@ -154,6 +162,26 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   public final CSSWriterSettings setRemoveUnnecessaryCode (final boolean bRemoveUnnecessaryCode)
   {
     m_bRemoveUnnecessaryCode = bRemoveUnnecessaryCode;
+    return this;
+  }
+
+  @Nonnull
+  public final ENewLineMode getNewLineMode ()
+  {
+    return m_eNewLineMode;
+  }
+
+  @Nonnull
+  @Nonempty
+  public final String getNewLineString ()
+  {
+    return m_eNewLineMode.getText ();
+  }
+
+  @Nonnull
+  public final CSSWriterSettings setNewLineMode (@Nonnull final ENewLineMode eNewLineMode)
+  {
+    m_eNewLineMode = ValueEnforcer.notNull (eNewLineMode, "NewLineMode");
     return this;
   }
 
@@ -308,6 +336,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_eVersion.equals (rhs.m_eVersion) &&
            m_bOptimizedOutput == rhs.m_bOptimizedOutput &&
            m_bRemoveUnnecessaryCode == rhs.m_bRemoveUnnecessaryCode &&
+           m_eNewLineMode.equals (rhs.m_eNewLineMode) &&
            m_sIndent.equals (rhs.m_sIndent) &&
            m_bQuoteURLs == rhs.m_bQuoteURLs &&
            m_bWriteNamespaceRules == rhs.m_bWriteNamespaceRules &&
@@ -326,6 +355,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return new HashCodeGenerator (this).append (m_eVersion)
                                        .append (m_bOptimizedOutput)
                                        .append (m_bRemoveUnnecessaryCode)
+                                       .append (m_eNewLineMode)
                                        .append (m_sIndent)
                                        .append (m_bQuoteURLs)
                                        .append (m_bWriteNamespaceRules)
@@ -345,6 +375,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return new ToStringGenerator (this).append ("version", m_eVersion)
                                        .append ("optimizedOutput", m_bOptimizedOutput)
                                        .append ("removeUnnecessaryCode", m_bRemoveUnnecessaryCode)
+                                       .append ("newLineMode", m_eNewLineMode)
                                        .append ("indent", m_sIndent)
                                        .append ("quoteURLs", m_bQuoteURLs)
                                        .append ("writeNamespaceRules", m_bWriteNamespaceRules)

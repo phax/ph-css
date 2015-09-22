@@ -19,9 +19,12 @@ package com.helger.css;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.system.ENewLineMode;
+
 /**
  * Settings for customizing the serialization of CSS properties etc.
- * 
+ *
  * @author Philip Helger
  */
 public interface ICSSWriterSettings
@@ -46,10 +49,25 @@ public interface ICSSWriterSettings
   boolean isRemoveUnnecessaryCode ();
 
   /**
+   * @return The new line mode to be used for emitting the file. By default the
+   *         Unix new line mode ("\n") is used.
+   */
+  @Nonnull
+  ENewLineMode getNewLineMode ();
+
+  /**
+   * @return The string underlying the new line mode
+   * @see #getNewLineMode()
+   */
+  @Nonnull
+  @Nonempty
+  String getNewLineString ();
+
+  /**
    * Get the indentation for an arbitrary number of levels. This can be used to
    * customize the indentation strategy like using tabs or spaces, how many
    * spaces etc.
-   * 
+   *
    * @param nCount
    *        The number of indentations desired. Always &ge; 0.
    * @return The string to be used for indentation. May not be <code>null</code>
@@ -116,7 +134,7 @@ public interface ICSSWriterSettings
   /**
    * Check if the passed object matches the version requirements defined be this
    * settings.
-   * 
+   *
    * @param aCSSObject
    *        The object to be checked.
    * @throws IllegalStateException

@@ -247,12 +247,12 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
 
     if (nRuleCount == 0)
     {
-      aSB.append (bOptimizedOutput ? "{}" : " {}\n");
+      aSB.append (bOptimizedOutput ? "{}" : " {}"+aSettings.getNewLineString ());
     }
     else
     {
       // At least one rule present
-      aSB.append (bOptimizedOutput ? "{" : " {\n");
+      aSB.append (bOptimizedOutput ? "{" : " {"+aSettings.getNewLineString ());
       bFirst = true;
       for (final ICSSTopLevelRule aRule : m_aRules)
       {
@@ -263,7 +263,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
             bFirst = false;
           else
             if (!bOptimizedOutput)
-              aSB.append ('\n');
+              aSB.append (aSettings.getNewLineString ());
 
           if (!bOptimizedOutput)
             aSB.append (aSettings.getIndent (nIndentLevel + 1));
@@ -274,7 +274,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
         aSB.append (aSettings.getIndent (nIndentLevel));
       aSB.append ('}');
       if (!bOptimizedOutput)
-        aSB.append ('\n');
+        aSB.append (aSettings.getNewLineString ());
     }
     return aSB.toString ();
   }
