@@ -53,14 +53,14 @@ public final class CSSURLHelperTest
   public void testGetAsCSSURL ()
   {
     for (final String sURL : new String [] { "a.gif",
-                                            "\"a.gif\"",
-                                            "b\\a.gif",
-                                            "\\b\\a\\c.gif",
-                                            "'a.gif'",
-                                            "'a\".gif'",
-                                            "\"a'.gif\"",
-                                            "a().gif",
-                                            "a\\(\\).gif" })
+                                             "\"a.gif\"",
+                                             "b\\a.gif",
+                                             "\\b\\a\\c.gif",
+                                             "'a.gif'",
+                                             "'a\".gif'",
+                                             "\"a'.gif\"",
+                                             "a().gif",
+                                             "a\\(\\).gif" })
     {
       final String sEscaped = CSSURLHelper.getAsCSSURL (sURL, false);
       assertEquals (sURL, CSSParseHelper.trimUrl (sEscaped));
@@ -93,8 +93,8 @@ public final class CSSURLHelperTest
     final SimpleURL aURL = new SimpleURL ("a.gif", new SMap ("x", "y"));
     assertEquals ("url(a.gif?x=y)", CSSURLHelper.getAsCSSURL (aURL, false));
     assertEquals ("url('a.gif?x=y')", CSSURLHelper.getAsCSSURL (aURL, true));
-    assertEquals ("url(?)", CSSURLHelper.getAsCSSURL (new SimpleURL (), false));
-    assertEquals ("url('?')", CSSURLHelper.getAsCSSURL (new SimpleURL (), true));
+    assertEquals ("url()", CSSURLHelper.getAsCSSURL (new SimpleURL (), false));
+    assertEquals ("url('')", CSSURLHelper.getAsCSSURL (new SimpleURL (), true));
 
     // SimpleURL -> CSS URL -> String -> SimpleURL
     assertEquals (aURL, new SimpleURL (CSSURLHelper.getURLValue (CSSURLHelper.getAsCSSURL (aURL, true))));
