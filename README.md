@@ -229,7 +229,7 @@ ph-css contains a multitude of small utility class covering different aspects of
 The following list gives an overview of known shortcomings in ph-css
 
   * Escaped characters (like \26) are not interpreted correctly.
-  * Browser-like bracket handling is not supported (issue #3) but a first attempt was made in v4.0.0 using the "browser compliant mode" for parsing.
+  * Browser-like bracket handling is not supported (issue #3) but a first attempt was made in v4.0.0 using the "browser compliant mode" for parsing. Any feedback is welcome.
 
 ---
 
