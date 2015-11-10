@@ -1,9 +1,9 @@
 #ph-css
 
-[![Join the chat at https://gitter.im/phax/ph-css](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/phax/ph-css?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![Build Status](https://travis-ci.org/phax/ph-css.svg?branch=master)](https://travis-ci.org/phax/ph-css)
 ﻿
+[![Join the chat at https://gitter.im/phax/ph-css](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/phax/ph-css?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 Java CSS 2 and CSS 3 parser and builder. This version supersedes phloc-css.
 The Maven plugin to compress CSS files at build time is located in project [ph-csscompress-maven-plugin](https://github.com/phax/ph-csscompress-maven-plugin).
