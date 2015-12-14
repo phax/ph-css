@@ -17,6 +17,7 @@ ph-css is licensed under Apache 2.0 license.
 Versions <= 3.9.2 are compatible with ph-commons < 6.0
 Versions >= 4.0.0 are compatible with ph-commons >= 6.0
 
+  * v4.0.1 - Added customizable newline characters
   * v4.0.0 - Updated to ph-commons 6.0.0 and added "browser compliant parsing mode"
   * v3.9.2 - Updated to ph-commons 5.7.1 and fix for some minor issues
   * v3.9.1 - Updated to ph-commons 5.6.0 and fix for some shorthand handling
@@ -31,7 +32,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>4.0.0</version>
+  <version>4.0.1</version>
 </dependency>
 ```
 

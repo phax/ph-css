@@ -18,6 +18,7 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-css">
+  <release date="2015-12-14" version="4.0.1" />
   <entry date="2015-09-22" category="tech" action="add">
     <change>
       <text locale="en">Added the possibility in CSSWriterSettings to define the new line/line ending mode</text>
