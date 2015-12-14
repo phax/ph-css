@@ -40,8 +40,9 @@ import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single <code>@supports/code> rule: a list of style rules only
- * valid when a certain declaration is available. See {@link ECSSSpecification#CSS3_CONDITIONAL}<br>
+ * Represents a single <code>@supports</code> rule: a list of style rules only
+ * valid when a certain declaration is available. See
+ * {@link ECSSSpecification#CSS3_CONDITIONAL}<br>
  * Example:<br>
  * <code>@supports (transition-property: color) {
   div { color:red; }
@@ -247,12 +248,12 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
 
     if (nRuleCount == 0)
     {
-      aSB.append (bOptimizedOutput ? "{}" : " {}"+aSettings.getNewLineString ());
+      aSB.append (bOptimizedOutput ? "{}" : " {}" + aSettings.getNewLineString ());
     }
     else
     {
       // At least one rule present
-      aSB.append (bOptimizedOutput ? "{" : " {"+aSettings.getNewLineString ());
+      aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
       bFirst = true;
       for (final ICSSTopLevelRule aRule : m_aRules)
       {

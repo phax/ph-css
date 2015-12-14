@@ -129,7 +129,9 @@ public final class CSSParseHelper
   public static String trimUrl (@Nonnull final CharSequence s)
   {
     // Extract from "url(...)"
-    final String sTrimmed = _trimBy (s, CCSSValue.PREFIX_URL_OPEN.length (), CCSSValue.SUFFIX_URL_CLOSE.length ()).trim ();
+    final String sTrimmed = _trimBy (s,
+                                     CCSSValue.PREFIX_URL_OPEN.length (),
+                                     CCSSValue.SUFFIX_URL_CLOSE.length ()).trim ();
     // Remove the trailing quotes (if any)
     final String sUnquoted = extractStringValue (sTrimmed);
     // Unescape all escaped chars
@@ -153,7 +155,7 @@ public final class CSSParseHelper
    * they cannot start with a digit, two hyphens, or a hyphen followed by a
    * digit. Identifiers can also contain escaped characters and any ISO 10646
    * character as a numeric code (see next item). For instance, the identifier
-   * "B&W?" may be written as "B\&W\?" or "B\26 W\3F".
+   * "B&amp;W?" may be written as "B\&amp;W\?" or "B\26 W\3F".
    *
    * @param aPattern
    *        pattern to check
