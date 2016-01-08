@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Interface for objects that can be written to CSS.
- * 
+ *
  * @author Philip Helger
  */
 public interface ICSSWriteable extends Serializable
@@ -31,7 +31,7 @@ public interface ICSSWriteable extends Serializable
   /**
    * Get the contents of this object as a serialized CSS string for writing to
    * an output.
-   * 
+   *
    * @param aSettings
    *        The settings to be used to format the output. May not be
    *        <code>null</code>.

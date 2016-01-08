@@ -42,7 +42,7 @@ import com.helger.css.ICSSWriteable;
  * {@link com.helger.css.decl.visit.DefaultCSSVisitor} which is a good basis for
  * your own implementations.
  * </p>
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode

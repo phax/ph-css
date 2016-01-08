@@ -31,7 +31,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a simple expression member
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

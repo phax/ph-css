@@ -114,7 +114,10 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
    * @return Never <code>null</code>.
    */
   @Nonnull
-  ICSSValue newValue (@Nonnull @Nonempty String sValue);
+  default ICSSValue newValue (@Nonnull @Nonempty final String sValue)
+  {
+    return newValue (sValue, false);
+  }
 
   /**
    * Create a new important CSS value with this property and the specified
@@ -125,7 +128,10 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
    * @return Never <code>null</code>.
    */
   @Nonnull
-  ICSSValue newImportantValue (@Nonnull @Nonempty String sValue);
+  default ICSSValue newImportantValue (@Nonnull @Nonempty final String sValue)
+  {
+    return newValue (sValue, true);
+  }
 
   /**
    * Create a new CSS value with this property and the specified named color.
@@ -138,7 +144,10 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
    * @return Never <code>null</code>.
    */
   @Nonnull
-  ICSSValue newValue (@Nonnull ICSSNamedColor aColor, boolean bImportant);
+  default ICSSValue newValue (@Nonnull final ICSSNamedColor aColor, final boolean bImportant)
+  {
+    return newValue (aColor.getName (), bImportant);
+  }
 
   /**
    * Create a new CSS value with this property and the specified named color.
@@ -149,7 +158,10 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
    * @return Never <code>null</code>.
    */
   @Nonnull
-  ICSSValue newValue (@Nonnull ICSSNamedColor aColor);
+  default ICSSValue newValue (@Nonnull final ICSSNamedColor aColor)
+  {
+    return newValue (aColor.getName ());
+  }
 
   /**
    * Create a new important CSS value with this property and the specified named
@@ -160,7 +172,10 @@ public interface ICSSProperty extends ICSSVersionAware, Serializable
    * @return Never <code>null</code>.
    */
   @Nonnull
-  ICSSValue newImportantValue (@Nonnull ICSSNamedColor aColor);
+  default ICSSValue newImportantValue (@Nonnull final ICSSNamedColor aColor)
+  {
+    return newImportantValue (aColor.getName ());
+  }
 
   /**
    * Get a clone of this property with another (or the same) base property.

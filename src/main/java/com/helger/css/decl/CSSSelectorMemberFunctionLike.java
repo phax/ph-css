@@ -32,7 +32,7 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Represents a single CSS complex selector pseudo element. Like
  * <code>:lang(fr)</code>
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

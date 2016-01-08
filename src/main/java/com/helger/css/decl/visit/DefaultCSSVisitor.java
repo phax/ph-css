@@ -37,7 +37,7 @@ import com.helger.css.decl.CSSViewportRule;
 /**
  * Default implementation of the {@link ICSSVisitor} interface. Use as base
  * class for your own implementations since this class does nothing on its own.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

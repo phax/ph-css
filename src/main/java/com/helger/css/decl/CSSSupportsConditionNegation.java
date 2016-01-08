@@ -32,7 +32,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single negation supports condition. E.g. "not (color: blue)"
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

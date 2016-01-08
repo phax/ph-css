@@ -54,9 +54,9 @@ public final class WikiVisitUrls
 
   public void readFromStyleAttributeWithAPI ()
   {
-    final String sStyle = "@import 'foobar.css';\n"
-                          + "div{background:fixed url(a.gif) !important;}\n"
-                          + "span { background-image:url('/my/folder/b.gif');}";
+    final String sStyle = "@import 'foobar.css';\n" +
+                          "div{background:fixed url(a.gif) !important;}\n" +
+                          "span { background-image:url('/my/folder/b.gif');}";
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
     CSSVisitor.visitCSSUrl (aCSS, new DefaultCSSUrlVisitor ()
     {

@@ -22,7 +22,7 @@ import com.helger.css.reader.CSSReaderDeclarationList;
 
 /**
  * Example how to read the content of a CSS style attribute.
- * 
+ *
  * @author Philip Helger
  */
 public final class WikiReadFromHtml

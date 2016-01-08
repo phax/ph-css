@@ -33,7 +33,7 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Represents a single supports condition with a declaration. E.g.
  * "(column-count: 1)"
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

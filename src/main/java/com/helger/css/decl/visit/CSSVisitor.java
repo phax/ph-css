@@ -43,7 +43,7 @@ import com.helger.css.decl.IHasCSSDeclarations;
  * {@link ICSSVisitor} and {@link ICSSUrlVisitor} interface methods. Method
  * {@link #visitCSS(CascadingStyleSheet, ICSSVisitor)} is usually the entry
  * point to iterate over the whole content of a parsed CSS.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -58,7 +58,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single import rule.
-   * 
+   *
    * @param aImportRule
    *        The import rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -71,7 +71,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single namespace rule.
-   * 
+   *
    * @param aNamespaceRule
    *        The namespace rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -85,7 +85,7 @@ public final class CSSVisitor
 
   /**
    * Visit all declarations contained in the passed declaration container.
-   * 
+   *
    * @param aHasDeclarations
    *        The declarations to be visited. May not be <code>null</code>.
    * @param aVisitor
@@ -102,7 +102,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single style rule.
-   * 
+   *
    * @param aStyleRule
    *        The style rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -128,7 +128,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single page rule.
-   * 
+   *
    * @param aPageRule
    *        The page rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -150,7 +150,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single font-face rule.
-   * 
+   *
    * @param aFontFaceRule
    *        The font-face rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -173,7 +173,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single media rule.
-   * 
+   *
    * @param aMediaRule
    *        The media rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -196,7 +196,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single keyframes rule.
-   * 
+   *
    * @param aKeyframesRule
    *        The keyframes rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -231,7 +231,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single viewport rule.
-   * 
+   *
    * @param aViewportRule
    *        The viewport rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -254,7 +254,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single supports rule.
-   * 
+   *
    * @param aSupportsRule
    *        The supports rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -278,7 +278,7 @@ public final class CSSVisitor
 
   /**
    * Visit all elements of a single unknown @ rule.
-   * 
+   *
    * @param aUnknownRule
    *        The unknown rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -292,7 +292,7 @@ public final class CSSVisitor
   /**
    * Visit all elements of a single top-level rule. This includes all rules
    * except <code>@import</code> and <code>@namespace</code> rules.
-   * 
+   *
    * @param aTopLevelRule
    *        The top-level rule to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -348,7 +348,7 @@ public final class CSSVisitor
    * Visit all CSS elements in the order of their declaration. import rules come
    * first, namespace rules come next and all other top-level rules in the order
    * of their declaration.
-   * 
+   *
    * @param aCSS
    *        The CSS to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -384,7 +384,7 @@ public final class CSSVisitor
   /**
    * Visit all items that can contain URLs in CSS files. Therefore the special
    * visitor class {@link CSSVisitorForUrl} is used.
-   * 
+   *
    * @param aCSS
    *        The CSS to visit. May not be <code>null</code>.
    * @param aVisitor
@@ -401,7 +401,7 @@ public final class CSSVisitor
   /**
    * Visit all items that can contain URLs in CSS files. Therefore the special
    * visitor class {@link CSSVisitorForUrl} is used.
-   * 
+   *
    * @param aCSS
    *        The CSS to visit. May not be <code>null</code>.
    * @param aVisitor

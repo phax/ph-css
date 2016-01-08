@@ -25,7 +25,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 
 /**
  * Base interface for a CSS value that contains more than one value
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode

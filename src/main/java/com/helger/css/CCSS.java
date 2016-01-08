@@ -25,7 +25,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
  * of the CSS specification are contained in this class.<br>
  * Units of measurement are based on:
  * http://de.selfhtml.org/css/formate/wertzuweisung.htm<br>
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -53,7 +53,7 @@ public final class CCSS
   /**
    * The maximum fraction digits to be considered when printing CSS decimal
    * values.
-   * 
+   *
    * @since 3.7.3
    */
   public static final int CSS_MAXIMUM_FRACTION_DIGITS = 16;

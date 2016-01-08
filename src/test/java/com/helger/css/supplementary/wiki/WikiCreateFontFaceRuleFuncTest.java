@@ -28,7 +28,7 @@ import com.helger.css.writer.CSSWriter;
 
 /**
  * This is example code to create a font-face rule from scratch
- * 
+ *
  * @author Philip Helger
  */
 public final class WikiCreateFontFaceRuleFuncTest

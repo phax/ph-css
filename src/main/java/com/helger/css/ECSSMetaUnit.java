@@ -18,7 +18,7 @@ package com.helger.css;
 
 /**
  * Enumeration containing all predefined CSS meta units.
- * 
+ *
  * @author Philip Helger
  */
 public enum ECSSMetaUnit

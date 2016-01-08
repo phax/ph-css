@@ -33,7 +33,6 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.propertyvalue.CSSValue;
 import com.helger.css.propertyvalue.ICSSValue;
-import com.helger.css.utils.ICSSNamedColor;
 
 /**
  * Abstract base class for implementing {@link ICSSProperty}
@@ -148,36 +147,6 @@ public abstract class AbstractCSSProperty implements ICSSProperty
     }
 
     return new CSSValue (this, sValue, bIsImportant);
-  }
-
-  @Nonnull
-  public final ICSSValue newValue (@Nonnull @Nonempty final String sValue)
-  {
-    return newValue (sValue, false);
-  }
-
-  @Nonnull
-  public final ICSSValue newImportantValue (@Nonnull @Nonempty final String sValue)
-  {
-    return newValue (sValue, true);
-  }
-
-  @Nonnull
-  public final ICSSValue newValue (@Nonnull final ICSSNamedColor aColor, final boolean bImportant)
-  {
-    return newValue (aColor.getName (), bImportant);
-  }
-
-  @Nonnull
-  public final ICSSValue newValue (@Nonnull final ICSSNamedColor aColor)
-  {
-    return newValue (aColor.getName ());
-  }
-
-  @Nonnull
-  public final ICSSValue newImportantValue (@Nonnull final ICSSNamedColor aColor)
-  {
-    return newImportantValue (aColor.getName ());
   }
 
   @Override

@@ -12,7 +12,10 @@ xOkgLXJPGCruykoaBC3OkeW7BXoK2odWjNoJfrTWs4zl0TIjhf020HKB5JmIfy3TlvKPjAO0JmqxYlLE
 3LiwYbw/UIE0I+UOk008zLSktOsSoTS1lzoKB0/GlsV5wv49q8SSy3eRLg82M07W5eyq5mpgyaCL63hGNT9adhxEOmb3Hs="
 
 jdk:
-  - openjdk6
+  - oraclejdk8
+  
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
   
 cache:
   directories:

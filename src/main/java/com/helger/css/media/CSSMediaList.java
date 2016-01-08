@@ -220,36 +220,14 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
     return m_aMedia.size ();
   }
 
-  public boolean hasAnyMedia ()
-  {
-    return !m_aMedia.isEmpty ();
-  }
-
   public boolean hasNoMedia ()
   {
     return m_aMedia.isEmpty ();
   }
 
-  public boolean hasNoMediaOrAll ()
-  {
-    return hasNoMedia () || containsMedium (ECSSMedium.ALL);
-  }
-
   public boolean containsMedium (@Nullable final ECSSMedium eMedium)
   {
     return m_aMedia.contains (eMedium);
-  }
-
-  public boolean containsMediumOrAll (@Nullable final ECSSMedium eMedium)
-  {
-    // Either the specific medium is contained, or the "all" medium is contained
-    return containsMedium (eMedium) || containsMedium (ECSSMedium.ALL);
-  }
-
-  public boolean isForScreen ()
-  {
-    // Default is "screen" if none is provided
-    return hasNoMedia () || containsMediumOrAll (ECSSMedium.SCREEN);
   }
 
   @Nonnull

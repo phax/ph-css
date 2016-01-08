@@ -24,7 +24,7 @@ import com.helger.css.property.ICSSProperty;
 
 /**
  * A descriptor for a property and a default value
- * 
+ *
  * @author Philip Helger
  * @since 3.7.4
  */

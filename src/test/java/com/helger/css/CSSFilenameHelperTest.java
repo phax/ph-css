@@ -25,7 +25,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link CSSFilenameHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSFilenameHelperTest

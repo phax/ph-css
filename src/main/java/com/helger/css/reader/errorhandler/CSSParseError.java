@@ -29,7 +29,7 @@ import com.helger.css.parser.Token;
 /**
  * This item contains a single CSSparsing error. It is used e.g. in the
  * {@link CollectingCSSParseErrorHandler}.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -53,7 +53,7 @@ public class CSSParseError
   }
 
   public CSSParseError (@Nonnull final Token aLastValidToken,
-                        @Nonnull final int [][] aExpectedTokenSequencesVal,
+                        @Nonnull final int [] [] aExpectedTokenSequencesVal,
                         @Nonnull final String [] aTokenImageVal,
                         @Nullable final Token aLastSkippedToken)
   {
@@ -145,6 +145,8 @@ public class CSSParseError
                                                     @Nonnull @Nonempty final String sRule,
                                                     @Nonnull @Nonempty final String sMsg)
   {
-    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken,
+                                                                                             sRule,
+                                                                                             sMsg));
   }
 }

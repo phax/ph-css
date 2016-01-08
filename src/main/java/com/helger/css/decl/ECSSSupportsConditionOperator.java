@@ -29,10 +29,10 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Contains the binary operators for the @supports rule as in
  * <code>@supports (transition-property: color) <b>or</b> (animation-name: foo)</code>
- * 
+ *
  * @author Philip Helger
  */
-public enum ECSSSupportsConditionOperator implements ICSSSupportsConditionMember, IHasName
+public enum ECSSSupportsConditionOperator implements ICSSSupportsConditionMember,IHasName
 {
   AND ("and"),
   OR ("or");

@@ -34,7 +34,7 @@ import com.helger.css.decl.CSSViewportRule;
 
 /**
  * Interface for visiting different elements of a CSS domain object.
- * 
+ *
  * @author Philip Helger
  * @see DefaultCSSVisitor DefaultCSSVisitor for an empty default implementation
  */
@@ -49,7 +49,7 @@ public interface ICSSVisitor
 
   /**
    * Called on CSS import statement
-   * 
+   *
    * @param aImportRule
    *        Other imported CSS. Never <code>null</code>.
    */
@@ -57,7 +57,7 @@ public interface ICSSVisitor
 
   /**
    * Called on CSS namespace statement
-   * 
+   *
    * @param aNamespaceRule
    *        The namespace rule. Never <code>null</code>.
    */
@@ -65,7 +65,7 @@ public interface ICSSVisitor
 
   /**
    * Called for each declaration
-   * 
+   *
    * @param aDeclaration
    *        The declaration. Never <code>null</code>.
    */
@@ -76,7 +76,7 @@ public interface ICSSVisitor
    * Called when a style rule starts.<br>
    * Note: contained declarations are handled by
    * {@link #onDeclaration(CSSDeclaration)}
-   * 
+   *
    * @param aStyleRule
    *        The style rule. Never <code>null</code>.
    */
@@ -84,7 +84,7 @@ public interface ICSSVisitor
 
   /**
    * Called for each selector of a style rule
-   * 
+   *
    * @param aSelector
    *        The style rule selector. Never <code>null</code>.
    */
@@ -92,7 +92,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a style rule ends.
-   * 
+   *
    * @param aStyleRule
    *        The style rule. Never <code>null</code>.
    */
@@ -103,7 +103,7 @@ public interface ICSSVisitor
    * Called when a page rule starts.<br>
    * Note: contained declarations are handled by
    * {@link #onDeclaration(CSSDeclaration)}
-   * 
+   *
    * @param aPageRule
    *        The page rule. Never <code>null</code>.
    */
@@ -111,7 +111,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a page rule ends.
-   * 
+   *
    * @param aPageRule
    *        The page rule. Never <code>null</code>.
    */
@@ -122,7 +122,7 @@ public interface ICSSVisitor
    * Called when a font-face rule starts.<br>
    * Note: contained declarations are handled by
    * {@link #onDeclaration(CSSDeclaration)}
-   * 
+   *
    * @param aFontFaceRule
    *        The font-face rule. Never <code>null</code>.
    */
@@ -130,7 +130,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a font-face rule ends.
-   * 
+   *
    * @param aFontFaceRule
    *        The font-face rule. Never <code>null</code>.
    */
@@ -141,7 +141,7 @@ public interface ICSSVisitor
    * Called when a media rule starts.<br>
    * Note: contained declarations are handled by
    * {@link #onDeclaration(CSSDeclaration)}
-   * 
+   *
    * @param aMediaRule
    *        The media rule. Never <code>null</code>.
    */
@@ -149,7 +149,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a media rule ends.
-   * 
+   *
    * @param aMediaRule
    *        The media rule. Never <code>null</code>.
    */
@@ -160,7 +160,7 @@ public interface ICSSVisitor
    * Called when a keyframes rule starts.<br>
    * Note: contained declarations are handled by
    * {@link #onDeclaration(CSSDeclaration)}
-   * 
+   *
    * @param aKeyframesRule
    *        The keyframes rule. Never <code>null</code>.
    */
@@ -168,7 +168,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a keyframes block starts.
-   * 
+   *
    * @param aKeyframesBlock
    *        The keyframes rule block. Never <code>null</code>.
    */
@@ -176,7 +176,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a keyframes block ends.
-   * 
+   *
    * @param aKeyframesBlock
    *        The keyframes rule block. Never <code>null</code>.
    */
@@ -184,7 +184,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a keyframes rule ends.
-   * 
+   *
    * @param aKeyframesRule
    *        The keyframes rule. Never <code>null</code>.
    */
@@ -193,7 +193,7 @@ public interface ICSSVisitor
   // viewport rules
   /**
    * Called when a viewport rule starts.
-   * 
+   *
    * @param aViewportRule
    *        The viewport rule. Never <code>null</code>.
    */
@@ -201,7 +201,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a viewport rule ends.
-   * 
+   *
    * @param aViewportRule
    *        The viewport rule. Never <code>null</code>.
    */
@@ -210,7 +210,7 @@ public interface ICSSVisitor
   // supports rules
   /**
    * Called when a supports rule starts.
-   * 
+   *
    * @param aSupportsRule
    *        The supports rule. Never <code>null</code>.
    */
@@ -218,7 +218,7 @@ public interface ICSSVisitor
 
   /**
    * Called when a supports rule ends.
-   * 
+   *
    * @param aSupportsRule
    *        The supports rule. Never <code>null</code>.
    */
@@ -227,7 +227,7 @@ public interface ICSSVisitor
   // unknown rules
   /**
    * Called when an unknown rule is encountered.
-   * 
+   *
    * @param aUnknownRule
    *        The unknown rule. Never <code>null</code>.
    */

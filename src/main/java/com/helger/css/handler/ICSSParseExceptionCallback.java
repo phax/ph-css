@@ -25,6 +25,7 @@ import com.helger.css.parser.ParseException;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface ICSSParseExceptionCallback extends IExceptionCallback <ParseException>
 {
   /* empty */

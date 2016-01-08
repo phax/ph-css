@@ -21,7 +21,7 @@ import com.helger.css.ICSSWriteable;
 
 /**
  * Marker interface for all children of a single CSS supports condition.
- * 
+ *
  * @author Philip Helger
  */
 public interface ICSSSupportsConditionMember extends ICSSWriteable, ICSSVersionAware

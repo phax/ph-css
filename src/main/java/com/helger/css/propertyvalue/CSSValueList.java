@@ -71,7 +71,7 @@ public class CSSValueList implements ICSSMultiValue
                                           " is not contained in an ICSSProperty instance!");
 
     m_eProperty = eProperty;
-    m_aValues = new ArrayList <CSSValue> (aProperties.length);
+    m_aValues = new ArrayList <> (aProperties.length);
     for (int i = 0; i < aProperties.length; ++i)
       m_aValues.add (new CSSValue (aProperties[i], aValues[i], bIsImportant));
   }

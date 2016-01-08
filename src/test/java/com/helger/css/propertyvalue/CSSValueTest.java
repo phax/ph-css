@@ -28,7 +28,7 @@ import com.helger.css.utils.ECSSColor;
 
 /**
  * Test class for class {@link CSSValue}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSValueTest

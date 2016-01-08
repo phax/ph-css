@@ -29,7 +29,7 @@ import com.helger.css.propertyvalue.CSSSimpleValueWithUnit;
 
 /**
  * Test class for class {@link CSSNumberHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSNumberHelperTest

@@ -29,7 +29,7 @@ import com.helger.css.parser.CSSNode;
 /**
  * This class is the entry point for converting AST nodes from the parser to
  * domain objects. This class is only used internally.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -44,7 +44,7 @@ public final class CSSHandler
 
   /**
    * Create a {@link CascadingStyleSheet} object from a parsed object.
-   * 
+   *
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
    * @param aNode
@@ -65,7 +65,7 @@ public final class CSSHandler
 
   /**
    * Create a {@link CSSDeclarationList} object from a parsed object.
-   * 
+   *
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
    * @param aNode

@@ -26,7 +26,7 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * This class has the same layout as the normal {@link Token} class, but its
  * contents are not modifiable!
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

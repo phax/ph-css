@@ -29,7 +29,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link ECSSUnit}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ECSSUnitTest

@@ -30,10 +30,10 @@ import com.helger.commons.name.IHasName;
 /**
  * Enumeration containing all predefined CSS units.<br>
  * Source: http://www.w3.org/TR/css3-values/
- * 
+ *
  * @author Philip Helger
  */
-public enum ECSSUnit implements IHasName, ICSSVersionAware
+public enum ECSSUnit implements IHasName,ICSSVersionAware
 {
   /** font size of the element */
   EM ("em", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS10),
@@ -133,7 +133,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
 
   /**
    * Get the passed value formatted with this unit
-   * 
+   *
    * @param nValue
    *        Value to format
    * @return <code>value + getName()</code>
@@ -147,7 +147,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
 
   /**
    * Get the passed value formatted with this unit
-   * 
+   *
    * @param nValue
    *        Value to format
    * @return <code>value + getName()</code>
@@ -162,7 +162,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   /**
    * Get the passed value formatted with this unit. Always '.' is used as the
    * separator.
-   * 
+   *
    * @param dValue
    *        Value to format
    * @return <code>value + getName()</code>
@@ -181,7 +181,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   /**
    * Get the passed value formatted with this unit. Always '.' is used as the
    * separator.
-   * 
+   *
    * @param aValue
    *        Value to format. May not be <code>null</code>.
    * @return <code>value + getName()</code>

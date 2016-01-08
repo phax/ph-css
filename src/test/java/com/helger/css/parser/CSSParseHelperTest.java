@@ -22,7 +22,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link CSSParseHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSParseHelperTest

@@ -29,7 +29,7 @@ import com.helger.css.writer.CSSWriter;
 
 /**
  * Test class for class {@link ECSSColor}.
- * 
+ *
  * @author Philip Helger
  */
 public final class ECSSColorTest

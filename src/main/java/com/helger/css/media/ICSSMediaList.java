@@ -42,7 +42,10 @@ public interface ICSSMediaList extends Serializable
    * @return <code>true</code> if any explicit media is defined,
    *         <code>false</code> if not.
    */
-  boolean hasAnyMedia ();
+  default boolean hasAnyMedia ()
+  {
+    return !hasNoMedia ();
+  }
 
   /**
    * @return <code>true</code> if no explicit media is defined,
@@ -54,7 +57,10 @@ public interface ICSSMediaList extends Serializable
    * @return <code>true</code> if no explicit media is defined or if
    *         {@link ECSSMedium#ALL} is contained.
    */
-  boolean hasNoMediaOrAll ();
+  default boolean hasNoMediaOrAll ()
+  {
+    return hasNoMedia () || containsMedium (ECSSMedium.ALL);
+  }
 
   /**
    * Check if the passed medium is explicitly specified
@@ -74,7 +80,11 @@ public interface ICSSMediaList extends Serializable
    * @return <code>true</code> if the passed medium or the "all" medium is
    *         contained, <code>false</code> otherwise
    */
-  boolean containsMediumOrAll (@Nullable ECSSMedium eMedium);
+  default boolean containsMediumOrAll (@Nullable final ECSSMedium eMedium)
+  {
+    // Either the specific medium is contained, or the "all" medium is contained
+    return containsMedium (eMedium) || containsMedium (ECSSMedium.ALL);
+  }
 
   /**
    * Check if the passed medium is usable for the screen. This is the case if
@@ -83,7 +93,11 @@ public interface ICSSMediaList extends Serializable
    *
    * @return <code>true</code> if the media list is usable for screen display
    */
-  boolean isForScreen ();
+  default boolean isForScreen ()
+  {
+    // Default is "screen" if none is provided
+    return hasNoMedia () || containsMediumOrAll (ECSSMedium.SCREEN);
+  }
 
   /**
    * @return A copy of all specified media in the order they were specified.

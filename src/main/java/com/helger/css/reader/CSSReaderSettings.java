@@ -182,7 +182,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
 
   /**
    * Change the browser compliant mode to use.
-   * 
+   *
    * @param bBrowserCompliantMode
    *        <code>true</code> to use enable browser compliant parsing,
    *        <code>false</code> to disable it.

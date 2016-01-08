@@ -31,10 +31,10 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Enumeration with selector attribute operations as in
  * <code>[foo<b>^=</b>"bar"]</code>
- * 
+ *
  * @author Philip Helger
  */
-public enum ECSSAttributeOperator implements ICSSVersionAware, ICSSWriteable, IHasName
+public enum ECSSAttributeOperator implements ICSSVersionAware,ICSSWriteable,IHasName
 {
   EQUALS ("=", ECSSVersion.CSS21),
   INCLUDES ("~=", ECSSVersion.CSS21),

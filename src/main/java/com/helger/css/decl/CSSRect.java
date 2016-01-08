@@ -30,7 +30,7 @@ import com.helger.css.propertyvalue.CCSSValue;
 
 /**
  * Represents a single CSS rectangle
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -43,7 +43,7 @@ public class CSSRect implements ICSSWriteable
 
   /**
    * Copy constructor
-   * 
+   *
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
@@ -54,7 +54,7 @@ public class CSSRect implements ICSSWriteable
 
   /**
    * Constructor
-   * 
+   *
    * @param sTop
    *        Top coordinate. May neither be <code>null</code> nor empty.
    * @param sRight
@@ -87,7 +87,7 @@ public class CSSRect implements ICSSWriteable
 
   /**
    * Set the top coordinate.
-   * 
+   *
    * @param sTop
    *        May neither be <code>null</code> nor empty.
    * @return this
@@ -113,7 +113,7 @@ public class CSSRect implements ICSSWriteable
 
   /**
    * Set the right coordinate.
-   * 
+   *
    * @param sRight
    *        May neither be <code>null</code> nor empty.
    * @return this
@@ -139,7 +139,7 @@ public class CSSRect implements ICSSWriteable
 
   /**
    * Set the bottom coordinate.
-   * 
+   *
    * @param sBottom
    *        May neither be <code>null</code> nor empty.
    * @return this
@@ -165,7 +165,7 @@ public class CSSRect implements ICSSWriteable
 
   /**
    * Set the left coordinate.
-   * 
+   *
    * @param sLeft
    *        May neither be <code>null</code> nor empty.
    * @return this

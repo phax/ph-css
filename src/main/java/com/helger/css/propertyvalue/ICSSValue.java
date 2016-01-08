@@ -24,7 +24,7 @@ import com.helger.css.property.ECSSProperty;
 
 /**
  * Represents a single CSS value that is used in a CSS declaration.
- * 
+ *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode

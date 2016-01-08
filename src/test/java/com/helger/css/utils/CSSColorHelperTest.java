@@ -33,7 +33,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link CSSColorHelper}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSColorHelperTest
@@ -160,14 +160,14 @@ public final class CSSColorHelperTest
   public void testIsHexColorValue ()
   {
     final String [] HEX_COLORS = new String [] { "#000000",
-                                                "#99aa00",
-                                                "#9900aa",
-                                                "#aa9900",
-                                                "#ffffff",
-                                                "#aaa",
-                                                "#000",
-                                                "#1234",
-                                                "#000f" };
+                                                 "#99aa00",
+                                                 "#9900aa",
+                                                 "#aa9900",
+                                                 "#ffffff",
+                                                 "#aaa",
+                                                 "#000",
+                                                 "#1234",
+                                                 "#000f" };
     for (final String sHexColor : HEX_COLORS)
     {
       assertTrue (sHexColor, CSSColorHelper.isHexColorValue (sHexColor));
@@ -181,12 +181,12 @@ public final class CSSColorHelperTest
   public void testIsRGBColorValue ()
   {
     final String [] RGB_COLORS = new String [] { "rgb(0,0,0)",
-                                                "rgb(255,0,0)",
-                                                "rgb(300,0,0)",
-                                                "rgb(  300  ,  0  ,  0  )  ",
-                                                "rgb(255,-10,0)",
-                                                "rgb(110%, 0%, 0%)",
-                                                "rgb(100%, 0%, 0%)" };
+                                                 "rgb(255,0,0)",
+                                                 "rgb(300,0,0)",
+                                                 "rgb(  300  ,  0  ,  0  )  ",
+                                                 "rgb(255,-10,0)",
+                                                 "rgb(110%, 0%, 0%)",
+                                                 "rgb(100%, 0%, 0%)" };
     for (final String sRGBColor : RGB_COLORS)
     {
       assertTrue (sRGBColor, CSSColorHelper.isRGBColorValue (sRGBColor));
@@ -200,13 +200,13 @@ public final class CSSColorHelperTest
   public void testIsRGBAColorValue ()
   {
     final String [] RGBA_COLORS = new String [] { "rgba(0,0,0,0)",
-                                                 "rgba(0,0,0,1)",
-                                                 "rgba(255,0,0, 0.1)",
-                                                 "rgba(255,0,0, 0.875)",
-                                                 "rgba(300,0,0, 0.999999)",
-                                                 "rgba(255,-10,0, 0)",
-                                                 "rgba(110%, 0%, 0%, 1.)",
-                                                 "rgba(100%, 0%, 0%, 1.  )" };
+                                                  "rgba(0,0,0,1)",
+                                                  "rgba(255,0,0, 0.1)",
+                                                  "rgba(255,0,0, 0.875)",
+                                                  "rgba(300,0,0, 0.999999)",
+                                                  "rgba(255,-10,0, 0)",
+                                                  "rgba(110%, 0%, 0%, 1.)",
+                                                  "rgba(100%, 0%, 0%, 1.  )" };
     for (final String sRGBAColor : RGBA_COLORS)
     {
       assertTrue (sRGBAColor, CSSColorHelper.isRGBAColorValue (sRGBAColor));
@@ -220,12 +220,12 @@ public final class CSSColorHelperTest
   public void testIsHSLColorValue ()
   {
     final String [] HSL_COLORS = new String [] { "hsl(0,0%,0%)",
-                                                "hsl(255,0%,0%)",
-                                                "hsl(300,0%,0%)",
-                                                "hsl(  300  ,  0%  ,  0%  )  ",
-                                                "hsl(255,-10%,0%)",
-                                                "hsl(110%, 0%, 0%)",
-                                                "hsl(100%, 0%, 0%)" };
+                                                 "hsl(255,0%,0%)",
+                                                 "hsl(300,0%,0%)",
+                                                 "hsl(  300  ,  0%  ,  0%  )  ",
+                                                 "hsl(255,-10%,0%)",
+                                                 "hsl(110%, 0%, 0%)",
+                                                 "hsl(100%, 0%, 0%)" };
     for (final String sHSLColor : HSL_COLORS)
     {
       assertTrue (sHSLColor, CSSColorHelper.isHSLColorValue (sHSLColor));
@@ -240,16 +240,16 @@ public final class CSSColorHelperTest
   public void testIsHSLAColorValue ()
   {
     final String [] HSLA_COLORS = new String [] { "hsla(0,0%,0%,0)",
-                                                 "hsla(0,0%,0%,1)",
-                                                 "hsla(0,0,0%,1)",
-                                                 "hsla(0,0%,0,1)",
-                                                 "hsla(0,0,0,1)",
-                                                 "hsla(255,0%,0%, 0.1)",
-                                                 "hsla(255,0%,0%, 0.875)",
-                                                 "hsla(300,0%,0%, 0.999999)",
-                                                 "hsla(255,-10%,0%, 0)",
-                                                 "hsla(110%, 0%, 0%, 1.)",
-                                                 "hsla(100%, 0%, 0%, 1.  )" };
+                                                  "hsla(0,0%,0%,1)",
+                                                  "hsla(0,0,0%,1)",
+                                                  "hsla(0,0%,0,1)",
+                                                  "hsla(0,0,0,1)",
+                                                  "hsla(255,0%,0%, 0.1)",
+                                                  "hsla(255,0%,0%, 0.875)",
+                                                  "hsla(300,0%,0%, 0.999999)",
+                                                  "hsla(255,-10%,0%, 0)",
+                                                  "hsla(110%, 0%, 0%, 1.)",
+                                                  "hsla(100%, 0%, 0%, 1.  )" };
     for (final String sHSLAColor : HSLA_COLORS)
     {
       assertTrue (sHSLAColor, CSSColorHelper.isHSLAColorValue (sHSLAColor));

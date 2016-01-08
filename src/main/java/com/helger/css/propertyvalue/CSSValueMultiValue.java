@@ -45,7 +45,7 @@ import com.helger.css.property.ICSSProperty;
 @Immutable
 public class CSSValueMultiValue implements ICSSMultiValue
 {
-  private final List <CSSValue> m_aValues = new ArrayList <CSSValue> ();
+  private final List <CSSValue> m_aValues = new ArrayList <> ();
 
   public CSSValueMultiValue (@Nonnull final ICSSProperty aProperty,
                              @Nonnull @Nonempty final String [] aValues,

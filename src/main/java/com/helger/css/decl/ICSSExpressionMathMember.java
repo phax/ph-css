@@ -21,7 +21,7 @@ import com.helger.css.ICSSWriteable;
 
 /**
  * Base interface for all CSS math (<code>calc()</code>) member objects.
- * 
+ *
  * @author Philip Helger
  */
 public interface ICSSExpressionMathMember extends ICSSWriteable, ICSSVersionAware

@@ -25,7 +25,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Utility methods to deal with CSS filenames.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -41,7 +41,7 @@ public final class CSSFilenameHelper
   /**
    * Check if the passed filename is a CSS filename (independent if regular or
    * minified)
-   * 
+   *
    * @param sFilename
    *        The filename to check.
    * @return <code>true</code> if the passed filename is a CSS filename.
@@ -53,7 +53,7 @@ public final class CSSFilenameHelper
 
   /**
    * Check if the passed filename is a minified CSS filename
-   * 
+   *
    * @param sFilename
    *        The filename to check.
    * @return <code>true</code> if the passed filename is a minified CSS
@@ -66,7 +66,7 @@ public final class CSSFilenameHelper
 
   /**
    * Check if the passed filename is a regular (not minified) CSS filename
-   * 
+   *
    * @param sFilename
    *        The filename to check.
    * @return <code>true</code> if the passed filename is a regular CSS filename.
@@ -79,7 +79,7 @@ public final class CSSFilenameHelper
   /**
    * Get the minified CSS filename from the passed filename. If the passed
    * filename is already minified, it is returned as is.
-   * 
+   *
    * @param sCSSFilename
    *        The filename to get minified. May not be <code>null</code>.
    * @return The minified filename

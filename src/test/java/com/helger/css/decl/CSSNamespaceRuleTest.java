@@ -30,7 +30,7 @@ import com.helger.css.reader.CSSReader;
 
 /**
  * Test class for {@link CSSNamespaceRule}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSNamespaceRuleTest

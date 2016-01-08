@@ -117,8 +117,9 @@ public final class CSSSupportsRuleTest
     assertEquals ("blue", ((CSSExpressionMemberTermSimple) aDecl2Member0).getValue ());
 
     assertTrue (aSR.getRule (0) instanceof CSSStyleRule);
-    assertEquals ("div", ((CSSSelectorSimpleMember) ((CSSStyleRule) aSR.getRule (0)).getSelectorAtIndex (0)
-                                                                                    .getMemberAtIndex (0)).getValue ());
+    assertEquals ("div",
+                  ((CSSSelectorSimpleMember) ((CSSStyleRule) aSR.getRule (0)).getSelectorAtIndex (0)
+                                                                             .getMemberAtIndex (0)).getValue ());
 
     // Create the same rule by application
     final CSSSupportsRule aCreated = new CSSSupportsRule ();

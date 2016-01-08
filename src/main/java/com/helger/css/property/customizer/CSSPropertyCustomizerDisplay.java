@@ -28,7 +28,7 @@ import com.helger.css.propertyvalue.ICSSValue;
 
 /**
  * Special customizer for the "display" property.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

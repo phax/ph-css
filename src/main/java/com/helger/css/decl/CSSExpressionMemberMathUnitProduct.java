@@ -32,7 +32,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Part of a CSS calc element
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

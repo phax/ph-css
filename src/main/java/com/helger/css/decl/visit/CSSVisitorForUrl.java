@@ -44,7 +44,7 @@ import com.helger.css.decl.ICSSTopLevelRule;
  * rules and call the {@link ICSSUrlVisitor} visitor. This visitor effectively
  * only visits URLs that are in import rules and those in declaration
  * expressions.
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -55,7 +55,7 @@ public class CSSVisitorForUrl implements ICSSVisitor
 
   /**
    * Constructor
-   * 
+   *
    * @param aVisitor
    *        The URL visitor to be used. May not be <code>null</code>.
    */

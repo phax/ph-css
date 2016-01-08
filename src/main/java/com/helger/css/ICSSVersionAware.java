@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 /**
  * Interface for objects indicating that they are supported by a minimum CSS
  * version that may be higher than the default (CSS 2.1).
- * 
+ *
  * @author Philip Helger
  */
 public interface ICSSVersionAware

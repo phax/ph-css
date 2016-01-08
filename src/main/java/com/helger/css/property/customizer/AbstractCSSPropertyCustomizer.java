@@ -23,7 +23,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Abstract base class for property customizer.
- * 
+ *
  * @author Philip Helger
  * @since 3.7.3
  */

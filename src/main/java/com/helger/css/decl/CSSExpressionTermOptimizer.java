@@ -29,7 +29,7 @@ import com.helger.css.propertyvalue.CCSSValue;
 
 /**
  * This class is responsible for expression term optimization
- * 
+ *
  * @author Philip Helger
  */
 @Immutable

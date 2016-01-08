@@ -24,7 +24,7 @@ import com.helger.css.parser.CSSNode;
 /**
  * Runtime exception that is thrown if interpreting the CSS fails. Only thrown
  * from classes in this package.
- * 
+ *
  * @author Philip Helger
  */
 public class CSSHandlingException extends RuntimeException

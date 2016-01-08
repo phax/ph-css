@@ -20,7 +20,7 @@ import com.helger.css.ICSSWriteable;
 
 /**
  * Marker interface for all children of a single CSS selector.
- * 
+ *
  * @author Philip Helger
  */
 public interface ICSSSelectorMember extends ICSSWriteable

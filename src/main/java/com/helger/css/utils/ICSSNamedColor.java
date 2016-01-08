@@ -20,7 +20,7 @@ import com.helger.commons.name.IHasName;
 
 /**
  * Base interface for predefined CSS color names
- * 
+ *
  * @author Philip Helger
  */
 public interface ICSSNamedColor extends IHasName

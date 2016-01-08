@@ -30,7 +30,7 @@ import com.helger.css.writer.CSSWriterSettings;
 /**
  * Example how to read the content of a CSS style attribute, and visit all
  * contained declarations - with the API and with a visitor.
- * 
+ *
  * @author Philip Helger
  */
 public final class WikiVisitFromHtml
@@ -63,7 +63,8 @@ public final class WikiVisitFromHtml
       {
         System.out.println (aDeclaration.getProperty () +
                             ": " +
-                            aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30), 0) +
+                            aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30),
+                                                                          0) +
                             (aDeclaration.isImportant () ? " (important)" : " (not important)"));
       }
     };

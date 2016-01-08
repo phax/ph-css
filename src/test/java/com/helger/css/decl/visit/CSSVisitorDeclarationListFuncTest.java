@@ -36,7 +36,7 @@ import com.helger.css.writer.CSSWriter;
 
 /**
  * Test class for class {@link CSSVisitor}.
- * 
+ *
  * @author Philip Helger
  */
 public final class CSSVisitorDeclarationListFuncTest

@@ -28,7 +28,7 @@ import com.helger.css.propertyvalue.CCSSValue;
 
 /**
  * Provides rectangle handling sanity methods.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -75,7 +75,7 @@ public final class CSSRectHelper
    * Check if the passed value is CSS rectangle definition or not. It checks
    * both the current syntax (<code>rect(a,b,c,d)</code>) and the old syntax (
    * <code>rect(a b c d)</code>).
-   * 
+   *
    * @param sCSSValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if the passed value is a rect value,
@@ -99,7 +99,7 @@ public final class CSSRectHelper
 
   /**
    * Get all the values from within a CSS rectangle definition.
-   * 
+   *
    * @param sCSSValue
    *        The CSS values to check. May be <code>null</code>.
    * @return <code>null</code> if the passed String is not a CSS rectangle. An
@@ -122,7 +122,7 @@ public final class CSSRectHelper
   /**
    * Interpret the passed value as a CSS rectangle and convert it to a
    * {@link CSSRect}.
-   * 
+   *
    * @param sCSSValue
    *        The CSS values to check. May be <code>null</code>.
    * @return <code>null</code> if the passed String is not a CSS rectangle.

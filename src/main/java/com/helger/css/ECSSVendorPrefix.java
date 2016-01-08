@@ -17,9 +17,11 @@
 package com.helger.css;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.name.IHasDisplayName;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Enumeration containing all known CSS vendor prefixes
@@ -77,5 +79,15 @@ public enum ECSSVendorPrefix implements IHasDisplayName
   public String getDisplayName ()
   {
     return m_sDisplayName;
+  }
+
+  @Nullable
+  public static ECSSVendorPrefix getFromPrefixOrNull (@Nullable final String sPrefix)
+  {
+    if (StringHelper.hasText (sPrefix))
+      for (final ECSSVendorPrefix e : values ())
+        if (e.m_sPrefix.equals (sPrefix))
+          return e;
+    return null;
   }
 }

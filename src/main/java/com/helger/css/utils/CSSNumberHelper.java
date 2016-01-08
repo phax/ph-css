@@ -198,7 +198,7 @@ public final class CSSNumberHelper
         return new CSSSimpleValueWithUnit (BigDecimal.ZERO, ECSSUnit.PX);
 
       final ECSSUnit eUnit = bWithPerc ? getMatchingUnitInclPercentage (sRealValue)
-                                      : getMatchingUnitExclPercentage (sRealValue);
+                                       : getMatchingUnitExclPercentage (sRealValue);
       if (eUnit != null)
       {
         // Cut the unit off

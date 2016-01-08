@@ -34,7 +34,7 @@ import com.helger.css.utils.CSSNumberHelper;
 
 /**
  * Part of a CSS calc element
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

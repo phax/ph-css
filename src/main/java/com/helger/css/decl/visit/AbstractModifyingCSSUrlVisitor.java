@@ -28,7 +28,7 @@ import com.helger.css.decl.ICSSTopLevelRule;
 /**
  * Abstract {@link ICSSUrlVisitor} that modifies all URLs according to an
  * abstract rule
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe

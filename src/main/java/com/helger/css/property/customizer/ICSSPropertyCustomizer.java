@@ -26,16 +26,17 @@ import com.helger.css.propertyvalue.ICSSValue;
 /**
  * A special customizer that can be assigned to CSS properties to modify their
  * default behavior. This can be used to add browser-specific values.
- * 
+ *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface ICSSPropertyCustomizer
 {
   /**
    * Create a special value for the passed property. For example if the property
    * is "border-radius" than the browser specific values like
    * "-moz-border-radius" and "-webkit-border-radius" should be emitted as well.
-   * 
+   *
    * @param aProperty
    *        The CSS property the fuzz is all about. Never <code>null</code>.
    * @param sValue
@@ -47,5 +48,7 @@ public interface ICSSPropertyCustomizer
    *         created.
    */
   @Nullable
-  ICSSValue createSpecialValue (@Nonnull ICSSProperty aProperty, @Nonnull @Nonempty String sValue, boolean bIsImportant);
+  ICSSValue createSpecialValue (@Nonnull ICSSProperty aProperty,
+                                @Nonnull @Nonempty String sValue,
+                                boolean bIsImportant);
 }

@@ -20,14 +20,14 @@ import javax.annotation.Nullable;
 
 /**
  * Interface for objects that have a source location.
- * 
+ *
  * @author Philip Helger
  */
 public interface ICSSSourceLocationAware
 {
   /**
    * Set the source location of the object, determined while parsing.
-   * 
+   *
    * @param aSourceLocation
    *        The source location to use. May be <code>null</code>.
    */

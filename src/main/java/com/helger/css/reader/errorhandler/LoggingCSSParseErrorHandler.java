@@ -79,7 +79,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonnull
   @Nonempty
   public static String createLoggingStringParseError (@Nonnull final Token aLastValidToken,
-                                                      @Nonnull final int [][] aExpectedTokenSequencesVal,
+                                                      @Nonnull final int [] [] aExpectedTokenSequencesVal,
                                                       @Nonnull final String [] aTokenImageVal,
                                                       @Nullable final Token aLastSkippedToken)
   {
@@ -139,7 +139,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   }
 
   public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                               @Nonnull final int [][] aExpectedTokenSequencesVal,
+                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
                                @Nonnull final String [] aTokenImageVal,
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
