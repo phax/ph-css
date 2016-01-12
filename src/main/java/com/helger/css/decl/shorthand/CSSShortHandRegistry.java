@@ -19,8 +19,6 @@ package com.helger.css.decl.shorthand;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,6 +28,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.css.ECSSUnit;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.property.ECSSProperty;
@@ -46,9 +45,9 @@ import com.helger.css.utils.ECSSColor;
 @ThreadSafe
 public final class CSSShortHandRegistry
 {
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final Map <ECSSProperty, CSSShortHandDescriptor> s_aMap = new HashMap <ECSSProperty, CSSShortHandDescriptor> ();
+  private static final Map <ECSSProperty, CSSShortHandDescriptor> s_aMap = new HashMap <> ();
 
   static
   {
@@ -188,34 +187,20 @@ public final class CSSShortHandRegistry
     ValueEnforcer.notNull (aDescriptor, "Descriptor");
 
     final ECSSProperty eProperty = aDescriptor.getProperty ();
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    s_aRWLock.writeLocked ( () -> {
       if (s_aMap.containsKey (eProperty))
         throw new IllegalStateException ("A short hand for property '" +
                                          eProperty.getName () +
                                          "' is already registered!");
       s_aMap.put (eProperty, aDescriptor);
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static Set <ECSSProperty> getAllShortHandProperties ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newSet (s_aMap.keySet ());
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> CollectionHelper.newSet (s_aMap.keySet ()));
   }
 
   public static boolean isShortHandProperty (@Nullable final ECSSProperty eProperty)
@@ -223,15 +208,7 @@ public final class CSSShortHandRegistry
     if (eProperty == null)
       return false;
 
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aMap.containsKey (eProperty);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aMap.containsKey (eProperty));
   }
 
   @Nullable
@@ -240,14 +217,6 @@ public final class CSSShortHandRegistry
     if (eProperty == null)
       return null;
 
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aMap.get (eProperty);
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aMap.get (eProperty));
   }
 }

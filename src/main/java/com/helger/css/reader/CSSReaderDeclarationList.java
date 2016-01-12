@@ -20,8 +20,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,6 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -67,7 +66,7 @@ import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 public final class CSSReaderDeclarationList
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReaderDeclarationList.class);
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   // Use the ThrowingCSSParseErrorHandler for maximum backward compatibility
   @GuardedBy ("s_aRWLock")
@@ -93,15 +92,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   public static ICSSParseErrorHandler getDefaultParseErrorHandler ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultParseErrorHandler;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultParseErrorHandler);
   }
 
   /**
@@ -114,15 +105,9 @@ public final class CSSReaderDeclarationList
    */
   public static void setDefaultParseErrorHandler (@Nullable final ICSSParseErrorHandler aDefaultParseErrorHandler)
   {
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    s_aRWLock.writeLocked ( () -> {
       s_aDefaultParseErrorHandler = aDefaultParseErrorHandler;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   /**
@@ -134,15 +119,7 @@ public final class CSSReaderDeclarationList
   @Nonnull
   public static ICSSParseExceptionCallback getDefaultParseExceptionHandler ()
   {
-    s_aRWLock.readLock ().lock ();
-    try
-    {
-      return s_aDefaultParseExceptionHandler;
-    }
-    finally
-    {
-      s_aRWLock.readLock ().unlock ();
-    }
+    return s_aRWLock.readLocked ( () -> s_aDefaultParseExceptionHandler);
   }
 
   /**
@@ -157,15 +134,9 @@ public final class CSSReaderDeclarationList
   {
     ValueEnforcer.notNull (aDefaultParseExceptionHandler, "DefaultParseExceptionHandler");
 
-    s_aRWLock.writeLock ().lock ();
-    try
-    {
+    s_aRWLock.writeLocked ( () -> {
       s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler;
-    }
-    finally
-    {
-      s_aRWLock.writeLock ().unlock ();
-    }
+    });
   }
 
   /**
