@@ -18,8 +18,6 @@ package com.helger.css.reader.errorhandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -30,6 +28,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
@@ -44,9 +43,9 @@ import com.helger.css.parser.Token;
 @ThreadSafe
 public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final List <CSSParseError> m_aErrors = new ArrayList <CSSParseError> ();
+  private final List <CSSParseError> m_aErrors = new ArrayList <> ();
   private final ICSSParseErrorHandler m_aNestedErrorHandler;
 
   public CollectingCSSParseErrorHandler ()
@@ -64,18 +63,12 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                @Nonnull final String [] aTokenImageVal,
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aErrors.add (new CSSParseError (aLastValidToken,
                                         aExpectedTokenSequencesVal,
                                         aTokenImageVal,
                                         aLastSkippedToken));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
     if (m_aNestedErrorHandler != null)
       m_aNestedErrorHandler.onCSSParseError (aLastValidToken,
                                              aExpectedTokenSequencesVal,
@@ -87,15 +80,9 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sRule,
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
+    m_aRWLock.writeLocked ( () -> {
       m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg));
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
+    });
     if (m_aNestedErrorHandler != null)
       m_aNestedErrorHandler.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
   }
@@ -107,15 +94,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonnegative
   public boolean hasParseErrors ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return !m_aErrors.isEmpty ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> !m_aErrors.isEmpty ());
   }
 
   /**
@@ -124,15 +103,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonnegative
   public int getParseErrorCount ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return m_aErrors.size ();
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> m_aErrors.size ());
   }
 
   /**
@@ -145,15 +116,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   @ReturnsMutableCopy
   public List <CSSParseError> getAllParseErrors ()
   {
-    m_aRWLock.readLock ().lock ();
-    try
-    {
-      return CollectionHelper.newList (m_aErrors);
-    }
-    finally
-    {
-      m_aRWLock.readLock ().unlock ();
-    }
+    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aErrors));
   }
 
   @Override
