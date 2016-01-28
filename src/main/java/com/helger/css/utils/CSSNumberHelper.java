@@ -26,7 +26,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.compare.ISerializableComparator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.css.ECSSUnit;
@@ -50,7 +50,8 @@ public final class CSSNumberHelper
       aNameToUnitMap.put (eUnit.getName (), eUnit);
     // Now sort, so that the longest matches are upfront so that they are
     // determined first
-    s_aNameToUnitMap = CollectionHelper.getSortedByKey (aNameToUnitMap, CompareHelper.getComparatorStringLongestFirst ());
+    s_aNameToUnitMap = CollectionHelper.getSortedByKey (aNameToUnitMap,
+                                                        ISerializableComparator.getComparatorStringLongestFirst ());
   }
 
   @SuppressWarnings ("unused")
