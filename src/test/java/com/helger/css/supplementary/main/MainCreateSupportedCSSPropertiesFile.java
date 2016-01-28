@@ -32,7 +32,7 @@ import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.serialize.MicroWriter;
-import com.helger.commons.name.ComparatorHasName;
+import com.helger.commons.name.IHasName;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.version.Version;
 import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
@@ -107,7 +107,7 @@ public class MainCreateSupportedCSSPropertiesFile
     IMicroElement tbody = table.appendElement ("tbody");
     int nIndex = 0;
     for (final ECSSProperty eProperty : CollectionHelper.getSorted (ECSSProperty.values (),
-                                                                    new ComparatorHasName <ECSSProperty> ()))
+                                                                    IHasName.getComparatorName ()))
       if (!eProperty.isVendorSpecific ())
       {
         final Version eMinVersion = eProperty.getMinimumCSSVersion ().getVersion ();
@@ -167,7 +167,7 @@ public class MainCreateSupportedCSSPropertiesFile
 
     for (final ECSSProperty eProperty : CollectionHelper.getSorted (ECSSProperty.values (),
                                                                     new CollatingPartComparator <ECSSProperty> (aLocale,
-                                                                                                                     aObject -> aObject.getVendorIndependentName ())))
+                                                                                                                aObject -> aObject.getVendorIndependentName ())))
       if (eProperty.isVendorSpecific ())
       {
         tr = tbody.appendElement ("tr");
