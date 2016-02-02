@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.compare.ISerializableComparator;
+import com.helger.commons.compare.IComparator;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.microdom.IMicroElement;
@@ -166,7 +166,7 @@ public class MainCreateSupportedCSSPropertiesFile
     nIndex = 0;
 
     for (final ECSSProperty eProperty : CollectionHelper.getSorted (ECSSProperty.values (),
-                                                                    ISerializableComparator.getComparatorCollating (ECSSProperty::getVendorIndependentName,
+                                                                    IComparator.getComparatorCollating (ECSSProperty::getVendorIndependentName,
                                                                                                                     aLocale)))
       if (eProperty.isVendorSpecific ())
       {
