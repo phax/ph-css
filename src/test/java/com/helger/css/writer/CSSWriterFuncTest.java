@@ -30,7 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
@@ -70,8 +70,7 @@ public final class CSSWriterFuncTest
   @Test
   public void testScanTestResourcesHandler21 ()
   {
-    for (final File aFile : FileSystemRecursiveIterator.create (new File ("src/test/resources/testfiles/css21/good/artificial"),
-                                                                new FileFilterFilenameEndsWith (".css")))
+    for (final File aFile : new FileSystemRecursiveIterator (new File ("src/test/resources/testfiles/css21/good/artificial")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       _testMe (aFile, ECSSVersion.CSS21);
     }
@@ -80,8 +79,7 @@ public final class CSSWriterFuncTest
   @Test
   public void testScanTestResourcesHandler30 ()
   {
-    for (final File aFile : FileSystemRecursiveIterator.create (new File ("src/test/resources/testfiles/css30/good/artificial"),
-                                                                new FileFilterFilenameEndsWith (".css")))
+    for (final File aFile : new FileSystemRecursiveIterator (new File ("src/test/resources/testfiles/css30/good/artificial")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       _testMe (aFile, ECSSVersion.CSS30);
     }
@@ -90,8 +88,7 @@ public final class CSSWriterFuncTest
   @Test
   public void testRead30Write21 () throws IOException
   {
-    for (final File aFile : FileSystemRecursiveIterator.create (new File ("src/test/resources/testfiles/css30/good/artificial"),
-                                                                new FileFilterFilenameEndsWith (".css")))
+    for (final File aFile : new FileSystemRecursiveIterator (new File ("src/test/resources/testfiles/css30/good/artificial")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
       try

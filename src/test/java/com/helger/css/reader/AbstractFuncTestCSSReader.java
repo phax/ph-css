@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
@@ -74,7 +74,7 @@ public abstract class AbstractFuncTestCSSReader
     if (!aBaseDir.exists ())
       throw new IllegalArgumentException ("BaseDir " + sBaseDir + " does not exist!");
 
-    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FileFilterFilenameEndsWith (".css")))
+    for (final File aFile : new FileSystemRecursiveIterator (aBaseDir).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
       if (m_bDebug)
@@ -125,7 +125,7 @@ public abstract class AbstractFuncTestCSSReader
     if (!aBaseDir.exists ())
       throw new IllegalArgumentException ("BaseDir " + sBaseDir + " does not exist!");
 
-    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FileFilterFilenameEndsWith (".css")))
+    for (final File aFile : new FileSystemRecursiveIterator (aBaseDir).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
       if (m_bDebug)
@@ -143,7 +143,7 @@ public abstract class AbstractFuncTestCSSReader
     if (!aBaseDir.exists ())
       throw new IllegalArgumentException ("BaseDir " + sBaseDir + " does not exist!");
 
-    for (final File aFile : FileSystemRecursiveIterator.create (aBaseDir, new FileFilterFilenameEndsWith (".css")))
+    for (final File aFile : new FileSystemRecursiveIterator (aBaseDir).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       final String sKey = aFile.getAbsolutePath ();
       if (m_bDebug)

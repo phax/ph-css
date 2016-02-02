@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.commons.wrapper.Wrapper;
 import com.helger.css.ECSSVersion;
@@ -51,15 +51,8 @@ public final class MainReadAllCSSOnDisc
     int nFilesError = 0;
     final Map <File, ParseException> aErrors = new LinkedHashMap <File, ParseException> ();
     final Wrapper <File> aCurrentFile = new Wrapper <File> ();
-    final ICSSParseExceptionCallback aHdl = new ICSSParseExceptionCallback ()
-    {
-      public void onException (final ParseException ex)
-      {
-        aErrors.put (aCurrentFile.get (), ex);
-      }
-    };
-    for (final File aFile : FileSystemRecursiveIterator.create (new File ("/"),
-                                                                new FileFilterFilenameEndsWith (".css")))
+    final ICSSParseExceptionCallback aHdl = ex -> aErrors.put (aCurrentFile.get (), ex);
+    for (final File aFile : new FileSystemRecursiveIterator (new File ("/")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       if (false)
         s_aLogger.info (aFile.getAbsolutePath ());
