@@ -677,52 +677,6 @@ public enum ECSSProperty implements IHasName,ICSSVersionAware
     return eVendorPrefix.equals (m_eVendorPrefix);
   }
 
-  @Deprecated
-  public boolean isKHTMLSpecific ()
-  {
-    return isVendorSpecific (ECSSVendorPrefix.KHTML);
-  }
-
-  @Deprecated
-  public boolean isMicrosoftSpecific ()
-  {
-    return isVendorSpecific (ECSSVendorPrefix.MICROSOFT) || isVendorSpecific (ECSSVendorPrefix.SCROLLBAR);
-  }
-
-  @Deprecated
-  public boolean isMozillaSpecific ()
-  {
-    return isVendorSpecific (ECSSVendorPrefix.MOZILLA);
-  }
-
-  @Deprecated
-  public boolean isOperaSpecific ()
-  {
-    return isVendorSpecific (ECSSVendorPrefix.OPERA);
-  }
-
-  @Deprecated
-  public boolean isEPubSpecific ()
-  {
-    return isVendorSpecific (ECSSVendorPrefix.EPUB);
-  }
-
-  @Deprecated
-  public boolean isWebkitSpecific ()
-  {
-    return isVendorSpecific (ECSSVendorPrefix.WEBKIT);
-  }
-
-  /**
-   * @return <code>true</code> if this property is vendor specific.
-   * @deprecated Use {@link #isVendorSpecific()} instead
-   */
-  @Deprecated
-  public boolean isBrowserSpecific ()
-  {
-    return isVendorSpecific ();
-  }
-
   /**
    * @return <code>true</code> if this property is vendor specific.
    * @since 3.9.0
@@ -765,7 +719,8 @@ public enum ECSSProperty implements IHasName,ICSSVersionAware
     if (StringHelper.hasText (sRealName))
     {
       // IE hacks
-      if (sRealName.startsWith ("*") || sRealName.startsWith ("_") || sRealName.startsWith ("$"))
+      final char cFirst = sRealName.charAt (0);
+      if (cFirst == '*' || cFirst == '_' || cFirst == '$')
         sRealName = sRealName.substring (1);
     }
     return sRealName;

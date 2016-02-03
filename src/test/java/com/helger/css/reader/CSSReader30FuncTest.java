@@ -342,7 +342,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 
     // Parsing problem
     String sCSS = ".class{color:red;.class{color:green}.class{color:blue}";
-    CascadingStyleSheet aCSS, aCSS2;
+    CascadingStyleSheet aCSS;
+    CascadingStyleSheet aCSS2;
     aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
     assertNotNull (aCSS);
     assertEquals (bBrowserCompliantMode ? "" : ".class{color:red}.class{color:blue}",

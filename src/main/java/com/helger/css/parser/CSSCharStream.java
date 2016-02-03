@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -279,19 +278,6 @@ public final class CSSCharStream implements CharStream
     m_aBufColumn[m_nBufpos] = m_nColumn;
   }
 
-  private static boolean _isHexChar (final char c)
-  {
-    return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
-  }
-
-  private static int _hexval (final char c) throws IOException
-  {
-    final int ret = StringHelper.getHexValue (c);
-    if (ret < 0)
-      throw new IOException ("Illegal hex char '" + c + "'");
-    return ret;
-  }
-
   /**
    * Read a character.
    *
@@ -403,14 +389,15 @@ public final class CSSCharStream implements CharStream
   /**
    * Method to adjust line and column numbers for the start of a token.
    *
-   * @param newLine
+   * @param nNewLine
    *        line index
    * @param newCol
    *        column index
    */
-  public void adjustBeginLineColumn (int newLine, final int newCol)
+  public void adjustBeginLineColumn (final int nNewLine, final int newCol)
   {
     int start = m_nTokenBegin;
+    int newLine = nNewLine;
     int len;
 
     if (m_nBufpos >= m_nTokenBegin)
@@ -422,8 +409,11 @@ public final class CSSCharStream implements CharStream
       len = m_nBufsize - m_nTokenBegin + m_nBufpos + 1 + m_nInBuf;
     }
 
-    int i = 0, j = 0, k = 0;
-    int nextColDiff = 0, columnDiff = 0;
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int nextColDiff = 0;
+    int columnDiff = 0;
 
     while (i < len && m_aBufLine[j = start % m_nBufsize] == m_aBufLine[k = ++start % m_nBufsize])
     {
