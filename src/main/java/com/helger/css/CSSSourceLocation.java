@@ -27,6 +27,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -38,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class CSSSourceLocation implements Serializable
+public class CSSSourceLocation implements Serializable, ICloneable <CSSSourceLocation>
 {
   private final CSSSourceArea m_aFirstTokenArea;
   private final CSSSourceArea m_aLastTokenArea;
@@ -206,6 +207,12 @@ public class CSSSourceLocation implements Serializable
     final String sFirst = getFirstTokenLocationAsString ();
     final String sLast = getLastTokenLocationAsString ();
     return StringHelper.getNotNull (sFirst, "") + "-" + StringHelper.getNotNull (sLast, "");
+  }
+
+  @Nonnull
+  public CSSSourceLocation getClone ()
+  {
+    return new CSSSourceLocation (m_aFirstTokenArea, m_aLastTokenArea);
   }
 
   @Override
