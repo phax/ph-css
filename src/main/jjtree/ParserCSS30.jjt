@@ -19,7 +19,7 @@ options {
   // LOOKAHEAD = 2;
   CHOICE_AMBIGUITY_CHECK = 5;
   STATIC = false;  // to allow for multiple parser instances
-  // DEBUG_PARSER = true;
+   DEBUG_PARSER = true;
   // DEBUG_LOOKAHEAD = true;
   // DEBUG_TOKEN_MANAGER = true;
   // ERROR_REPORTING = false;
@@ -214,6 +214,22 @@ TOKEN :
 | < IMPORT_SYM: "@import" >
 | < NAMESPACE_SYM: "@namespace" >
 | < PAGE_SYM: "@page" >
+| < TOPLEFTCORNER_SYM:      "@top-left-corner" >
+| < TOPLEFT_SYM:            "@top-left" >
+| < TOPCENTER_SYM:          "@top-center" >
+| < TOPRIGHT_SYM:           "@top-right" >
+| < TOPRIGHTCORNER_SYM:     "@top-right-corner" >
+| < BOTTOMLEFTCORNER_SYM:   "@bottom-left-corner" >
+| < BOTTOMLEFT_SYM:         "@bottom-left" >
+| < BOTTOMCENTER_SYM:       "@bottom-center" >
+| < BOTTOMRIGHT_SYM:        "@bottom-right" >
+| < BOTTOMRIGHTCORNER_SYM:  "@bottom-right-corner" >
+| < LEFTTOP_SYM:            "@left-top" >
+| < LEFTMIDDLE_SYM:         "@left-middle" >
+| < LEFTBOTTOM_SYM:         "@left-bottom" >
+| < RIGHTTOP_SYM:           "@right-top" >
+| < RIGHTMIDDLE_SYM:        "@right-middle" >
+| < RIGHTBOTTOM_SYM:        "@right-bottom" >
 | < MEDIA_SYM: "@media" >
 | < FONTFACE_SYM: "@font-face" >
 | < KEYFRAMES_SYM: "@-" <IDENT> "-keyframes" 
@@ -1139,16 +1155,94 @@ void pseudoPage() : {}
 {
   <COLON>
   <IDENT> { jjtThis.setText (":" + token.image); }
+// Should only be: "left" | "right" | "first" | "blank"  
+}
+
+void pageSelector() : {}
+{
+  ( LOOKAHEAD(2)
+    ( pseudoPage()
+    | <IDENT>
+    )
+    ( pseudoPage() )*
+    ( <S> )*
+  )  
+}
+
+void pageSelectorList() : {}
+{
+  pageSelector()
+  ( <COMMA>
+    ( <S> )*
+    pageSelector()
+  )*
+}
+
+void pageMarginSymbol() : {}
+{
+  ( <TOPLEFTCORNER_SYM>     { jjtThis.setText (token.image); } 
+  | <TOPLEFT_SYM>           { jjtThis.setText (token.image); } 
+  | <TOPCENTER_SYM>         { jjtThis.setText (token.image); } 
+  | <TOPRIGHT_SYM>          { jjtThis.setText (token.image); } 
+  | <TOPRIGHTCORNER_SYM>    { jjtThis.setText (token.image); } 
+  | <BOTTOMLEFTCORNER_SYM>  { jjtThis.setText (token.image); } 
+  | <BOTTOMLEFT_SYM>        { jjtThis.setText (token.image); } 
+  | <BOTTOMCENTER_SYM>      { jjtThis.setText (token.image); } 
+  | <BOTTOMRIGHT_SYM>       { jjtThis.setText (token.image); } 
+  | <BOTTOMRIGHTCORNER_SYM> { jjtThis.setText (token.image); } 
+  | <LEFTTOP_SYM>           { jjtThis.setText (token.image); } 
+  | <LEFTMIDDLE_SYM>        { jjtThis.setText (token.image); } 
+  | <LEFTBOTTOM_SYM>        { jjtThis.setText (token.image); } 
+  | <RIGHTTOP_SYM>          { jjtThis.setText (token.image); } 
+  | <RIGHTMIDDLE_SYM>       { jjtThis.setText (token.image); } 
+  | <RIGHTBOTTOM_SYM>       { jjtThis.setText (token.image); } 
+  )
+}
+
+void pageMarginBox() : {}
+{
+  pageMarginSymbol()
+  ( <S> )*
+  styleDeclarationBlock()
+  ( <S> )*
+}
+
+CSSNode pageBody() : {}
+{
+  ( ( styleDeclaration() )?
+    ( <SEMICOLON>
+      ( <S> )*
+      pageBody()
+    )?
+  | pageMarginBox()
+    pageBody()
+  )
+  { return jjtThis; }
+}
+
+void pageRuleBlock() #void : {}
+{
+  <LBRACE>
+try{
+  ( <S> )*
+  pageBody()
+  <RBRACE>
+} catch (ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkip ();
+  else  
+    errorSkipTo (ex, RBRACE);
+}
 }
 
 void pageRule() : {}
 {
   <PAGE_SYM>
   ( <S> )*
-  ( pseudoPage()
+  ( pageSelectorList()
     ( <S> )*
   )?
-  styleDeclarationBlock()
+  pageRuleBlock()
 }
 
 //
