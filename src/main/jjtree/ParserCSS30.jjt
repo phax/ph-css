@@ -19,7 +19,7 @@ options {
   // LOOKAHEAD = 2;
   CHOICE_AMBIGUITY_CHECK = 5;
   STATIC = false;  // to allow for multiple parser instances
-   DEBUG_PARSER = true;
+  // DEBUG_PARSER = true;
   // DEBUG_LOOKAHEAD = true;
   // DEBUG_TOKEN_MANAGER = true;
   // ERROR_REPORTING = false;
@@ -1160,16 +1160,14 @@ void pseudoPage() : {}
 
 void pageSelector() : {}
 {
-  ( LOOKAHEAD(2)
-    ( pseudoPage()
-    | <IDENT>
-    )
-    ( pseudoPage() )*
-    ( <S> )*
-  )  
+  ( pseudoPage()
+  | <IDENT>
+  )
+  ( pseudoPage() )*
+  ( <S> )*
 }
 
-void pageSelectorList() : {}
+void pageSelectorList() #void : {}
 {
   pageSelector()
   ( <COMMA>
@@ -1199,25 +1197,20 @@ void pageMarginSymbol() : {}
   )
 }
 
-void pageMarginBox() : {}
+void pageBody() : {}
 {
-  pageMarginSymbol()
-  ( <S> )*
-  styleDeclarationBlock()
-  ( <S> )*
-}
-
-CSSNode pageBody() : {}
-{
-  ( ( styleDeclaration() )?
+/* the non-empty rule must come first! */
+  ( pageMarginSymbol()
+    ( <S> )*
+    styleDeclarationBlock()
+    ( <S> )*
+    pageBody()
+  | ( styleDeclaration() )?
     ( <SEMICOLON>
       ( <S> )*
       pageBody()
     )?
-  | pageMarginBox()
-    pageBody()
   )
-  { return jjtThis; }
 }
 
 void pageRuleBlock() #void : {}
@@ -1239,9 +1232,7 @@ void pageRule() : {}
 {
   <PAGE_SYM>
   ( <S> )*
-  ( pageSelectorList()
-    ( <S> )*
-  )?
+  ( pageSelectorList() )?
   pageRuleBlock()
 }
 
@@ -1328,7 +1319,6 @@ void supportsConditionInParens() : {}
   ( <S> )*
   ( styleDeclaration()
   | supportsCondition()
-    ( <S> )*
   )  
   ")"
 /* | general_enclosed */  
@@ -1359,6 +1349,7 @@ void supportsCondition() : {}
       supportsConditionInParens()
     )*
   )
+  ( <S> )*
 }
 
 void supportsRuleBodyRule() #void : {}
@@ -1399,7 +1390,6 @@ void supportsRule() : {}
   <SUPPORTS_SYM>    
   ( <S> )*
   supportsCondition() 
-  ( <S> )*
   supportsRuleBody()
 }
 
