@@ -1151,19 +1151,20 @@ try{
 //
 // Page rule
 //
-void pseudoPage() : {}
+String pseudoPage() #void : {}
 {
   <COLON>
-  <IDENT> { jjtThis.setText (":" + token.image); }
+  <IDENT> { return ':' + token.image; }
 // Should only be: "left" | "right" | "first" | "blank"  
 }
 
-void pageSelector() : {}
+void pageSelector() : 
+{ String s; }
 {
-  ( pseudoPage()
-  | <IDENT>
+  ( s = pseudoPage() { jjtThis.setText (s); }
+  | <IDENT>          { jjtThis.setText (token.image); }
   )
-  ( pseudoPage() )*
+  ( s = pseudoPage() { jjtThis.appendText (s); } )*
   ( <S> )*
 }
 

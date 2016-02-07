@@ -23,11 +23,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
@@ -48,19 +48,19 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final String m_sPseudoPage;
+  private final ICSSPageSelectorContainer m_aSelectors;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSPageRule (@Nullable final String sPseudoPage)
+  public CSSPageRule (@Nonnull final ICSSPageSelectorContainer aSelectors)
   {
-    m_sPseudoPage = sPseudoPage;
+    m_aSelectors = ValueEnforcer.notNull (aSelectors, "Selectors");
   }
 
-  @Nullable
-  public String getPseudoPage ()
+  @Nonnull
+  public ICSSPageSelectorContainer getSelectorContainer ()
   {
-    return m_sPseudoPage;
+    return m_aSelectors;
   }
 
   @Nonnull
@@ -179,8 +179,8 @@ public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSV
 
     final StringBuilder aSB = new StringBuilder ("@page");
 
-    if (StringHelper.hasText (m_sPseudoPage))
-      aSB.append (' ').append (m_sPseudoPage);
+    if (m_aSelectors.isNotEmpty ())
+      aSB.append (' ').append (m_aSelectors.getAsCSSString (aSettings, 0));
 
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     if (!bOptimizedOutput)

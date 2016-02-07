@@ -49,6 +49,8 @@ import com.helger.css.decl.CSSMediaQuery.EModifier;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CSSPageRule;
+import com.helger.css.decl.CSSPageSelectorContainer;
+import com.helger.css.decl.CSSPageSelectorContainerCSS21;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSSelectorAttribute;
 import com.helger.css.decl.CSSSelectorMemberFunctionLike;
@@ -619,40 +621,67 @@ final class CSSNodeToDomainObject
     _expectNodeType (aNode, ECSSNodeType.PAGERULE);
 
     final int nChildCount = aNode.jjtGetNumChildren ();
-    String sPseudoPage = null;
-    int nStartIndex = 0;
-    if (nChildCount > 0)
+    if (m_eVersion == ECSSVersion.CSS30)
     {
-      final CSSNode aFirstChild = aNode.jjtGetChild (0);
-      if (ECSSNodeType.PSEUDOPAGE.isNode (aFirstChild, m_eVersion))
+      if (nChildCount < 1)
+        _throwUnexpectedChildrenCount (aNode, "Expected at least 1 child but got " + nChildCount + "!");
+
+      // Read page selectors
+      final List <String> aSelectors = new ArrayList <> ();
+      for (int nIndex = 0; nIndex < nChildCount - 1; ++nIndex)
       {
-        sPseudoPage = aFirstChild.getText ();
-        nStartIndex++;
+        final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
+        _expectNodeType (aChildNode, ECSSNodeType.PAGESELECTOR);
+        aSelectors.add (aChildNode.getText ());
       }
+      final CSSPageSelectorContainer aPageSelector = new CSSPageSelectorContainer (aSelectors);
+
+      // Read page body
+      final CSSNode aBodyNode = aNode.jjtGetChild (nChildCount - 1);
+      for (int i = 0; i < aBodyNode.jjtGetNumChildren (); ++i)
+        System.out.println (ECSSNodeType.getNodeName (aBodyNode.jjtGetChild (i), m_eVersion));
+      System.out.println ();
+
+      // TODO
+      return new CSSPageRule (aPageSelector);
     }
-
-    final CSSPageRule ret = new CSSPageRule (sPseudoPage);
-    ret.setSourceLocation (aNode.getSourceLocation ());
-    for (int nIndex = nStartIndex; nIndex < nChildCount; ++nIndex)
+    else
     {
-      final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
-
-      if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
+      String sPseudoPage = null;
+      int nStartIndex = 0;
+      if (nChildCount > 0)
       {
-        // Read all contained declarations
-        final int nDecls = aChildNode.jjtGetNumChildren ();
-        for (int nDecl = 0; nDecl < nDecls; ++nDecl)
+        final CSSNode aFirstChild = aNode.jjtGetChild (0);
+        if (ECSSNodeType.PSEUDOPAGE.isNode (aFirstChild, m_eVersion))
         {
-          final CSSDeclaration aDeclaration = _createDeclaration (aChildNode.jjtGetChild (nDecl));
-          if (aDeclaration != null)
-            ret.addDeclaration (aDeclaration);
+          sPseudoPage = aFirstChild.getText ();
+          nStartIndex++;
         }
       }
-      else
-        if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-          s_aLogger.error ("Unsupported page rule child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+
+      final CSSPageRule ret = new CSSPageRule (new CSSPageSelectorContainerCSS21 (sPseudoPage));
+      ret.setSourceLocation (aNode.getSourceLocation ());
+      for (int nIndex = nStartIndex; nIndex < nChildCount; ++nIndex)
+      {
+        final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
+
+        if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
+        {
+          // Read all contained declarations
+          final int nDecls = aChildNode.jjtGetNumChildren ();
+          for (int nDecl = 0; nDecl < nDecls; ++nDecl)
+          {
+            final CSSDeclaration aDeclaration = _createDeclaration (aChildNode.jjtGetChild (nDecl));
+            if (aDeclaration != null)
+              ret.addDeclaration (aDeclaration);
+          }
+        }
+        else
+          if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
+            s_aLogger.error ("Unsupported page rule child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+      }
+      return ret;
     }
-    return ret;
   }
 
   @Nonnull

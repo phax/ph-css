@@ -47,11 +47,9 @@
   marks: none;
 }
 
-/** Currently not working:
-@page :first h1 {
+@page :first, h1 {
   font-size: 20pt;
 }
-*/
 
 /* Source: https://www.w3.org/TR/css3-page/#syntax-page-selector */
 @page {  }

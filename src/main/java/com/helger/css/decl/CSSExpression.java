@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 {
-  private final List <ICSSExpressionMember> m_aMembers = new ArrayList <ICSSExpressionMember> ();
+  private final List <ICSSExpressionMember> m_aMembers = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpression ()
