@@ -624,7 +624,7 @@ final class CSSNodeToDomainObject
       if (nChildCount < 1)
         _throwUnexpectedChildrenCount (aNode, "Expected at least 1 child but got " + nChildCount + "!");
 
-      // Read page selectors
+      // Read page selectors (0-n)
       final List <String> aSelectors = new ArrayList <> ();
       for (int nIndex = 0; nIndex < nChildCount - 1; ++nIndex)
       {
@@ -641,7 +641,7 @@ final class CSSNodeToDomainObject
       _expectNodeType (aBodyNode, ECSSNodeType.PAGERULEBLOCK);
 
       final int nBodyChildren = aBodyNode.jjtGetNumChildren ();
-      for (int nIndex = 0; nIndex < nBodyChildren - 1; ++nIndex)
+      for (int nIndex = 0; nIndex < nBodyChildren; ++nIndex)
       {
         final CSSNode aBodyChildNode = aBodyNode.jjtGetChild (nIndex);
         if (ECSSNodeType.STYLEDECLARATION.isNode (aBodyChildNode, m_eVersion))
