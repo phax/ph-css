@@ -46,7 +46,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocationAware
 {
-  private final List <CSSDeclaration> m_aDeclarations = new ArrayList <CSSDeclaration> ();
+  private final List <CSSDeclaration> m_aDeclarations = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSDeclarationList ()
@@ -174,7 +174,7 @@ public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocati
   @ReturnsMutableCopy
   public List <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
-    final List <CSSDeclaration> ret = new ArrayList <CSSDeclaration> ();
+    final List <CSSDeclaration> ret = new ArrayList <> ();
     if (StringHelper.hasText (sPropertyName))
       for (final CSSDeclaration aDecl : m_aDeclarations)
         if (aDecl.getProperty ().equals (sPropertyName))
@@ -186,7 +186,7 @@ public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocati
   @ReturnsMutableCopy
   public List <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
   {
-    final List <CSSDeclaration> ret = new ArrayList <CSSDeclaration> ();
+    final List <CSSDeclaration> ret = new ArrayList <> ();
     if (StringHelper.hasText (sPropertyName))
       for (final CSSDeclaration aDecl : m_aDeclarations)
         if (aDecl.getProperty ().equalsIgnoreCase (sPropertyName))
@@ -195,7 +195,6 @@ public class CSSDeclarationList implements IHasCSSDeclarations, ICSSSourceLocati
   }
 
   @Nonnull
-  @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();

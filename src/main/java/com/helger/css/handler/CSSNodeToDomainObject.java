@@ -49,8 +49,6 @@ import com.helger.css.decl.CSSMediaQuery.EModifier;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CSSPageRule;
-import com.helger.css.decl.CSSPageSelectorContainer;
-import com.helger.css.decl.CSSPageSelectorContainerCSS21;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSSelectorAttribute;
 import com.helger.css.decl.CSSSelectorMemberFunctionLike;
@@ -634,16 +632,42 @@ final class CSSNodeToDomainObject
         _expectNodeType (aChildNode, ECSSNodeType.PAGESELECTOR);
         aSelectors.add (aChildNode.getText ());
       }
-      final CSSPageSelectorContainer aPageSelector = new CSSPageSelectorContainer (aSelectors);
+
+      final CSSPageRule ret = new CSSPageRule (aSelectors);
+      ret.setSourceLocation (aNode.getSourceLocation ());
 
       // Read page body
       final CSSNode aBodyNode = aNode.jjtGetChild (nChildCount - 1);
-      for (int i = 0; i < aBodyNode.jjtGetNumChildren (); ++i)
-        System.out.println (ECSSNodeType.getNodeName (aBodyNode.jjtGetChild (i), m_eVersion));
-      System.out.println ();
+      _expectNodeType (aBodyNode, ECSSNodeType.PAGERULEBLOCK);
 
-      // TODO
-      return new CSSPageRule (aPageSelector);
+      final int nBodyChildren = aBodyNode.jjtGetNumChildren ();
+      for (int nIndex = 0; nIndex < nBodyChildren - 1; ++nIndex)
+      {
+        final CSSNode aBodyChildNode = aBodyNode.jjtGetChild (nIndex);
+        if (ECSSNodeType.STYLEDECLARATION.isNode (aBodyChildNode, m_eVersion))
+        {
+          final CSSDeclaration aDeclaration = _createDeclaration (aBodyChildNode);
+          if (aDeclaration != null)
+            ret.addDeclaration (aDeclaration);
+        }
+        else
+          if (ECSSNodeType.PAGEMARGINSYMBOL.isNode (aBodyChildNode, m_eVersion))
+          {
+            final CSSNode aBodyNextChildNode = aBodyNode.jjtGetChild (nIndex + 1);
+            _expectNodeType (aBodyNextChildNode, ECSSNodeType.STYLEDECLARATIONLIST);
+
+            // TODO
+
+            // Skip style declaration list
+            ++nIndex;
+          }
+          else
+            if (!ECSSNodeType.isErrorNode (aBodyChildNode, m_eVersion))
+              s_aLogger.error ("Unsupported page rule body child: " +
+                               ECSSNodeType.getNodeName (aBodyChildNode, m_eVersion));
+      }
+
+      return ret;
     }
     else
     {
@@ -659,7 +683,7 @@ final class CSSNodeToDomainObject
         }
       }
 
-      final CSSPageRule ret = new CSSPageRule (new CSSPageSelectorContainerCSS21 (sPseudoPage));
+      final CSSPageRule ret = new CSSPageRule (sPseudoPage);
       ret.setSourceLocation (aNode.getSourceLocation ());
       for (int nIndex = nStartIndex; nIndex < nChildCount; ++nIndex)
       {

@@ -1198,7 +1198,7 @@ void pageMarginSymbol() : {}
   )
 }
 
-void pageBody() : {}
+void pageBody() #void : {}
 {
 /* the non-empty rule must come first! */
   ( pageMarginSymbol()
@@ -1214,7 +1214,7 @@ void pageBody() : {}
   )
 }
 
-void pageRuleBlock() #void : {}
+void pageRuleBlock() : {}
 {
   <LBRACE>
 try{

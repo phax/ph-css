@@ -26,8 +26,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
@@ -48,19 +50,26 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final ICSSPageSelectorContainer m_aSelectors;
+  private final List <String> m_aSelectors;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSPageRule (@Nonnull final ICSSPageSelectorContainer aSelectors)
+  public CSSPageRule (@Nullable final String sPseudoPage)
   {
-    m_aSelectors = ValueEnforcer.notNull (aSelectors, "Selectors");
+    m_aSelectors = StringHelper.hasText (sPseudoPage) ? CollectionHelper.newList (sPseudoPage)
+                                                      : CollectionHelper.newList ();
+  }
+
+  public CSSPageRule (@Nonnull final List <String> aSelectors)
+  {
+    ValueEnforcer.notNullNoNullValue (aSelectors, "Selectors");
+    m_aSelectors = CollectionHelper.newList (aSelectors);
   }
 
   @Nonnull
-  public ICSSPageSelectorContainer getSelectorContainer ()
+  public List <String> getAllSelectors ()
   {
-    return m_aSelectors;
+    return CollectionHelper.newList (m_aSelectors);
   }
 
   @Nonnull
@@ -163,7 +172,6 @@ public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSV
   }
 
   @Nonnull
-  @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     aSettings.checkVersionRequirements (this);
@@ -179,8 +187,19 @@ public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSV
 
     final StringBuilder aSB = new StringBuilder ("@page");
 
-    if (m_aSelectors.isNotEmpty ())
-      aSB.append (' ').append (m_aSelectors.getAsCSSString (aSettings, 0));
+    if (!m_aSelectors.isEmpty ())
+    {
+      aSB.append (' ');
+      boolean bFirst = true;
+      for (final String sSelector : m_aSelectors)
+      {
+        if (bFirst)
+          bFirst = false;
+        else
+          aSB.append (bOptimizedOutput ? "," : ", ");
+        aSB.append (sSelector);
+      }
+    }
 
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     if (!bOptimizedOutput)
