@@ -30,6 +30,7 @@ import com.helger.css.decl.CSSKeyframesBlock;
 import com.helger.css.decl.CSSKeyframesRule;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
+import com.helger.css.decl.CSSPageMarginBlock;
 import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSStyleRule;
@@ -51,7 +52,7 @@ import com.helger.css.decl.ICSSTopLevelRule;
 public class CSSVisitorForUrl implements ICSSVisitor
 {
   private final ICSSUrlVisitor m_aVisitor;
-  private final NonBlockingStack <ICSSTopLevelRule> m_aTopLevelRule = new NonBlockingStack <ICSSTopLevelRule> ();
+  private final NonBlockingStack <ICSSTopLevelRule> m_aTopLevelRule = new NonBlockingStack <> ();
 
   /**
    * Constructor
@@ -118,6 +119,16 @@ public class CSSVisitorForUrl implements ICSSVisitor
   public void onBeginPageRule (@Nonnull final CSSPageRule aPageRule)
   {
     m_aTopLevelRule.push (aPageRule);
+  }
+
+  public void onBeginPageMarginBlock (@Nonnull final CSSPageMarginBlock aPageMarginBlock)
+  {
+    // no action
+  }
+
+  public void onEndPageMarginBlock (@Nonnull final CSSPageMarginBlock aPageMarginBlock)
+  {
+    // no action
   }
 
   public void onEndPageRule (@Nonnull final CSSPageRule aPageRule)

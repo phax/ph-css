@@ -53,7 +53,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
 {
   private final String m_sDeclaration;
   private final String m_sAnimationName;
-  private final List <CSSKeyframesBlock> m_aBlocks = new ArrayList <CSSKeyframesBlock> ();
+  private final List <CSSKeyframesBlock> m_aBlocks = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public static boolean isValidDeclaration (@Nonnull @Nonempty final String sDeclaration)
@@ -63,8 +63,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
 
   public CSSKeyframesRule (@Nonnull @Nonempty final String sDeclaration, @Nonnull @Nonempty final String sAnimationName)
   {
-    if (!isValidDeclaration (sDeclaration))
-      throw new IllegalArgumentException ("declaration");
+    ValueEnforcer.isTrue (isValidDeclaration (sDeclaration), "Declaration is invalid");
     m_sDeclaration = sDeclaration;
     m_sAnimationName = sAnimationName;
   }

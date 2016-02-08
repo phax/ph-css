@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -46,9 +45,9 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSSourceLocationAware
+public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSStyleRule>, ICSSSourceLocationAware
 {
-  private final List <CSSSelector> m_aSelectors = new ArrayList <CSSSelector> ();
+  private final List <CSSSelector> m_aSelectors = new ArrayList <> ();
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
@@ -153,15 +152,6 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSS
   public CSSStyleRule addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
   {
     m_aDeclarations.addDeclaration (aDeclaration);
-    return this;
-  }
-
-  @Nonnull
-  public CSSStyleRule addDeclaration (@Nonnull @Nonempty final String sProperty,
-                                      @Nonnull final CSSExpression aExpression,
-                                      final boolean bImportant)
-  {
-    m_aDeclarations.addDeclaration (sProperty, aExpression, bImportant);
     return this;
   }
 

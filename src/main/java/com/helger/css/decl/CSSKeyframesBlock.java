@@ -42,7 +42,10 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSKeyframesBlock implements IHasCSSDeclarations, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSKeyframesBlock implements
+                               IHasCSSDeclarations <CSSKeyframesBlock>,
+                               ICSSVersionAware,
+                               ICSSSourceLocationAware
 {
   private final List <String> m_aKeyframesSelectors;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -71,15 +74,6 @@ public class CSSKeyframesBlock implements IHasCSSDeclarations, ICSSVersionAware,
   public CSSKeyframesBlock addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
   {
     m_aDeclarations.addDeclaration (aDeclaration);
-    return this;
-  }
-
-  @Nonnull
-  public CSSKeyframesBlock addDeclaration (@Nonnull @Nonempty final String sProperty,
-                                           @Nonnull final CSSExpression aExpression,
-                                           final boolean bImportant)
-  {
-    m_aDeclarations.addDeclaration (sProperty, aExpression, bImportant);
     return this;
   }
 

@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
+import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.css.ICSSWriteable;
 
 /**
@@ -32,7 +33,8 @@ import com.helger.css.ICSSWriteable;
  *
  * @author Philip Helger
  */
-public interface IHasCSSDeclarations extends ICSSWriteable
+public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>>
+                                     extends ICSSWriteable, IGenericImplTrait <IMPLTYPE>
 {
   /**
    * Add a new declaration.
@@ -42,7 +44,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * @return this
    */
   @Nonnull
-  IHasCSSDeclarations addDeclaration (@Nonnull CSSDeclaration aDeclaration);
+  IMPLTYPE addDeclaration (@Nonnull CSSDeclaration aDeclaration);
 
   /**
    * Add a new declaration.
@@ -57,9 +59,12 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * @return this
    */
   @Nonnull
-  IHasCSSDeclarations addDeclaration (@Nonnull @Nonempty final String sProperty,
-                                      @Nonnull final CSSExpression aExpression,
-                                      final boolean bImportant);
+  default IMPLTYPE addDeclaration (@Nonnull @Nonempty final String sProperty,
+                                   @Nonnull final CSSExpression aExpression,
+                                   final boolean bImportant)
+  {
+    return addDeclaration (new CSSDeclaration (sProperty, aExpression, bImportant));
+  }
 
   /**
    * Add a new declaration at the specified index.
@@ -73,7 +78,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * @return this
    */
   @Nonnull
-  IHasCSSDeclarations addDeclaration (@Nonnegative int nIndex, @Nonnull CSSDeclaration aDeclaration);
+  IMPLTYPE addDeclaration (@Nonnegative int nIndex, @Nonnull CSSDeclaration aDeclaration);
 
   /**
    * Remove the given declaration
@@ -136,7 +141,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * @return this
    */
   @Nonnull
-  IHasCSSDeclarations setDeclarationAtIndex (@Nonnegative int nIndex, @Nonnull CSSDeclaration aNewDeclaration);
+  IMPLTYPE setDeclarationAtIndex (@Nonnegative int nIndex, @Nonnull CSSDeclaration aNewDeclaration);
 
   /**
    * @return <code>true</code> if at least one declaration is present,

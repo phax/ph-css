@@ -18,6 +18,7 @@ package com.helger.css.handler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,6 +49,7 @@ import com.helger.css.decl.CSSMediaQuery;
 import com.helger.css.decl.CSSMediaQuery.EModifier;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
+import com.helger.css.decl.CSSPageMarginBlock;
 import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSSelectorAttribute;
@@ -566,6 +568,24 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
+  private void _readStyleDeclarationList (@Nonnull final CSSNode aNode,
+                                          @Nonnull final Consumer <CSSDeclaration> aConsumer)
+  {
+    _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLIST);
+    // Read all contained declarations
+    final int nDecls = aNode.jjtGetNumChildren ();
+    for (int nDecl = 0; nDecl < nDecls; ++nDecl)
+    {
+      final CSSNode aChildNode = aNode.jjtGetChild (nDecl);
+      if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
+      {
+        final CSSDeclaration aDeclaration = _createDeclaration (aChildNode);
+        if (aDeclaration != null)
+          aConsumer.accept (aDeclaration);
+      }
+    }
+  }
+
   @Nonnull
   private CSSStyleRule _createStyleRule (@Nonnull final CSSNode aNode)
   {
@@ -589,17 +609,7 @@ final class CSSNodeToDomainObject
         if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
         {
           // Read all contained declarations
-          final int nDecls = aChildNode.jjtGetNumChildren ();
-          for (int nDecl = 0; nDecl < nDecls; ++nDecl)
-          {
-            final CSSNode aChildChildNode = aChildNode.jjtGetChild (nDecl);
-            if (!ECSSNodeType.isErrorNode (aChildChildNode, m_eVersion))
-            {
-              final CSSDeclaration aDeclaration = _createDeclaration (aChildChildNode);
-              if (aDeclaration != null)
-                ret.addDeclaration (aDeclaration);
-            }
-          }
+          _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addDeclaration (aDeclaration));
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -648,15 +658,17 @@ final class CSSNodeToDomainObject
         {
           final CSSDeclaration aDeclaration = _createDeclaration (aBodyChildNode);
           if (aDeclaration != null)
-            ret.addDeclaration (aDeclaration);
+            ret.addMember (aDeclaration);
         }
         else
           if (ECSSNodeType.PAGEMARGINSYMBOL.isNode (aBodyChildNode, m_eVersion))
           {
-            final CSSNode aBodyNextChildNode = aBodyNode.jjtGetChild (nIndex + 1);
-            _expectNodeType (aBodyNextChildNode, ECSSNodeType.STYLEDECLARATIONLIST);
+            final CSSPageMarginBlock aBlock = new CSSPageMarginBlock (aBodyChildNode.getText ());
 
-            // TODO
+            final CSSNode aBodyNextChildNode = aBodyNode.jjtGetChild (nIndex + 1);
+            _readStyleDeclarationList (aBodyNextChildNode, aDeclaration -> aBlock.addDeclaration (aDeclaration));
+
+            ret.addMember (aBlock);
 
             // Skip style declaration list
             ++nIndex;
@@ -692,13 +704,7 @@ final class CSSNodeToDomainObject
         if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
         {
           // Read all contained declarations
-          final int nDecls = aChildNode.jjtGetNumChildren ();
-          for (int nDecl = 0; nDecl < nDecls; ++nDecl)
-          {
-            final CSSDeclaration aDeclaration = _createDeclaration (aChildNode.jjtGetChild (nDecl));
-            if (aDeclaration != null)
-              ret.addDeclaration (aDeclaration);
-          }
+          _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addMember (aDeclaration));
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -872,13 +878,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
       {
         // Read all contained declarations
-        final int nDecls = aChildNode.jjtGetNumChildren ();
-        for (int nDecl = 0; nDecl < nDecls; ++nDecl)
-        {
-          final CSSDeclaration aDeclaration = _createDeclaration (aChildNode.jjtGetChild (nDecl));
-          if (aDeclaration != null)
-            ret.addDeclaration (aDeclaration);
-        }
+        _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addDeclaration (aDeclaration));
       }
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -933,13 +933,8 @@ final class CSSNodeToDomainObject
             throw new IllegalStateException ("No keyframes block present!");
 
           // Read all contained declarations
-          final int nDecls = aChildNode.jjtGetNumChildren ();
-          for (int nDecl = 0; nDecl < nDecls; ++nDecl)
-          {
-            final CSSDeclaration aDeclaration = _createDeclaration (aChildNode.jjtGetChild (nDecl));
-            if (aDeclaration != null)
-              aBlock.addDeclaration (aDeclaration);
-          }
+          final CSSKeyframesBlock aFinalBlock = aBlock;
+          _readStyleDeclarationList (aChildNode, aDeclaration -> aFinalBlock.addDeclaration (aDeclaration));
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -966,13 +961,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
       {
         // Read all contained declarations
-        final int nDecls = aChildNode.jjtGetNumChildren ();
-        for (int nDecl = 0; nDecl < nDecls; ++nDecl)
-        {
-          final CSSDeclaration aDeclaration = _createDeclaration (aChildNode.jjtGetChild (nDecl));
-          if (aDeclaration != null)
-            ret.addDeclaration (aDeclaration);
-        }
+        _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addDeclaration (aDeclaration));
       }
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -1204,16 +1193,9 @@ final class CSSNodeToDomainObject
   @Nonnull
   public CSSDeclarationList createDeclarationListFromNode (@Nonnull final CSSNode aNode)
   {
-    _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLIST);
     final CSSDeclarationList ret = new CSSDeclarationList ();
     ret.setSourceLocation (aNode.getSourceLocation ());
-    final int nDecls = aNode.jjtGetNumChildren ();
-    for (int nDecl = 0; nDecl < nDecls; ++nDecl)
-    {
-      final CSSDeclaration aDeclaration = _createDeclaration (aNode.jjtGetChild (nDecl));
-      if (aDeclaration != null)
-        ret.addDeclaration (aDeclaration);
-    }
+    _readStyleDeclarationList (aNode, aDeclaration -> ret.addDeclaration (aDeclaration));
     return ret;
   }
 }
