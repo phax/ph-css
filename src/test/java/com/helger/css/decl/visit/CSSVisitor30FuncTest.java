@@ -97,5 +97,12 @@ public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
     assertEquals (0, aVisitor.getCount ());
+
+    // CSS 6
+    aCSS = CSSReader.readFromString (CSS6, ECSSVersion.CSS30);
+    assertNotNull (aCSS);
+    aVisitor = new MockCountingUrlVisitor ();
+    CSSVisitor.visitCSSUrl (aCSS, aVisitor);
+    assertEquals (3, aVisitor.getCount ());
   }
 }

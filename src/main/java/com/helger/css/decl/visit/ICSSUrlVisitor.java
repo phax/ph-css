@@ -38,7 +38,8 @@ public interface ICSSUrlVisitor
   /**
    * Before visiting starts.
    */
-  void begin ();
+  default void begin ()
+  {}
 
   /**
    * Called on CSS import statement. Use <code>aImportRule.getLocation()</code>
@@ -69,5 +70,7 @@ public interface ICSSUrlVisitor
   /**
    * After visiting is done.
    */
-  void end ();
+  default void end ()
+  {}
+
 }

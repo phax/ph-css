@@ -39,10 +39,6 @@ public class DefaultCSSUrlVisitor implements ICSSUrlVisitor
   {}
 
   @OverrideOnDemand
-  public void begin ()
-  {}
-
-  @OverrideOnDemand
   public void onImport (@Nonnull final CSSImportRule aImportRule)
   {}
 
@@ -50,9 +46,5 @@ public class DefaultCSSUrlVisitor implements ICSSUrlVisitor
   public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
                                 @Nonnull final CSSDeclaration aDeclaration,
                                 @Nonnull final CSSExpressionMemberTermURI aURITerm)
-  {}
-
-  @OverrideOnDemand
-  public void end ()
   {}
 }
