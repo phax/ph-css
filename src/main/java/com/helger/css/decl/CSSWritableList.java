@@ -16,7 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +44,12 @@ import com.helger.css.ICSSWriterSettings;
  * @since 5.0.0
  */
 @NotThreadSafe
-public abstract class AbstractCSSWritableList <DATATYPE extends ICSSWriteable & Serializable>
-                                              implements ICSSSourceLocationAware, Serializable
+public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSourceLocationAware, ICSSWriteable
 {
   protected final List <DATATYPE> m_aElements = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public AbstractCSSWritableList ()
+  public CSSWritableList ()
   {}
 
   @Nonnull
@@ -111,7 +109,7 @@ public abstract class AbstractCSSWritableList <DATATYPE extends ICSSWriteable & 
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final AbstractCSSWritableList <?> rhs = (AbstractCSSWritableList <?>) o;
+    final CSSWritableList <?> rhs = (CSSWritableList <?>) o;
     return m_aElements.equals (rhs.m_aElements);
   }
 

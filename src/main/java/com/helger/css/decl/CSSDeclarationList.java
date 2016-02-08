@@ -38,7 +38,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSDeclarationList extends AbstractCSSWritableList <CSSDeclaration> implements IHasCSSDeclarations
+public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> implements IHasCSSDeclarations
 {
   public CSSDeclarationList ()
   {}
