@@ -66,7 +66,9 @@ public final class CSSReader30SpecialFuncTest
     assertNotNull (aCSS);
 
     final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
-    s_aLogger.info (sCSS);
+    assertNotNull (sCSS);
+    if (false)
+      s_aLogger.info (sCSS);
   }
 
   @Test
@@ -285,7 +287,9 @@ public final class CSSReader30SpecialFuncTest
 
     // Write result
     final String sCSS = new CSSWriter (aCSSWS).getCSSAsString (aCSS);
-    s_aLogger.info (sCSS);
+    assertNotNull (sCSS);
+    if (false)
+      s_aLogger.info (sCSS);
   }
 
   @Test
