@@ -61,7 +61,8 @@ public abstract class AbstractFuncTestCSSReader
                                                 .setFallbackCharset (aCharset)
                                                 .setBrowserCompliantMode (bBrowserCompliantMode);
     m_aWriterSettings = new CSSWriterSettings (eCSSVersion);
-    m_aLogger.info ("Running test in " + (bBrowserCompliantMode ? "browser compliant mode" : "strict mode"));
+    if (m_bDebug)
+      m_aLogger.info ("Running test in " + (bBrowserCompliantMode ? "browser compliant mode" : "strict mode"));
   }
 
   protected final boolean isBrowserCompliantMode ()
@@ -117,6 +118,9 @@ public abstract class AbstractFuncTestCSSReader
 
       // Restore value :)
       m_aWriterSettings.setRemoveUnnecessaryCode (false);
+
+      // For Travis :(
+      System.gc ();
     }
   }
 
