@@ -61,6 +61,7 @@ public abstract class AbstractFuncTestCSSReader
                                                 .setFallbackCharset (aCharset)
                                                 .setBrowserCompliantMode (bBrowserCompliantMode);
     m_aWriterSettings = new CSSWriterSettings (eCSSVersion);
+    m_aLogger.info ("Running test in " + (bBrowserCompliantMode ? "browser compliant mode" : "strict mode"));
   }
 
   protected final boolean isBrowserCompliantMode ()
