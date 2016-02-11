@@ -16,14 +16,18 @@
  */
 package com.helger.css.decl;
 
-import com.helger.commons.lang.IHasStringRepresentation;
+import javax.annotation.Nonnull;
 
 /**
  * Base interface for a CSS color definition
  *
  * @author Philip Helger
  */
-public interface ICSSColor extends IHasStringRepresentation
+public interface ICSSColor
 {
-  /* empty */
+  /**
+   * @return The texttual representation of the color.
+   */
+  @Nonnull
+  String getAsString ();
 }
