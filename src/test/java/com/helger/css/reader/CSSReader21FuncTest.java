@@ -16,7 +16,6 @@
  */
 package com.helger.css.reader;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -25,6 +24,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.css.ECSSVersion;
 
 /**
@@ -36,9 +36,9 @@ import com.helger.css.ECSSVersion;
 public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
 {
   @Parameters (name = "{index}: browserCompliant={0}")
-  public static List <Object> data ()
+  public static List <Object []> data ()
   {
-    return Arrays.asList (new Object [] { true, false });
+    return CollectionHelper.newList (new Object [] { true }, new Object [] { false });
   }
 
   public CSSReader21FuncTest (final boolean bBrowserCompliant)
