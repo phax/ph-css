@@ -35,7 +35,7 @@ import com.helger.css.propertyvalue.CCSSValue;
 @Immutable
 public final class CSSExpressionTermOptimizer
 {
-  private static final List <String> s_aUnitValues0 = new ArrayList <String> ();
+  private static final List <String> s_aUnitValues0 = new ArrayList <> ();
 
   static
   {

@@ -30,6 +30,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
@@ -44,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember, ICSSSourceLocationAware
 {
-  private final List <ICSSExpressionMathMember> m_aMembers = new ArrayList <ICSSExpressionMathMember> ();
+  private final List <ICSSExpressionMathMember> m_aMembers = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpressionMemberMathProduct ()
@@ -122,10 +123,7 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     aSettings.checkVersionRequirements (this);
-    final StringBuilder aSB = new StringBuilder ();
-    for (final ICSSExpressionMathMember aMember : m_aMembers)
-      aSB.append (aMember.getAsCSSString (aSettings, nIndentLevel));
-    return aSB.toString ();
+    return StringHelper.getImploded (m_aMembers, m -> m.getAsCSSString (aSettings, nIndentLevel));
   }
 
   @Nonnull

@@ -358,7 +358,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nullable
   public ICSSExpressionMember getMemberAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getSafe (m_aMembers, nIndex);
+    return CollectionHelper.getAtIndex (m_aMembers, nIndex);
   }
 
   /**
@@ -377,11 +377,9 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public List <CSSExpressionMemberTermSimple> getAllSimpleMembers ()
   {
-    final List <CSSExpressionMemberTermSimple> ret = new ArrayList <CSSExpressionMemberTermSimple> ();
-    for (final ICSSExpressionMember aMember : m_aMembers)
-      if (aMember instanceof CSSExpressionMemberTermSimple)
-        ret.add ((CSSExpressionMemberTermSimple) aMember);
-    return ret;
+    return CollectionHelper.getAllMapped (m_aMembers,
+                                          m -> m instanceof CSSExpressionMemberTermSimple,
+                                          m -> (CSSExpressionMemberTermSimple) m);
   }
 
   @Nonnull

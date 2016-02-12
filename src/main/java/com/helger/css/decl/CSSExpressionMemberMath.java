@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final List <ICSSExpressionMathMember> m_aMembers = new ArrayList <ICSSExpressionMathMember> ();
+  private final List <ICSSExpressionMathMember> m_aMembers = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpressionMemberMath ()

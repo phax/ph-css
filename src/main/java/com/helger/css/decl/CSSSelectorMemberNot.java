@@ -149,7 +149,7 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   @Nullable
   public CSSSelector getSelectorAtIndex (@Nonnegative final int nSelectorIndex)
   {
-    return CollectionHelper.getSafe (m_aNestedSelectors, nSelectorIndex);
+    return CollectionHelper.getAtIndex (m_aNestedSelectors, nSelectorIndex);
   }
 
   @Nonnull

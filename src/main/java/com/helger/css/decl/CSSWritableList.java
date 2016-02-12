@@ -118,7 +118,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
   @Nullable
   protected final DATATYPE getAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getSafe (m_aElements, nIndex);
+    return CollectionHelper.getAtIndex (m_aElements, nIndex);
   }
 
   protected final boolean isEmpty ()

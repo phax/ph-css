@@ -138,7 +138,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   @Nullable
   public CSSSelector getSelectorAtIndex (@Nonnegative final int nSelectorIndex)
   {
-    return CollectionHelper.getSafe (m_aSelectors, nSelectorIndex);
+    return CollectionHelper.getAtIndex (m_aSelectors, nSelectorIndex);
   }
 
   @Nonnull
