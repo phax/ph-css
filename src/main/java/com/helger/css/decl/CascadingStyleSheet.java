@@ -19,6 +19,7 @@ package com.helger.css.decl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -45,9 +46,9 @@ import com.helger.css.ICSSSourceLocationAware;
 @NotThreadSafe
 public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializable
 {
-  private final List <CSSImportRule> m_aImportRules = new ArrayList <CSSImportRule> ();
-  private final List <CSSNamespaceRule> m_aNamespaceRules = new ArrayList <CSSNamespaceRule> ();
-  private final List <ICSSTopLevelRule> m_aRules = new ArrayList <ICSSTopLevelRule> ();
+  private final List <CSSImportRule> m_aImportRules = new ArrayList <> ();
+  private final List <CSSNamespaceRule> m_aNamespaceRules = new ArrayList <> ();
+  private final List <ICSSTopLevelRule> m_aRules = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CascadingStyleSheet ()
@@ -468,6 +469,22 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   }
 
   /**
+   * Get a copy of all contained top-level rules. This method only considers
+   * top-level rules and not <code>@import</code> and <code>@namespace</code>
+   * rules!
+   *
+   * @param aFilter
+   *        The predicate to be applied
+   * @return A copy of all contained top-level rules. Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public List <ICSSTopLevelRule> getAllRules (@Nonnull final Predicate <? super ICSSTopLevelRule> aFilter)
+  {
+    return CollectionHelper.newList (m_aRules, aFilter);
+  }
+
+  /**
    * Check if at least one of the top-level rules is a style rule (implementing
    * {@link CSSStyleRule}).
    *
@@ -476,10 +493,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasStyleRules ()
   {
-    for (final ICSSTopLevelRule aTopLevelRule : m_aRules)
-      if (aTopLevelRule instanceof CSSStyleRule)
-        return true;
-    return false;
+    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSStyleRule);
   }
 
   /**
@@ -491,11 +505,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getStyleRuleCount ()
   {
-    int ret = 0;
-    for (final ICSSTopLevelRule aTopLevelRule : m_aRules)
-      if (aTopLevelRule instanceof CSSStyleRule)
-        ret++;
-    return ret;
+    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSStyleRule);
   }
 
   /**
@@ -534,11 +544,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @ReturnsMutableCopy
   public List <CSSStyleRule> getAllStyleRules ()
   {
-    final List <CSSStyleRule> ret = new ArrayList <CSSStyleRule> ();
-    for (final ICSSTopLevelRule aTopLevelRule : m_aRules)
-      if (aTopLevelRule instanceof CSSStyleRule)
-        ret.add ((CSSStyleRule) aTopLevelRule);
-    return ret;
+    return CollectionHelper.getAll (m_aRules, r -> r instanceof CSSStyleRule, r -> (CSSStyleRule) r);
   }
 
   /**
@@ -550,10 +556,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasPageRules ()
   {
-    for (final ICSSTopLevelRule aTopLevelRule : m_aRules)
-      if (aTopLevelRule instanceof CSSPageRule)
-        return true;
-    return false;
+    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSPageRule);
   }
 
   /**
@@ -565,11 +568,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getPageRuleCount ()
   {
-    int ret = 0;
-    for (final ICSSTopLevelRule aTopLevelRule : m_aRules)
-      if (aTopLevelRule instanceof CSSPageRule)
-        ret++;
-    return ret;
+    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSPageRule);
   }
 
   /**
@@ -609,11 +608,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @ReturnsMutableCopy
   public List <CSSPageRule> getAllPageRules ()
   {
-    final List <CSSPageRule> ret = new ArrayList <CSSPageRule> ();
-    for (final ICSSTopLevelRule aTopLevelRule : m_aRules)
-      if (aTopLevelRule instanceof CSSPageRule)
-        ret.add ((CSSPageRule) aTopLevelRule);
-    return ret;
+    return CollectionHelper.getAll (m_aRules, r -> r instanceof CSSPageRule, r -> (CSSPageRule) r);
   }
 
   /**
@@ -625,10 +620,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasMediaRules ()
   {
-    for (final ICSSTopLevelRule aTopLevelRule : m_aRules)
-      if (aTopLevelRule instanceof CSSMediaRule)
-        return true;
-    return false;
+    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSMediaRule);
   }
 
   /**
