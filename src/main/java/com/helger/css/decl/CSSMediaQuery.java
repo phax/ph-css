@@ -72,7 +72,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   private final EModifier m_eModifier;
   private final String m_sMedium;
-  private final List <CSSMediaExpression> m_aMediaExpressions = new ArrayList <CSSMediaExpression> ();
+  private final List <CSSMediaExpression> m_aMediaExpressions = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   /**

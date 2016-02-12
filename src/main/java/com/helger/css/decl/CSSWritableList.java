@@ -137,6 +137,11 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
     return m_aElements.size ();
   }
 
+  protected final boolean containsAny (@Nonnull final Predicate <? super DATATYPE> aFilter)
+  {
+    return CollectionHelper.containsAny (m_aElements, aFilter);
+  }
+
   @Nullable
   protected final DATATYPE findFirst (@Nonnull final Predicate <? super DATATYPE> aFilter)
   {

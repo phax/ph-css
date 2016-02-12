@@ -48,7 +48,7 @@ import com.helger.css.ICSSWriterSettings;
 public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 {
   private CSSURI m_aLocation;
-  private final List <CSSMediaQuery> m_aMediaQueries = new ArrayList <CSSMediaQuery> ();
+  private final List <CSSMediaQuery> m_aMediaQueries = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSImportRule (@Nonnull final String sLocation)

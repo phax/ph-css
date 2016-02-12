@@ -51,8 +51,8 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
-  private final List <CSSMediaQuery> m_aMediaQueries = new ArrayList <CSSMediaQuery> ();
-  private final List <ICSSTopLevelRule> m_aRules = new ArrayList <ICSSTopLevelRule> ();
+  private final List <CSSMediaQuery> m_aMediaQueries = new ArrayList <> ();
+  private final List <ICSSTopLevelRule> m_aRules = new ArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSMediaRule ()
@@ -204,9 +204,7 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @Nullable
   public ICSSTopLevelRule getRule (@Nonnegative final int nRuleIndex)
   {
-    if (nRuleIndex < 0 || nRuleIndex >= m_aRules.size ())
-      return null;
-    return m_aRules.get (nRuleIndex);
+    return CollectionHelper.getAtIndex (m_aRules, nRuleIndex);
   }
 
   @Nonnull

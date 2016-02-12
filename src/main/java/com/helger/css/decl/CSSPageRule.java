@@ -198,6 +198,8 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
   @Nonnull
   public ECSSVersion getMinimumCSSVersion ()
   {
+    if (m_aMembers.containsAny (m -> m instanceof CSSPageMarginBlock))
+      return ECSSVersion.CSS30;
     return ECSSVersion.CSS21;
   }
 
