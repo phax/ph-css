@@ -118,9 +118,6 @@ public abstract class AbstractFuncTestCSSReader
 
       // Restore value :)
       m_aWriterSettings.setRemoveUnnecessaryCode (false);
-
-      // For Travis :(
-      System.gc ();
     }
   }
 
@@ -139,9 +136,6 @@ public abstract class AbstractFuncTestCSSReader
       // Handle each error as a fatal error!
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aReaderSettings);
       assertNull (sKey, aCSS);
-
-      // For Travis :(
-      System.gc ();
     }
   }
 
@@ -176,9 +170,6 @@ public abstract class AbstractFuncTestCSSReader
       final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
       assertNotNull ("Failed to parse:\n" + sCSS, aCSSReRead);
       assertEquals (sKey, aCSS, aCSSReRead);
-
-      // For Travis :(
-      System.gc ();
     }
   }
 

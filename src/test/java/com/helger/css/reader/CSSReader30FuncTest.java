@@ -28,12 +28,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.system.SystemProperties;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberFunction;
@@ -55,8 +52,6 @@ import com.helger.css.writer.CSSWriterSettings;
 @RunWith (Parameterized.class)
 public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReader30FuncTest.class);
-
   @Parameters (name = "{index}: browserCompliant={0}")
   public static Iterable <Object []> data ()
   {
@@ -71,55 +66,37 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   @Test
   public void testReadAll30Good ()
   {
-    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
-      testReadGood ("src/test/resources/testfiles/css30/good");
-    else
-      s_aLogger.warn ("Ignoring in Travis tests");
+    testReadGood ("src/test/resources/testfiles/css30/good");
   }
 
   @Test
   public void testReadAll30BadButSucceeding ()
   {
-    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
-      testReadGood ("src/test/resources/testfiles/css30/bad_but_succeeding");
-    else
-      s_aLogger.warn ("Ignoring in Travis tests");
+    testReadGood ("src/test/resources/testfiles/css30/bad_but_succeeding");
   }
 
   @Test
   public void testReadAll30Bad ()
   {
-    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
-      testReadBad ("src/test/resources/testfiles/css30/bad");
-    else
-      s_aLogger.warn ("Ignoring in Travis tests");
+    testReadBad ("src/test/resources/testfiles/css30/bad");
   }
 
   @Test
   public void testReadAll30GoodButFailing ()
   {
-    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
-      testReadBad ("src/test/resources/testfiles/css30/good_but_failing");
-    else
-      s_aLogger.warn ("Ignoring in Travis tests");
+    testReadBad ("src/test/resources/testfiles/css30/good_but_failing");
   }
 
   @Test
   public void testReadAll30BadBadButRecoverable ()
   {
-    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
-      testReadBadButRecoverable ("src/test/resources/testfiles/css30/bad_but_recoverable");
-    else
-      s_aLogger.warn ("Ignoring in Travis tests");
+    testReadBadButRecoverable ("src/test/resources/testfiles/css30/bad_but_recoverable");
   }
 
   @Test
   public void testReadAll30BadBadButBrowserCompliant ()
   {
-    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
-      testReadBadButBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_browsercompliant");
-    else
-      s_aLogger.warn ("Ignoring in Travis tests");
+    testReadBadButBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_browsercompliant");
   }
 
   @Test

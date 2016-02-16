@@ -74,28 +74,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
-  <profiles>
-    <profile>
-      <id>travis-script</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <systemPropertyVariables>
-                <property>
-                  <name>skipTravisTests</name>
-                  <value>true</value>
-                </property>
-              </systemPropertyVariables>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 
   <build>
     <plugins>
