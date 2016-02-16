@@ -31,6 +31,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.system.SystemProperties;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberFunction;
@@ -66,37 +67,43 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   @Test
   public void testReadAll30Good ()
   {
-    testReadGood ("src/test/resources/testfiles/css30/good");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+      testReadGood ("src/test/resources/testfiles/css30/good");
   }
 
   @Test
   public void testReadAll30BadButSucceeding ()
   {
-    testReadGood ("src/test/resources/testfiles/css30/bad_but_succeeding");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+      testReadGood ("src/test/resources/testfiles/css30/bad_but_succeeding");
   }
 
   @Test
   public void testReadAll30Bad ()
   {
-    testReadBad ("src/test/resources/testfiles/css30/bad");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+      testReadBad ("src/test/resources/testfiles/css30/bad");
   }
 
   @Test
   public void testReadAll30GoodButFailing ()
   {
-    testReadBad ("src/test/resources/testfiles/css30/good_but_failing");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+      testReadBad ("src/test/resources/testfiles/css30/good_but_failing");
   }
 
   @Test
   public void testReadAll30BadBadButRecoverable ()
   {
-    testReadBadButRecoverable ("src/test/resources/testfiles/css30/bad_but_recoverable");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+      testReadBadButRecoverable ("src/test/resources/testfiles/css30/bad_but_recoverable");
   }
 
   @Test
   public void testReadAll30BadBadButBrowserCompliant ()
   {
-    testReadBadButBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_browsercompliant");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+      testReadBadButBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_browsercompliant");
   }
 
   @Test

@@ -23,6 +23,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.system.SystemProperties;
 import com.helger.css.ECSSVersion;
 
 /**
@@ -47,26 +48,34 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   @Test
   public void testReadAll21Good ()
   {
-    testReadGood ("src/test/resources/testfiles/css21/good");
-    testReadGood ("src/test/resources/testfiles/css21/bad_but_succeeding");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+    {
+      testReadGood ("src/test/resources/testfiles/css21/good");
+      testReadGood ("src/test/resources/testfiles/css21/bad_but_succeeding");
+    }
   }
 
   @Test
   public void testReadAll21Bad ()
   {
-    testReadBad ("src/test/resources/testfiles/css21/bad");
-    testReadBad ("src/test/resources/testfiles/css21/good_but_failing");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+    {
+      testReadBad ("src/test/resources/testfiles/css21/bad");
+      testReadBad ("src/test/resources/testfiles/css21/good_but_failing");
+    }
   }
 
   @Test
   public void testReadAll21BadButRecoverable ()
   {
-    testReadBadButRecoverable ("src/test/resources/testfiles/css21/bad_but_recoverable");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+      testReadBadButRecoverable ("src/test/resources/testfiles/css21/bad_but_recoverable");
   }
 
   @Test
   public void testReadAll21BadButBrowserCompliant ()
   {
-    testReadBadButBrowserCompliant ("src/test/resources/testfiles/css21/bad_but_browsercompliant");
+    if (!SystemProperties.containsPropertyName ("skipTravisTests"))
+      testReadBadButBrowserCompliant ("src/test/resources/testfiles/css21/bad_but_browsercompliant");
   }
 }
