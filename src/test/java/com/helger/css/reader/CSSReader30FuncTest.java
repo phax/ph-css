@@ -28,6 +28,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
@@ -53,6 +55,8 @@ import com.helger.css.writer.CSSWriterSettings;
 @RunWith (Parameterized.class)
 public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReader30FuncTest.class);
+
   @Parameters (name = "{index}: browserCompliant={0}")
   public static Iterable <Object []> data ()
   {
@@ -69,6 +73,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     if (!SystemProperties.containsPropertyName ("skipTravisTests"))
       testReadGood ("src/test/resources/testfiles/css30/good");
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test
@@ -76,6 +82,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     if (!SystemProperties.containsPropertyName ("skipTravisTests"))
       testReadGood ("src/test/resources/testfiles/css30/bad_but_succeeding");
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test
@@ -83,6 +91,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     if (!SystemProperties.containsPropertyName ("skipTravisTests"))
       testReadBad ("src/test/resources/testfiles/css30/bad");
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test
@@ -90,6 +100,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     if (!SystemProperties.containsPropertyName ("skipTravisTests"))
       testReadBad ("src/test/resources/testfiles/css30/good_but_failing");
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test
@@ -97,6 +109,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     if (!SystemProperties.containsPropertyName ("skipTravisTests"))
       testReadBadButRecoverable ("src/test/resources/testfiles/css30/bad_but_recoverable");
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test
@@ -104,6 +118,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     if (!SystemProperties.containsPropertyName ("skipTravisTests"))
       testReadBadButBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_browsercompliant");
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test

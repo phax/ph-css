@@ -20,6 +20,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
@@ -34,6 +36,8 @@ import com.helger.css.ECSSVersion;
 @RunWith (Parameterized.class)
 public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReader21FuncTest.class);
+
   @Parameters (name = "{index}: browserCompliant={0}")
   public static Iterable <Object []> data ()
   {
@@ -53,6 +57,8 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
       testReadGood ("src/test/resources/testfiles/css21/good");
       testReadGood ("src/test/resources/testfiles/css21/bad_but_succeeding");
     }
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test
@@ -63,6 +69,8 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
       testReadBad ("src/test/resources/testfiles/css21/bad");
       testReadBad ("src/test/resources/testfiles/css21/good_but_failing");
     }
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test
@@ -70,6 +78,8 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   {
     if (!SystemProperties.containsPropertyName ("skipTravisTests"))
       testReadBadButRecoverable ("src/test/resources/testfiles/css21/bad_but_recoverable");
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 
   @Test
@@ -77,5 +87,7 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   {
     if (!SystemProperties.containsPropertyName ("skipTravisTests"))
       testReadBadButBrowserCompliant ("src/test/resources/testfiles/css21/bad_but_browsercompliant");
+    else
+      s_aLogger.warn ("Ignoring in Travis tests");
   }
 }

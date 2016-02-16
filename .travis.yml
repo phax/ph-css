@@ -15,8 +15,11 @@ jdk:
   - oraclejdk8
   
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -DskipTravisTests=true
-  
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
+
+script:
+  - mvn test -B -Xmx1g
+
 cache:
   directories:
   - $HOME/.m2
