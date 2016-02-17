@@ -16,9 +16,7 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -28,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -51,7 +50,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSourceLocationAware, ICSSWriteable
 {
-  private final List <DATATYPE> m_aElements = new ArrayList <> ();
+  private final ICommonsList <DATATYPE> m_aElements = new CommonsList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSWritableList ()
@@ -102,23 +101,20 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
   @Nonnull
   protected final EChange removeAll ()
   {
-    if (m_aElements.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aElements.clear ();
-    return EChange.CHANGED;
+    return m_aElements.removeAll ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  protected final List <DATATYPE> getAll ()
+  protected final ICommonsList <DATATYPE> getAll ()
   {
-    return CollectionHelper.newList (m_aElements);
+    return m_aElements.getCopy ();
   }
 
   @Nullable
   protected final DATATYPE getAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndex (m_aElements, nIndex);
+    return m_aElements.getAtIndex (nIndex);
   }
 
   protected final boolean isEmpty ()
@@ -128,7 +124,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
 
   protected final boolean isNotEmpty ()
   {
-    return !m_aElements.isEmpty ();
+    return m_aElements.isNotEmpty ();
   }
 
   @Nonnegative
@@ -139,19 +135,19 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
 
   protected final boolean containsAny (@Nonnull final Predicate <? super DATATYPE> aFilter)
   {
-    return CollectionHelper.containsAny (m_aElements, aFilter);
+    return m_aElements.containsAny (aFilter);
   }
 
   @Nullable
   protected final DATATYPE findFirst (@Nonnull final Predicate <? super DATATYPE> aFilter)
   {
-    return CollectionHelper.findFirst (m_aElements, aFilter);
+    return m_aElements.findFirst (aFilter);
   }
 
   protected final void findAll (@Nonnull final Predicate <? super DATATYPE> aFilter,
                                 @Nonnull final Collection <? super DATATYPE> ret)
   {
-    CollectionHelper.findAll (m_aElements, aFilter, ret);
+    m_aElements.findAll (aFilter, ret);
   }
 
   @Nonnull
@@ -166,7 +162,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
     {
       // A single element
       final StringBuilder aSB = new StringBuilder ();
-      aSB.append (CollectionHelper.getFirstElement (m_aElements).getAsCSSString (aSettings, nIndentLevel));
+      aSB.append (m_aElements.getFirst ().getAsCSSString (aSettings, nIndentLevel));
       // No ';' at the last entry
       if (!bOptimizedOutput)
         aSB.append (CCSS.DEFINITION_END);
