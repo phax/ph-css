@@ -108,7 +108,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
   @ReturnsMutableCopy
   protected final ICommonsList <DATATYPE> getAll ()
   {
-    return m_aElements.getCopy ();
+    return m_aElements.getClone ();
   }
 
   @Nullable
