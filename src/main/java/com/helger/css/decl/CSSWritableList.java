@@ -26,7 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsList;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -50,7 +50,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSourceLocationAware, ICSSWriteable
 {
-  private final ICommonsList <DATATYPE> m_aElements = new CommonsList <> ();
+  private final ICommonsList <DATATYPE> m_aElements = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSWritableList ()
