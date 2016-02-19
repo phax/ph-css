@@ -16,7 +16,6 @@
  */
 package com.helger.css.decl.shorthand;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -25,7 +24,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
@@ -46,7 +46,7 @@ import com.helger.css.writer.CSSWriterSettings;
 public class CSSShortHandDescriptor
 {
   private final ECSSProperty m_eProperty;
-  private final List <CSSPropertyWithDefaultValue> m_aSubProperties;
+  private final ICommonsList <CSSPropertyWithDefaultValue> m_aSubProperties;
 
   public CSSShortHandDescriptor (@Nonnull final ECSSProperty eProperty,
                                  @Nonnull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
@@ -54,7 +54,7 @@ public class CSSShortHandDescriptor
     ValueEnforcer.notNull (eProperty, "Property");
     ValueEnforcer.notEmptyNoNullValue (aSubProperties, "SubProperties");
     m_eProperty = eProperty;
-    m_aSubProperties = CollectionHelper.newList (aSubProperties);
+    m_aSubProperties = new CommonsArrayList <> (aSubProperties);
 
     // Check that a free text property may only be at the end
     final int nMax = aSubProperties.length;
@@ -78,9 +78,9 @@ public class CSSShortHandDescriptor
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSPropertyWithDefaultValue> getAllSubProperties ()
+  public ICommonsList <CSSPropertyWithDefaultValue> getAllSubProperties ()
   {
-    return CollectionHelper.newList (m_aSubProperties);
+    return m_aSubProperties.getClone ();
   }
 
   /**
@@ -109,8 +109,8 @@ public class CSSShortHandDescriptor
 
     // global
     final int nSubProperties = m_aSubProperties.size ();
-    final List <CSSDeclaration> ret = new ArrayList <> ();
-    final List <ICSSExpressionMember> aExpressionMembers = aDeclaration.getExpression ().getAllMembers ();
+    final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
+    final ICommonsList <ICSSExpressionMember> aExpressionMembers = aDeclaration.getExpression ().getAllMembers ();
 
     // Modification for margin and padding
     modifyExpressionMembers (aExpressionMembers);

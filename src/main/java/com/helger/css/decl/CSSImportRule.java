@@ -16,9 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -48,7 +46,7 @@ import com.helger.css.ICSSWriterSettings;
 public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 {
   private CSSURI m_aLocation;
-  private final List <CSSMediaQuery> m_aMediaQueries = new ArrayList <> ();
+  private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSImportRule (@Nonnull final String sLocation)
@@ -67,7 +65,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    */
   public boolean hasMediaQueries ()
   {
-    return !m_aMediaQueries.isEmpty ();
+    return m_aMediaQueries.isNotEmpty ();
   }
 
   /**
@@ -140,10 +138,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeMediaQuery (final int nMediumIndex)
   {
-    if (nMediumIndex < 0 || nMediumIndex >= m_aMediaQueries.size ())
-      return EChange.UNCHANGED;
-    m_aMediaQueries.remove (nMediumIndex);
-    return EChange.CHANGED;
+    return m_aMediaQueries.removeAtIndex (nMediumIndex);
   }
 
   /**
@@ -154,10 +149,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeAllMediaQueries ()
   {
-    if (m_aMediaQueries.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMediaQueries.clear ();
-    return EChange.CHANGED;
+    return m_aMediaQueries.removeAll ();
   }
 
   /**
@@ -166,9 +158,9 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSMediaQuery> getAllMediaQueries ()
+  public ICommonsList <CSSMediaQuery> getAllMediaQueries ()
   {
-    return CollectionHelper.newList (m_aMediaQueries);
+    return m_aMediaQueries.getClone ();
   }
 
   /**

@@ -16,7 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
@@ -27,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final List <ICSSExpressionMathMember> m_aMembers = new ArrayList <> ();
+  private final ICommonsList <ICSSExpressionMathMember> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpressionMemberMath ()
@@ -87,10 +87,7 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSVersio
   @Nonnull
   public EChange removeMember (@Nonnegative final int nMemberIndex)
   {
-    if (nMemberIndex < 0 || nMemberIndex >= m_aMembers.size ())
-      return EChange.UNCHANGED;
-    m_aMembers.remove (nMemberIndex);
-    return EChange.CHANGED;
+    return m_aMembers.removeAtIndex (nMemberIndex);
   }
 
   /**
@@ -103,17 +100,14 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSVersio
   @Nonnull
   public EChange removeAllMembers ()
   {
-    if (m_aMembers.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMembers.clear ();
-    return EChange.CHANGED;
+    return m_aMembers.removeAll ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSExpressionMathMember> getAllMembers ()
+  public ICommonsList <ICSSExpressionMathMember> getAllMembers ()
   {
-    return CollectionHelper.newList (m_aMembers);
+    return m_aMembers.getClone ();
   }
 
   @Nonnegative

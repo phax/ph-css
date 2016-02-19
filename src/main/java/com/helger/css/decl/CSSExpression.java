@@ -16,9 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -45,7 +43,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 {
-  private final List <ICSSExpressionMember> m_aMembers = new ArrayList <> ();
+  private final ICommonsList <ICSSExpressionMember> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpression ()
@@ -315,10 +313,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeMember (@Nonnegative final int nMemberIndex)
   {
-    if (nMemberIndex < 0 || nMemberIndex >= m_aMembers.size ())
-      return EChange.UNCHANGED;
-    m_aMembers.remove (nMemberIndex);
-    return EChange.CHANGED;
+    return m_aMembers.removeAtIndex (nMemberIndex);
   }
 
   /**
@@ -331,10 +326,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeAllMembers ()
   {
-    if (m_aMembers.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMembers.clear ();
-    return EChange.CHANGED;
+    return m_aMembers.removeAll ();
   }
 
   /**
@@ -343,9 +335,9 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSExpressionMember> getAllMembers ()
+  public ICommonsList <ICSSExpressionMember> getAllMembers ()
   {
-    return CollectionHelper.newList (m_aMembers);
+    return m_aMembers.getClone ();
   }
 
   /**
@@ -358,7 +350,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nullable
   public ICSSExpressionMember getMemberAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndex (m_aMembers, nIndex);
+    return m_aMembers.getAtIndex (nIndex);
   }
 
   /**
@@ -375,11 +367,9 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *         {@link CSSExpressionMemberTermSimple}
    */
   @Nonnull
-  public List <CSSExpressionMemberTermSimple> getAllSimpleMembers ()
+  public ICommonsList <CSSExpressionMemberTermSimple> getAllSimpleMembers ()
   {
-    return CollectionHelper.getAllMapped (m_aMembers,
-                                          m -> m instanceof CSSExpressionMemberTermSimple,
-                                          m -> (CSSExpressionMemberTermSimple) m);
+    return m_aMembers.getAllInstanceOf (CSSExpressionMemberTermSimple.class);
   }
 
   @Nonnull

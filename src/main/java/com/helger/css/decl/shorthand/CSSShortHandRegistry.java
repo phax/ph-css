@@ -16,10 +16,6 @@
  */
 package com.helger.css.decl.shorthand;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -27,7 +23,9 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.css.ECSSUnit;
 import com.helger.css.property.CCSSProperties;
@@ -47,7 +45,7 @@ public final class CSSShortHandRegistry
 {
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final Map <ECSSProperty, CSSShortHandDescriptor> s_aMap = new HashMap <> ();
+  private static final ICommonsMap <ECSSProperty, CSSShortHandDescriptor> s_aMap = new CommonsHashMap <> ();
 
   static
   {
@@ -198,9 +196,9 @@ public final class CSSShortHandRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <ECSSProperty> getAllShortHandProperties ()
+  public static ICommonsSet <ECSSProperty> getAllShortHandProperties ()
   {
-    return s_aRWLock.readLocked ( () -> CollectionHelper.newSet (s_aMap.keySet ()));
+    return s_aRWLock.readLocked ( () -> s_aMap.copyOfKeySet ());
   }
 
   public static boolean isShortHandProperty (@Nullable final ECSSProperty eProperty)

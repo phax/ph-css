@@ -17,8 +17,6 @@
 package com.helger.css.decl;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -28,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -46,9 +45,9 @@ import com.helger.css.ICSSSourceLocationAware;
 @NotThreadSafe
 public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializable
 {
-  private final List <CSSImportRule> m_aImportRules = new ArrayList <> ();
-  private final List <CSSNamespaceRule> m_aNamespaceRules = new ArrayList <> ();
-  private final List <ICSSTopLevelRule> m_aRules = new ArrayList <> ();
+  private final ICommonsList <CSSImportRule> m_aImportRules = new CommonsArrayList <> ();
+  private final ICommonsList <CSSNamespaceRule> m_aNamespaceRules = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CascadingStyleSheet ()
@@ -60,7 +59,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasImportRules ()
   {
-    return !m_aImportRules.isEmpty ();
+    return m_aImportRules.isNotEmpty ();
   }
 
   /**
@@ -84,7 +83,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSImportRule getImportRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndex (m_aImportRules, nIndex);
+    return m_aImportRules.getAtIndex (nIndex);
   }
 
   /**
@@ -154,10 +153,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeImportRule (@Nonnegative final int nImportRuleIndex)
   {
-    if (nImportRuleIndex < 0 || nImportRuleIndex >= m_aImportRules.size ())
-      return EChange.UNCHANGED;
-    m_aImportRules.remove (nImportRuleIndex);
-    return EChange.CHANGED;
+    return m_aImportRules.removeAtIndex (nImportRuleIndex);
   }
 
   /**
@@ -170,10 +166,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeAllImportRules ()
   {
-    if (m_aImportRules.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aImportRules.clear ();
-    return EChange.CHANGED;
+    return m_aImportRules.removeAll ();
   }
 
   /**
@@ -182,9 +175,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSImportRule> getAllImportRules ()
+  public ICommonsList <CSSImportRule> getAllImportRules ()
   {
-    return CollectionHelper.newList (m_aImportRules);
+    return m_aImportRules.getClone ();
   }
 
   /**
@@ -193,7 +186,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasNamespaceRules ()
   {
-    return !m_aNamespaceRules.isEmpty ();
+    return m_aNamespaceRules.isNotEmpty ();
   }
 
   /**
@@ -218,7 +211,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSNamespaceRule getNamespaceRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndex (m_aNamespaceRules, nIndex);
+    return m_aNamespaceRules.getAtIndex (nIndex);
   }
 
   /**
@@ -289,10 +282,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeNamespaceRule (@Nonnegative final int nNamespaceRuleIndex)
   {
-    if (nNamespaceRuleIndex < 0 || nNamespaceRuleIndex >= m_aNamespaceRules.size ())
-      return EChange.UNCHANGED;
-    m_aNamespaceRules.remove (nNamespaceRuleIndex);
-    return EChange.CHANGED;
+    return m_aNamespaceRules.removeAtIndex (nNamespaceRuleIndex);
   }
 
   /**
@@ -305,10 +295,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeAllNamespaceRules ()
   {
-    if (m_aNamespaceRules.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aNamespaceRules.clear ();
-    return EChange.CHANGED;
+    return m_aNamespaceRules.removeAll ();
   }
 
   /**
@@ -317,9 +304,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSNamespaceRule> getAllNamespaceRules ()
+  public ICommonsList <CSSNamespaceRule> getAllNamespaceRules ()
   {
-    return CollectionHelper.newList (m_aNamespaceRules);
+    return m_aNamespaceRules.getClone ();
   }
 
   /**
@@ -331,7 +318,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasRules ()
   {
-    return !m_aRules.isEmpty ();
+    return m_aRules.isNotEmpty ();
   }
 
   /**
@@ -359,7 +346,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public ICSSTopLevelRule getRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndex (m_aRules, nIndex);
+    return m_aRules.getAtIndex (nIndex);
   }
 
   /**
@@ -432,15 +419,12 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeRule (@Nonnegative final int nRuleIndex)
   {
-    if (nRuleIndex < 0 || nRuleIndex >= m_aRules.size ())
-      return EChange.UNCHANGED;
-    m_aRules.remove (nRuleIndex);
-    return EChange.CHANGED;
+    return m_aRules.removeAtIndex (nRuleIndex);
   }
 
   /**
    * Remove all rules matching the passed predicate.
-   * 
+   *
    * @param aFilter
    *        The predicate to apply for deletion. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} it at least one rule was removed,
@@ -463,10 +447,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeAllRules ()
   {
-    if (m_aRules.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aRules.clear ();
-    return EChange.CHANGED;
+    return m_aRules.removeAll ();
   }
 
   /**
@@ -478,9 +459,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSTopLevelRule> getAllRules ()
+  public ICommonsList <ICSSTopLevelRule> getAllRules ()
   {
-    return CollectionHelper.newList (m_aRules);
+    return m_aRules.getClone ();
   }
 
   /**
@@ -494,9 +475,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSTopLevelRule> getAllRules (@Nonnull final Predicate <? super ICSSTopLevelRule> aFilter)
+  public ICommonsList <ICSSTopLevelRule> getAllRules (@Nonnull final Predicate <? super ICSSTopLevelRule> aFilter)
   {
-    return CollectionHelper.newList (m_aRules, aFilter);
+    return m_aRules.getAll (aFilter);
   }
 
   /**
@@ -508,7 +489,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasStyleRules ()
   {
-    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSStyleRule);
+    return m_aRules.containsAny (r -> r instanceof CSSStyleRule);
   }
 
   /**
@@ -520,7 +501,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getStyleRuleCount ()
   {
-    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSStyleRule);
+    return m_aRules.getCount (r -> r instanceof CSSStyleRule);
   }
 
   /**
@@ -535,7 +516,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSStyleRule getStyleRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndexMapped (m_aRules, r -> r instanceof CSSStyleRule, nIndex, r -> (CSSStyleRule) r);
+    return m_aRules.getAtIndexMapped (r -> r instanceof CSSStyleRule, nIndex, r -> (CSSStyleRule) r);
   }
 
   /**
@@ -546,9 +527,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSStyleRule> getAllStyleRules ()
+  public ICommonsList <CSSStyleRule> getAllStyleRules ()
   {
-    return CollectionHelper.getAllMapped (m_aRules, r -> r instanceof CSSStyleRule, r -> (CSSStyleRule) r);
+    return m_aRules.getAllMapped (r -> r instanceof CSSStyleRule, r -> (CSSStyleRule) r);
   }
 
   /**
@@ -560,7 +541,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasPageRules ()
   {
-    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSPageRule);
+    return m_aRules.containsAny (r -> r instanceof CSSPageRule);
   }
 
   /**
@@ -572,7 +553,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getPageRuleCount ()
   {
-    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSPageRule);
+    return m_aRules.getCount (r -> r instanceof CSSPageRule);
   }
 
   /**
@@ -587,7 +568,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSPageRule getPageRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndexMapped (m_aRules, r -> r instanceof CSSPageRule, nIndex, r -> (CSSPageRule) r);
+    return m_aRules.getAtIndexMapped (r -> r instanceof CSSPageRule, nIndex, r -> (CSSPageRule) r);
   }
 
   /**
@@ -599,9 +580,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSPageRule> getAllPageRules ()
+  public ICommonsList <CSSPageRule> getAllPageRules ()
   {
-    return CollectionHelper.getAllMapped (m_aRules, r -> r instanceof CSSPageRule, r -> (CSSPageRule) r);
+    return m_aRules.getAllMapped (r -> r instanceof CSSPageRule, r -> (CSSPageRule) r);
   }
 
   /**
@@ -613,7 +594,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasMediaRules ()
   {
-    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSMediaRule);
+    return m_aRules.containsAny (r -> r instanceof CSSMediaRule);
   }
 
   /**
@@ -625,7 +606,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getMediaRuleCount ()
   {
-    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSMediaRule);
+    return m_aRules.getCount (r -> r instanceof CSSMediaRule);
   }
 
   /**
@@ -640,7 +621,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSMediaRule getMediaRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndexMapped (m_aRules, r -> r instanceof CSSMediaRule, nIndex, r -> (CSSMediaRule) r);
+    return m_aRules.getAtIndexMapped (r -> r instanceof CSSMediaRule, nIndex, r -> (CSSMediaRule) r);
   }
 
   /**
@@ -652,9 +633,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSMediaRule> getAllMediaRules ()
+  public ICommonsList <CSSMediaRule> getAllMediaRules ()
   {
-    return CollectionHelper.getAllMapped (m_aRules, r -> r instanceof CSSMediaRule, r -> (CSSMediaRule) r);
+    return m_aRules.getAllMapped (r -> r instanceof CSSMediaRule, r -> (CSSMediaRule) r);
   }
 
   /**
@@ -666,7 +647,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasFontFaceRules ()
   {
-    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSFontFaceRule);
+    return m_aRules.containsAny (r -> r instanceof CSSFontFaceRule);
   }
 
   /**
@@ -679,7 +660,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getFontFaceRuleCount ()
   {
-    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSFontFaceRule);
+    return m_aRules.getCount (r -> r instanceof CSSFontFaceRule);
   }
 
   /**
@@ -694,10 +675,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSFontFaceRule getFontFaceRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndexMapped (m_aRules,
-                                              r -> r instanceof CSSFontFaceRule,
-                                              nIndex,
-                                              r -> (CSSFontFaceRule) r);
+    return m_aRules.getAtIndexMapped (r -> r instanceof CSSFontFaceRule, nIndex, r -> (CSSFontFaceRule) r);
   }
 
   /**
@@ -709,9 +687,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSFontFaceRule> getAllFontFaceRules ()
+  public ICommonsList <CSSFontFaceRule> getAllFontFaceRules ()
   {
-    return CollectionHelper.getAllMapped (m_aRules, r -> r instanceof CSSFontFaceRule, r -> (CSSFontFaceRule) r);
+    return m_aRules.getAllMapped (r -> r instanceof CSSFontFaceRule, r -> (CSSFontFaceRule) r);
   }
 
   /**
@@ -723,7 +701,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasKeyframesRules ()
   {
-    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSKeyframesRule);
+    return m_aRules.containsAny (r -> r instanceof CSSKeyframesRule);
   }
 
   /**
@@ -736,7 +714,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getKeyframesRuleCount ()
   {
-    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSKeyframesRule);
+    return m_aRules.getCount (r -> r instanceof CSSKeyframesRule);
   }
 
   /**
@@ -751,10 +729,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSKeyframesRule getKeyframesRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndexMapped (m_aRules,
-                                              r -> r instanceof CSSKeyframesRule,
-                                              nIndex,
-                                              r -> (CSSKeyframesRule) r);
+    return m_aRules.getAtIndexMapped (r -> r instanceof CSSKeyframesRule, nIndex, r -> (CSSKeyframesRule) r);
   }
 
   /**
@@ -766,9 +741,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSKeyframesRule> getAllKeyframesRules ()
+  public ICommonsList <CSSKeyframesRule> getAllKeyframesRules ()
   {
-    return CollectionHelper.getAllMapped (m_aRules, r -> r instanceof CSSKeyframesRule, r -> (CSSKeyframesRule) r);
+    return m_aRules.getAllMapped (r -> r instanceof CSSKeyframesRule, r -> (CSSKeyframesRule) r);
   }
 
   /**
@@ -780,7 +755,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasViewportRules ()
   {
-    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSViewportRule);
+    return m_aRules.containsAny (r -> r instanceof CSSViewportRule);
   }
 
   /**
@@ -793,7 +768,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getViewportRuleCount ()
   {
-    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSViewportRule);
+    return m_aRules.getCount (r -> r instanceof CSSViewportRule);
   }
 
   /**
@@ -808,10 +783,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSViewportRule getViewportRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndexMapped (m_aRules,
-                                              r -> r instanceof CSSViewportRule,
-                                              nIndex,
-                                              r -> (CSSViewportRule) r);
+    return m_aRules.getAtIndexMapped (r -> r instanceof CSSViewportRule, nIndex, r -> (CSSViewportRule) r);
   }
 
   /**
@@ -823,9 +795,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSViewportRule> getAllViewportRules ()
+  public ICommonsList <CSSViewportRule> getAllViewportRules ()
   {
-    return CollectionHelper.getAllMapped (m_aRules, r -> r instanceof CSSViewportRule, r -> (CSSViewportRule) r);
+    return m_aRules.getAllMapped (r -> r instanceof CSSViewportRule, r -> (CSSViewportRule) r);
   }
 
   /**
@@ -837,7 +809,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasSupportsRules ()
   {
-    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSSupportsRule);
+    return m_aRules.containsAny (r -> r instanceof CSSSupportsRule);
   }
 
   /**
@@ -850,7 +822,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getSupportsRuleCount ()
   {
-    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSSupportsRule);
+    return m_aRules.getCount (r -> r instanceof CSSSupportsRule);
   }
 
   /**
@@ -865,10 +837,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSSupportsRule getSupportsRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndexMapped (m_aRules,
-                                              r -> r instanceof CSSSupportsRule,
-                                              nIndex,
-                                              r -> (CSSSupportsRule) r);
+    return m_aRules.getAtIndexMapped (r -> r instanceof CSSSupportsRule, nIndex, r -> (CSSSupportsRule) r);
   }
 
   /**
@@ -880,9 +849,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSSupportsRule> getAllSupportsRules ()
+  public ICommonsList <CSSSupportsRule> getAllSupportsRules ()
   {
-    return CollectionHelper.getAllMapped (m_aRules, r -> r instanceof CSSSupportsRule, r -> (CSSSupportsRule) r);
+    return m_aRules.getAllMapped (r -> r instanceof CSSSupportsRule, r -> (CSSSupportsRule) r);
   }
 
   /**
@@ -894,7 +863,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   public boolean hasUnknownRules ()
   {
-    return CollectionHelper.containsAny (m_aRules, r -> r instanceof CSSUnknownRule);
+    return m_aRules.containsAny (r -> r instanceof CSSUnknownRule);
   }
 
   /**
@@ -907,7 +876,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnegative
   public int getUnknownRuleCount ()
   {
-    return CollectionHelper.getCount (m_aRules, r -> r instanceof CSSUnknownRule);
+    return m_aRules.getCount (r -> r instanceof CSSUnknownRule);
   }
 
   /**
@@ -922,10 +891,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nullable
   public CSSUnknownRule getUnknownRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return CollectionHelper.getAtIndexMapped (m_aRules,
-                                              r -> r instanceof CSSUnknownRule,
-                                              nIndex,
-                                              r -> (CSSUnknownRule) r);
+    return m_aRules.getAtIndexMapped (r -> r instanceof CSSUnknownRule, nIndex, r -> (CSSUnknownRule) r);
   }
 
   /**
@@ -937,9 +903,9 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSUnknownRule> getAllUnknownRules ()
+  public ICommonsList <CSSUnknownRule> getAllUnknownRules ()
   {
-    return CollectionHelper.getAllMapped (m_aRules, r -> r instanceof CSSUnknownRule, r -> (CSSUnknownRule) r);
+    return m_aRules.getAllMapped (r -> r instanceof CSSUnknownRule, r -> (CSSUnknownRule) r);
   }
 
   public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
