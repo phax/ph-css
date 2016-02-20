@@ -16,12 +16,11 @@
  */
 package com.helger.css.decl.shorthand;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.css.decl.ICSSExpressionMember;
 import com.helger.css.property.ECSSProperty;
 
@@ -41,13 +40,13 @@ public class CSSShortHandDescriptorWithAlignment extends CSSShortHandDescriptor
 
   @Override
   @OverrideOnDemand
-  protected void modifyExpressionMembers (@Nonnull final List <ICSSExpressionMember> aExpressionMembers)
+  protected void modifyExpressionMembers (@Nonnull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
   {
     final int nSize = aExpressionMembers.size ();
     if (nSize == 1)
     {
       // 4px -> 4px 4px 4px 4px
-      final ICSSExpressionMember aMember = aExpressionMembers.get (0);
+      final ICSSExpressionMember aMember = aExpressionMembers.getFirst ();
       for (int i = 0; i < 3; ++i)
         aExpressionMembers.add (aMember.getClone ());
     }

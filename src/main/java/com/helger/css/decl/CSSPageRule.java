@@ -60,7 +60,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
                                                       : new CommonsArrayList <> ();
   }
 
-  public CSSPageRule (@Nonnull final List <String> aSelectors)
+  public CSSPageRule (@Nonnull final Iterable <String> aSelectors)
   {
     ValueEnforcer.notNullNoNullValue (aSelectors, "Selectors");
     m_aSelectors = new CommonsArrayList <> (aSelectors);

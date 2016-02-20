@@ -16,8 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -61,7 +59,7 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
   }
 
-  public CSSSelectorMemberNot (@Nonnull final List <CSSSelector> aNestedSelectors)
+  public CSSSelectorMemberNot (@Nonnull final Iterable <CSSSelector> aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);

@@ -16,8 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -51,7 +49,7 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSVersio
   public CSSExpressionMemberMath ()
   {}
 
-  public CSSExpressionMemberMath (@Nonnull final List <ICSSExpressionMathMember> aMembers)
+  public CSSExpressionMemberMath (@Nonnull final Iterable <? extends ICSSExpressionMathMember> aMembers)
   {
     m_aMembers.addAll (aMembers);
   }

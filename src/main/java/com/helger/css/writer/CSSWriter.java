@@ -18,7 +18,6 @@ package com.helger.css.writer;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
@@ -292,26 +292,22 @@ public class CSSWriter
 
       // Import rules
       int nRulesEmitted = 0;
-      final List <CSSImportRule> aImportRules = aCSS.getAllImportRules ();
-      if (!aImportRules.isEmpty ())
-      {
+      final ICommonsList <CSSImportRule> aImportRules = aCSS.getAllImportRules ();
+      if (aImportRules.isNotEmpty ())
         for (final CSSImportRule aImportRule : aImportRules)
         {
           aWriter.write (aImportRule.getAsCSSString (m_aSettings, 0));
           ++nRulesEmitted;
         }
-      }
 
       // Namespace rules
-      final List <CSSNamespaceRule> aNamespaceRules = aCSS.getAllNamespaceRules ();
-      if (!aNamespaceRules.isEmpty ())
-      {
+      final ICommonsList <CSSNamespaceRule> aNamespaceRules = aCSS.getAllNamespaceRules ();
+      if (aNamespaceRules.isNotEmpty ())
         for (final CSSNamespaceRule aNamespaceRule : aNamespaceRules)
         {
           aWriter.write (aNamespaceRule.getAsCSSString (m_aSettings, 0));
           ++nRulesEmitted;
         }
-      }
 
       // Main CSS rules
       for (final ICSSTopLevelRule aRule : aCSS.getAllRules ())
@@ -332,7 +328,7 @@ public class CSSWriter
       {
         aWriter.write ("/*");
         aWriter.write (sNewLineString);
-        for (final String sLine : StringHelper.getExploded ("\n", m_sFooterText))
+        for (final String sLine : StringHelper.getExploded ('\n', m_sFooterText))
         {
           aWriter.write (" * " + sLine);
           aWriter.write (sNewLineString);

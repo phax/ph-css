@@ -17,14 +17,14 @@
 package com.helger.css.parser;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IConvertibleTrait;
 import com.helger.css.CSSSourceArea;
@@ -169,7 +169,7 @@ public class CSSNode implements Node, Iterable <CSSNode>, Serializable, IConvert
   @Nonnull
   public Iterator <CSSNode> iterator ()
   {
-    final List <CSSNode> aChildren = new ArrayList <CSSNode> (jjtGetNumChildren ());
+    final ICommonsList <CSSNode> aChildren = new CommonsArrayList <> (jjtGetNumChildren ());
     if (m_aChildren != null)
       for (final CSSNode aChildNode : m_aChildren)
         if (aChildNode != null)

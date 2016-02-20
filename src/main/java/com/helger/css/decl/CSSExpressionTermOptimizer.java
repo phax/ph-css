@@ -16,14 +16,13 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.css.ECSSUnit;
 import com.helger.css.propertyvalue.CCSSValue;
 
@@ -35,7 +34,7 @@ import com.helger.css.propertyvalue.CCSSValue;
 @Immutable
 public final class CSSExpressionTermOptimizer
 {
-  private static final List <String> s_aUnitValues0 = new ArrayList <> ();
+  private static final ICommonsList <String> s_aUnitValues0 = new CommonsArrayList <> ();
 
   static
   {
@@ -56,9 +55,8 @@ public final class CSSExpressionTermOptimizer
   public static String getOptimizedValue (@Nonnull @Nonempty final String sValue)
   {
     // Replace e.g. "0px" with "0"
-    for (final String sUnit0 : s_aUnitValues0)
-      if (sValue.equals (sUnit0))
-        return "0";
+    if (s_aUnitValues0.contains (sValue))
+      return "0";
 
     // Check for optimized color values (replace #aabbcc with #abc)
     if (sValue.length () == CCSSValue.HEXVALUE_LENGTH &&

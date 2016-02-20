@@ -16,8 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,7 +56,7 @@ public class CSSKeyframesBlock implements
     m_aKeyframesSelectors = new CommonsArrayList <> (aKeyframesSelectors);
   }
 
-  public CSSKeyframesBlock (@Nonnull @Nonempty final List <String> aKeyframesSelectors)
+  public CSSKeyframesBlock (@Nonnull @Nonempty final Iterable <String> aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
     m_aKeyframesSelectors = new CommonsArrayList <> (aKeyframesSelectors);

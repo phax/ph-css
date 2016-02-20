@@ -16,8 +16,6 @@
  */
 package com.helger.css.decl.shorthand;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
@@ -90,12 +88,12 @@ public class CSSShortHandDescriptor
    *        The list to be modified. Never <code>null</code> but maybe empty.
    */
   @OverrideOnDemand
-  protected void modifyExpressionMembers (@Nonnull final List <ICSSExpressionMember> aExpressionMembers)
+  protected void modifyExpressionMembers (@Nonnull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
   {}
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getSplitIntoPieces (@Nonnull final CSSDeclaration aDeclaration)
+  public ICommonsList <CSSDeclaration> getSplitIntoPieces (@Nonnull final CSSDeclaration aDeclaration)
   {
     ValueEnforcer.notNull (aDeclaration, "Declaration");
 

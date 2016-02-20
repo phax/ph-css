@@ -16,8 +16,6 @@
  */
 package com.helger.css.handler;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
@@ -29,6 +27,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
@@ -260,7 +260,7 @@ final class CSSNodeToDomainObject
     if (ECSSNodeType.NEGATION.isNode (aNode, m_eVersion))
     {
       // Note: no children don't make sense but are syntactically allowed!
-      final List <CSSSelector> aNestedSelectors = new ArrayList <CSSSelector> ();
+      final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
       for (int i = 0; i < nChildCount; ++i)
       {
         final CSSNode aChildNode = aNode.jjtGetChild (0);
@@ -635,7 +635,7 @@ final class CSSNodeToDomainObject
         _throwUnexpectedChildrenCount (aNode, "Expected at least 1 child but got " + nChildCount + "!");
 
       // Read page selectors (0-n)
-      final List <String> aSelectors = new ArrayList <> ();
+      final ICommonsList <String> aSelectors = new CommonsArrayList <> ();
       for (int nIndex = 0; nIndex < nChildCount - 1; ++nIndex)
       {
         final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
@@ -916,7 +916,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.KEYFRAMESSELECTOR.isNode (aChildNode, m_eVersion))
       {
         // Read all single selectors
-        final List <String> aKeyframesSelectors = new ArrayList <String> ();
+        final ICommonsList <String> aKeyframesSelectors = new CommonsArrayList <> ();
         for (final CSSNode aSelectorChild : aChildNode)
         {
           _expectNodeType (aSelectorChild, ECSSNodeType.SINGLEKEYFRAMESELECTOR);
