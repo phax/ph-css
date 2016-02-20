@@ -16,14 +16,13 @@
  */
 package com.helger.css.decl;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.css.ICSSWriteable;
@@ -117,7 +116,7 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <CSSDeclaration> getAllDeclarations ();
+  ICommonsList <CSSDeclaration> getAllDeclarations ();
 
   /**
    * @param nIndex
@@ -197,7 +196,7 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable String sPropertyName);
+  ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable String sPropertyName);
 
   /**
    * Get all declarations within this list that have the specified property
@@ -211,5 +210,5 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable String sPropertyName);
+  ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable String sPropertyName);
 }

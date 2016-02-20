@@ -26,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -45,30 +46,30 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final List <CSSSelector> m_aNestedSelectors;
+  private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSelectorMemberNot (@Nonnull final CSSSelector aNestedSelector)
   {
     ValueEnforcer.notNull (aNestedSelector, "NestedSelector");
-    m_aNestedSelectors = CollectionHelper.newList (aNestedSelector);
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelector);
   }
 
   public CSSSelectorMemberNot (@Nonnull final CSSSelector... aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
-    m_aNestedSelectors = CollectionHelper.newList (aNestedSelectors);
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
   }
 
   public CSSSelectorMemberNot (@Nonnull final List <CSSSelector> aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
-    m_aNestedSelectors = CollectionHelper.newList (aNestedSelectors);
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
   }
 
   public boolean hasSelectors ()
   {
-    return !m_aNestedSelectors.isEmpty ();
+    return m_aNestedSelectors.isNotEmpty ();
   }
 
   @Nonnegative
@@ -125,10 +126,7 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   @Nonnull
   public EChange removeSelector (@Nonnegative final int nSelectorIndex)
   {
-    if (nSelectorIndex < 0 || nSelectorIndex >= m_aNestedSelectors.size ())
-      return EChange.UNCHANGED;
-    m_aNestedSelectors.remove (nSelectorIndex);
-    return EChange.CHANGED;
+    return m_aNestedSelectors.removeAtIndex (nSelectorIndex);
   }
 
   /**
@@ -140,23 +138,20 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   @Nonnull
   public EChange removeAllSelectors ()
   {
-    if (m_aNestedSelectors.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aNestedSelectors.clear ();
-    return EChange.CHANGED;
+    return m_aNestedSelectors.removeAll ();
   }
 
   @Nullable
   public CSSSelector getSelectorAtIndex (@Nonnegative final int nSelectorIndex)
   {
-    return CollectionHelper.getAtIndex (m_aNestedSelectors, nSelectorIndex);
+    return m_aNestedSelectors.getAtIndex (nSelectorIndex);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSSelector> getAllSelectors ()
+  public ICommonsList <CSSSelector> getAllSelectors ()
   {
-    return CollectionHelper.newList (m_aNestedSelectors);
+    return m_aNestedSelectors.getClone ();
   }
 
   @Nonnull

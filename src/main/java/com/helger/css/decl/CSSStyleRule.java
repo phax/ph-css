@@ -16,9 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,7 +23,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -47,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSStyleRule>, ICSSSourceLocationAware
 {
-  private final List <CSSSelector> m_aSelectors = new ArrayList <> ();
+  private final ICommonsList <CSSSelector> m_aSelectors = new CommonsArrayList <> ();
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
@@ -56,7 +54,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
 
   public boolean hasSelectors ()
   {
-    return !m_aSelectors.isEmpty ();
+    return m_aSelectors.isNotEmpty ();
   }
 
   @Nonnegative
@@ -113,10 +111,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   @Nonnull
   public EChange removeSelector (@Nonnegative final int nSelectorIndex)
   {
-    if (nSelectorIndex < 0 || nSelectorIndex >= m_aSelectors.size ())
-      return EChange.UNCHANGED;
-    m_aSelectors.remove (nSelectorIndex);
-    return EChange.CHANGED;
+    return m_aSelectors.removeAtIndex (nSelectorIndex);
   }
 
   /**
@@ -129,23 +124,20 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   @Nonnull
   public EChange removeAllSelectors ()
   {
-    if (m_aSelectors.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aSelectors.clear ();
-    return EChange.CHANGED;
+    return m_aSelectors.removeAll ();
   }
 
   @Nullable
   public CSSSelector getSelectorAtIndex (@Nonnegative final int nSelectorIndex)
   {
-    return CollectionHelper.getAtIndex (m_aSelectors, nSelectorIndex);
+    return m_aSelectors.getAtIndex (nSelectorIndex);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSSelector> getAllSelectors ()
+  public ICommonsList <CSSSelector> getAllSelectors ()
   {
-    return CollectionHelper.newList (m_aSelectors);
+    return m_aSelectors.getClone ();
   }
 
   @Nonnull
@@ -182,7 +174,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarations ()
+  public ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
     return m_aDeclarations.getAllDeclarations ();
   }
@@ -226,14 +218,14 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
+  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
+  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyNameCaseInsensitive (sPropertyName);
   }

@@ -17,15 +17,14 @@
 package com.helger.css.utils;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
@@ -41,17 +40,16 @@ import com.helger.css.propertyvalue.CSSSimpleValueWithUnit;
 public final class CSSNumberHelper
 {
   // Map from unit name to enum
-  private static final Map <String, ECSSUnit> s_aNameToUnitMap;
+  private static final ICommonsMap <String, ECSSUnit> s_aNameToUnitMap;
 
   static
   {
-    final Map <String, ECSSUnit> aNameToUnitMap = new HashMap <String, ECSSUnit> ();
+    final ICommonsMap <String, ECSSUnit> aNameToUnitMap = new CommonsHashMap <> ();
     for (final ECSSUnit eUnit : ECSSUnit.values ())
       aNameToUnitMap.put (eUnit.getName (), eUnit);
     // Now sort, so that the longest matches are upfront so that they are
     // determined first
-    s_aNameToUnitMap = CollectionHelper.getSortedByKey (aNameToUnitMap,
-                                                        IComparator.getComparatorStringLongestFirst ());
+    s_aNameToUnitMap = aNameToUnitMap.getSortedByKey (IComparator.getComparatorStringLongestFirst ());
   }
 
   @SuppressWarnings ("unused")
@@ -77,10 +75,7 @@ public final class CSSNumberHelper
   {
     ValueEnforcer.notNull (sCSSValue, "CSSValue");
     // Search units, the ones with the longest names come first
-    for (final Map.Entry <String, ECSSUnit> aEntry : s_aNameToUnitMap.entrySet ())
-      if (sCSSValue.endsWith (aEntry.getKey ()))
-        return aEntry.getValue ();
-    return null;
+    return s_aNameToUnitMap.findFirstValue (aEntry -> sCSSValue.endsWith (aEntry.getKey ()));
   }
 
   /**

@@ -16,9 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -53,8 +51,8 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAware, ICSSVersionAware
 {
-  private final List <ICSSSupportsConditionMember> m_aConditionMembers = new ArrayList <ICSSSupportsConditionMember> ();
-  private final List <ICSSTopLevelRule> m_aRules = new ArrayList <ICSSTopLevelRule> ();
+  private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSupportsRule ()
@@ -62,7 +60,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
 
   public boolean hasSupportConditionMembers ()
   {
-    return !m_aConditionMembers.isEmpty ();
+    return m_aConditionMembers.isNotEmpty ();
   }
 
   @Nonnegative
@@ -103,10 +101,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
   @Nonnull
   public EChange removeSupportsConditionMember (@Nonnegative final int nIndex)
   {
-    if (nIndex < 0 || nIndex >= m_aConditionMembers.size ())
-      return EChange.UNCHANGED;
-    m_aConditionMembers.remove (nIndex);
-    return EChange.CHANGED;
+    return m_aConditionMembers.removeAtIndex (nIndex);
   }
 
   /**
@@ -119,30 +114,25 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
   @Nonnull
   public EChange removeAllSupportsConditionMembers ()
   {
-    if (m_aConditionMembers.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aConditionMembers.clear ();
-    return EChange.CHANGED;
+    return m_aConditionMembers.removeAll ();
   }
 
   @Nullable
   public ICSSSupportsConditionMember getSupportsConditionMemberAtIndex (@Nonnegative final int nIndex)
   {
-    if (nIndex < 0 || nIndex >= m_aConditionMembers.size ())
-      return null;
-    return m_aConditionMembers.get (nIndex);
+    return m_aConditionMembers.getAtIndex (nIndex);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSSupportsConditionMember> getAllSupportConditionMembers ()
+  public ICommonsList <ICSSSupportsConditionMember> getAllSupportConditionMembers ()
   {
-    return CollectionHelper.newList (m_aConditionMembers);
+    return m_aConditionMembers.getClone ();
   }
 
   public boolean hasRules ()
   {
-    return !m_aRules.isEmpty ();
+    return m_aRules.isNotEmpty ();
   }
 
   @Nonnegative
@@ -182,18 +172,7 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
   @Nonnull
   public EChange removeRule (@Nonnegative final int nRuleIndex)
   {
-    if (nRuleIndex < 0 || nRuleIndex >= m_aRules.size ())
-      return EChange.UNCHANGED;
-    m_aRules.remove (nRuleIndex);
-    return EChange.CHANGED;
-  }
-
-  @Nullable
-  public ICSSTopLevelRule getRule (@Nonnegative final int nRuleIndex)
-  {
-    if (nRuleIndex < 0 || nRuleIndex >= m_aRules.size ())
-      return null;
-    return m_aRules.get (nRuleIndex);
+    return m_aRules.removeAtIndex (nRuleIndex);
   }
 
   /**
@@ -204,19 +183,22 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
    * @since 3.7.3
    */
   @Nonnull
-  public EChange removeAllDeclarations ()
+  public EChange removeAllRules ()
   {
-    if (m_aRules.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aRules.clear ();
-    return EChange.CHANGED;
+    return m_aRules.removeAll ();
+  }
+
+  @Nullable
+  public ICSSTopLevelRule getRule (@Nonnegative final int nRuleIndex)
+  {
+    return m_aRules.getAtIndex (nRuleIndex);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSTopLevelRule> getAllRules ()
+  public ICommonsList <ICSSTopLevelRule> getAllRules ()
   {
-    return CollectionHelper.newList (m_aRules);
+    return m_aRules.getClone ();
   }
 
   @Nonnull

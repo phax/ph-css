@@ -16,9 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -53,7 +51,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
 {
   private final String m_sDeclaration;
   private final String m_sAnimationName;
-  private final List <CSSKeyframesBlock> m_aBlocks = new ArrayList <> ();
+  private final ICommonsList <CSSKeyframesBlock> m_aBlocks = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public static boolean isValidDeclaration (@Nonnull @Nonempty final String sDeclaration)
@@ -89,7 +87,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
 
   public boolean hasBlocks ()
   {
-    return !m_aBlocks.isEmpty ();
+    return m_aBlocks.isNotEmpty ();
   }
 
   @Nonnegative
@@ -129,9 +127,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
   @Nonnull
   public EChange removeBlock (@Nonnegative final int nBlockIndex)
   {
-    if (nBlockIndex < 0 || nBlockIndex >= m_aBlocks.size ())
-      return EChange.UNCHANGED;
-    return EChange.valueOf (m_aBlocks.remove (nBlockIndex) != null);
+    return m_aBlocks.removeAtIndex (nBlockIndex);
   }
 
   /**
@@ -144,25 +140,20 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
   @Nonnull
   public EChange removeAllBlocks ()
   {
-    if (m_aBlocks.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aBlocks.clear ();
-    return EChange.CHANGED;
+    return m_aBlocks.removeAll ();
   }
 
   @Nullable
   public CSSKeyframesBlock getBlockAtIndex (@Nonnegative final int nBlockIndex)
   {
-    if (nBlockIndex < 0 || nBlockIndex >= m_aBlocks.size ())
-      return null;
-    return m_aBlocks.get (nBlockIndex);
+    return m_aBlocks.getAtIndex (nBlockIndex);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSKeyframesBlock> getAllBlocks ()
+  public ICommonsList <CSSKeyframesBlock> getAllBlocks ()
   {
-    return CollectionHelper.newList (m_aBlocks);
+    return m_aBlocks.getClone ();
   }
 
   @Nonnull

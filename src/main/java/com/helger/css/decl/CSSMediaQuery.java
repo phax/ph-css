@@ -16,9 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -72,7 +70,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   private final EModifier m_eModifier;
   private final String m_sMedium;
-  private final List <CSSMediaExpression> m_aMediaExpressions = new ArrayList <> ();
+  private final ICommonsList <CSSMediaExpression> m_aMediaExpressions = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   /**
@@ -143,7 +141,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    */
   public boolean hasMediaExpressions ()
   {
-    return !m_aMediaExpressions.isEmpty ();
+    return m_aMediaExpressions.isNotEmpty ();
   }
 
   /**
@@ -220,9 +218,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeMediaExpression (final int nExpressionIndex)
   {
-    if (nExpressionIndex < 0 || nExpressionIndex >= m_aMediaExpressions.size ())
-      return EChange.UNCHANGED;
-    return EChange.valueOf (m_aMediaExpressions.remove (nExpressionIndex) != null);
+    return m_aMediaExpressions.removeAtIndex (nExpressionIndex);
   }
 
   /**
@@ -235,10 +231,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeAllMediaExpressions ()
   {
-    if (m_aMediaExpressions.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMediaExpressions.clear ();
-    return EChange.CHANGED;
+    return m_aMediaExpressions.removeAll ();
   }
 
   /**
@@ -251,9 +244,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   @Nullable
   public CSSMediaExpression getMediaExpression (@Nonnegative final int nExpressionIndex)
   {
-    if (nExpressionIndex < 0 || nExpressionIndex >= m_aMediaExpressions.size ())
-      return null;
-    return m_aMediaExpressions.get (nExpressionIndex);
+    return m_aMediaExpressions.getAtIndex (nExpressionIndex);
   }
 
   /**
@@ -262,9 +253,9 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSMediaExpression> getAllMediaExpressions ()
+  public ICommonsList <CSSMediaExpression> getAllMediaExpressions ()
   {
-    return CollectionHelper.newList (m_aMediaExpressions);
+    return m_aMediaExpressions.getClone ();
   }
 
   @Nonnull
@@ -284,7 +275,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
       bIsFirstExpression = false;
     }
 
-    if (!m_aMediaExpressions.isEmpty ())
+    if (m_aMediaExpressions.isNotEmpty ())
     {
       for (final CSSMediaExpression aMediaExpression : m_aMediaExpressions)
       {

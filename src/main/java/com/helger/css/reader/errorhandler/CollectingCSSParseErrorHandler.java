@@ -16,9 +16,6 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +24,8 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.parser.ParseException;
@@ -45,7 +43,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final List <CSSParseError> m_aErrors = new ArrayList <> ();
+  private final ICommonsList <CSSParseError> m_aErrors = new CommonsArrayList <> ();
   private final ICSSParseErrorHandler m_aNestedErrorHandler;
 
   public CollectingCSSParseErrorHandler ()
@@ -63,12 +61,10 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                @Nonnull final String [] aTokenImageVal,
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
-    m_aRWLock.writeLocked ( () -> {
-      m_aErrors.add (new CSSParseError (aLastValidToken,
-                                        aExpectedTokenSequencesVal,
-                                        aTokenImageVal,
-                                        aLastSkippedToken));
-    });
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (new CSSParseError (aLastValidToken,
+                                                                    aExpectedTokenSequencesVal,
+                                                                    aTokenImageVal,
+                                                                    aLastSkippedToken)));
     if (m_aNestedErrorHandler != null)
       m_aNestedErrorHandler.onCSSParseError (aLastValidToken,
                                              aExpectedTokenSequencesVal,
@@ -80,9 +76,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sRule,
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
-    m_aRWLock.writeLocked ( () -> {
-      m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg));
-    });
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
     if (m_aNestedErrorHandler != null)
       m_aNestedErrorHandler.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
   }
@@ -94,7 +88,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonnegative
   public boolean hasParseErrors ()
   {
-    return m_aRWLock.readLocked ( () -> !m_aErrors.isEmpty ());
+    return m_aRWLock.readLocked ( () -> m_aErrors.isNotEmpty ());
   }
 
   /**
@@ -114,9 +108,9 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
    */
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSParseError> getAllParseErrors ()
+  public ICommonsList <CSSParseError> getAllParseErrors ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aErrors));
+    return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
   }
 
   @Override

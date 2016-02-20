@@ -17,13 +17,13 @@
 package com.helger.css.media;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 
 /**
  * A read only version of a CSS media list
@@ -105,7 +105,7 @@ public interface ICSSMediaList extends Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  Set <ECSSMedium> getAllMedia ();
+  ICommonsOrderedSet <ECSSMedium> getAllMedia ();
 
   /**
    * @return A non-<code>null</code> but maybe empty String with all media in

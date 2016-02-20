@@ -16,9 +16,6 @@
  */
 package com.helger.css.propertyvalue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -26,8 +23,10 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
@@ -46,7 +45,7 @@ import com.helger.css.property.ICSSProperty;
 public class CSSValueMultiProperty implements ICSSMultiValue
 {
   private final ECSSProperty m_eProperty;
-  private final List <CSSValue> m_aValues = new ArrayList <> ();
+  private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList <> ();
 
   public CSSValueMultiProperty (@Nonnull final ECSSProperty eProperty,
                                 @Nonnull final ICSSProperty [] aProperties,
@@ -76,9 +75,9 @@ public class CSSValueMultiProperty implements ICSSMultiValue
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSValue> getAllContainedValues ()
+  public ICommonsList <CSSValue> getAllContainedValues ()
   {
-    return CollectionHelper.newList (m_aValues);
+    return m_aValues.getClone ();
   }
 
   @Nonnull
@@ -90,10 +89,7 @@ public class CSSValueMultiProperty implements ICSSMultiValue
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    final StringBuilder ret = new StringBuilder ();
-    for (final CSSValue aValue : m_aValues)
-      ret.append (aValue.getAsCSSString (aSettings, nIndentLevel));
-    return ret.toString ();
+    return StringHelper.getImploded (m_aValues, aValue -> aValue.getAsCSSString (aSettings, nIndentLevel));
   }
 
   @Override

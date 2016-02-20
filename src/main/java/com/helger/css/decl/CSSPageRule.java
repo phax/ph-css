@@ -25,7 +25,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -49,26 +50,26 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final List <String> m_aSelectors;
+  private final ICommonsList <String> m_aSelectors;
   private final CSSWritableList <ICSSPageRuleMember> m_aMembers = new CSSWritableList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSPageRule (@Nullable final String sPseudoPage)
   {
-    m_aSelectors = StringHelper.hasText (sPseudoPage) ? CollectionHelper.newList (sPseudoPage)
-                                                      : CollectionHelper.newList ();
+    m_aSelectors = StringHelper.hasText (sPseudoPage) ? new CommonsArrayList <> (sPseudoPage)
+                                                      : new CommonsArrayList <> ();
   }
 
   public CSSPageRule (@Nonnull final List <String> aSelectors)
   {
     ValueEnforcer.notNullNoNullValue (aSelectors, "Selectors");
-    m_aSelectors = CollectionHelper.newList (aSelectors);
+    m_aSelectors = new CommonsArrayList <> (aSelectors);
   }
 
   @Nonnull
-  public List <String> getAllSelectors ()
+  public ICommonsList <String> getAllSelectors ()
   {
-    return CollectionHelper.newList (m_aSelectors);
+    return m_aSelectors.getClone ();
   }
 
   @Nonnull
@@ -150,7 +151,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
 
     final StringBuilder aSB = new StringBuilder ("@page");
 
-    if (!m_aSelectors.isEmpty ())
+    if (m_aSelectors.isNotEmpty ())
     {
       aSB.append (' ');
       boolean bFirst = true;

@@ -26,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -47,27 +48,27 @@ public class CSSKeyframesBlock implements
                                ICSSVersionAware,
                                ICSSSourceLocationAware
 {
-  private final List <String> m_aKeyframesSelectors;
+  private final ICommonsList <String> m_aKeyframesSelectors;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSKeyframesBlock (@Nonnull @Nonempty final String... aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
-    m_aKeyframesSelectors = CollectionHelper.newList (aKeyframesSelectors);
+    m_aKeyframesSelectors = new CommonsArrayList <> (aKeyframesSelectors);
   }
 
   public CSSKeyframesBlock (@Nonnull @Nonempty final List <String> aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
-    m_aKeyframesSelectors = CollectionHelper.newList (aKeyframesSelectors);
+    m_aKeyframesSelectors = new CommonsArrayList <> (aKeyframesSelectors);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <String> getAllKeyframesSelectors ()
+  public ICommonsList <String> getAllKeyframesSelectors ()
   {
-    return CollectionHelper.newList (m_aKeyframesSelectors);
+    return m_aKeyframesSelectors.getClone ();
   }
 
   @Nonnull
@@ -104,7 +105,7 @@ public class CSSKeyframesBlock implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarations ()
+  public ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
     return m_aDeclarations.getAllDeclarations ();
   }
@@ -148,14 +149,14 @@ public class CSSKeyframesBlock implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
+  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
+  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyNameCaseInsensitive (sPropertyName);
   }

@@ -16,15 +16,14 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 
@@ -83,7 +82,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration>
 
   @Nonnull
   @ReturnsMutableCopy
-  public final List <CSSDeclaration> getAllDeclarations ()
+  public final ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
     return getAll ();
   }
@@ -133,9 +132,9 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration>
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
+  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
-    final List <CSSDeclaration> ret = new ArrayList <> ();
+    final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
     if (StringHelper.hasText (sPropertyName))
       findAll (aDecl -> aDecl.getProperty ().equals (sPropertyName), ret);
     return ret;
@@ -143,9 +142,9 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration>
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
+  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
   {
-    final List <CSSDeclaration> ret = new ArrayList <> ();
+    final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
     if (StringHelper.hasText (sPropertyName))
       findAll (aDecl -> aDecl.getProperty ().equalsIgnoreCase (sPropertyName), ret);
     return ret;

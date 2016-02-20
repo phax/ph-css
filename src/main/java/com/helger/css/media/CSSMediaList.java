@@ -16,9 +16,6 @@
  */
 package com.helger.css.media;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,10 +23,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -43,7 +42,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   public static final String DEFAULT_MEDIA_STRING_SEPARATOR = ", ";
 
   // Ordered but unique
-  private final Set <ECSSMedium> m_aMedia = new LinkedHashSet <ECSSMedium> ();
+  private final ICommonsOrderedSet <ECSSMedium> m_aMedia = new CommonsLinkedHashSet <ECSSMedium> ();
 
   /**
    * Constructor
@@ -144,8 +143,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   {
     ValueEnforcer.notNull (aMediaList, "MediaList");
 
-    for (final ECSSMedium eMedium : aMediaList)
-      m_aMedia.add (eMedium);
+    m_aMedia.addAll (aMediaList);
     return this;
   }
 
@@ -179,8 +177,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   {
     ValueEnforcer.notNull (aMediaList, "MediaList");
 
-    for (final ECSSMedium eMedium : aMediaList)
-      m_aMedia.add (eMedium);
+    m_aMedia.addAll (aMediaList);
     return this;
   }
 
@@ -208,10 +205,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   @Nonnull
   public EChange removeAllMedia ()
   {
-    if (m_aMedia.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMedia.clear ();
-    return EChange.CHANGED;
+    return m_aMedia.removeAll ();
   }
 
   @Nonnegative
@@ -232,9 +226,9 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <ECSSMedium> getAllMedia ()
+  public ICommonsOrderedSet <ECSSMedium> getAllMedia ()
   {
-    return CollectionHelper.newSortedSet (m_aMedia);
+    return m_aMedia.getClone ();
   }
 
   @Nonnull
@@ -251,14 +245,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
     if (m_aMedia.isEmpty ())
       return "";
 
-    final StringBuilder aSB = new StringBuilder ();
-    for (final ECSSMedium eMedia : m_aMedia)
-    {
-      if (aSB.length () > 0)
-        aSB.append (sSeparator);
-      aSB.append (eMedia.getName ());
-    }
-    return aSB.toString ();
+    return StringHelper.getImploded (sSeparator, m_aMedia, ECSSMedium::getName);
   }
 
   @Nonnull

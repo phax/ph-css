@@ -16,7 +16,6 @@
  */
 package com.helger.css.property;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -27,7 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -42,7 +42,7 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 @NotThreadSafe
 public class CSSPropertyEnum extends AbstractCSSProperty
 {
-  private final Set <String> m_aEnumValues;
+  private final ICommonsSet <String> m_aEnumValues;
 
   public CSSPropertyEnum (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final String... aEnumValues)
   {
@@ -63,7 +63,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   {
     super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.notEmptyNoNullValue (aEnumValues, "EnumValues");
-    m_aEnumValues = new HashSet <String> (aEnumValues.length);
+    m_aEnumValues = new CommonsHashSet <> (aEnumValues.length);
     for (final String sPotentialValue : aEnumValues)
     {
       if (StringHelper.hasNoText (sPotentialValue))
@@ -91,7 +91,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   {
     super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.notEmptyNoNullValue (aEnumValues, "EnumValues");
-    m_aEnumValues = new HashSet <String> ();
+    m_aEnumValues = new CommonsHashSet <> ();
     for (final String sPotentialValue : aEnumValues)
     {
       if (StringHelper.hasNoText (sPotentialValue))
@@ -118,7 +118,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
                            @Nonnull @Nonempty final Set <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer);
-    m_aEnumValues = CollectionHelper.newSet (aEnumValues);
+    m_aEnumValues = new CommonsHashSet <> (aEnumValues);
   }
 
   /**
@@ -127,7 +127,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
    */
   @Nonnull
   @ReturnsMutableObject ("Design")
-  protected final Set <String> directGetEnumValues ()
+  protected final ICommonsSet <String> directGetEnumValues ()
   {
     return m_aEnumValues;
   }

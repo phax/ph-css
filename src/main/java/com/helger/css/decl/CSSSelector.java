@@ -16,9 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,9 +23,11 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
@@ -46,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
 {
-  private final List <ICSSSelectorMember> m_aMembers = new ArrayList <ICSSSelectorMember> ();
+  private final ICommonsList <ICSSSelectorMember> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSelector ()
@@ -54,7 +53,7 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
 
   public boolean hasMembers ()
   {
-    return !m_aMembers.isEmpty ();
+    return m_aMembers.isNotEmpty ();
   }
 
   @Nonnegative
@@ -94,10 +93,7 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeMember (@Nonnegative final int nMemberIndex)
   {
-    if (nMemberIndex < 0 || nMemberIndex >= m_aMembers.size ())
-      return EChange.UNCHANGED;
-    m_aMembers.remove (nMemberIndex);
-    return EChange.CHANGED;
+    return m_aMembers.removeAtIndex (nMemberIndex);
   }
 
   /**
@@ -109,34 +105,26 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeAllMembers ()
   {
-    if (m_aMembers.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMembers.clear ();
-    return EChange.CHANGED;
+    return m_aMembers.removeAll ();
   }
 
   @Nullable
   public ICSSSelectorMember getMemberAtIndex (@Nonnegative final int nMemberIndex)
   {
-    if (nMemberIndex < 0 || nMemberIndex >= m_aMembers.size ())
-      return null;
-    return m_aMembers.get (nMemberIndex);
+    return m_aMembers.getAtIndex (nMemberIndex);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSSelectorMember> getAllMembers ()
+  public ICommonsList <ICSSSelectorMember> getAllMembers ()
   {
-    return CollectionHelper.newList (m_aMembers);
+    return m_aMembers.getClone ();
   }
 
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    final StringBuilder aSB = new StringBuilder ();
-    for (final ICSSSelectorMember aMember : m_aMembers)
-      aSB.append (aMember.getAsCSSString (aSettings, nIndentLevel));
-    return aSB.toString ();
+    return StringHelper.getImploded (m_aMembers, aMember -> aMember.getAsCSSString (aSettings, nIndentLevel));
   }
 
   public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)

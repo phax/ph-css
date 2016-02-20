@@ -16,8 +16,6 @@
  */
 package com.helger.css.tools;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -25,7 +23,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSImportRule;
@@ -65,8 +64,8 @@ public final class MediaQueryTools
    *         empty or not parsable.
    */
   @Nullable
-  public static List <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery,
-                                                        @Nonnull final ECSSVersion eVersion)
+  public static ICommonsList <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery,
+                                                                @Nonnull final ECSSVersion eVersion)
   {
     if (StringHelper.hasNoText (sMediaQuery))
       return null;
@@ -122,7 +121,7 @@ public final class MediaQueryTools
                                                             @Nonnull final CSSMediaQuery aMediaQuery,
                                                             final boolean bAllowNestedMediaQueries)
   {
-    return getWrappedInMediaQuery (aCSS, CollectionHelper.newList (aMediaQuery), bAllowNestedMediaQueries);
+    return getWrappedInMediaQuery (aCSS, new CommonsArrayList <> (aMediaQuery), bAllowNestedMediaQueries);
   }
 
   /**

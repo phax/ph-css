@@ -16,9 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -44,7 +42,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, ICSSSourceLocationAware
 {
-  private final List <ICSSSupportsConditionMember> m_aMembers = new ArrayList <ICSSSupportsConditionMember> ();
+  private final ICommonsList <ICSSSupportsConditionMember> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSupportsConditionNested ()
@@ -52,7 +50,7 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
 
   public boolean hasMembers ()
   {
-    return !m_aMembers.isEmpty ();
+    return m_aMembers.isNotEmpty ();
   }
 
   @Nonnegative
@@ -93,10 +91,7 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   @Nonnull
   public EChange removeMember (@Nonnegative final int nIndex)
   {
-    if (nIndex < 0 || nIndex >= m_aMembers.size ())
-      return EChange.UNCHANGED;
-    m_aMembers.remove (nIndex);
-    return EChange.CHANGED;
+    return m_aMembers.removeAtIndex (nIndex);
   }
 
   /**
@@ -109,25 +104,20 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   @Nonnull
   public EChange removeAllMembers ()
   {
-    if (m_aMembers.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMembers.clear ();
-    return EChange.CHANGED;
+    return m_aMembers.removeAll ();
   }
 
   @Nullable
   public ICSSSupportsConditionMember getMemberAtIndex (@Nonnegative final int nIndex)
   {
-    if (nIndex < 0 || nIndex >= m_aMembers.size ())
-      return null;
-    return m_aMembers.get (nIndex);
+    return m_aMembers.getAtIndex (nIndex);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSSupportsConditionMember> getAllMembers ()
+  public ICommonsList <ICSSSupportsConditionMember> getAllMembers ()
   {
-    return CollectionHelper.newList (m_aMembers);
+    return m_aMembers.getClone ();
   }
 
   @Nonnull

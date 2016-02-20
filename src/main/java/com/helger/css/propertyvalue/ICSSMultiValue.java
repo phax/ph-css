@@ -16,12 +16,11 @@
  */
 package com.helger.css.propertyvalue;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Base interface for a CSS value that contains more than one value
@@ -36,5 +35,5 @@ public interface ICSSMultiValue extends ICSSValue
    */
   @Nonnull
   @ReturnsMutableCopy
-  List <CSSValue> getAllContainedValues ();
+  ICommonsList <CSSValue> getAllContainedValues ();
 }

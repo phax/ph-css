@@ -22,7 +22,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.css.ECSSVersion;
 
 /**
@@ -36,7 +36,7 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   @Parameters (name = "{index}: browserCompliant={0}")
   public static Iterable <Object []> data ()
   {
-    return CollectionHelper.newList (new Object [] { true }, new Object [] { false });
+    return new CommonsArrayList <> (new Object [] { true }, new Object [] { false });
   }
 
   public CSSReader21FuncTest (final boolean bBrowserCompliant)
