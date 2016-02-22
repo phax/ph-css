@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.traits.IConvertibleTrait;
+import com.helger.commons.traits.IConvertibleDirectTrait;
 import com.helger.css.CSSSourceArea;
 import com.helger.css.CSSSourceLocation;
 
@@ -36,7 +36,7 @@ import com.helger.css.CSSSourceLocation;
  *
  * @author Philip Helger
  */
-public class CSSNode implements Node, Iterable <CSSNode>, Serializable, IConvertibleTrait
+public class CSSNode implements Node, Iterable <CSSNode>, Serializable, IConvertibleDirectTrait
 {
   private final int m_nType;
   private CSSNode m_aParent;
