@@ -350,14 +350,35 @@ final class CSSNodeToDomainObject
         }
         else
         {
-          if (nChildCount != 1)
-            _throwUnexpectedChildrenCount (aChildNode, "CSS math unit expected 1 child and got " + nChildCount);
+          if ((nChildCount % 2) != 1)
+            _throwUnexpectedChildrenCount (aChildNode, "CSS math unit expected odd child count and got " + nChildCount);
 
-          final CSSNode aChildChildNode = aChildNode.jjtGetChild (0);
-          final CSSExpressionMemberMathProduct aNestedProduct = _createExpressionMathProduct (aChildChildNode);
-          final CSSExpressionMemberMathUnitProduct aMember = new CSSExpressionMemberMathUnitProduct (aNestedProduct);
-          // Source location is taken from aNestedProduct
-          ret.addMember (aMember);
+          final CSSExpressionMemberMathProduct aNestedProduct = new CSSExpressionMemberMathProduct ();
+          for (int i = 0; i < nChildCount; ++i)
+          {
+            final CSSNode aChildChildNode = aChildNode.jjtGetChild (i);
+            if (ECSSNodeType.MATHPRODUCT.isNode (aChildChildNode, m_eVersion))
+            {
+              // Source location is taken from aNestedProduct
+              aNestedProduct.addMember (_createExpressionMathProduct (aChildChildNode));
+            }
+            else
+              if (ECSSNodeType.MATHSUMOPERATOR.isNode (aChildChildNode, m_eVersion))
+              {
+                final String sText = aChildChildNode.getText ();
+                final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
+                if (eMathOp == null)
+                  s_aLogger.error ("Failed to parse math operator '" + sText + "'");
+                else
+                  aNestedProduct.addMember (eMathOp);
+              }
+              else
+                s_aLogger.error ("Unsupported child of " +
+                                 ECSSNodeType.getNodeName (aChildNode, m_eVersion) +
+                                 ": " +
+                                 ECSSNodeType.getNodeName (aChildChildNode, m_eVersion));
+          }
+          ret.addMember (new CSSExpressionMemberMathUnitProduct (aNestedProduct));
         }
       }
       else

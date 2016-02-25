@@ -37,4 +37,8 @@ div {
   font-size: calc(-40);
   font-size: calc(+40 - -2em*+3);
   font-size: calc(-40 + +2em*-5);
+  font-size: calc((100% - (3 * 30px)) / 4);
+  font-size: calc((100% - 3 * 30px) / 4);
+  font-size: calc(25% - (3 * 30px / 4));
+  font-size: calc(25% - ((3 * 30px) / 4));
 }

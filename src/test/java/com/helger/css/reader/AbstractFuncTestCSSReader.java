@@ -100,7 +100,7 @@ public abstract class AbstractFuncTestCSSReader
 
       final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
       assertNotNull ("Failed to parse " + sKey + ":\n" + sCSS, aCSSReRead);
-      assertEquals (sKey, aCSS, aCSSReRead);
+      assertEquals (sKey + "\n" + sCSS, aCSS, aCSSReRead);
 
       // Write non-optimized version and compare it
       sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)).getCSSAsString (aCSS);
