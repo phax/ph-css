@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,9 +53,9 @@ import com.helger.css.writer.CSSWriterSettings;
 public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 {
   @Parameters (name = "{index}: browserCompliant={0}")
-  public static List <Object> data ()
+  public static Iterable <Object []> data ()
   {
-    return Arrays.asList (new Object [] { true, false });
+    return Arrays.asList (new Object [] { true }, new Object [] { false });
   }
 
   public CSSReader30FuncTest (final boolean bBrowserCompliant)
@@ -105,12 +104,14 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
-    final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-expression.css");
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/hacks2.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
 
     final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
-    m_aLogger.info (sCSS);
+    assertNotNull (sCSS);
+    if (false)
+      m_aLogger.info (sCSS);
   }
 
   @Test
@@ -329,7 +330,9 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 
     // Write result
     final String sCSS = new CSSWriter (aCSSWS).getCSSAsString (aCSS);
-    m_aLogger.info (sCSS);
+    assertNotNull (sCSS);
+    if (false)
+      m_aLogger.info (sCSS);
   }
 
   @Test
@@ -342,7 +345,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 
     // Parsing problem
     String sCSS = ".class{color:red;.class{color:green}.class{color:blue}";
-    CascadingStyleSheet aCSS, aCSS2;
+    CascadingStyleSheet aCSS;
+    CascadingStyleSheet aCSS2;
     aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
     assertNotNull (aCSS);
     assertEquals (bBrowserCompliantMode ? "" : ".class{color:red}.class{color:blue}",

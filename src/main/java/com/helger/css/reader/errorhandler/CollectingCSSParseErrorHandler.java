@@ -18,8 +18,6 @@ package com.helger.css.reader.errorhandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -30,6 +28,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
@@ -44,7 +43,7 @@ import com.helger.css.parser.Token;
 @ThreadSafe
 public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
-  private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final List <CSSParseError> m_aErrors = new ArrayList <CSSParseError> ();
   private final ICSSParseErrorHandler m_aNestedErrorHandler;

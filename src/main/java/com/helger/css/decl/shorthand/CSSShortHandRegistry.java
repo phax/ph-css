@@ -19,8 +19,6 @@ package com.helger.css.decl.shorthand;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,6 +28,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.css.ECSSUnit;
 import com.helger.css.property.CCSSProperties;
 import com.helger.css.property.ECSSProperty;
@@ -46,7 +45,7 @@ import com.helger.css.utils.ECSSColor;
 @ThreadSafe
 public final class CSSShortHandRegistry
 {
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
   private static final Map <ECSSProperty, CSSShortHandDescriptor> s_aMap = new HashMap <ECSSProperty, CSSShortHandDescriptor> ();
 

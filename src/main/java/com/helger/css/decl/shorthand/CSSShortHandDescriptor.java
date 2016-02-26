@@ -47,8 +47,6 @@ public class CSSShortHandDescriptor
 {
   private final ECSSProperty m_eProperty;
   private final List <CSSPropertyWithDefaultValue> m_aSubProperties;
-  private final int m_nMinArgCount;
-  private final int m_nMaxArgCount;
 
   public CSSShortHandDescriptor (@Nonnull final ECSSProperty eProperty,
                                  @Nonnull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
@@ -59,8 +57,6 @@ public class CSSShortHandDescriptor
     m_aSubProperties = CollectionHelper.newList (aSubProperties);
 
     // Check that a free text property may only be at the end
-    int nMinArgs = 0;
-    int nMaxArgs = 0;
     final int nMax = aSubProperties.length;
     for (int i = 0; i < nMax; ++i)
     {
@@ -71,11 +67,7 @@ public class CSSShortHandDescriptor
                                             aSubProperty +
                                             " may not use an unspecified CSSPropertyFree except for the last element!");
 
-      nMinArgs += aProp.getMinimumArgumentCount ();
-      nMaxArgs += aProp.getMaximumArgumentCount ();
     }
-    m_nMinArgCount = nMinArgs;
-    m_nMaxArgCount = nMaxArgs;
   }
 
   @Nonnull

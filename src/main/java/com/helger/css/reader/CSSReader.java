@@ -21,8 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,6 +37,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasReader;
 import com.helger.commons.io.provider.IReaderProvider;
@@ -82,7 +81,7 @@ import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 public final class CSSReader
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReader.class);
-  private static final ReadWriteLock s_aRWLock = new ReentrantReadWriteLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   // Use the ThrowingCSSParseErrorHandler for maximum backward compatibility
   @GuardedBy ("s_aRWLock")

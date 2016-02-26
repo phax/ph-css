@@ -37,7 +37,6 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.IHasStringRepresentation;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.mime.MimeType;
@@ -52,7 +51,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSDataURL implements IHasStringRepresentation, Serializable
+public class CSSDataURL implements Serializable
 {
   private IMimeType m_aMimeType;
   private boolean m_bBase64Encoded;

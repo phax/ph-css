@@ -1,19 +1,3 @@
-/**
- * Copyright (C) 2014-2016 Philip Helger (www.helger.com)
- * philip[at]helger[dot]com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.helger.css.decl;
 
 import java.util.List;
@@ -21,61 +5,68 @@ import java.util.List;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
-/**
- * Represents a single <code>@font-face</code> rule.<br>
- * Example:<br>
- * <code>@font-face {
-    font-family: 'icons';
-    src: url(path/to/font.woff) format('woff');
-    unicode-range: U+E000-E005;
-}</code>
- *
- * @author Philip Helger
- */
-@NotThreadSafe
-public class CSSFontFaceRule implements
-                             ICSSTopLevelRule,
-                             IHasCSSDeclarations <CSSFontFaceRule>,
-                             ICSSVersionAware,
-                             ICSSSourceLocationAware
+public class CSSPageMarginBlock implements
+                                ICSSPageRuleMember,
+                                ICSSVersionAware,
+                                IHasCSSDeclarations <CSSPageMarginBlock>
 {
+  private String m_sPageMarginSymbol;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSFontFaceRule ()
-  {}
+  public CSSPageMarginBlock (@Nonnull @Nonempty final String sPargeMarginSymbol)
+  {
+    setPageMarginSymbol (sPargeMarginSymbol);
+  }
 
   @Nonnull
-  public CSSFontFaceRule addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @Nonempty
+  public String getPageMarginSymbol ()
+  {
+    return m_sPageMarginSymbol;
+  }
+
+  @Nonnull
+  public CSSPageMarginBlock setPageMarginSymbol (@Nonnull @Nonempty final String sPargeMarginSymbol)
+  {
+    ValueEnforcer.notEmpty (sPargeMarginSymbol, "PargeMarginSymbol");
+    ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'),
+                          "Page margin symbol does not start with '@'!");
+    m_sPageMarginSymbol = sPargeMarginSymbol;
+    return this;
+  }
+
+  @Nonnull
+  public CSSPageMarginBlock addDeclaration (final String sProperty,
+                                            final CSSExpression aExpression,
+                                            final boolean bImportant)
+  {
+    return addDeclaration (new CSSDeclaration (sProperty, aExpression, bImportant));
+  }
+
+  @Nonnull
+  public CSSPageMarginBlock addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
   {
     m_aDeclarations.addDeclaration (aDeclaration);
     return this;
   }
 
   @Nonnull
-  public CSSFontFaceRule addDeclaration (@Nonnull @Nonempty final String sProperty,
-                                         @Nonnull final CSSExpression aExpression,
-                                         final boolean bImportant)
-  {
-    m_aDeclarations.addDeclaration (sProperty, aExpression, bImportant);
-    return this;
-  }
-
-  @Nonnull
-  public CSSFontFaceRule addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSPageMarginBlock addDeclaration (@Nonnegative final int nIndex,
+                                            @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
@@ -113,8 +104,8 @@ public class CSSFontFaceRule implements
   }
 
   @Nonnull
-  public CSSFontFaceRule setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSPageMarginBlock setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                   @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -163,17 +154,14 @@ public class CSSFontFaceRule implements
   {
     aSettings.checkVersionRequirements (this);
 
-    // Always ignore font-face rules?
-    if (!aSettings.isWriteFontFaceRules ())
-      return "";
-
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
-    final StringBuilder aSB = new StringBuilder ("@font-face");
+    final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
+
+    final StringBuilder aSB = new StringBuilder ();
+    aSB.append (m_sPageMarginSymbol);
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
-    if (!aSettings.isOptimizedOutput ())
-      aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
   }
 
@@ -201,20 +189,21 @@ public class CSSFontFaceRule implements
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final CSSFontFaceRule rhs = (CSSFontFaceRule) o;
-    return m_aDeclarations.equals (rhs.m_aDeclarations);
+    final CSSPageMarginBlock rhs = (CSSPageMarginBlock) o;
+    return m_sPageMarginSymbol.equals (rhs.m_sPageMarginSymbol) && m_aDeclarations.equals (rhs.m_aDeclarations);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aDeclarations).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sPageMarginSymbol).append (m_aDeclarations).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declarations", m_aDeclarations)
+    return new ToStringGenerator (this).append ("pageMarginSymbol", m_sPageMarginSymbol)
+                                       .append ("declarations", m_aDeclarations)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
                                        .toString ();
   }

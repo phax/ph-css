@@ -109,6 +109,16 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
     return m_aExpression;
   }
 
+  /**
+   * @return <code>true</code> of an expression parameter is present,
+   *         <code>false</code> otherwise.
+   * @since 4.0.2
+   */
+  public boolean hasExpression ()
+  {
+    return m_aExpression != null;
+  }
+
   @Nonnull
   public CSSExpressionMemberFunction getClone ()
   {

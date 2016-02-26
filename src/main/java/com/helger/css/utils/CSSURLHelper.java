@@ -103,7 +103,7 @@ public final class CSSURLHelper
   {
     ValueEnforcer.notNull (aURL, "URL");
 
-    return getAsCSSURL (aURL.getAsString (), bQuoteURL);
+    return getAsCSSURL (aURL.getAsStringWithEncodedParameters (), bQuoteURL);
   }
 
   /**

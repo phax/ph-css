@@ -28,6 +28,7 @@ import com.helger.css.decl.CSSKeyframesBlock;
 import com.helger.css.decl.CSSKeyframesRule;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
+import com.helger.css.decl.CSSPageMarginBlock;
 import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSStyleRule;
@@ -35,6 +36,7 @@ import com.helger.css.decl.CSSSupportsRule;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
 import com.helger.css.decl.CascadingStyleSheet;
+import com.helger.css.decl.ICSSPageRuleMember;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.decl.IHasCSSDeclarations;
 
@@ -92,7 +94,7 @@ public final class CSSVisitor
    *        The visitor to be invoked on each declaration. May not be
    *        <code>null</code>.
    */
-  public static void visitAllDeclarations (@Nonnull final IHasCSSDeclarations aHasDeclarations,
+  public static void visitAllDeclarations (@Nonnull final IHasCSSDeclarations <?> aHasDeclarations,
                                            @Nonnull final ICSSVisitor aVisitor)
   {
     // for all declarations
@@ -140,7 +142,23 @@ public final class CSSVisitor
     try
     {
       // for all declarations
-      visitAllDeclarations (aPageRule, aVisitor);
+      for (final ICSSPageRuleMember aMember : aPageRule.getAllMembers ())
+        if (aMember instanceof CSSDeclaration)
+          aVisitor.onDeclaration ((CSSDeclaration) aMember);
+        else
+        {
+          final CSSPageMarginBlock aPageMarginBlock = (CSSPageMarginBlock) aMember;
+          aVisitor.onBeginPageMarginBlock (aPageMarginBlock);
+          try
+          {
+            // for all declarations
+            visitAllDeclarations (aPageMarginBlock, aVisitor);
+          }
+          finally
+          {
+            aVisitor.onEndPageMarginBlock (aPageMarginBlock);
+          }
+        }
     }
     finally
     {
@@ -408,7 +426,7 @@ public final class CSSVisitor
    *        The callback to invoke for each found occurrence. May not be
    *        <code>null</code>.
    */
-  public static void visitAllDeclarationUrls (@Nonnull final IHasCSSDeclarations aCSS,
+  public static void visitAllDeclarationUrls (@Nonnull final IHasCSSDeclarations <?> aCSS,
                                               @Nonnull final ICSSUrlVisitor aVisitor)
   {
     // Visit only the URLs of a CSS with a specific CSS visitor

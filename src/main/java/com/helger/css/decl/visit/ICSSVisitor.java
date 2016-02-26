@@ -25,6 +25,7 @@ import com.helger.css.decl.CSSKeyframesBlock;
 import com.helger.css.decl.CSSKeyframesRule;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
+import com.helger.css.decl.CSSPageMarginBlock;
 import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSStyleRule;
@@ -102,12 +103,32 @@ public interface ICSSVisitor
   /**
    * Called when a page rule starts.<br>
    * Note: contained declarations are handled by
-   * {@link #onDeclaration(CSSDeclaration)}
+   * {@link #onDeclaration(CSSDeclaration)}, contained page margin blocks are
+   * handled with {@link #onBeginPageMarginBlock(CSSPageMarginBlock)} and
+   * {@link #onEndPageMarginBlock(CSSPageMarginBlock)}.
    * 
    * @param aPageRule
    *        The page rule. Never <code>null</code>.
    */
   void onBeginPageRule (@Nonnull CSSPageRule aPageRule);
+
+  /**
+   * Called when a page margin block starts.<br>
+   * Note: contained declarations are handled by
+   * {@link #onDeclaration(CSSDeclaration)}
+   *
+   * @param aPageMarginBlock
+   *        The page margin block. Never <code>null</code>.
+   */
+  void onBeginPageMarginBlock (@Nonnull CSSPageMarginBlock aPageMarginBlock);
+
+  /**
+   * Called when a page margin block ends.
+   *
+   * @param aPageMarginBlock
+   *        The page margin block. Never <code>null</code>.
+   */
+  void onEndPageMarginBlock (@Nonnull CSSPageMarginBlock aPageMarginBlock);
 
   /**
    * Called when a page rule ends.

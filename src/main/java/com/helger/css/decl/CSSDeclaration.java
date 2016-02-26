@@ -31,7 +31,6 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
 
@@ -43,7 +42,7 @@ import com.helger.css.property.ECSSProperty;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSDeclaration implements ICSSWriteable, ICSSSourceLocationAware
+public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMember
 {
   public static final boolean DEFAULT_IMPORTANT = false;
 

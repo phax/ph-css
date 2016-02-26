@@ -61,6 +61,8 @@ public abstract class AbstractFuncTestCSSReader
                                                 .setFallbackCharset (aCharset)
                                                 .setBrowserCompliantMode (bBrowserCompliantMode);
     m_aWriterSettings = new CSSWriterSettings (eCSSVersion);
+    if (m_bDebug)
+      m_aLogger.info ("Running test in " + (bBrowserCompliantMode ? "browser compliant mode" : "strict mode"));
   }
 
   protected final boolean isBrowserCompliantMode ()
@@ -98,7 +100,7 @@ public abstract class AbstractFuncTestCSSReader
 
       final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
       assertNotNull ("Failed to parse " + sKey + ":\n" + sCSS, aCSSReRead);
-      assertEquals (sKey, aCSS, aCSSReRead);
+      assertEquals (sKey + "\n" + sCSS, aCSS, aCSSReRead);
 
       // Write non-optimized version and compare it
       sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)).getCSSAsString (aCSS);

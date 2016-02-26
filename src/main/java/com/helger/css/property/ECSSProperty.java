@@ -416,8 +416,8 @@ public enum ECSSProperty implements IHasName,ICSSVersionAware
   WILL_CHANGE ("will-change", ECSSVersion.CSS30, ECSSSpecification.CSS_WILL_CHANGE_1),
   WORD_BREAK ("word-break", ECSSVersion.CSS30, ECSSSpecification.CSS3_TEXT),
   WORD_SPACING ("word-spacing", ECSSVersion.CSS10, ECSSSpecification.CSS1, ECSSSpecification.CSS2, ECSSSpecification.CSS3_TEXT),
-  // For legacy reasons, UAs must treat ‘word-wrap’ as an alternate name for the
-  // ‘overflow-wrap’ property, as if it were a shorthand of ‘overflow-wrap’.
+  // For legacy reasons, UAs must treat 'word-wrap' as an alternate name for the
+  // 'overflow-wrap' property, as if it were a shorthand of 'overflow-wrap'.
   WORD_WRAP ("word-wrap", ECSSVersion.CSS30, ECSSSpecification.CSS3_TEXT),
   WRAP_FLOW ("wrap-flow", ECSSVersion.CSS30, ECSSSpecification.CSS3_EXCLUSIONS),
   WRAP_THROUGH ("wrap-through", ECSSVersion.CSS30, ECSSSpecification.CSS3_EXCLUSIONS),
@@ -765,7 +765,8 @@ public enum ECSSProperty implements IHasName,ICSSVersionAware
     if (StringHelper.hasText (sRealName))
     {
       // IE hacks
-      if (sRealName.startsWith ("*") || sRealName.startsWith ("_") || sRealName.startsWith ("$"))
+      final char cFirst = sRealName.charAt (0);
+      if (cFirst == '*' || cFirst == '_' || cFirst == '$')
         sRealName = sRealName.substring (1);
     }
     return sRealName;

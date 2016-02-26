@@ -361,4 +361,24 @@ public abstract class AbstractCSS30TestCase
                                        "@font-face { font-family: 'Soho'; src: url('Soho.eot'); } @font-face { src: local('Soho Gothic Pro');} @font-face { }" +
                                        "}";
   protected static final String CSS5 = "h1 { color : red ; margin: 1px; }h2 { color : red ; margin: 1px; }";
+  // Special test case for testing the URL visitor
+  protected static final String CSS6 = "@page {\n" +
+                                       "  content: url(foo2.png);\n" +
+                                       "  @top-left-corner { content: ' '; border: solid green; }\n" +
+                                       "  @top-right-corner { content: url(foo.png); border: solid green; }\n" +
+                                       "  @bottom-right-corner { content: counter(page); border: solid green; }\n" +
+                                       "  @bottom-left-corner { content: normal; border: solid green; }\n" +
+                                       "}\n" +
+                                       "\n" +
+                                       "@-moz-keyframes bounce {\n" +
+                                       "  from, to  {\n" +
+                                       "    bottom: 0;\n" +
+                                       "    -moz-animation-timing-function: ease-out;\n" +
+                                       "  }\n" +
+                                       "  50% {\n" +
+                                       "    bottom: 220px;\n" +
+                                       "    -moz-animation-timing-function: ease-in;\n" +
+                                       "    background: url(../images/email.png) left center no-repeat;\n" +
+                                       "  }\n" +
+                                       "}\n";
 }

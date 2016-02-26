@@ -47,7 +47,7 @@ public enum ECSSUnit implements IHasName,ICSSVersionAware
   VW ("vw", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** Equal to 1% of the height of the initial containing block. */
   VH ("vh", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
-  /** Equal to the smaller of ‘vw’ or ‘vh’. */
+  /** Equal to the smaller of 'vw' or 'vh'. */
   VMIN ("vmin", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** width of the "0" glyph in the element's font */
   CH ("ch", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
@@ -65,7 +65,7 @@ public enum ECSSUnit implements IHasName,ICSSVersionAware
   PERCENTAGE ("%", ECSSMetaUnit.PERCENTAGE, ECSSVersion.CSS10),
   /** Degrees. There are 360 degrees in a full circle. */
   ANGLE_DEG ("deg", ECSSMetaUnit.ANGLE, ECSSVersion.CSS21),
-  /** Radians. There are 2π radians in a full circle. */
+  /** Radians. There are 2*pi radians in a full circle. */
   ANGLE_RAD ("rad", ECSSMetaUnit.ANGLE, ECSSVersion.CSS21),
   /**
    * Gradians, also known as "gons" or "grades". There are 400 gradians in a

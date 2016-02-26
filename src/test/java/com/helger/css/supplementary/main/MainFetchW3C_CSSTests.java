@@ -73,7 +73,7 @@ public class MainFetchW3C_CSSTests
           {
             final String sHref = e.getAttributeValue ("href");
             if (sHref.endsWith (".xml"))
-              aCSSFilenames.add (sHref.replace (".xml", ".css"));
+              aCSSFilenames.add (StringHelper.replaceAll (sHref, ".xml", ".css"));
           }
         }
         return EHierarchyVisitorReturn.CONTINUE;

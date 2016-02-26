@@ -19,6 +19,5 @@ cache:
   - $HOME/.m2
 
 after_success:
-  - python mvn-settings-add-snapshot.py
-  - mvn clean deploy -DskipTests=true --settings ~/.m2/snapshot-settings.xml
+  - mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
   

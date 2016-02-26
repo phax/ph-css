@@ -40,7 +40,7 @@ public class LoggingCSSParseExceptionCallback implements ICSSParseExceptionCallb
   public LoggingCSSParseExceptionCallback ()
   {}
 
-  public void onException (@Nonnull final com.helger.css.parser.ParseException ex)
+  public void onException (@Nonnull final ParseException ex)
   {
     s_aLogger.error ("Failed to parse CSS: " + LoggingCSSParseErrorHandler.createLoggingStringParseError (ex));
   }

@@ -98,12 +98,12 @@ public enum ECSSSpecification implements IHasID <String>
   CSS_VARIABLES ("css-variables", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2014/WD-css-variables-1-20140506/"),
   /** Compositing and Blending */
   COMPOSITING ("compositing", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2014/CR-compositing-1-20140220/"),
-  /** CSS Syntax Level 3 */
+  /** CSS Syntax Level 3 */
   CSS3_SYNTAX ("css3-syntax", ECSSSpecificationStatus.REFINING),
   /** CSS Will Change */
   CSS_WILL_CHANGE_1 ("css-will-change-1", ECSSSpecificationStatus.REFINING, "http://www.w3.org/TR/2014/WD-css-will-change-1-20140429/"),
 
-  /** CSS Box Alignment Module Level 3 */
+  /** CSS Box Alignment Module Level 3 */
   CSS3_ALIGN ("css3-align", ECSSSpecificationStatus.REVISING, "http://www.w3.org/TR/2013/WD-css3-align-20130514/"),
   /** CSS Grid Layout */
   CSS3_GRID_LAYOUT ("css3-grid-layout", ECSSSpecificationStatus.REVISING, "http://www.w3.org/TR/2014/WD-css-grid-1-20140513/"),
@@ -113,10 +113,10 @@ public enum ECSSSpecification implements IHasID <String>
   CSS3_UI ("css3-ui", ECSSSpecificationStatus.REVISING, "http://www.w3.org/TR/2012/WD-css3-ui-20120117/"),
   /** CSSOM View */
   CSSOM_VIEW ("cssom-view", ECSSSpecificationStatus.REVISING, "http://www.w3.org/TR/2013/WD-cssom-view-20131217/"),
-  /** Selectors Level 4 */
+  /** Selectors Level 4 */
   SELECTORS4 ("selectors4", ECSSSpecificationStatus.REVISING, "http://www.w3.org/TR/2013/WD-selectors4-20130502/"),
 
-  /** CSS Backgrounds and Borders Level 4 */
+  /** CSS Backgrounds and Borders Level 4 */
   CSS4_BACKGROUND ("css4-background", ECSSSpecificationStatus.EXPLORING),
   /** CSS Device Adaptation */
   CSS_DEVICE_ADAPT ("css-device-adapt", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2011/WD-css-device-adapt-20110915/"),
@@ -130,19 +130,19 @@ public enum ECSSSpecification implements IHasID <String>
   PAGE_FLOATS ("page-floats", ECSSSpecificationStatus.EXPLORING),
   /** CSS (Grid) Template Layout */
   CSS3_LAYOUT ("css3-layout", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2011/WD-css3-layout-20111129/"),
-  /** CSS Intrinsic &amp; Extrinsic Sizing Module Level 3 */
+  /** CSS Intrinsic &amp; Extrinsic Sizing Module Level 3 */
   CSS3_SIZING ("css3-sizing", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2012/WD-css3-sizing-20120927/"),
   /** CSS Line Grid */
   CSS_LINE_GRID ("css-line-grid", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2014/WD-css-line-grid-1-20140916/"),
-  /** CSS Lists Level 3 */
+  /** CSS Lists Level 3 */
   CSS3_LISTS ("css3-lists", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2014/WD-css-lists-3-20140320/"),
-  /** CSS Positioned Layout Level 3 */
+  /** CSS Positioned Layout Level 3 */
   CSS3_POSITIONING ("css3-positioning", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2012/WD-css3-positioning-20120207/"),
   /** CSS Regions */
   CSS3_REGIONS ("css3-regions", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2014/WD-css-regions-1-20141009/"),
   /** CSS Ruby */
   CSS3_RUBY ("css3-ruby", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2014/WD-css-ruby-1-20140805/"),
-  /** CSS Tables Level 3 */
+  /** CSS Tables Level 3 */
   CSS3_TABLES ("css3-tables", ECSSSpecificationStatus.EXPLORING),
   /** CSS Object Model */
   CSSOM ("cssom", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2013/WD-cssom-20131205/"),
@@ -161,11 +161,11 @@ public enum ECSSSpecification implements IHasID <String>
   /** Geometry Interfaces Module Level 1 */
   GEOMETRY_1 ("geometry-1", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2014/CR-geometry-1-20141125/"),
 
-  /** CSS Basic Box Model Level 3 */
+  /** CSS Basic Box Model Level 3 */
   CSS3_BOX ("css3-box", ECSSSpecificationStatus.REWRITING),
-  /** CSS Generated Content Level 3 */
+  /** CSS Generated Content Level 3 */
   CSS3_CONTENT ("css3-content", ECSSSpecificationStatus.REWRITING, "http://www.w3.org/TR/2003/WD-css3-content-20030514/"),
-  /** CSS Line Layout Level 3 */
+  /** CSS Line Layout Level 3 */
   CSS3_LINEBOX ("css3-linebox", ECSSSpecificationStatus.REWRITING, "http://www.w3.org/TR/2002/WD-css3-linebox-20020515/"),
 
   /** The CSS 'Reader' Media Type - Abandoned */

@@ -214,6 +214,22 @@ TOKEN :
 | < IMPORT_SYM: "@import" >
 | < NAMESPACE_SYM: "@namespace" >
 | < PAGE_SYM: "@page" >
+| < TOPLEFTCORNER_SYM:      "@top-left-corner" >
+| < TOPLEFT_SYM:            "@top-left" >
+| < TOPCENTER_SYM:          "@top-center" >
+| < TOPRIGHT_SYM:           "@top-right" >
+| < TOPRIGHTCORNER_SYM:     "@top-right-corner" >
+| < BOTTOMLEFTCORNER_SYM:   "@bottom-left-corner" >
+| < BOTTOMLEFT_SYM:         "@bottom-left" >
+| < BOTTOMCENTER_SYM:       "@bottom-center" >
+| < BOTTOMRIGHT_SYM:        "@bottom-right" >
+| < BOTTOMRIGHTCORNER_SYM:  "@bottom-right-corner" >
+| < LEFTTOP_SYM:            "@left-top" >
+| < LEFTMIDDLE_SYM:         "@left-middle" >
+| < LEFTBOTTOM_SYM:         "@left-bottom" >
+| < RIGHTTOP_SYM:           "@right-top" >
+| < RIGHTMIDDLE_SYM:        "@right-middle" >
+| < RIGHTBOTTOM_SYM:        "@right-bottom" >
 | < MEDIA_SYM: "@media" >
 | < FONTFACE_SYM: "@font-face" >
 | < KEYFRAMES_SYM: "@-" <IDENT> "-keyframes" 
@@ -1135,20 +1151,90 @@ try{
 //
 // Page rule
 //
-void pseudoPage() : {}
+String pseudoPage() #void : {}
 {
   <COLON>
-  <IDENT> { jjtThis.setText (":" + token.image); }
+  <IDENT> { return ':' + token.image; }
+// Should only be: "left" | "right" | "first" | "blank"  
+}
+
+void pageSelector() : 
+{ String s; }
+{
+  ( s = pseudoPage() { jjtThis.setText (s); }
+  | <IDENT>          { jjtThis.setText (token.image); }
+  )
+  ( s = pseudoPage() { jjtThis.appendText (s); } )*
+  ( <S> )*
+}
+
+void pageSelectorList() #void : {}
+{
+  pageSelector()
+  ( <COMMA>
+    ( <S> )*
+    pageSelector()
+  )*
+}
+
+void pageMarginSymbol() : {}
+{
+  ( <TOPLEFTCORNER_SYM>     { jjtThis.setText (token.image); } 
+  | <TOPLEFT_SYM>           { jjtThis.setText (token.image); } 
+  | <TOPCENTER_SYM>         { jjtThis.setText (token.image); } 
+  | <TOPRIGHT_SYM>          { jjtThis.setText (token.image); } 
+  | <TOPRIGHTCORNER_SYM>    { jjtThis.setText (token.image); } 
+  | <BOTTOMLEFTCORNER_SYM>  { jjtThis.setText (token.image); } 
+  | <BOTTOMLEFT_SYM>        { jjtThis.setText (token.image); } 
+  | <BOTTOMCENTER_SYM>      { jjtThis.setText (token.image); } 
+  | <BOTTOMRIGHT_SYM>       { jjtThis.setText (token.image); } 
+  | <BOTTOMRIGHTCORNER_SYM> { jjtThis.setText (token.image); } 
+  | <LEFTTOP_SYM>           { jjtThis.setText (token.image); } 
+  | <LEFTMIDDLE_SYM>        { jjtThis.setText (token.image); } 
+  | <LEFTBOTTOM_SYM>        { jjtThis.setText (token.image); } 
+  | <RIGHTTOP_SYM>          { jjtThis.setText (token.image); } 
+  | <RIGHTMIDDLE_SYM>       { jjtThis.setText (token.image); } 
+  | <RIGHTBOTTOM_SYM>       { jjtThis.setText (token.image); } 
+  )
+}
+
+void pageBody() #void : {}
+{
+/* the non-empty rule must come first! */
+  ( pageMarginSymbol()
+    ( <S> )*
+    styleDeclarationBlock()
+    ( <S> )*
+    pageBody()
+  | ( styleDeclaration() )?
+    ( <SEMICOLON>
+      ( <S> )*
+      pageBody()
+    )?
+  )
+}
+
+void pageRuleBlock() : {}
+{
+  <LBRACE>
+try{
+  ( <S> )*
+  pageBody()
+  <RBRACE>
+} catch (ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkip ();
+  else  
+    errorSkipTo (ex, RBRACE);
+}
 }
 
 void pageRule() : {}
 {
   <PAGE_SYM>
   ( <S> )*
-  ( pseudoPage()
-    ( <S> )*
-  )?
-  styleDeclarationBlock()
+  ( pageSelectorList() )?
+  pageRuleBlock()
 }
 
 //
@@ -1234,7 +1320,6 @@ void supportsConditionInParens() : {}
   ( <S> )*
   ( styleDeclaration()
   | supportsCondition()
-    ( <S> )*
   )  
   ")"
 /* | general_enclosed */  
@@ -1265,6 +1350,7 @@ void supportsCondition() : {}
       supportsConditionInParens()
     )*
   )
+  ( <S> )*
 }
 
 void supportsRuleBodyRule() #void : {}
@@ -1305,7 +1391,6 @@ void supportsRule() : {}
   <SUPPORTS_SYM>    
   ( <S> )*
   supportsCondition() 
-  ( <S> )*
   supportsRuleBody()
 }
 
@@ -1327,7 +1412,25 @@ void unknownRuleBody() :
 // Any unsupported rule
 void unknownRule() : {}
 {
-  <AT_UNKNOWN> { jjtThis.setText (token.image); }
+  ( <AT_UNKNOWN>            { jjtThis.setText (token.image); }
+// Special page margin symbols also starting with "@" :(  
+  | <TOPLEFTCORNER_SYM>     { jjtThis.setText (token.image); } 
+  | <TOPLEFT_SYM>           { jjtThis.setText (token.image); } 
+  | <TOPCENTER_SYM>         { jjtThis.setText (token.image); } 
+  | <TOPRIGHT_SYM>          { jjtThis.setText (token.image); } 
+  | <TOPRIGHTCORNER_SYM>    { jjtThis.setText (token.image); } 
+  | <BOTTOMLEFTCORNER_SYM>  { jjtThis.setText (token.image); } 
+  | <BOTTOMLEFT_SYM>        { jjtThis.setText (token.image); } 
+  | <BOTTOMCENTER_SYM>      { jjtThis.setText (token.image); } 
+  | <BOTTOMRIGHT_SYM>       { jjtThis.setText (token.image); } 
+  | <BOTTOMRIGHTCORNER_SYM> { jjtThis.setText (token.image); } 
+  | <LEFTTOP_SYM>           { jjtThis.setText (token.image); } 
+  | <LEFTMIDDLE_SYM>        { jjtThis.setText (token.image); } 
+  | <LEFTBOTTOM_SYM>        { jjtThis.setText (token.image); } 
+  | <RIGHTTOP_SYM>          { jjtThis.setText (token.image); } 
+  | <RIGHTMIDDLE_SYM>       { jjtThis.setText (token.image); } 
+  | <RIGHTBOTTOM_SYM>       { jjtThis.setText (token.image); } 
+  )
   unknownRuleParameterList()
   unknownRuleBody()
   // Manually switch from IN_UNKNOWN_RULE to DEFAULT again

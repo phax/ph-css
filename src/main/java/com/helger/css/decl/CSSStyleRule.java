@@ -46,7 +46,7 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSSourceLocationAware
+public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSStyleRule>, ICSSSourceLocationAware
 {
   private final List <CSSSelector> m_aSelectors = new ArrayList <CSSSelector> ();
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();

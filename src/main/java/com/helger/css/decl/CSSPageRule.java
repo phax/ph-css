@@ -16,6 +16,7 @@
  */
 package com.helger.css.decl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
@@ -23,8 +24,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -46,124 +48,95 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final String m_sPseudoPage;
-  private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
+  private final List <String> m_aSelectors = new ArrayList <String> ();
+  private final CSSWritableList <ICSSPageRuleMember> m_aMembers = new CSSWritableList <ICSSPageRuleMember> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSPageRule (@Nullable final String sPseudoPage)
   {
-    m_sPseudoPage = sPseudoPage;
+    if (StringHelper.hasText (sPseudoPage))
+      m_aSelectors.add (sPseudoPage);
   }
 
-  @Nullable
-  public String getPseudoPage ()
+  public CSSPageRule (@Nonnull final Iterable <String> aSelectors)
   {
-    return m_sPseudoPage;
+    ValueEnforcer.notNull (aSelectors, "Selectors");
+    for (final String sSelector : aSelectors)
+      m_aSelectors.add (sSelector);
   }
 
   @Nonnull
-  public CSSPageRule addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  public List <String> getAllSelectors ()
   {
-    m_aDeclarations.addDeclaration (aDeclaration);
+    return CollectionHelper.newList (m_aSelectors);
+  }
+
+  @Nonnull
+  public CSSPageRule addMember (@Nonnull final ICSSPageRuleMember aMember)
+  {
+    m_aMembers.add (aMember);
     return this;
   }
 
   @Nonnull
-  public CSSPageRule addDeclaration (@Nonnull @Nonempty final String sProperty,
-                                     @Nonnull final CSSExpression aExpression,
-                                     final boolean bImportant)
+  public CSSPageRule addMember (@Nonnegative final int nIndex, @Nonnull final ICSSPageRuleMember aMember)
   {
-    m_aDeclarations.addDeclaration (sProperty, aExpression, bImportant);
+    m_aMembers.add (nIndex, aMember);
     return this;
   }
 
   @Nonnull
-  public CSSPageRule addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public EChange removeMember (@Nonnull final ICSSPageRuleMember aMember)
   {
-    m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
-    return this;
+    return m_aMembers.remove (aMember);
   }
 
   @Nonnull
-  public EChange removeDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  public EChange removeMember (@Nonnegative final int nIndex)
   {
-    return m_aDeclarations.removeDeclaration (aDeclaration);
+    return m_aMembers.remove (nIndex);
   }
 
   @Nonnull
-  public EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
+  public EChange removeAllMembers ()
   {
-    return m_aDeclarations.removeDeclaration (nDeclarationIndex);
-  }
-
-  @Nonnull
-  public EChange removeAllDeclarations ()
-  {
-    return m_aDeclarations.removeAllDeclarations ();
+    return m_aMembers.removeAll ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarations ()
+  public List <ICSSPageRuleMember> getAllMembers ()
   {
-    return m_aDeclarations.getAllDeclarations ();
+    return m_aMembers.getAll ();
   }
 
   @Nullable
-  public CSSDeclaration getDeclarationAtIndex (@Nonnegative final int nIndex)
+  public ICSSPageRuleMember getMemberAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aDeclarations.getDeclarationAtIndex (nIndex);
+    return m_aMembers.getAtIndex (nIndex);
   }
 
   @Nonnull
-  public CSSPageRule setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                            @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSPageRule setMemberAtIndex (@Nonnegative final int nIndex, @Nonnull final ICSSPageRuleMember aNewDeclaration)
   {
-    m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
+    m_aMembers.set (nIndex, aNewDeclaration);
     return this;
   }
 
-  public boolean hasDeclarations ()
+  public boolean hashMembers ()
   {
-    return m_aDeclarations.hasDeclarations ();
+    return m_aMembers.isNotEmpty ();
   }
 
   @Nonnegative
-  public int getDeclarationCount ()
+  public int getMemberCount ()
   {
-    return m_aDeclarations.getDeclarationCount ();
-  }
-
-  @Nullable
-  public CSSDeclaration getDeclarationOfPropertyName (@Nullable final String sPropertyName)
-  {
-    return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
-  }
-
-  @Nullable
-  public CSSDeclaration getDeclarationOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
-  {
-    return m_aDeclarations.getDeclarationOfPropertyNameCaseInsensitive (sPropertyName);
+    return m_aMembers.getCount ();
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
-  {
-    return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public List <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
-  {
-    return m_aDeclarations.getAllDeclarationsOfPropertyNameCaseInsensitive (sPropertyName);
-  }
-
-  @Nonnull
-  @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     aSettings.checkVersionRequirements (this);
@@ -172,17 +145,52 @@ public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSV
     if (!aSettings.isWritePageRules ())
       return "";
 
-    if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
+    if (aSettings.isRemoveUnnecessaryCode () && m_aMembers.isEmpty ())
       return "";
 
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 
     final StringBuilder aSB = new StringBuilder ("@page");
 
-    if (StringHelper.hasText (m_sPseudoPage))
-      aSB.append (' ').append (m_sPseudoPage);
+    if (!m_aSelectors.isEmpty ())
+    {
+      aSB.append (' ');
+      boolean bFirst = true;
+      for (final String sSelector : m_aSelectors)
+      {
+        if (bFirst)
+          bFirst = false;
+        else
+          aSB.append (bOptimizedOutput ? "," : ", ");
+        aSB.append (sSelector);
+      }
+    }
 
-    aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
+    final int nDeclCount = m_aMembers.getCount ();
+    if (nDeclCount == 0)
+    {
+      aSB.append (bOptimizedOutput ? "{}" : " {}");
+    }
+    else
+    {
+      if (nDeclCount == 1)
+      {
+        // A single declaration
+        aSB.append (bOptimizedOutput ? "{" : " { ");
+        aSB.append (m_aMembers.getAsCSSString (aSettings, nIndentLevel));
+        aSB.append (bOptimizedOutput ? "}" : " }");
+      }
+      else
+      {
+        // More than one declaration
+        aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
+        aSB.append (m_aMembers.getAsCSSString (aSettings, nIndentLevel));
+        if (!bOptimizedOutput)
+          aSB.append (aSettings.getIndent (nIndentLevel));
+        aSB.append ('}');
+      }
+    }
+
     if (!bOptimizedOutput)
       aSB.append (aSettings.getNewLineString ());
 
@@ -192,6 +200,9 @@ public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSV
   @Nonnull
   public ECSSVersion getMinimumCSSVersion ()
   {
+    for (final ICSSPageRuleMember aMember : m_aMembers.directGetAll ())
+      if (aMember instanceof CSSPageMarginBlock)
+        return ECSSVersion.CSS30;
     return ECSSVersion.CSS21;
   }
 
@@ -214,19 +225,19 @@ public class CSSPageRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSV
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSPageRule rhs = (CSSPageRule) o;
-    return m_aDeclarations.equals (rhs.m_aDeclarations);
+    return m_aMembers.equals (rhs.m_aMembers);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aDeclarations).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aMembers).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declarations", m_aDeclarations)
+    return new ToStringGenerator (this).append ("declarations", m_aMembers)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
                                        .toString ();
   }

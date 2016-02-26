@@ -29,24 +29,24 @@ import com.helger.css.ICSSWriteable;
 
 /**
  * Sanity interface for all objects having CSS declarations.
- * 
+ *
  * @author Philip Helger
  */
-public interface IHasCSSDeclarations extends ICSSWriteable
+public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>> extends ICSSWriteable
 {
   /**
    * Add a new declaration.
-   * 
+   *
    * @param aDeclaration
    *        The declaration to be added. May not be <code>null</code>.
    * @return this
    */
   @Nonnull
-  IHasCSSDeclarations addDeclaration (@Nonnull CSSDeclaration aDeclaration);
+  IMPLTYPE addDeclaration (@Nonnull CSSDeclaration aDeclaration);
 
   /**
    * Add a new declaration.
-   * 
+   *
    * @param sProperty
    *        The name of the property. E.g. "color". May neither be
    *        <code>null</code> nor empty.
@@ -57,13 +57,13 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * @return this
    */
   @Nonnull
-  IHasCSSDeclarations addDeclaration (@Nonnull @Nonempty final String sProperty,
-                                      @Nonnull final CSSExpression aExpression,
-                                      final boolean bImportant);
+  IMPLTYPE addDeclaration (@Nonnull @Nonempty final String sProperty,
+                           @Nonnull final CSSExpression aExpression,
+                           final boolean bImportant);
 
   /**
    * Add a new declaration at the specified index.
-   * 
+   *
    * @param nIndex
    *        The index to retrieve. Must be &ge; 0. If the index is &ge; than
    *        <code>getDeclarationCount()</code>, it behaves like
@@ -73,11 +73,11 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * @return this
    */
   @Nonnull
-  IHasCSSDeclarations addDeclaration (@Nonnegative int nIndex, @Nonnull CSSDeclaration aDeclaration);
+  IMPLTYPE addDeclaration (@Nonnegative int nIndex, @Nonnull CSSDeclaration aDeclaration);
 
   /**
    * Remove the given declaration
-   * 
+   *
    * @param aDeclaration
    *        The declaration to be removed. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the declaration was successfully removed
@@ -87,7 +87,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
 
   /**
    * Remove the declaration at the specified index
-   * 
+   *
    * @param nDeclarationIndex
    *        The index of the declaration to be removed. Must be &ge; 0.
    * @return {@link EChange#CHANGED} if the declaration was successfully
@@ -98,7 +98,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
 
   /**
    * Remove all declarations.
-   * 
+   *
    * @return {@link EChange#CHANGED} if any declaration was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
@@ -126,7 +126,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
   /**
    * Set the declaration at the specified index with a new one. If an existing
    * declaration is present at that index, it is overwritten.
-   * 
+   *
    * @param nIndex
    *        The index to retrieve. Must be &ge; 0. If the index is &ge; than
    *        <code>getDeclarationCount()</code>, it behaves like
@@ -136,7 +136,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * @return this
    */
   @Nonnull
-  IHasCSSDeclarations setDeclarationAtIndex (@Nonnegative int nIndex, @Nonnull CSSDeclaration aNewDeclaration);
+  IMPLTYPE setDeclarationAtIndex (@Nonnegative int nIndex, @Nonnull CSSDeclaration aNewDeclaration);
 
   /**
    * @return <code>true</code> if at least one declaration is present,
@@ -155,7 +155,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * property name is present, <code>null</code> is returned. If more than one
    * declaration ith the specified property name is present, always the first in
    * the list will be returned. The comparison happens <b>case sensitive</b>.
-   * 
+   *
    * @param sPropertyName
    *        The property name of the declaration to search (e.g.
    *        <code>color</code>). May be <code>null</code>.
@@ -170,7 +170,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
    * property name is present, <code>null</code> is returned. If more than one
    * declaration ith the specified property name is present, always the first in
    * the list will be returned. The comparison happens <b>case insensitive</b>.
-   * 
+   *
    * @param sPropertyName
    *        The property name of the declaration to search (e.g.
    *        <code>color</code>). May be <code>null</code>.
@@ -183,7 +183,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
   /**
    * Get all declarations within this list that have the specified property
    * name. The comparison happens <b>case sensitive</b>.
-   * 
+   *
    * @param sPropertyName
    *        The property name of the declaration to search (e.g.
    *        <code>color</code>). May be <code>null</code>.
@@ -197,7 +197,7 @@ public interface IHasCSSDeclarations extends ICSSWriteable
   /**
    * Get all declarations within this list that have the specified property
    * name. The comparison happens <b>case insensitive</b>.
-   * 
+   *
    * @param sPropertyName
    *        The property name of the declaration to search (e.g.
    *        <code>color</code>). May be <code>null</code>.

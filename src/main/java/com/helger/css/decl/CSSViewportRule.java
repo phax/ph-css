@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -43,7 +44,11 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSViewportRule implements ICSSTopLevelRule, IHasCSSDeclarations, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSViewportRule implements
+                             ICSSTopLevelRule,
+                             IHasCSSDeclarations <CSSViewportRule>,
+                             ICSSVersionAware,
+                             ICSSSourceLocationAware
 {
   private final String m_sDeclaration;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -56,8 +61,7 @@ public class CSSViewportRule implements ICSSTopLevelRule, IHasCSSDeclarations, I
 
   public CSSViewportRule (@Nonnull @Nonempty final String sDeclaration)
   {
-    if (!isValidDeclaration (sDeclaration))
-      throw new IllegalArgumentException ("declaration");
+    ValueEnforcer.isTrue (isValidDeclaration (sDeclaration), "Declaration is invalid");
     m_sDeclaration = sDeclaration;
   }
 

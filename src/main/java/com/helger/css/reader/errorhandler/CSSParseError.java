@@ -66,7 +66,7 @@ public class CSSParseError
     for (final int [] aExpectedTokens : aExpectedTokenSequencesVal)
     {
       if (aExpected.length () > 0)
-        aExpected.append (",");
+        aExpected.append (',');
       for (final int nExpectedToken : aExpectedTokens)
         aExpected.append (' ').append (aTokenImageVal[nExpectedToken]);
     }

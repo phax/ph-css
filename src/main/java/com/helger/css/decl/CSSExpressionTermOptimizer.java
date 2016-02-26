@@ -56,9 +56,8 @@ public final class CSSExpressionTermOptimizer
   public static String getOptimizedValue (@Nonnull @Nonempty final String sValue)
   {
     // Replace e.g. "0px" with "0"
-    for (final String sUnit0 : s_aUnitValues0)
-      if (sValue.equals (sUnit0))
-        return "0";
+    if (s_aUnitValues0.contains (sValue))
+      return "0";
 
     // Check for optimized color values (replace #aabbcc with #abc)
     if (sValue.length () == CCSSValue.HEXVALUE_LENGTH &&

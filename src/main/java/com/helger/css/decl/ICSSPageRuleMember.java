@@ -16,18 +16,15 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnull;
+import com.helger.css.ICSSWriteable;
 
 /**
- * Base interface for a CSS color definition
+ * Base interface for all CSS page rule body objects.
  *
  * @author Philip Helger
+ * @since 5.0.0
  */
-public interface ICSSColor
+public interface ICSSPageRuleMember extends ICSSWriteable
 {
-  /**
-   * @return The texttual representation of the color.
-   */
-  @Nonnull
-  String getAsString ();
+  /* empty */
 }
