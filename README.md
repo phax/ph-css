@@ -19,6 +19,7 @@ Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
 Versions >= 5 require JDK 8.
 
   * v5.0.0 (in progress) - Added JDK8 as the basis
+  * v4.1.0 - Improved calc parsing; extended support for page rules with page margin blocks
   * v4.0.1 - Added customizable newline characters
   * v4.0.0 - Updated to ph-commons 6.0.0 and added "browser compliant parsing mode"
   * v3.9.2 - Updated to ph-commons 5.7.1 and fix for some minor issues
