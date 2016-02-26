@@ -104,7 +104,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
-    final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-calc.css");
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/hacks2.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
 

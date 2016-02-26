@@ -1,0 +1,144 @@
+/**
+ * Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+Source: https://jeffclayton.wordpress.com/2014/07/22/internet-explorer-css-hacks-collection/
+*/
+
+/* Internet Explorer 11+ */
+
+_:-ms-fullscreen, :root .selector { property:value; }
+
+/* Internet Explorer 11+ (And Chrome 10-24, Safari 5.1-6.0) */
+
+*::-ms-backdrop, :root .selector { property:value; }
+
+/* Internet Explorer 10+ */
+
+_:-ms-input-placeholder, :root .selector { property:value; }
+
+/* Also for Internet Explorer 10+ */
+
+_:-ms-lang(x), .selector { property:value; }
+
+/* Internet Explorer 10 (only) */
+
+_:-ms-lang(x), .selector { property:value\9; }
+
+/* Internet Explorer 10+ */
+
+@media screen and (-ms-high-contrast:active),
+ (-ms-high-contrast:none) {
+    .selector { property:value; } 
+}
+
+/* Internet Explorer 10 */
+
+@media screen and (-ms-high-contrast:active),
+ (-ms-high-contrast:none) {
+    .selector { property:value\9; } 
+}
+
+/* Internet Explorer 9+ (one-liner) */
+
+_::selection, .selector { property:value\0; }
+
+/* Internet Explorer 9+ (another method) */
+
+@media screen\0 { _::selection, .selector { property:value; } }
+
+/* Internet Explorer 9+ (straight media query) */
+
+@media screen and (min-width:0\0) and (min-resolution:+72dpi) {
+    .selector { property:value; } 
+}
+
+/* Internet Explorer 9 (only) (straight media query) */
+
+@media screen and (min-width:0\0) and (min-resolution:.001dpcm) {
+    .selector { property:value; } 
+}
+
+/* Anything but Internet Explorer 8 (or 6-) */
+
+_:root, .selector { property:value; }
+
+/* Internet Explorer 8+ (And old Firefox 1.x) */
+
+@media screen\0 { .selector { property:value; } }
+
+/* Internet Explorer 8 (only) (...and old Firefox 1.x) */
+
+@media \0screen { .selector { property:value; } }
+
+/* Internet Explorer 6-8 (8-) */
+
+@media \0screen\,screen\9 { .selector { property:value; } }
+
+/* Internet Explorer 7 (only) */
+
+*+ html .selector { property:value; }
+
+/* Internet Explorer 7- */
+
+/*
+.selector, { property:value; }
+*/
+
+/* Internet Explorer 6-7 (7-) */
+
+@media screen\9 { .selector { property:value; } }
+
+/* Internet Explorer 8+ (And block Firefox) */
+
+@media screen\0 
+{
+    /* Internet Explorer 8+ */
+
+    .selector { property:value; }
+
+    /* Block Firefox */
+
+     _:-moz-tree-row(hover), .selector { property:value; }
+}
+
+/* Anything but Internet Explorer 7- */
+
+_:lang(x), .selector { property:value; }
+
+/* Anything but Internet Explorer 6- */
+
+_css-text, .selector { property:value; }
+
+/* Internet Explorer 6- */
+
+* html .selector { property:value; }
+
+/* Internet Explorer 6- */
+
+.selector { _property:value; }
+
+/* Internet Explorer 6 (only) */
+
+.selector { _property:value\9; }
+
+/* Internet Explorer 6 (only) */
+
+.selector { _prop\erty:value; }
+
+/* Anything but Internet Explorer 5- */
+
+.selector { prop\erty:value; }
