@@ -42,9 +42,9 @@ public class CSSPropertyCustomizerBorderTopLeftRadius extends AbstractCSSPropert
   {
     return new CSSValueMultiProperty (aProperty.getProp (),
                                       new ICSSProperty [] { aProperty,
-                                                           aProperty.getClone (ECSSProperty._MOZ_BORDER_RADIUS_TOPLEFT),
-                                                           aProperty.getClone (ECSSVendorPrefix.WEBKIT),
-                                                           aProperty.getClone (ECSSVendorPrefix.KHTML) },
+                                                            aProperty.getClone (ECSSProperty._MOZ_BORDER_RADIUS_TOPLEFT),
+                                                            aProperty.getClone (ECSSVendorPrefix.WEBKIT),
+                                                            aProperty.getClone (ECSSVendorPrefix.KHTML) },
                                       sValue,
                                       bIsImportant);
   }

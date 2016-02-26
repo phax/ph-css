@@ -60,14 +60,17 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   }
 
   public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                               @Nonnull final int [][] aExpectedTokenSequencesVal,
+                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
                                @Nonnull final String [] aTokenImageVal,
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
     m_aRWLock.writeLock ().lock ();
     try
     {
-      m_aErrors.add (new CSSParseError (aLastValidToken, aExpectedTokenSequencesVal, aTokenImageVal, aLastSkippedToken));
+      m_aErrors.add (new CSSParseError (aLastValidToken,
+                                        aExpectedTokenSequencesVal,
+                                        aTokenImageVal,
+                                        aLastSkippedToken));
     }
     finally
     {

@@ -42,9 +42,9 @@ public class CSSPropertyCustomizerBorderBottomLeftRadius extends AbstractCSSProp
   {
     return new CSSValueMultiProperty (aProperty.getProp (),
                                       new ICSSProperty [] { aProperty,
-                                                           aProperty.getClone (ECSSProperty._MOZ_BORDER_RADIUS_BOTTOMLEFT),
-                                                           aProperty.getClone (ECSSVendorPrefix.WEBKIT),
-                                                           aProperty.getClone (ECSSVendorPrefix.KHTML) },
+                                                            aProperty.getClone (ECSSProperty._MOZ_BORDER_RADIUS_BOTTOMLEFT),
+                                                            aProperty.getClone (ECSSVendorPrefix.WEBKIT),
+                                                            aProperty.getClone (ECSSVendorPrefix.KHTML) },
                                       sValue,
                                       bIsImportant);
   }

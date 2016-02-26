@@ -31,7 +31,7 @@ import com.helger.css.ICSSWriterSettings;
  * 
  * @author Philip Helger
  */
-public enum ECSSMathOperator implements ICSSExpressionMathMember, IHasName
+public enum ECSSMathOperator implements ICSSExpressionMathMember,IHasName
 {
   // plus and minus require a whitespace around it when writing!
   PLUS ("+", " + "),

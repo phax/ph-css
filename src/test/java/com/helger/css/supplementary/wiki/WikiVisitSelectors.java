@@ -40,18 +40,18 @@ public final class WikiVisitSelectors
 {
   public void readAllSelectors ()
   {
-    final String sStyle = "blockquote p,\r\n"
-                          + "blockquote ul,\r\n"
-                          + "blockquote ol {\r\n"
-                          + "  line-height:normal;\r\n"
-                          + "  font-style:italic;\r\n"
-                          + "}\r\n"
-                          + "\r\n"
-                          + "a { color:#FFEA6F; }\r\n"
-                          + "\r\n"
-                          + "a:hover { text-decoration:none; }\r\n"
-                          + "\r\n"
-                          + "img { border:none; }";
+    final String sStyle = "blockquote p,\r\n" +
+                          "blockquote ul,\r\n" +
+                          "blockquote ol {\r\n" +
+                          "  line-height:normal;\r\n" +
+                          "  font-style:italic;\r\n" +
+                          "}\r\n" +
+                          "\r\n" +
+                          "a { color:#FFEA6F; }\r\n" +
+                          "\r\n" +
+                          "a:hover { text-decoration:none; }\r\n" +
+                          "\r\n" +
+                          "img { border:none; }";
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
     final List <String> aAllSelectors = new ArrayList <String> ();
     CSSVisitor.visitCSS (aCSS, new DefaultCSSVisitor ()

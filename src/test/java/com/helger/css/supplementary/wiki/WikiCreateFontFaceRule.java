@@ -44,7 +44,7 @@ public final class WikiCreateFontFaceRule
    * Create a single font-face rule.
    *
    * <pre>
-   * @font-face {
+   * &#64;font-face {
    *   font-family: "Your typeface";
    *   src: url("path/basename.eot");
    *   src: local("local font name"),

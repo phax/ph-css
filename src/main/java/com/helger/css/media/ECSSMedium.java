@@ -31,7 +31,7 @@ import com.helger.css.annotation.DeprecatedInCSS21;
  * 
  * @author Philip Helger
  */
-public enum ECSSMedium implements ICSSVersionAware, IHasName
+public enum ECSSMedium implements ICSSVersionAware,IHasName
 {
   /** for all media types */
   ALL ("all", ECSSVersion.CSS21),
@@ -40,8 +40,7 @@ public enum ECSSMedium implements ICSSVersionAware, IHasName
    * For computer synthesized voice. Deprecated in CSS 2.1. Is "speech" in CSS
    * 3.
    */
-  @DeprecatedInCSS21
-  AURAL ("aural", ECSSVersion.CSS21),
+  @DeprecatedInCSS21 AURAL ("aural", ECSSVersion.CSS21),
 
   /** for blind people */
   BRAILLE ("braille", ECSSVersion.CSS21),

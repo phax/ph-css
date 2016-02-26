@@ -33,7 +33,7 @@ import com.helger.commons.name.IHasName;
  * 
  * @author Philip Helger
  */
-public enum ECSSUnit implements IHasName, ICSSVersionAware
+public enum ECSSUnit implements IHasName,ICSSVersionAware
 {
   /** font size of the element */
   EM ("em", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS10),

@@ -48,7 +48,7 @@ public interface ICSSParseErrorHandler
    *         In case the error is fatal and should be propagated.
    */
   void onCSSParseError (@Nonnull Token aLastValidToken,
-                        @Nonnull int [][] aExpectedTokenSequencesVal,
+                        @Nonnull int [] [] aExpectedTokenSequencesVal,
                         @Nonnull String [] aTokenImageVal,
                         @Nullable Token aLastSkippedToken) throws ParseException;
 

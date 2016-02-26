@@ -565,16 +565,16 @@ public final class CascadingStyleSheetTest
   public void testReadOneOfAll ()
   {
     CascadingStyleSheet aCSS;
-    aCSS = _parse ("@import url(a.gif);\n"
-                   + "@namespace toto2 url(http://toto.example.org);\n"
-                   + "div { color: red; }\n"
-                   + "@page { size: 8.5in 11in; }\n"
-                   + "@media ( min-width :450px) and (max-width:950px) { }\n"
-                   + "@font-face { font-family: JapaneseWithGentium; src: local(MSMincho); }\n"
-                   + "@keyframes travel { from { } to { left: 640px; } }\n"
-                   + "@viewport { width: device-width; }\n"
-                   + "@supports (column-count: 1) and (background-image: linear-gradient(#f00,#00f)) { }\n"
-                   + "@document    anything else or whatever 4711    {   }\n");
+    aCSS = _parse ("@import url(a.gif);\n" +
+                   "@namespace toto2 url(http://toto.example.org);\n" +
+                   "div { color: red; }\n" +
+                   "@page { size: 8.5in 11in; }\n" +
+                   "@media ( min-width :450px) and (max-width:950px) { }\n" +
+                   "@font-face { font-family: JapaneseWithGentium; src: local(MSMincho); }\n" +
+                   "@keyframes travel { from { } to { left: 640px; } }\n" +
+                   "@viewport { width: device-width; }\n" +
+                   "@supports (column-count: 1) and (background-image: linear-gradient(#f00,#00f)) { }\n" +
+                   "@document    anything else or whatever 4711    {   }\n");
 
     assertTrue (aCSS.hasImportRules ());
     assertEquals (1, aCSS.getImportRuleCount ());

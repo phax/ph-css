@@ -25,7 +25,8 @@ import com.helger.css.annotation.DeprecatedInCSS30;
 
 /**
  * Contains a list of predefined color values in CSS 2.1.<br>
- * These names are deprecated in CSS 3.0 in favour of the appearance property.<br>
+ * These names are deprecated in CSS 3.0 in favour of the appearance property.
+ * <br>
  * Source: http://www.w3.org/TR/css3-color/ chapter 4.5.1
  * 
  * @author Philip Helger

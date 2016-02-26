@@ -30,8 +30,7 @@ import com.helger.commons.version.Version;
 public enum ECSSVersion implements IHasVersion
 {
   // Sort fields according to the version!
-  @DevelopersNote ("No CSS parser is available for 1.0!")
-  CSS10 (new Version (1, 0)),
+  @DevelopersNote ("No CSS parser is available for 1.0!") CSS10(new Version (1, 0)),
   CSS21 (new Version (2, 1)),
   CSS30 (new Version (3, 0));
 

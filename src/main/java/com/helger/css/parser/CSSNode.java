@@ -183,14 +183,16 @@ public class CSSNode implements Node, Iterable <CSSNode>, Serializable
   @Nullable
   public CSSSourceLocation getSourceLocation ()
   {
-    final CSSSourceArea aFirstTokenArea = m_aFirstToken == null ? null : new CSSSourceArea (m_aFirstToken.beginLine,
-                                                                                            m_aFirstToken.beginColumn,
-                                                                                            m_aFirstToken.endLine,
-                                                                                            m_aFirstToken.endColumn);
-    final CSSSourceArea aLastTokenArea = m_aLastToken == null ? null : new CSSSourceArea (m_aLastToken.beginLine,
-                                                                                          m_aLastToken.beginColumn,
-                                                                                          m_aLastToken.endLine,
-                                                                                          m_aLastToken.endColumn);
+    final CSSSourceArea aFirstTokenArea = m_aFirstToken == null ? null
+                                                                : new CSSSourceArea (m_aFirstToken.beginLine,
+                                                                                     m_aFirstToken.beginColumn,
+                                                                                     m_aFirstToken.endLine,
+                                                                                     m_aFirstToken.endColumn);
+    final CSSSourceArea aLastTokenArea = m_aLastToken == null ? null
+                                                              : new CSSSourceArea (m_aLastToken.beginLine,
+                                                                                   m_aLastToken.beginColumn,
+                                                                                   m_aLastToken.endLine,
+                                                                                   m_aLastToken.endColumn);
     if (aFirstTokenArea == null && aLastTokenArea == null)
       return null;
     return new CSSSourceLocation (aFirstTokenArea, aLastTokenArea);

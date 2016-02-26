@@ -33,7 +33,7 @@ import com.helger.css.ICSSWriterSettings;
  * 
  * @author Philip Helger
  */
-public enum ECSSSelectorCombinator implements ICSSSelectorMember, ICSSVersionAware, IHasName
+public enum ECSSSelectorCombinator implements ICSSSelectorMember,ICSSVersionAware,IHasName
 {
   PLUS ("+"),
   GREATER (">"),

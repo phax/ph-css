@@ -134,7 +134,7 @@ public class CSSPropertyEnums extends CSSPropertyEnum
     if (sValue == null)
       return false;
 
-    // Split by whitespaces "  a   b " results in { "a", "b" }
+    // Split by whitespaces " a b " results in { "a", "b" }
     final String [] aParts = RegExHelper.getSplitToArray (sValue.trim (), "\\s+");
     if (aParts.length < m_nMinNumbers || aParts.length > m_nMaxNumbers)
       return false;

@@ -55,7 +55,8 @@ public class CSSPropertyEnumOrURL extends CSSPropertyEnum
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrURL (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnumOrURL (@Nonnull final ECSSProperty eProp,
+                               @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
   }

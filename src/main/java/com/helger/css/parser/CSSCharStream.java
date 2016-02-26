@@ -29,7 +29,8 @@ import com.helger.commons.string.StringHelper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * This class is only used internally as the source for the generated parsers.<br>
+ * This class is only used internally as the source for the generated parsers.
+ * <br>
  * An implementation of interface {@link CharStream}, where the stream is
  * assumed to contain only ASCII characters (with java-like unicode escape
  * processing).

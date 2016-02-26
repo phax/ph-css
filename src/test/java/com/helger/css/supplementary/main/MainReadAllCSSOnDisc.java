@@ -58,7 +58,8 @@ public final class MainReadAllCSSOnDisc
         aErrors.put (aCurrentFile.get (), ex);
       }
     };
-    for (final File aFile : FileSystemRecursiveIterator.create (new File ("/"), new FileFilterFilenameEndsWith (".css")))
+    for (final File aFile : FileSystemRecursiveIterator.create (new File ("/"),
+                                                                new FileFilterFilenameEndsWith (".css")))
     {
       if (false)
         s_aLogger.info (aFile.getAbsolutePath ());

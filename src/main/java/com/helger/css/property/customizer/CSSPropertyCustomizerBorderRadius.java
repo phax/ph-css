@@ -41,9 +41,9 @@ public class CSSPropertyCustomizerBorderRadius extends AbstractCSSPropertyCustom
   {
     return new CSSValueMultiProperty (aProperty.getProp (),
                                       new ICSSProperty [] { aProperty,
-                                                           aProperty.getClone (ECSSVendorPrefix.MOZILLA),
-                                                           aProperty.getClone (ECSSVendorPrefix.WEBKIT),
-                                                           aProperty.getClone (ECSSVendorPrefix.KHTML) },
+                                                            aProperty.getClone (ECSSVendorPrefix.MOZILLA),
+                                                            aProperty.getClone (ECSSVendorPrefix.WEBKIT),
+                                                            aProperty.getClone (ECSSVendorPrefix.KHTML) },
                                       sValue,
                                       bIsImportant);
   }

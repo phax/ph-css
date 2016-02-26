@@ -16,7 +16,6 @@
  */
 package com.helger.css.decl.visit;
 
-
 final class MockModifyingCSSUrlVisitor extends AbstractModifyingCSSUrlVisitor
 {
   @Override

@@ -65,20 +65,21 @@ public final class CSSUnknownRuleTest
     assertEquals ("", aUR.getParameterList ());
     assertEquals ("color: red;", aUR.getBody ());
 
-    aUR = _parse ("@three-dee {\n"
-                  + "  @background-lighting {\n"
-                  + "    azimuth: 30deg;\n"
-                  + "    elevation: 190deg;\n"
-                  + "  }\n"
-                  + "  h1 { color: red }\n"
-                  + "}");
+    aUR = _parse ("@three-dee {\n" +
+                  "  @background-lighting {\n" +
+                  "    azimuth: 30deg;\n" +
+                  "    elevation: 190deg;\n" +
+                  "  }\n" +
+                  "  h1 { color: red }\n" +
+                  "}");
     assertEquals ("@three-dee", aUR.getDeclaration ());
     assertEquals ("", aUR.getParameterList ());
-    assertEquals ("@background-lighting {\n"
-                  + "    azimuth: 30deg;\n"
-                  + "    elevation: 190deg;\n"
-                  + "  }\n"
-                  + "  h1 { color: red }", aUR.getBody ());
+    assertEquals ("@background-lighting {\n" +
+                  "    azimuth: 30deg;\n" +
+                  "    elevation: 190deg;\n" +
+                  "  }\n" +
+                  "  h1 { color: red }",
+                  aUR.getBody ());
 
   }
 }
