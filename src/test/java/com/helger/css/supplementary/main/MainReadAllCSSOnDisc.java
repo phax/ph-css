@@ -17,13 +17,14 @@
 package com.helger.css.supplementary.main;
 
 import java.io.File;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.commons.wrapper.Wrapper;
@@ -49,8 +50,8 @@ public final class MainReadAllCSSOnDisc
   {
     int nFilesOK = 0;
     int nFilesError = 0;
-    final Map <File, ParseException> aErrors = new LinkedHashMap <File, ParseException> ();
-    final Wrapper <File> aCurrentFile = new Wrapper <File> ();
+    final ICommonsOrderedMap <File, ParseException> aErrors = new CommonsLinkedHashMap <> ();
+    final Wrapper <File> aCurrentFile = new Wrapper <> ();
     final ICSSParseExceptionCallback aHdl = ex -> aErrors.put (aCurrentFile.get (), ex);
     for (final File aFile : new FileSystemRecursiveIterator (new File ("/")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
