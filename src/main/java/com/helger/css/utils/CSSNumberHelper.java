@@ -44,7 +44,7 @@ public final class CSSNumberHelper
 
   static
   {
-    final ICommonsMap <String, ECSSUnit> aNameToUnitMap = new CommonsHashMap <> ();
+    final ICommonsMap <String, ECSSUnit> aNameToUnitMap = new CommonsHashMap<> ();
     for (final ECSSUnit eUnit : ECSSUnit.values ())
       aNameToUnitMap.put (eUnit.getName (), eUnit);
     // Now sort, so that the longest matches are upfront so that they are
