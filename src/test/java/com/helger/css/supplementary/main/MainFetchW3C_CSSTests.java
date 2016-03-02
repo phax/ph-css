@@ -18,10 +18,10 @@ package com.helger.css.supplementary.main;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.io.file.SimpleFileIO;
@@ -44,10 +44,10 @@ public class MainFetchW3C_CSSTests
 
   private static void _fetch (final String sURL, final String sDestDir) throws MalformedURLException
   {
-    final List <String> aCSSFilenames = new ArrayList <String> ();
+    final ICommonsList <String> aCSSFilenames = new CommonsArrayList <> ();
     System.out.println ("Fetching from " + sURL);
-    final List <String> aIndex = StreamHelper.readStreamLines (new URLResource (sURL + "index.html"),
-                                                               CCharset.CHARSET_UTF_8_OBJ);
+    final ICommonsList <String> aIndex = StreamHelper.readStreamLines (new URLResource (sURL + "index.html"),
+                                                                       CCharset.CHARSET_UTF_8_OBJ);
     {
       // Remove doctype
       aIndex.remove (0);
