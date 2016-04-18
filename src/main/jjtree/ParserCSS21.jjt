@@ -200,7 +200,8 @@ TOKEN :
 // ident        -?{nmstart}{nmchar}*
 // Note: "*" hack for IE <= 6
 // Note: "$" hack for IE <= 7
-| < IDENT: ( "-"
+| < IDENT: ( "--"
+           | "-"
            | "$" ( <S> )*
            | "*" ( <S> )* )? 
            <NMSTART> 
