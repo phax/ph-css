@@ -237,7 +237,8 @@ TOKEN :
 | < VIEWPORT_SYM: "@-" <IDENT> "-viewport"
                 | "@viewport" >
 | < SUPPORTS_SYM: "@supports" >
-| < AT_UNKNOWN: "@" <IDENT> > : IN_UNKNOWN_RULE
+| < AT_UNKNOWN: "@" <IDENT> 
+              | "@" > : IN_UNKNOWN_RULE
 | < IMPORTANT_SYM: "!" ( <S> )* "important" >
 
 // before ident!
