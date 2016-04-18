@@ -190,7 +190,8 @@ TOKEN :
 | < NAMESPACE_SYM: "@namespace" >
 | < PAGE_SYM: "@page" >
 | < MEDIA_SYM: "@media" >
-| < AT_UNKNOWN: "@" <IDENT> > : IN_UNKNOWN_RULE
+| < AT_UNKNOWN: "@" <IDENT> 
+              | "@" > : IN_UNKNOWN_RULE
 | < IMPORTANT_SYM: "!" ( <S> )* "important" >
 
 // before ident!
