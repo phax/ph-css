@@ -157,7 +157,11 @@ public final class CSSParseHelper
    * character as a numeric code (see next item). For instance, the identifier
    * "B&amp;W?" may be written as "B\&amp;W\?" or "B\26 W\3F".<br>
    * CSS Variables on the other hand allow for double dashes:
-   * https://www.w3.org/TR/css-variables-1/#defining-variables
+   * https://www.w3.org/TR/css-variables-1/#defining-variables<br>
+   * Source: <a href=
+   * "http://stackoverflow.com/questions/30819462/can-css-identifiers-begin-with-two-hyphens">
+   * http://stackoverflow.com/questions/30819462/can-css-identifiers-begin-with-
+   * two-hyphens</a>
    *
    * @param aPattern
    *        pattern to check

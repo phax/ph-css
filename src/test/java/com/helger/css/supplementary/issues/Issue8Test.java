@@ -18,6 +18,7 @@ package com.helger.css.supplementary.issues;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -41,6 +42,7 @@ public final class Issue8Test
   public void testIssue8 ()
   {
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue8.css");
+    assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,

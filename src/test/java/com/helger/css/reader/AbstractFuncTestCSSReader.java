@@ -70,7 +70,7 @@ public abstract class AbstractFuncTestCSSReader
     return m_aReaderSettings.isBrowserCompliantMode ();
   }
 
-  protected final void testReadGood (final String sBaseDir)
+  protected final void testReadGood (@Nonnull final String sBaseDir)
   {
     final File aBaseDir = new File (sBaseDir);
     if (!aBaseDir.exists ())
@@ -121,7 +121,7 @@ public abstract class AbstractFuncTestCSSReader
     }
   }
 
-  protected final void testReadBad (final String sBaseDir)
+  protected final void testReadBad (@Nonnull final String sBaseDir)
   {
     final File aBaseDir = new File (sBaseDir);
     if (!aBaseDir.exists ())
@@ -139,7 +139,7 @@ public abstract class AbstractFuncTestCSSReader
     }
   }
 
-  protected final void testReadBadButRecoverable (final String sBaseDir)
+  protected final void testReadBadButRecoverable (@Nonnull final String sBaseDir)
   {
     final File aBaseDir = new File (sBaseDir);
     if (!aBaseDir.exists ())
@@ -173,7 +173,15 @@ public abstract class AbstractFuncTestCSSReader
     }
   }
 
-  protected final void testReadBadButBrowserCompliant (final String sBaseDir)
+  protected final void testReadBadButBrowserCompliant (@Nonnull final String sBaseDir)
+  {
+    if (m_aReaderSettings.isBrowserCompliantMode ())
+      testReadGood (sBaseDir);
+    else
+      testReadBad (sBaseDir);
+  }
+
+  protected final void testReadBadButRecoverableAndBrowserCompliant (@Nonnull final String sBaseDir)
   {
     if (m_aReaderSettings.isBrowserCompliantMode ())
       testReadGood (sBaseDir);

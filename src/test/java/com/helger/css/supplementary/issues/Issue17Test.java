@@ -17,6 +17,7 @@
 package com.helger.css.supplementary.issues;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -26,6 +27,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 /**
@@ -39,11 +41,13 @@ public final class Issue17Test
   public void testIssue ()
   {
     // Multiple errors contained
-    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue17.css");
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad_but_browsercompliant/issue17.css");
+    assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
-                                                               CCharset.CHARSET_UTF_8_OBJ,
-                                                               ECSSVersion.CSS30,
-                                                               new LoggingCSSParseErrorHandler ());
+                                                               new CSSReaderSettings ().setFallbackCharset (CCharset.CHARSET_UTF_8_OBJ)
+                                                                                       .setCSSVersion (ECSSVersion.CSS30)
+                                                                                       .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
+                                                                                       .setBrowserCompliantMode (true));
     assertNotNull (aCSS);
   }
 }

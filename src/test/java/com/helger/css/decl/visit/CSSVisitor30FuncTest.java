@@ -32,6 +32,7 @@ import com.helger.css.AbstractCSS30TestCase;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 /**
@@ -52,9 +53,10 @@ public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
       if (true)
         s_aLogger.info (sKey);
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
-                                                               CCharset.CHARSET_UTF_8_OBJ,
-                                                               ECSSVersion.CSS30,
-                                                               new LoggingCSSParseErrorHandler ());
+                                                               new CSSReaderSettings ().setFallbackCharset (CCharset.CHARSET_UTF_8_OBJ)
+                                                                                       .setCSSVersion (ECSSVersion.CSS30)
+                                                                                       .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
+                                                                                       .setBrowserCompliantMode (true));
       assertNotNull (sKey, aCSS);
       CSSVisitor.visitCSSUrl (aCSS, new MockUrlVisitor (sKey));
     }
