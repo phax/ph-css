@@ -347,9 +347,9 @@ JAVACODE
  * @return all the string that was skipped. Never <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private String javaSkipToClosingBrace() throws ParseEOFException #void {
+private String javaSkipToClosingBrace(final int nInitialNesting) throws ParseEOFException #void {
   final StringBuilder aSB = new StringBuilder ();
-  int nNesting = 1;
+  int nNesting = nInitialNesting;
   while (true) {
     final Token tok = getNextToken();
     if (tok.kind == LBRACE) 
@@ -367,19 +367,20 @@ private String javaSkipToClosingBrace() throws ParseEOFException #void {
       }  
     aSB.append (tok.image);
   }
-  // System.out.println ("SKIPPED1: '" + aSB + "'");
+  // System.out.println ("SKIP-TO-} -- '" + aSB + "'");
   return aSB.toString ();
 }
 
 JAVACODE
 /** 
  * Skip to matching closing '}' or the next ';' on the same level
+ * @param nInitialNesting Initial nesting level (0 or 1).
  * @return all the string that was skipped. Never <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private String javaSkipToClosingBraceOrSemicolon() throws ParseEOFException #void {
+private String javaSkipToClosingBraceOrSemicolon(final int nInitialNesting) throws ParseEOFException #void {
   final StringBuilder aSB = new StringBuilder ();
-  int nNesting = 1;
+  int nNesting = nInitialNesting;
   while (true) {
     final Token tok = getNextToken();
     if (tok.kind == LBRACE) 
@@ -402,17 +403,28 @@ private String javaSkipToClosingBraceOrSemicolon() throws ParseEOFException #voi
         }
     aSB.append (tok.image);
   }
-  // System.out.println ("SKIPPED2: '" + aSB + "'");
+  // System.out.println ("SKIP-TO-}; -- '" + aSB + "'");
   return aSB.toString ();
 }
 
 JAVACODE
 /** 
- * Browser compliant skip to matching closing '}'
+ * Browser compliant skip to matching closing '}' (being inside a '}')
  * @throws ParseEOFException If EOF occurs while skipping
  */
 private void browserCompliantSkip() throws ParseEOFException #void {
-  javaSkipToClosingBrace ();
+  javaSkipToClosingBrace (1);
+  // push back last token!
+  token_source.backup(1);
+}
+
+JAVACODE
+/** 
+ * Browser compliant skip to the next closing '}' (not being inside a '}')
+ * @throws ParseEOFException If EOF occurs while skipping
+ */
+private void browserCompliantSkipSelector() throws ParseEOFException #void {
+  javaSkipToClosingBrace (0);
   // push back last token!
   token_source.backup(1);
 }
@@ -423,7 +435,7 @@ JAVACODE
  * @throws ParseEOFException If EOF occurs while skipping
  */
 private void browserCompliantSkipDecl() throws ParseEOFException #void {
-  javaSkipToClosingBraceOrSemicolon ();
+  javaSkipToClosingBraceOrSemicolon (1);
   // push back last token!
   token_source.backup(1);
 }
@@ -824,6 +836,7 @@ try{
 
 void styleRule() : {}
 {
+try{
   selector ()
   ( <S> )*
   ( <COMMA>
@@ -832,6 +845,12 @@ void styleRule() : {}
     ( <S> )*
   )*
   styleDeclarationBlock()
+} catch (ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipSelector ();
+  else  
+    throw ex;
+}
 }
 
 //
@@ -858,10 +877,10 @@ void mediaRuleList() #void : {}
   ( ( styleRule()
     | pageRule()
     | unknownRule()
-    | charsetRule() { errorUnexpectedRule ("@charset", "charset rule in the middle of a @media rule is not allowed!"); }
-    | importRule() { errorUnexpectedRule ("@import", "import rule in the middle of a @media rule is not allowed!"); }
+    | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @media rule is not allowed!"); }
+    | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @media rule is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @media rule is not allowed!"); }
-    | mediaRule() { errorUnexpectedRule ("@media", "media rule in the middle of a @media rule is not allowed!"); }
+    | mediaRule()     { errorUnexpectedRule ("@media", "media rule in the middle of a @media rule is not allowed!"); }
     )
     ( <S> )*
   )+
@@ -916,7 +935,7 @@ void unknownRuleParameterList() :
 void unknownRuleBody() : 
 { String s; }
 {
-  s = javaSkipToClosingBrace() { jjtThis.setText (s); }
+  s = javaSkipToClosingBrace(1) { jjtThis.setText (s); }
 }
 
 // Any unsupported rule
