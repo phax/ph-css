@@ -88,13 +88,19 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   }
 
   @Test
-  public void testReadAll30BadBadButRecoverable ()
+  public void testReadAll30BadButRecoverable ()
   {
     testReadBadButRecoverable ("src/test/resources/testfiles/css30/bad_but_recoverable");
   }
 
   @Test
-  public void testReadAll30BadBadButBrowserCompliant ()
+  public void testReadAll30BadButRecoverableAndBrowserCompliant ()
+  {
+    testReadBadButRecoverableAndBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_recoverable_and_browsercompliant");
+  }
+
+  @Test
+  public void testReadAll30BadButBrowserCompliant ()
   {
     testReadBadButBrowserCompliant ("src/test/resources/testfiles/css30/bad_but_browsercompliant");
   }
@@ -426,7 +432,13 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     // Invalid identifier 3
     sCSS = "*0{color:red;}";
     aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
-    assertNull (aCSS);
+    if (bBrowserCompliantMode)
+    {
+      assertNotNull (aCSS);
+      assertEquals (1, aCSS.getRuleCount ());
+    }
+    else
+      assertNull (aCSS);
 
     // Valid version of previous variant
     sCSS = "*abc{color:red;}";

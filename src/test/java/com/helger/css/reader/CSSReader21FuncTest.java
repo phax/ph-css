@@ -66,8 +66,8 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   }
 
   @Test
-  public void testReadAll21BadButBrowserCompliant ()
+  public void testReadAll21BadButRecoverableAndBrowserCompliant ()
   {
-    testReadBadButBrowserCompliant ("src/test/resources/testfiles/css21/bad_but_browsercompliant");
+    testReadBadButRecoverableAndBrowserCompliant ("src/test/resources/testfiles/css21/bad_but_recoverable_and_browsercompliant");
   }
 }

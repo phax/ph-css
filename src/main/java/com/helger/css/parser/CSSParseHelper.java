@@ -155,7 +155,13 @@ public final class CSSParseHelper
    * they cannot start with a digit, two hyphens, or a hyphen followed by a
    * digit. Identifiers can also contain escaped characters and any ISO 10646
    * character as a numeric code (see next item). For instance, the identifier
-   * "B&amp;W?" may be written as "B\&amp;W\?" or "B\26 W\3F".
+   * "B&amp;W?" may be written as "B\&amp;W\?" or "B\26 W\3F".<br>
+   * CSS Variables on the other hand allow for double dashes:
+   * https://www.w3.org/TR/css-variables-1/#defining-variables<br>
+   * Source: <a href=
+   * "http://stackoverflow.com/questions/30819462/can-css-identifiers-begin-with-two-hyphens">
+   * http://stackoverflow.com/questions/30819462/can-css-identifiers-begin-with-
+   * two-hyphens</a>
    *
    * @param aPattern
    *        pattern to check
@@ -180,6 +186,7 @@ public final class CSSParseHelper
         throw new IllegalArgumentException ("Identifier may not start with a digit: " + aPattern);
     }
 
+    if (false)
     if (nLength > 1 && c1 == '-' && c2 == '-')
       throw new IllegalArgumentException ("Identifier may not start with two hyphens: " + aPattern);
 

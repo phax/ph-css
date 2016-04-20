@@ -294,24 +294,20 @@ public class CSSWriter
       int nRulesEmitted = 0;
       final List <CSSImportRule> aImportRules = aCSS.getAllImportRules ();
       if (!aImportRules.isEmpty ())
-      {
         for (final CSSImportRule aImportRule : aImportRules)
         {
           aWriter.write (aImportRule.getAsCSSString (m_aSettings, 0));
           ++nRulesEmitted;
         }
-      }
 
       // Namespace rules
       final List <CSSNamespaceRule> aNamespaceRules = aCSS.getAllNamespaceRules ();
       if (!aNamespaceRules.isEmpty ())
-      {
         for (final CSSNamespaceRule aNamespaceRule : aNamespaceRules)
         {
           aWriter.write (aNamespaceRule.getAsCSSString (m_aSettings, 0));
           ++nRulesEmitted;
         }
-      }
 
       // Main CSS rules
       for (final ICSSTopLevelRule aRule : aCSS.getAllRules ())
@@ -332,7 +328,7 @@ public class CSSWriter
       {
         aWriter.write ("/*");
         aWriter.write (sNewLineString);
-        for (final String sLine : StringHelper.getExploded ("\n", m_sFooterText))
+        for (final String sLine : StringHelper.getExploded ('\n', m_sFooterText))
         {
           aWriter.write (" * " + sLine);
           aWriter.write (sNewLineString);

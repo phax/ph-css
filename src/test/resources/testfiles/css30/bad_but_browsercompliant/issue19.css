@@ -1,0 +1,5 @@
+body {
+    background: url(../bg.png);
+}
+/* Invalid selector - drop whole statement */
+.#f { color: red; }

@@ -41,7 +41,7 @@ public final class CSSNumberHelperTest
     {
       String sText = eUnit.format (5);
       assertSame (sText, eUnit, CSSNumberHelper.getMatchingUnitInclPercentage (sText));
-      sText = eUnit.format (3.14159265);
+      sText = eUnit.format (2.12345678);
       assertSame (sText, eUnit, CSSNumberHelper.getMatchingUnitInclPercentage (sText));
     }
   }
@@ -54,7 +54,7 @@ public final class CSSNumberHelperTest
       {
         String sText = eUnit.format (5);
         assertSame (sText, eUnit, CSSNumberHelper.getMatchingUnitExclPercentage (sText));
-        sText = eUnit.format (3.14159265);
+        sText = eUnit.format (2.12345678);
         assertSame (sText, eUnit, CSSNumberHelper.getMatchingUnitExclPercentage (sText));
       }
   }

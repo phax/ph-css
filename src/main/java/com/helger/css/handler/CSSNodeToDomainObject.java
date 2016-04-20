@@ -611,7 +611,7 @@ final class CSSNodeToDomainObject
     }
   }
 
-  @Nonnull
+  @Nullable
   private CSSStyleRule _createStyleRule (@Nonnull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.STYLERULE);
@@ -650,6 +650,13 @@ final class CSSNodeToDomainObject
                              ECSSNodeType.getNodeName (aChildNode, m_eVersion));
       }
     }
+
+    if (ret.getSelectorCount () == 0)
+    {
+      // Error in selector parsing in browser compliant mode
+      return null;
+    }
+
     return ret;
   }
 
@@ -772,7 +779,11 @@ final class CSSNodeToDomainObject
       }
       else
         if (ECSSNodeType.STYLERULE.isNode (aChildNode, m_eVersion))
-          ret.addRule (_createStyleRule (aChildNode));
+        {
+          final CSSStyleRule aStyleRule = _createStyleRule (aChildNode);
+          if (aStyleRule != null)
+            ret.addRule (aStyleRule);
+        }
         else
           if (ECSSNodeType.MEDIARULE.isNode (aChildNode, m_eVersion))
           {
@@ -1143,7 +1154,11 @@ final class CSSNodeToDomainObject
       }
       else
         if (ECSSNodeType.STYLERULE.isNode (aChildNode, m_eVersion))
-          ret.addRule (_createStyleRule (aChildNode));
+        {
+          final CSSStyleRule aStyleRule = _createStyleRule (aChildNode);
+          if (aStyleRule != null)
+            ret.addRule (aStyleRule);
+        }
         else
           if (ECSSNodeType.MEDIARULE.isNode (aChildNode, m_eVersion))
             ret.addRule (_createMediaRule (aChildNode));
@@ -1215,7 +1230,11 @@ final class CSSNodeToDomainObject
             ret.addNamespaceRule (_createNamespaceRule (aChildNode));
           else
             if (ECSSNodeType.STYLERULE.isNode (aChildNode, m_eVersion))
-              ret.addRule (_createStyleRule (aChildNode));
+            {
+              final CSSStyleRule aStyleRule = _createStyleRule (aChildNode);
+              if (aStyleRule != null)
+                ret.addRule (aStyleRule);
+            }
             else
               if (ECSSNodeType.PAGERULE.isNode (aChildNode, m_eVersion))
                 ret.addRule (_createPageRule (aChildNode));

@@ -298,7 +298,7 @@ public final class CSSReader30SpecialFuncTest
     final CollectingCSSParseErrorHandler aErrors = new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ());
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
-    final File aFile = new File ("src/test/resources/testfiles/css30/bad_but_browsercompliant/test-string.css");
+    final File aFile = new File ("src/test/resources/testfiles/css30/bad_but_recoverable_and_browsercompliant/test-string.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion, aErrors);
     assertNotNull (aFile.getAbsolutePath (), aCSS);
   }

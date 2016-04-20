@@ -32,6 +32,7 @@ import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
+import com.helger.css.writer.CSSWriterSettings;
 
 /**
  * Test for issue 3: https://github.com/phax/ph-css/issues/3
@@ -55,7 +56,8 @@ public final class Issue3Test
 
   private static void _print (@Nonnull final CascadingStyleSheet aCSS)
   {
-    s_aLogger.info (new CSSWriter (ECSSVersion.CSS30, true).setWriteHeaderText (false).getCSSAsString (aCSS));
+    s_aLogger.info (new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                                       .getCSSAsString (aCSS));
   }
 
   @Test
@@ -186,14 +188,15 @@ public final class Issue3Test
   @Test
   public void testErrorInSupportsRule1 ()
   {
-    // Parse error in "unexpected::;"
-    final String sTest = "@supports(column-count: 1) { unexpected::; } span {color:blue;}";
+    // Parse error in style declaration "unexpected::;"
+    final String sTest = "@supports(column-count: 1) { body { unexpected::; } } span {color:blue;}";
     final CascadingStyleSheet aCSS = _parse (sTest, true);
     assertNotNull (aCSS);
-    if (false)
+    if (true)
       _print (aCSS);
     assertEquals (1, aCSS.getSupportsRuleCount ());
-    assertEquals (0, aCSS.getSupportsRuleAtIndex (0).getRuleCount ());
+    assertEquals (1, aCSS.getSupportsRuleAtIndex (0).getRuleCount ());
+    assertEquals (0, ((CSSStyleRule) aCSS.getSupportsRuleAtIndex (0).getRule (0)).getDeclarationCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
   }
 }

@@ -190,7 +190,8 @@ TOKEN :
 | < NAMESPACE_SYM: "@namespace" >
 | < PAGE_SYM: "@page" >
 | < MEDIA_SYM: "@media" >
-| < AT_UNKNOWN: "@" <IDENT> > : IN_UNKNOWN_RULE
+| < AT_UNKNOWN: "@" <IDENT> 
+              | "@" > : IN_UNKNOWN_RULE
 | < IMPORTANT_SYM: "!" ( <S> )* "important" >
 
 // before ident!
@@ -199,7 +200,8 @@ TOKEN :
 // ident        -?{nmstart}{nmchar}*
 // Note: "*" hack for IE <= 6
 // Note: "$" hack for IE <= 7
-| < IDENT: ( "-"
+| < IDENT: ( "--"
+           | "-"
            | "$" ( <S> )*
            | "*" ( <S> )* )? 
            <NMSTART> 
@@ -342,12 +344,13 @@ private String javaSkipToOpeningBrace() throws ParseException #void {
 JAVACODE
 /** 
  * Skip to matching closing '}'
+ * @param nInitialNesting Initial nesting level (0 or 1).
  * @return all the string that was skipped. Never <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private String javaSkipToClosingBrace() throws ParseEOFException #void {
+private String javaSkipToClosingBrace(final int nInitialNesting) throws ParseEOFException #void {
   final StringBuilder aSB = new StringBuilder ();
-  int nNesting = 1;
+  int nNesting = nInitialNesting;
   while (true) {
     final Token tok = getNextToken();
     if (tok.kind == LBRACE) 
@@ -365,19 +368,20 @@ private String javaSkipToClosingBrace() throws ParseEOFException #void {
       }  
     aSB.append (tok.image);
   }
-  // System.out.println ("SKIPPED1: '" + aSB + "'");
+  // System.out.println ("SKIP-TO-} -- '" + aSB + "'");
   return aSB.toString ();
 }
 
 JAVACODE
 /** 
  * Skip to matching closing '}' or the next ';' on the same level
+ * @param nInitialNesting Initial nesting level (0 or 1).
  * @return all the string that was skipped. Never <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private String javaSkipToClosingBraceOrSemicolon() throws ParseEOFException #void {
+private String javaSkipToClosingBraceOrSemicolon(final int nInitialNesting) throws ParseEOFException #void {
   final StringBuilder aSB = new StringBuilder ();
-  int nNesting = 1;
+  int nNesting = nInitialNesting;
   while (true) {
     final Token tok = getNextToken();
     if (tok.kind == LBRACE) 
@@ -400,17 +404,28 @@ private String javaSkipToClosingBraceOrSemicolon() throws ParseEOFException #voi
         }
     aSB.append (tok.image);
   }
-  // System.out.println ("SKIPPED2: '" + aSB + "'");
+  // System.out.println ("SKIP-TO-}; -- '" + aSB + "'");
   return aSB.toString ();
 }
 
 JAVACODE
 /** 
- * Browser compliant skip to matching closing '}'
+ * Browser compliant skip to matching closing '}' (being inside a '}')
  * @throws ParseEOFException If EOF occurs while skipping
  */
 private void browserCompliantSkip() throws ParseEOFException #void {
-  javaSkipToClosingBrace ();
+  javaSkipToClosingBrace (1);
+  // push back last token!
+  token_source.backup(1);
+}
+
+JAVACODE
+/** 
+ * Browser compliant skip to the next closing '}' (not being inside a '}')
+ * @throws ParseEOFException If EOF occurs while skipping
+ */
+private void browserCompliantSkipSelector() throws ParseEOFException #void {
+  javaSkipToClosingBrace (0);
   // push back last token!
   token_source.backup(1);
 }
@@ -421,7 +436,7 @@ JAVACODE
  * @throws ParseEOFException If EOF occurs while skipping
  */
 private void browserCompliantSkipDecl() throws ParseEOFException #void {
-  javaSkipToClosingBraceOrSemicolon ();
+  javaSkipToClosingBraceOrSemicolon (1);
   // push back last token!
   token_source.backup(1);
 }
@@ -822,6 +837,7 @@ try{
 
 void styleRule() : {}
 {
+try{
   selector ()
   ( <S> )*
   ( <COMMA>
@@ -830,6 +846,12 @@ void styleRule() : {}
     ( <S> )*
   )*
   styleDeclarationBlock()
+} catch (ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipSelector ();
+  else  
+    throw ex;
+}
 }
 
 //
@@ -914,7 +936,7 @@ void unknownRuleParameterList() :
 void unknownRuleBody() : 
 { String s; }
 {
-  s = javaSkipToClosingBrace() { jjtThis.setText (s); }
+  s = javaSkipToClosingBrace(1) { jjtThis.setText (s); }
 }
 
 // Any unsupported rule

@@ -78,3 +78,5 @@ E ~ F {}
 }
 h1 { color: blue }
 
+/* For issue 17: */
+@ space-before-ident {}

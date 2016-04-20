@@ -17,6 +17,7 @@
 package com.helger.css.supplementary.issues;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -40,6 +41,7 @@ public final class Issue9Test
   {
     // File starts (and ends) with an invalid comment
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad/issue9.css");
+    assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,
@@ -52,6 +54,7 @@ public final class Issue9Test
   {
     // File only ends with an invalid comment
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad/issue9b.css");
+    assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                CCharset.CHARSET_UTF_8_OBJ,
                                                                ECSSVersion.CSS30,

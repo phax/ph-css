@@ -27,27 +27,27 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
-import com.helger.css.writer.CSSWriter;
 
 /**
- * Test for issue 4: https://github.com/phax/ph-css/issues/4
+ * Test for issue 17: https://github.com/phax/ph-css/issues/17
  *
  * @author Philip Helger
  */
-public final class Issue4Test
+public final class Issue17Test
 {
   @Test
-  public void testIssue4 ()
+  public void testIssue ()
   {
-    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue4.css");
+    // Multiple errors contained
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad_but_browsercompliant/issue17.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
-                                                               CCharset.CHARSET_UTF_8_OBJ,
-                                                               ECSSVersion.CSS30,
-                                                               new LoggingCSSParseErrorHandler ());
+                                                               new CSSReaderSettings ().setFallbackCharset (CCharset.CHARSET_UTF_8_OBJ)
+                                                                                       .setCSSVersion (ECSSVersion.CSS30)
+                                                                                       .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
+                                                                                       .setBrowserCompliantMode (true));
     assertNotNull (aCSS);
-    if (false)
-      System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
   }
 }
