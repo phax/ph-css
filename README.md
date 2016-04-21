@@ -30,6 +30,8 @@ Versions >= 5 require JDK 8.
   * v3.8.1 - improvements for expression parsing and single line comment handling 
   * v3.8.0 - initial version in com.helger group and package 
 
+ph-css will be part of [Apache JMeter 3](https://github.com/apache/jmeter) :)
+
 #Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
