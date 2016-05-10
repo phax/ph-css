@@ -40,22 +40,22 @@ import com.helger.css.handler.ICSSParseExceptionCallback;
  */
 public final class CSSReaderDeclarationListTest
 {
-  private static final ICommonsList <String> VALID = new CommonsArrayList <> ("",
-                                                                              "    ",
-                                                                              ";",
-                                                                              ";;",
-                                                                              "  ;     ;     ;   ",
-                                                                              "color:red; background:fixed;",
-                                                                              "  color:red; background:fixed;  ",
-                                                                              "color:red; background:fixed",
-                                                                              "color:red; background:fixed !important");
-  private static final ICommonsList <String> INVALID = new CommonsArrayList <> ("color",
-                                                                                " color ",
-                                                                                // previously
-                                                                                // parsed:
-                                                                                " color : ",
-                                                                                " color :  !important ",
-                                                                                " color :  !  important ");
+  private static final ICommonsList <String> VALID = new CommonsArrayList<> ("",
+                                                                             "    ",
+                                                                             ";",
+                                                                             ";;",
+                                                                             "  ;     ;     ;   ",
+                                                                             "color:red; background:fixed;",
+                                                                             "  color:red; background:fixed;  ",
+                                                                             "color:red; background:fixed",
+                                                                             "color:red; background:fixed !important");
+  private static final ICommonsList <String> INVALID = new CommonsArrayList<> ("color",
+                                                                               " color ",
+                                                                               // previously
+                                                                               // parsed:
+                                                                               " color : ",
+                                                                               " color :  !important ",
+                                                                               " color :  !  important ");
 
   @Test
   public void testIsValidCSS21 ()
@@ -81,11 +81,11 @@ public final class CSSReaderDeclarationListTest
     final ICSSParseExceptionCallback aHdl = new DoNothingCSSParseExceptionCallback ();
     for (final String sCSS : VALID)
     {
-      final CSSDeclarationList aDL = CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS21, aHdl);
+      final CSSDeclarationList aDL = CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS30, aHdl);
       assertNotNull (aDL);
     }
     for (final String sCSS : INVALID)
-      assertNull (sCSS, CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS21, aHdl));
+      assertNull (sCSS, CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS30, aHdl));
   }
 
   @Test

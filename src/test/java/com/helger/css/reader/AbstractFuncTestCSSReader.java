@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
@@ -51,16 +50,14 @@ public abstract class AbstractFuncTestCSSReader
   private final CSSReaderSettings m_aReaderSettings;
   private final CSSWriterSettings m_aWriterSettings;
 
-  protected AbstractFuncTestCSSReader (@Nonnull final ECSSVersion eCSSVersion,
-                                       @Nonnull final Charset aCharset,
+  protected AbstractFuncTestCSSReader (@Nonnull final Charset aCharset,
                                        final boolean bDebug,
                                        final boolean bBrowserCompliantMode)
   {
     m_bDebug = bDebug;
-    m_aReaderSettings = new CSSReaderSettings ().setCSSVersion (eCSSVersion)
-                                                .setFallbackCharset (aCharset)
+    m_aReaderSettings = new CSSReaderSettings ().setFallbackCharset (aCharset)
                                                 .setBrowserCompliantMode (bBrowserCompliantMode);
-    m_aWriterSettings = new CSSWriterSettings (eCSSVersion);
+    m_aWriterSettings = new CSSWriterSettings ();
     if (m_bDebug)
       m_aLogger.info ("Running test in " + (bBrowserCompliantMode ? "browser compliant mode" : "strict mode"));
   }

@@ -72,7 +72,7 @@ public final class CSSWriterFuncTest
   {
     for (final File aFile : new FileSystemRecursiveIterator (new File ("src/test/resources/testfiles/css21/good/artificial")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
-      _testMe (aFile, ECSSVersion.CSS21);
+      _testMe (aFile, ECSSVersion.CSS30);
     }
   }
 
@@ -114,7 +114,7 @@ public final class CSSWriterFuncTest
   {
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ClassPathResource ("/testfiles/css21/good/phloc/test/content.css"),
                                                                CCharset.CHARSET_UTF_8_OBJ,
-                                                               ECSSVersion.CSS21);
+                                                               ECSSVersion.CSS30);
     assertNotNull (aCSS);
 
     // Only whitespace optimization

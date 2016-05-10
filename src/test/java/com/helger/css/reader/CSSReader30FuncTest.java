@@ -60,7 +60,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
 
   public CSSReader30FuncTest (final boolean bBrowserCompliant)
   {
-    super (ECSSVersion.CSS30, CCharset.CHARSET_UTF_8_OBJ, false, bBrowserCompliant);
+    super (CCharset.CHARSET_UTF_8_OBJ, false, bBrowserCompliant);
   }
 
   @Test

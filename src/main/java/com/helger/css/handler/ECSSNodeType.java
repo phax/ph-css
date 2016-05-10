@@ -26,108 +26,102 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.css.ECSSVersion;
 import com.helger.css.parser.CSSNode;
-import com.helger.css.parser.ParserCSS21TreeConstants;
 import com.helger.css.parser.ParserCSS30TreeConstants;
 
 /**
- * Maps the different parser tokens between the 2.1 and the 3.0 parser. This
- * enum is only used internally.
+ * Maps the different parser tokens. This enum is only used internally. It was
+ * previously used to map between the 2.1 and the 3.0 parser constants.
  *
  * @author Philip Helger
  */
 public enum ECSSNodeType
 {
-  ROOT (ParserCSS21TreeConstants.JJTROOT, ParserCSS30TreeConstants.JJTROOT),
+  ROOT (ParserCSS30TreeConstants.JJTROOT),
   // top level
-  CHARSET (ParserCSS21TreeConstants.JJTCHARSETRULE, ParserCSS30TreeConstants.JJTCHARSETRULE),
-  UNKNOWNRULE (ParserCSS21TreeConstants.JJTUNKNOWNRULE, ParserCSS30TreeConstants.JJTUNKNOWNRULE),
-  UNKNOWNRULEPARAMETERLIST (ParserCSS21TreeConstants.JJTUNKNOWNRULEPARAMETERLIST, ParserCSS30TreeConstants.JJTUNKNOWNRULEPARAMETERLIST),
-  UNKNOWNRULEBODY (ParserCSS21TreeConstants.JJTUNKNOWNRULEBODY, ParserCSS30TreeConstants.JJTUNKNOWNRULEBODY),
-  STYLERULE (ParserCSS21TreeConstants.JJTSTYLERULE, ParserCSS30TreeConstants.JJTSTYLERULE),
-  IMPORTRULE (ParserCSS21TreeConstants.JJTIMPORTRULE, ParserCSS30TreeConstants.JJTIMPORTRULE),
-  PAGERULE (ParserCSS21TreeConstants.JJTPAGERULE, ParserCSS30TreeConstants.JJTPAGERULE),
-  MEDIARULE (ParserCSS21TreeConstants.JJTMEDIARULE, ParserCSS30TreeConstants.JJTMEDIARULE),
-  FONTFACERULE (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTFONTFACERULE),
+  CHARSET (ParserCSS30TreeConstants.JJTCHARSETRULE),
+  UNKNOWNRULE (ParserCSS30TreeConstants.JJTUNKNOWNRULE),
+  UNKNOWNRULEPARAMETERLIST (ParserCSS30TreeConstants.JJTUNKNOWNRULEPARAMETERLIST),
+  UNKNOWNRULEBODY (ParserCSS30TreeConstants.JJTUNKNOWNRULEBODY),
+  STYLERULE (ParserCSS30TreeConstants.JJTSTYLERULE),
+  IMPORTRULE (ParserCSS30TreeConstants.JJTIMPORTRULE),
+  PAGERULE (ParserCSS30TreeConstants.JJTPAGERULE),
+  MEDIARULE (ParserCSS30TreeConstants.JJTMEDIARULE),
+  FONTFACERULE (ParserCSS30TreeConstants.JJTFONTFACERULE),
   // top level -- style rule
-  SELECTOR (ParserCSS21TreeConstants.JJTSELECTOR, ParserCSS30TreeConstants.JJTSELECTOR),
-  STYLEDECLARATIONLIST (ParserCSS21TreeConstants.JJTSTYLEDECLARATIONLIST, ParserCSS30TreeConstants.JJTSTYLEDECLARATIONLIST),
-  STYLEDECLARATION (ParserCSS21TreeConstants.JJTSTYLEDECLARATION, ParserCSS30TreeConstants.JJTSTYLEDECLARATION),
+  SELECTOR (ParserCSS30TreeConstants.JJTSELECTOR),
+  STYLEDECLARATIONLIST (ParserCSS30TreeConstants.JJTSTYLEDECLARATIONLIST),
+  STYLEDECLARATION (ParserCSS30TreeConstants.JJTSTYLEDECLARATION),
   // style rule -- selector
-  NAMESPACEPREFIX (ParserCSS21TreeConstants.JJTNAMESPACEPREFIX, ParserCSS30TreeConstants.JJTNAMESPACEPREFIX),
-  ELEMENTNAME (ParserCSS21TreeConstants.JJTELEMENTNAME, ParserCSS30TreeConstants.JJTELEMENTNAME),
-  HASH (ParserCSS21TreeConstants.JJTHASH, ParserCSS30TreeConstants.JJTHASH),
-  CLASS (ParserCSS21TreeConstants.JJTCLASS, ParserCSS30TreeConstants.JJTCLASS),
-  PSEUDO (ParserCSS21TreeConstants.JJTPSEUDO, ParserCSS30TreeConstants.JJTPSEUDO),
-  NEGATION (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTNEGATION),
-  ATTRIB (ParserCSS21TreeConstants.JJTATTRIB, ParserCSS30TreeConstants.JJTATTRIB),
-  ATTRIBOPERATOR (ParserCSS21TreeConstants.JJTATTRIBOPERATOR, ParserCSS30TreeConstants.JJTATTRIBOPERATOR),
-  ATTRIBVALUE (ParserCSS21TreeConstants.JJTATTRIBVALUE, ParserCSS30TreeConstants.JJTATTRIBVALUE),
-  SELECTORCOMBINATOR (ParserCSS21TreeConstants.JJTSELECTORCOMBINATOR, ParserCSS30TreeConstants.JJTSELECTORCOMBINATOR),
-  NTH (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTNTH),
+  NAMESPACEPREFIX (ParserCSS30TreeConstants.JJTNAMESPACEPREFIX),
+  ELEMENTNAME (ParserCSS30TreeConstants.JJTELEMENTNAME),
+  HASH (ParserCSS30TreeConstants.JJTHASH),
+  CLASS (ParserCSS30TreeConstants.JJTCLASS),
+  PSEUDO (ParserCSS30TreeConstants.JJTPSEUDO),
+  NEGATION (ParserCSS30TreeConstants.JJTNEGATION),
+  ATTRIB (ParserCSS30TreeConstants.JJTATTRIB),
+  ATTRIBOPERATOR (ParserCSS30TreeConstants.JJTATTRIBOPERATOR),
+  ATTRIBVALUE (ParserCSS30TreeConstants.JJTATTRIBVALUE),
+  SELECTORCOMBINATOR (ParserCSS30TreeConstants.JJTSELECTORCOMBINATOR),
+  NTH (ParserCSS30TreeConstants.JJTNTH),
   // style rule -- declaration
-  PROPERTY (ParserCSS21TreeConstants.JJTPROPERTY, ParserCSS30TreeConstants.JJTPROPERTY),
-  IMPORTANT (ParserCSS21TreeConstants.JJTIMPORTANT, ParserCSS30TreeConstants.JJTIMPORTANT),
+  PROPERTY (ParserCSS30TreeConstants.JJTPROPERTY),
+  IMPORTANT (ParserCSS30TreeConstants.JJTIMPORTANT),
   // declaration -- expression
-  EXPR (ParserCSS21TreeConstants.JJTEXPR, ParserCSS30TreeConstants.JJTEXPR),
-  EXPRTERM (ParserCSS21TreeConstants.JJTEXPRTERM, ParserCSS30TreeConstants.JJTEXPRTERM),
-  EXPROPERATOR (ParserCSS21TreeConstants.JJTEXPROPERATOR, ParserCSS30TreeConstants.JJTEXPROPERATOR),
-  URL (ParserCSS21TreeConstants.JJTURL, ParserCSS30TreeConstants.JJTURL),
-  FUNCTION (ParserCSS21TreeConstants.JJTFUNCTION, ParserCSS30TreeConstants.JJTFUNCTION),
-  MATH (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMATH),
-  MATHSUMOPERATOR (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMATHSUMOPERATOR),
-  MATHPRODUCT (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMATHPRODUCT),
-  MATHPRODUCTOPERATOR (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMATHPRODUCTOPERATOR),
-  MATHUNIT (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMATHUNIT),
+  EXPR (ParserCSS30TreeConstants.JJTEXPR),
+  EXPRTERM (ParserCSS30TreeConstants.JJTEXPRTERM),
+  EXPROPERATOR (ParserCSS30TreeConstants.JJTEXPROPERATOR),
+  URL (ParserCSS30TreeConstants.JJTURL),
+  FUNCTION (ParserCSS30TreeConstants.JJTFUNCTION),
+  MATH (ParserCSS30TreeConstants.JJTMATH),
+  MATHSUMOPERATOR (ParserCSS30TreeConstants.JJTMATHSUMOPERATOR),
+  MATHPRODUCT (ParserCSS30TreeConstants.JJTMATHPRODUCT),
+  MATHPRODUCTOPERATOR (ParserCSS30TreeConstants.JJTMATHPRODUCTOPERATOR),
+  MATHUNIT (ParserCSS30TreeConstants.JJTMATHUNIT),
   // media stuff
-  MEDIALIST (ParserCSS21TreeConstants.JJTMEDIALIST, ParserCSS30TreeConstants.JJTMEDIALIST),
-  MEDIUM (ParserCSS21TreeConstants.JJTMEDIUM, ParserCSS30TreeConstants.JJTMEDIUM),
-  MEDIAQUERY (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMEDIAQUERY),
-  MEDIAMODIFIER (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMEDIAMODIFIER),
-  MEDIAEXPR (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMEDIAEXPR),
-  MEDIAFEATURE (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTMEDIAFEATURE),
+  MEDIALIST (ParserCSS30TreeConstants.JJTMEDIALIST),
+  MEDIUM (ParserCSS30TreeConstants.JJTMEDIUM),
+  MEDIAQUERY (ParserCSS30TreeConstants.JJTMEDIAQUERY),
+  MEDIAMODIFIER (ParserCSS30TreeConstants.JJTMEDIAMODIFIER),
+  MEDIAEXPR (ParserCSS30TreeConstants.JJTMEDIAEXPR),
+  MEDIAFEATURE (ParserCSS30TreeConstants.JJTMEDIAFEATURE),
   // page stuff
-  PSEUDOPAGE (ParserCSS21TreeConstants.JJTPSEUDOPAGE, CGlobal.ILLEGAL_UINT),
-  PAGESELECTOR (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTPAGESELECTOR),
-  PAGEMARGINSYMBOL (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTPAGEMARGINSYMBOL),
-  PAGERULEBLOCK (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTPAGERULEBLOCK),
+  PSEUDOPAGE (CGlobal.ILLEGAL_UINT),
+  PAGESELECTOR (ParserCSS30TreeConstants.JJTPAGESELECTOR),
+  PAGEMARGINSYMBOL (ParserCSS30TreeConstants.JJTPAGEMARGINSYMBOL),
+  PAGERULEBLOCK (ParserCSS30TreeConstants.JJTPAGERULEBLOCK),
   // animations
-  KEYFRAMESRULE (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTKEYFRAMESRULE),
-  KEYFRAMESIDENTIFIER (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTKEYFRAMESIDENTIFIER),
-  KEYFRAMESSELECTOR (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTKEYFRAMESSELECTOR),
-  SINGLEKEYFRAMESELECTOR (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTSINGLEKEYFRAMESELECTOR),
+  KEYFRAMESRULE (ParserCSS30TreeConstants.JJTKEYFRAMESRULE),
+  KEYFRAMESIDENTIFIER (ParserCSS30TreeConstants.JJTKEYFRAMESIDENTIFIER),
+  KEYFRAMESSELECTOR (ParserCSS30TreeConstants.JJTKEYFRAMESSELECTOR),
+  SINGLEKEYFRAMESELECTOR (ParserCSS30TreeConstants.JJTSINGLEKEYFRAMESELECTOR),
   // viewport
-  VIEWPORTRULE (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTVIEWPORTRULE),
+  VIEWPORTRULE (ParserCSS30TreeConstants.JJTVIEWPORTRULE),
   // namespace
-  NAMESPACERULE (ParserCSS21TreeConstants.JJTNAMESPACERULE, ParserCSS30TreeConstants.JJTNAMESPACERULE),
-  NAMESPACERULEPREFIX (ParserCSS21TreeConstants.JJTNAMESPACERULEPREFIX, ParserCSS30TreeConstants.JJTNAMESPACERULEPREFIX),
-  NAMESPACERULEURL (ParserCSS21TreeConstants.JJTNAMESPACERULEURL, ParserCSS30TreeConstants.JJTNAMESPACERULEURL),
+  NAMESPACERULE (ParserCSS30TreeConstants.JJTNAMESPACERULE),
+  NAMESPACERULEPREFIX (ParserCSS30TreeConstants.JJTNAMESPACERULEPREFIX),
+  NAMESPACERULEURL (ParserCSS30TreeConstants.JJTNAMESPACERULEURL),
   // supports
-  SUPPORTSRULE (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTSUPPORTSRULE),
-  SUPPORTSCONDITION (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTSUPPORTSCONDITION),
-  SUPPORTSCONDITIONOPERATOR (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTSUPPORTSCONDITIONOPERATOR),
-  SUPPORTSNEGATION (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTSUPPORTSNEGATION),
-  SUPPORTSCONDITIONINPARENS (CGlobal.ILLEGAL_UINT, ParserCSS30TreeConstants.JJTSUPPORTSCONDITIONINPARENS),
+  SUPPORTSRULE (ParserCSS30TreeConstants.JJTSUPPORTSRULE),
+  SUPPORTSCONDITION (ParserCSS30TreeConstants.JJTSUPPORTSCONDITION),
+  SUPPORTSCONDITIONOPERATOR (ParserCSS30TreeConstants.JJTSUPPORTSCONDITIONOPERATOR),
+  SUPPORTSNEGATION (ParserCSS30TreeConstants.JJTSUPPORTSNEGATION),
+  SUPPORTSCONDITIONINPARENS (ParserCSS30TreeConstants.JJTSUPPORTSCONDITIONINPARENS),
   // rest
-  ERROR_SKIPTO (ParserCSS21TreeConstants.JJTERRORSKIPTO, ParserCSS30TreeConstants.JJTERRORSKIPTO);
+  ERROR_SKIPTO (ParserCSS30TreeConstants.JJTERRORSKIPTO);
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (ECSSNodeType.class);
 
-  private final int m_nParserType21;
   private final int m_nParserType30;
 
   /**
    * Constructor
    *
-   * @param nParserType21
-   *        The ID of the node in the 2.1 parser or {@link CGlobal#ILLEGAL_UINT}
-   *        if this node is not present in CSS 2.1.
    * @param nParserType30
    *        The ID of the node in the 3.0 parser or {@link CGlobal#ILLEGAL_UINT}
    *        if this node is not present in CSS 3.0.
    */
-  private ECSSNodeType (final int nParserType21, final int nParserType30)
+  private ECSSNodeType (final int nParserType30)
   {
-    m_nParserType21 = nParserType21;
     m_nParserType30 = nParserType30;
   }
 
@@ -144,8 +138,6 @@ public enum ECSSNodeType
   {
     switch (eVersion)
     {
-      case CSS21:
-        return m_nParserType21;
       case CSS30:
         return m_nParserType30;
       default:
@@ -173,11 +165,6 @@ public enum ECSSNodeType
   {
     switch (eVersion)
     {
-      case CSS21:
-        // Special handling in case a CSS 3.0 node is requested, and this node
-        // type is not supported in CSS 2.1
-        return m_nParserType21 == CGlobal.ILLEGAL_UINT ? name ()
-                                                       : ParserCSS21TreeConstants.jjtNodeName[m_nParserType21];
       case CSS30:
         return ParserCSS30TreeConstants.jjtNodeName[m_nParserType30];
       default:

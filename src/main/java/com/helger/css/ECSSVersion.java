@@ -31,13 +31,8 @@ public enum ECSSVersion implements IHasVersion
 {
   // Sort fields according to the version!
   @DevelopersNote ("No CSS parser is available for 1.0!") CSS10(new Version (1, 0)),
-  CSS21 (new Version (2, 1)),
+  @DevelopersNote ("Up to version 4.x of ph-css a special CSS 2.1 parser was available") CSS21(new Version (2, 1)),
   CSS30 (new Version (3, 0));
-
-  @Nonnull
-  @Deprecated
-  @DevelopersNote ("Use CSS10 instead")
-  public static final ECSSVersion HTML4 = CSS10;
 
   /** Latest version is CSS 3.0 */
   @Nonnull

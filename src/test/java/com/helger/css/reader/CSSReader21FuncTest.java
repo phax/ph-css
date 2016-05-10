@@ -23,7 +23,6 @@ import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.css.ECSSVersion;
 
 /**
  * Test reading CSS 2.1 files
@@ -41,7 +40,7 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
 
   public CSSReader21FuncTest (final boolean bBrowserCompliant)
   {
-    super (ECSSVersion.CSS21, CCharset.CHARSET_UTF_8_OBJ, false, bBrowserCompliant);
+    super (CCharset.CHARSET_UTF_8_OBJ, false, bBrowserCompliant);
   }
 
   @Test

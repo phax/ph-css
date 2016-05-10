@@ -59,8 +59,6 @@ import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.parser.CharStream;
 import com.helger.css.parser.ParseException;
-import com.helger.css.parser.ParserCSS21;
-import com.helger.css.parser.ParserCSS21TokenManager;
 import com.helger.css.parser.ParserCSS30;
 import com.helger.css.parser.ParserCSS30TokenManager;
 import com.helger.css.parser.ParserCSSCharsetDetector;
@@ -181,14 +179,6 @@ public final class CSSReader
       switch (eVersion)
       {
         case CSS21:
-        {
-          final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aCharStream);
-          final ParserCSS21 aParser = new ParserCSS21 (aTokenHdl);
-          aParser.setCustomErrorHandler (aCustomErrorHandler);
-          aParser.setBrowserCompliantMode (bBrowserCompliantMode);
-          // Main parsing
-          return aParser.styleSheet ();
-        }
         case CSS30:
         {
           final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);

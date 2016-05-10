@@ -48,8 +48,6 @@ import com.helger.css.parser.CSSCharStream;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.CharStream;
 import com.helger.css.parser.ParseException;
-import com.helger.css.parser.ParserCSS21;
-import com.helger.css.parser.ParserCSS21TokenManager;
 import com.helger.css.parser.ParserCSS30;
 import com.helger.css.parser.ParserCSS30TokenManager;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
@@ -166,22 +164,6 @@ public final class CSSReaderDeclarationList
     switch (eVersion)
     {
       case CSS21:
-      {
-        final ParserCSS21TokenManager aTokenHdl = new ParserCSS21TokenManager (aCharStream);
-        final ParserCSS21 aParser = new ParserCSS21 (aTokenHdl);
-        aParser.setCustomErrorHandler (aCustomErrorHandler);
-        try
-        {
-          // Main parsing
-          return aParser.styleDeclarationList ();
-        }
-        catch (final ParseException ex)
-        {
-          // Unrecoverable error
-          aCustomExceptionHandler.onException (ex);
-          return null;
-        }
-      }
       case CSS30:
       {
         final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);

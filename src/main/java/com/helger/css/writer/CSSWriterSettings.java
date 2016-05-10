@@ -86,6 +86,14 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   private boolean m_bWriteUnknownRules = DEFAULT_WRITE_UNKNOWN_RULES;
 
   /**
+   * Default constructor using the latest CSS version and none-optimized output.
+   */
+  public CSSWriterSettings ()
+  {
+    this (ECSSVersion.LATEST, DEFAULT_OPTIMIZED_OUTPUT);
+  }
+
+  /**
    * @param eVersion
    *        CSS version to emit
    */
