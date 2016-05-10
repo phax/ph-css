@@ -60,6 +60,11 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
+  <properties>
+    <!-- For surefire plugin (use property for JaCoCo integration -->
+    <argLine>-Xmx1024m</argLine>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -115,7 +120,6 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>src/test/resources/testfiles/css21/good/themes*</exclude>
             <exclude>src/test/resources/testfiles/css30/bad/**</exclude>
             <exclude>src/test/resources/testfiles/css30/bad_but_succeeding/w3c/**</exclude>
             <exclude>src/test/resources/testfiles/css30/good/issue*</exclude>
@@ -123,13 +127,6 @@
             <exclude>src/test/resources/testfiles/css30/good/w3c/**</exclude>
             <exclude>src/test/resources/testfiles/css30/good_but_failing/w3c/**</exclude>
           </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <argLine>-Xmx1024m</argLine>
         </configuration>
       </plugin>
     </plugins>

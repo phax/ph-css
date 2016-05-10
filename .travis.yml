@@ -19,7 +19,7 @@ install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
 
 script:
-  -  mvn test -B -P coverage
+  - mvn test -B -P coverage
 
 cache:
   directories:
