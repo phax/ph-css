@@ -25,7 +25,7 @@
     <version>1.4.1</version>
   </parent>
   <artifactId>ph-css</artifactId>
-  <version>4.1.1</version>
+  <version>4.1.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>ph-css</name>
   <description>Java CSS 3 parser and builder</description>
@@ -44,7 +44,7 @@
     <connection>scm:git:git@github.com:phax/ph-css.git</connection>
     <developerConnection>scm:git:git@github.com:phax/ph-css.git</developerConnection>
     <url>http://github.com/phax/ph-css</url>
-    <tag>ph-css-4.1.1</tag>
+    <tag>origin/4.1.2</tag>
   </scm>
   
   <organization>
