@@ -551,7 +551,8 @@ try{
     )
     ( <S> | <CDO> | <CDC> )*
 // ignore too many closing brackets
-    ( <RBRACE> 
+// ignore empty semicolons
+    ( ( <RBRACE> | <SEMICOLON> ) 
       ( <S> | <CDO> | <CDC> )*
     )* 
   )*

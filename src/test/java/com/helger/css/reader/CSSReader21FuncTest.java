@@ -35,7 +35,7 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   @Parameters (name = "{index}: browserCompliant={0}")
   public static Iterable <Object []> data ()
   {
-    return new CommonsArrayList <> (new Object [] { true }, new Object [] { false });
+    return new CommonsArrayList<> (new Object [] { true }, new Object [] { false });
   }
 
   public CSSReader21FuncTest (final boolean bBrowserCompliant)
@@ -47,20 +47,6 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   public void testReadAll21Good ()
   {
     testReadGood ("src/test/resources/testfiles/css21/good");
-    testReadGood ("src/test/resources/testfiles/css21/bad_but_succeeding");
-  }
-
-  @Test
-  public void testReadAll21Bad ()
-  {
-    testReadBad ("src/test/resources/testfiles/css21/bad");
-    testReadBad ("src/test/resources/testfiles/css21/good_but_failing");
-  }
-
-  @Test
-  public void testReadAll21BadButRecoverable ()
-  {
-    testReadBadButRecoverable ("src/test/resources/testfiles/css21/bad_but_recoverable");
   }
 
   @Test
