@@ -42,7 +42,7 @@ public final class Issue22Test
   public void testIssue ()
   {
     // Multiple errors contained
-    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad/issue22.css");
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue22.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                new CSSReaderSettings ().setFallbackCharset (CCharset.CHARSET_UTF_8_OBJ)
