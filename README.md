@@ -14,11 +14,10 @@ ph-css is licensed under Apache 2.0 license.
 
 ## News and noteworthy
 
-Versions <= 3.9.2 are compatible with ph-commons < 6.0.
-Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
 Versions >= 5 require JDK 8.
 
-  * v5.0.0 (in progress) - Added JDK8 as the basis
+  * v5.0.0 (in progress) - Added JDK8 as the basis; removed explicit grammar for CSS 2.1 (issue #20)
+  * v4.1.2 - Improved browser compliant parsing
   * v4.1.1 - Skipping style rules with invalid selectors in browser compliant mode; allowing "--" identifier prefix; improved unknown rule parsing
   * v4.1.0 - Improved calc parsing; extended support for page rules with page margin blocks
   * v4.0.1 - Added customizable newline characters
@@ -38,7 +37,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>4.1.1</version>
+  <version>4.1.2</version>
 </dependency>
 ```
 
@@ -49,22 +48,7 @@ As ph-css is mainly concerned about the grammatical structure of CSS, the main c
 
 ##Coding paradigms used
 
-The following list gives a short overview of special programming techniques that are used inside ph-css
-
-  * All interfaces are named starting with a capital 'I' followed by a second uppercase character (like in `IHasID`)
-  * All enumerations are named starting with a capital 'E' followed by a second uppercase character (like in `EUnicodeBOM`)
-  * All member variables are private or protected and use the Hungarian notation (like `aList`). The used prefixes are:
-    * `a` for all kind of objects that do not fall into any other category
-    * `b` for boolean variables
-    * `c` for character variables
-    * `d` for double variables
-    * `e` for enum variables
-    * `f` for float variables
-    * `n` for byte, int, long and short variables
-    * `s` for String variables
-  * The scope of a field is indicated by either the prefix `m_` for instance (member) fields, and `s_` for static fields. A special case are "static final" fields which may omit this prefix and use only upper case character (e.g. `DEFAULT_VALUE` as in `public static final boolean DEFAULT_VALUE = true;`)
-  * All methods returning collections (lists, sets, maps etc.) are usually returning copies of the content. This helps ensuring thread-safety (where applicable) but also means that modifying returned collections has no impact on the content of the "owning" object. In more or less all cases, there are "add", "remove" and "clear" methods available to modify the content of an object directly. All the methods returning copies of collections should be annotated with `@ReturnsMutableCopy`. In contrast if the inner collection is returned directly (for whatever reason) it should be annotated with `@ReturnsMutableObject`. If an unmodifiable collection is returned, the corresponding annotation is `@ReturnsImmutableObject` (e.g. for `Collections.unmodifiableList` etc.)
-  * For all non primitive parameter the annotations `@Nonnull` or `@Nullable` are used, indicating whether a parameter can be `null` or not. Additionally for Strings and collections the annotation `@Nonempty` may be present, indicating that empty values are also not allowed. All these annotations have no impact on the runtime of an application. They are just meant as hints for the developers.
+Please look at my personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md) for the naming conventions used in this project.
   
 ##Basic Classes
 A complete stylesheet is represented as an instance of `com.helger.css.decl.CascadingStyleSheet`. There is no difference between CSS 2.1 and CSS 3.0 instances. The class `com.helger.css.decl.CascadingStyleSheet` contains all top-level rules that may be present in a CSS:
