@@ -1,0 +1,20 @@
+/* correct part */
+table.fast th, table.fast td {
+    padding: 10px 10px;
+    text-align: left;
+}
+/* error that should be skipped*/
+table.fast th background:#eee;
+
+/* first correct part that skipped by both browsers and parser algorithm */
+.ir {
+    display: block;
+}
+
+/* correct part that is skipped by parser but is read by browsers */
+div.flexible-detail-left {
+    margin-bottom: 30px;
+}
+/* end of skipped part */
+
+.some { more: css; }
