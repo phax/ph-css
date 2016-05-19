@@ -57,6 +57,14 @@ public class CSSWriter
 
   /**
    * Constructor for creating non-optimized output.
+   */
+  public CSSWriter ()
+  {
+    this (new CSSWriterSettings ());
+  }
+
+  /**
+   * Constructor for creating non-optimized output.
    *
    * @param eVersion
    *        The CSS version to emit the code for. May not be <code>null</code> .
