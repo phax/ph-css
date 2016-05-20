@@ -200,6 +200,36 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     }
   }
 
+  @Nonnull
+  @Nonempty
+  public static String createLoggingStringBrowserCompliantSkip (@Nonnull final Token aFromToken,
+                                                                @Nonnull final Token aToToken)
+  {
+    return "Browser compliant mode skipped CSS from [" +
+           aFromToken.beginLine +
+           ":" +
+           aFromToken.beginColumn +
+           "] starting at token '" +
+           aFromToken.image +
+           "' until [" +
+           aToToken.endLine +
+           ":" +
+           aToToken.endColumn +
+           "]";
+  }
+
+  public void onCSSBrowserCompliantSkip (@Nonnull final Token aFromToken,
+                                         @Nonnull final Token aToToken) throws ParseException
+  {
+    s_aLogger.warn (createLoggingStringBrowserCompliantSkip (aFromToken, aToToken));
+
+    if (m_aNestedErrorHandler != null)
+    {
+      // Invoke nested handler
+      m_aNestedErrorHandler.onCSSBrowserCompliantSkip (aFromToken, aToToken);
+    }
+  }
+
   @Override
   public String toString ()
   {

@@ -81,6 +81,16 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
       m_aNestedErrorHandler.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
   }
 
+  public void onCSSBrowserCompliantSkip (@Nonnull final Token aFromToken,
+                                         @Nonnull final Token aToToken) throws ParseException
+  {
+    // TODO add CSSParseError
+    // m_aRWLock.writeLocked ( () -> m_aErrors.add
+    // (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
+    if (m_aNestedErrorHandler != null)
+      m_aNestedErrorHandler.onCSSBrowserCompliantSkip (aFromToken, aToToken);
+  }
+
   /**
    * @return <code>true</code> if at least one parse error is contained,
    *         <code>false</code> otherwise.

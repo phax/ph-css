@@ -56,6 +56,13 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                                                              sMsg));
   }
 
+  public void onCSSBrowserCompliantSkip (@Nonnull final Token aFromToken,
+                                         @Nonnull final Token aToToken) throws ParseException
+  {
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (aFromToken,
+                                                                                                   aToToken));
+  }
+
   @Override
   public String toString ()
   {

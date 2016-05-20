@@ -491,34 +491,43 @@ private String javaSkipToClosingBraceOrSemicolon(final int nInitialNesting) thro
 JAVACODE
 /** 
  * Browser compliant skip to matching closing '}' (being inside a '}')
+ * @param ex The source ParseException. May not be <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private void browserCompliantSkip() throws ParseEOFException #void {
+private void browserCompliantSkip(final ParseException ex) throws ParseEOFException #void {
   javaSkipToClosingBrace (1);
-  // push back last token!
+  // push back last token (char count!!)
   token_source.backup(1);
+  if (m_aCustomErrorHandler != null)
+    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex.currentToken, token);
 }
 
 JAVACODE
 /** 
  * Browser compliant skip to the next closing '}' (not being inside a '}')
+ * @param ex The source ParseException. May not be <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private void browserCompliantSkipSelector() throws ParseEOFException #void {
+private void browserCompliantSkipSelector(final ParseException ex) throws ParseEOFException #void {
   javaSkipToClosingBrace (0);
-  // push back last token!
+  // push back last token (char count!!)
   token_source.backup(1);
+  if (m_aCustomErrorHandler != null)
+    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex.currentToken, token);
 }
 
 JAVACODE
 /** 
  * Browser compliant skip to matching closing '}' or ';'
+ * @param ex The source ParseException. May not be <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private void browserCompliantSkipDecl() throws ParseEOFException #void {
+private void browserCompliantSkipDecl(final ParseException ex) throws ParseEOFException #void {
   javaSkipToClosingBraceOrSemicolon (1);
-  // push back last token!
+  // push back last token (char count!!)
   token_source.backup(1);
+  if (m_aCustomErrorHandler != null)
+    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex.currentToken, token);
 }
 
 //
@@ -1024,9 +1033,9 @@ try{
      Rule: ( expr() )? */
   expr()
   ( important() )?
-} catch (ParseException ex) {
+} catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkipDecl ();
+    browserCompliantSkipDecl (ex);
   else  
     throw ex;
 }
@@ -1049,9 +1058,9 @@ void styleDeclarationBlock() #void : {}
 try{
   styleDeclarationList()
   <RBRACE>
-} catch (ParseException ex) {
+} catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip ();
+    browserCompliantSkip (ex);
   else  
     errorSkipTo (ex, RBRACE);
 }
@@ -1068,9 +1077,9 @@ try{
     ( <S> )*
   )*
   styleDeclarationBlock()
-} catch (ParseException ex) {
+} catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkipSelector ();
+    browserCompliantSkipSelector (ex);
   else  
     throw ex;
 }
@@ -1166,9 +1175,9 @@ try{
   ( <S> )*
   ( mediaRuleList() )?
   <RBRACE>
-} catch (ParseException ex) {
+} catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip ();
+    browserCompliantSkip (ex);
   else  
     errorSkipTo (ex, RBRACE);
 }
@@ -1247,9 +1256,9 @@ try{
   ( <S> )*
   pageBody()
   <RBRACE>
-} catch (ParseException ex) {
+} catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip ();
+    browserCompliantSkip (ex);
   else  
     errorSkipTo (ex, RBRACE);
 }
@@ -1318,9 +1327,9 @@ try{
   ( <S> )*
   keyframesBlocks()
   <RBRACE>
-} catch (ParseException ex) {
+} catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip ();
+    browserCompliantSkip (ex);
   else  
     errorSkipTo (ex, RBRACE);
 }
@@ -1404,9 +1413,9 @@ try{
     ( <S> )*
   )* 
   <RBRACE>
-} catch (ParseException ex) {
+} catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip ();
+    browserCompliantSkip (ex);
   else  
     errorSkipTo (ex, RBRACE);
 }

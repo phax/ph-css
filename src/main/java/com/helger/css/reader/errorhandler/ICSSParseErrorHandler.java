@@ -47,10 +47,11 @@ public interface ICSSParseErrorHandler
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  void onCSSParseError (@Nonnull Token aLastValidToken,
-                        @Nonnull int [] [] aExpectedTokenSequencesVal,
-                        @Nonnull String [] aTokenImageVal,
-                        @Nullable Token aLastSkippedToken) throws ParseException;
+  default void onCSSParseError (@Nonnull final Token aLastValidToken,
+                                @Nonnull final int [] [] aExpectedTokenSequencesVal,
+                                @Nonnull final String [] aTokenImageVal,
+                                @Nullable final Token aLastSkippedToken) throws ParseException
+  {}
 
   /**
    * Called upon an unexpected rule. This happens e.g. when <code>@import</code>
@@ -66,7 +67,12 @@ public interface ICSSParseErrorHandler
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  void onCSSUnexpectedRule (@Nonnull Token aCurrentToken,
-                            @Nonnull @Nonempty String sRule,
-                            @Nonnull @Nonempty String sMsg) throws ParseException;
+  default void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
+                                    @Nonnull @Nonempty final String sRule,
+                                    @Nonnull @Nonempty final String sMsg) throws ParseException
+  {}
+
+  default void onCSSBrowserCompliantSkip (@Nonnull final Token aFromToken,
+                                          @Nonnull final Token aToToken) throws ParseException
+  {}
 }
