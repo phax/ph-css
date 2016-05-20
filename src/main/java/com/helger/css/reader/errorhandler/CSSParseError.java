@@ -23,6 +23,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.parser.ParseException;
 import com.helger.css.parser.ReadOnlyToken;
 import com.helger.css.parser.Token;
 
@@ -148,5 +149,15 @@ public class CSSParseError
     return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken,
                                                                                              sRule,
                                                                                              sMsg));
+  }
+
+  @Nonnull
+  public static CSSParseError createBrowserCompliantSkip (@Nullable final ParseException ex,
+                                                          @Nonnull final Token aFromToken,
+                                                          @Nonnull final Token aToToken)
+  {
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex,
+                                                                                                   aFromToken,
+                                                                                                   aToToken));
   }
 }

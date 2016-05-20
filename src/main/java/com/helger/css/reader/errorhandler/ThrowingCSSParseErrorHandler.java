@@ -56,10 +56,12 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                                                              sMsg));
   }
 
-  public void onCSSBrowserCompliantSkip (@Nonnull final Token aFromToken,
+  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
+                                         @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException
   {
-    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (aFromToken,
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex,
+                                                                                                   aFromToken,
                                                                                                    aToToken));
   }
 

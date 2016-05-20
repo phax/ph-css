@@ -44,17 +44,9 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final ICommonsList <CSSParseError> m_aErrors = new CommonsArrayList <> ();
-  private final ICSSParseErrorHandler m_aNestedErrorHandler;
 
   public CollectingCSSParseErrorHandler ()
-  {
-    this (null);
-  }
-
-  public CollectingCSSParseErrorHandler (@Nullable final ICSSParseErrorHandler aNestedErrorHandler)
-  {
-    m_aNestedErrorHandler = aNestedErrorHandler;
-  }
+  {}
 
   public void onCSSParseError (@Nonnull final Token aLastValidToken,
                                @Nonnull final int [] [] aExpectedTokenSequencesVal,
@@ -65,11 +57,6 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                                     aExpectedTokenSequencesVal,
                                                                     aTokenImageVal,
                                                                     aLastSkippedToken)));
-    if (m_aNestedErrorHandler != null)
-      m_aNestedErrorHandler.onCSSParseError (aLastValidToken,
-                                             aExpectedTokenSequencesVal,
-                                             aTokenImageVal,
-                                             aLastSkippedToken);
   }
 
   public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
@@ -77,18 +64,13 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
     m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
-    if (m_aNestedErrorHandler != null)
-      m_aNestedErrorHandler.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
   }
 
-  public void onCSSBrowserCompliantSkip (@Nonnull final Token aFromToken,
+  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
+                                         @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException
   {
-    // TODO add CSSParseError
-    // m_aRWLock.writeLocked ( () -> m_aErrors.add
-    // (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
-    if (m_aNestedErrorHandler != null)
-      m_aNestedErrorHandler.onCSSBrowserCompliantSkip (aFromToken, aToToken);
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
   }
 
   /**

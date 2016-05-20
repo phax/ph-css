@@ -41,28 +41,11 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingCSSParseErrorHandler.class);
   private static final int TOKEN_EOF = 0;
 
-  private final ICSSParseErrorHandler m_aNestedErrorHandler;
-
   /**
    * Default constructor.
    */
   public LoggingCSSParseErrorHandler ()
-  {
-    this (null);
-  }
-
-  /**
-   * Constructor with a nested error handler.
-   *
-   * @param aNestedErrorHandler
-   *        The nested error handler to be invoked after this error handler. May
-   *        be <code>null</code> to indicate that no nested error handler is
-   *        present.
-   */
-  public LoggingCSSParseErrorHandler (@Nullable final ICSSParseErrorHandler aNestedErrorHandler)
-  {
-    m_aNestedErrorHandler = aNestedErrorHandler;
-  }
+  {}
 
   @Nonnull
   @Nonempty
@@ -147,15 +130,6 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                    aExpectedTokenSequencesVal,
                                                    aTokenImageVal,
                                                    aLastSkippedToken));
-
-    if (m_aNestedErrorHandler != null)
-    {
-      // Invoke nested handler
-      m_aNestedErrorHandler.onCSSParseError (aLastValidToken,
-                                             aExpectedTokenSequencesVal,
-                                             aTokenImageVal,
-                                             aLastSkippedToken);
-    }
   }
 
   /**
@@ -192,17 +166,12 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
     s_aLogger.warn (createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
-
-    if (m_aNestedErrorHandler != null)
-    {
-      // Invoke nested handler
-      m_aNestedErrorHandler.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
-    }
   }
 
   @Nonnull
   @Nonempty
-  public static String createLoggingStringBrowserCompliantSkip (@Nonnull final Token aFromToken,
+  public static String createLoggingStringBrowserCompliantSkip (@Nullable final ParseException ex,
+                                                                @Nonnull final Token aFromToken,
                                                                 @Nonnull final Token aToToken)
   {
     return "Browser compliant mode skipped CSS from [" +
@@ -218,16 +187,11 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
            "]";
   }
 
-  public void onCSSBrowserCompliantSkip (@Nonnull final Token aFromToken,
+  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
+                                         @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException
   {
-    s_aLogger.warn (createLoggingStringBrowserCompliantSkip (aFromToken, aToToken));
-
-    if (m_aNestedErrorHandler != null)
-    {
-      // Invoke nested handler
-      m_aNestedErrorHandler.onCSSBrowserCompliantSkip (aFromToken, aToToken);
-    }
+    s_aLogger.warn (createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
   }
 
   @Override

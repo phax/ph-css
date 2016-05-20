@@ -499,7 +499,7 @@ private void browserCompliantSkip(final ParseException ex) throws ParseEOFExcept
   // push back last token (char count!!)
   token_source.backup(1);
   if (m_aCustomErrorHandler != null)
-    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex.currentToken, token);
+    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex, ex.currentToken, token);
 }
 
 JAVACODE
@@ -513,7 +513,7 @@ private void browserCompliantSkipSelector(final ParseException ex) throws ParseE
   // push back last token (char count!!)
   token_source.backup(1);
   if (m_aCustomErrorHandler != null)
-    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex.currentToken, token);
+    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex, ex.currentToken, token);
 }
 
 JAVACODE
@@ -527,7 +527,7 @@ private void browserCompliantSkipDecl(final ParseException ex) throws ParseEOFEx
   // push back last token (char count!!)
   token_source.backup(1);
   if (m_aCustomErrorHandler != null)
-    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex.currentToken, token);
+    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex, ex.currentToken, token);
 }
 
 //

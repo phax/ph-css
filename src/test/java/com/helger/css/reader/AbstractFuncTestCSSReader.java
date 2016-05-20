@@ -78,8 +78,8 @@ public abstract class AbstractFuncTestCSSReader
       final String sKey = aFile.getAbsolutePath ();
       if (m_bDebug)
         m_aLogger.info ("Filename: " + sKey);
-      final CollectingCSSParseErrorHandler aErrorHdl = new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ());
-      m_aReaderSettings.setCustomErrorHandler (aErrorHdl);
+      final CollectingCSSParseErrorHandler aErrorHdl = new CollectingCSSParseErrorHandler ();
+      m_aReaderSettings.setCustomErrorHandler (aErrorHdl.and (new LoggingCSSParseErrorHandler ()));
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aReaderSettings);
       assertNotNull (sKey, aCSS);
 
@@ -149,8 +149,8 @@ public abstract class AbstractFuncTestCSSReader
         m_aLogger.info (sKey);
 
       // Handle each error as a fatal error!
-      final CollectingCSSParseErrorHandler aErrorHdl = new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ());
-      m_aReaderSettings.setCustomErrorHandler (aErrorHdl);
+      final CollectingCSSParseErrorHandler aErrorHdl = new CollectingCSSParseErrorHandler ();
+      m_aReaderSettings.setCustomErrorHandler (aErrorHdl.and (new LoggingCSSParseErrorHandler ()));
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aReaderSettings);
       assertNotNull (sKey, aCSS);
       assertTrue (sKey, aErrorHdl.hasParseErrors ());

@@ -19,6 +19,7 @@ package com.helger.css.reader.errorhandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
@@ -47,11 +48,10 @@ public interface ICSSParseErrorHandler
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  default void onCSSParseError (@Nonnull final Token aLastValidToken,
-                                @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                                @Nonnull final String [] aTokenImageVal,
-                                @Nullable final Token aLastSkippedToken) throws ParseException
-  {}
+  void onCSSParseError (@Nonnull final Token aLastValidToken,
+                        @Nonnull final int [] [] aExpectedTokenSequencesVal,
+                        @Nonnull final String [] aTokenImageVal,
+                        @Nullable final Token aLastSkippedToken) throws ParseException;
 
   /**
    * Called upon an unexpected rule. This happens e.g. when <code>@import</code>
@@ -67,12 +67,71 @@ public interface ICSSParseErrorHandler
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  default void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                    @Nonnull @Nonempty final String sRule,
-                                    @Nonnull @Nonempty final String sMsg) throws ParseException
-  {}
+  void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
+                            @Nonnull @Nonempty final String sRule,
+                            @Nonnull @Nonempty final String sMsg) throws ParseException;
 
-  default void onCSSBrowserCompliantSkip (@Nonnull final Token aFromToken,
-                                          @Nonnull final Token aToToken) throws ParseException
-  {}
+  /**
+   * This method is only called in browser compliant mode if a certain part of
+   * the CSS is skipped.
+   *
+   * @param ex
+   *        The original {@link ParseException} that causes the parser to skip.
+   *        May be <code>null</code>.
+   * @param aFromToken
+   *        Original token that caused the error and was skipped (inclusive).
+   *        Never <code>null</code>.
+   * @param aToToken
+   *        The end token until which was skipped(exclusive). Never
+   *        <code>null</code>.
+   * @throws ParseException
+   *         In case the error is fatal and should be propagated.
+   * @see com.helger.css.reader.CSSReaderSettings#setBrowserCompliantMode(boolean)
+   */
+  void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
+                                  @Nonnull final Token aFromToken,
+                                  @Nonnull final Token aToToken) throws ParseException;
+
+  /**
+   * Create a new {@link ICSSParseErrorHandler} that invokes both
+   * <code>this</code> and the other error handler in a serial way.
+   * 
+   * @param aOther
+   *        The other handler to also be invoked.
+   * @return A new instance. Never <code>null</code>.
+   */
+  @Nonnull
+  default ICSSParseErrorHandler and (@Nonnull final ICSSParseErrorHandler aOther)
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+    final ICSSParseErrorHandler aThis = this;
+
+    return new ICSSParseErrorHandler ()
+    {
+      public void onCSSParseError (@Nonnull final Token aLastValidToken,
+                                   @Nonnull final int [] [] aExpectedTokenSequencesVal,
+                                   @Nonnull final String [] aTokenImageVal,
+                                   @Nullable final Token aLastSkippedToken) throws ParseException
+      {
+        aThis.onCSSParseError (aLastValidToken, aExpectedTokenSequencesVal, aTokenImageVal, aLastSkippedToken);
+        aOther.onCSSParseError (aLastValidToken, aExpectedTokenSequencesVal, aTokenImageVal, aLastSkippedToken);
+      }
+
+      public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
+                                       @Nonnull @Nonempty final String sRule,
+                                       @Nonnull @Nonempty final String sMsg) throws ParseException
+      {
+        aThis.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
+        aOther.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
+      }
+
+      public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
+                                             @Nonnull final Token aFromToken,
+                                             @Nonnull final Token aToToken) throws ParseException
+      {
+        aThis.onCSSBrowserCompliantSkip (ex, aFromToken, aToToken);
+        aOther.onCSSBrowserCompliantSkip (ex, aFromToken, aToToken);
+      }
+    };
+  }
 }

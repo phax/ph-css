@@ -16,7 +16,13 @@
  */
 package com.helger.css.reader.errorhandler;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.parser.ParseException;
+import com.helger.css.parser.Token;
 
 /**
  * An implementation of {@link ICSSParseErrorHandler} that does nothing. So in
@@ -28,6 +34,28 @@ public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
   public DoNothingCSSParseErrorHandler ()
   {}
+
+  public void onCSSParseError (@Nonnull final Token aLastValidToken,
+                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
+                               @Nonnull final String [] aTokenImageVal,
+                               @Nullable final Token aLastSkippedToken) throws ParseException
+  {
+    /* empty */
+  }
+
+  public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
+                                   @Nonnull @Nonempty final String sRule,
+                                   @Nonnull @Nonempty final String sMsg) throws ParseException
+  {
+    /* empty */
+  }
+
+  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
+                                         @Nonnull final Token aFromToken,
+                                         @Nonnull final Token aToToken) throws ParseException
+  {
+    /* empty */
+  }
 
   @Override
   public String toString ()

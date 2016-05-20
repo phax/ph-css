@@ -295,11 +295,14 @@ public final class CSSReader30SpecialFuncTest
   @Test
   public void testReadSpecialBadButRecoverable ()
   {
-    final CollectingCSSParseErrorHandler aErrors = new CollectingCSSParseErrorHandler (new LoggingCSSParseErrorHandler ());
+    final CollectingCSSParseErrorHandler aErrors = new CollectingCSSParseErrorHandler ();
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
     final File aFile = new File ("src/test/resources/testfiles/css30/bad_but_recoverable_and_browsercompliant/test-string.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion, aErrors);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
+                                                             aCharset,
+                                                             eVersion,
+                                                             aErrors.and (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aFile.getAbsolutePath (), aCSS);
   }
 
