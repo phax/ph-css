@@ -1,20 +1,473 @@
-/* correct part */
-table.fast th, table.fast td {
-    padding: 10px 10px;
-    text-align: left;
+body {
+    margin: 0;
 }
-/* error that should be skipped*/
-table.fast th background:#eee;
 
-/* first correct part that skipped by both browsers and parser algorithm */
+table.fast th background:#eee;
+padding-left:0;
+font-size:14px;
+font-weight:bold;
+line-height:22px;
+color:#c11a12;
+white-space:nowrap;
+}
+
+table.fast strong {
+    font-size: 18px;
+}
+
+table.plan {
+    width: 100%;
+    margin: 10px 0 15px;
+    border-bottom: 1px solid #aaa;
+}
+
+p + table.plan {
+    border-top: 1px dotted #666;
+}
+
+table.plan td {
+    border-bottom: 1px dotted #666;
+    padding: 7px 5px;
+}
+
+table.plan strong {
+    font-size: 14px;
+}
+
+table.plan label {
+    color: #666;
+}
+
+td {
+    padding: 2px 5px;
+}
+
+ul {
+    margin: 15px 0 0 0;
+}
+
+ul li {
+}
+
+ul.highlight {
+    color: #c11a12;
+    font-weight: bold;
+}
+
+ul.highlight li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+ul.bullets li {
+    list-style: none;
+    margin: 3px 0;
+    position: relative;
+}
+
+ul.bullets a {
+    display: block;
+    font-weight: bold;
+    padding: 2px 0 2px 25px;
+}
+
+ul.bullets a:hover {
+    color: #6eb1e1;
+}
+
+ul.bullets ins.icon {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background: url(/sites/all/themes/strayer_subtheme/img/sprite-48x48.png) -96px -96px no-repeat;
+}
+
+ul.bullets a:hover ins.icon {
+    background-position: -144px -96px;
+}
+
+ul.more li {
+    list-style: none;
+    margin: 7px 0;
+}
+
+ul.docs li {
+    list-style: none;
+    margin: 0;
+}
+
+ul.docs a {
+    display: block;
+    padding: 10px 0 10px 33px;
+    position: relative;
+}
+
+ul.docs ins.pdf {
+    position: absolute;
+    top: 50%;
+    margin-top: -14px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background: url(/sites/all/themes/strayer_subtheme/img/sprite-48x48.png) -144px -48px no-repeat;
+}
+
+ul.divider {
+    border-top: 1px solid #aaa;
+}
+
+ul.divider li {
+    border-bottom: 1px solid #aaa;
+}
+
 .ir {
     display: block;
+    text-indent: -999em;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    text-align: left;
+    direction: ltr;
 }
 
-/* correct part that is skipped by parser but is read by browsers */
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before, .clearfix:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+div.messages {
+    padding: 20px;
+    border: 2px solid green;
+    margin: 10px 0 20px;
+}
+
+div.error {
+    border-color: #de1919;
+    background: #fccaca;
+    color: #000;
+}
+
+div.messages h2 {
+    font-size: 14px;
+    margin: 0 0 10px;
+}
+
+div.messages ul {
+    padding: 0;
+    margin: 10px 0 10px;
+}
+
+div.messages li {
+    margin-left: 18px;
+    margin-bottom: 10px;
+}
+
+section.welcoming-to-education-plan {
+    background: url(/sites/all/themes/strayer_subtheme/img/bg-pep-landing-page.png) no-repeat;
+    width: 1600px;
+    position: relative;
+    height: 425px;
+    left: 50%;
+    margin-left: -900px;
+}
+
+section.welcoming-to-education-plan .pep-slide-top-of-page {
+    width: 526px;
+    height: 370px;
+    padding: 35px 44px 20px 40px;
+    position: relative;
+    left: 27%;
+    background-color: rgba(255, 255, 255, 0.9);
+    background: transparent \9;
+    zoom: 1;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF, endColorstr=#99FFFFFF);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF,endColorstr=#99FFFFFF)";
+}
+
+.pep-slide-top-of-page h1 {
+    border-bottom: 1px solid #666;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 100%;
+}
+
+.pep-slide-top-of-page em {
+    color: #3e3e3e;
+}
+
+.pep-slide-top-of-page h4 {
+    line-height: 135%;
+    color: #3e3e3e;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.pep-slide-top-of-page p {
+    line-height: 135%;
+    color: #3e3e3e;
+    font-size: 18px;
+    margin-top: 0px;
+}
+
+.pep-slide-top-of-page a {
+    background: #fafafa;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#fefefe));
+    background-image: -webkit-linear-gradient(top, #fafafa, #fefefe);
+    background-image: -moz-linear-gradient(top, #fafafa, #fefefe);
+    background-image: -o-linear-gradient(top, #fafafa, #fefefe);
+    background-image: linear-gradient(to bottom, #fafafa, #fefefe);
+    padding: 10px 0px 10px 0px;
+    border-radius: 5px;
+    border: 3px solid rgba(85, 85, 85, 0.36);
+    _border: 3px solid rgb(85, 85, 85) \9;
+    *border: 3px solid rgb(85, 85, 85) \9;
+    border: 3px solid rgb(85, 85, 85) \9;
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    width: inherit;
+    _width: 526px;
+    *width: 526px;
+    text-transform: capitalize;
+}
+
+div.pep-slide-top-of-page a:hover {
+    color: #c11a12;
+    text-decoration: none;
+    -webkit-border-radius: 5px;
+    background-image: -webkit-linear-gradient(top, #E53128, #A01E18);
+    background-image: -moz-linear-gradient(top, #E53128, #A01E18);
+    background-image: -o-linear-gradient(top, #E53128, #A01E18);
+    background-image: linear-gradient(to bottom, #E53128, #A01E18);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E53128', endColorstr='#A01E18');
+    color: white;
+}
+
+div.pep-red-box-content-area {
+    width: 880px;
+    margin: 0px auto;
+    position: relative;
+    left: 50%;
+    margin-left: -440px;
+}
+
+div.pep-page-big-red-button {
+    position: relative;
+    float: left;
+    width: 200px;
+    height: 400px;
+    color: #fff;
+    margin: 35px 10px;
+    background: url(/sites/all/themes/strayer_subtheme/img/pep-calculator-button.png) no-repeat;
+}
+
+div.pep-page-big-red-button .pep-red-box-content {
+    padding: 10px;
+}
+
+div.pep-red-box-content h2 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+div.pep-red-box-content h3 {
+    color: #fff;
+    font-size: 22px;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+    margin: 0px;
+    font-weight: 100;
+}
+
+div.pep-red-box-content p {
+    font-size: 14px;
+}
+
+div.pep-red-box-content a {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: absolute;
+    bottom: 40px;
+    text-shadow: 0px 2px 7px #000;
+    width: 180px;
+    height: 44px;
+    line-height: 40px;
+    background: url(/sites/all/themes/strayer_subtheme/img/calculate-now-arrow.png) 100% -2px no-repeat;
+}
+
+div.pep-red-box-content a:hover {
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0px 2px 7px #000;
+    line-height: 46px;
+    background: url(/sites/all/themes/strayer_subtheme/img/calculate-now-arrow.png) 100% 2px no-repeat;
+}
+
+div.pep-landing-hider .breadcrumb, div.pep-landing-hider .page-title {
+    display: none;
+}
+
+div#region-postscript-first div#block-bean-b241-video-1 {
+    overflow: hidden;
+    width: 310px;
+}
+
+div#region-postscript-first div#block-bean-b241-video-1 div.content {
+    margin-left: 10px;
+}
+
+div#region-postscript-first div#block-bean-b241-video-1 div.content ol.slats-vertical {
+    margin-top: 0px;
+}
+
+#block-boxes-footer-copyright {
+    clear: both;
+    text-align: center;
+}
+
+div.menu-name-menu-m5 ul {
+    margin: 0 auto;
+    list-style: none;
+    text-align: center;
+    width: 940px;
+    clear: both;
+}
+
+div.menu-name-menu-m5 ul.menu {
+    padding: 0;
+}
+
+div.menu-name-menu-m5 li {
+    padding: 25px 0 20px 45px;
+    display: block;
+    float: left;
+    margin: 0;
+}
+
+div.menu-name-menu-m5 li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 18px;
+    border-bottom: 0px;
+    margin: 0;
+    border: 0;
+    display: inline;
+    text-transform: capitalize;
+}
+
+#block-views-homepage-messages-block {
+    position: relative;
+    top: 0;
+    left: 50%;
+    margin-left: -800px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+div#block-views-publications-block h2.block-title, div.pane-publications h2.pane-title {
+    border-bottom: 1px solid #aaa;
+    padding: 0 0 5px;
+    margin-top: 30px !important;
+}
+
+div#block-views-publications-block .content, div.pane-publications .pane-content {
+    margin-top: 10px;
+}
+
+div#block-views-publications-block .content .text-container, div.pane-publications .pane-content .text-container {
+    margin-left: 15px;
+    width: 70%;
+}
+
+div#block-views-publications-block .content .text-container div.title, div.pane-publications .pane-content .text-container div.title {
+    font-weight: bold;
+}
+
+div#block-views-publications-block .content .text-container div.in-this-issue, div.pane-publications .pane-content .text-container div.in-this-issue {
+    padding: 10px 15px;
+}
+
+div#block-views-publications-block .content .text-container div.in-this-issue ul, div.pane-publications .pane-content .text-container div.in-this-issue ul {
+    padding: 0;
+    margin: 0;
+}
+
+div#block-views-publications-block .content .text-container div.in-this-issue li, div.pane-publications .pane-content .text-container div.in-this-issue li {
+    margin: 0px;
+    list-style: disc;
+}
+
+#flexible-header ul {
+    margin: 0 0 0 -12px;
+}
+
+.credits_per {
+    font-weight: normal;
+}
+
+div.num_tot {
+    margin-top: 10px;
+}
+
+div.flexible-detail-grey {
+    background-color: #eee;
+    padding: 10px 25px 25px;
+}
+
+.flexible-detail-grey .slats-vertical.video.clearfix {
+    margin: 0px;
+}
+
 div.flexible-detail-left {
     margin-bottom: 30px;
 }
-/* end of skipped part */
 
-.some { more: css; }
+div.flexible-detail-right {
+}

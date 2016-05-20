@@ -308,7 +308,8 @@ private String javaSkipToClosingParantheses() throws ParseException #void {
     else
       if (tok.kind == RROUND) {
         nNesting--;
-        if (nNesting == 0)
+        // Use <= to handle unbalanced brackets
+        if (nNesting <= 0)
           break;
       }
       else {
@@ -358,7 +359,8 @@ private String javaSkipToClosingBrace(final int nInitialNesting) throws ParseEOF
     else
       if (tok.kind == RBRACE) {
         nNesting--;
-        if (nNesting == 0)
+        // Use <= to handle unbalanced brackets
+        if (nNesting <= 0)
           break;
       }
       else {
@@ -389,7 +391,8 @@ private String javaSkipToClosingBraceOrSemicolon(final int nInitialNesting) thro
     else
       if (tok.kind == RBRACE) {
         nNesting--;
-        if (nNesting == 0)
+        // Use <= to handle unbalanced brackets
+        if (nNesting <= 0)
           break;
       }
       else
