@@ -60,6 +60,8 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
                                          @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException
   {
+    if (ex != null)
+      throw ex;
     throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex,
                                                                                                    aFromToken,
                                                                                                    aToToken));
