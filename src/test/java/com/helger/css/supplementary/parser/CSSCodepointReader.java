@@ -90,8 +90,6 @@ public class CSSCodepointReader implements Closeable
   {
     // Pushback maybe 2 chars each
     m_aReader = new NonBlockingPushbackReader (new InputStreamReader (aCSSIS, aCharset), PUSHBACK_COUNT * 2);
-    if (false)
-      m_aPosRB.put (m_aPos.getClone ());
   }
 
   @Nonnull
@@ -100,7 +98,7 @@ public class CSSCodepointReader implements Closeable
     final int nHigh = m_aReader.read ();
     if (nHigh == -1)
     {
-      // No increase in line/column number
+      // No increment in line/column number
       return CSSCodepoint.createEOF ();
     }
 
@@ -120,6 +118,7 @@ public class CSSCodepointReader implements Closeable
       m_aTokenImage.append ((char) nHigh);
     }
 
+    // Create a copy before incrementing
     m_aPosRB.put (m_aPos.getClone ());
     m_aPos.incPos (nHigh);
     return ret;
@@ -148,8 +147,26 @@ public class CSSCodepointReader implements Closeable
   @Nonnull
   public CSSCodepoint peek () throws IOException
   {
-    final CSSCodepoint ret = read ();
-    unread (ret);
+    final int nHigh = m_aReader.read ();
+
+    CSSCodepoint ret;
+    if (Character.isHighSurrogate ((char) nHigh))
+    {
+      final char cLow = (char) m_aReader.read ();
+      if (!Character.isLowSurrogate (cLow))
+        throw new IOException ("Malformed Codepoint sequence - invalid low surrogate");
+      ret = new CSSCodepoint ((char) nHigh, cLow);
+      m_aReader.unread (cLow);
+      m_aReader.unread (nHigh);
+    }
+    else
+    {
+      if (nHigh == -1)
+        ret = CSSCodepoint.createEOF ();
+      else
+        ret = new CSSCodepoint (nHigh);
+      m_aReader.unread (nHigh);
+    }
     return ret;
   }
 

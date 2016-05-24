@@ -6,5 +6,7 @@ public enum ECSSTokenType
   EOF,
   /** Comment */
   COMMENT,
-  DELIM;
+  DELIM,
+  /** Whitespaces */
+  WHITESPACE;
 }

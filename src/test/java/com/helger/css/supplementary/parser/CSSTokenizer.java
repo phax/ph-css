@@ -116,7 +116,7 @@ public class CSSTokenizer
         {
           // https://www.w3.org/TR/css-syntax-3/#consume-a-token0
           CSSCodepoint aCP = aReader.startToken ();
-          final ECSSTokenStartType eTokenType = aCP.getTokenStartType ();
+          final ECSSTokenStartType eTokenStartType = aCP.getTokenStartType ();
 
           if (m_bDebugMode)
           {
@@ -126,17 +126,17 @@ public class CSSTokenizer
                                 ":" +
                                 aReader.getTokenStartColumnNumber () +
                                 "] - " +
-                                (eTokenType == ECSSTokenStartType.EOF ? "EOF"
-                                                                      : "read CP " +
-                                                                        (nValue >= 0x20 &&
-                                                                         nValue <= 0x7f ? Character.toString ((char) nValue)
-                                                                                        : "0x" +
-                                                                                          Integer.toHexString (nValue)) +
-                                                                        " as " +
-                                                                        eTokenType));
+                                (eTokenStartType == ECSSTokenStartType.EOF ? "EOF"
+                                                                           : "read CP " +
+                                                                             (nValue >= 0x20 &&
+                                                                              nValue <= 0x7f ? Character.toString ((char) nValue)
+                                                                                             : "0x" +
+                                                                                               Integer.toHexString (nValue)) +
+                                                                             " as " +
+                                                                             eTokenStartType));
           }
 
-          if (eTokenType == ECSSTokenStartType.EOF)
+          if (eTokenStartType == ECSSTokenStartType.EOF)
           {
             // EOF
             aConsumer.accept (aReader.createToken (ECSSTokenType.EOF));
@@ -144,8 +144,16 @@ public class CSSTokenizer
           }
 
           CSSToken aToken = null;
-          switch (eTokenType)
+          switch (eTokenStartType)
           {
+            case WHITESPACE:
+              while ((aCP = aReader.read ()).getTokenStartType () == ECSSTokenStartType.WHITESPACE)
+              {
+                // empty
+              }
+              aReader.unread (aCP);
+              aToken = aReader.createToken (ECSSTokenType.WHITESPACE);
+              break;
             case SOLIDUS:
               // Maybe a comment?
               if (aReader.peek ().getTokenStartType () == ECSSTokenStartType.ASTERISK)
@@ -169,7 +177,8 @@ public class CSSTokenizer
               break;
             default:
               if (false)
-                throw new IllegalStateException ("Unsupported token type " + eTokenType);
+                throw new IllegalStateException ("Unsupported token start type " + eTokenStartType);
+              System.err.println ("Unsupported token start type " + eTokenStartType);
           }
 
           if (aToken != null)
