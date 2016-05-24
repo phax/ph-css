@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.css.supplementary.parser;
 
 import java.io.File;
@@ -20,6 +36,7 @@ public class CSSTokenizer
 {
   private static final String CHARSET = "@charset \"";
 
+  private boolean m_bStrictMode = false;
   private final Charset m_aFallbackEncoding;
 
   public CSSTokenizer ()
@@ -30,6 +47,13 @@ public class CSSTokenizer
   public CSSTokenizer (@Nonnull final Charset aFallbackEncoding)
   {
     m_aFallbackEncoding = ValueEnforcer.notNull (aFallbackEncoding, "FallbackEncoding");
+  }
+
+  @Nonnull
+  public CSSTokenizer setStrictMode (final boolean bStrictMode)
+  {
+    m_bStrictMode = bStrictMode;
+    return this;
   }
 
   @Nonnull
@@ -46,7 +70,7 @@ public class CSSTokenizer
       aIS.unread (aBuffer);
 
       final String sPrefix = new String (aBuffer, 0, CHARSET.length (), CCharset.CHARSET_US_ASCII_OBJ);
-      if (CHARSET.equalsIgnoreCase (sPrefix))
+      if (m_bStrictMode ? CHARSET.equals (sPrefix) : CHARSET.equalsIgnoreCase (sPrefix))
       {
         int nEnd = CHARSET.length ();
         while (nEnd < nMaxHeader && aBuffer[nEnd] != '"')
@@ -68,10 +92,11 @@ public class CSSTokenizer
     return m_aFallbackEncoding;
   }
 
-  private static ECSSTokenType _findTokenType (final char c)
+  private static ECSSTokenType _findTokenType (final int nCP)
   {
-    switch (c)
+    switch (nCP)
     {
+      // \r and \f is handled by the CSSInputStream!
       case '\n':
       case '\t':
       case ' ':
@@ -120,82 +145,18 @@ public class CSSTokenizer
         return ECSSTokenType.LEFT_CURLY_BRACKET;
       case '}':
         return ECSSTokenType.RIGHT_CURLY_BRACKET;
-      case '0':
-      case '1':
-      case '2':
-      case '3':
-      case '4':
-      case '5':
-      case '6':
-      case '7':
-      case '8':
-      case '9':
-        return ECSSTokenType.DIGIT;
-      case 'a':
-      case 'b':
-      case 'c':
-      case 'd':
-      case 'e':
-      case 'f':
-      case 'g':
-      case 'h':
-      case 'i':
-      case 'j':
-      case 'k':
-      case 'l':
-      case 'm':
-      case 'n':
-      case 'o':
-      case 'p':
-      case 'q':
-      case 'r':
-      case 's':
-      case 't':
-      case 'u':
-      case 'v':
-      case 'w':
-      case 'x':
-      case 'y':
-      case 'z':
-      case 'A':
-      case 'B':
-      case 'C':
-      case 'D':
-      case 'E':
-      case 'F':
-      case 'G':
-      case 'H':
-      case 'I':
-      case 'J':
-      case 'K':
-      case 'L':
-      case 'M':
-      case 'N':
-      case 'O':
-      case 'P':
-      case 'Q':
-      case 'R':
-      case 'S':
-      case 'T':
-      case 'U':
-      case 'V':
-      case 'W':
-      case 'X':
-      case 'Y':
-      case 'Z':
-      case '_':
-        return ECSSTokenType.NAME_START;
       case '|':
         return ECSSTokenType.VERTICAL_LINE;
       case '~':
         return ECSSTokenType.TILDE;
-      case (char) -1:
+      case -1:
         return ECSSTokenType.EOF;
-      default:
-        if (c > 0x80)
-          return ECSSTokenType.NAME_START;
-        return ECSSTokenType.ANYTHING_ELSE;
     }
+    if (nCP >= '0' && nCP <= '9')
+      return ECSSTokenType.DIGIT;
+    if ((nCP >= 'a' && nCP <= 'z') || (nCP >= 'A' && nCP <= 'Z') || nCP == '_' || nCP > 0x80)
+      return ECSSTokenType.NAME_START;
+    return ECSSTokenType.ANYTHING_ELSE;
   }
 
   public void tokenize (@Nonnull @WillClose final InputStream aIS,
@@ -210,27 +171,29 @@ public class CSSTokenizer
 
       try (final CSSCodepointReader aReader = new CSSCodepointReader (aCSSIS, aCharset))
       {
-        ECSSTokenType eTokenType;
-        do
+        while (true)
         {
-          final int nLine = aReader.getLineNumber ();
-          final int nCol = aReader.getColumnNumber ();
-          final char c = aReader.readChar ();
+          final int nStartLine = aReader.getLineNumber ();
+          final int nStartCol = aReader.getColumnNumber ();
+          final int nCP = aReader.read ();
           System.out.println ("[" +
-                              nLine +
+                              nStartLine +
                               ":" +
-                              nCol +
+                              nStartCol +
                               "] - " +
-                              (c >= 0x20 && c <= 0x7f ? Character.toString (c) : "0x" + Integer.toHexString (c)));
-          eTokenType = _findTokenType (c);
-        } while (eTokenType != ECSSTokenType.EOF);
+                              (nCP >= 0x20 && nCP <= 0x7f ? Character.toString ((char) nCP)
+                                                          : "0x" + Integer.toHexString (nCP)));
+          final ECSSTokenType eTokenType = _findTokenType (nCP);
+          if (eTokenType == ECSSTokenType.EOF)
+            break;
+        }
       }
     }
   }
 
   public static void main (final String [] args) throws IOException, CSSTokenizeException
   {
-    final File f = new File ("src/test/resources/testfiles/css30/good/test-charset_utf8.css");
+    final File f = new File ("src/test/resources/testfiles/css30/good/pure-min.css");
     try (InputStream aIS = StreamHelper.getBuffered (FileHelper.getInputStream (f)))
     {
       new CSSTokenizer ().tokenize (aIS, t -> {});
