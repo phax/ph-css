@@ -16,6 +16,7 @@
  */
 package com.helger.css.supplementary.parser;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -23,78 +24,189 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import com.helger.commons.collection.impl.RingBufferLifo;
 import com.helger.commons.io.stream.NonBlockingPushbackReader;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A special CSS Codepoint reader that converts chars to Codepoints and keeps
- * track of the line and column number. Note: only use {@link #read()} and
- * {@link #unread(int)} but not the versions with a buffer! The input stream is
- * already buffered so no need to worry!
+ * track of the line and column number.
  *
  * @author Philip Helger
  */
-public class CSSCodepointReader extends NonBlockingPushbackReader
+public class CSSCodepointReader implements Closeable
 {
-  private int m_nLine = 1;
-  private int m_nColumn = 1;
-  private int m_nUnread = 0;
+  private static final class Pos
+  {
+    private int m_nLine;
+    private int m_nCol;
+
+    public Pos ()
+    {
+      this (1, 1);
+    }
+
+    public Pos (@Nonnegative final int nLine, @Nonnegative final int nCol)
+    {
+      m_nLine = nLine;
+      m_nCol = nCol;
+    }
+
+    // Count line/column - \r and \f is handled in the input stream
+    public void incPos (final int nCP)
+    {
+      if (nCP == '\n')
+      {
+        ++m_nLine;
+        m_nCol = 1;
+      }
+      else
+        ++m_nCol;
+    }
+
+    @Nonnull
+    public Pos getClone ()
+    {
+      return new Pos (m_nLine, m_nCol);
+    }
+
+    @Override
+    public String toString ()
+    {
+      return new ToStringGenerator (null).append ("Line", m_nLine).append ("Column", m_nCol).toString ();
+    }
+  }
+
+  private static final int PUSHBACK_COUNT = 10;
+
+  private final NonBlockingPushbackReader m_aReader;
+  // Status vars
+  private Pos m_aPos = new Pos ();
+  private final RingBufferLifo <Pos> m_aPosRB = new RingBufferLifo <> (PUSHBACK_COUNT, true);
+  private Pos m_aTokenStartPos;
+  private final StringBuilder m_aTokenImage = new StringBuilder (1024);
 
   public CSSCodepointReader (@Nonnull final CSSInputStream aCSSIS, @Nonnull final Charset aCharset)
   {
-    super (new InputStreamReader (aCSSIS, aCharset), 10);
+    // Pushback maybe 2 chars each
+    m_aReader = new NonBlockingPushbackReader (new InputStreamReader (aCSSIS, aCharset), PUSHBACK_COUNT * 2);
+    if (false)
+      m_aPosRB.put (m_aPos.getClone ());
   }
 
-  @Override
-  public int read () throws IOException
+  @Nonnull
+  public CSSCodepoint read () throws IOException
   {
-    int ret;
-    final int high = super.read ();
-    if (Character.isHighSurrogate ((char) high))
+    final int nHigh = m_aReader.read ();
+    if (nHigh == -1)
     {
-      final char low = (char) super.read ();
-      if (!Character.isLowSurrogate (low))
+      // No increase in line/column number
+      return CSSCodepoint.createEOF ();
+    }
+
+    CSSCodepoint ret;
+    if (Character.isHighSurrogate ((char) nHigh))
+    {
+      final char cLow = (char) m_aReader.read ();
+      if (!Character.isLowSurrogate (cLow))
         throw new IOException ("Malformed Codepoint sequence - invalid low surrogate");
-      ret = Character.toCodePoint ((char) high, low);
-    }
-    else
-      ret = high;
-
-    if (m_nUnread > 0)
-    {
-      // We already counted - so don't count twice
-      m_nUnread--;
+      ret = new CSSCodepoint ((char) nHigh, cLow);
+      m_aTokenImage.append ((char) nHigh);
+      m_aTokenImage.append (cLow);
     }
     else
     {
-      // Count
-      if (ret == '\n')
-      {
-        ++m_nLine;
-        m_nColumn = 1;
-      }
-      else
-        ++m_nColumn;
+      ret = new CSSCodepoint (nHigh);
+      m_aTokenImage.append ((char) nHigh);
     }
 
+    m_aPosRB.put (m_aPos.getClone ());
+    m_aPos.incPos (nHigh);
     return ret;
   }
 
-  @Override
-  public void unread (final int c) throws IOException
+  public void unread (@Nonnull final CSSCodepoint aCP) throws IOException
   {
-    m_nUnread++;
-    super.unread (c);
+    final int nValue = aCP.getValue ();
+    if (aCP.isSingleChar ())
+    {
+      // Quick one char version
+      m_aReader.unread (nValue);
+      m_aTokenImage.setLength (m_aTokenImage.length () - 1);
+    }
+    else
+    {
+      // Two char version (reverse order because of undo!)
+      m_aReader.unread (Character.lowSurrogate (nValue));
+      m_aReader.unread (Character.highSurrogate (nValue));
+      m_aTokenImage.setLength (m_aTokenImage.length () - 2);
+    }
+    // Restore the previous position
+    m_aPos = m_aPosRB.take ();
+  }
+
+  @Nonnull
+  public CSSCodepoint peek () throws IOException
+  {
+    final CSSCodepoint ret = read ();
+    unread (ret);
+    return ret;
+  }
+
+  public void close () throws IOException
+  {
+    m_aReader.close ();
   }
 
   @Nonnegative
   public int getLineNumber ()
   {
-    return m_nLine;
+    return m_aPos.m_nLine;
   }
 
   @Nonnegative
   public int getColumnNumber ()
   {
-    return m_nColumn;
+    return m_aPos.m_nCol;
+  }
+
+  @Nonnull
+  public CSSCodepoint startToken () throws IOException
+  {
+    // Reset token related stuff
+    m_aTokenStartPos = m_aPos.getClone ();
+    m_aTokenImage.setLength (0);
+
+    final CSSCodepoint ret = read ();
+    return ret;
+  }
+
+  @Nonnegative
+  public int getTokenStartLineNumber ()
+  {
+    return m_aTokenStartPos.m_nLine;
+  }
+
+  @Nonnegative
+  public int getTokenStartColumnNumber ()
+  {
+    return m_aTokenStartPos.m_nCol;
+  }
+
+  @Nonnull
+  public String getTokenImage ()
+  {
+    return m_aTokenImage.toString ();
+  }
+
+  @Nonnull
+  public CSSToken createToken (@Nonnull final ECSSTokenType eTokenType)
+  {
+    return new CSSToken (getTokenStartLineNumber (),
+                         getTokenStartColumnNumber (),
+                         getLineNumber (),
+                         getColumnNumber (),
+                         getTokenImage (),
+                         eTokenType);
   }
 }

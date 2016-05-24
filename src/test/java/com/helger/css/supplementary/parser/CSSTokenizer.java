@@ -36,8 +36,9 @@ public class CSSTokenizer
 {
   private static final String CHARSET = "@charset \"";
 
-  private boolean m_bStrictMode = false;
   private final Charset m_aFallbackEncoding;
+  private boolean m_bStrictMode = false;
+  private boolean m_bDebugMode = false;
 
   public CSSTokenizer ()
   {
@@ -53,6 +54,13 @@ public class CSSTokenizer
   public CSSTokenizer setStrictMode (final boolean bStrictMode)
   {
     m_bStrictMode = bStrictMode;
+    return this;
+  }
+
+  @Nonnull
+  public CSSTokenizer setDebugMode (final boolean bDebugMode)
+  {
+    m_bDebugMode = bDebugMode;
     return this;
   }
 
@@ -92,73 +100,6 @@ public class CSSTokenizer
     return m_aFallbackEncoding;
   }
 
-  private static ECSSTokenType _findTokenType (final int nCP)
-  {
-    switch (nCP)
-    {
-      // \r and \f is handled by the CSSInputStream!
-      case '\n':
-      case '\t':
-      case ' ':
-        return ECSSTokenType.WHITESPACE;
-      case '"':
-        return ECSSTokenType.QUOTATION_MARK;
-      case '#':
-        return ECSSTokenType.NUMBER_SIGN;
-      case '$':
-        return ECSSTokenType.DOLLAR_SIGN;
-      case '\'':
-        return ECSSTokenType.APOSTROPHE;
-      case '(':
-        return ECSSTokenType.LEFT_PARENTHESIS;
-      case ')':
-        return ECSSTokenType.RIGHT_PARENTHESIS;
-      case '*':
-        return ECSSTokenType.ASTERISK;
-      case '+':
-        return ECSSTokenType.PLUS_SIGN;
-      case ',':
-        return ECSSTokenType.COMMA;
-      case '-':
-        return ECSSTokenType.HYPHEN_MINUS;
-      case '.':
-        return ECSSTokenType.FULL_STOP;
-      case '/':
-        return ECSSTokenType.SOLIDUS;
-      case ':':
-        return ECSSTokenType.COLON;
-      case ';':
-        return ECSSTokenType.SEMICOLON;
-      case '<':
-        return ECSSTokenType.LESS_THAN_SIGN;
-      case '@':
-        return ECSSTokenType.COMMERCIAL_AT;
-      case '[':
-        return ECSSTokenType.LEFT_SQUARE_BRACKET;
-      case '\\':
-        return ECSSTokenType.REVERSE_SOLIDUS;
-      case ']':
-        return ECSSTokenType.RIGHT_SQUARE_BRACKET;
-      case '^':
-        return ECSSTokenType.CIRCUMFLEX_ACCENT;
-      case '{':
-        return ECSSTokenType.LEFT_CURLY_BRACKET;
-      case '}':
-        return ECSSTokenType.RIGHT_CURLY_BRACKET;
-      case '|':
-        return ECSSTokenType.VERTICAL_LINE;
-      case '~':
-        return ECSSTokenType.TILDE;
-      case -1:
-        return ECSSTokenType.EOF;
-    }
-    if (nCP >= '0' && nCP <= '9')
-      return ECSSTokenType.DIGIT;
-    if ((nCP >= 'a' && nCP <= 'z') || (nCP >= 'A' && nCP <= 'Z') || nCP == '_' || nCP > 0x80)
-      return ECSSTokenType.NAME_START;
-    return ECSSTokenType.ANYTHING_ELSE;
-  }
-
   public void tokenize (@Nonnull @WillClose final InputStream aIS,
                         @Nonnull final Consumer <CSSToken> aConsumer) throws IOException, CSSTokenizeException
   {
@@ -173,19 +114,66 @@ public class CSSTokenizer
       {
         while (true)
         {
-          final int nStartLine = aReader.getLineNumber ();
-          final int nStartCol = aReader.getColumnNumber ();
-          final int nCP = aReader.read ();
-          System.out.println ("[" +
-                              nStartLine +
-                              ":" +
-                              nStartCol +
-                              "] - " +
-                              (nCP >= 0x20 && nCP <= 0x7f ? Character.toString ((char) nCP)
-                                                          : "0x" + Integer.toHexString (nCP)));
-          final ECSSTokenType eTokenType = _findTokenType (nCP);
-          if (eTokenType == ECSSTokenType.EOF)
+          // https://www.w3.org/TR/css-syntax-3/#consume-a-token0
+          CSSCodepoint aCP = aReader.startToken ();
+          final ECSSTokenStartType eTokenType = aCP.getTokenStartType ();
+
+          if (m_bDebugMode)
+          {
+            final int nValue = aCP.getValue ();
+            System.out.println ("[" +
+                                aReader.getTokenStartLineNumber () +
+                                ":" +
+                                aReader.getTokenStartColumnNumber () +
+                                "] - " +
+                                (eTokenType == ECSSTokenStartType.EOF ? "EOF"
+                                                                      : "read CP " +
+                                                                        (nValue >= 0x20 &&
+                                                                         nValue <= 0x7f ? Character.toString ((char) nValue)
+                                                                                        : "0x" +
+                                                                                          Integer.toHexString (nValue)) +
+                                                                        " as " +
+                                                                        eTokenType));
+          }
+
+          if (eTokenType == ECSSTokenStartType.EOF)
+          {
+            // EOF
+            aConsumer.accept (aReader.createToken (ECSSTokenType.EOF));
             break;
+          }
+
+          CSSToken aToken = null;
+          switch (eTokenType)
+          {
+            case SOLIDUS:
+              // Maybe a comment?
+              if (aReader.peek ().getTokenStartType () == ECSSTokenStartType.ASTERISK)
+              {
+                // It's a comment
+                aReader.read ();
+                while (true)
+                {
+                  aCP = aReader.read ();
+                  if (aCP.getTokenStartType () == ECSSTokenStartType.ASTERISK)
+                    if (aReader.peek ().getTokenStartType () == ECSSTokenStartType.SOLIDUS)
+                    {
+                      aReader.read ();
+                      break;
+                    }
+                }
+                aToken = aReader.createToken (ECSSTokenType.COMMENT);
+              }
+              else
+                aToken = aReader.createToken (ECSSTokenType.DELIM);
+              break;
+            default:
+              if (false)
+                throw new IllegalStateException ("Unsupported token type " + eTokenType);
+          }
+
+          if (aToken != null)
+            aConsumer.accept (aToken);
         }
       }
     }
@@ -196,7 +184,9 @@ public class CSSTokenizer
     final File f = new File ("src/test/resources/testfiles/css30/good/pure-min.css");
     try (InputStream aIS = StreamHelper.getBuffered (FileHelper.getInputStream (f)))
     {
-      new CSSTokenizer ().tokenize (aIS, t -> {});
+      new CSSTokenizer ().setDebugMode (false).tokenize (aIS, t -> {
+        System.out.println (t);
+      });
     }
   }
 }

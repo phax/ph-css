@@ -16,8 +16,45 @@
  */
 package com.helger.css.supplementary.parser;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.string.ToStringGenerator;
+
 public class CSSToken
 {
-  public CSSToken ()
-  {}
+  private final int m_nStartLine;
+  private final int m_nStartColumn;
+  private final int m_nEndLine;
+  private final int m_nEndColumn;
+  private final String m_sImage;
+  private final ECSSTokenType m_eType;
+
+  public CSSToken (@Nonnegative final int nStartLine,
+                   @Nonnegative final int nStartColumn,
+                   @Nonnegative final int nEndLine,
+                   @Nonnegative final int nEndColumn,
+                   @Nonnull @Nonempty final String sImage,
+                   @Nonnull final ECSSTokenType eType)
+  {
+    m_nStartLine = nStartLine;
+    m_nStartColumn = nStartColumn;
+    m_nEndLine = nEndLine;
+    m_nEndColumn = nEndColumn;
+    m_sImage = sImage;
+    m_eType = eType;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("StartLine", m_nStartLine)
+                                       .append ("StartCol", m_nStartColumn)
+                                       .append ("EndLine", m_nEndLine)
+                                       .append ("EndCol", m_nEndColumn)
+                                       .append ("Type", m_eType)
+                                       .append ("Image", m_sImage)
+                                       .toString ();
+  }
 }
