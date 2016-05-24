@@ -349,37 +349,44 @@ final class CSSNodeToDomainObject
           ret.addMember (aMember);
         }
         else
-        {
-          if ((nChildCount % 2) != 1)
-            _throwUnexpectedChildrenCount (aChildNode, "CSS math unit expected odd child count and got " + nChildCount);
-
-          final CSSExpressionMemberMathProduct aNestedProduct = new CSSExpressionMemberMathProduct ();
-          for (int i = 0; i < nChildCount; ++i)
+          if (nChildCount == 1 && ECSSNodeType.FUNCTION.isNode (aChildNode.jjtGetChild (0), m_eVersion))
           {
-            final CSSNode aChildChildNode = aChildNode.jjtGetChild (i);
-            if (ECSSNodeType.MATHPRODUCT.isNode (aChildChildNode, m_eVersion))
+            // Source location is taken from aNestedProduct
+            ret.addMember (_createExpressionFunction (aChildNode.jjtGetChild (0)));
+          }
+          else
+          {
+            if ((nChildCount % 2) != 1)
+              _throwUnexpectedChildrenCount (aChildNode,
+                                             "CSS math unit expected odd child count and got " + nChildCount);
+
+            final CSSExpressionMemberMathProduct aNestedProduct = new CSSExpressionMemberMathProduct ();
+            for (int i = 0; i < nChildCount; ++i)
             {
-              // Source location is taken from aNestedProduct
-              aNestedProduct.addMember (_createExpressionMathProduct (aChildChildNode));
-            }
-            else
-              if (ECSSNodeType.MATHSUMOPERATOR.isNode (aChildChildNode, m_eVersion))
+              final CSSNode aChildChildNode = aChildNode.jjtGetChild (i);
+              if (ECSSNodeType.MATHPRODUCT.isNode (aChildChildNode, m_eVersion))
               {
-                final String sText = aChildChildNode.getText ();
-                final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
-                if (eMathOp == null)
-                  s_aLogger.error ("Failed to parse math operator '" + sText + "'");
-                else
-                  aNestedProduct.addMember (eMathOp);
+                // Source location is taken from aNestedProduct
+                aNestedProduct.addMember (_createExpressionMathProduct (aChildChildNode));
               }
               else
-                s_aLogger.error ("Unsupported child of " +
-                                 ECSSNodeType.getNodeName (aChildNode, m_eVersion) +
-                                 ": " +
-                                 ECSSNodeType.getNodeName (aChildChildNode, m_eVersion));
+                if (ECSSNodeType.MATHSUMOPERATOR.isNode (aChildChildNode, m_eVersion))
+                {
+                  final String sText = aChildChildNode.getText ();
+                  final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
+                  if (eMathOp == null)
+                    s_aLogger.error ("Failed to parse math operator '" + sText + "'");
+                  else
+                    aNestedProduct.addMember (eMathOp);
+                }
+                else
+                  s_aLogger.error ("Unsupported child of " +
+                                   ECSSNodeType.getNodeName (aChildNode, m_eVersion) +
+                                   ": " +
+                                   ECSSNodeType.getNodeName (aChildChildNode, m_eVersion));
+            }
+            ret.addMember (new CSSExpressionMemberMathUnitProduct (aNestedProduct));
           }
-          ret.addMember (new CSSExpressionMemberMathUnitProduct (aNestedProduct));
-        }
       }
       else
         if (ECSSNodeType.MATHPRODUCTOPERATOR.isNode (aChildNode, m_eVersion))

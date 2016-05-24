@@ -27,6 +27,7 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
+import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -36,7 +37,10 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSourceLocationAware
+public class CSSExpressionMemberFunction implements
+                                         ICSSExpressionMember,
+                                         ICSSSourceLocationAware,
+                                         ICSSExpressionMathMember
 {
   private final String m_sFunctionName;
   private final CSSExpression m_aExpression;
@@ -140,6 +144,12 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
       return m_sFunctionName + "()";
     }
     return m_sFunctionName + "(" + m_aExpression.getAsCSSString (aSettings, nIndentLevel) + ")";
+  }
+
+  @Nonnull
+  public ECSSVersion getMinimumCSSVersion ()
+  {
+    return ECSSVersion.CSS30;
   }
 
   public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
