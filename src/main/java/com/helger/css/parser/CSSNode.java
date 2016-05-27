@@ -23,6 +23,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
@@ -38,6 +41,8 @@ import com.helger.css.CSSSourceLocation;
  */
 public class CSSNode implements Node, Iterable <CSSNode>, Serializable, IConvertibleDirectTrait
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSNode.class);
+
   private final int m_nType;
   private CSSNode m_aParent;
   private CSSNode [] m_aChildren;
@@ -169,7 +174,7 @@ public class CSSNode implements Node, Iterable <CSSNode>, Serializable, IConvert
   @Nonnull
   public Iterator <CSSNode> iterator ()
   {
-    final ICommonsList <CSSNode> aChildren = new CommonsArrayList <> (jjtGetNumChildren ());
+    final ICommonsList <CSSNode> aChildren = new CommonsArrayList<> (jjtGetNumChildren ());
     if (m_aChildren != null)
       for (final CSSNode aChildNode : m_aChildren)
         if (aChildNode != null)
@@ -199,13 +204,13 @@ public class CSSNode implements Node, Iterable <CSSNode>, Serializable, IConvert
     return new CSSSourceLocation (aFirstTokenArea, aLastTokenArea);
   }
 
-  public void dump (final String prefix)
+  public void dump (@Nonnull final String sPrefix)
   {
-    System.out.println (prefix + toString ());
+    s_aLogger.info (sPrefix + toString ());
     if (m_aChildren != null)
       for (final CSSNode aChild : m_aChildren)
         if (aChild != null)
-          aChild.dump (prefix + " ");
+          aChild.dump (sPrefix + " ");
   }
 
   @Override
