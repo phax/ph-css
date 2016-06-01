@@ -16,11 +16,10 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CascadingStyleSheet;
@@ -53,7 +52,7 @@ public final class WikiVisitSelectors
                           "\r\n" +
                           "img { border:none; }";
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
-    final List <String> aAllSelectors = new ArrayList <String> ();
+    final ICommonsList <String> aAllSelectors = new CommonsArrayList <String> ();
     CSSVisitor.visitCSS (aCSS, new DefaultCSSVisitor ()
     {
       @Override
