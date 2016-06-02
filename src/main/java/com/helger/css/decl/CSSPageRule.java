@@ -16,8 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -106,7 +104,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
 
   @Nonnull
   @ReturnsMutableCopy
-  public List <ICSSPageRuleMember> getAllMembers ()
+  public ICommonsList <ICSSPageRuleMember> getAllMembers ()
   {
     return m_aMembers.getAll ();
   }
