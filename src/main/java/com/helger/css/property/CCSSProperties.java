@@ -777,7 +777,6 @@ public final class CCSSProperties
   public static final ICSSValue MARGIN_BOTTOM_0 = MARGIN_BOTTOM.newValue (ECSSUnit.zero ());
   public static final ICSSValue MARGIN_LEFT_0 = MARGIN_LEFT.newValue (ECSSUnit.zero ());
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final CCSSProperties s_aInstance = new CCSSProperties ();
 

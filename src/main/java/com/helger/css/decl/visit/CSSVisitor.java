@@ -52,7 +52,6 @@ import com.helger.css.decl.IHasCSSDeclarations;
 public final class CSSVisitor
 {
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CSSVisitor s_aInstance = new CSSVisitor ();
 
   private CSSVisitor ()

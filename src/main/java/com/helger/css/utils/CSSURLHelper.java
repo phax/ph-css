@@ -39,7 +39,6 @@ public final class CSSURLHelper
   /** For compatibility reasons, this is set to false */
   public static final boolean DEFAULT_QUOTE_URLS = false;
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final CSSURLHelper s_aInstance = new CSSURLHelper ();
 

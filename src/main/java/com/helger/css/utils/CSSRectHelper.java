@@ -65,7 +65,6 @@ public final class CSSRectHelper
                                                    "\\s*\\)$";
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CSSRectHelper s_aInstance = new CSSRectHelper ();
 
   private CSSRectHelper ()

@@ -90,7 +90,6 @@ public final class CSSReader
   private static ICSSParseExceptionCallback s_aDefaultParseExceptionHandler = new LoggingCSSParseExceptionCallback ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CSSReader s_aInstance = new CSSReader ();
 
   private CSSReader ()

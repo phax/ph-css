@@ -19,12 +19,10 @@ package com.helger.css.tools;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.nio.charset.Charset;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSMediaQuery;
 import com.helger.css.decl.CascadingStyleSheet;
@@ -38,7 +36,6 @@ import com.helger.css.writer.CSSWriter;
  */
 public final class MediaQueryToolsTest
 {
-  private static final Charset s_aCharset = CCharset.CHARSET_UTF_8_OBJ;
   private static final ECSSVersion s_eVersion = ECSSVersion.CSS30;
 
   @Test

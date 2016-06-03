@@ -38,7 +38,6 @@ public final class CSSCompressor
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (CSSCompressor.class);
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final CSSCompressor s_aInstance = new CSSCompressor ();
 

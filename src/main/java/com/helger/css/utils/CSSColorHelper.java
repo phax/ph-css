@@ -118,7 +118,6 @@ public final class CSSColorHelper
   @RegEx
   private static final String PATTERN_HEX = "^" + CCSSValue.PREFIX_HEX + "[0-9a-fA-F]{1,6}$";
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final CSSColorHelper s_aInstance = new CSSColorHelper ();
 

@@ -59,7 +59,6 @@ public final class CCSS
   public static final int CSS_MAXIMUM_FRACTION_DIGITS = 16;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CCSS s_aInstance = new CCSS ();
 
   private CCSS ()

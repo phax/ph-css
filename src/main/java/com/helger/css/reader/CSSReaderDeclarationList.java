@@ -75,7 +75,6 @@ public final class CSSReaderDeclarationList
   private static ICSSParseExceptionCallback s_aDefaultParseExceptionHandler = new LoggingCSSParseExceptionCallback ();
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CSSReaderDeclarationList s_aInstance = new CSSReaderDeclarationList ();
 
   private CSSReaderDeclarationList ()

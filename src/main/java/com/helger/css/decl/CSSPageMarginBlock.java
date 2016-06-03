@@ -164,8 +164,6 @@ public class CSSPageMarginBlock implements
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
-    final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
-
     final StringBuilder aSB = new StringBuilder ();
     aSB.append (m_sPageMarginSymbol);
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));

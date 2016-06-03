@@ -44,7 +44,6 @@ public final class CSSParseHelper
   private static final String SPLIT_NUMBER_REGEX = "^([0-9]*\\.[0-9]+|[0-9]+).*$";
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CSSParseHelper s_aInstance = new CSSParseHelper ();
 
   private CSSParseHelper ()

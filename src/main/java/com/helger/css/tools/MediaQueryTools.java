@@ -45,7 +45,6 @@ import com.helger.css.reader.CSSReader;
 @Immutable
 public final class MediaQueryTools
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final MediaQueryTools s_aInstance = new MediaQueryTools ();
 

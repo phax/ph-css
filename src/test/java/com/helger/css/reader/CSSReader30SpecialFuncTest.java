@@ -332,7 +332,6 @@ public final class CSSReader30SpecialFuncTest
   public void testReadSingleLineComments ()
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final CSSWriterSettings aCSSWS = new CSSWriterSettings (eVersion, false);
     final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-singleline-comments.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);

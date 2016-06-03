@@ -250,7 +250,6 @@ public final class CCSSValue
   public static final String FONT_MONOSPACE = FONT_COURIER_NEW;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CCSSValue s_aInstance = new CCSSValue ();
 
   private CCSSValue ()
