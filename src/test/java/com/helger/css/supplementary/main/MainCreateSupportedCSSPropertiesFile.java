@@ -29,19 +29,19 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.version.Version;
-import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.write.EXMLSerializeVersion;
-import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 import com.helger.css.ECSSSpecification;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ECSSVersion;
 import com.helger.css.property.ECSSProperty;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroElement;
+import com.helger.xml.microdom.serialize.MicroWriter;
+import com.helger.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.xml.serialize.write.EXMLSerializeVersion;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Create the src/main/resources/supported-css-properties.html file with all
