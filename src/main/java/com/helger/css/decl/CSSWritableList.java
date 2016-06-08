@@ -50,7 +50,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSourceLocationAware, ICSSWriteable
 {
-  private final ICommonsList <DATATYPE> m_aElements = new CommonsArrayList <> ();
+  private final ICommonsList <DATATYPE> m_aElements = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSWritableList ()
@@ -147,7 +147,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
   protected final void findAll (@Nonnull final Predicate <? super DATATYPE> aFilter,
                                 @Nonnull final Collection <? super DATATYPE> ret)
   {
-    m_aElements.findAll (aFilter, ret);
+    m_aElements.findAll (aFilter, ret::add);
   }
 
   @Nonnull
