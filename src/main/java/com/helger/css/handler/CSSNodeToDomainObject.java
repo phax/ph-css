@@ -602,12 +602,14 @@ final class CSSNodeToDomainObject
     for (int nDecl = 0; nDecl < nDecls; ++nDecl)
     {
       final CSSNode aChildNode = aNode.jjtGetChild (nDecl);
-      if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
+      if (ECSSNodeType.STYLEDECLARATION.isNode (aChildNode, m_eVersion))
       {
         final CSSDeclaration aDeclaration = _createDeclaration (aChildNode);
         if (aDeclaration != null)
           aConsumer.accept (aDeclaration);
       }
+      // else
+      // ignore ERROR_SKIP to and all "@" things
     }
   }
 

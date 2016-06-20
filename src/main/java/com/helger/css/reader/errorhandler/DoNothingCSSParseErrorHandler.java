@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
 /**
@@ -34,10 +35,7 @@ public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
   public DoNothingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                               @Nonnull final String [] aTokenImageVal,
-                               @Nullable final Token aLastSkippedToken)
+  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
   {
     // ignore
   }

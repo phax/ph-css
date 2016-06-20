@@ -286,7 +286,7 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
     s_aLogger.debug ("Skipped until token " + tok.toString ());
 
   if (m_aCustomErrorHandler != null)
-    m_aCustomErrorHandler.onCSSParseError (ex.currentToken, ex.expectedTokenSequences, ex.tokenImage, tok);
+    m_aCustomErrorHandler.onCSSParseError (ex, tok);
   else  
     s_aLogger.warn("CSS recoverable parse error", ex);
   return tok;

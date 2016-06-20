@@ -36,21 +36,14 @@ public interface ICSSParseErrorHandler
    * Called upon a recoverable error. The parameter list is similar to the one
    * of the {@link com.helger.css.parser.ParseException}.
    *
-   * @param aLastValidToken
-   *        The last valid token. May not be <code>null</code>.
-   * @param aExpectedTokenSequencesVal
-   *        The expected token. May not be <code>null</code>.
-   * @param aTokenImageVal
-   *        The error token image. May not be <code>null</code>.
+   * @param aParseEx
+   *        The occurred parse exception. May not be <code>null</code>.
    * @param aLastSkippedToken
    *        The token until which was skipped (incl.) May be <code>null</code>.
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  void onCSSParseError (@Nonnull Token aLastValidToken,
-                        @Nonnull int [] [] aExpectedTokenSequencesVal,
-                        @Nonnull String [] aTokenImageVal,
-                        @Nullable Token aLastSkippedToken) throws ParseException;
+  void onCSSParseError (@Nonnull ParseException aParseEx, @Nullable Token aLastSkippedToken) throws ParseException;
 
   /**
    * Called upon an unexpected rule. This happens e.g. when <code>@import</code>

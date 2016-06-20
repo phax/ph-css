@@ -138,23 +138,21 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return retval.toString ();
   }
 
-  public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                               @Nonnull final String [] aTokenImageVal,
+  public void onCSSParseError (@Nonnull final ParseException aParseEx,
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
-    s_aLogger.warn (createLoggingStringParseError (aLastValidToken,
-                                                   aExpectedTokenSequencesVal,
-                                                   aTokenImageVal,
-                                                   aLastSkippedToken));
+    if (aParseEx.expectedTokenSequences == null)
+      s_aLogger.warn (aParseEx.getMessage ());
+    else
+      s_aLogger.warn (createLoggingStringParseError (aParseEx.currentToken,
+                                                     aParseEx.expectedTokenSequences,
+                                                     aParseEx.tokenImage,
+                                                     aLastSkippedToken));
 
     if (m_aNestedErrorHandler != null)
     {
       // Invoke nested handler
-      m_aNestedErrorHandler.onCSSParseError (aLastValidToken,
-                                             aExpectedTokenSequencesVal,
-                                             aTokenImageVal,
-                                             aLastSkippedToken);
+      m_aNestedErrorHandler.onCSSParseError (aParseEx, aLastSkippedToken);
     }
   }
 

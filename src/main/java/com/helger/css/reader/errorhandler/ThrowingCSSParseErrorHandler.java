@@ -39,12 +39,10 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
   public ThrowingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                               @Nonnull final String [] aTokenImageVal,
+  public void onCSSParseError (@Nonnull final ParseException aParseEx,
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
-    throw new ParseException (aLastValidToken, aExpectedTokenSequencesVal, aTokenImageVal);
+    throw aParseEx;
   }
 
   public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
