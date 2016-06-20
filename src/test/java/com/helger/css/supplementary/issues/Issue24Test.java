@@ -32,7 +32,7 @@ import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 
 /**
- * Test for issue 22: https://github.com/phax/ph-css/issues/24
+ * Test for issue 24: https://github.com/phax/ph-css/issues/24
  *
  * @author Philip Helger
  */
