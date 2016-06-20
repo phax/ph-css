@@ -184,7 +184,9 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                  aToToken.endLine +
                  ":" +
                  aToToken.endColumn +
-                 "]";
+                 "] to token '" +
+                 aToToken.image +
+                 "'";
     if (ex != null)
       ret += " (based on " + ex.getClass ().getName () + ": " + ex.getMessage () + ")";
     return ret;
