@@ -43,20 +43,23 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsList <CSSParseError> m_aErrors = new CommonsArrayList <> ();
+  private final ICommonsList <CSSParseError> m_aErrors = new CommonsArrayList<> ();
 
   public CollectingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                               @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                               @Nonnull final String [] aTokenImageVal,
+  public void onCSSParseError (@Nonnull final ParseException aParseEx,
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (new CSSParseError (aLastValidToken,
-                                                                    aExpectedTokenSequencesVal,
-                                                                    aTokenImageVal,
-                                                                    aLastSkippedToken)));
+    m_aRWLock.writeLocked ( () -> {
+      if (aParseEx.expectedTokenSequences == null)
+        m_aErrors.add (new CSSParseError (aParseEx.getMessage ()));
+      else
+        m_aErrors.add (new CSSParseError (aParseEx.currentToken,
+                                          aParseEx.expectedTokenSequences,
+                                          aParseEx.tokenImage,
+                                          aLastSkippedToken));
+    });
   }
 
   public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,

@@ -37,21 +37,14 @@ public interface ICSSParseErrorHandler
    * Called upon a recoverable error. The parameter list is similar to the one
    * of the {@link com.helger.css.parser.ParseException}.
    *
-   * @param aLastValidToken
-   *        The last valid token. May not be <code>null</code>.
-   * @param aExpectedTokenSequencesVal
-   *        The expected token. May not be <code>null</code>.
-   * @param aTokenImageVal
-   *        The error token image. May not be <code>null</code>.
+   * @param aParseEx
+   *        The original parse exception. May not be <code>null</code>.
    * @param aLastSkippedToken
    *        The token until which was skipped (incl.) May be <code>null</code>.
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  void onCSSParseError (@Nonnull final Token aLastValidToken,
-                        @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                        @Nonnull final String [] aTokenImageVal,
-                        @Nullable final Token aLastSkippedToken) throws ParseException;
+  void onCSSParseError (@Nonnull ParseException aParseEx, @Nullable Token aLastSkippedToken) throws ParseException;
 
   /**
    * Called upon an unexpected rule. This happens e.g. when <code>@import</code>
@@ -67,9 +60,9 @@ public interface ICSSParseErrorHandler
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                            @Nonnull @Nonempty final String sRule,
-                            @Nonnull @Nonempty final String sMsg) throws ParseException;
+  void onCSSUnexpectedRule (@Nonnull Token aCurrentToken,
+                            @Nonnull @Nonempty String sRule,
+                            @Nonnull @Nonempty String sMsg) throws ParseException;
 
   /**
    * This method is only called in browser compliant mode if a certain part of
@@ -88,14 +81,14 @@ public interface ICSSParseErrorHandler
    *         In case the error is fatal and should be propagated.
    * @see com.helger.css.reader.CSSReaderSettings#setBrowserCompliantMode(boolean)
    */
-  void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
-                                  @Nonnull final Token aFromToken,
-                                  @Nonnull final Token aToToken) throws ParseException;
+  void onCSSBrowserCompliantSkip (@Nullable ParseException ex,
+                                  @Nonnull Token aFromToken,
+                                  @Nonnull Token aToToken) throws ParseException;
 
   /**
    * Create a new {@link ICSSParseErrorHandler} that invokes both
    * <code>this</code> and the other error handler in a serial way.
-   * 
+   *
    * @param aOther
    *        The other handler to also be invoked.
    * @return A new instance. Never <code>null</code>.
@@ -108,13 +101,11 @@ public interface ICSSParseErrorHandler
 
     return new ICSSParseErrorHandler ()
     {
-      public void onCSSParseError (@Nonnull final Token aLastValidToken,
-                                   @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                                   @Nonnull final String [] aTokenImageVal,
+      public void onCSSParseError (@Nonnull final ParseException aParseEx,
                                    @Nullable final Token aLastSkippedToken) throws ParseException
       {
-        aThis.onCSSParseError (aLastValidToken, aExpectedTokenSequencesVal, aTokenImageVal, aLastSkippedToken);
-        aOther.onCSSParseError (aLastValidToken, aExpectedTokenSequencesVal, aTokenImageVal, aLastSkippedToken);
+        aThis.onCSSParseError (aParseEx, aLastSkippedToken);
+        aOther.onCSSParseError (aParseEx, aLastSkippedToken);
       }
 
       public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
