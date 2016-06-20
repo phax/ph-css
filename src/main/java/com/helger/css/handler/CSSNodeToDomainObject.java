@@ -260,7 +260,7 @@ final class CSSNodeToDomainObject
     if (ECSSNodeType.NEGATION.isNode (aNode, m_eVersion))
     {
       // Note: no children don't make sense but are syntactically allowed!
-      final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
+      final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList<> ();
       for (int i = 0; i < nChildCount; ++i)
       {
         final CSSNode aChildNode = aNode.jjtGetChild (0);
@@ -605,12 +605,14 @@ final class CSSNodeToDomainObject
     for (int nDecl = 0; nDecl < nDecls; ++nDecl)
     {
       final CSSNode aChildNode = aNode.jjtGetChild (nDecl);
-      if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
+      if (ECSSNodeType.STYLEDECLARATION.isNode (aChildNode, m_eVersion))
       {
         final CSSDeclaration aDeclaration = _createDeclaration (aChildNode);
         if (aDeclaration != null)
           aConsumer.accept (aDeclaration);
       }
+      // else
+      // ignore ERROR_SKIP to and all "@" things
     }
   }
 
@@ -670,7 +672,7 @@ final class CSSNodeToDomainObject
         _throwUnexpectedChildrenCount (aNode, "Expected at least 1 child but got " + nChildCount + "!");
 
       // Read page selectors (0-n)
-      final ICommonsList <String> aSelectors = new CommonsArrayList <> ();
+      final ICommonsList <String> aSelectors = new CommonsArrayList<> ();
       for (int nIndex = 0; nIndex < nChildCount - 1; ++nIndex)
       {
         final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
@@ -955,7 +957,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.KEYFRAMESSELECTOR.isNode (aChildNode, m_eVersion))
       {
         // Read all single selectors
-        final ICommonsList <String> aKeyframesSelectors = new CommonsArrayList <> ();
+        final ICommonsList <String> aKeyframesSelectors = new CommonsArrayList<> ();
         for (final CSSNode aSelectorChild : aChildNode)
         {
           _expectNodeType (aSelectorChild, ECSSNodeType.SINGLEKEYFRAMESELECTOR);

@@ -555,8 +555,8 @@ try{
     | viewportRule()
     | supportsRule()
     | unknownRule()
-    | charsetRule() { errorUnexpectedRule ("@charset", "charset rule in the middle of the file is not allowed!"); }
-    | importRule() { errorUnexpectedRule ("@import", "import rule in the middle of the file is not allowed!"); }
+    | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of the file is not allowed!"); }
+    | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of the file is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of the file is not allowed!"); }
     )
     ( <S> | <CDO> | <CDC> )*
@@ -1040,13 +1040,31 @@ try{
 }
 }
 
+void styleDeclarationOrRule() #void : {}
+{
+  ( styleDeclaration() 
+  | ( mediaRule()     { errorUnexpectedRule ("@media", "media rule in the middle of a rule-set is not allowed!"); }
+    | pageRule()      { errorUnexpectedRule ("@page", "page rule in the middle of a rule-set is not allowed!"); }
+    | fontfaceRule()  { errorUnexpectedRule ("@font-face", "font-face rule in the middle of a rule-set is not allowed!"); }
+    | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule in the middle of a rule-set is not allowed!"); }
+    | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a rule-set is not allowed!"); }
+    | supportsRule()  { errorUnexpectedRule ("@supports", "supports rule in the middle of a rule-set is not allowed!"); }
+    | unknownRule()   { errorUnexpectedRule ("@", "Unknown rule in the middle of a rule-set is not allowed!"); }
+    | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a rule-set is not allowed!"); }
+    | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a rule-set is not allowed!"); }
+    | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a rule-set is not allowed!"); }
+    )
+    ( <S> | <CDO> | <CDC> )*
+  )  
+}
+
 CSSNode styleDeclarationList() : {}
 {
   ( <S> )*
-  ( styleDeclaration() )?
+  ( styleDeclarationOrRule() )?
   ( <SEMICOLON>
     ( <S> )*
-    ( styleDeclaration() )?
+    ( styleDeclarationOrRule() )?
   )*
   { return jjtThis; }
 }
@@ -1192,6 +1210,7 @@ String pseudoPage() #void : {}
 // Should only be: "left" | "right" | "first" | "blank"  
 }
 
+// pseudo_page+ | IDENT pseudo_page*
 void pageSelector() : 
 { String s; }
 {
@@ -1396,10 +1415,10 @@ void supportsRuleBodyRule() #void : {}
   | keyframesRule()
   | supportsRule()
   | unknownRule()
-  | charsetRule() { errorUnexpectedRule ("@charset", "charset rule in the middle of a @supports rule is not allowed!"); }
-  | importRule() { errorUnexpectedRule ("@import", "import rule in the middle of a @supports rule is not allowed!"); }
+  | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @supports rule is not allowed!"); }
+  | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @supports rule is not allowed!"); }
   | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @supports rule is not allowed!"); }
-  | viewportRule() { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a @supports rule is not allowed!"); }
+  | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a @supports rule is not allowed!"); }
   )
 }
 
