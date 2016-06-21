@@ -16,7 +16,8 @@ ph-css is licensed under Apache 2.0 license.
 
 Versions >= 5 requires JDK 8.
 
-  * v5.0.0 (in progress) - Added JDK8 as the basis; removed explicit grammar for CSS 2.1 (issue #20)
+  * v5.0.0 - Added JDK8 as the basis; removed explicit grammar for CSS 2.1 (issue #20)
+  * v4.1.4 - Improved browser compliant parsing (issue #26)
   * v4.1.3 - Improved browser compliant parsing (issue #24)
   * v4.1.2 - Improved browser compliant parsing (issue #21)
   * v4.1.1 - Skipping style rules with invalid selectors in browser compliant mode; allowing "--" identifier prefix; improved unknown rule parsing (issues #17, #18, #19)
@@ -38,7 +39,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>4.1.3</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
