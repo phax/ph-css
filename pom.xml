@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.8.4</version>
+    <version>1.9.0</version>
   </parent>
   <artifactId>ph-css</artifactId>
   <version>5.0.1-SNAPSHOT</version>
@@ -84,6 +84,11 @@
       <artifactId>ph-commons</artifactId>
     </dependency>
     
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-xml</artifactId>
