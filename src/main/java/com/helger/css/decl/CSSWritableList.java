@@ -162,7 +162,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
     {
       // A single element
       final StringBuilder aSB = new StringBuilder ();
-      aSB.append (m_aElements.getFirst ().getAsCSSString (aSettings, nIndentLevel));
+      aSB.append (m_aElements.get (0).getAsCSSString (aSettings, nIndentLevel));
       // No ';' at the last entry
       if (!bOptimizedOutput)
         aSB.append (CCSS.DEFINITION_END);
