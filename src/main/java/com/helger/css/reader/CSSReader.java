@@ -63,7 +63,6 @@ import com.helger.css.parser.ParserCSS30;
 import com.helger.css.parser.ParserCSS30TokenManager;
 import com.helger.css.parser.ParserCSSCharsetDetector;
 import com.helger.css.parser.ParserCSSCharsetDetectorTokenManager;
-import com.helger.css.parser.TokenMgrError;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 
@@ -197,7 +196,7 @@ public final class CSSReader
       aCustomExceptionHandler.onException (ex);
       return null;
     }
-    catch (final TokenMgrError ex)
+    catch (final Throwable ex)
     {
       // As e.g. indicated by https://github.com/phax/ph-css/issues/9
       aCustomExceptionHandler.onException (new ParseException (ex.getMessage ()));
@@ -964,7 +963,7 @@ public final class CSSReader
       // grammar!
       throw new IllegalStateException ("Failed to parse CSS charset definition", ex);
     }
-    catch (final TokenMgrError ex)
+    catch (final Throwable ex)
     {
       // As e.g. indicated by https://github.com/phax/ph-css/issues/9
       throw new IllegalStateException ("Failed to parse CSS charset definition", ex);

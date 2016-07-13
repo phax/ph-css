@@ -19,6 +19,9 @@ package com.helger.css.parser;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 
 /**
@@ -29,6 +32,8 @@ import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 @NotThreadSafe
 public abstract class AbstractParserCSS
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractParserCSS.class);
+
   protected ICSSParseErrorHandler m_aCustomErrorHandler;
   protected boolean m_bBrowserCompliantMode = false;
 
@@ -51,5 +56,19 @@ public abstract class AbstractParserCSS
   public final boolean isBrowserCompliantMode ()
   {
     return m_bBrowserCompliantMode;
+  }
+
+  // Used when NODE_SCOPE_HOOK is true - for debugging only
+  // Package scope to avoid warning when NODE_SCOPE_HOOK is false
+  public void jjtreeOpenNodeScope (final Node aNode)
+  {
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Opening scope for " + aNode.toString ());
+  }
+
+  public void jjtreeCloseNodeScope (final Node aNode)
+  {
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Closing scope for " + aNode.toString ());
   }
 }

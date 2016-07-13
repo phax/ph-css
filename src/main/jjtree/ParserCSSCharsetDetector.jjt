@@ -30,6 +30,8 @@ options {
   // SUPPORT_CLASS_VISIBILITY_PUBLIC = false;
   // USER_CHAR_STREAM = true;
   FORCE_LA_CHECK = true;
+  // The modern template is quicker!
+  JAVA_TEMPLATE_TYPE = "modern";
 
 // JJTree options
   // MULTI = true;

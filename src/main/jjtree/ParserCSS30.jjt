@@ -30,6 +30,8 @@ options {
   // SUPPORT_CLASS_VISIBILITY_PUBLIC = false;
   // USER_CHAR_STREAM = true;
   FORCE_LA_CHECK = true;
+  // The modern template is quicker!
+  JAVA_TEMPLATE_TYPE = "modern";
 
 // JJTree options
   // MULTI = true;
@@ -49,20 +51,6 @@ package com.helger.css.parser;
 public class ParserCSS30 extends com.helger.css.parser.AbstractParserCSS
 {
   private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS30.class);
-  
-  // Used when NODE_SCOPE_HOOK is true - for debugging only
-  // Package scope to avoid warning when NODE_SCOPE_HOOK is false
-  void jjtreeOpenNodeScope (final Node aNode)
-  {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Opening scope for " + aNode.toString ());
-  }
-  
-  void jjtreeCloseNodeScope (final Node aNode)
-  {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Closing scope for " + aNode.toString ());
-  }
 }
 PARSER_END(ParserCSS30)
 
@@ -582,22 +570,24 @@ try{
 //
 String string() #void : {}
 {
-  ( <STRING1> { return token.image; }
-  | <STRING2> { return token.image; }
+  ( <STRING1>
+  | <STRING2>
   )
+  { return token.image; }
 }
 
 String anyIdentifier() #void : {}
 {
-  ( <IDENT>    { return token.image; }
-  | <INHERIT>  { return token.image; }
-  | <AND_SYM>  { return token.image; }
-  | <NOT_SYM>  { return token.image; }
-  | <ONLY_SYM> { return token.image; }
-  | <FROM_SYM> { return token.image; }
-  | <TO_SYM>   { return token.image; }
-  | <OR_SYM>   { return token.image; }
+  ( <IDENT>
+  | <INHERIT>
+  | <AND_SYM>
+  | <NOT_SYM>
+  | <ONLY_SYM>
+  | <FROM_SYM>
+  | <TO_SYM>
+  | <OR_SYM>
   )
+  { return token.image; }
 }
 
 void url() : {}
@@ -621,9 +611,10 @@ void function() :
 
 String unaryOperator() #void : {}
 {
-  ( <MINUS> { return "-"; }
-  | <PLUS>  { return "+"; }
+  ( <MINUS>
+  | <PLUS>
   )
+  { return token.image; }
 }
 
 Token dimension() #void :
