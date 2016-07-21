@@ -912,7 +912,9 @@ final class CSSNodeToDomainObject
   private CSSFontFaceRule _createFontFaceRule (@Nonnull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.FONTFACERULE);
-    final CSSFontFaceRule ret = new CSSFontFaceRule ();
+
+    final String sFontFaceDeclaration = aNode.getText ();
+    final CSSFontFaceRule ret = new CSSFontFaceRule (sFontFaceDeclaration);
     ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
     {

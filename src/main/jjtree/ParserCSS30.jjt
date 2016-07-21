@@ -219,7 +219,8 @@ TOKEN :
 | < RIGHTMIDDLE_SYM:        "@right-middle" >
 | < RIGHTBOTTOM_SYM:        "@right-bottom" >
 | < MEDIA_SYM: "@media" >
-| < FONTFACE_SYM: "@font-face" >
+| < FONTFACE_SYM: "@-" <IDENT> "-font-face" 
+                | "@font-face" >
 | < KEYFRAMES_SYM: "@-" <IDENT> "-keyframes" 
                  | "@keyframes" >
 | < VIEWPORT_SYM: "@-" <IDENT> "-viewport"
@@ -1286,7 +1287,7 @@ void pageRule() : {}
 //
 void fontfaceRule() : {}
 {
-  <FONTFACE_SYM>
+  <FONTFACE_SYM>  { jjtThis.setText (token.image); }
   styleDeclarationBlock()
 }
 

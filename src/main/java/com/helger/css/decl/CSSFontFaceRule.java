@@ -21,11 +21,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
@@ -51,11 +53,37 @@ public class CSSFontFaceRule implements
                              ICSSVersionAware,
                              ICSSSourceLocationAware
 {
+  private final String m_sDeclaration;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
+  public static boolean isValidDeclaration (@Nonnull @Nonempty final String sDeclaration)
+  {
+    return StringHelper.startsWith (sDeclaration, '@') && StringHelper.endsWithIgnoreCase (sDeclaration, "font-face");
+  }
+
   public CSSFontFaceRule ()
-  {}
+  {
+    this ("@font-face");
+  }
+
+  public CSSFontFaceRule (@Nonnull @Nonempty final String sDeclaration)
+  {
+    ValueEnforcer.isTrue (isValidDeclaration (sDeclaration), () -> "Declaration '" + sDeclaration + "' is invalid");
+    m_sDeclaration = sDeclaration;
+  }
+
+  /**
+   * @return The rule declaration string used in the CSS. Neither
+   *         <code>null</code> nor empty. Always starting with <code>@</code>
+   *         and ending with <code>font-face</code>.
+   */
+  @Nonnull
+  @Nonempty
+  public String getDeclaration ()
+  {
+    return m_sDeclaration;
+  }
 
   @Nonnull
   public CSSFontFaceRule addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
@@ -160,7 +188,7 @@ public class CSSFontFaceRule implements
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
-    final StringBuilder aSB = new StringBuilder ("@font-face");
+    final StringBuilder aSB = new StringBuilder (m_sDeclaration);
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     if (!aSettings.isOptimizedOutput ())
       aSB.append (aSettings.getNewLineString ());
