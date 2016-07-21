@@ -14,6 +14,9 @@ ph-css is licensed under Apache 2.0 license.
 
 ## News and noteworthy
 
+  * v5.0.1 - work in progress
+    * Using "modern java template" for JavaCC parser - results in quicker execution
+    * Enhancement issue #29
   * v5.0.0 
     * Added JDK8 as the basis
     * removed explicit grammar for CSS 2.1 (issue #20)
