@@ -356,7 +356,7 @@ final class CSSNodeToDomainObject
           }
           else
           {
-            if ((nChildCount % 2) != 1)
+            if ((nChildCount % 2) == 0)
               _throwUnexpectedChildrenCount (aChildNode,
                                              "CSS math unit expected odd child count and got " + nChildCount);
 
