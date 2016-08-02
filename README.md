@@ -6,7 +6,7 @@
 
 
 Java CSS 2 and CSS 3 parser and builder. This version supersedes phloc-css.
-The Maven plugin to compress CSS files at build time is located in project [ph-csscompress-maven-plugin](https://github.com/phax/ph-csscompress-maven-plugin).
+The Maven plugin to compress CSS files at build time is located in sub-project ph-csscompress-maven-plugin and described further down.
 
 ph-css has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use.
 
@@ -17,6 +17,7 @@ ph-css is licensed under Apache 2.0 license.
   * v5.0.1 - work in progress
     * Using "modern java template" for JavaCC parser - results in quicker execution
     * Enhancement issue #29
+    * Intergated `ph-csscompress-maven-plugin` into this repository
   * v5.0.0 
     * Added JDK8 as the basis
     * removed explicit grammar for CSS 2.1 (issue #20)
@@ -228,6 +229,96 @@ ph-css contains a multitude of small utility class covering different aspects of
 The following list gives an overview of known shortcomings in ph-css
 
   * Escaped characters (like \26) are not interpreted correctly.
+
+#ph-csscompress-maven-plugin
+
+A Maven plugin to compress CSS files at build time using [ph-css](https://github.com/phax/ph-css).
+
+Versions up to 1.4.0 require at least Maven 2.0.1.
+Versions starting with 1.5.0 require Maven 3.x.
+
+Version 1.5.x uses ph-css 4.x.
+Versions >= 2 require JDK 8 for building because ph-css 5.x uses JDK 8.
+
+## Maven configuration
+```xml
+      <plugin>
+        <groupId>com.helger.maven</groupId>
+        <artifactId>ph-csscompress-maven-plugin</artifactId>
+        <version>1.5.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>csscompress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <forceCompress>false</forceCompress>
+          <removeUnnecessaryCode>true</removeUnnecessaryCode>
+          <quoteURLs>true</quoteURLs>
+          <verbose>true</verbose>
+          <sourceDirectory>${basedir}/src/main/resources</sourceDirectory>
+        </configuration>
+      </plugin>
+```
+
+Configuration items are:
+
+  * `File` **sourceDirectory**  
+     The directory where the CSS files reside. It must be an existing directory.  
+     Defaults to `${basedir}/src/main/resources`
+  * `boolean` **recursive**  
+     Should all directories be scanned recursively for CSS files to compress? 
+     Defaults to `true`
+  * `boolean` **removeUnnecessaryCode**  
+     Should unnecessary code be removed (e.g. rules without declarations)? 
+     Defaults to `false`
+  * `boolean` **quoteURLs**  
+     Should URLs always be quoted? If false they are only quoted when absolutely necessary. 
+     Defaults to `false`
+  * `boolean` **writeNamespaceRules**  
+     Should `@namespace` rules be written? 
+     Defaults to `true`
+  * `boolean` **writeFontFaceRules**  
+     Should `@font-face` rules be written? 
+     Defaults to `true`
+  * `boolean` **writeKeyframesRules**  
+     Should `@keyframes` rules be written? 
+     Defaults to `true`
+  * `boolean` **writeMediaRules**  
+     Should `@media` rules be written? 
+     Defaults to `true`
+  * `boolean` **writePageRules**  
+     Should `@page` rules be written? 
+     Defaults to `true`
+  * `boolean` **writeViewportRules**  
+     Should `@viewport` rules be written? 
+     Defaults to `true`
+  * `boolean` **writeSupportsRules**  
+     Should `@supports` rules be written? 
+     Defaults to `true`
+  * `boolean` **writeUnknownRules**  
+     Should unknown `@` rules be written? 
+     Defaults to `true`
+  * `boolean` **forceCompress**  
+     Should the CSS files be compressed, even if the timestamp of the compressed file is newer than the timestamp of the original CSS file? 
+     Defaults to `false`
+  * `boolean` **verbose**  
+     If true some more output is emitted. 
+     Defaults to `false`
+  * `boolean` **browserCompliantMode** (since 1.4.0)
+     If true the "browser compliant mode" for parsing is selected.
+     Defaults to `false`.   
+  * `String` **sourceEncoding**  
+     The encoding of the source CSS files to be used for reading the CSS file in case neither a @charset rule nor a BOM is present.
+     Defaults to `UTF-8`
+  * `String` **targetFileExtension**  
+     The filename extension that should be used for the minified/compressed CSS file. 
+     Defaults to `.min.css`
+  * `String` **targetEncoding** (since 1.4.0)
+     The encoding of the target CSS files to be used for writing the CSS file.
+     Defaults to `UTF-8`.  
 
 ---
 

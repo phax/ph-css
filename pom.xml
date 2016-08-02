@@ -76,6 +76,11 @@
         <artifactId>ph-css</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-csscompress-maven-plugin</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -99,5 +104,6 @@
   
   <modules>
     <module>ph-css</module>
+    <module>ph-csscompress-maven-plugin</module>
   </modules>
 </project>
