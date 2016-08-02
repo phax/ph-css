@@ -232,20 +232,16 @@ The following list gives an overview of known shortcomings in ph-css
 
 #ph-csscompress-maven-plugin
 
-A Maven plugin to compress CSS files at build time using [ph-css](https://github.com/phax/ph-css).
+A Maven plugin to compress CSS files at build time using ph-css.
 
-Versions up to 1.4.0 require at least Maven 2.0.1.
-Versions starting with 1.5.0 require Maven 3.x.
-
-Version 1.5.x uses ph-css 4.x.
-Versions >= 2 require JDK 8 for building because ph-css 5.x uses JDK 8.
+It requires Java 8 and Maven 3 to run.
 
 ## Maven configuration
 ```xml
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>1.5.2</version>
+        <version>2.0.0</version>
         <executions>
           <execution>
             <goals>
