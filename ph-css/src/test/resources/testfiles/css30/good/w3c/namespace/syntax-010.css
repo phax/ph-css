@@ -1,0 +1,22 @@
+ @namespace "1";
+ @namespace dummy "yummy";
+ @namespace "2";
+
+ @namespace "1";
+ @namespace dummy "yummy";
+ @namespace "2";
+
+ @namespace x "1";
+ @namespace dummy "yummy";
+ @namespace x "2";
+ 
+ *|t { background:lime }
+ t { background:red }
+ 
+*|t2 { background:red }
+t2 { background:lime }
+ 
+ 
+*|t3 { background:red }
+x|t3 { background:lime }
+ 

@@ -1,0 +1,2 @@
+  span::before { background-color: red; content: 'FAILED'; }
+  span:before { background-color: lime; content: 'PASSED'; }

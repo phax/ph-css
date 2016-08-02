@@ -1,0 +1,8 @@
+ @namespace url("http://example.com/");
+@namespace url("http://example.com/");
+   @namespace url("HTTP://example.com/");
+   @namespace url("http://example.COM/");
+   @namespace url("%41");
+   @namespace url("A");
+   *|t6 { background:lime }
+   t6 { background:red }

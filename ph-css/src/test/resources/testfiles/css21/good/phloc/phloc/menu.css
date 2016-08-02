@@ -1,0 +1,168 @@
+/**
+ * Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#menu {
+  background: url("../imgs/menu_bg.png") repeat-y 0px 0px;
+  position: relative;
+  padding: 0px;
+  vertical-align: top;
+  height: auto !important;
+}
+
+#content_l {
+  background: url("../imgs/content_l.png") repeat-y 0px 0px;
+}
+
+#content_r {
+  background: url("../imgs/content_r.png") repeat-y 0px 0px;
+}
+
+/******************************************/ /*  STARKL STUFF */
+#menu_navigation {
+  padding-left: 0px;
+  height: auto !important;
+}
+
+tr.menu,tr.menu td {
+  height: auto;
+}
+
+#menu_navigation a.menuentry1 {
+  background: url("../imgs/menu_item1_bg.png") repeat-y 0px 0px;
+}
+
+#menu_navigation a.menuentry1,#menu_navigation a.menuentry1 span.text,
+#menu_navigation a.menuentry2,#menu_navigation a.menuentry2 span.text,
+#menu_navigation a.menuentry3,#menu_navigation a.menuentry3 span.text,
+#menu_navigation a.menuentry4,#menu_navigation a.menuentry4 span.text,
+#menu_navigation a.menuentry5,#menu_navigation a.menuentry5 span.text,
+#menu_navigation a.menuentry6,#menu_navigation a.menuentry6 span.text
+  {
+  display: block;
+  color: #555555;
+  text-decoration: none;
+  position: relative;
+  margin-bottom: 1px;
+  height: 15px;
+  overflow: hidden;
+  cursor:pointer;
+}
+
+#menu_navigation a.menuentry1,#menu_navigation a.menuentry1 span.text
+{
+  height: 20px;
+  line-height:19px;
+}
+
+
+#menu_navigation a.menuentry1:hover,#menu_navigation a.menuentry1:hover span.text,
+#menu_navigation a.menuentry2:hover,#menu_navigation a.menuentry2:hover span.text,
+#menu_navigation a.menuentry3:hover,#menu_navigation a.menuentry3:hover span.text,
+#menu_navigation a.menuentry4:hover,#menu_navigation a.menuentry4:hover span.text,
+#menu_navigation a.menuentry5:hover,#menu_navigation a.menuentry5:hover span.text,
+#menu_navigation a.menuentry6:hover,#menu_navigation a.menuentry6:hover span.text
+  {
+  color: #ca5656;
+}
+
+#menu_navigation a.menuentry1 span.text,
+#menu_navigation a.menuentry1:link span.text,
+#menu_navigation a.menuentry1:visited span.text,
+#menu_navigation a.menuentry1:hover span.text,
+#menu_navigation a.menuentry1:active span.text
+  {
+  font-size: 11.5px;
+  text-indent: 12px;
+  font-weight: bold;
+}
+
+#menu_navigation a.menuentry2 span.text,
+#menu_navigation a.menuentry2:link span.text,
+#menu_navigation a.menuentry2:visited span.text,
+#menu_navigation a.menuentry2:hover span.text,
+#menu_navigation a.menuentry2:active span.text
+  {
+  font-size: 11px;
+  text-indent: 22px;
+  font-weight: normal;
+}
+
+#menu_navigation a.menuentry3 span.text,
+#menu_navigation a.menuentry3:link span.text,
+#menu_navigation a.menuentry3:visited span.text,
+#menu_navigation a.menuentry3:hover span.text,
+#menu_navigation a.menuentry3:active span.text
+  {
+  font-size: 11px;
+  text-indent: 32px;
+  font-weight: normal;
+}
+
+#menu_navigation a.menuentry4 span.text,
+#menu_navigation a.menuentry4:link span.text,
+#menu_navigation a.menuentry4:visited span.text,
+#menu_navigation a.menuentry4:hover span.text,
+#menu_navigation a.menuentry4:active span.text,
+#menu_navigation a.menuentry5 span.text,
+#menu_navigation a.menuentry5:link span.text,
+#menu_navigation a.menuentry5:visited span.text,
+#menu_navigation a.menuentry5:hover span.text,
+#menu_navigation a.menuentry5:active span.text,
+#menu_navigation a.menuentry6 span.text,
+#menu_navigation a.menuentry6:link span.text,
+#menu_navigation a.menuentry6:visited span.text,
+#menu_navigation a.menuentry6:hover span.text,
+#menu_navigation a.menuentry6:active span.text
+  {
+  font-size: 10px;
+  text-indent: 42px;
+  font-weight: normal;
+}
+
+#menu_navigation a.selected,
+#menu_navigation a.pselected 
+{
+  color: #880000;
+}
+
+#menu_navigation a.selected span.text,
+#menu_navigation a.pselected span.text
+ {
+  color: #880000;
+}
+
+#menu_navigation span.separator {
+  display: block;
+  height: 7px;
+  padding: 0px;
+  line-height: 0px;
+  margin: 0px;
+  font-size: 0px;
+}
+
+#menu_phloc_link :link,#menu_phloc_link :visited,#menu_phloc_link :hover,#menu_phloc_link :active {
+  color: #6aac16;
+  text-decoration: none;
+  font-size: 13px;
+  width: 155px;
+  position: absolute;
+  bottom: 0px;
+  text-align: center;
+}
+
+#mp3player {
+  
+}

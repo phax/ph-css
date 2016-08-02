@@ -1,0 +1,190 @@
+/**
+ * Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Source: http://cssnext.io/features */
+
+/* custom properties & var() */
+:root {
+  --mainColor: red;
+  width: +40px;
+}
+
+a {
+  color: var(--mainColor);
+}
+
+/* reduced calc() */
+:root {
+  --fontSize: 1rem;
+}
+
+h1 {
+  font-size: calc(var(--fontSize) * 2);
+}
+
+/* custom media queries */
+/* error
+@custom-media --small-viewport (max-width: 30em);
+*/
+/* check out media queries ranges for a better syntax !*/
+
+@media (--small-viewport) {
+  /* styles for small viewport */
+}
+
+/* media queries ranges */
+/* error
+@media (width >= 500px) and (width <= 1200px) {
+  
+}
+*/
+
+/* or coupled with custom media queries */
+/* error
+@custom-media --only-medium-screen (width >= 500px) and (width <= 1200px);
+*/
+
+@media (--only-medium-screen) {
+  /* your styles */
+}
+
+/* custom selectors */
+/* error
+@custom-selector :--button button, .button;
+@custom-selector :--enter :hover, :focus;
+*/
+
+:--button {
+  /* styles for your buttons */
+}
+:--button:--enter {
+  /*
+    hover/focus styles for your button
+
+    Read more about :enter proposal
+    http://discourse.specifiction.org/t/a-common-pseudo-class-for-hover-and-focus/877
+   */
+}
+
+/* nesting */
+a {
+  /* direct nesting (& MUST be the first part of selector)*/
+  /* error
+  & span {
+    color: white;
+  }
+
+  /* @nest rule (for complex nesting) * /
+  @nest span & {
+    color: blue;
+  }
+  */
+
+  /* media query automatic nesting * /
+  @media (min-width: 30em) {
+    color: yellow;
+  }
+  */
+}
+
+/* color() function */
+a {
+  color: color(red alpha(-10%));
+}
+
+  a:hover {
+    color: color(red blackness(80%));
+  }
+  
+/* hwb() function */
+body {
+  color: hwb(90, 0%, 0%, 0.5);
+}
+
+/* gray() function */
+.foo {
+  color: gray(85);
+}
+
+.bar {
+  color: gray(10%, 50%);
+}
+
+/* #rrggbbaa colors */
+body {
+  background: #9d9c;
+}
+
+/* rgba function (rgb fallback) */
+body {
+  background: rgba(153, 221, 153, 0.8);
+  /* you will have the same value without alpha as a fallback */
+}
+
+/* rebeccapurple color */
+body {
+  color: rebeccapurple;
+}
+
+/* font-variant property */
+h2 {
+  font-variant-caps: small-caps;
+}
+
+table {
+  font-variant-numeric: lining-nums;
+}
+
+/* filter property */
+.blur {
+    filter: blur(4px);
+}
+
+/* initial value */
+div {
+  display: initial; /* inline */
+}
+
+div {
+  all: initial; /* use initial for ALL PROPERTIES in one shot */
+}
+
+/* rem unit (px fallback) */
+h1 {
+  font-size: 1.5rem;
+}
+
+/* :any-link pseudo-class */
+nav :any-link {
+  background-color: yellow;
+}
+
+/* :matches pseudo-class */
+/* error
+p:matches(:first-child, .special) {
+  color: red;
+}
+*/
+
+/* :not pseudo-class */
+p:not(:first-child, .special) {
+  color: red;
+}
+
+/* :: pseudo syntax (: fallback) */
+a::before {
+  /* ... */
+}

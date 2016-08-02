@@ -1,0 +1,99 @@
+/**
+ * Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+body { margin-left: 20px; margin-top: 20px; background-color: #fffffc; }
+
+@-webkit-keyframes autoRotate {
+  0% {  -webkit-transform: rotate(0deg)}
+  50% {  -webkit-transform: rotate(700deg)}
+   100% { -webkit-transform: rotate(360deg)}
+ }
+ @-webkit-keyframes autoRotateAndScale {
+   0% { -webkit-transform: rotate(0deg) scale(0.3,2); }
+   100% { -webkit-transform: rotate(360deg) scale(3,0.9); }
+ }
+ @-webkit-keyframes autoOpacity {
+   0% {  opacity: 0; }
+   50% { opacity: 1; }
+   100% { opacity: 0; }
+ }
+ @-webkit-keyframes autoMargin {
+   0% {  margin-left: 0px; margin-top: 0px; }
+   50% { margin-left: 400px; margin-top: 400px; }
+   100% { margin-left: 400px; margin-top: 0px; }
+ }
+ @-webkit-keyframes autoMove {
+   0% {  left: 0px; top: 0px; }
+   50% { left: 400px; top: 400px; }
+   100% { left: 400px; top: 0px; }
+ }
+ @-webkit-keyframes autoScale{
+   0% {  -webkit-transform: scale(1,1)}
+   25% {  -webkit-transform: scale(2,2)}
+   50% {  -webkit-transform: scale(1.2,3.1)}
+   75% {  -webkit-transform: scale(0.3,0.5)}
+   100% { -webkit-transform: scale(0.25,0.25)  }
+ }
+ @-webkit-keyframes autoTranslate{
+   0% {  -webkit-transform: translate(0px,0px) }
+   25% {  -webkit-transform: translate(400px,0) }
+   50% {  -webkit-transform: translate(0,400px) }
+   75% {  -webkit-transform: translate(400px,400px) }
+   100% { -webkit-transform: translate(400px,0) }
+ }
+
+ @-webkit-keyframes autoPerspective{
+   0% {  -webkit-transform: perspective(1000) }
+   50% {  -webkit-transform: perspective(500) }
+   75% {  -webkit-transform: perspective(0) }
+ }
+
+ @-webkit-keyframes compound{
+    from {
+      -webkit-transform: translateX(-300px) scale(0.2245) perspective(1000);
+    }
+
+    50% {
+      -webkit-transform: translateX(-150px) scale(0.61225) perspective(1000);
+    }
+
+    to {
+      -webkit-transform: translateX(0px) scale(1) perspective(1000);
+    }
+ }
+
+ #main {
+-webkit-transform: translateZ(0);
+ position: absolute;
+}
+   
+* {
+  -webkit-animation-duration: 4000ms;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  font-size: 20px;
+  font-family: arial;
+}
+.autoRotate { -webkit-animation-name: autoRotate; }
+.autoMove { -webkit-animation-name: autoMove; position: absolute;}
+.autoMargin { -webkit-animation-name: autoMargin; }
+.autoScale { -webkit-animation-name: autoScale; }
+.autoTranslate { -webkit-animation-name: autoTranslate;}
+.autoOpacity { -webkit-animation-name: autoOpacity;}
+.autoRotateAndScale { -webkit-animation-name: autoRotateAndScale;}
+.autoPerspective { -webkit-animation-name: autoPerspective;}
+.compound { -webkit-animation-name: compound;}
+.scene { position: absolute;}

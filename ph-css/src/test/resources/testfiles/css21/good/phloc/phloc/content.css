@@ -1,0 +1,311 @@
+/**
+ * Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#content
+{
+  padding:10px;
+  background-color:#ffffff !important;
+  /*border-left:1px solid #acacac;*/ 
+  text-align:justify;
+}
+
+/*** this makes paragraphs and breaks look the same for easy handling ***/
+p
+{
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+
+
+/***********  TEXT ***********/
+/* grant that default text always looks like '.text' */
+#content,
+.mceContentBody,
+.text
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-size:13px; 
+  color:#555555; 
+}
+
+/***********  HEADINGS ***********/
+
+.heading_1
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  color:#880000;
+  font-style:normal;
+  font-weight:normal;
+  font-size:22px;
+  margin-bottom:10px;
+  display:block;
+}
+
+.heading_2
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  color:#880000;
+  font-style:normal;
+  font-weight:normal;
+  font-size:17px;
+  margin-bottom:7px;
+  margin-top:7px; 
+  display:block;  
+}
+
+.chapter_heading
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  color:#000000;
+  font-style:normal;
+  font-weight:bold;
+  font-size:13px; 
+  display:block;
+  background:url("../imgs/chapter_line.png") no-repeat left bottom;
+  padding-bottom:10px;
+  margin-bottom:10px; 
+  margin-top:10px; 
+}
+
+.accentuation
+{
+  color:#880000;
+}
+
+.accentuation_intense
+{
+  color:#555555;
+  font-weight:bold;
+}
+
+ul
+{
+  padding-left:30px;
+  list-style-image:url("../imgs/bullet1.png") !important;
+  list-style-position:outside;
+}
+
+ul ul
+{
+  padding-left:25px;
+  list-style-image:url("../imgs/bullet2.png") !important;
+  list-style-position:outside;
+}
+
+/* use default font style for LI elements to solve strange styling 
+   behavior in nested lists when applying styles to parent LI  */
+li
+{
+  margin-top:3px;
+  margin-bottom:3px;
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-size:13px; 
+  color:#555555;   
+}
+
+/** important for sitemap **/
+li.separator
+{
+  list-style-type:none !important;
+  list-style-image:none;
+}
+
+
+/***********  TABLES ***********/
+
+.table_header,
+.table_header td
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-weight:bold;
+  font-size:13px;
+  color:#000000;
+  background-color:#3e6530;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  line-height:18px;
+  height:1px;
+  background:url("../imgs/table_header_big_light.png") repeat-x left top;
+}
+
+.table_header_intense,
+.table_header_intense td
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-weight:bold;
+  font-size:13px;
+  color:#000000;
+  background-color:#3e6530;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  line-height:18px;
+  height:1px;
+  background:url("../imgs/table_header_big_intense.png") repeat-x left top;
+}
+
+.table_header_slim,
+.table_header_slim td
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-weight:normal;
+  font-size:13px;
+  color:#000000;
+  background-color:#3e6530;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:0px;
+  padding-bottom:0px;
+  line-height:18px;
+  height:18px;
+  background:url("../imgs/table_header_slim_light.png") repeat-x left top;
+}
+
+.table_header_slim_intense,
+.table_header_slim_intense td
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-weight:normal;
+  font-size:13px;
+  color:#000000;
+  background-color:#3e6530;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:0px;
+  padding-bottom:0px;
+  line-height:18px;
+  height:18px;
+  background:url("../imgs/table_header_slim_intense.png") repeat-x left top;
+}
+.table_content
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-size:13px;
+  background-color:#fafafa;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  vertical-align:top;
+}
+
+.table_content_color
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-size:13px;
+  background-color:#fff4f4;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  vertical-align:top;
+}
+
+.table_content_no
+{
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  font-size:13px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  vertical-align:top;
+}
+
+/***********  HACKS ***********/
+
+/* THIS IS FOR LINKS TO ACTUALLY BE DISPLAYED AS THEY SHOULD */
+
+/* Important is needed in Gecko browsers inorder to style links */
+
+a {
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  color:#880000 !important;
+  font-weight:bold !important;
+}
+
+table.mceItemTable,
+#content table
+{
+  width:717px;
+}
+
+.table_header a {
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  color:#ffffff !important;
+  font-weight:bold !important;
+  text-decoration:underline;
+}
+
+a:hover {
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  color: #ca5656 !important;
+  font-weight:bold !important;
+}
+
+.table_header a:hover {
+  font-family:Arial, Verdana, Helvetica, Sans-serif;
+  color:#ca5656 !important;
+  font-weight:bold !important;
+  text-decoration:underline;
+}
+
+a.link_pdf
+{
+  padding-left:20px;
+  padding-right:-20px;
+  background:url("../imgs/pdficon16.jpg") no-repeat left center;
+}
+
+
+a img {
+  border:1px solid #880000 !important;
+}
+
+a:hover img{
+  border:1px solid #ca5656 !important;
+}
+
+/* Style selection range colors in Gecko browsers */
+
+::-moz-selection {
+  background-color: #fab4b4;
+  color: #880000;
+}
+
+/* important to grant that paragraphs will look the same in IE and FF when nested in tables etc.
+   Test: 2 tds, one with text only, one with text in a P  (all v-align top). FF will show the
+   second cell content not properly top aligned
+   
+   This is now limited to P elements in tables only, since on top level, the automatic spacing 
+   between paragraphs is needed after all. 
+   
+   Temporarily disabled at all, since it doesn't seem to make a difference
+   And what is most important: the customer did not like this anyway, since all
+   spaces were gone where he even liked them.
+*/
+
+/*
+#content table p
+{
+  margin-top:0px;
+  margin-bottom:0px;
+}
+*/

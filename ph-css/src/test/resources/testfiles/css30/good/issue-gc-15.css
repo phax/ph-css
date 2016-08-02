@@ -1,0 +1,133 @@
+/* validation styles */
+
+.validation-summary-errors
+{
+	color:Red;
+}
+label.error
+{
+	margin-left: 10px;
+	width: auto;
+	display: inline;
+	color: red;
+	font-style: italic;
+	text-transform:none;
+}
+div.error
+{
+	display: none;
+}
+input.error, select.error
+{
+	border: 1px dotted red;
+}
+
+div.error li
+{
+	display: block !important;
+	float: none !important;
+}
+.prefix
+{
+	width: 4em;
+}
+.first-name
+{
+	width: 9em;
+}
+.middle-name
+{
+	width: 1em;
+}
+.last-name
+{
+	width: 9em;
+}
+.suffix
+{
+	width: 10em;
+}
+.address1
+{
+	width: 15em;
+}
+.address2
+{
+	width: 15em;
+}
+.city
+{
+	width: 10em;
+}
+.state
+{
+	width: 5em;
+}
+.zip
+{
+	width: 4.7em;
+}
+.zipaddon
+{
+	width: 4.7em;
+}
+.phone
+{
+	width: 10em;
+}
+.email
+{
+	width: 15em;
+}
+.email-confirm
+{
+	width: 25em;
+}
+.serial-prefix
+{
+	width: 5em;
+	text-transform: uppercase;
+}
+.serial-suffix
+{
+	width: 10em;
+	text-transform: uppercase;
+}
+.purchase-date
+{
+	width: 10em;
+}
+.product-use
+{
+	width: 12em;
+}
+.location-purchased
+{
+	width: 12em;
+}
+.product-type
+{
+	width: 12em;
+}
+.product-brand
+{
+	width: 12em;
+}
+.calendar
+{
+	width: 16px;
+	height: 16px;
+}
+.dateselector
+{
+	z-index: 101;
+}
+.dropdown
+{
+	z-index: 100;
+}
+.input
+{
+	z-index: 100;
+}
+

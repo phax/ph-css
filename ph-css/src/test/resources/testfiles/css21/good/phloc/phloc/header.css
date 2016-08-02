@@ -1,0 +1,188 @@
+/**
+ * Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+#header
+{
+  height:84px !important;
+  background:url("../imgs/header_bg.png") no-repeat 0px 0px;
+  position:relative;
+}
+
+#header div
+{
+  position:relative;
+}
+
+#header_l
+{
+  height:84px !important;
+  background:url("../imgs/header_l.png") no-repeat 0px 0px;
+}
+
+#header_r
+{
+  height:84px !important;
+  background:url("../imgs/header_r.png") no-repeat 0px 0px;
+}
+
+tr.header,
+tr.header td
+{
+  height:84px;
+  padding:0px;
+}
+
+#footer
+{
+  height:45px !important;
+  background:url("../imgs/footer_bg.png") no-repeat 0px 0px;
+  position:relative;
+  vertical-align:top;
+}
+
+#footer_l
+{
+  background:url("../imgs/footer_l.png") no-repeat 0px 0px;
+}
+
+#footer_r
+{
+  background:url("../imgs/footer_r.png") no-repeat 0px 0px;
+}
+
+#footercontent
+{
+  font-size:10px;
+  width:100%;
+  text-align:right;
+  position:relative;
+  background:none;
+  height:29px !important;
+}
+
+#footercontent .copyright
+{
+  color:#ffffff;
+  position:absolute;
+  left:10px;
+  font-size:11px;
+  line-height:28px;
+}
+
+a.WCMSlogo
+{
+  width:86px;
+  height:27px;
+  background:url("../imgs/wcms.png") no-repeat 0px 0px;
+  position:absolute;
+  right:4px;
+  top:1px !important;
+  text-align:right;
+}
+
+#home
+{
+  /* for phloc the logo is embedded in the header background due to complex lighting */
+  /* background:url("../imgs/phloc.png") no-repeat 0px 0px;*/
+  width:130px;
+  height:75px;
+  display:block;
+  position:absolute;
+  left:30px;
+  top:4px;
+  text-decoration:none;
+}
+
+
+#categories
+{
+  float:right;
+  margin:0px;
+  padding-right:15px;
+}
+
+.cat1expanded a,
+.cat1collapsed a
+{
+  background:url("../imgs/category1.png") no-repeat 0px 0px;
+  position:absolute;
+  top:16px;
+  left:201px;
+}
+
+.cat2expanded a,
+.cat2collapsed a
+{
+  background:url("../imgs/category2.png") no-repeat 0px 0px;
+  position:absolute;
+  top:16px;
+  left:361px;
+}
+
+.cat3expanded a,
+.cat3collapsed a
+{
+  background:url("../imgs/category3.png") no-repeat 0px 0px;
+  position:absolute;
+  top:16px;
+  left:521px;
+}
+
+#categories span a
+{
+  padding:5px;
+  text-decoration:none;
+  width:140px;
+  height:56px;
+  display:block;
+}
+
+#categories span.collapsed a
+{
+  color:#555555 !important;
+}
+
+#categories span.expanded a
+{
+  color:#880000 !important;
+}
+
+#categories span.expanded a:hover,
+#categories span.collapsed a:hover
+{
+  color:#ca5656 !important;
+}
+
+
+#header div.languages
+{
+  position:absolute;
+  right:10px;
+  top:5px;  
+}
+
+#header div.languages a
+{
+  display:block;
+  color:#ffffff !important;
+  font-weight:normal !important;
+  text-decoration:none;
+}
+
+#header div.languages a:hover
+{
+  color:#ca5656 !important;
+}

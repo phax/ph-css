@@ -1,0 +1,5 @@
+@namespace x u\00072l("test");
+   @import url("support/fail.css");
+   @namespace url("test2");
+   x|test { background:lime }
+   test { background:red }

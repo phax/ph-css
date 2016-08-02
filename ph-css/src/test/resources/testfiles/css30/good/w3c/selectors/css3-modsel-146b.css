@@ -1,0 +1,4 @@
+  line { display: block; }
+  [type~=match] { background: lime ! important; }
+  line:nth-child(3n-1) { background: red; }
+  [hidden] { display: none; }

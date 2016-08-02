@@ -1,0 +1,2 @@
+ p { background: lime; }
+ p:empty { background: red; }
