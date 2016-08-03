@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IConvertibleDirectTrait;
@@ -39,7 +40,7 @@ import com.helger.css.CSSSourceLocation;
  *
  * @author Philip Helger
  */
-public class CSSNode implements Node, Iterable <CSSNode>, Serializable, IConvertibleDirectTrait
+public class CSSNode implements Node, ICommonsIterable <CSSNode>, Serializable, IConvertibleDirectTrait
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (CSSNode.class);
 
