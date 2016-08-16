@@ -19,6 +19,7 @@ package com.helger.css.utils;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 
@@ -27,8 +28,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.NotThreadSafe;
-
-import org.omg.CORBA_2_3.portable.OutputStream;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
