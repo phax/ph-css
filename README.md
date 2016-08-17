@@ -188,9 +188,9 @@ ph-css contains a multitude of small utility class covering different aspects of
   * `com.helger.css.tools.MediaQueryTools` provides shortcut methods for wrapping a complete `CascadingStyleSheet` in one or more media queries
 
 #Code Examples
-  * [Reading a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiReadCSS.java)
-  * [Writing a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiWriteCSS.java)
-  * [Creating a @font-face rule from scratch](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiCreateFontFaceRule.java)
+  * [Reading a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/ph-css/src/test/java/com/helger/css/supplementary/wiki/WikiReadCSS.java)
+  * [Writing a CSS 3.0 file](https://github.com/phax/ph-css/blob/master/ph-css/src/test/java/com/helger/css/supplementary/wiki/WikiWriteCSS.java)
+  * [Creating a @font-face rule from scratch](https://github.com/phax/ph-css/blob/master/ph-css/src/test/java/com/helger/css/supplementary/wiki/WikiCreateFontFaceRule.java)
     * The code creates a CSS @font-face rule that looks like this:
     ```css    
     @font-face {
@@ -202,22 +202,22 @@ ph-css contains a multitude of small utility class covering different aspects of
            url("path/basename.svg#filename") format("svg");
     }
     ```
-  * [Read the CSS content of a HTML style attribute](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiReadFromHtml.java)
+  * [Read the CSS content of a HTML style attribute](https://github.com/phax/ph-css/blob/master/ph-css/src/test/java/com/helger/css/supplementary/wiki/WikiReadFromHtml.java)
     * Reads the CSS content of `sStyle` as CSS 3.0 and creates a `CSSDeclarationList` from it
-  * [Visiting all declarations contained in an HTML style attribute](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiVisitFromHtml.java)
+  * [Visiting all declarations contained in an HTML style attribute](https://github.com/phax/ph-css/blob/master/ph-css/src/test/java/com/helger/css/supplementary/wiki/WikiVisitFromHtml.java)
     * Similar to the above example, but visiting all declarations and printing them on stdout. Two different approaches are shown: first all declarations are retrieved via the native API, and second a custom visitor is used to determine all declarations. The result of this method looks like this:
     ```    
     color: red (not important)
     background: fixed (important)
     ```
-  * [Visit all URLs contained in a CSS](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiVisitUrls.java)
+  * [Visit all URLs contained in a CSS](https://github.com/phax/ph-css/blob/master/ph-css/src/test/java/com/helger/css/supplementary/wiki/WikiVisitUrls.java)
     * Read a CSS from a String and than extracts all contained URLs. The output looks like this:
     ```
     Import: foobar.css - source location reaches from [1/1] up to [1/21]
     background - references: a.gif - source location reaches from [2/22] up to [2/31]
     background-image - references: /my/folder/b.gif - source location reaches from [3/25] up to [3/47]
     ``` 
-  * [Visit all URLs (incl.data URLs) contained in a CSS](https://github.com/phax/ph-css/blob/master/src/test/java/com/helger/css/supplementary/wiki/WikiVisitDataUrls.java)
+  * [Visit all URLs (incl.data URLs) contained in a CSS](https://github.com/phax/ph-css/blob/master/ph-css/src/test/java/com/helger/css/supplementary/wiki/WikiVisitDataUrls.java)
     * Read a CSS from a String and than extracts all contained URLs with special focus on data URLs. The output looks like this:
     ```
     Import: /folder/foobar.css
