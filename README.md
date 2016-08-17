@@ -14,12 +14,13 @@ ph-css is licensed under Apache 2.0 license.
 
 ## News and noteworthy
 
-  * v5.0.1 - work in progress
+  * v5.0.1 - 2016-08-17
     * Using "modern java template" for JavaCC parser - results in quicker execution
-    * Enhancement issue #29
+    * Enhancement issue #27
     * Intergated `ph-csscompress-maven-plugin` into this repository
-  * v5.0.0 
-    * Added JDK8 as the basis
+    * Bug fix wrong OutputStream (issue #28) 
+  * v5.0.0 - 2016-06-12
+    * Using JDK8 as the basis
     * removed explicit grammar for CSS 2.1 (issue #20)
     * Added browser compliant error handler
   * v4.1.4 - Improved browser compliant parsing (issue #26)
