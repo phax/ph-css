@@ -10,7 +10,7 @@ The Maven plugin to compress CSS files at build time is located in sub-project p
 
 ph-css has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use.
 
-ph-css is licensed under Apache 2.0 license.
+ph-css and ph-csscompress-maven-plugin are both  licensed under the **Apache 2.0 license**.
 
 ## News and noteworthy
 
@@ -45,7 +45,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>5.0.0</version>
+  <version>5.0.1</version>
 </dependency>
 ```
 
@@ -242,7 +242,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>2.0.0</version>
+        <version>5.0.1</version>
         <executions>
           <execution>
             <goals>
