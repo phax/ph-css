@@ -298,8 +298,8 @@ public final class CSSCharStream implements CharStream
     if (++m_nBufpos == m_nAvailable)
       _adjustBuffSize ();
 
-    char c;
-    m_aBuffer[m_nBufpos] = c = _readByte ();
+    final char c = _readByte ();
+    m_aBuffer[m_nBufpos] = c;
 
     // This would be the point to handle CSS (un)escaping
     if (m_bTrackLineColumn)
@@ -409,29 +409,39 @@ public final class CSSCharStream implements CharStream
       len = m_nBufsize - m_nTokenBegin + m_nBufpos + 1 + m_nInBuf;
     }
 
-    int i = 0;
+    int nIdx = 0;
     int j = 0;
-    int k = 0;
     int nextColDiff = 0;
     int columnDiff = 0;
 
-    while (i < len && m_aBufLine[j = start % m_nBufsize] == m_aBufLine[k = ++start % m_nBufsize])
+    while (true)
     {
+      if (nIdx >= len)
+        break;
+      j = start % m_nBufsize;
+      ++start;
+      final int k = start % m_nBufsize;
+      if (m_aBufLine[j] != m_aBufLine[k])
+        break;
+
       m_aBufLine[j] = newLine;
       nextColDiff = columnDiff + m_aBufColumn[k] - m_aBufColumn[j];
       m_aBufColumn[j] = newCol + columnDiff;
       columnDiff = nextColDiff;
-      i++;
+      nIdx++;
     }
 
-    if (i < len)
+    if (nIdx < len)
     {
       m_aBufLine[j] = newLine++;
       m_aBufColumn[j] = newCol + columnDiff;
 
-      while (i++ < len)
+      while (nIdx++ < len)
       {
-        if (m_aBufLine[j = start % m_nBufsize] != m_aBufLine[++start % m_nBufsize])
+        j = start % m_nBufsize;
+        ++start;
+        final int k = start % m_nBufsize;
+        if (m_aBufLine[j] != m_aBufLine[k])
           m_aBufLine[j] = newLine++;
         else
           m_aBufLine[j] = newLine;

@@ -147,9 +147,11 @@ public class CSSTokenizer
           switch (eTokenStartType)
           {
             case WHITESPACE:
-              while ((aCP = aReader.read ()).getTokenStartType () == ECSSTokenStartType.WHITESPACE)
+              while (true)
               {
-                // empty
+                aCP = aReader.read ();
+                if (aCP.getTokenStartType () != ECSSTokenStartType.WHITESPACE)
+                  break;
               }
               aReader.unread (aCP);
               aToken = aReader.createToken (ECSSTokenType.WHITESPACE);

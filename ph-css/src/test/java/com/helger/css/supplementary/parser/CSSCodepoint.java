@@ -213,7 +213,10 @@ public final class CSSCodepoint extends Codepoint
   {
     ECSSTokenStartType ret = m_eTokenStartType;
     if (ret == null)
-      m_eTokenStartType = ret = _findTokenStartType ();
+    {
+      ret = _findTokenStartType ();
+      m_eTokenStartType = ret;
+    }
     return ret;
   }
 
