@@ -18,6 +18,7 @@ package com.helger.css.reader;
 
 import java.nio.charset.Charset;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -41,12 +42,14 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public static final ECSSVersion DEFAULT_VERSION = ECSSVersion.CSS30;
   public static final Charset DEFAULT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
   public static final boolean DEFAULT_BROWSER_COMPLIANT_MODE = false;
+  public static final int DEFAULT_TAB_SIZE = 8;
 
   private ECSSVersion m_eCSSVersion = DEFAULT_VERSION;
   private Charset m_aFallbackCharset = DEFAULT_CHARSET;
   private ICSSParseErrorHandler m_aCustomErrorHandler;
   private ICSSParseExceptionCallback m_aCustomExceptionHandler;
   private boolean m_bBrowserCompliantMode = DEFAULT_BROWSER_COMPLIANT_MODE;
+  private int m_nTabSize = DEFAULT_TAB_SIZE;
 
   public CSSReaderSettings ()
   {}
@@ -59,6 +62,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     m_aCustomErrorHandler = aOther.m_aCustomErrorHandler;
     m_aCustomExceptionHandler = aOther.m_aCustomExceptionHandler;
     m_bBrowserCompliantMode = aOther.m_bBrowserCompliantMode;
+    m_nTabSize = aOther.m_nTabSize;
   }
 
   /**
@@ -195,6 +199,33 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     return this;
   }
 
+  /**
+   * @return The tab size to be used to determine the source location. Always
+   *         &gt; 0. Default value is {@link #DEFAULT_TAB_SIZE}.
+   * @since 5.0.2
+   */
+  @Nonnegative
+  public int getTabSize ()
+  {
+    return m_nTabSize;
+  }
+
+  /**
+   * Set the tab size to be used to determine the source location.
+   *
+   * @param nTabSize
+   *        The tab size to use. Must be &gt; 0.
+   * @return this for chaining
+   * @since 5.0.2
+   */
+  @Nonnull
+  public CSSReaderSettings setTabSize (@Nonnegative final int nTabSize)
+  {
+    ValueEnforcer.isGT0 (nTabSize, "TabSize");
+    m_nTabSize = nTabSize;
+    return this;
+  }
+
   @Nonnull
   public CSSReaderSettings getClone ()
   {
@@ -209,6 +240,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
                                        .append ("CustomErrorHandler", m_aCustomErrorHandler)
                                        .append ("CustomExceptionHandler", m_aCustomExceptionHandler)
                                        .append ("BrowserCompliantMode", m_bBrowserCompliantMode)
+                                       .append ("TabSize", m_nTabSize)
                                        .toString ();
   }
 }

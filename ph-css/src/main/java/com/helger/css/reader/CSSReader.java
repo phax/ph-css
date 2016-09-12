@@ -1109,6 +1109,7 @@ public final class CSSReader
     try
     {
       final CSSCharStream aCharStream = new CSSCharStream (aReader);
+      aCharStream.setTabSize (aSettings.getTabSize ());
 
       // Use the default CSS parse error handler if none is provided
       ICSSParseErrorHandler aRealErrorHandler = aSettings.getCustomErrorHandler ();
@@ -1210,6 +1211,8 @@ public final class CSSReader
     try
     {
       final CSSCharStream aCharStream = new CSSCharStream (aReader);
+      aCharStream.setTabSize (aSettings.getTabSize ());
+
       // Use the default CSS parse error handler if none is provided
       ICSSParseErrorHandler aRealErrorHandler = aSettings.getCustomErrorHandler ();
       if (aRealErrorHandler == null)
