@@ -70,6 +70,8 @@ public enum ECSSMediaExpressionFeature implements IHasName
   _WEBKIT_MAX_DEVICE_PIXEL_RATIO ("-webkit-max-device-pixel-ratio"),
   _WEBKIT_MIN_DEVICE_PIXEL_RATIO ("-webkit-min-device-pixel-ratio"),
   _WEBKIT_TRANSFORM_3D ("-webkit-transform-3d"),
+  _MS_HIGH_CONTRAST ("-ms-high-contrast"),
+  _MS_VIEW_STATE ("-ms-view-state"),
   _MOZ_MAX_DEVICE_PIXEL_RATIO ("-moz-max-device-pixel-ratio"),
   _MOZ_MIN_DEVICE_PIXEL_RATIO ("-moz-min-device-pixel-ratio"),
   MAX_MOZ_DEVICE_PIXEL_RATION ("max--moz-device-pixel-ratio"),
@@ -123,7 +125,16 @@ public enum ECSSMediaExpressionFeature implements IHasName
    */
   public boolean isMozillaSpecific ()
   {
-    return m_sName.startsWith ("-moz-");
+    return m_sName.contains ("-moz-");
+  }
+
+  /**
+   * @return <code>true</code> if this media expression feature is Microsoft
+   *         specific, <code>false</code> if not.
+   */
+  public boolean isMicrosoftSpecific ()
+  {
+    return m_sName.startsWith ("-ms-");
   }
 
   /**
@@ -132,7 +143,7 @@ public enum ECSSMediaExpressionFeature implements IHasName
    */
   public boolean isBrowserSpecific ()
   {
-    return m_sName.startsWith ("-");
+    return m_sName.startsWith ("-") || m_sName.contains ("--");
   }
 
   @Nullable
