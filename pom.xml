@@ -25,7 +25,7 @@
     <version>1.4.1</version>
   </parent>
   <artifactId>ph-css-parent-pom</artifactId>
-  <version>4.1.5</version>
+  <version>4.1.6-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ph-css-parent-pom</name>
   <description>Base POM to build the ph-css projects</description>
@@ -44,7 +44,7 @@
     <connection>scm:git:git@github.com:phax/ph-css.git</connection>
     <developerConnection>scm:git:git@github.com:phax/ph-css.git</developerConnection>
     <url>http://github.com/phax/ph-css</url>
-    <tag>ph-css-parent-pom-4.1.5</tag>
+    <tag>4.1.5</tag>
   </scm>
 
   <organization>
