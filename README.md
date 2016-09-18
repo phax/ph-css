@@ -10,10 +10,13 @@ The Maven plugin to compress CSS files at build time is located in sub-project p
 
 ph-css has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use.
 
-ph-css and ph-csscompress-maven-plugin are both  licensed under the **Apache 2.0 license**.
+ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 license**.
 
 ## News and noteworthy
 
+  * v5.0.2 - 2016-xx-yy
+      * Made tab size configurable (issue #29)
+      * Improved media expressions (issue #30)
   * v5.0.1 - 2016-08-17
     * Using "modern java template" for JavaCC parser - results in quicker execution
     * Enhancement issue #27
@@ -23,6 +26,9 @@ ph-css and ph-csscompress-maven-plugin are both  licensed under the **Apache 2.0
     * Using JDK8 as the basis
     * removed explicit grammar for CSS 2.1 (issue #20)
     * Added browser compliant error handler
+  * v4.1.5 - 2016-09-16
+    * Improved media expressions (issue #30)
+    * Integrated ph-csscompress-maven-plugin into this project (compatibility to 5.x)
   * v4.1.4 - Improved browser compliant parsing (issue #26)
   * v4.1.3 - Improved browser compliant parsing (issue #24)
   * v4.1.2 - Improved browser compliant parsing (issue #21)
