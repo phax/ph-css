@@ -47,7 +47,35 @@ import com.helger.css.property.ICSSProperty;
 @NotThreadSafe
 public class CSSValue implements ICSSValue
 {
+  public static final boolean DEFAULT_CONSISTENCY_CHECKS_ENABLED = true;
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (CSSValue.class);
+  private static boolean s_bConsistencyChecksEnabled = DEFAULT_CONSISTENCY_CHECKS_ENABLED;
+
+  /**
+   * @return <code>true</code> if consistency checks are enabled (by default),
+   *         <code>false</code> if not.
+   * @since 5.0.2
+   */
+  public static boolean areConsistencyChecksEnabled ()
+  {
+    return s_bConsistencyChecksEnabled;
+  }
+
+  /**
+   * Enable or disable consistency checks. By default the consistency checks are
+   * enabled (for backwards compatibility) but if performance is a real matter,
+   * you may want to disable them globally.
+   * 
+   * @param bEnabled
+   *        <code>true</code> to enable them, <code>false</code> to disable
+   *        them.
+   * @since 5.0.2
+   */
+  public static void setConsistencyChecksEnabled (final boolean bEnabled)
+  {
+    s_bConsistencyChecksEnabled = bEnabled;
+  }
 
   private ICSSProperty m_aProperty;
   private String m_sValue;
@@ -142,18 +170,22 @@ public class CSSValue implements ICSSValue
   public CSSValue setValue (@Nonnull final String sValue)
   {
     ValueEnforcer.notNull (sValue, "Value");
-    if (!m_aProperty.isValidValue (sValue))
-      s_aLogger.warn ("CSS: the value '" +
-                      sValue +
-                      "' is not valid for property '" +
-                      m_aProperty.getPropertyName () +
-                      "'");
-    if (sValue.contains (CCSS.IMPORTANT_SUFFIX))
-      s_aLogger.warn ("CSS: the value '" +
-                      sValue +
-                      "' should not contain the '" +
-                      CCSS.IMPORTANT_SUFFIX +
-                      "' string! Use 'setImportant' method instead.");
+
+    if (areConsistencyChecksEnabled ())
+    {
+      if (!m_aProperty.isValidValue (sValue))
+        s_aLogger.warn ("CSS: the value '" +
+                        sValue +
+                        "' is not valid for property '" +
+                        m_aProperty.getPropertyName () +
+                        "'");
+      if (sValue.contains (CCSS.IMPORTANT_SUFFIX))
+        s_aLogger.warn ("CSS: the value '" +
+                        sValue +
+                        "' should not contain the '" +
+                        CCSS.IMPORTANT_SUFFIX +
+                        "' string! Use 'setImportant' method instead.");
+    }
     m_sValue = sValue.trim ();
     return this;
   }

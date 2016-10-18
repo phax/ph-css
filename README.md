@@ -15,8 +15,9 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 ## News and noteworthy
 
   * v5.0.2 - 2016-xx-yy
-      * Made tab size configurable (issue #29)
-      * Improved media expressions (issue #30)
+    * Made tab size configurable (issue #29)
+    * Improved media expressions (issue #30)
+    * Allowing to disable consistency checks in class `CSSValue`
   * v5.0.1 - 2016-08-17
     * Using "modern java template" for JavaCC parser - results in quicker execution
     * Enhancement issue #27
