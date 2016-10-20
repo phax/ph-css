@@ -78,6 +78,7 @@ public final class CSSHandler
    * @param aErrorHandler
    *        The error handler to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
+   * @since 5.0.2
    */
   @Nonnull
   public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ECSSVersion eVersion,
@@ -120,6 +121,7 @@ public final class CSSHandler
    * @param aErrorHandler
    *        The error handler to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
+   * @since 5.0.2
    */
   @Nonnull
   public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ECSSVersion eVersion,

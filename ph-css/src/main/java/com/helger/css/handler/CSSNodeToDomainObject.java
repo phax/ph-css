@@ -95,6 +95,8 @@ final class CSSNodeToDomainObject
    *
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
+   * @param aErrorHandler
+   *        Error handler to use. May not be <code>null</code>.
    */
   public CSSNodeToDomainObject (@Nonnull final ECSSVersion eVersion,
                                 @Nonnull final ICSSInterpretErrorHandler aErrorHandler)

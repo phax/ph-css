@@ -18,15 +18,18 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
     * Made tab size configurable (issue #29)
     * Improved media expressions (issue #30)
     * Allowing to disable consistency checks in class `CSSValue`
+    * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
   * v5.0.1 - 2016-08-17
     * Using "modern java template" for JavaCC parser - results in quicker execution
     * Enhancement issue #27
-    * Intergated `ph-csscompress-maven-plugin` into this repository
+    * Integrated `ph-csscompress-maven-plugin` into this repository
     * Bug fix wrong OutputStream (issue #28) 
   * v5.0.0 - 2016-06-12
     * Using JDK8 as the basis
     * removed explicit grammar for CSS 2.1 (issue #20)
     * Added browser compliant error handler
+  * v4.1.6 - 2016-xx-yy
+    * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
   * v4.1.5 - 2016-09-16
     * Improved media expressions (issue #30)
     * Integrated ph-csscompress-maven-plugin into this project (compatibility to 5.x)

@@ -25,6 +25,7 @@ import com.helger.commons.string.ToStringGenerator;
  * An implementation of {@link ICSSInterpretErrorHandler} that does nothing.
  *
  * @author Philip Helger
+ * @since 5.0.2
  */
 public class DoNothingCSSInterpretErrorHandler implements ICSSInterpretErrorHandler
 {
