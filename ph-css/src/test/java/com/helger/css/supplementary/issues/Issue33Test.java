@@ -16,17 +16,20 @@
  */
 package com.helger.css.supplementary.issues;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
+import com.helger.css.reader.errorhandler.DoNothingCSSInterpretErrorHandler;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
 
 /**
- * Test for issue 26: https://github.com/phax/ph-css/issues/33
+ * Test for issue 33: https://github.com/phax/ph-css/issues/33
  *
  * @author Philip Helger
  */
@@ -35,11 +38,14 @@ public final class Issue33Test
   @Test
   public void testIssue ()
   {
+    // No log message may be issued in this test!
+
     final String css = "@media \\0screen\\,screen\\9 {.test {margin-left: 0px}}";
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true);
+                                                                .setBrowserCompliantMode (true)
+                                                                .setInterpretErrorHandler (new DoNothingCSSInterpretErrorHandler ());
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
     final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
-    System.out.println (writer.getCSSAsString (cascadingStyleSheet));
+    assertEquals ("@media \\0screen\\,screen\\9 {.test{margin-left:0}}", writer.getCSSAsString (cascadingStyleSheet));
   }
 }

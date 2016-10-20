@@ -27,6 +27,7 @@ import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.handler.CSSHandler;
+import com.helger.css.reader.CSSReader;
 
 /**
  * Test class for class {@link ParserCSS30}.
@@ -56,7 +57,9 @@ public final class ParserCSS30Test extends AbstractCSS30TestCase
     final CSSNode aNode = aParser.styleSheet ();
     assertNotNull (aNode);
 
-    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (ECSSVersion.CSS30, aNode);
+    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (ECSSVersion.CSS30,
+                                                                                 aNode,
+                                                                                 CSSReader.getDefaultInterpretErrorHandler ());
     assertNotNull (aCSS);
 
     for (final ICSSTopLevelRule aTopLevelRule : aCSS.getAllFontFaceRules ())

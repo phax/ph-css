@@ -66,7 +66,9 @@ import com.helger.css.parser.ParserCSS30TokenManager;
 import com.helger.css.parser.ParserCSSCharsetDetector;
 import com.helger.css.parser.ParserCSSCharsetDetectorTokenManager;
 import com.helger.css.parser.TokenMgrError;
+import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
+import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 
 /**
@@ -90,6 +92,9 @@ public final class CSSReader
   // Use the LoggingCSSParseExceptionHandler for maximum backward compatibility
   @GuardedBy ("s_aRWLock")
   private static ICSSParseExceptionCallback s_aDefaultParseExceptionHandler = new LoggingCSSParseExceptionCallback ();
+
+  @GuardedBy ("s_aRWLock")
+  private static ICSSInterpretErrorHandler s_aDefaultInterpretErrorHandler = new LoggingCSSInterpretErrorHandler ();
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
@@ -173,6 +178,48 @@ public final class CSSReader
     try
     {
       s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler;
+    }
+    finally
+    {
+      s_aRWLock.writeLock ().unlock ();
+    }
+  }
+
+  /**
+   * @return The default interpret error handler to handle interpretation errors
+   *         in successfully parsed CSS. Never <code>null</code>.
+   * @since 4.1.6
+   */
+  @Nonnull
+  public static ICSSInterpretErrorHandler getDefaultInterpretErrorHandler ()
+  {
+    s_aRWLock.readLock ().lock ();
+    try
+    {
+      return s_aDefaultInterpretErrorHandler;
+    }
+    finally
+    {
+      s_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  /**
+   * Set the default interpret error handler to handle interpretation errors in
+   * successfully parsed CSS.
+   *
+   * @param aDefaultErrorHandler
+   *        The default error handler to be used. May not be <code>null</code>.
+   * @since 4.1.6
+   */
+  public static void setDefaultInterpretErrorHandler (@Nonnull final ICSSInterpretErrorHandler aDefaultErrorHandler)
+  {
+    ValueEnforcer.notNull (aDefaultErrorHandler, "DefaultErrorHandler");
+
+    s_aRWLock.writeLock ().lock ();
+    try
+    {
+      s_aDefaultInterpretErrorHandler = aDefaultErrorHandler;
     }
     finally
     {
@@ -1155,29 +1202,34 @@ public final class CSSReader
       final CSSCharStream aCharStream = new CSSCharStream (aReader);
 
       // Use the default CSS parse error handler if none is provided
-      ICSSParseErrorHandler aRealErrorHandler = aSettings.getCustomErrorHandler ();
-      if (aRealErrorHandler == null)
-        aRealErrorHandler = getDefaultParseErrorHandler ();
+      ICSSParseErrorHandler aRealParseErrorHandler = aSettings.getCustomErrorHandler ();
+      if (aRealParseErrorHandler == null)
+        aRealParseErrorHandler = getDefaultParseErrorHandler ();
 
       // Use the default CSS exception handler if none is provided
-      ICSSParseExceptionCallback aRealExceptionHandler = aSettings.getCustomExceptionHandler ();
-      if (aRealExceptionHandler == null)
-        aRealExceptionHandler = getDefaultParseExceptionHandler ();
+      ICSSParseExceptionCallback aRealParseExceptionHandler = aSettings.getCustomExceptionHandler ();
+      if (aRealParseExceptionHandler == null)
+        aRealParseExceptionHandler = getDefaultParseExceptionHandler ();
 
       final boolean bBrowserCompliantMode = aSettings.isBrowserCompliantMode ();
 
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
-                                             aRealErrorHandler,
-                                             aRealExceptionHandler,
+                                             aRealParseErrorHandler,
+                                             aRealParseExceptionHandler,
                                              bBrowserCompliantMode);
 
-      // Failed to interpret content as CSS?
+      // Failed to parse content as CSS?
       if (aNode == null)
         return null;
 
+      // Get the interpret error handler
+      ICSSInterpretErrorHandler aRealInterpretErrorHandler = aSettings.getInterpretErrorHandler ();
+      if (aRealInterpretErrorHandler == null)
+        aRealInterpretErrorHandler = getDefaultInterpretErrorHandler ();
+
       // Convert the AST to a domain object
-      return CSSHandler.readCascadingStyleSheetFromNode (eVersion, aNode);
+      return CSSHandler.readCascadingStyleSheetFromNode (eVersion, aNode, aRealInterpretErrorHandler);
     }
     finally
     {
@@ -1255,29 +1307,34 @@ public final class CSSReader
     {
       final CSSCharStream aCharStream = new CSSCharStream (aReader);
       // Use the default CSS parse error handler if none is provided
-      ICSSParseErrorHandler aRealErrorHandler = aSettings.getCustomErrorHandler ();
-      if (aRealErrorHandler == null)
-        aRealErrorHandler = getDefaultParseErrorHandler ();
+      ICSSParseErrorHandler aRealParseErrorHandler = aSettings.getCustomErrorHandler ();
+      if (aRealParseErrorHandler == null)
+        aRealParseErrorHandler = getDefaultParseErrorHandler ();
 
       // Use the default CSS exception handler if none is provided
-      ICSSParseExceptionCallback aRealExceptionHandler = aSettings.getCustomExceptionHandler ();
-      if (aRealExceptionHandler == null)
-        aRealExceptionHandler = getDefaultParseExceptionHandler ();
+      ICSSParseExceptionCallback aRealParseExceptionHandler = aSettings.getCustomExceptionHandler ();
+      if (aRealParseExceptionHandler == null)
+        aRealParseExceptionHandler = getDefaultParseExceptionHandler ();
 
       final boolean bBrowserCompliantMode = aSettings.isBrowserCompliantMode ();
 
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
-                                             aRealErrorHandler,
-                                             aRealExceptionHandler,
+                                             aRealParseErrorHandler,
+                                             aRealParseExceptionHandler,
                                              bBrowserCompliantMode);
 
-      // Failed to interpret content as CSS?
+      // Failed to parse content as CSS?
       if (aNode == null)
         return null;
 
+      // Get the interpret error handler
+      ICSSInterpretErrorHandler aRealInterpretErrorHandler = aSettings.getInterpretErrorHandler ();
+      if (aRealInterpretErrorHandler == null)
+        aRealInterpretErrorHandler = getDefaultInterpretErrorHandler ();
+
       // Convert the AST to a domain object
-      return CSSHandler.readCascadingStyleSheetFromNode (eVersion, aNode);
+      return CSSHandler.readCascadingStyleSheetFromNode (eVersion, aNode, aRealInterpretErrorHandler);
     }
     finally
     {

@@ -17,34 +17,40 @@
 package com.helger.css.reader.errorhandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.css.parser.ParseException;
-import com.helger.css.parser.Token;
 
 /**
- * An implementation of {@link ICSSParseErrorHandler} that does nothing. So in
- * case a recoverable error occurs it is silently ignored.
+ * A logging implementation of {@link ICSSInterpretErrorHandler}. So in case a
+ * warning or an error occurs, the details are logged to an SLF4J logger.
  *
  * @author Philip Helger
+ * @since 4.1.6
  */
-public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
+@Immutable
+public class LoggingCSSInterpretErrorHandler implements ICSSInterpretErrorHandler
 {
-  public DoNothingCSSParseErrorHandler ()
+  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingCSSInterpretErrorHandler.class);
+
+  /**
+   * Default constructor.
+   */
+  public LoggingCSSInterpretErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
+  public void onCSSInterpretationWarning (@Nonnull @Nonempty final String sMessage)
   {
-    /* really do nothing :) */
+    s_aLogger.warn (sMessage);
   }
 
-  public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                   @Nonnull @Nonempty final String sRule,
-                                   @Nonnull @Nonempty final String sMsg)
+  public void onCSSInterpretationError (@Nonnull @Nonempty final String sMessage)
   {
-    /* really do nothing :) */
+    s_aLogger.error (sMessage);
   }
 
   @Override

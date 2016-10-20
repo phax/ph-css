@@ -28,6 +28,7 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVersion;
 import com.helger.css.handler.ICSSParseExceptionCallback;
+import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 
 /**
@@ -47,6 +48,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   private ICSSParseErrorHandler m_aCustomErrorHandler;
   private ICSSParseExceptionCallback m_aCustomExceptionHandler;
   private boolean m_bBrowserCompliantMode = DEFAULT_BROWSER_COMPLIANT_MODE;
+  private ICSSInterpretErrorHandler m_aInterpretErrorHandler;
 
   public CSSReaderSettings ()
   {}
@@ -59,6 +61,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     m_aCustomErrorHandler = aOther.m_aCustomErrorHandler;
     m_aCustomExceptionHandler = aOther.m_aCustomExceptionHandler;
     m_bBrowserCompliantMode = aOther.m_bBrowserCompliantMode;
+    m_aInterpretErrorHandler = aOther.m_aInterpretErrorHandler;
   }
 
   /**
@@ -182,7 +185,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
 
   /**
    * Change the browser compliant mode to use.
-   * 
+   *
    * @param bBrowserCompliantMode
    *        <code>true</code> to use enable browser compliant parsing,
    *        <code>false</code> to disable it.
@@ -192,6 +195,35 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public CSSReaderSettings setBrowserCompliantMode (final boolean bBrowserCompliantMode)
   {
     m_bBrowserCompliantMode = bBrowserCompliantMode;
+    return this;
+  }
+
+  /**
+   * @return The special error handler to be used to interpret a successfully
+   *         parsed CSS. May be <code>null</code>. If this is <code>null</code>
+   *         the default error handler from {@link CSSReader} is used.
+   * @since 4.1.6
+   */
+  @Nullable
+  public ICSSInterpretErrorHandler getInterpretErrorHandler ()
+  {
+    return m_aInterpretErrorHandler;
+  }
+
+  /**
+   * Set a special interpret error handler for handling errors in successfully
+   * parsed CSS.
+   *
+   * @param aInterpretErrorHandler
+   *        The special error handler to be used. May be <code>null</code> to
+   *        indicate to use the default error handler from {@link CSSReader}.
+   * @return this for chaining
+   * @since 4.1.6
+   */
+  @Nonnull
+  public CSSReaderSettings setInterpretErrorHandler (@Nullable final ICSSInterpretErrorHandler aInterpretErrorHandler)
+  {
+    m_aInterpretErrorHandler = aInterpretErrorHandler;
     return this;
   }
 
@@ -209,6 +241,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
                                        .append ("CustomErrorHandler", m_aCustomErrorHandler)
                                        .append ("CustomExceptionHandler", m_aCustomExceptionHandler)
                                        .append ("BrowserCompliantMode", m_bBrowserCompliantMode)
+                                       .append ("InterpretErrorHandler", m_aInterpretErrorHandler)
                                        .toString ();
   }
 }
