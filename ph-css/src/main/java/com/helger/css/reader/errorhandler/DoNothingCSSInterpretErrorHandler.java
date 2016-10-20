@@ -17,40 +17,26 @@
 package com.helger.css.reader.errorhandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.css.parser.ParseException;
-import com.helger.css.parser.Token;
 
 /**
- * An implementation of {@link ICSSParseErrorHandler} that does nothing. So in
- * case a recoverable error occurs it is silently ignored.
+ * An implementation of {@link ICSSInterpretErrorHandler} that does nothing.
  *
  * @author Philip Helger
  */
-public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
+public class DoNothingCSSInterpretErrorHandler implements ICSSInterpretErrorHandler
 {
-  public DoNothingCSSParseErrorHandler ()
+  public DoNothingCSSInterpretErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx,
-                               @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSInterpretationWarning (@Nonnull @Nonempty final String sMessage)
   {
     /* really do nothing :) */
   }
 
-  public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                   @Nonnull @Nonempty final String sRule,
-                                   @Nonnull @Nonempty final String sMsg) throws ParseException
-  {
-    /* really do nothing :) */
-  }
-
-  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
-                                         @Nonnull final Token aFromToken,
-                                         @Nonnull final Token aToToken) throws ParseException
+  public void onCSSInterpretationError (@Nonnull @Nonempty final String sMessage)
   {
     /* really do nothing :) */
   }
