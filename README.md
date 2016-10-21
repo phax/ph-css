@@ -14,7 +14,7 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-  * v5.0.2 - 2016-xx-yy
+  * v5.0.2 - 2016-10-21
     * Made tab size configurable (issue #29)
     * Improved media expressions (issue #30)
     * Allowing to disable consistency checks in class `CSSValue`
@@ -28,7 +28,7 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
     * Using JDK8 as the basis
     * removed explicit grammar for CSS 2.1 (issue #20)
     * Added browser compliant error handler
-  * v4.1.6 - 2016-xx-yy
+  * v4.1.6 - 2016-10-21
     * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
   * v4.1.5 - 2016-09-16
     * Improved media expressions (issue #30)
@@ -55,7 +55,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>5.0.1</version>
+  <version>5.0.2</version>
 </dependency>
 ```
 
@@ -252,7 +252,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>5.0.1</version>
+        <version>5.0.2</version>
         <executions>
           <execution>
             <goals>
