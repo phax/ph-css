@@ -29,6 +29,7 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVersion;
 import com.helger.css.handler.ICSSParseExceptionCallback;
+import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 
 /**
@@ -50,6 +51,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   private ICSSParseExceptionCallback m_aCustomExceptionHandler;
   private boolean m_bBrowserCompliantMode = DEFAULT_BROWSER_COMPLIANT_MODE;
   private int m_nTabSize = DEFAULT_TAB_SIZE;
+  private ICSSInterpretErrorHandler m_aInterpretErrorHandler;
 
   public CSSReaderSettings ()
   {}
@@ -63,6 +65,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     m_aCustomExceptionHandler = aOther.m_aCustomExceptionHandler;
     m_bBrowserCompliantMode = aOther.m_bBrowserCompliantMode;
     m_nTabSize = aOther.m_nTabSize;
+    m_aInterpretErrorHandler = aOther.m_aInterpretErrorHandler;
   }
 
   /**
@@ -226,6 +229,35 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     return this;
   }
 
+  /**
+   * @return The special error handler to be used to interpret a successfully
+   *         parsed CSS. May be <code>null</code>. If this is <code>null</code>
+   *         the default error handler from {@link CSSReader} is used.
+   * @since 5.0.2
+   */
+  @Nullable
+  public ICSSInterpretErrorHandler getInterpretErrorHandler ()
+  {
+    return m_aInterpretErrorHandler;
+  }
+
+  /**
+   * Set a special interpret error handler for handling errors in successfully
+   * parsed CSS.
+   *
+   * @param aInterpretErrorHandler
+   *        The special error handler to be used. May be <code>null</code> to
+   *        indicate to use the default error handler from {@link CSSReader}.
+   * @return this for chaining
+   * @since 5.0.2
+   */
+  @Nonnull
+  public CSSReaderSettings setInterpretErrorHandler (@Nullable final ICSSInterpretErrorHandler aInterpretErrorHandler)
+  {
+    m_aInterpretErrorHandler = aInterpretErrorHandler;
+    return this;
+  }
+
   @Nonnull
   public CSSReaderSettings getClone ()
   {
@@ -241,6 +273,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
                                        .append ("CustomExceptionHandler", m_aCustomExceptionHandler)
                                        .append ("BrowserCompliantMode", m_bBrowserCompliantMode)
                                        .append ("TabSize", m_nTabSize)
+                                       .append ("InterpretErrorHandler", m_aInterpretErrorHandler)
                                        .toString ();
   }
 }

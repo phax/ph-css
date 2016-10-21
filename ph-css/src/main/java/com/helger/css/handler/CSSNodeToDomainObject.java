@@ -22,9 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -77,6 +74,7 @@ import com.helger.css.media.ECSSMediaExpressionFeature;
 import com.helger.css.media.ECSSMedium;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.CSSParseHelper;
+import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -89,19 +87,22 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @NotThreadSafe
 final class CSSNodeToDomainObject
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSNodeToDomainObject.class);
-
   private final ECSSVersion m_eVersion;
+  private final ICSSInterpretErrorHandler m_aErrorHandler;
 
   /**
    * Constructor
    *
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
+   * @param aErrorHandler
+   *        Error handler to use. May not be <code>null</code>.
    */
-  public CSSNodeToDomainObject (@Nonnull final ECSSVersion eVersion)
+  public CSSNodeToDomainObject (@Nonnull final ECSSVersion eVersion,
+                                @Nonnull final ICSSInterpretErrorHandler aErrorHandler)
   {
     m_eVersion = ValueEnforcer.notNull (eVersion, "Version");
+    m_aErrorHandler = ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
   }
 
   private void _expectNodeType (@Nonnull final CSSNode aNode, @Nonnull final ECSSNodeType eExpected)
@@ -115,11 +116,11 @@ final class CSSNodeToDomainObject
                                              "'");
   }
 
-  private static void _throwUnexpectedChildrenCount (@Nonnull final CSSNode aNode, @Nonnull @Nonempty final String sMsg)
+  private void _throwUnexpectedChildrenCount (@Nonnull final CSSNode aNode, @Nonnull @Nonempty final String sMsg)
   {
-    s_aLogger.error (sMsg);
+    m_aErrorHandler.onCSSInterpretationError (sMsg);
     for (int i = 0; i < aNode.jjtGetNumChildren (); ++i)
-      s_aLogger.error ("  " + aNode.jjtGetChild (i));
+      m_aErrorHandler.onCSSInterpretationError ("  " + aNode.jjtGetChild (i));
     throw new CSSHandlingException (aNode, sMsg);
   }
 
@@ -171,11 +172,12 @@ final class CSSNodeToDomainObject
         ++nCurrentIndex;
       }
       else
-        s_aLogger.error ("Expected an MEDIALIST node but got " + ECSSNodeType.getNodeName (aMediaListNode, m_eVersion));
+        m_aErrorHandler.onCSSInterpretationError ("Expected an MEDIALIST node but got " +
+                                                  ECSSNodeType.getNodeName (aMediaListNode, m_eVersion));
     }
 
     if (nCurrentIndex < nChildCount)
-      s_aLogger.error ("Import statement has children which are unhandled.");
+      m_aErrorHandler.onCSSInterpretationError ("Import statement has children which are unhandled.");
     return ret;
   }
 
@@ -253,7 +255,7 @@ final class CSSNodeToDomainObject
       final String sText = aNode.getText ();
       final ECSSSelectorCombinator eCombinator = ECSSSelectorCombinator.getFromNameOrNull (sText);
       if (eCombinator == null)
-        s_aLogger.error ("Failed to parse CSS selector combinator '" + sText + "'");
+        m_aErrorHandler.onCSSInterpretationError ("Failed to parse CSS selector combinator '" + sText + "'");
       return eCombinator;
     }
 
@@ -309,7 +311,8 @@ final class CSSNodeToDomainObject
                                                aNode.toString ());
     }
 
-    s_aLogger.error ("Unsupported selector child: " + ECSSNodeType.getNodeName (aNode, m_eVersion));
+    m_aErrorHandler.onCSSInterpretationError ("Unsupported selector child: " +
+                                              ECSSNodeType.getNodeName (aNode, m_eVersion));
     return null;
   }
 
@@ -375,15 +378,15 @@ final class CSSNodeToDomainObject
                   final String sText = aChildChildNode.getText ();
                   final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
                   if (eMathOp == null)
-                    s_aLogger.error ("Failed to parse math operator '" + sText + "'");
+                    m_aErrorHandler.onCSSInterpretationError ("Failed to parse math operator '" + sText + "'");
                   else
                     aNestedProduct.addMember (eMathOp);
                 }
                 else
-                  s_aLogger.error ("Unsupported child of " +
-                                   ECSSNodeType.getNodeName (aChildNode, m_eVersion) +
-                                   ": " +
-                                   ECSSNodeType.getNodeName (aChildChildNode, m_eVersion));
+                  m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                            ECSSNodeType.getNodeName (aChildNode, m_eVersion) +
+                                                            ": " +
+                                                            ECSSNodeType.getNodeName (aChildChildNode, m_eVersion));
             }
             ret.addMember (new CSSExpressionMemberMathUnitProduct (aNestedProduct));
           }
@@ -394,15 +397,15 @@ final class CSSNodeToDomainObject
           final String sText = aChildNode.getText ();
           final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
           if (eMathOp == null)
-            s_aLogger.error ("Failed to parse math product operator '" + sText + "'");
+            m_aErrorHandler.onCSSInterpretationError ("Failed to parse math product operator '" + sText + "'");
           else
             ret.addMember (eMathOp);
         }
         else
-          s_aLogger.error ("Unsupported child of " +
-                           ECSSNodeType.getNodeName (aNode, m_eVersion) +
-                           ": " +
-                           ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                    ECSSNodeType.getNodeName (aNode, m_eVersion) +
+                                                    ": " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
 
     return ret;
@@ -470,15 +473,15 @@ final class CSSNodeToDomainObject
           final String sText = aChildNode.getText ();
           final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
           if (eMathOp == null)
-            s_aLogger.error ("Failed to parse math operator '" + sText + "'");
+            m_aErrorHandler.onCSSInterpretationError ("Failed to parse math operator '" + sText + "'");
           else
             ret.addMember (eMathOp);
         }
         else
-          s_aLogger.error ("Unsupported child of " +
-                           ECSSNodeType.getNodeName (aNode, m_eVersion) +
-                           ": " +
-                           ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                    ECSSNodeType.getNodeName (aNode, m_eVersion) +
+                                                    ": " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
 
     return ret;
@@ -540,16 +543,16 @@ final class CSSNodeToDomainObject
           final String sText = aChildNode.getText ();
           final ECSSExpressionOperator eOp = ECSSExpressionOperator.getFromNameOrNull (sText);
           if (eOp == null)
-            s_aLogger.error ("Failed to parse expression operator '" + sText + "'");
+            m_aErrorHandler.onCSSInterpretationError ("Failed to parse expression operator '" + sText + "'");
           else
             ret.addMember (eOp);
         }
         else
         {
-          s_aLogger.error ("Unsupported child of " +
-                           ECSSNodeType.getNodeName (aNode, m_eVersion) +
-                           ": " +
-                           ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                    ECSSNodeType.getNodeName (aNode, m_eVersion) +
+                                                    ": " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
         }
     }
     return ret;
@@ -585,10 +588,10 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.IMPORTANT.isNode (aChildNode, m_eVersion))
         bImportant = true;
       else
-        s_aLogger.error ("Expected an " +
-                         ECSSNodeType.IMPORTANT.getNodeName (m_eVersion) +
-                         " token but got a " +
-                         ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+        m_aErrorHandler.onCSSInterpretationError ("Expected an " +
+                                                  ECSSNodeType.IMPORTANT.getNodeName (m_eVersion) +
+                                                  " token but got a " +
+                                                  ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
 
     final CSSDeclaration ret = new CSSDeclaration (sProperty, aExpression, bImportant);
@@ -628,7 +631,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.SELECTOR.isNode (aChildNode, m_eVersion))
       {
         if (!bSelectors)
-          s_aLogger.error ("Found a selector after a declaration!");
+          m_aErrorHandler.onCSSInterpretationError ("Found a selector after a declaration!");
 
         ret.addSelector (_createSelector (aChildNode));
       }
@@ -643,10 +646,10 @@ final class CSSNodeToDomainObject
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-            s_aLogger.error ("Unsupported child of " +
-                             ECSSNodeType.getNodeName (aNode, m_eVersion) +
-                             ": " +
-                             ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+            m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                      ECSSNodeType.getNodeName (aNode, m_eVersion) +
+                                                      ": " +
+                                                      ECSSNodeType.getNodeName (aChildNode, m_eVersion));
       }
     }
 
@@ -712,8 +715,8 @@ final class CSSNodeToDomainObject
           }
           else
             if (!ECSSNodeType.isErrorNode (aBodyChildNode, m_eVersion))
-              s_aLogger.error ("Unsupported page rule body child: " +
-                               ECSSNodeType.getNodeName (aBodyChildNode, m_eVersion));
+              m_aErrorHandler.onCSSInterpretationError ("Unsupported page rule body child: " +
+                                                        ECSSNodeType.getNodeName (aBodyChildNode, m_eVersion));
       }
 
       return ret;
@@ -745,7 +748,8 @@ final class CSSNodeToDomainObject
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-            s_aLogger.error ("Unsupported page rule child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+            m_aErrorHandler.onCSSInterpretationError ("Unsupported page rule child: " +
+                                                      ECSSNodeType.getNodeName (aChildNode, m_eVersion));
       }
       return ret;
     }
@@ -794,8 +798,8 @@ final class CSSNodeToDomainObject
                       ret.addRule (_createSupportsRule (aChildNode));
                     else
                       if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-                        s_aLogger.error ("Unsupported media-rule child: " +
-                                         ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+                        m_aErrorHandler.onCSSInterpretationError ("Unsupported media-rule child: " +
+                                                                  ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -809,7 +813,11 @@ final class CSSNodeToDomainObject
       // CSS 2.1 compatibility
       final String sMedium = aNode.getText ();
       if (ECSSMedium.getFromNameOrNull (sMedium) == null)
-        s_aLogger.warn ("CSS " + m_eVersion.getVersionString () + " Media query uses unknown medium '" + sMedium + "'");
+        m_aErrorHandler.onCSSInterpretationWarning ("CSS " +
+                                                    m_eVersion.getVersionString () +
+                                                    " Media query uses unknown medium '" +
+                                                    sMedium +
+                                                    "'");
       final CSSMediaQuery ret = new CSSMediaQuery (EModifier.NONE, sMedium);
       ret.setSourceLocation (aNode.getSourceLocation ());
       return ret;
@@ -838,7 +846,7 @@ final class CSSNodeToDomainObject
             if ("only".equalsIgnoreCase (sMediaModifier))
               eModifier = EModifier.ONLY;
             else
-              s_aLogger.error ("Unsupported media modifier '" + sMediaModifier + "' found!");
+              m_aErrorHandler.onCSSInterpretationError ("Unsupported media modifier '" + sMediaModifier + "' found!");
         }
         ++nStartIndex;
       }
@@ -853,11 +861,11 @@ final class CSSNodeToDomainObject
       {
         sMedium = aNextChild.getText ();
         if (ECSSMedium.getFromNameOrNull (sMedium) == null)
-          s_aLogger.warn ("CSS " +
-                          m_eVersion.getVersionString () +
-                          " media query uses unknown medium '" +
-                          sMedium +
-                          "'");
+          m_aErrorHandler.onCSSInterpretationWarning ("CSS " +
+                                                      m_eVersion.getVersionString () +
+                                                      " media query uses unknown medium '" +
+                                                      sMedium +
+                                                      "'");
         ++nStartIndex;
       }
     }
@@ -871,7 +879,8 @@ final class CSSNodeToDomainObject
         ret.addMediaExpression (_createMediaExpr (aChildNode));
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-          s_aLogger.error ("Unsupported media query child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported media query child: " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -890,7 +899,7 @@ final class CSSNodeToDomainObject
                                        ECSSNodeType.getNodeName (aFeatureNode, m_eVersion));
     final String sFeature = aFeatureNode.getText ();
     if (ECSSMediaExpressionFeature.getFromNameOrNull (sFeature) == null)
-      s_aLogger.warn ("Media expression uses unknown feature '" + sFeature + "'");
+      m_aErrorHandler.onCSSInterpretationWarning ("Media expression uses unknown feature '" + sFeature + "'");
 
     CSSMediaExpression ret;
     if (nChildCount == 1)
@@ -925,7 +934,8 @@ final class CSSNodeToDomainObject
       }
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-          s_aLogger.error ("Unsupported font-face rule child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported font-face rule child: " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -981,7 +991,8 @@ final class CSSNodeToDomainObject
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-            s_aLogger.error ("Unsupported keyframes rule child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+            m_aErrorHandler.onCSSInterpretationError ("Unsupported keyframes rule child: " +
+                                                      ECSSNodeType.getNodeName (aChildNode, m_eVersion));
 
       ++nIndex;
     }
@@ -1008,7 +1019,8 @@ final class CSSNodeToDomainObject
       }
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-          s_aLogger.error ("Unsupported viewport rule child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported viewport rule child: " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -1095,13 +1107,14 @@ final class CSSNodeToDomainObject
         return ret;
       }
 
-      s_aLogger.error ("Unsupported supportsConditionInParents child: " +
-                       ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+      m_aErrorHandler.onCSSInterpretationError ("Unsupported supportsConditionInParents child: " +
+                                                ECSSNodeType.getNodeName (aChildNode, m_eVersion));
       return null;
     }
 
     if (!ECSSNodeType.isErrorNode (aNode, m_eVersion))
-      s_aLogger.error ("Unsupported supports-condition child: " + ECSSNodeType.getNodeName (aNode, m_eVersion));
+      m_aErrorHandler.onCSSInterpretationError ("Unsupported supports-condition child: " +
+                                                ECSSNodeType.getNodeName (aNode, m_eVersion));
 
     return null;
   }
@@ -1150,8 +1163,8 @@ final class CSSNodeToDomainObject
                       ret.addRule (_createSupportsRule (aChildNode));
                     else
                       if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-                        s_aLogger.error ("Unsupported supports-rule child: " +
-                                         ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+                        m_aErrorHandler.onCSSInterpretationError ("Unsupported supports-rule child: " +
+                                                                  ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -1233,10 +1246,11 @@ final class CSSNodeToDomainObject
                             ret.addRule (_createUnknownRule (aChildNode));
                           }
                           else
-                            s_aLogger.error ("Unsupported child of " +
-                                             ECSSNodeType.getNodeName (aNode, m_eVersion) +
-                                             ": " +
-                                             ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+                            m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                                      ECSSNodeType.getNodeName (aNode, m_eVersion) +
+                                                                      ": " +
+                                                                      ECSSNodeType.getNodeName (aChildNode,
+                                                                                                m_eVersion));
     }
     return ret;
   }

@@ -37,35 +37,57 @@ public abstract class AbstractParserCSS
   protected ICSSParseErrorHandler m_aCustomErrorHandler;
   protected boolean m_bBrowserCompliantMode = false;
 
+  /**
+   * Set a custom error handler to use.
+   *
+   * @param aCustomErrorHandler
+   *        The custom error handler to use. May be <code>null</code>.
+   */
   public final void setCustomErrorHandler (@Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     m_aCustomErrorHandler = aCustomErrorHandler;
   }
 
+  /**
+   * @return The custom error handler to be used for this parser. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public final ICSSParseErrorHandler getCustomErrorHandler ()
   {
     return m_aCustomErrorHandler;
   }
 
+  /**
+   * Enable or disable browser compliant mode.
+   *
+   * @param bBrowserCompliantMode
+   *        <code>true</code> to enable browser compliant mode,
+   *        <code>false</code> to disable it.
+   */
   public final void setBrowserCompliantMode (final boolean bBrowserCompliantMode)
   {
     m_bBrowserCompliantMode = bBrowserCompliantMode;
   }
 
+  /**
+   * @return <code>true</code> if browser compliant mode is active,
+   *         <code>false</code> if not. By default browser compliant mode is
+   *         disabled.
+   */
   public final boolean isBrowserCompliantMode ()
   {
     return m_bBrowserCompliantMode;
   }
 
   // Used when NODE_SCOPE_HOOK is true - for debugging only
-  // Package scope to avoid warning when NODE_SCOPE_HOOK is false
   public void jjtreeOpenNodeScope (final Node aNode)
   {
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Opening scope for " + aNode.toString ());
   }
 
+  // Used when NODE_SCOPE_HOOK is true - for debugging only
   public void jjtreeCloseNodeScope (final Node aNode)
   {
     if (s_aLogger.isDebugEnabled ())
