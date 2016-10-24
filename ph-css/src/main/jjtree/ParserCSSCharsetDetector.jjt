@@ -84,28 +84,28 @@ SKIP :
 TOKEN :
 {
   < #H: ["0"-"9","a"-"f"] >
-| < #HNUM: <H> 
-         | <H><H> 
-         | <H><H><H> 
-         | <H><H><H><H> 
-         | <H><H><H><H><H> 
+| < #HNUM: <H>
+         | <H><H>
+         | <H><H><H>
+         | <H><H><H><H>
+         | <H><H><H><H><H>
          | <H><H><H><H><H><H> >
 | < #ESCAPE_UNICODE: "\\" <HNUM> ( "\r\n"
                                  | [" ","\t","\r","\n","\f"]
-                                 )? >   
+                                 )? >
 | < #ESCAPE_OTHER: "\\" ~["\r","\n","\f","0"-"9","a"-"f"] >
 | < #ESCAPE: <ESCAPE_UNICODE>
            | <ESCAPE_OTHER> >
 | < SEMICOLON: ";" >
-| < #STRING_EOL: "\n" 
-               | "\r\n" 
-               | "\r" 
+| < #STRING_EOL: "\n"
+               | "\r\n"
+               | "\r"
                | "\f" >
-| < STRING1: "\"" ( ~["\n","\r","\f","\\","\""] 
-                  | "\\" <STRING_EOL> 
+| < STRING1: "\"" ( ~["\n","\r","\f","\\","\""]
+                  | "\\" <STRING_EOL>
                   | <ESCAPE> )* "\"" >
-| < STRING2: "'"  ( ~["\n","\r","\f","\\","'"] 
-                  | "\\" <STRING_EOL> 
+| < STRING2: "'"  ( ~["\n","\r","\f","\\","'"]
+                  | "\\" <STRING_EOL>
                   | <ESCAPE> )* "'" >
 | < CDO: "<!--" >
 | < CDC: "-->" >
