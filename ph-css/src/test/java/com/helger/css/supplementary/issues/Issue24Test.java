@@ -47,7 +47,7 @@ public final class Issue24Test
                                                                                        .setBrowserCompliantMode (true)
                                                                                        .setCustomErrorHandler (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aCSS);
-    if (true)
+    if (false)
       System.out.println (new CSSWriter ().getCSSAsString (aCSS));
   }
 }
