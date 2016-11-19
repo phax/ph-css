@@ -31,6 +31,7 @@ options {
   // USER_CHAR_STREAM = true;
   FORCE_LA_CHECK = true;
   // The modern template is quicker!
+  // When changing it here, change it in ALL jjt files!
   JAVA_TEMPLATE_TYPE = "modern";
 
 // JJTree options

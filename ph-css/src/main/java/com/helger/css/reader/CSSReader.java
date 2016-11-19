@@ -211,6 +211,7 @@ public final class CSSReader
         case CSS30:
         {
           final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);
+          aTokenHdl.setCustomErrorHandler (aCustomErrorHandler);
           final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
           aParser.setCustomErrorHandler (aCustomErrorHandler);
           aParser.setBrowserCompliantMode (bBrowserCompliantMode);

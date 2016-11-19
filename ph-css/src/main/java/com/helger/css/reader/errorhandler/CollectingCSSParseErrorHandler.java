@@ -76,6 +76,11 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
     m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
   }
 
+  public void onIllegalCharacter (final char cIllegalChar)
+  {
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createIllegalCharacter (cIllegalChar)));
+  }
+
   /**
    * @return <code>true</code> if at least one parse error is contained,
    *         <code>false</code> otherwise.

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
@@ -198,6 +199,22 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                          @Nonnull final Token aToToken) throws ParseException
   {
     s_aLogger.warn (createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
+  }
+
+  @Nonnull
+  @Nonempty
+  public static String createLoggingStringIllegalCharacter (final char cIllegalChar)
+  {
+    return "Found illegal character: " +
+           cIllegalChar +
+           " (0x" +
+           StringHelper.getHexStringLeadingZero (cIllegalChar, 4) +
+           ")";
+  }
+
+  public void onIllegalCharacter (final char cIllegalChar)
+  {
+    s_aLogger.warn (createLoggingStringIllegalCharacter (cIllegalChar));
   }
 
   @Override

@@ -160,4 +160,10 @@ public class CSSParseError
                                                                                                    aFromToken,
                                                                                                    aToToken));
   }
+
+  @Nonnull
+  public static CSSParseError createIllegalCharacter (final char cIllegalChar)
+  {
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringIllegalCharacter (cIllegalChar));
+  }
 }

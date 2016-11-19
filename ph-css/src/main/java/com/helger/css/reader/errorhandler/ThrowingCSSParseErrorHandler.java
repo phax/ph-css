@@ -65,6 +65,12 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                                                                    aToToken));
   }
 
+  public void onIllegalCharacter (final char cIllegalChar)
+  {
+    // Cannot throw ParseException because this is handled in TokenManager
+    throw new IllegalStateException (LoggingCSSParseErrorHandler.createLoggingStringIllegalCharacter (cIllegalChar));
+  }
+
   @Override
   public String toString ()
   {

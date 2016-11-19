@@ -86,6 +86,17 @@ public interface ICSSParseErrorHandler
                                   @Nonnull Token aToToken) throws ParseException;
 
   /**
+   * This method is invoked, when an illegal character is encountered (in
+   * TokenManager), and the respective rule is part of the JavaCC grammar.
+   *
+   * @param cIllegalChar
+   *        The illegal char
+   * @since 5.0.3
+   */
+  default void onIllegalCharacter (final char cIllegalChar)
+  {}
+
+  /**
    * Create a new {@link ICSSParseErrorHandler} that invokes both
    * <code>this</code> and the other error handler in a serial way.
    *
@@ -122,6 +133,12 @@ public interface ICSSParseErrorHandler
       {
         aThis.onCSSBrowserCompliantSkip (ex, aFromToken, aToToken);
         aOther.onCSSBrowserCompliantSkip (ex, aFromToken, aToToken);
+      }
+
+      public void onIllegalCharacter (final char cIllegalChar)
+      {
+        aThis.onIllegalCharacter (cIllegalChar);
+        aOther.onIllegalCharacter (cIllegalChar);
       }
     };
   }

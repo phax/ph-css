@@ -31,6 +31,7 @@ options {
   // USER_CHAR_STREAM = true;
   FORCE_LA_CHECK = true;
   // The modern template is quicker!
+  // When changing it here, change it in ALL jjt files!
   JAVA_TEMPLATE_TYPE = "modern";
 
 // JJTree options
@@ -57,6 +58,20 @@ PARSER_END(ParserCSS30)
 TOKEN_MGR_DECLS :
 {
   private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS30TokenManager.class);
+
+  protected com.helger.css.reader.errorhandler.ICSSParseErrorHandler m_aCustomErrorHandler;
+  protected boolean m_bBrowserCompliantMode = false;
+
+  /**
+   * Set a custom error handler to use.
+   *
+   * @param aCustomErrorHandler
+   *        The custom error handler to use. May be <code>null</code>.
+   */
+  public final void setCustomErrorHandler (final com.helger.css.reader.errorhandler.ICSSParseErrorHandler aCustomErrorHandler)
+  {
+    m_aCustomErrorHandler = aCustomErrorHandler;
+  }
 
   void backup(final int nChars) {
     input_stream.backup(nChars);
@@ -318,7 +333,10 @@ SPECIAL_TOKEN :
 {
   < UNKNOWN: ~[] >
   {
-    s_aLogger.error("Illegal character: " + image.toString());
+    if (m_aCustomErrorHandler != null)
+      m_aCustomErrorHandler.onIllegalCharacter (image.charAt (0));
+    else
+      s_aLogger.error("Illegal character: " + image.toString());
   }
 }
 
@@ -554,6 +572,7 @@ try{
     ( ( <RBRACE> | <SEMICOLON> )
       ( <S> | <CDO> | <CDC> )*
     )*
+    ( syntaxCrap() )?
   )*
   <EOF>
 } catch (ParseEOFException ex) {
@@ -565,6 +584,21 @@ try{
 }
   { return jjtThis; }
 }
+
+void syntaxCrap() #void : {}
+{
+  <UNKNOWN>
+//try {
+//} catch (ParseEOFException ex) {
+//  if (m_bBrowserCompliantMode) {
+//    if (m_aCustomErrorHandler != null)
+//      m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex, ex.currentToken, token);
+//  }
+//  else
+//    throw ex;
+//}
+}
+
 
 //
 // Generic utility rules

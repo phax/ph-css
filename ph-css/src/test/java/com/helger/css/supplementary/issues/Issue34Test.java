@@ -28,6 +28,7 @@ import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.LoggingCSSParseExceptionCallback;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
+import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
 
@@ -44,9 +45,10 @@ public final class Issue34Test
   @Ignore ("TODO")
   public void testIssue ()
   {
-    final String css = ".pen {background-color: red;width:100px; height:100px} {* some incorrect block *} .pen {background-color: blue}";
+    final String css = ".pen {background-color:red} {* some incorrect block *} .pen {background-color: blue}";
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
                                                                 .setBrowserCompliantMode (true)
+                                                                .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                 .setCustomExceptionHandler (new LoggingCSSParseExceptionCallback ());
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
     assertNotNull (cascadingStyleSheet);
