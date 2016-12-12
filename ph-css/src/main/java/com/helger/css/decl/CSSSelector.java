@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
 {
-  private final ICommonsList <ICSSSelectorMember> m_aMembers = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSSelectorMember> m_aMembers = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSelector ()
@@ -124,7 +124,7 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    return StringHelper.getImploded (m_aMembers, aMember -> aMember.getAsCSSString (aSettings, nIndentLevel));
+    return StringHelper.getImplodedMapped (m_aMembers, x -> x.getAsCSSString (aSettings, nIndentLevel));
   }
 
   public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)

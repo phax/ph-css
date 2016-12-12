@@ -44,7 +44,7 @@ import com.helger.css.property.ICSSProperty;
 @Immutable
 public class CSSValueMultiValue implements ICSSMultiValue
 {
-  private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList <> ();
+  private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList<> ();
 
   public CSSValueMultiValue (@Nonnull final ICSSProperty aProperty,
                              @Nonnull @Nonempty final String [] aValues,
@@ -73,7 +73,7 @@ public class CSSValueMultiValue implements ICSSMultiValue
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    return StringHelper.getImploded (m_aValues, aValue -> aValue.getAsCSSString (aSettings, nIndentLevel));
+    return StringHelper.getImplodedMapped (m_aValues, x -> x.getAsCSSString (aSettings, nIndentLevel));
   }
 
   @Override

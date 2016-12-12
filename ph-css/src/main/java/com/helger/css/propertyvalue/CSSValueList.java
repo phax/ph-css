@@ -70,7 +70,7 @@ public class CSSValueList implements ICSSMultiValue
                                           " is not contained in an ICSSProperty instance!");
 
     m_eProperty = eProperty;
-    m_aValues = new CommonsArrayList <> (aProperties.length);
+    m_aValues = new CommonsArrayList<> (aProperties.length);
     for (int i = 0; i < aProperties.length; ++i)
       m_aValues.add (new CSSValue (aProperties[i], aValues[i], bIsImportant));
   }
@@ -91,7 +91,7 @@ public class CSSValueList implements ICSSMultiValue
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    return StringHelper.getImploded (m_aValues, aValue -> aValue.getAsCSSString (aSettings, nIndentLevel));
+    return StringHelper.getImplodedMapped (m_aValues, x -> x.getAsCSSString (aSettings, nIndentLevel));
   }
 
   @Override

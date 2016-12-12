@@ -43,7 +43,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember, ICSSSourceLocationAware
 {
-  private final ICommonsList <ICSSExpressionMathMember> m_aMembers = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSExpressionMathMember> m_aMembers = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpressionMemberMathProduct ()
@@ -115,7 +115,7 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     aSettings.checkVersionRequirements (this);
-    return StringHelper.getImploded (m_aMembers, m -> m.getAsCSSString (aSettings, nIndentLevel));
+    return StringHelper.getImplodedMapped (m_aMembers, x -> x.getAsCSSString (aSettings, nIndentLevel));
   }
 
   @Nonnull

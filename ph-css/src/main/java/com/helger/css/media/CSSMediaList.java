@@ -42,7 +42,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   public static final String DEFAULT_MEDIA_STRING_SEPARATOR = ", ";
 
   // Ordered but unique
-  private final ICommonsOrderedSet <ECSSMedium> m_aMedia = new CommonsLinkedHashSet <ECSSMedium> ();
+  private final ICommonsOrderedSet <ECSSMedium> m_aMedia = new CommonsLinkedHashSet <> ();
 
   /**
    * Constructor
@@ -245,7 +245,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
     if (m_aMedia.isEmpty ())
       return "";
 
-    return StringHelper.getImploded (sSeparator, m_aMedia, ECSSMedium::getName);
+    return StringHelper.getImplodedMapped (sSeparator, m_aMedia, ECSSMedium::getName);
   }
 
   @Nonnull
