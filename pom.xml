@@ -25,7 +25,7 @@
     <version>1.9.2</version>
   </parent>
   <artifactId>ph-css-parent-pom</artifactId>
-  <version>5.0.3-SNAPSHOT</version>
+  <version>5.0.3</version>
   <packaging>pom</packaging>
   <name>ph-css-parent-pom</name>
   <description>Base POM to build the ph-css projects</description>
@@ -44,7 +44,7 @@
     <connection>scm:git:git@github.com:phax/ph-css.git</connection>
     <developerConnection>scm:git:git@github.com:phax/ph-css.git</developerConnection>
     <url>http://github.com/phax/ph-css</url>
-    <tag>HEAD</tag>
+    <tag>ph-css-parent-pom-5.0.3</tag>
   </scm>
 
   <organization>
