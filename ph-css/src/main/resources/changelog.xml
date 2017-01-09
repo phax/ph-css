@@ -18,6 +18,12 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-css">
+  <release date="2017-01-09" version="5.0.3" />
+  <release date="2016-10-21" version="5.0.2" />
+  <release date="2016-10-21" version="4.1.6" />
+  <release date="2016-09-16" version="4.1.5" />
+  <release date="2016-08-17" version="5.0.1" />
+  <release date="2016-06-12" version="5.0.0" />
   <release date="2015-12-14" version="4.0.1" />
   <entry date="2015-09-22" category="tech" action="add">
     <change>

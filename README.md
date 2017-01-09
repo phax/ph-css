@@ -14,8 +14,9 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-  * v5.0.3
-    * Binds to ph-commons 8.5.6
+  * v5.0.3 - 2017-01-09
+    * Binds to ph-commons 8.6.0
+    * Added custom callback for illegal characters
   * v5.0.2 - 2016-10-21
     * Made tab size configurable (issue #29)
     * Improved media expressions (issue #30)
@@ -57,7 +58,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>5.0.2</version>
+  <version>5.0.3</version>
 </dependency>
 ```
 
@@ -254,7 +255,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>5.0.2</version>
+        <version>5.0.3</version>
         <executions>
           <execution>
             <goals>
