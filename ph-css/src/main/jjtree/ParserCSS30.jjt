@@ -763,15 +763,13 @@ void exprTerm() :
     | t = dimension()
     )
   | sPrefix = string()
-  | t = <IDENT>
 // Hack to allow "from" and "to" as identifiers (e.g. in linear-gradient)
-  | t = <FROM_SYM>
-  | t = <TO_SYM>
+// Also allow "or" as parameter to "x:lang(no)"
+  | sPrefix = anyIdentifier()
   | url()
   | t = <HASH>
   | function()
   | math()
-  | t = <INHERIT>
   | t = <URANGE>
   )
   ( <S> )*
