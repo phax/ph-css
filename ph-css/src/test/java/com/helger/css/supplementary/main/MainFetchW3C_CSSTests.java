@@ -18,8 +18,8 @@ package com.helger.css.supplementary.main;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
@@ -44,10 +44,10 @@ public class MainFetchW3C_CSSTests
 
   private static void _fetch (final String sURL, final String sDestDir) throws MalformedURLException
   {
-    final ICommonsList <String> aCSSFilenames = new CommonsArrayList <> ();
+    final ICommonsList <String> aCSSFilenames = new CommonsArrayList<> ();
     System.out.println ("Fetching from " + sURL);
     final ICommonsList <String> aIndex = StreamHelper.readStreamLines (new URLResource (sURL + "index.html"),
-                                                                       CCharset.CHARSET_UTF_8_OBJ);
+                                                                       StandardCharsets.UTF_8);
     {
       // Remove doctype
       aIndex.remove (0);
@@ -86,8 +86,8 @@ public class MainFetchW3C_CSSTests
     {
       System.out.println ("  " + (++i) + ".: " + sCSSFilename);
       final String sContent = StreamHelper.getAllBytesAsString (new URLResource (sURL + sCSSFilename),
-                                                                CCharset.CHARSET_UTF_8_OBJ);
-      SimpleFileIO.writeFile (new File (sDestDir, sCSSFilename), sContent, CCharset.CHARSET_UTF_8_OBJ);
+                                                                StandardCharsets.UTF_8);
+      SimpleFileIO.writeFile (new File (sDestDir, sCSSFilename), sContent, StandardCharsets.UTF_8);
     }
   }
 }

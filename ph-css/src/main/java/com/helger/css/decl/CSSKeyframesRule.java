@@ -51,7 +51,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
 {
   private final String m_sDeclaration;
   private final String m_sAnimationName;
-  private final ICommonsList <CSSKeyframesBlock> m_aBlocks = new CommonsArrayList <> ();
+  private final ICommonsList <CSSKeyframesBlock> m_aBlocks = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public static boolean isValidDeclaration (@Nonnull @Nonempty final String sDeclaration)
@@ -243,6 +243,6 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
                                        .append ("animationName", m_sAnimationName)
                                        .append ("blocks", m_aBlocks)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

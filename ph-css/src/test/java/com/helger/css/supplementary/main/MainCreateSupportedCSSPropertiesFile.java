@@ -17,6 +17,7 @@
 package com.helger.css.supplementary.main;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Locale;
@@ -24,7 +25,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.io.file.SimpleFileIO;
@@ -167,7 +167,7 @@ public class MainCreateSupportedCSSPropertiesFile
 
     for (final ECSSProperty eProperty : CollectionHelper.getSorted (ECSSProperty.values (),
                                                                     IComparator.getComparatorCollating (ECSSProperty::getVendorIndependentName,
-                                                                                                                    aLocale)))
+                                                                                                        aLocale)))
       if (eProperty.isVendorSpecific ())
       {
         tr = tbody.appendElement ("tr");
@@ -207,7 +207,7 @@ public class MainCreateSupportedCSSPropertiesFile
 
     SimpleFileIO.writeFile (new File ("src/main/resources/supported-css-properties.html"),
                             sHTML,
-                            CCharset.CHARSET_UTF_8_OBJ);
+                            StandardCharsets.UTF_8);
     System.out.println ("Done");
   }
 }

@@ -162,6 +162,6 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
                                        .appendIfNotNull ("operator", m_eOperator)
                                        .appendIfNotNull ("attrValue", m_sAttrValue)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

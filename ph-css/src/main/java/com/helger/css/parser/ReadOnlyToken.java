@@ -110,6 +110,6 @@ public class ReadOnlyToken
                                        .append ("endLine", m_nEndLine)
                                        .append ("endColumn", m_nEndColumn)
                                        .append ("image", m_sImage)
-                                       .toString ();
+                                       .getToString ();
   }
 }

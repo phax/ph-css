@@ -111,6 +111,6 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
     return new ToStringGenerator (null).append ("functionName", m_sFuncName)
                                        .append ("paramExpr", m_aParamExpr)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -19,6 +19,7 @@ package com.helger.maven.csscompress;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
@@ -26,7 +27,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
@@ -188,7 +188,7 @@ public final class CSSCompressMojo extends AbstractMojo
    *
    * @parameter property="sourceEncoding" default-value="UTF-8"
    */
-  private String sourceEncoding = CCharset.CHARSET_UTF_8;
+  private String sourceEncoding = StandardCharsets.UTF_8.name ();
 
   /**
    * The filename extension that should be used for the minified/compressed CSS
@@ -204,7 +204,7 @@ public final class CSSCompressMojo extends AbstractMojo
    * @parameter property="targetEncoding" default-value="UTF-8"
    * @since 1.4.0
    */
-  private String targetEncoding = CCharset.CHARSET_UTF_8;
+  private String targetEncoding = StandardCharsets.UTF_8.name ();
 
   /**
    * The new line mode to be used for writing the files. Valid values are
@@ -366,14 +366,9 @@ public final class CSSCompressMojo extends AbstractMojo
         getLog ().info ("Start compressing CSS file " + _getRelativePath (aChild));
       else
         getLog ().debug ("Start compressing CSS file " + _getRelativePath (aChild));
-      final ICSSParseExceptionCallback aExHdl = new ICSSParseExceptionCallback ()
-      {
-        public void onException (@Nonnull final ParseException ex)
-        {
-          // Ensure the file name is printed
-          getLog ().error ("Failed to parse CSS file " + _getRelativePath (aChild), ex);
-        }
-      };
+      final ICSSParseExceptionCallback aExHdl = (@Nonnull final ParseException ex) -> getLog ().error ("Failed to parse CSS file " +
+                                                                                                       _getRelativePath (aChild),
+                                                                                                       ex);
       final Charset aFallbackCharset = CharsetManager.getCharsetFromName (sourceEncoding);
       final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
                                                                   .setFallbackCharset (aFallbackCharset)

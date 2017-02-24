@@ -17,6 +17,7 @@
 package com.helger.css.utils;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -26,7 +27,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mime.EMimeQuoting;
@@ -45,7 +45,7 @@ import com.helger.commons.string.StringHelper;
 public final class CSSDataURLHelper
 {
   /** The default charset to be used for Data URLs: US-ASCII */
-  public static final Charset DEFAULT_CHARSET = CCharset.CHARSET_US_ASCII_OBJ;
+  public static final Charset DEFAULT_CHARSET = StandardCharsets.US_ASCII;
 
   /** The default MIME type for Data URLs: text/plain;charset=US-ASCII */
   public static final IMimeType DEFAULT_MIME_TYPE = new MimeType (CMimeType.TEXT_PLAIN).addParameter (CMimeType.PARAMETER_NAME_CHARSET,

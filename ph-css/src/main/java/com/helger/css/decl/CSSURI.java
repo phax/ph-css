@@ -143,6 +143,6 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   {
     return new ToStringGenerator (this).append ("URI", m_sURI)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -332,6 +332,6 @@ public class CSSSimpleValueWithUnit implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_aValue).append ("unit", m_eUnit).toString ();
+    return new ToStringGenerator (this).append ("value", m_aValue).append ("unit", m_eUnit).getToString ();
   }
 }

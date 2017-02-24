@@ -66,7 +66,7 @@ public class CSSValue implements ICSSValue
    * Enable or disable consistency checks. By default the consistency checks are
    * enabled (for backwards compatibility) but if performance is a real matter,
    * you may want to disable them globally.
-   * 
+   *
    * @param bEnabled
    *        <code>true</code> to enable them, <code>false</code> to disable
    *        them.
@@ -253,6 +253,6 @@ public class CSSValue implements ICSSValue
     return new ToStringGenerator (this).append ("property", m_aProperty)
                                        .append ("value", m_sValue)
                                        .append ("important", m_bIsImportant)
-                                       .toString ();
+                                       .getToString ();
   }
 }

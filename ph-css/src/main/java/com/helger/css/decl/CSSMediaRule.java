@@ -49,8 +49,8 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
-  private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList <> ();
-  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
+  private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList<> ();
+  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSMediaRule ()
@@ -291,6 +291,6 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return new ToStringGenerator (this).append ("mediaQueries", m_aMediaQueries)
                                        .append ("styleRules", m_aRules)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

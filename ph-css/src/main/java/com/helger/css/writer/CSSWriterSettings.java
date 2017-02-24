@@ -394,6 +394,6 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
                                        .append ("writeViewportRules", m_bWriteViewportRules)
                                        .append ("writeSupportsRules", m_bWriteSupportsRules)
                                        .append ("writeUnknownRules", m_bWriteUnknownRules)
-                                       .toString ();
+                                       .getToString ();
   }
 }

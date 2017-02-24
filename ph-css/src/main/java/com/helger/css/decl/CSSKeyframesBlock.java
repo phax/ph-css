@@ -53,13 +53,13 @@ public class CSSKeyframesBlock implements
   public CSSKeyframesBlock (@Nonnull @Nonempty final String... aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
-    m_aKeyframesSelectors = new CommonsArrayList <> (aKeyframesSelectors);
+    m_aKeyframesSelectors = new CommonsArrayList<> (aKeyframesSelectors);
   }
 
   public CSSKeyframesBlock (@Nonnull @Nonempty final Iterable <String> aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
-    m_aKeyframesSelectors = new CommonsArrayList <> (aKeyframesSelectors);
+    m_aKeyframesSelectors = new CommonsArrayList<> (aKeyframesSelectors);
   }
 
   @Nonnull
@@ -224,6 +224,6 @@ public class CSSKeyframesBlock implements
     return new ToStringGenerator (this).append ("keyframesSelectors", m_aKeyframesSelectors)
                                        .append ("declarations", m_aDeclarations)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

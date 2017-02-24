@@ -175,6 +175,6 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
                                        .appendIfNotNull ("parameterList", m_sParameterList)
                                        .appendIfNotNull ("body", m_sBody)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

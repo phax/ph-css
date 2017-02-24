@@ -17,12 +17,12 @@
 package com.helger.css.supplementary.main;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.io.file.filter.IFileFilter;
@@ -50,18 +50,15 @@ public final class MainReadAllCSSOnDisc
   {
     int nFilesOK = 0;
     int nFilesError = 0;
-    final ICommonsOrderedMap <File, ParseException> aErrors = new CommonsLinkedHashMap <> ();
-    final Wrapper <File> aCurrentFile = new Wrapper <> ();
+    final ICommonsOrderedMap <File, ParseException> aErrors = new CommonsLinkedHashMap<> ();
+    final Wrapper <File> aCurrentFile = new Wrapper<> ();
     final ICSSParseExceptionCallback aHdl = ex -> aErrors.put (aCurrentFile.get (), ex);
     for (final File aFile : new FileSystemRecursiveIterator (new File ("/")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       if (false)
         s_aLogger.info (aFile.getAbsolutePath ());
       aCurrentFile.set (aFile);
-      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
-                                                               CCharset.CHARSET_UTF_8_OBJ,
-                                                               ECSSVersion.CSS30,
-                                                               aHdl);
+      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, ECSSVersion.CSS30, aHdl);
       if (aCSS == null)
       {
         nFilesError++;

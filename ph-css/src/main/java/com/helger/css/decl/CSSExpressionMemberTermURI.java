@@ -141,6 +141,6 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("URI", m_aURI).toString ();
+    return new ToStringGenerator (null).append ("URI", m_aURI).getToString ();
   }
 }

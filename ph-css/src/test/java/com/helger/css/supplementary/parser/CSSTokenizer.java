@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
@@ -27,7 +28,6 @@ import javax.annotation.WillClose;
 import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.StreamHelper;
@@ -42,7 +42,7 @@ public class CSSTokenizer
 
   public CSSTokenizer ()
   {
-    this (CCharset.CHARSET_UTF_8_OBJ);
+    this (StandardCharsets.UTF_8);
   }
 
   public CSSTokenizer (@Nonnull final Charset aFallbackEncoding)
@@ -77,7 +77,7 @@ public class CSSTokenizer
       aIS.read (aBuffer);
       aIS.unread (aBuffer);
 
-      final String sPrefix = new String (aBuffer, 0, CHARSET.length (), CCharset.CHARSET_US_ASCII_OBJ);
+      final String sPrefix = new String (aBuffer, 0, CHARSET.length (), StandardCharsets.US_ASCII);
       if (m_bStrictMode ? CHARSET.equals (sPrefix) : CHARSET.equalsIgnoreCase (sPrefix))
       {
         int nEnd = CHARSET.length ();
@@ -85,10 +85,7 @@ public class CSSTokenizer
           nEnd++;
         if (nEnd == nMaxHeader)
           throw new CSSTokenizeException ("Unexpected end of @charset declaration");
-        String sCharset = new String (aBuffer,
-                                      CHARSET.length (),
-                                      nEnd - CHARSET.length (),
-                                      CCharset.CHARSET_US_ASCII_OBJ);
+        String sCharset = new String (aBuffer, CHARSET.length (), nEnd - CHARSET.length (), StandardCharsets.US_ASCII);
         if ("utf-16be".equalsIgnoreCase (sCharset) || "utf-16le".equalsIgnoreCase (sCharset))
           sCharset = "utf-8";
         final Charset aCharset = CharsetManager.getCharsetFromName (sCharset);

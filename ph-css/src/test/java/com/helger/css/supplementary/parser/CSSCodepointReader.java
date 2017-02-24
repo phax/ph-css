@@ -73,7 +73,7 @@ public class CSSCodepointReader implements Closeable
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (null).append ("Line", m_nLine).append ("Column", m_nCol).toString ();
+      return new ToStringGenerator (null).append ("Line", m_nLine).append ("Column", m_nCol).getToString ();
     }
   }
 
@@ -82,7 +82,7 @@ public class CSSCodepointReader implements Closeable
   private final NonBlockingPushbackReader m_aReader;
   // Status vars
   private Pos m_aPos = new Pos ();
-  private final RingBufferLifo <Pos> m_aPosRB = new RingBufferLifo <> (PUSHBACK_COUNT, true);
+  private final RingBufferLifo <Pos> m_aPosRB = new RingBufferLifo<> (PUSHBACK_COUNT, true);
   private Pos m_aTokenStartPos;
   private final StringBuilder m_aTokenImage = new StringBuilder (1024);
 

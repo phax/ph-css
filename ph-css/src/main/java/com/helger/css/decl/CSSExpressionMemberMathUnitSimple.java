@@ -119,6 +119,6 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
     return new ToStringGenerator (this).append ("text", m_sText)
                                        .append ("unit", m_eUnit)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

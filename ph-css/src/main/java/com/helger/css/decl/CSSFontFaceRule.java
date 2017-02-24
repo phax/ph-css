@@ -234,6 +234,6 @@ public class CSSFontFaceRule implements
   {
     return new ToStringGenerator (this).append ("declarations", m_aDeclarations)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

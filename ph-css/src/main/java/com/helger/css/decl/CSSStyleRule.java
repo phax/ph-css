@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSStyleRule>, ICSSSourceLocationAware
 {
-  private final ICommonsList <CSSSelector> m_aSelectors = new CommonsArrayList <> ();
+  private final ICommonsList <CSSSelector> m_aSelectors = new CommonsArrayList<> ();
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
@@ -306,6 +306,6 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return new ToStringGenerator (this).append ("selectors", m_aSelectors)
                                        .append ("declarations", m_aDeclarations)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

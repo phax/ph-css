@@ -42,7 +42,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, ICSSSourceLocationAware
 {
-  private final ICommonsList <ICSSSupportsConditionMember> m_aMembers = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSSupportsConditionMember> m_aMembers = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSupportsConditionNested ()
@@ -177,6 +177,6 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   {
     return new ToStringGenerator (this).append ("members", m_aMembers)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -19,9 +19,10 @@ package com.helger.css.supplementary.issues;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.css.decl.CascadingStyleSheet;
@@ -43,7 +44,7 @@ public final class Issue26Test
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad_but_browsercompliant/issue26.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
-                                                               new CSSReaderSettings ().setFallbackCharset (CCharset.CHARSET_UTF_8_OBJ)
+                                                               new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
                                                                                        .setBrowserCompliantMode (true)
                                                                                        .setCustomErrorHandler (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aCSS);

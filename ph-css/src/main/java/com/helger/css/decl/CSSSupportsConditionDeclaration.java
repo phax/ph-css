@@ -109,6 +109,6 @@ public class CSSSupportsConditionDeclaration implements ICSSSupportsConditionMem
   {
     return new ToStringGenerator (this).append ("declaration", m_aDeclaration)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -23,13 +23,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
@@ -55,12 +55,12 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   @Parameters (name = "{index}: browserCompliant={0}")
   public static Iterable <Object []> data ()
   {
-    return new CommonsArrayList <> (new Object [] { true }, new Object [] { false });
+    return new CommonsArrayList<> (new Object [] { true }, new Object [] { false });
   }
 
   public CSSReader30FuncTest (final boolean bBrowserCompliant)
   {
-    super (CCharset.CHARSET_UTF_8_OBJ, false, bBrowserCompliant);
+    super (StandardCharsets.UTF_8, false, bBrowserCompliant);
   }
 
   @Test
@@ -109,7 +109,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   public void testReadSpecialGood ()
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/hacks2.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
@@ -125,7 +125,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final CSSWriterSettings aCSSWS = new CSSWriterSettings (eVersion, false);
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-expression.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);

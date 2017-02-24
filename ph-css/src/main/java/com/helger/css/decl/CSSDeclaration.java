@@ -130,9 +130,8 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
   }
 
   /**
-   * @return The expression of this declaration (e.g. "red" or "25px" or
-   *         "25px 10px 25px 9px") as a structured value. Never
-   *         <code>null</code>.
+   * @return The expression of this declaration (e.g. "red" or "25px" or "25px
+   *         10px 25px 9px") as a structured value. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableObject ("design")
@@ -231,6 +230,6 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
                                        .append ("expression", m_aExpression)
                                        .append ("important", m_bIsImportant)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

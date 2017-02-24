@@ -234,6 +234,6 @@ public class CSSSourceLocation implements Serializable
       return "";
     return new ToStringGenerator (null).append ("firstTokenArea", m_aFirstTokenArea)
                                        .append ("lastTokenArea", m_aLastTokenArea)
-                                       .toString ();
+                                       .getToString ();
   }
 }

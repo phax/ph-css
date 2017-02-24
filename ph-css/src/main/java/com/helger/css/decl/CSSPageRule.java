@@ -49,19 +49,19 @@ import com.helger.css.ICSSWriterSettings;
 public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aSelectors;
-  private final CSSWritableList <ICSSPageRuleMember> m_aMembers = new CSSWritableList <> ();
+  private final CSSWritableList <ICSSPageRuleMember> m_aMembers = new CSSWritableList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSPageRule (@Nullable final String sPseudoPage)
   {
-    m_aSelectors = StringHelper.hasText (sPseudoPage) ? new CommonsArrayList <> (sPseudoPage)
-                                                      : new CommonsArrayList <> ();
+    m_aSelectors = StringHelper.hasText (sPseudoPage) ? new CommonsArrayList<> (sPseudoPage)
+                                                      : new CommonsArrayList<> ();
   }
 
   public CSSPageRule (@Nonnull final Iterable <String> aSelectors)
   {
     ValueEnforcer.notNullNoNullValue (aSelectors, "Selectors");
-    m_aSelectors = new CommonsArrayList <> (aSelectors);
+    m_aSelectors = new CommonsArrayList<> (aSelectors);
   }
 
   @Nonnull
@@ -235,6 +235,6 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
   {
     return new ToStringGenerator (this).append ("declarations", m_aMembers)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

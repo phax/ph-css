@@ -225,6 +225,6 @@ public class CSSRect implements ICSSWriteable
                                        .append ("right", m_sRight)
                                        .append ("bottom", m_sBottom)
                                        .append ("left", m_sLeft)
-                                       .toString ();
+                                       .getToString ();
   }
 }

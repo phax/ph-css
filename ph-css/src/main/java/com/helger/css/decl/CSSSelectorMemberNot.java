@@ -50,19 +50,19 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   public CSSSelectorMemberNot (@Nonnull final CSSSelector aNestedSelector)
   {
     ValueEnforcer.notNull (aNestedSelector, "NestedSelector");
-    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelector);
+    m_aNestedSelectors = new CommonsArrayList<> (aNestedSelector);
   }
 
   public CSSSelectorMemberNot (@Nonnull final CSSSelector... aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
-    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
+    m_aNestedSelectors = new CommonsArrayList<> (aNestedSelectors);
   }
 
   public CSSSelectorMemberNot (@Nonnull final Iterable <CSSSelector> aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
-    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
+    m_aNestedSelectors = new CommonsArrayList<> (aNestedSelectors);
   }
 
   public boolean hasSelectors ()
@@ -211,6 +211,6 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   {
     return new ToStringGenerator (null).append ("nestedSelectors", m_aNestedSelectors)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

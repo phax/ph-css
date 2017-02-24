@@ -215,6 +215,6 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
                             .append ("withPercentage", m_bWithPercentage)
                             .append ("minNumbers", m_nMinNumbers)
                             .append ("maxNumbers", m_nMaxNumbers)
-                            .toString ();
+                            .getToString ();
   }
 }

@@ -60,6 +60,6 @@ public final class CSSPropertyWithDefaultValue
   {
     return new ToStringGenerator (this).append ("property", m_aProperty)
                                        .append ("defaultValue", m_sDefaultValue)
-                                       .toString ();
+                                       .getToString ();
   }
 }

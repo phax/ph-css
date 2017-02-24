@@ -226,6 +226,6 @@ public class CSSViewportRule implements
     return new ToStringGenerator (this).append ("declaration", m_sDeclaration)
                                        .append ("declarations", m_aDeclarations)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

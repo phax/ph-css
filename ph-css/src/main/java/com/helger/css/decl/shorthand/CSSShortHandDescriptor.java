@@ -52,7 +52,7 @@ public class CSSShortHandDescriptor
     ValueEnforcer.notNull (eProperty, "Property");
     ValueEnforcer.notEmptyNoNullValue (aSubProperties, "SubProperties");
     m_eProperty = eProperty;
-    m_aSubProperties = new CommonsArrayList <> (aSubProperties);
+    m_aSubProperties = new CommonsArrayList<> (aSubProperties);
 
     // Check that a free text property may only be at the end
     final int nMax = aSubProperties.length;
@@ -107,7 +107,7 @@ public class CSSShortHandDescriptor
 
     // global
     final int nSubProperties = m_aSubProperties.size ();
-    final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
+    final ICommonsList <CSSDeclaration> ret = new CommonsArrayList<> ();
     final ICommonsList <ICSSExpressionMember> aExpressionMembers = aDeclaration.getExpression ().getAllMembers ();
 
     // Modification for margin and padding
@@ -180,6 +180,6 @@ public class CSSShortHandDescriptor
   {
     return new ToStringGenerator (this).append ("property", m_eProperty)
                                        .append ("subProperties", m_aSubProperties)
-                                       .toString ();
+                                       .getToString ();
   }
 }

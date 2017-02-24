@@ -163,6 +163,6 @@ public class CSSSourceArea implements Serializable
                                        .append ("beginColumn", m_nBeginColumnNumber)
                                        .append ("endLine", m_nEndLineNumber)
                                        .append ("endColumn", m_nEndColumnNumber)
-                                       .toString ();
+                                       .getToString ();
   }
 }

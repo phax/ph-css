@@ -166,6 +166,6 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
                             .append ("withPercentage", m_bWithPercentage)
                             .append ("minNumbers", m_nMinNumbers)
                             .append ("maxNumbers", m_nMaxNumbers)
-                            .toString ();
+                            .getToString ();
   }
 }

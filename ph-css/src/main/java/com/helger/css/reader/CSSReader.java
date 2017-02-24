@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +34,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
@@ -957,7 +957,7 @@ public final class CSSReader
       // declaration can be handled by this charset
       // A known problem is when the file is UTF-16, UTF-16BE, UTF-16LE etc.
       // encoded. In this case a BOM must be present to read the file correctly!
-      aStreamCharset = CCharset.CHARSET_ISO_8859_1_OBJ;
+      aStreamCharset = StandardCharsets.ISO_8859_1;
     }
 
     final Reader aReader = StreamHelper.createReader (aIS, aStreamCharset);

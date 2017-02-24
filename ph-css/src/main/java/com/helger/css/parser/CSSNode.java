@@ -225,6 +225,6 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, Serializable, 
                                        .append ("children#", m_aChildren == null ? 0 : m_aChildren.length)
                                        .appendIfNotNull ("firstToken", m_aFirstToken)
                                        .appendIfNotNull ("lastToken", m_aLastToken)
-                                       .toString ();
+                                       .getToString ();
   }
 }

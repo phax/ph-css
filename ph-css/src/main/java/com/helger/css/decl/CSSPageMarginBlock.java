@@ -210,6 +210,6 @@ public class CSSPageMarginBlock implements
     return new ToStringGenerator (this).append ("pageMarginSymbol", m_sPageMarginSymbol)
                                        .append ("declarations", m_aDeclarations)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

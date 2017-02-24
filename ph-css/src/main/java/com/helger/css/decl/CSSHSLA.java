@@ -298,6 +298,6 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
                                        .append ("saturation", m_sSaturation)
                                        .append ("lightness", m_sLightness)
                                        .append ("opacity", m_sOpacity)
-                                       .toString ();
+                                       .getToString ();
   }
 }

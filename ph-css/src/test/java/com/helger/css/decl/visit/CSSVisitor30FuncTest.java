@@ -20,12 +20,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.css.AbstractCSS30TestCase;
@@ -53,7 +53,7 @@ public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
       if (true)
         s_aLogger.info (sKey);
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
-                                                               new CSSReaderSettings ().setFallbackCharset (CCharset.CHARSET_UTF_8_OBJ)
+                                                               new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
                                                                                        .setCSSVersion (ECSSVersion.CSS30)
                                                                                        .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                                        .setBrowserCompliantMode (true));

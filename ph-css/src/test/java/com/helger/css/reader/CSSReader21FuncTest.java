@@ -16,12 +16,13 @@
  */
 package com.helger.css.reader;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsArrayList;
 
 /**
@@ -40,7 +41,7 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
 
   public CSSReader21FuncTest (final boolean bBrowserCompliant)
   {
-    super (CCharset.CHARSET_UTF_8_OBJ, false, bBrowserCompliant);
+    super (StandardCharsets.UTF_8, false, bBrowserCompliant);
   }
 
   @Test

@@ -410,6 +410,6 @@ public class CSSDataURL implements Serializable
                                        .append ("content.length", m_aContent.length)
                                        .append ("charset", m_aCharset)
                                        .append ("hasStringContent", m_sContent != null)
-                                       .toString ();
+                                       .getToString ();
   }
 }

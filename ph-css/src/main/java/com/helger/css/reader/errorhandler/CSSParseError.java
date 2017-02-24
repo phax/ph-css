@@ -138,7 +138,7 @@ public class CSSParseError
                                        .appendIfNotNull ("firstSkippedToken", m_aFirstSkippedToken)
                                        .appendIfNotNull ("lastSkippedToken", m_aLastSkippedToken)
                                        .append ("errorMessage", m_sErrorMessage)
-                                       .toString ();
+                                       .getToString ();
   }
 
   @Nonnull

@@ -169,6 +169,6 @@ public abstract class AbstractCSSProperty implements ICSSProperty
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("prop", m_eProp).toString ();
+    return new ToStringGenerator (this).append ("prop", m_eProp).getToString ();
   }
 }

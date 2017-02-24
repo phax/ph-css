@@ -222,6 +222,6 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
   {
     return new ToStringGenerator (this).append ("elements", m_aElements)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

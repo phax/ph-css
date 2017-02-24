@@ -51,8 +51,8 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAware, ICSSVersionAware
 {
-  private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList <> ();
-  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList<> ();
+  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSupportsRule ()
@@ -302,6 +302,6 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
     return new ToStringGenerator (this).append ("conditionMembers", m_aConditionMembers)
                                        .append ("rules", m_aRules)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

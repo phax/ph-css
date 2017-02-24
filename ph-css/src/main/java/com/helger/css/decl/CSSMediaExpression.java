@@ -133,6 +133,6 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSVersionAware, ICSS
     return new ToStringGenerator (this).append ("feature", m_sFeature)
                                        .appendIfNotNull ("value", m_aValue)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

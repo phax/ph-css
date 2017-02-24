@@ -46,7 +46,7 @@ import com.helger.css.ICSSWriterSettings;
 public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
 {
   private CSSURI m_aLocation;
-  private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList <> ();
+  private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSImportRule (@Nonnull final String sLocation)
@@ -271,6 +271,6 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
     return new ToStringGenerator (this).append ("location", m_aLocation)
                                        .append ("mediaQueries", m_aMediaQueries)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

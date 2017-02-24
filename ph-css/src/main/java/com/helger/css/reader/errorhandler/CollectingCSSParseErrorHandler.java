@@ -116,6 +116,6 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("errors", m_aErrors).toString ();
+    return new ToStringGenerator (this).append ("errors", m_aErrors).getToString ();
   }
 }

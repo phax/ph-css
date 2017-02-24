@@ -96,6 +96,6 @@ public class CSSValueMultiValue implements ICSSMultiValue
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("values", m_aValues).toString ();
+    return new ToStringGenerator (this).append ("values", m_aValues).getToString ();
   }
 }

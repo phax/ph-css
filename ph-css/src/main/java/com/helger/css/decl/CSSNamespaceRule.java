@@ -157,6 +157,6 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
     return new ToStringGenerator (this).appendIfNotNull ("prefix", m_sPrefix)
                                        .append ("URL", m_sURL)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

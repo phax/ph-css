@@ -45,9 +45,9 @@ import com.helger.css.ICSSSourceLocationAware;
 @NotThreadSafe
 public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializable
 {
-  private final ICommonsList <CSSImportRule> m_aImportRules = new CommonsArrayList <> ();
-  private final ICommonsList <CSSNamespaceRule> m_aNamespaceRules = new CommonsArrayList <> ();
-  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
+  private final ICommonsList <CSSImportRule> m_aImportRules = new CommonsArrayList<> ();
+  private final ICommonsList <CSSNamespaceRule> m_aNamespaceRules = new CommonsArrayList<> ();
+  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CascadingStyleSheet ()
@@ -948,6 +948,6 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
                                        .append ("namespaceRules", m_aNamespaceRules)
                                        .append ("rules", m_aRules)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -42,7 +42,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   public static final String DEFAULT_MEDIA_STRING_SEPARATOR = ", ";
 
   // Ordered but unique
-  private final ICommonsOrderedSet <ECSSMedium> m_aMedia = new CommonsLinkedHashSet <> ();
+  private final ICommonsOrderedSet <ECSSMedium> m_aMedia = new CommonsLinkedHashSet<> ();
 
   /**
    * Constructor
@@ -275,7 +275,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("media", m_aMedia).toString ();
+    return new ToStringGenerator (this).append ("media", m_aMedia).getToString ();
   }
 
   @Nonnull

@@ -186,6 +186,6 @@ public class CSSExpressionMemberFunction implements
     return new ToStringGenerator (null).append ("funcName", m_sFunctionName)
                                        .appendIfNotNull ("expression", m_aExpression)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -17,6 +17,7 @@
 package com.helger.css.reader;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -24,7 +25,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVersion;
@@ -41,7 +41,7 @@ import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
 {
   public static final ECSSVersion DEFAULT_VERSION = ECSSVersion.CSS30;
-  public static final Charset DEFAULT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
+  public static final Charset DEFAULT_CHARSET = StandardCharsets.ISO_8859_1;
   public static final boolean DEFAULT_BROWSER_COMPLIANT_MODE = false;
   public static final int DEFAULT_TAB_SIZE = 8;
 
@@ -274,6 +274,6 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
                                        .append ("BrowserCompliantMode", m_bBrowserCompliantMode)
                                        .append ("TabSize", m_nTabSize)
                                        .append ("InterpretErrorHandler", m_aInterpretErrorHandler)
-                                       .toString ();
+                                       .getToString ();
   }
 }

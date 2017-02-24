@@ -22,6 +22,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +30,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -48,7 +48,7 @@ public final class CSSWriterFuncTest
       s_aLogger.info (aFile.getAbsolutePath ());
 
     // read and interpret
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, CCharset.CHARSET_UTF_8_OBJ, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, eVersion);
     assertNotNull (aFile.getAbsolutePath (), aCSS);
 
     // Both normal and optimized!
@@ -94,7 +94,7 @@ public final class CSSWriterFuncTest
       try
       {
         // read and interpret CSS 3.0
-        final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, CCharset.CHARSET_UTF_8_OBJ, ECSSVersion.CSS30);
+        final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, ECSSVersion.CSS30);
         assertNotNull (sKey, aCSS);
 
         // write to CSS 2.1
@@ -113,7 +113,7 @@ public final class CSSWriterFuncTest
   public void testCompressCSS_Size ()
   {
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ClassPathResource ("/testfiles/css21/good/phloc/test/content.css"),
-                                                               CCharset.CHARSET_UTF_8_OBJ,
+                                                               StandardCharsets.UTF_8,
                                                                ECSSVersion.CSS30);
     assertNotNull (aCSS);
 

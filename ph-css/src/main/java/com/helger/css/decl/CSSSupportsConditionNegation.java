@@ -102,6 +102,6 @@ public class CSSSupportsConditionNegation implements ICSSSupportsConditionMember
   {
     return new ToStringGenerator (this).append ("supportsMember", m_aSupportsMember)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

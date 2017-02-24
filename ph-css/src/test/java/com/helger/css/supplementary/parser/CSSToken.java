@@ -55,6 +55,6 @@ public class CSSToken
                                        .append ("EndCol", m_nEndColumn)
                                        .append ("Type", m_eType)
                                        .append ("Image", m_sImage)
-                                       .toString ();
+                                       .getToString ();
   }
 }

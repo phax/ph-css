@@ -247,6 +247,6 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
     return new ToStringGenerator (this).append ("hue", m_sHue)
                                        .append ("saturation", m_sSaturation)
                                        .append ("lightness", m_sLightness)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -220,6 +220,6 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

@@ -43,7 +43,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 {
-  private final ICommonsList <ICSSExpressionMember> m_aMembers = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSExpressionMember> m_aMembers = new CommonsArrayList<> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpression ()
@@ -424,7 +424,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   {
     return new ToStringGenerator (null).append ("members", m_aMembers)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 
   /**

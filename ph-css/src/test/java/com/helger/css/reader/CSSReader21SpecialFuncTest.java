@@ -20,12 +20,12 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.writer.CSSWriter;
@@ -43,7 +43,7 @@ public final class CSSReader21SpecialFuncTest
   public void testReadSpecialGood ()
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css21/good/artificial/test-url.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);

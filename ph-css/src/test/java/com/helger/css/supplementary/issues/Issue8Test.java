@@ -20,9 +20,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.css.ECSSVersion;
@@ -44,7 +45,7 @@ public final class Issue8Test
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue8.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
-                                                               CCharset.CHARSET_UTF_8_OBJ,
+                                                               StandardCharsets.UTF_8,
                                                                ECSSVersion.CSS30,
                                                                new LoggingCSSParseErrorHandler ());
     assertNotNull (aCSS);

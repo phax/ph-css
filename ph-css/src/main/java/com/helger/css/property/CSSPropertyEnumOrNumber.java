@@ -138,6 +138,6 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("withPercentage", m_bWithPercentage).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("withPercentage", m_bWithPercentage).getToString ();
   }
 }

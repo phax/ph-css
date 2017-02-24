@@ -157,6 +157,6 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   {
     return new ToStringGenerator (this).append ("members", m_aMembers)
                                        .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .toString ();
+                                       .getToString ();
   }
 }

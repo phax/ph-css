@@ -63,7 +63,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   {
     super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.notEmptyNoNullValue (aEnumValues, "EnumValues");
-    m_aEnumValues = new CommonsHashSet <> (aEnumValues.length);
+    m_aEnumValues = new CommonsHashSet<> (aEnumValues.length);
     for (final String sPotentialValue : aEnumValues)
     {
       if (StringHelper.hasNoText (sPotentialValue))
@@ -91,7 +91,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   {
     super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.notEmptyNoNullValue (aEnumValues, "EnumValues");
-    m_aEnumValues = new CommonsHashSet <> ();
+    m_aEnumValues = new CommonsHashSet<> ();
     for (final String sPotentialValue : aEnumValues)
     {
       if (StringHelper.hasNoText (sPotentialValue))
@@ -118,7 +118,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
                            @Nonnull @Nonempty final Set <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer);
-    m_aEnumValues = new CommonsHashSet <> (aEnumValues);
+    m_aEnumValues = new CommonsHashSet<> (aEnumValues);
   }
 
   /**
@@ -171,6 +171,6 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("enumValues", m_aEnumValues).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("enumValues", m_aEnumValues).getToString ();
   }
 }

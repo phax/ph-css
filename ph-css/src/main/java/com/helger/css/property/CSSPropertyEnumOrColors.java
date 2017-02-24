@@ -201,6 +201,6 @@ public class CSSPropertyEnumOrColors extends CSSPropertyEnum
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("minNumbers", m_nMinNumbers)
                             .append ("maxNumbers", m_nMaxNumbers)
-                            .toString ();
+                            .getToString ();
   }
 }

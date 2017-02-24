@@ -22,12 +22,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
@@ -60,7 +60,7 @@ public final class CSSReader30SpecialFuncTest
   public void testReadSpecialGood ()
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-postcss-cssnext.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
@@ -76,7 +76,7 @@ public final class CSSReader30SpecialFuncTest
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final CSSWriterSettings aCSSWS = new CSSWriterSettings (eVersion, false);
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-expression.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
@@ -297,7 +297,7 @@ public final class CSSReader30SpecialFuncTest
   {
     final CollectingCSSParseErrorHandler aErrors = new CollectingCSSParseErrorHandler ();
     final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/bad_but_recoverable_and_browsercompliant/test-string.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
                                                              aCharset,
@@ -332,7 +332,7 @@ public final class CSSReader30SpecialFuncTest
   public void testReadSingleLineComments ()
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-singleline-comments.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
