@@ -1,0 +1,340 @@
+/**
+ * Copyright (C) 2014-2017 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Ensure this is truly a 3.0 CSS :) */
+E ~ F {}
+
+/* 
+  Source of examples: https://www.w3.org/TR/css3-background/
+*/
+
+/* Example 1 */
+
+div {
+	background-image: url(flower.png), url(ball.png), url(grass.png);
+	background-position: center center, 20% 80%, top left, bottom right;
+	background-origin: border-box, content-box;
+	background-repeat: no-repeat;
+
+	background-image: url(flower.png), url(ball.png), url(grass1.png);
+	background-position: center center, 20% 80%, top left;
+	background-origin: border-box, content-box, border-box;
+	background-repeat: no-repeat, no-repeat, no-repeat;
+}
+
+/* Example 2 */
+
+h1 { background-color: #F00 } /* Sets background to red. */
+
+/* Example 3 */
+
+body { background-image: url("marble.svg") }
+p { background-image: none }
+div { background-image: url(tl.png), url(tr.png) }
+
+/* Example 4 */
+
+body {
+  background: white url("pendant.png");
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
+/* Example 5 */
+
+body {
+  background-image: url(dot.png) white;
+  background-repeat: space
+}
+
+/* Example 6 */
+
+body {
+  background: red url("pendant.gif");
+  background-repeat: repeat-y;
+  background-attachment: fixed;
+}
+
+/* Example 7 */
+
+body {
+   /* For all UAs: */
+   background: white url(paper.png) scroll;
+   /* For UAs that do fixed backgrounds: */
+   background: white url(ledger.png) fixed;
+}
+h1 {
+   /* For all UAs: */
+   background: silver;
+   /* For UAs that do fixed backgrounds: */
+   background: url(stripe.png) fixed, white url(ledger.png) fixed;
+}
+
+/* Example 8 */
+
+div {
+	background-position: left 10px top 15px;   /* 10px, 15px */
+	background-position: left      top     ;   /*  0px,  0px */
+	background-position:      10px     15px;   /* 10px, 15px */
+	background-position: left          15px;   /*  0px, 15px */
+	background-position:      10px top     ;   /* 10px,  0px */
+	background-position: left      top 15px;   /*  0px, 15px */
+	background-position: left 10px top     ;   /* 10px,  0px */
+}
+
+/* Example 10 */
+
+body { background: url("banner.jpeg") right top }    /* 100%   0% */
+body { background: url("banner.jpeg") top center }   /*  50%   0% */
+body { background: url("banner.jpeg") center }       /*  50%  50% */
+body { background: url("banner.jpeg") bottom }       /*  50% 100% */
+
+/* Example 11 */
+
+body {
+  background-image: url("logo.png");
+  background-attachment: fixed;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+/* Example 12 */
+
+div {
+  background-position: right 3em bottom 10px
+}
+
+/* Example 13 */
+
+div {
+    background-image: url(plasma.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-origin: content-box }
+    
+p {
+    background-image: url(tubes.png);
+    background-size: 50% auto;
+    background-origin: border-box }
+    
+para {
+    background-size: 15px 15px;
+    background-image: url(tile.png)}
+    
+body {
+    background-size: auto;            /* default */
+    background-image: url(flower.png) }
+    
+p {
+    background-image: url(chain.png);
+    background-repeat: no-repeat round;
+    background-size: 20% 30% }
+    
+/* Example 14 */
+
+div {
+  background-image: url(image1.png);
+  background-repeat: repeat;         /* default */
+  background-size: auto }            /* default */
+  
+div {
+  background-image: url(image2.png);
+  background-repeat: repeat;         /* default */
+  background-size: 3em }             /* = '3em auto' */
+  
+div {
+  background-image: url(image3.png);
+  background-repeat: round repeat;
+  background-size: 3em auto }
+  
+div {
+  background-image: url(image3.png);
+  background-repeat: round repeat;
+  background-size: 3em auto }
+  
+div {
+  background-image: url(image5.png);
+  background-repeat: round;
+  background-size: auto 4em }
+  
+/* Example 15 */
+
+body { background: red }
+p { background: url("chess.png") 40% / 10em gray
+       round fixed border-box; }
+       
+body {
+    background-color: red;
+    background-position: 0% 0%;
+    background-size: auto;
+    background-repeat: repeat;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-attachment: scroll;
+    background-image: none }
+    
+p {
+    background-color: gray;
+    background-position: 40% 50%;
+    background-size: 10em 10em;
+    background-repeat: round;
+    background-clip: border-box;
+    background-origin: border-box;
+    background-attachment: fixed;
+    background-image: url(chess.png) }
+    
+/* Example 16 */
+
+E { background: #CCC url("metal.jpg") top left / 100% auto no-repeat}
+
+/* Example 17 */
+
+div { background: padding-box url(paper.jpg) white center }
+div {
+    background-color: white;
+    background-image: url(paper.jpg);
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position: center;
+    background-clip: padding-box;
+    background-origin: padding-box;
+    background-size: auto auto }
+    
+/* Example 18 */
+
+div {
+background: url(a.png) top left no-repeat,
+            url(b.png) center / 100% 100% no-repeat,
+            url(c.png) white;	
+
+background-image:      url(a.png),  url(b.png),          url(c.png);
+background-position:   top left,    center,              top left;
+background-repeat:     no-repeat,   no-repeat,           repeat;
+background-clip:       border-box,  border-box,          border-box;
+background-origin:     padding-box, padding-box,         padding-box;
+background-size:       auto auto,   100% 100%,           auto auto;
+background-attachment: scroll,      scroll,              scroll;
+background-color:      white;	
+}
+
+/* Example 20 */
+
+p { border: solid red }
+p {
+  border-top: solid red;
+  border-right: solid red;
+  border-bottom: solid red;
+  border-left: solid red;
+  border-image: none;
+}
+
+/* Example 21 */
+
+blockquote {
+  border-color: red;
+  border-left: double;
+  color: black
+}
+
+/* Example 22 */
+
+DIV.standout {
+    width: 13em;
+    height: 8em;
+    border: solid black 1em;
+    border-radius: 7.5em 5em }
+    
+/* Example 23 */
+
+div {
+border-radius: 4em;
+
+/* is equivalent to */
+
+border-top-left-radius:     4em;
+border-top-right-radius:    4em;
+border-bottom-right-radius: 4em;
+border-bottom-left-radius:  4em;
+
+/* and */
+
+border-radius: 2em 1em 4em / 0.5em 3em;
+
+/* is equivalent to */
+
+border-top-left-radius:     2em 0.5em;
+border-top-right-radius:    1em 3em;
+border-bottom-right-radius: 4em 0.5em;
+border-bottom-left-radius:  1em 3em;
+}
+
+/* Example 24 */
+
+DIV {
+    background: black;
+    color: white;
+    border-radius: 1em;
+    padding: 1em }
+    
+/* Example 25 */
+
+div {
+box-sizing: border-box;
+width: 6em;
+height: 2.5em;
+border-radius: 0.5em 2em 0.5em 2em;
+
+box-sizing: border-box;
+width: 6em;
+height: 2em;
+border-radius: 0.5em 2em 0.5em 2em
+}
+
+/* Example 26 */
+
+DIV {
+  border: double orange 1em;
+  border-image: url("border.png") 27 round stretch;
+ }
+ 
+/* Example 28 */
+
+.notebox {
+   border: double orange;
+   /* must set 'border' shorthand first, otherwise it erases 'border-image' */
+   border-image: url("border.png") 30 round;
+   /* but other 'border' properties can be set after */
+   border-width: thin thick;
+ }
+ .sidebar .notebox {
+   box-shadow: 0 0 5px gray;
+   border-radius: 5px;
+   border: none; /* turn off all borders */
+   /* 'border' shorthand resets 'border-image' */
+ }
+ 
+/* Example 29 */
+
+div {
+width: 100px; height: 100px;
+border: 12px solid blue; background-color: orange;
+border-top-left-radius: 60px 90px;
+border-bottom-right-radius: 60px 90px;
+box-shadow: 64px 64px 12px 40px rgba(0,0,0,0.4),
+            12px 12px 0px 8px rgba(0,0,0,0.4) inset;
+}
+

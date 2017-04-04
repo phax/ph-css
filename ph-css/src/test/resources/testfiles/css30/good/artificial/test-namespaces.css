@@ -17,14 +17,23 @@
 /* 
   Source of examples: http://www.w3.org/TR/css3-namespace/
 */
+
+/* Example 2 */
+
 @namespace empty "";
 @namespace "";
+
+/* Example 3 */
 
 @namespace     "http://www.w3.org/1999/xhtml";
 @namespace     svg    "http://www.w3.org/2000/svg"    ;
 
+/* Example 4 */
+
 @namespace Q "http://example.com/q-markup";
 @namespace lq "http://example.com/q-markup";
+
+/* Example 5 */
 
 @namespace toto url("http://toto.example.org");
 @namespace url("http://example.com/foo");

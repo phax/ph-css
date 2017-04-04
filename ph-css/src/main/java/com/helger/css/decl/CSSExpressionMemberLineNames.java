@@ -124,7 +124,7 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSV
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     aSettings.checkVersionRequirements (this);
-    final StringBuilder aSB = new StringBuilder ("[");
+    final StringBuilder aSB = new StringBuilder ().append ('[');
     boolean bFirst = true;
     for (final String sMember : m_aMembers)
     {
@@ -134,7 +134,7 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSV
         aSB.append (' ');
       aSB.append (sMember);
     }
-    return aSB.append ("]").toString ();
+    return aSB.append (']').toString ();
   }
 
   @Nonnull

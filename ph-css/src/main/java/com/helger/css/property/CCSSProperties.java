@@ -449,6 +449,7 @@ public final class CCSSProperties
   public static final ICSSProperty ALIGN_CONTENT = new CSSPropertyFree (ECSSProperty.ALIGN_CONTENT);
   public static final ICSSProperty ALIGN_ITEMS = new CSSPropertyFree (ECSSProperty.ALIGN_ITEMS);
   public static final ICSSProperty ALIGN_SELF = new CSSPropertyFree (ECSSProperty.ALIGN_SELF);
+  @Deprecated
   public static final ICSSProperty ALIGNMENT_ADJUST = new CSSPropertyFree (ECSSProperty.ALIGNMENT_ADJUST);
   public static final ICSSProperty ALIGNMENT_BASELINE = new CSSPropertyFree (ECSSProperty.ALIGNMENT_BASELINE);
   public static final ICSSProperty ALL = new CSSPropertyFree (ECSSProperty.ALL);
