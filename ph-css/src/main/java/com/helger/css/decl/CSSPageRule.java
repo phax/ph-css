@@ -87,13 +87,13 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
   @Nonnull
   public EChange removeMember (@Nonnull final ICSSPageRuleMember aMember)
   {
-    return m_aMembers.remove (aMember);
+    return m_aMembers.removeObject (aMember);
   }
 
   @Nonnull
   public EChange removeMember (@Nonnegative final int nIndex)
   {
-    return m_aMembers.remove (nIndex);
+    return m_aMembers.removeAtIndex (nIndex);
   }
 
   @Nonnull

@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -50,7 +51,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSourceLocationAware, ICSSWriteable
 {
-  private final ICommonsList <DATATYPE> m_aElements = new CommonsArrayList<> ();
+  private final ICommonsList <DATATYPE> m_aElements = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSWritableList ()
@@ -85,17 +86,31 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> implements ICSSSou
   }
 
   @Nonnull
-  protected final EChange remove (@Nonnull final DATATYPE aElement)
+  protected final EChange removeObject (@Nonnull final DATATYPE aElement)
   {
-    return EChange.valueOf (m_aElements.remove (aElement));
+    return m_aElements.removeObject (aElement);
   }
 
   @Nonnull
+  @Deprecated
+  @DevelopersNote ("Use removeObject")
+  protected final EChange remove (@Nonnull final DATATYPE aElement)
+  {
+    return removeObject (aElement);
+  }
+
+  @Nonnull
+  protected final EChange removeAtIndex (@Nonnegative final int nIndex)
+  {
+    return m_aElements.removeAtIndex (nIndex);
+  }
+
+  @Nonnull
+  @Deprecated
+  @DevelopersNote ("Use removeAtIndex")
   protected final EChange remove (@Nonnegative final int nIndex)
   {
-    if (nIndex < 0 || nIndex >= m_aElements.size ())
-      return EChange.UNCHANGED;
-    return EChange.valueOf (m_aElements.remove (nIndex) != null);
+    return removeAtIndex (nIndex);
   }
 
   @Nonnull

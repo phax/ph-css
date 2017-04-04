@@ -58,13 +58,13 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration>
   @Nonnull
   public final EChange removeDeclaration (@Nonnull final CSSDeclaration aDeclaration)
   {
-    return remove (aDeclaration);
+    return removeObject (aDeclaration);
   }
 
   @Nonnull
   public final EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
   {
-    return remove (nDeclarationIndex);
+    return removeAtIndex (nDeclarationIndex);
   }
 
   /**

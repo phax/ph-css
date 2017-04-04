@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
 {
-  private final ICommonsList <ICSSSelectorMember> m_aMembers = new CommonsArrayList<> ();
+  private final ICommonsList <ICSSSelectorMember> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSelector ()
@@ -87,7 +87,7 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeMember (@Nonnull final ICSSSelectorMember aMember)
   {
-    return EChange.valueOf (m_aMembers.remove (aMember));
+    return m_aMembers.removeObject (aMember);
   }
 
   @Nonnull

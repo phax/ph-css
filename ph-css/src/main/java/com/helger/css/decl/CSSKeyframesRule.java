@@ -51,7 +51,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
 {
   private final String m_sDeclaration;
   private final String m_sAnimationName;
-  private final ICommonsList <CSSKeyframesBlock> m_aBlocks = new CommonsArrayList<> ();
+  private final ICommonsList <CSSKeyframesBlock> m_aBlocks = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public static boolean isValidDeclaration (@Nonnull @Nonempty final String sDeclaration)
@@ -121,7 +121,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
   @Nonnull
   public EChange removeBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
   {
-    return EChange.valueOf (m_aBlocks.remove (aKeyframesBlock));
+    return m_aBlocks.removeObject (aKeyframesBlock);
   }
 
   @Nonnull

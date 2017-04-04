@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSStyleRule>, ICSSSourceLocationAware
 {
-  private final ICommonsList <CSSSelector> m_aSelectors = new CommonsArrayList<> ();
+  private final ICommonsList <CSSSelector> m_aSelectors = new CommonsArrayList <> ();
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
@@ -105,7 +105,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   @Nonnull
   public EChange removeSelector (@Nonnull final CSSSelector aSelector)
   {
-    return EChange.valueOf (m_aSelectors.remove (aSelector));
+    return m_aSelectors.removeObject (aSelector);
   }
 
   @Nonnull

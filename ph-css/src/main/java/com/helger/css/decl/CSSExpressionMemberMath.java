@@ -43,7 +43,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final ICommonsList <ICSSExpressionMathMember> m_aMembers = new CommonsArrayList<> ();
+  private final ICommonsList <ICSSExpressionMathMember> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpressionMemberMath ()
@@ -79,7 +79,7 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSVersio
   @Nonnull
   public EChange removeMember (@Nonnull final ICSSExpressionMathMember aMember)
   {
-    return EChange.valueOf (m_aMembers.remove (aMember));
+    return m_aMembers.removeObject (aMember);
   }
 
   @Nonnull

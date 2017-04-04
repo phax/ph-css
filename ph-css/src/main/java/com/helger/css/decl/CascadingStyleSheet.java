@@ -45,9 +45,9 @@ import com.helger.css.ICSSSourceLocationAware;
 @NotThreadSafe
 public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializable
 {
-  private final ICommonsList <CSSImportRule> m_aImportRules = new CommonsArrayList<> ();
-  private final ICommonsList <CSSNamespaceRule> m_aNamespaceRules = new CommonsArrayList<> ();
-  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList<> ();
+  private final ICommonsList <CSSImportRule> m_aImportRules = new CommonsArrayList <> ();
+  private final ICommonsList <CSSNamespaceRule> m_aNamespaceRules = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CascadingStyleSheet ()
@@ -139,7 +139,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeImportRule (@Nullable final CSSImportRule aImportRule)
   {
-    return EChange.valueOf (m_aImportRules.remove (aImportRule));
+    return m_aImportRules.removeObject (aImportRule);
   }
 
   /**
@@ -267,7 +267,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeNamespaceRule (@Nullable final CSSNamespaceRule aNamespaceRule)
   {
-    return EChange.valueOf (m_aNamespaceRules.remove (aNamespaceRule));
+    return m_aNamespaceRules.removeObject (aNamespaceRule);
   }
 
   /**
@@ -402,7 +402,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @Nonnull
   public EChange removeRule (@Nullable final ICSSTopLevelRule aRule)
   {
-    return EChange.valueOf (m_aRules.remove (aRule));
+    return m_aRules.removeObject (aRule);
   }
 
   /**

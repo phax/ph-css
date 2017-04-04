@@ -70,7 +70,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
   private final EModifier m_eModifier;
   private final String m_sMedium;
-  private final ICommonsList <CSSMediaExpression> m_aMediaExpressions = new CommonsArrayList<> ();
+  private final ICommonsList <CSSMediaExpression> m_aMediaExpressions = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   /**
@@ -204,7 +204,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeMediaExpression (@Nullable final CSSMediaExpression aMediaExpression)
   {
-    return EChange.valueOf (m_aMediaExpressions.remove (aMediaExpression));
+    return m_aMediaExpressions.removeObject (aMediaExpression);
   }
 
   /**

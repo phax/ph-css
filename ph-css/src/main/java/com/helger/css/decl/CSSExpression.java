@@ -43,7 +43,7 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
 {
-  private final ICommonsList <ICSSExpressionMember> m_aMembers = new CommonsArrayList<> ();
+  private final ICommonsList <ICSSExpressionMember> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSExpression ()
@@ -300,7 +300,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public EChange removeMember (@Nullable final ICSSExpressionMember aMember)
   {
-    return EChange.valueOf (m_aMembers.remove (aMember));
+    return m_aMembers.removeObject (aMember);
   }
 
   /**

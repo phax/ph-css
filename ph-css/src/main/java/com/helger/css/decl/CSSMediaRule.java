@@ -49,8 +49,8 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
-  private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList<> ();
-  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList<> ();
+  private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList <> ();
+  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSMediaRule ()
@@ -92,7 +92,7 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @Nonnull
   public EChange removeMediaQuery (@Nonnull final CSSMediaQuery aMediaQuery)
   {
-    return EChange.valueOf (m_aMediaQueries.remove (aMediaQuery));
+    return m_aMediaQueries.removeObject (aMediaQuery);
   }
 
   @Nonnull
@@ -163,7 +163,7 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @Nonnull
   public EChange removeRule (@Nonnull final ICSSTopLevelRule aRule)
   {
-    return EChange.valueOf (m_aRules.remove (aRule));
+    return m_aRules.removeObject (aRule);
   }
 
   @Nonnull
