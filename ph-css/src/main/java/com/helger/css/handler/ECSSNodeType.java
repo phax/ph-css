@@ -78,6 +78,7 @@ public enum ECSSNodeType
   MATHPRODUCTOPERATOR (ParserCSS30TreeConstants.JJTMATHPRODUCTOPERATOR),
   MATHUNIT (ParserCSS30TreeConstants.JJTMATHUNIT),
   LINE_NAMES (ParserCSS30TreeConstants.JJTLINENAMES),
+  LINE_NAME (ParserCSS30TreeConstants.JJTLINENAME),
   // media stuff
   MEDIALIST (ParserCSS30TreeConstants.JJTMEDIALIST),
   MEDIUM (ParserCSS30TreeConstants.JJTMEDIUM),

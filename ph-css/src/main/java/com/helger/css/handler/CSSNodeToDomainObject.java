@@ -31,6 +31,7 @@ import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CSSExpression;
 import com.helger.css.decl.CSSExpressionMemberFunction;
+import com.helger.css.decl.CSSExpressionMemberLineNames;
 import com.helger.css.decl.CSSExpressionMemberMath;
 import com.helger.css.decl.CSSExpressionMemberMathProduct;
 import com.helger.css.decl.CSSExpressionMemberMathUnitProduct;
@@ -262,7 +263,7 @@ final class CSSNodeToDomainObject
     if (ECSSNodeType.NEGATION.isNode (aNode, m_eVersion))
     {
       // Note: no children don't make sense but are syntactically allowed!
-      final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList<> ();
+      final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
       for (int i = 0; i < nChildCount; ++i)
       {
         final CSSNode aChildNode = aNode.jjtGetChild (0);
@@ -488,6 +489,31 @@ final class CSSNodeToDomainObject
   }
 
   @Nonnull
+  private CSSExpressionMemberLineNames _createExpressionLineNamesTerm (@Nonnull final CSSNode aNode)
+  {
+    _expectNodeType (aNode, ECSSNodeType.LINE_NAMES);
+
+    final CSSExpressionMemberLineNames ret = new CSSExpressionMemberLineNames ();
+    ret.setSourceLocation (aNode.getSourceLocation ());
+
+    // read all sums
+    for (final CSSNode aChildNode : aNode)
+    {
+      if (ECSSNodeType.LINE_NAME.isNode (aChildNode, m_eVersion))
+      {
+        ret.addMember (aChildNode.getText ());
+      }
+      else
+        m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                  ECSSNodeType.getNodeName (aNode, m_eVersion) +
+                                                  ": " +
+                                                  ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+    }
+
+    return ret;
+  }
+
+  @Nonnull
   private ICSSExpressionMember _createExpressionTerm (@Nonnull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.EXPRTERM);
@@ -523,8 +549,14 @@ final class CSSNodeToDomainObject
           return _createExpressionMathTerm (aChildNode);
         }
         else
-          throw new IllegalStateException ("Expected an expression term but got " +
-                                           ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          if (ECSSNodeType.LINE_NAMES.isNode (aChildNode, m_eVersion))
+          {
+            // Math value
+            return _createExpressionLineNamesTerm (aChildNode);
+          }
+          else
+            throw new IllegalStateException ("Expected an expression term but got " +
+                                             ECSSNodeType.getNodeName (aChildNode, m_eVersion));
   }
 
   @Nonnull
@@ -675,7 +707,7 @@ final class CSSNodeToDomainObject
         _throwUnexpectedChildrenCount (aNode, "Expected at least 1 child but got " + nChildCount + "!");
 
       // Read page selectors (0-n)
-      final ICommonsList <String> aSelectors = new CommonsArrayList<> ();
+      final ICommonsList <String> aSelectors = new CommonsArrayList <> ();
       for (int nIndex = 0; nIndex < nChildCount - 1; ++nIndex)
       {
         final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
@@ -969,7 +1001,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.KEYFRAMESSELECTOR.isNode (aChildNode, m_eVersion))
       {
         // Read all single selectors
-        final ICommonsList <String> aKeyframesSelectors = new CommonsArrayList<> ();
+        final ICommonsList <String> aKeyframesSelectors = new CommonsArrayList <> ();
         for (final CSSNode aSelectorChild : aChildNode)
         {
           _expectNodeType (aSelectorChild, ECSSNodeType.SINGLEKEYFRAMESELECTOR);

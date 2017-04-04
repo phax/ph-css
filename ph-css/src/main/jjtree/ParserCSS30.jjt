@@ -754,14 +754,19 @@ void math() : {}
 }
 
 // for css3-grid-layout
+void lineName() : {}
+{
+  <IDENT> { jjtThis.setText (token.image); }
+}
+
 void lineNames() : {}
 {
   <LSQUARE>
   ( <S> )*
   ( LOOKAHEAD(2)
-    <IDENT> 
-    ( <S> 
-      <IDENT>
+    lineName()
+    ( ( <S> )? 
+      lineName()
     )*
     ( <S> )*
   )?
