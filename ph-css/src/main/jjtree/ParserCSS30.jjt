@@ -267,6 +267,7 @@ TOKEN :
 
 | < EM: <NUM> "em" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "em"; }
 | < EX: <NUM> "ex" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ex"; }
+| < FR: <NUM> "fr" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "fr"; }
 | < PX: <NUM> "px" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "px"; }
 | < REM: <NUM> "rem" >         { matchedToken.image = CSSParseHelper.splitNumber(image) + "rem"; }
 | < VW: <NUM> "vw" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "vw"; }
