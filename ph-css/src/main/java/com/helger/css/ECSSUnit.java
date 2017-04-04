@@ -33,7 +33,7 @@ import com.helger.commons.name.IHasName;
  *
  * @author Philip Helger
  */
-public enum ECSSUnit implements IHasName,ICSSVersionAware
+public enum ECSSUnit implements IHasName, ICSSVersionAware
 {
   /** font size of the element */
   EM ("em", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS10),
@@ -87,7 +87,9 @@ public enum ECSSUnit implements IHasName,ICSSVersionAware
   /** Dots per CSS centimeter */
   DPCM ("dpcm", ECSSMetaUnit.RESOLUTION, ECSSVersion.CSS30),
   /** Dots per pixel centimeter */
-  DPPX ("dppx", ECSSMetaUnit.RESOLUTION, ECSSVersion.CSS30);
+  DPPX ("dppx", ECSSMetaUnit.RESOLUTION, ECSSVersion.CSS30),
+  /** Flexible length or flex */
+  FR ("fr", ECSSMetaUnit.FLEX, ECSSVersion.CSS30);
 
   // synonyms
   /** Length in pixel */

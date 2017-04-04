@@ -30,7 +30,8 @@ public enum ECSSMetaUnit
   ANGLE,
   TIME,
   FREQUENZY,
-  RESOLUTION;
+  RESOLUTION,
+  FLEX;
 
   public boolean isRelativeLength ()
   {
