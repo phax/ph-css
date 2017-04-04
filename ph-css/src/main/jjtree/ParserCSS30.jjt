@@ -658,6 +658,7 @@ Token dimension() #void :
 {
   ( t = <EM>
   | t = <EX>
+  | t = <FR>
   | t = <PX>
   | t = <REM>
   | t = <VW>
@@ -752,6 +753,21 @@ void math() : {}
   <RROUND>
 }
 
+// for css3-grid-layout
+void lineNames() : {}
+{
+  <LSQUARE>
+  ( <S> )*
+  ( LOOKAHEAD(2)
+    <IDENT> 
+    ( <S> 
+      <IDENT>
+    )*
+    ( <S> )*
+  )?
+  <RSQUARE>
+}
+
 void exprTerm() :
 {
   String sPrefix = null;
@@ -772,6 +788,7 @@ void exprTerm() :
   | function()
   | math()
   | t = <URANGE>
+  | lineNames()
   )
   ( <S> )*
   {

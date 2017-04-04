@@ -1,0 +1,606 @@
+/**
+ * Copyright (C) 2014-2017 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Ensure this is truly a 3.0 CSS :) */
+E ~ F {}
+
+/** Source: https://www.w3.org/TR/css3-grid-layout/ */
+
+/* Example 1 */
+
+main {
+  grid: "H    H "
+        "A    B "
+        "F    F " 30px
+  /     auto 1fr;
+}
+
+main {
+  grid: repeat(auto-fill, 5em) / auto-flow 1fr;
+  height: 100vh;
+}
+@media print {
+  main {
+    grid: auto-flow 1fr / repeat(auto-fill, 5em);
+  }
+}
+
+main {
+  grid: auto 1fr auto / repeat(5, 1fr);
+  min-height: 100vh;
+}
+
+/* Example 2 */
+
+div {
+  grid-area: a;          /* Place into named grid area “a”     */
+  grid-area: auto;       /* Auto-place into next empty slot    */
+  grid-area: 2 / 4;      /* Place into row 2, column 4         */
+  grid-area: 1 / 3 / -1; /* Place into column 3, span all rows */
+  grid-area: header-start / sidebar-start / footer-end / sidebar-start; /* Place using named lines            */
+                         
+  grid-row: a;                         grid-column: a;
+  grid-row: auto;                      grid-column: auto;
+  grid-row: 2;                         grid-column: 4;
+  grid-row: 1 / -1;                    grid-column: 3;
+  grid-row: header-start / footer-end; grid-column: sidebar-start / footer-end;
+  
+  grid-area: a;
+  grid-row-start: a; grid-column-start: a; grid-row-end: a; grid-column-end: a;
+  
+  grid-area: 1 / 3 / -1;
+  grid-row-start: 1; grid-column-start: 3; grid-row-end: -1; grid-column-end: auto;
+}
+
+/* Example 3 */
+
+main {
+  grid: auto-flow 1fr / repeat(auto-fill, 5em);
+  min-height: 100vh;
+  justify-content: space-between;
+  align-content: safe center;
+}
+
+/* Example 4 */
+
+/**
+ * Define the space for each grid item by declaring the grid
+ * on the grid container.
+ */
+#grid {
+  /**
+   * Two columns:
+   *  1. the first sized to content,
+   *  2. the second receives the remaining space
+   *     (but is never smaller than the minimum size of the board
+   *     or the game controls, which occupy this column [Figure 3])
+   *
+   * Three rows:
+   *  3. the first sized to content,
+   *  4. the middle row receives the remaining space
+   *     (but is never smaller than the minimum height
+   *      of the board or stats areas)
+   *  5. the last sized to content.
+   */
+  display: grid;
+  grid-template-columns:
+    /* 1 */ auto
+    /* 2 */ 1fr;
+  grid-template-rows:
+    /* 3 */ auto
+    /* 4 */ 1fr
+    /* 5 */ auto;
+}
+
+/* Specify the position of each grid item using coordinates on
+ * the 'grid-row' and 'grid-column' properties of each grid item.
+ */
+#title    { grid-column: 1; grid-row: 1; }
+#score    { grid-column: 1; grid-row: 3; }
+#stats    { grid-column: 1; grid-row: 2; align-self: start; }
+#board    { grid-column: 2; grid-row: 1 / span 2; }
+#controls { grid-column: 2; grid-row: 3; justify-self: center; }
+
+/* Example 5 */
+
+@media (orientation: portrait) {
+  #grid {
+    display: grid;
+
+    /* The rows, columns and areas of the grid are defined visually
+     * using the grid-template-areas property.  Each string is a row,
+     * and each word an area.  The number of words in a string
+     * determines the number of columns. Note the number of words
+     * in each string must be identical. */
+    grid-template-areas: "title stats"
+                         "score stats"
+                         "board board"
+                         "ctrls ctrls";
+
+    /* The way to size columns and rows can be assigned with the
+     * grid-template-columns and grid-template-rows properties. */
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto 1fr auto;
+  }
+}
+
+@media (orientation: landscape) {
+  #grid {
+    display: grid;
+
+    /* Again the template property defines areas of the same name,
+     * but this time positioned differently to better suit a
+     * landscape orientation. */
+    grid-template-areas: "title board"
+                         "stats board"
+                         "score ctrls";
+
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+}
+
+/* The grid-area property places a grid item into a named
+ * area of the grid. */
+#title    { grid-area: title }
+#score    { grid-area: score }
+#stats    { grid-area: stats }
+#board    { grid-area: board }
+#controls { grid-area: ctrls }
+
+/* Example 6 */
+
+#grid {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-rows: 50px 1fr 50px;
+}
+
+#item1 { grid-column: 2;
+         grid-row-start: 1; grid-row-end: 4; }
+         
+/* equivalent layout to the prior example, but using named lines */
+#grid {
+  display: grid;
+  grid-template-columns: 150px [item1-start] 1fr [item1-end];
+  grid-template-rows: [item1-start] 50px 1fr 50px [item1-end];
+}
+
+#item1 {
+  grid-column: item1-start / item1-end;
+  grid-row: item1-start / item1-end;
+}
+
+/* Example 7 */
+
+#grid {
+  display: grid;
+  grid-template-columns: 150px 1fr;  /* two columns */
+  grid-template-rows: 50px 1fr 50px; /* three rows  */
+}
+
+/* Example 8 */
+
+/* using the template syntax */
+#grid  {
+display: grid;
+grid-template-areas: ". a"
+                     "b a"
+                     ". a";
+grid-template-columns: 150px 1fr;
+grid-template-rows: 50px 1fr 50px;
+}
+
+#item1 { grid-area: a }
+#item2 { grid-area: b }
+#item3 { grid-area: b }
+
+/* Align items 2 and 3 at different points in the grid area "b".  */
+/* By default, grid items are stretched to fit their grid area    */
+/* and these items would layer one over the other. */
+#item2 { align-self: start; }
+#item3 { justify-self: end; align-self: end; }
+
+/* Example 9 */
+
+main { display: grid;
+       grid: "h h h"
+             "a b c"
+             "f f f";
+       grid-template-columns: auto 1fr 20%; }
+article { grid-area: b; min-width: 12em;     }
+nav     { grid-area: a; /* auto min-width */ }
+aside   { grid-area: c; min-width: 12em;     }
+
+/* Example 11 */
+
+.grid-item {
+  grid-row: 500 / 1500;
+  grid-column: 2000 / 3000;
+}
+
+.grid-item {
+  grid-row: 500 / 1001;
+  grid-column: 1000 / 1001;
+}
+
+/* Example 13 */
+#grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr
+}
+#A { grid-column: 1 / span 2; grid-row: 2; align-self: end; }
+#B { grid-column: 1; grid-row: 1; z-index: 10; }
+#C { grid-column: 2; grid-row: 1; align-self: start; margin-left: -20px; }
+#D { grid-column: 2; grid-row: 2; justify-self: end; align-self: start; }
+#E { grid-column: 1 / span 2; grid-row: 1 / span 2;
+     z-index: 5; justify-self: center; align-self: center; }
+     
+/* Example 15 */
+
+div {
+/* examples of valid track definitions */
+grid-template-rows: 1fr minmax(min-content, 1fr);
+grid-template-rows: 10px repeat(2, 1fr auto minmax(30%, 1fr));
+grid-template-rows: calc(4em - 5px);  
+}
+
+/* Example 16 */
+
+#grid {
+  display: grid;
+  grid-template-columns: [first nav-start] 150px [main-start] 1fr [last];
+  grid-template-rows: [first header-start] 50px [main-start] 1fr [footer-start] 50px [last];
+}
+
+/* Example 17 */
+
+div {
+grid-template-columns: 10px [col-start] 250px [col-end]
+                       10px [col-start] 250px [col-end]
+                       10px [col-start] 250px [col-end]
+                       10px [col-start] 250px [col-end] 10px;
+/* same as above, except easier to write */
+grid-template-columns: repeat(4, 10px [col-start] 250px [col-end]) 10px;  
+}
+
+/* Example 18 */
+
+body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25ch, 1fr));
+}
+
+/* Example 19 */
+
+#grid {
+  width: 500px;
+  grid-template-columns:
+    [a]     auto
+    [b]     minmax(min-content, 1fr)
+    [b c d] repeat(2, [e] 40px)
+            repeat(5, auto);
+}
+
+/* Example 20 */
+
+#grid {
+  display: grid;
+  grid-template-areas: "head head"
+                       "nav  main"
+                       "foot ...."
+}
+#grid > header { grid-area: head; }
+#grid > nav    { grid-area: nav; }
+#grid > main   { grid-area: main; }
+#grid > footer { grid-area: foot; }
+
+/* Example 21 */
+
+div {
+grid-template: auto 1fr / auto 1fr auto;
+
+/* is equivalent to */
+
+grid-template-rows: auto 1fr;
+grid-template-columns: auto 1fr auto;
+grid-template-areas: none; 
+}
+
+/* Example 22 */
+
+div {
+grid-template: [header-top] "a   a   a"     [header-bottom]
+                 [main-top] "b   b   b" 1fr [main-bottom]
+                          / auto 1fr auto;
+
+/* is equivalent to */
+
+grid-template-areas: "a a a"
+                     "b b b";
+grid-template-rows: [header-top] auto [header-bottom main-top] 1fr [main-bottom];
+grid-template-columns: auto 1fr auto;
+}
+
+/* Example 23 */
+
+#grid {
+  display: grid;
+  grid-template-columns: 20px;
+  grid-auto-columns: 40px;
+  grid-template-rows: 20px;
+  grid-auto-rows: 40px;
+}
+#A { grid-column: 1; grid-row: 1; }
+#B { grid-column: 2; grid-row: 1; }
+#C { grid-column: 1; grid-row: 2; }
+#D { grid-column: 2; grid-row: 2; }
+  
+/* Example 24 */
+form {
+  display: grid;
+  /* Define three columns, all content-sized,
+     and name the corresponding lines. */
+  grid-template-columns: [labels] auto [controls] auto [oversized] auto;
+  grid-auto-flow: row dense;
+}
+form > label {
+  /* Place all labels in the "labels" column and
+     automatically find the next available row. */
+  grid-column: labels;
+  grid-row: auto;
+}
+form > input, form > select {
+  /* Place all controls in the "controls" column and
+     automatically find the next available row. */
+  grid-column: controls;
+  grid-row: auto;
+}
+
+#department-block {
+  /* Auto place this item in the "oversized" column
+     in the first row where an area that spans three rows
+     won’t overlap other explicitly placed items or areas
+     or any items automatically placed prior to this area. */
+  grid-column: oversized;
+  grid-row: span 3;
+}
+
+/* Place all the buttons of the form
+   in the explicitly defined grid area. */
+#buttons {
+  grid-row: auto;
+
+  /* Ensure the button area spans the entire grid element
+     in the row axis. */
+  grid-column: 1 / -1;
+  text-align: end;
+}
+
+/* Example 25 */
+
+div {
+grid-template: none / 100px;
+grid-auto-flow: row;
+grid-auto-rows: 1fr;
+grid-auto-columns: auto;
+grid-gap: 0;
+
+grid-template: none;
+grid-auto-flow: column;
+grid-auto-rows: auto;
+grid-auto-columns: 1fr;
+grid-gap: 0;
+}
+
+/* Example 26 */
+
+ul {
+  display: grid;
+  grid: auto-flow / auto 1fr;
+}
+li {
+  display: subgrid;
+  grid-column: span 2;
+  margin: 0.5em;
+  border: solid;
+  padding: 0.5em;
+}
+label {
+  grid-column: 1;
+}
+input {
+  grid-column: 2;
+}
+
+/* Example 27 */
+
+#parent-grid { grid-template-columns: 300px auto 300px; }
+
+#subgrid { grid-column: 2 / span 2; } /* cover parent’s 2nd and 3rd tracks */
+#subgrid > :first-child { grid-column: 1; } /* subgrid’s 1st track, parent grid’s 2nd track */
+
+#subgrid { padding: 100px; }
+
+/* Example 29 */
+
+article {
+  grid-area: main;
+  /* Places item into the named area "main". */
+}
+
+/* Example 30 */
+
+.one {
+  grid-row-start: main;
+  /* Align the row-start edge to the start edge of the "main" named area. */
+}
+
+/* Example 31 */
+
+.two {
+  grid-row: 2;    /* Place item in the second row. */
+  grid-column: 3; /* Place item in the third column. */
+  /* Equivalent to grid-area: 2 / 3; */
+}
+
+/* Example 32 */
+
+.three {
+  grid-row: 2 / span 5;
+  /* Starts in the 2nd row,
+     spans 5 rows down (ending in the 7th row). */
+}
+
+.four {
+  grid-row: span 5 / 7;
+  /* Ends in the 7th row,
+     spans 5 rows up (starting in the 2nd row). */
+}
+
+/* Example 33 */
+
+.five {
+  grid-column: first / middle;
+  /* Span from line "first" to line "middle". */
+}
+
+/* Example 34 */
+
+.six {
+  grid-row: text 5 / text 7;
+  /* Span between the 5th and 7th lines named "text". */
+  grid-row: text 5 / span text 2;
+  /* Same as above - start at the 5th line named "text",
+     then span across two more "text" lines, to the 7th. */
+}
+
+/* Example 35 */
+ 
+.eight {
+  grid-area: auto; /* Initial value */
+}
+
+/* Example 36 */
+
+.nine {
+  grid-area: span 2 / span 3;
+  /* Auto-placed item, covering two rows and three columns. */
+}
+
+/* Example 37 */
+
+.grid { grid-template-columns: 100px; }
+.griditem { grid-column: span foo / 4; }
+
+/* Example 38 */
+
+div {
+grid-column-start: 4; grid-column-end: auto;
+/* Line 4 to line 5 */
+
+grid-column-start: auto; grid-column-end: 6;
+/* Line 5 to line 6 */
+
+grid-column-start: C; grid-column-end: C -1;
+/* Line 3 to line 9 */
+
+grid-column-start: C; grid-column-end: span C;
+/* Line 3 to line 6 */
+
+grid-column-start: span C; grid-column-end: C -1;
+/* Line 6 to line 9 */
+
+grid-column-start: span C; grid-column-end: span C;
+/* Error: The end span is ignored, and an auto-placed
+   item can’t span to a named line.
+   Equivalent to grid-column: span 1;. */
+
+grid-column-start: 5; grid-column-end: C -1;
+/* Line 5 to line 9 */
+
+grid-column-start: 5; grid-column-end: span C;
+/* Line 5 to line 6 */
+
+grid-column-start: 8; grid-column-end: 8;
+/* Error: line 8 to line 9 */
+
+grid-column-start: B 2; grid-column-end: span 1;
+/* Line 5 to line 6 */
+}
+
+/* Example 39 */
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(5, 100px);
+  grid-auto-flow: row;
+}
+#grid-item {
+  grid-column: 4 / span 3;
+}
+
+/* Example 40 */
+
+.grid {
+  grid: 1fr 1fr 1fr 1fr / 10rem 10rem 10rem 10rem;
+  /* 4 equal-height rows filling the grid container,
+     4 columns of 10rem each */
+  justify-content: center;
+  /* center the grid horizontally within the grid container */
+  position: relative;
+  /* Establish abspos containing block */
+}
+
+.abspos {
+  grid-row-start: 1;     /* 1st grid row line = top of grid container */
+  grid-row-end: span 2;  /* 3rd grid row line */
+  grid-column-start: 3;  /* 3rd grid col line */
+  grid-column-end: auto; /* right padding edge */
+  /* Containing block covers the top right quadrant of the grid container */
+
+  position: absolute;
+  top: 70px;
+  bottom: 40px;
+  left: 100px;
+  right: 30px;
+}
+
+/* Example 42 */
+
+.grid {
+  display: grid;
+  grid: 12rem 12rem 12rem 12rem / 10rem 10rem 10rem 10rem;
+  justify-content: end;
+  align-content: center;
+}
+
+/* Example 43 */
+
+.wrapper {
+  display: grid;
+  /* 4-column / 3-row grid container */
+  grid-gap: 10px;
+  align-content: space-around;
+  justify-content: space-between;
+}
+
+.item1 { grid-column: 1 / 5; }
+.item2 { grid-column: 1 / 3; grid-row: 2 / 4; }
+.item3 { grid-column: 3 / 5; }
+/* last two items auto-place into the last two grid cells */
+
