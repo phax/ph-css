@@ -56,7 +56,7 @@ public final class CSSWriterFuncTest
     {
       // write to buffer
       final String sCSS = new CSSWriter (eVersion, i == 1).getCSSAsString (aCSS);
-      if (true)
+      if (false)
         System.out.println ("--" + i + "--\n" + sCSS);
 
       // read again from buffer

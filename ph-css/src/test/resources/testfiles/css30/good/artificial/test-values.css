@@ -1,0 +1,137 @@
+/* Source: https://www.w3.org/TR/2016/CR-css-values-3-20160929/ */
+
+/* Example 5 */
+
+#ex5 {
+	content: "this is a 'string'.";
+	content: "this is a \"string\".";
+	content: 'this is a "string".';
+	content: 'this is a \'string\'.'
+}
+
+/* Example 6 */
+
+a[title="a not s\
+	o very long title"] {/*...*/}
+a[title="a not so very long title"] {/*...*/}
+
+/* Example 7 */
+
+body { background: url("http://www.example.com/pinkish.gif") }
+
+/* Example 8 */
+
+#ex8 {
+  background: url("http://www.example.com/pinkish.gif");
+  background: url(http://www.example.com/pinkish.gif);
+}
+
+/* Example 12 */
+
+h1 { line-height: 1.2em }
+
+h1 { font-size: 1.2em }
+
+/* Example 13 */
+
+h1 { font-size: 8vw }
+
+/* Example 14 */
+
+h1 { margin: 0.5in }      /* inches  */
+h2 { line-height: 3cm }   /* centimeters */
+h3 { word-spacing: 4mm }  /* millimeters */
+h3 { letter-spacing: 1Q } /* quarter-millimeters */
+h4 { font-size: 12pt }    /* points */
+h4 { font-size: 1pc }     /* picas */
+p  { font-size: 12px }    /* px */
+
+/* Example 15 */
+
+@media (min-resolution: 2dppx) { /* ... */ }
+
+/* Example 16 */
+
+#ex16 {
+	background: url(http://www.example.org/image);
+	color: rgb(100, 200, 50 );
+	content: counter(list-item) ". ";
+	width: calc(50% - 2em);
+}
+
+/* Example 17 */
+
+section {
+  float: left;
+  margin: 1em; border: solid 1px;
+  width: calc(100%/3 - 2*1em - 2*1px);
+}
+
+/* Example 18 */
+
+p {
+  margin: calc(1rem - 2px) calc(1rem - 1px);
+}
+
+/* Example 19 */
+
+:root {
+  font-size: calc(100vw / 40);
+}
+
+/* Example 20 */
+
+.foo {
+  background: url(top.png), url(bottom.png);
+  background-repeat: no-repeat;
+  background-position: calc(50% + 20px) calc(50% + 20px), 50% 50%;
+}
+
+/* Example 21 */
+
+.foo {
+  background-image: linear-gradient(to right, silver,
+                                              white 50px,
+                                              white calc(100% - 50px),
+                                              silver);
+}
+
+/* Example 22 */
+
+.foo {
+  width: 200px;
+  background-image: url(bg.png);
+  background-position: left 50%;
+  /* different than: */
+  background-position: left 100px;
+  /* despite 50% of 200px being 100px */
+}
+
+/* Example 23 */
+
+#ex23 {
+width: calc(5px - 10px);
+width: calc(-5px);
+width: 0px;
+}
+
+/* Example 24 */
+
+stock::before {
+  display: block;
+  content: "To scale, the lengths of materials in stock are:";
+}
+stock > * {
+  display: block;
+  width: attr(length em); /* default 0 */
+  height: 1em;
+  border: solid thin;
+  margin: 0.5em;
+}
+wood {
+  background: orange url(wood.png);
+}
+metal {
+  background: silver url(metal.png);
+}
+
