@@ -27,7 +27,7 @@ import com.helger.commons.string.StringHelper;
 /**
  * Enumeration containing all W3C CSS specifications.<br>
  * Source: https://www.w3.org/Style/CSS/current-work.en.html<br>
- * Last update: 04.04.2017<br>
+ * Last update: 2017-04-05<br>
  * For regular CSS parsing/writing this enum has no impact!<br>
  * <br>
  * Run MainCreateSupportedCSSPropertiesFile after changing something here!!
@@ -175,8 +175,26 @@ public enum ECSSSpecification implements IHasID <String>
   MOTION_1 ("motion-1", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2015/WD-motion-1-20150409/"),
   /** CSS Round Display Level 1 */
   CSS_ROUND_DISPLAY_1 ("css-round-display-1", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/2016/WD-css-round-display-1-20161222/"),
-
-  // ---------------
+  /** CSS Basic User Interface Module Level 4 */
+  CSS_UI_4 ("css-ui-4", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2015/WD-css-ui-4-20150922/"),
+  /** CSS Text Module Level 4 */
+  CSS_TEXT_4 ("css-text-4", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2015/WD-css-text-4-20150922/"),
+  /** CSS Painting API Level 1 */
+  CSS_PAINT_API_1 ("css-paint-api-1", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2016/WD-css-paint-api-1-20160607/"),
+  /** CSS Properties and Values API Level 1 */
+  CSS_PROPERTIES_VALUES_API_1 ("css-properties-values-api-1", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2016/WD-css-properties-values-api-1-20160607/"),
+  /** CSS Typed OM Level 1 */
+  CSS_TYPED_OM_1 ("css-typed-om-1", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2016/WD-css-typed-om-1-20160607/"),
+  /** Worklets Level 1 */
+  WORKLETS_1 ("worklets-1", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2016/WD-worklets-1-20160607/"),
+  /** CSS Color Module Level 4 */
+  CSS_COLOR_4 ("css-color-4", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2016/WD-css-color-4-20160705/"),
+  /** CSS Fonts Level 4 */
+  CSS_FONTS_4 ("css-fonts-4", ECSSSpecificationStatus.EXPLORING),
+  /** CSS Rhythmic Sizing */
+  CSS_RHYTHM_1 ("css-rhythm-1", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/2017/WD-css-rhythm-1-20170302/"),
+  /** CSS Image Values and Replaced Content Module Level 4 */
+  CSS4_IMAGES ("css4-images", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2012/WD-css4-images-20120911/"),
 
   /** CSS Basic Box Model Level 3 */
   CSS3_BOX ("css3-box", ECSSSpecificationStatus.REWRITING),
