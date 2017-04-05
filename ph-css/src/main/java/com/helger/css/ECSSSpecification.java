@@ -43,9 +43,9 @@ public enum ECSSSpecification implements IHasID <String>
   /** Selectors Level 3 */
   SELECTORS ("selectors", ECSSSpecificationStatus.COMPLETED, "http://www.w3.org/TR/2011/REC-css3-selectors-20110929/"),
   /** CSS Level 2 Revision 1 */
-  CSS2 ("CSS2", ECSSSpecificationStatus.COMPLETED, "http://www.w3.org/TR/CSS2/"),
+  CSS2 ("CSS2", ECSSSpecificationStatus.COMPLETED, "http://www.w3.org/TR/2011/REC-CSS2-20110607"),
   /** CSS Level 1 */
-  CSS1 ("CSS1", ECSSSpecificationStatus.COMPLETED, "http://www.w3.org/TR/CSS1/"),
+  CSS1 ("CSS1", ECSSSpecificationStatus.COMPLETED, "http://www.w3.org/TR/2008/REC-CSS1-20080411"),
   /** CSS Print Profile */
   CSS_PRINT ("css-print", ECSSSpecificationStatus.COMPLETED, "http://www.w3.org/TR/2013/NOTE-css-print-20130314/"),
   /** Media Queries */

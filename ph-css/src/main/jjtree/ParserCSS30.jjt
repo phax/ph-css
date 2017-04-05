@@ -269,11 +269,12 @@ TOKEN :
 | < EX: <NUM> "ex" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ex"; }
 | < FR: <NUM> "fr" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "fr"; }
 | < PX: <NUM> "px" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "px"; }
+| < CH: <NUM> "ch" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ch"; }
 | < REM: <NUM> "rem" >         { matchedToken.image = CSSParseHelper.splitNumber(image) + "rem"; }
 | < VW: <NUM> "vw" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "vw"; }
 | < VH: <NUM> "vh" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "vh"; }
 | < VMIN: <NUM> "vmin" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "vmin"; }
-| < CH: <NUM> "ch" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ch"; }
+| < VMAX: <NUM> "vmax" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "vmax"; }
 | < DPI: <NUM> "dpi" >         { matchedToken.image = CSSParseHelper.splitNumber(image) + "dpi"; }
 | < DPCM: <NUM> "dpcm" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "dpcm"; }
 | < DPPX: <NUM> "dppx" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "dppx"; }
@@ -660,11 +661,12 @@ Token dimension() #void :
   | t = <EX>
   | t = <FR>
   | t = <PX>
+  | t = <CH>
   | t = <REM>
   | t = <VW>
   | t = <VH>
   | t = <VMIN>
-  | t = <CH>
+  | t = <VMAX>
   | t = <DPI>
   | t = <DPCM>
   | t = <DPPX>

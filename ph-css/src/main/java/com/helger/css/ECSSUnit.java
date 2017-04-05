@@ -41,6 +41,8 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   EX ("ex", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS10),
   /** pixels; 1px is equal to 1/96th of 1in */
   PX ("px", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
+  /** width of the "0" glyph in the element's font */
+  CH ("ch", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** font size of the root element */
   REM ("rem", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** Equal to 1% of the width of the initial containing block. */
@@ -49,8 +51,8 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   VH ("vh", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** Equal to the smaller of 'vw' or 'vh'. */
   VMIN ("vmin", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
-  /** width of the "0" glyph in the element's font */
-  CH ("ch", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /** Equal to the larger of 'vw' or 'vh'. */
+  VMAX ("vmax", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** inches; 1in is equal to 2.54cm */
   LENGTH_IN ("in", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
   /** centimeters */
@@ -471,6 +473,45 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   public static String vmin (@Nonnull final BigDecimal aValue)
   {
     return VMIN.format (aValue);
+  }
+
+  /**
+   * @param nValue
+   *        value to format
+   * @return <code>value + "vmax"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String vmax (final int nValue)
+  {
+    return VMAX.format (nValue);
+  }
+
+  /**
+   * @param dValue
+   *        value to format
+   * @return <code>value + "vmax"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String vmax (final double dValue)
+  {
+    return VMAX.format (dValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to format. May not be <code>null</code>.
+   * @return <code>value + "vmax"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String vmax (@Nonnull final BigDecimal aValue)
+  {
+    return VMAX.format (aValue);
   }
 
   /**
@@ -1137,6 +1178,45 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   public static String dppx (@Nonnull final BigDecimal aValue)
   {
     return DPPX.format (aValue);
+  }
+
+  /**
+   * @param nValue
+   *        value to format
+   * @return <code>value + "fr"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String fr (final int nValue)
+  {
+    return FR.format (nValue);
+  }
+
+  /**
+   * @param dValue
+   *        value to format
+   * @return <code>value + "fr"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String fr (final double dValue)
+  {
+    return FR.format (dValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to format. May not be <code>null</code>.
+   * @return <code>value + "fr"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String fr (@Nonnull final BigDecimal aValue)
+  {
+    return FR.format (aValue);
   }
 
   /**
