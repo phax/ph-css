@@ -169,7 +169,10 @@ public final class CSSColorHelper
   public static boolean isRGBColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    return StringHelper.hasText (sRealValue) && RegExHelper.stringMatchesPattern (PATTERN_RGB, sRealValue);
+    // startsWith as speedup
+    return StringHelper.hasText (sRealValue) &&
+           sRealValue.startsWith (CCSSValue.PREFIX_RGB) &&
+           RegExHelper.stringMatchesPattern (PATTERN_RGB, sRealValue);
   }
 
   /**
@@ -185,7 +188,7 @@ public final class CSSColorHelper
   public static CSSRGB getParsedRGBColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    if (StringHelper.hasText (sRealValue))
+    if (StringHelper.hasText (sRealValue) && sRealValue.startsWith (CCSSValue.PREFIX_RGB))
     {
       final String [] aValues = RegExHelper.getAllMatchingGroupValues (PATTERN_RGB, sRealValue);
       if (aValues != null)
@@ -206,14 +209,16 @@ public final class CSSColorHelper
   public static boolean isRGBAColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    return StringHelper.hasText (sRealValue) && RegExHelper.stringMatchesPattern (PATTERN_RGBA, sRealValue);
+    return StringHelper.hasText (sRealValue) &&
+           sRealValue.startsWith (CCSSValue.PREFIX_RGBA) &&
+           RegExHelper.stringMatchesPattern (PATTERN_RGBA, sRealValue);
   }
 
   @Nullable
   public static CSSRGBA getParsedRGBAColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    if (StringHelper.hasText (sRealValue))
+    if (StringHelper.hasText (sRealValue) && sRealValue.startsWith (CCSSValue.PREFIX_RGBA))
     {
       final String [] aValues = RegExHelper.getAllMatchingGroupValues (PATTERN_RGBA, sRealValue);
       if (aValues != null)
@@ -234,14 +239,16 @@ public final class CSSColorHelper
   public static boolean isHSLColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    return StringHelper.hasText (sRealValue) && RegExHelper.stringMatchesPattern (PATTERN_HSL, sRealValue);
+    return StringHelper.hasText (sRealValue) &&
+           sRealValue.startsWith (CCSSValue.PREFIX_HSL) &&
+           RegExHelper.stringMatchesPattern (PATTERN_HSL, sRealValue);
   }
 
   @Nullable
   public static CSSHSL getParsedHSLColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    if (StringHelper.hasText (sRealValue))
+    if (StringHelper.hasText (sRealValue) && sRealValue.startsWith (CCSSValue.PREFIX_HSL))
     {
       final String [] aValues = RegExHelper.getAllMatchingGroupValues (PATTERN_HSL, sRealValue);
       if (aValues != null)
@@ -262,14 +269,16 @@ public final class CSSColorHelper
   public static boolean isHSLAColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    return StringHelper.hasText (sRealValue) && RegExHelper.stringMatchesPattern (PATTERN_HSLA, sRealValue);
+    return StringHelper.hasText (sRealValue) &&
+           sRealValue.startsWith (CCSSValue.PREFIX_HSLA) &&
+           RegExHelper.stringMatchesPattern (PATTERN_HSLA, sRealValue);
   }
 
   @Nullable
   public static CSSHSLA getParsedHSLAColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    if (StringHelper.hasText (sRealValue))
+    if (StringHelper.hasText (sRealValue) && sRealValue.startsWith (CCSSValue.PREFIX_HSLA))
     {
       final String [] aValues = RegExHelper.getAllMatchingGroupValues (PATTERN_HSLA, sRealValue);
       if (aValues != null)
@@ -290,7 +299,9 @@ public final class CSSColorHelper
   public static boolean isHexColorValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    return StringHelper.hasText (sRealValue) && RegExHelper.stringMatchesPattern (PATTERN_HEX, sRealValue);
+    return StringHelper.hasText (sRealValue) &&
+           sRealValue.charAt (0) == CCSSValue.PREFIX_HEX &&
+           RegExHelper.stringMatchesPattern (PATTERN_HEX, sRealValue);
   }
 
   @Nonnegative
