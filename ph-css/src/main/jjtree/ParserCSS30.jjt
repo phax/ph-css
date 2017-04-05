@@ -99,7 +99,7 @@ SPECIAL_TOKEN :
 <DEFAULT, IN_NTH, IN_UNKNOWN_RULE>
 TOKEN :
 {
-  < S: (" "|"\t"|"\r"|"\n"|"\f")+ >
+  < S: (" "|"\t"|"\n"|"\r\n"|"\r"|"\f")+ >
 | < W: ( <S> )? >
 }
 
@@ -140,7 +140,7 @@ TOKEN :
 | < #ESCAPE_UNICODE: "\\" <HNUM> ( "\r\n"
                                  | [" ","\t","\r","\n","\f"]
                                  )? >
-| < #ESCAPE_OTHER: "\\" ~["\r","\n","\f","0"-"9","a"-"f"] >
+| < #ESCAPE_OTHER: "\\" ~["\n","\r","\f","0"-"9","a"-"f"] >
 | < #ESCAPE: <ESCAPE_UNICODE>
            | <ESCAPE_OTHER> >
 // nmstart      [_a-z]|{nonascii}|{escape}
@@ -280,6 +280,7 @@ TOKEN :
 | < DPPX: <NUM> "dppx" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "dppx"; }
 | < LENGTH_CM: <NUM> "cm" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "cm"; }
 | < LENGTH_MM: <NUM> "mm" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "mm"; }
+| < LENGTH_Q:  <NUM> "q" >     { matchedToken.image = CSSParseHelper.splitNumber(image) + "q"; }
 | < LENGTH_IN: <NUM> "in" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "in"; }
 | < LENGTH_PT: <NUM> "pt" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "pt"; }
 | < LENGTH_PC: <NUM> "pc" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "pc"; }
@@ -672,6 +673,7 @@ Token dimension() #void :
   | t = <DPPX>
   | t = <LENGTH_CM>
   | t = <LENGTH_MM>
+  | t = <LENGTH_Q>
   | t = <LENGTH_IN>
   | t = <LENGTH_PT>
   | t = <LENGTH_PC>

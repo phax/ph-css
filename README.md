@@ -17,6 +17,7 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
   * v5.0.4
     * Improved special identifier handling in expressions (#38)
     * Added support for css-grid spec with new "line-name" syntax element
+    * Added new CSS units: `fr`, `vmax` and `Q`
   * v5.0.3 - 2017-01-09
     * Binds to ph-commons 8.6.0
     * Added custom callback for illegal characters

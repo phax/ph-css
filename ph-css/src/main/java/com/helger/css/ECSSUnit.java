@@ -59,6 +59,8 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   LENGTH_CM ("cm", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
   /** millimeters; 10 millimeters = 1 centimeter */
   LENGTH_MM ("mm", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
+  /** quarter millimeters; 40 quarter-millimeters = 1 centimeter */
+  LENGTH_Q ("q", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS30),
   /** points; 1pt is equal to 1/72nd of 1in */
   LENGTH_PT ("pt", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
   /** picas; 1pc is equal to 12pt */
@@ -660,6 +662,45 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   public static String mm (@Nonnull final BigDecimal aValue)
   {
     return LENGTH_MM.format (aValue);
+  }
+
+  /**
+   * @param nValue
+   *        value to format
+   * @return <code>value + "q"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String q (final int nValue)
+  {
+    return LENGTH_Q.format (nValue);
+  }
+
+  /**
+   * @param dValue
+   *        value to format
+   * @return <code>value + "q"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String q (final double dValue)
+  {
+    return LENGTH_Q.format (dValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to format. May not be <code>null</code>.
+   * @return <code>value + "q"</code>
+   * @since 5.0.4
+   */
+  @Nonnull
+  @Nonempty
+  public static String q (@Nonnull final BigDecimal aValue)
+  {
+    return LENGTH_Q.format (aValue);
   }
 
   /**
