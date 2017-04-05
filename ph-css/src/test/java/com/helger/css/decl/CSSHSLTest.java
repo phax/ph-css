@@ -36,7 +36,7 @@ public final class CSSHSLTest
   {
     final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
     final CSSHSL aColor = new CSSHSL (1, 2, 3);
-    assertEquals ("hsl(1,2%,3%)", aColor.getAsCSSString (aSettings, 0));
+    assertEquals ("hsl(1,2%,3%)", aColor.getAsCSSString (aSettings));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSHSL (aColor));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSHSL (1, 2, 3));

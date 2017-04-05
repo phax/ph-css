@@ -102,7 +102,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("-5", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("-5", aMember.getAsCSSString (aCSSWS));
 
     // b: +5
     aDecl = aSR.getDeclarationOfPropertyName ("b");
@@ -110,7 +110,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("+5", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("+5", aMember.getAsCSSString (aCSSWS));
 
     // c: 5
     aDecl = aSR.getDeclarationOfPropertyName ("c");
@@ -118,7 +118,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("5", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("5", aMember.getAsCSSString (aCSSWS));
 
     // d: -5.12
     aDecl = aSR.getDeclarationOfPropertyName ("d");
@@ -126,7 +126,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("-5.12", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("-5.12", aMember.getAsCSSString (aCSSWS));
 
     // e: +5.12
     aDecl = aSR.getDeclarationOfPropertyName ("e");
@@ -134,7 +134,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("+5.12", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("+5.12", aMember.getAsCSSString (aCSSWS));
 
     // f: 5.12
     aDecl = aSR.getDeclarationOfPropertyName ("f");
@@ -142,7 +142,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("5.12", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("5.12", aMember.getAsCSSString (aCSSWS));
 
     // g: -5.12%
     aDecl = aSR.getDeclarationOfPropertyName ("g");
@@ -150,7 +150,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("-5.12%", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("-5.12%", aMember.getAsCSSString (aCSSWS));
 
     // h: +5.12%
     aDecl = aSR.getDeclarationOfPropertyName ("h");
@@ -158,7 +158,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("+5.12%", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("+5.12%", aMember.getAsCSSString (aCSSWS));
 
     // i: 5.12%
     aDecl = aSR.getDeclarationOfPropertyName ("i");
@@ -166,7 +166,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("5.12%", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("5.12%", aMember.getAsCSSString (aCSSWS));
 
     // j: -5px
     aDecl = aSR.getDeclarationOfPropertyName ("j");
@@ -174,7 +174,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("-5px", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("-5px", aMember.getAsCSSString (aCSSWS));
 
     // k: +5px
     aDecl = aSR.getDeclarationOfPropertyName ("k");
@@ -182,7 +182,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("+5px", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("+5px", aMember.getAsCSSString (aCSSWS));
 
     // l: 5px
     aDecl = aSR.getDeclarationOfPropertyName ("l");
@@ -190,7 +190,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("5px", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("5px", aMember.getAsCSSString (aCSSWS));
 
     // m: 'string1'
     aDecl = aSR.getDeclarationOfPropertyName ("m");
@@ -198,7 +198,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("'string1'", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("'string1'", aMember.getAsCSSString (aCSSWS));
 
     // n: "string2"
     aDecl = aSR.getDeclarationOfPropertyName ("n");
@@ -206,7 +206,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("\"string2\"", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("\"string2\"", aMember.getAsCSSString (aCSSWS));
 
     // o: abc
     aDecl = aSR.getDeclarationOfPropertyName ("o");
@@ -214,7 +214,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("abc", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("abc", aMember.getAsCSSString (aCSSWS));
 
     // p: from
     aDecl = aSR.getDeclarationOfPropertyName ("p");
@@ -222,7 +222,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("from", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("from", aMember.getAsCSSString (aCSSWS));
 
     // q: to
     aDecl = aSR.getDeclarationOfPropertyName ("q");
@@ -230,7 +230,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("to", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("to", aMember.getAsCSSString (aCSSWS));
 
     // r: url(a.gif)
     aDecl = aSR.getDeclarationOfPropertyName ("r");
@@ -238,7 +238,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermURI);
-    assertEquals ("url(a.gif)", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("url(a.gif)", aMember.getAsCSSString (aCSSWS));
 
     // s: #123
     aDecl = aSR.getDeclarationOfPropertyName ("s");
@@ -246,7 +246,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("#123", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("#123", aMember.getAsCSSString (aCSSWS));
 
     // t: function(5,6,abc)
     aDecl = aSR.getDeclarationOfPropertyName ("t");
@@ -257,7 +257,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals ("function", ((CSSExpressionMemberFunction) aMember).getFunctionName ());
     // 3 parameters and 2 commas
     assertEquals (5, ((CSSExpressionMemberFunction) aMember).getExpression ().getMemberCount ());
-    assertEquals ("function(5,6,abc)", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("function(5,6,abc)", aMember.getAsCSSString (aCSSWS));
 
     // u: calc(4 + 5)
     aDecl = aSR.getDeclarationOfPropertyName ("u");
@@ -267,7 +267,7 @@ public final class CSSReader30SpecialFuncTest
     assertTrue (aMember instanceof CSSExpressionMemberMath);
     // 2 values and 1 operator
     assertEquals (3, ((CSSExpressionMemberMath) aMember).getMemberCount ());
-    assertEquals ("calc(4 + 5)", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("calc(4 + 5)", aMember.getAsCSSString (aCSSWS));
 
     // v: inherit
     aDecl = aSR.getDeclarationOfPropertyName ("v");
@@ -275,7 +275,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("inherit", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("inherit", aMember.getAsCSSString (aCSSWS));
 
     // w: u+1234
     aDecl = aSR.getDeclarationOfPropertyName ("w");
@@ -283,7 +283,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (1, aDecl.getExpression ().getMemberCount ());
     aMember = aDecl.getExpression ().getMemberAtIndex (0);
     assertTrue (aMember instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("u+1234", aMember.getAsCSSString (aCSSWS, 0));
+    assertEquals ("u+1234", aMember.getAsCSSString (aCSSWS));
 
     // Write result
     final String sCSS = new CSSWriter (aCSSWS).getCSSAsString (aCSS);

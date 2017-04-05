@@ -45,7 +45,7 @@ public final class WikiVisitFromHtml
     for (final CSSDeclaration aDeclaration : aDeclList.getAllDeclarations ())
       System.out.println (aDeclaration.getProperty () +
                           ": " +
-                          aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30), 0) +
+                          aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)) +
                           (aDeclaration.isImportant () ? " (important)" : " (not important)"));
   }
 
@@ -63,8 +63,7 @@ public final class WikiVisitFromHtml
       {
         System.out.println (aDeclaration.getProperty () +
                             ": " +
-                            aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30),
-                                                                          0) +
+                            aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)) +
                             (aDeclaration.isImportant () ? " (important)" : " (not important)"));
       }
     };

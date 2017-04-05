@@ -36,7 +36,7 @@ public final class CSSRGBATest
   {
     final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
     final CSSRGBA aColor = new CSSRGBA (1, 2, 3, 0.5f);
-    assertEquals ("rgba(1,2,3,0.5)", aColor.getAsCSSString (aSettings, 0));
+    assertEquals ("rgba(1,2,3,0.5)", aColor.getAsCSSString (aSettings));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGBA (aColor));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGBA (1, 2, 3, 0.5f));

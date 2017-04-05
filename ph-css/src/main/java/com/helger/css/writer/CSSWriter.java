@@ -304,7 +304,7 @@ public class CSSWriter
       if (aImportRules.isNotEmpty ())
         for (final CSSImportRule aImportRule : aImportRules)
         {
-          aWriter.write (aImportRule.getAsCSSString (m_aSettings, 0));
+          aWriter.write (aImportRule.getAsCSSString (m_aSettings));
           ++nRulesEmitted;
         }
 
@@ -313,14 +313,14 @@ public class CSSWriter
       if (aNamespaceRules.isNotEmpty ())
         for (final CSSNamespaceRule aNamespaceRule : aNamespaceRules)
         {
-          aWriter.write (aNamespaceRule.getAsCSSString (m_aSettings, 0));
+          aWriter.write (aNamespaceRule.getAsCSSString (m_aSettings));
           ++nRulesEmitted;
         }
 
       // Main CSS rules
       for (final ICSSTopLevelRule aRule : aCSS.getAllRules ())
       {
-        final String sRuleCSS = aRule.getAsCSSString (m_aSettings, 0);
+        final String sRuleCSS = aRule.getAsCSSString (m_aSettings);
         if (StringHelper.hasText (sRuleCSS))
         {
           if (!bOptimizedOutput && nRulesEmitted > 0)
@@ -399,7 +399,7 @@ public class CSSWriter
 
     try
     {
-      aWriter.write (aCSS.getAsCSSString (m_aSettings, 0));
+      aWriter.write (aCSS.getAsCSSString (m_aSettings));
     }
     finally
     {

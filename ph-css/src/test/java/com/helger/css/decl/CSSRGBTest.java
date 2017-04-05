@@ -36,7 +36,7 @@ public final class CSSRGBTest
   {
     final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
     final CSSRGB aColor = new CSSRGB (1, 2, 3);
-    assertEquals ("rgb(1,2,3)", aColor.getAsCSSString (aSettings, 0));
+    assertEquals ("rgb(1,2,3)", aColor.getAsCSSString (aSettings));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGB (aColor));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGB (1, 2, 3));

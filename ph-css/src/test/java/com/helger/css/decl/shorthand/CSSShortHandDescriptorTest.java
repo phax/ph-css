@@ -60,9 +60,9 @@ public final class CSSShortHandDescriptorTest
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
     assertNotNull (aSplittedDecls);
     assertEquals (3, aSplittedDecls.size ());
-    assertEquals ("border-width:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("border-style:solid", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("border-color:black", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
+    assertEquals ("border-width:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("border-style:solid", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("border-color:black", aSplittedDecls.get (2).getAsCSSString (CWS));
   }
 
   @Test
@@ -78,9 +78,9 @@ public final class CSSShortHandDescriptorTest
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
     assertNotNull (aSplittedDecls);
     assertEquals (3, aSplittedDecls.size ());
-    assertEquals ("border-width:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("border-style:dashed", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("border-color:black", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
+    assertEquals ("border-width:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("border-style:dashed", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("border-color:black", aSplittedDecls.get (2).getAsCSSString (CWS));
   }
 
   @Test
@@ -96,9 +96,9 @@ public final class CSSShortHandDescriptorTest
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
     assertNotNull (aSplittedDecls);
     assertEquals (3, aSplittedDecls.size ());
-    assertEquals ("border-style:dashed", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("border-width:1px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("border-color:red", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
+    assertEquals ("border-style:dashed", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("border-width:1px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("border-color:red", aSplittedDecls.get (2).getAsCSSString (CWS));
   }
 
   @Test
@@ -114,9 +114,9 @@ public final class CSSShortHandDescriptorTest
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
     assertNotNull (aSplittedDecls);
     assertEquals (3, aSplittedDecls.size ());
-    assertEquals ("border-color:red", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("border-width:1px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("border-style:dashed", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
+    assertEquals ("border-color:red", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("border-width:1px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("border-style:dashed", aSplittedDecls.get (2).getAsCSSString (CWS));
   }
 
   @Test
@@ -133,10 +133,10 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
 
-    assertEquals ("margin-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("margin-right:1px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("margin-bottom:1px", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("margin-left:1px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("margin-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("margin-right:1px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("margin-bottom:1px", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("margin-left:1px", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -153,10 +153,10 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
 
-    assertEquals ("margin-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("margin-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("margin-bottom:1px", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("margin-left:3px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("margin-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("margin-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("margin-bottom:1px", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("margin-left:3px", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -173,10 +173,10 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
 
-    assertEquals ("margin-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("margin-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("margin-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("margin-left:3px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("margin-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("margin-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("margin-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("margin-left:3px", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -193,10 +193,10 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
 
-    assertEquals ("margin-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("margin-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("margin-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("margin-left:7px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("margin-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("margin-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("margin-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("margin-left:7px", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -213,10 +213,10 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
 
-    assertEquals ("padding-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("padding-right:1px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("padding-bottom:1px", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("padding-left:1px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("padding-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("padding-right:1px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("padding-bottom:1px", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("padding-left:1px", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -233,10 +233,10 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
 
-    assertEquals ("padding-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("padding-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("padding-bottom:1px", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("padding-left:3px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("padding-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("padding-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("padding-bottom:1px", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("padding-left:3px", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -253,10 +253,10 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
 
-    assertEquals ("padding-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("padding-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("padding-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("padding-left:3px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("padding-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("padding-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("padding-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("padding-left:3px", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -273,10 +273,10 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
 
-    assertEquals ("padding-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("padding-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("padding-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("padding-left:7px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("padding-top:1px", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("padding-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("padding-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("padding-left:7px", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -294,14 +294,14 @@ public final class CSSShortHandDescriptorTest
     assertNotNull (aSplittedDecls);
     assertEquals (8, aSplittedDecls.size ());
 
-    assertEquals ("background-color:#ff0000", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("background-image:url(grafik.png)", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("background-position:left top", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("background-size:180px 100px", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
-    assertEquals ("background-repeat:no-repeat", aSplittedDecls.get (4).getAsCSSString (CWS, 0));
-    assertEquals ("background-attachment:scroll", aSplittedDecls.get (5).getAsCSSString (CWS, 0));
-    assertEquals ("background-clip:border-box", aSplittedDecls.get (6).getAsCSSString (CWS, 0));
-    assertEquals ("background-origin:padding-box", aSplittedDecls.get (7).getAsCSSString (CWS, 0));
+    assertEquals ("background-color:#ff0000", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("background-image:url(grafik.png)", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("background-position:left top", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("background-size:180px 100px", aSplittedDecls.get (3).getAsCSSString (CWS));
+    assertEquals ("background-repeat:no-repeat", aSplittedDecls.get (4).getAsCSSString (CWS));
+    assertEquals ("background-attachment:scroll", aSplittedDecls.get (5).getAsCSSString (CWS));
+    assertEquals ("background-clip:border-box", aSplittedDecls.get (6).getAsCSSString (CWS));
+    assertEquals ("background-origin:padding-box", aSplittedDecls.get (7).getAsCSSString (CWS));
   }
 
   @Test
@@ -317,10 +317,10 @@ public final class CSSShortHandDescriptorTest
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
-    assertEquals ("border-top-color:red", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("border-right-color:red", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("border-bottom-color:red", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("border-left-color:red", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("border-top-color:red", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("border-right-color:red", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("border-bottom-color:red", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("border-left-color:red", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 
   @Test
@@ -336,9 +336,9 @@ public final class CSSShortHandDescriptorTest
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
     assertNotNull (aSplittedDecls);
     assertEquals (4, aSplittedDecls.size ());
-    assertEquals ("border-top-color:red", aSplittedDecls.get (0).getAsCSSString (CWS, 0));
-    assertEquals ("border-right-color:blue", aSplittedDecls.get (1).getAsCSSString (CWS, 0));
-    assertEquals ("border-bottom-color:red", aSplittedDecls.get (2).getAsCSSString (CWS, 0));
-    assertEquals ("border-left-color:blue", aSplittedDecls.get (3).getAsCSSString (CWS, 0));
+    assertEquals ("border-top-color:red", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("border-right-color:blue", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("border-bottom-color:red", aSplittedDecls.get (2).getAsCSSString (CWS));
+    assertEquals ("border-left-color:blue", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
 }

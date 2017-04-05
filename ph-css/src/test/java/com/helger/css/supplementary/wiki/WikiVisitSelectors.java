@@ -52,13 +52,13 @@ public final class WikiVisitSelectors
                           "\r\n" +
                           "img { border:none; }";
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
-    final ICommonsList <String> aAllSelectors = new CommonsArrayList <String> ();
+    final ICommonsList <String> aAllSelectors = new CommonsArrayList <> ();
     CSSVisitor.visitCSS (aCSS, new DefaultCSSVisitor ()
     {
       @Override
       public void onStyleRuleSelector (@Nonnull final CSSSelector aSelector)
       {
-        aAllSelectors.add (aSelector.getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30), 0));
+        aAllSelectors.add (aSelector.getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)));
       }
     });
     System.out.println (aAllSelectors);
