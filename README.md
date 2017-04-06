@@ -14,7 +14,8 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-  * v5.0.4
+  * v5.0.5 - work in progress
+  * v5.0.4 - 2017-04-06
     * Improved special identifier handling in expressions (#38)
     * Added support for css-grid spec with new "line-name" syntax element
     * Added new CSS units: `fr`, `vmax` and `Q`
@@ -62,7 +63,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>5.0.3</version>
+  <version>5.0.4</version>
 </dependency>
 ```
 
@@ -259,7 +260,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>5.0.3</version>
+        <version>5.0.4</version>
         <executions>
           <execution>
             <goals>
