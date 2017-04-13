@@ -222,7 +222,7 @@ public final class CSSDataURLHelper
 
     // Get the main content data
     String sContent = nIndexComma < 0 ? "" : sRest.substring (nIndexComma + 1).trim ();
-    byte [] aContent = CharsetManager.getAsBytes (sContent, aCharset);
+    byte [] aContent = sContent.getBytes (aCharset);
 
     if (bBase64EncodingUsed)
     {

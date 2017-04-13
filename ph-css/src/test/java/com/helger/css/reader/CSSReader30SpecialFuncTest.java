@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
@@ -316,8 +315,7 @@ public final class CSSReader30SpecialFuncTest
       if (aDeterminedCharset != null)
       {
         final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ByteArrayInputStreamProvider (ArrayHelper.getConcatenated (eBOM.getAllBytes (),
-                                                                                                                                  CharsetManager.getAsBytes (sCSSBase,
-                                                                                                                                                             aDeterminedCharset))),
+                                                                                                                                  sCSSBase.getBytes (aDeterminedCharset))),
                                                                    aDeterminedCharset,
                                                                    ECSSVersion.CSS30,
                                                                    new DoNothingCSSParseErrorHandler ());

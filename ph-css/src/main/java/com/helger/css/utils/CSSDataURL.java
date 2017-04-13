@@ -272,7 +272,7 @@ public class CSSDataURL implements Serializable
   public String getContentAsString ()
   {
     if (m_sContent == null)
-      m_sContent = CharsetManager.getAsString (m_aContent, m_aCharset);
+      m_sContent = new String (m_aContent, m_aCharset);
     return m_sContent;
   }
 
@@ -289,7 +289,7 @@ public class CSSDataURL implements Serializable
     // Add Base64 encoded String
     final byte [] aEncoded = Base64.encodeBytesToBytes (m_aContent);
     // Print the string in the specified charset
-    return CharsetManager.getAsString (aEncoded, m_aCharset);
+    return new String (aEncoded, m_aCharset);
   }
 
   /**
@@ -304,7 +304,12 @@ public class CSSDataURL implements Serializable
   @Nonnull
   public String getContentAsString (@Nonnull final Charset aCharset)
   {
-    return CharsetManager.getAsString (m_aContent, aCharset);
+    if (m_aCharset.equals (aCharset))
+    {
+      // Potentially return cached version
+      return getContentAsString ();
+    }
+    return new String (m_aContent, aCharset);
   }
 
   /**
