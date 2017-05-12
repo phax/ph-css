@@ -635,7 +635,7 @@ public class CascadingStyleSheet implements ICSSSourceLocationAware, Serializabl
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaRule> getAllMediaRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSMediaRule, r -> (CSSMediaRule) r);
+    return m_aRules.getAllInstanceOf (CSSMediaRule.class);
   }
 
   /**

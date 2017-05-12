@@ -56,17 +56,31 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   public CSSMediaRule ()
   {}
 
+  /**
+   * @return <code>true</code> if at least one media query is present,
+   *         <code>false</code> if no media query is present.
+   */
   public boolean hasMediaQueries ()
   {
     return m_aMediaQueries.isNotEmpty ();
   }
 
+  /**
+   * @return The number of contained media queries. Always &ge; 0.
+   */
   @Nonnegative
   public int getMediaQueryCount ()
   {
     return m_aMediaQueries.size ();
   }
 
+  /**
+   * Add a new media query.
+   *
+   * @param aMediaQuery
+   *        The media query to be added. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @Nonnull
   public CSSMediaRule addMediaQuery (@Nonnull @Nonempty final CSSMediaQuery aMediaQuery)
   {
@@ -76,6 +90,17 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return this;
   }
 
+  /**
+   * Add a media query at the specified index.
+   *
+   * @param nIndex
+   *        The index to use. Must be &ge; 0. If the index is &ge;
+   *        {@link #getMediaQueryCount()} than the media query is appended like
+   *        in {@link #addMediaQuery(CSSMediaQuery)}.
+   * @param aMediaQuery
+   *        The media query to be added. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @Nonnull
   public CSSMediaRule addMediaQuery (@Nonnegative final int nIndex, @Nonnull @Nonempty final CSSMediaQuery aMediaQuery)
   {
@@ -89,12 +114,26 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return this;
   }
 
+  /**
+   * Remove the provided media query.
+   *
+   * @param aMediaQuery
+   *        The media query to be removed. May be <code>null</code>.
+   * @return {@link EChange}.
+   */
   @Nonnull
-  public EChange removeMediaQuery (@Nonnull final CSSMediaQuery aMediaQuery)
+  public EChange removeMediaQuery (@Nullable final CSSMediaQuery aMediaQuery)
   {
     return m_aMediaQueries.removeObject (aMediaQuery);
   }
 
+  /**
+   * Remove the media query at the provided index.
+   *
+   * @param nMediumIndex
+   *        The index to be removed. Should be &ge; 0.
+   * @return {@link EChange}.
+   */
   @Nonnull
   public EChange removeMediaQuery (@Nonnegative final int nMediumIndex)
   {
@@ -114,12 +153,23 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return m_aMediaQueries.removeAll ();
   }
 
+  /**
+   * Get the media query at the specified index or <code>null</code>.
+   *
+   * @param nMediumIndex
+   *        The index to be retrieved. Should be &ge; 0.
+   * @return <code>null</code> if an invalid index was provided.
+   */
   @Nullable
   public CSSMediaQuery getMediaQueryAtIndex (@Nonnegative final int nMediumIndex)
   {
     return m_aMediaQueries.getAtIndex (nMediumIndex);
   }
 
+  /**
+   * @return A copy of all contained media queries. Never <code>null</code>.
+   *         Maybe empty.
+   */
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaQuery> getAllMediaQueries ()
@@ -127,17 +177,31 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return m_aMediaQueries.getClone ();
   }
 
+  /**
+   * @return <code>true</code> if any rule is contained, <code>false</code>
+   *         otherwise.
+   */
   public boolean hasRules ()
   {
     return m_aRules.isNotEmpty ();
   }
 
+  /**
+   * @return The number of contained rules. Always &ge; 0.
+   */
   @Nonnegative
   public int getRuleCount ()
   {
     return m_aRules.size ();
   }
 
+  /**
+   * Add a new rule.
+   *
+   * @param aRule
+   *        The rule to be added. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @Nonnull
   public CSSMediaRule addRule (@Nonnull final ICSSTopLevelRule aRule)
   {
@@ -147,6 +211,17 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return this;
   }
 
+  /**
+   * Add a new rule at the specified index.
+   *
+   * @param nIndex
+   *        The index where the rule should be added. Must be &ge; 0. If the
+   *        index is &ge; {@link #getRuleCount()} than the rule is appended like
+   *        in {@link #addRule(ICSSTopLevelRule)}.
+   * @param aRule
+   *        The rule to be added. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @Nonnull
   public CSSMediaRule addRule (@Nonnegative final int nIndex, @Nonnull final ICSSTopLevelRule aRule)
   {
@@ -160,12 +235,26 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return this;
   }
 
+  /**
+   * Remove the provided rule.
+   *
+   * @param aRule
+   *        The rule to be removed. May be <code>null</code>.
+   * @return {@link EChange}.
+   */
   @Nonnull
-  public EChange removeRule (@Nonnull final ICSSTopLevelRule aRule)
+  public EChange removeRule (@Nullable final ICSSTopLevelRule aRule)
   {
     return m_aRules.removeObject (aRule);
   }
 
+  /**
+   * Remove the rule at the provided index.
+   *
+   * @param nRuleIndex
+   *        The index to be removed. Should be &ge; 0.
+   * @return {@link EChange}.
+   */
   @Nonnull
   public EChange removeRule (@Nonnegative final int nRuleIndex)
   {
@@ -185,12 +274,23 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return m_aRules.removeAll ();
   }
 
+  /**
+   * Get the rule at the specified index or <code>null</code>.
+   * 
+   * @param nRuleIndex
+   *        The index to be used.
+   * @return <code>null</code> if no such index exists.
+   */
   @Nullable
   public ICSSTopLevelRule getRule (@Nonnegative final int nRuleIndex)
   {
     return m_aRules.getAtIndex (nRuleIndex);
   }
 
+  /**
+   * @return A copy of all contained rules. Never <code>null</code> but maybe
+   *         empty.
+   */
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <ICSSTopLevelRule> getAllRules ()
