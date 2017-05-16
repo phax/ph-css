@@ -47,10 +47,9 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
+public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
   private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList <> ();
-  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSMediaRule ()
@@ -175,127 +174,6 @@ public class CSSMediaRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   public ICommonsList <CSSMediaQuery> getAllMediaQueries ()
   {
     return m_aMediaQueries.getClone ();
-  }
-
-  /**
-   * @return <code>true</code> if any rule is contained, <code>false</code>
-   *         otherwise.
-   */
-  public boolean hasRules ()
-  {
-    return m_aRules.isNotEmpty ();
-  }
-
-  /**
-   * @return The number of contained rules. Always &ge; 0.
-   */
-  @Nonnegative
-  public int getRuleCount ()
-  {
-    return m_aRules.size ();
-  }
-
-  /**
-   * Add a new rule.
-   *
-   * @param aRule
-   *        The rule to be added. May not be <code>null</code>.
-   * @return this for chaining
-   */
-  @Nonnull
-  public CSSMediaRule addRule (@Nonnull final ICSSTopLevelRule aRule)
-  {
-    ValueEnforcer.notNull (aRule, "Rule");
-
-    m_aRules.add (aRule);
-    return this;
-  }
-
-  /**
-   * Add a new rule at the specified index.
-   *
-   * @param nIndex
-   *        The index where the rule should be added. Must be &ge; 0. If the
-   *        index is &ge; {@link #getRuleCount()} than the rule is appended like
-   *        in {@link #addRule(ICSSTopLevelRule)}.
-   * @param aRule
-   *        The rule to be added. May not be <code>null</code>.
-   * @return this for chaining
-   */
-  @Nonnull
-  public CSSMediaRule addRule (@Nonnegative final int nIndex, @Nonnull final ICSSTopLevelRule aRule)
-  {
-    ValueEnforcer.isGE0 (nIndex, "Index");
-    ValueEnforcer.notNull (aRule, "Rule");
-
-    if (nIndex >= getRuleCount ())
-      m_aRules.add (aRule);
-    else
-      m_aRules.add (nIndex, aRule);
-    return this;
-  }
-
-  /**
-   * Remove the provided rule.
-   *
-   * @param aRule
-   *        The rule to be removed. May be <code>null</code>.
-   * @return {@link EChange}.
-   */
-  @Nonnull
-  public EChange removeRule (@Nullable final ICSSTopLevelRule aRule)
-  {
-    return m_aRules.removeObject (aRule);
-  }
-
-  /**
-   * Remove the rule at the provided index.
-   *
-   * @param nRuleIndex
-   *        The index to be removed. Should be &ge; 0.
-   * @return {@link EChange}.
-   */
-  @Nonnull
-  public EChange removeRule (@Nonnegative final int nRuleIndex)
-  {
-    return m_aRules.removeAtIndex (nRuleIndex);
-  }
-
-  /**
-   * Remove all rules.
-   *
-   * @return {@link EChange#CHANGED} if any rule was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
-   * @since 3.7.3
-   */
-  @Nonnull
-  public EChange removeAllRules ()
-  {
-    return m_aRules.removeAll ();
-  }
-
-  /**
-   * Get the rule at the specified index or <code>null</code>.
-   * 
-   * @param nRuleIndex
-   *        The index to be used.
-   * @return <code>null</code> if no such index exists.
-   */
-  @Nullable
-  public ICSSTopLevelRule getRule (@Nonnegative final int nRuleIndex)
-  {
-    return m_aRules.getAtIndex (nRuleIndex);
-  }
-
-  /**
-   * @return A copy of all contained rules. Never <code>null</code> but maybe
-   *         empty.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <ICSSTopLevelRule> getAllRules ()
-  {
-    return m_aRules.getClone ();
   }
 
   @Nonnull

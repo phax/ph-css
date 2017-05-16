@@ -137,7 +137,7 @@ public final class Issue3Test
     if (false)
       _print (aCSS);
     assertEquals (1, aCSS.getMediaRuleCount ());
-    assertEquals (2, ((CSSStyleRule) aCSS.getMediaRuleAtIndex (0).getRule (0)).getDeclarationCount ());
+    assertEquals (2, ((CSSStyleRule) aCSS.getMediaRuleAtIndex (0).getRuleAtIndex (0)).getDeclarationCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
   }
 
@@ -196,7 +196,7 @@ public final class Issue3Test
       _print (aCSS);
     assertEquals (1, aCSS.getSupportsRuleCount ());
     assertEquals (1, aCSS.getSupportsRuleAtIndex (0).getRuleCount ());
-    assertEquals (0, ((CSSStyleRule) aCSS.getSupportsRuleAtIndex (0).getRule (0)).getDeclarationCount ());
+    assertEquals (0, ((CSSStyleRule) aCSS.getSupportsRuleAtIndex (0).getRuleAtIndex (0)).getDeclarationCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
   }
 }

@@ -49,10 +49,10 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAware, ICSSVersionAware
+public class CSSSupportsRule extends AbstractHasTopLevelRules
+                             implements ICSSTopLevelRule, ICSSSourceLocationAware, ICSSVersionAware
 {
   private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList <> ();
-  private final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSSupportsRule ()
@@ -128,77 +128,6 @@ public class CSSSupportsRule implements ICSSTopLevelRule, ICSSSourceLocationAwar
   public ICommonsList <ICSSSupportsConditionMember> getAllSupportConditionMembers ()
   {
     return m_aConditionMembers.getClone ();
-  }
-
-  public boolean hasRules ()
-  {
-    return m_aRules.isNotEmpty ();
-  }
-
-  @Nonnegative
-  public int getRuleCount ()
-  {
-    return m_aRules.size ();
-  }
-
-  @Nonnull
-  public CSSSupportsRule addRule (@Nonnull final ICSSTopLevelRule aRule)
-  {
-    ValueEnforcer.notNull (aRule, "Rule");
-
-    m_aRules.add (aRule);
-    return this;
-  }
-
-  @Nonnull
-  public CSSSupportsRule addRule (@Nonnegative final int nIndex, @Nonnull final ICSSTopLevelRule aRule)
-  {
-    ValueEnforcer.isGE0 (nIndex, "Index");
-    ValueEnforcer.notNull (aRule, "Rule");
-
-    if (nIndex >= getRuleCount ())
-      m_aRules.add (aRule);
-    else
-      m_aRules.add (nIndex, aRule);
-    return this;
-  }
-
-  @Nonnull
-  public EChange removeRule (@Nonnull final ICSSTopLevelRule aRule)
-  {
-    return m_aRules.removeObject (aRule);
-  }
-
-  @Nonnull
-  public EChange removeRule (@Nonnegative final int nRuleIndex)
-  {
-    return m_aRules.removeAtIndex (nRuleIndex);
-  }
-
-  /**
-   * Remove all rules.
-   *
-   * @return {@link EChange#CHANGED} if any rule was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
-   * @since 3.7.3
-   */
-  @Nonnull
-  public EChange removeAllRules ()
-  {
-    return m_aRules.removeAll ();
-  }
-
-  @Nullable
-  public ICSSTopLevelRule getRule (@Nonnegative final int nRuleIndex)
-  {
-    return m_aRules.getAtIndex (nRuleIndex);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <ICSSTopLevelRule> getAllRules ()
-  {
-    return m_aRules.getClone ();
   }
 
   @Nonnull

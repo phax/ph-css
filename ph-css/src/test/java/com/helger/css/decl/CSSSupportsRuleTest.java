@@ -90,7 +90,7 @@ public final class CSSSupportsRuleTest
     assertEquals (3, aSR.getAllSupportConditionMembers ().size ());
     assertTrue (aSR.hasRules ());
     assertEquals (1, aSR.getRuleCount ());
-    assertNotNull (aSR.getRule (0));
+    assertNotNull (aSR.getRuleAtIndex (0));
 
     final ICSSSupportsConditionMember aMember0 = aSR.getSupportsConditionMemberAtIndex (0);
     assertTrue (aMember0 instanceof CSSSupportsConditionDeclaration);
@@ -116,10 +116,10 @@ public final class CSSSupportsRuleTest
     assertTrue (aDecl2Member0 instanceof CSSExpressionMemberTermSimple);
     assertEquals ("blue", ((CSSExpressionMemberTermSimple) aDecl2Member0).getValue ());
 
-    assertTrue (aSR.getRule (0) instanceof CSSStyleRule);
+    assertTrue (aSR.getRuleAtIndex (0) instanceof CSSStyleRule);
     assertEquals ("div",
-                  ((CSSSelectorSimpleMember) ((CSSStyleRule) aSR.getRule (0)).getSelectorAtIndex (0)
-                                                                             .getMemberAtIndex (0)).getValue ());
+                  ((CSSSelectorSimpleMember) ((CSSStyleRule) aSR.getRuleAtIndex (0)).getSelectorAtIndex (0)
+                                                                                    .getMemberAtIndex (0)).getValue ());
 
     // Create the same rule by application
     final CSSSupportsRule aCreated = new CSSSupportsRule ();
