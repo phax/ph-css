@@ -111,9 +111,9 @@ public class MainCreateSupportedCSSPropertiesFile
       if (!eProperty.isVendorSpecific ())
       {
         final Version eMinVersion = eProperty.getMinimumCSSVersion ().getVersion ();
-        final boolean bCSS10 = eMinVersion.isLowerOrEqualThan (ECSSVersion.CSS10.getVersion ());
-        final boolean bCSS21 = eMinVersion.isLowerOrEqualThan (ECSSVersion.CSS21.getVersion ());
-        final boolean bCSS30 = eMinVersion.isLowerOrEqualThan (ECSSVersion.CSS30.getVersion ());
+        final boolean bCSS10 = eMinVersion.isLE (ECSSVersion.CSS10.getVersion ());
+        final boolean bCSS21 = eMinVersion.isLE (ECSSVersion.CSS21.getVersion ());
+        final boolean bCSS30 = eMinVersion.isLE (ECSSVersion.CSS30.getVersion ());
 
         tr = tbody.appendElement ("tr");
         if ((nIndex & 1) == 1)
