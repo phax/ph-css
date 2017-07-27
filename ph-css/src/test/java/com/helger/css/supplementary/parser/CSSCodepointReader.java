@@ -24,7 +24,7 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-import com.helger.commons.collection.impl.RingBufferLifo;
+import com.helger.collection.ring.RingBufferLifo;
 import com.helger.commons.io.stream.NonBlockingPushbackReader;
 import com.helger.commons.string.ToStringGenerator;
 

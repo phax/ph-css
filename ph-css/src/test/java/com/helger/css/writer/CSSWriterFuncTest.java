@@ -30,8 +30,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.filter.IFileFilter;
-import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
+import com.helger.commons.io.file.FileSystemRecursiveIterator;
+import com.helger.commons.io.file.IFileFilter;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.css.ECSSVersion;

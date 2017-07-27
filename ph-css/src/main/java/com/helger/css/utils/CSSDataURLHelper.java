@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mime.EMimeQuoting;
 import com.helger.commons.mime.IMimeType;
@@ -199,14 +199,7 @@ public final class CSSDataURLHelper
       final String sCharsetParam = MimeTypeHelper.getCharsetNameFromMimeType (aMimeType);
       if (sCharsetParam != null)
       {
-        try
-        {
-          aCharset = CharsetManager.getCharsetFromName (sCharsetParam);
-        }
-        catch (final IllegalArgumentException ex)
-        {
-          // Illegal charset
-        }
+        aCharset = CharsetHelper.getCharsetFromNameOrNull (sCharsetParam);
         if (aCharset == null)
         {
           s_aLogger.warn ("Illegal charset '" +

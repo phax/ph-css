@@ -23,10 +23,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
-import com.helger.commons.io.file.filter.IFileFilter;
-import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.io.file.FileSystemRecursiveIterator;
+import com.helger.commons.io.file.IFileFilter;
 import com.helger.commons.wrapper.Wrapper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;

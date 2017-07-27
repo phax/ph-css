@@ -27,7 +27,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
@@ -301,7 +301,7 @@ public final class CSSCompressMojo extends AbstractMojo
   public void setSourceEncoding (final String sSourceEncoding)
   {
     // Throws an exception on an illegal charset
-    CharsetManager.getCharsetFromName (sSourceEncoding);
+    CharsetHelper.getCharsetFromName (sSourceEncoding);
     sourceEncoding = sSourceEncoding;
   }
 
@@ -313,7 +313,7 @@ public final class CSSCompressMojo extends AbstractMojo
   public void setTargetEncoding (final String sTargetEncoding)
   {
     // Throws an exception on an illegal charset
-    CharsetManager.getCharsetFromName (sTargetEncoding);
+    CharsetHelper.getCharsetFromName (sTargetEncoding);
     targetEncoding = sTargetEncoding;
   }
 
@@ -369,7 +369,7 @@ public final class CSSCompressMojo extends AbstractMojo
       final ICSSParseExceptionCallback aExHdl = (@Nonnull final ParseException ex) -> getLog ().error ("Failed to parse CSS file " +
                                                                                                        _getRelativePath (aChild),
                                                                                                        ex);
-      final Charset aFallbackCharset = CharsetManager.getCharsetFromName (sourceEncoding);
+      final Charset aFallbackCharset = CharsetHelper.getCharsetFromName (sourceEncoding);
       final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
                                                                   .setFallbackCharset (aFallbackCharset)
                                                                   .setCustomExceptionHandler (aExHdl)
@@ -395,7 +395,7 @@ public final class CSSCompressMojo extends AbstractMojo
           aWriterSettings.setWriteSupportsRules (writeSupportsRules);
           aWriterSettings.setWriteUnknownRules (writeUnknownRules);
 
-          final Charset aTargetCharset = CharsetManager.getCharsetFromName (targetEncoding);
+          final Charset aTargetCharset = CharsetHelper.getCharsetFromName (targetEncoding);
           new CSSWriter (aWriterSettings).writeCSS (aCSS, aDestFile.getWriter (aTargetCharset, EAppend.TRUNCATE));
         }
         catch (final IOException ex)

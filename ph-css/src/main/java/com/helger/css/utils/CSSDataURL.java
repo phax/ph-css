@@ -32,7 +32,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -185,7 +185,7 @@ public class CSSDataURL implements Serializable
     m_bBase64Encoded = in.readBoolean ();
     m_aContent = (byte []) in.readObject ();
     final String sCharsetName = in.readUTF ();
-    m_aCharset = CharsetManager.getCharsetFromName (sCharsetName);
+    m_aCharset = CharsetHelper.getCharsetFromName (sCharsetName);
     m_sContent = (String) in.readObject ();
   }
 

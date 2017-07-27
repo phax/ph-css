@@ -16,7 +16,6 @@
  */
 package com.helger.css.parser;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 import javax.annotation.Nonnegative;
@@ -26,11 +25,11 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsIterable;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsIterable;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.traits.IConvertibleDirectTrait;
+import com.helger.commons.traits.IGetterDirectTrait;
 import com.helger.css.CSSSourceArea;
 import com.helger.css.CSSSourceLocation;
 
@@ -40,7 +39,7 @@ import com.helger.css.CSSSourceLocation;
  *
  * @author Philip Helger
  */
-public class CSSNode implements Node, ICommonsIterable <CSSNode>, Serializable, IConvertibleDirectTrait
+public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectTrait
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (CSSNode.class);
 
@@ -175,7 +174,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, Serializable, 
   @Nonnull
   public Iterator <CSSNode> iterator ()
   {
-    final ICommonsList <CSSNode> aChildren = new CommonsArrayList<> (jjtGetNumChildren ());
+    final ICommonsList <CSSNode> aChildren = new CommonsArrayList <> (jjtGetNumChildren ());
     if (m_aChildren != null)
       for (final CSSNode aChildNode : m_aChildren)
         if (aChildNode != null)

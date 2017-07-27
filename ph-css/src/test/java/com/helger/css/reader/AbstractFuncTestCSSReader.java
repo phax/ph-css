@@ -29,8 +29,8 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.filter.IFileFilter;
-import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
+import com.helger.commons.io.file.FileSystemRecursiveIterator;
+import com.helger.commons.io.file.IFileFilter;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;

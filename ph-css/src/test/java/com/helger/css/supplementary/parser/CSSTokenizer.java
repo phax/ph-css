@@ -28,7 +28,7 @@ import javax.annotation.WillClose;
 import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.StreamHelper;
 
@@ -88,7 +88,7 @@ public class CSSTokenizer
         String sCharset = new String (aBuffer, CHARSET.length (), nEnd - CHARSET.length (), StandardCharsets.US_ASCII);
         if ("utf-16be".equalsIgnoreCase (sCharset) || "utf-16le".equalsIgnoreCase (sCharset))
           sCharset = "utf-8";
-        final Charset aCharset = CharsetManager.getCharsetFromName (sCharset);
+        final Charset aCharset = CharsetHelper.getCharsetFromNameOrNull (sCharset);
         if (aCharset == null)
           throw new CSSTokenizeException ("Unsupported charset '" + sCharset + "' provided!");
         return aCharset;

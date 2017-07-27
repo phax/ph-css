@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -975,7 +975,7 @@ public final class CSSReader
       }
       // Remove leading and trailing quotes from value
       final String sPlainCharsetName = CSSParseHelper.extractStringValue (sCharsetName);
-      final Charset aReadCharset = CharsetManager.getCharsetFromName (sPlainCharsetName);
+      final Charset aReadCharset = CharsetHelper.getCharsetFromName (sPlainCharsetName);
 
       if (aBOMCharset != null && !aBOMCharset.equals (aReadCharset))
       {
