@@ -34,8 +34,8 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSDeclarationList extends CSSWritableList <CSSDeclaration>
-                                implements IHasCSSDeclarations <CSSDeclarationList>
+public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> implements
+                                IHasCSSDeclarations <CSSDeclarationList>
 {
   public CSSDeclarationList ()
   {}
@@ -84,7 +84,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration>
   @ReturnsMutableCopy
   public final ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
-    return getAll ();
+    return getClone ();
   }
 
   @Nullable
@@ -136,7 +136,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration>
   {
     final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
     if (StringHelper.hasText (sPropertyName))
-      findAll (aDecl -> aDecl.getProperty ().equals (sPropertyName), ret);
+      findAll (aDecl -> aDecl.getProperty ().equals (sPropertyName), ret::add);
     return ret;
   }
 
@@ -146,7 +146,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration>
   {
     final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
     if (StringHelper.hasText (sPropertyName))
-      findAll (aDecl -> aDecl.getProperty ().equalsIgnoreCase (sPropertyName), ret);
+      findAll (aDecl -> aDecl.getProperty ().equalsIgnoreCase (sPropertyName), ret::add);
     return ret;
   }
 }
