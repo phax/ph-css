@@ -22,11 +22,8 @@ import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
@@ -38,11 +35,8 @@ import com.helger.css.utils.CSSColorHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSPropertyEnumOrColors extends CSSPropertyEnum
+public class CSSPropertyEnumOrColors extends AbstractCSSPropertyEnums
 {
-  private final int m_nMinNumbers;
-  private final int m_nMaxNumbers;
-
   public CSSPropertyEnumOrColors (@Nonnull final ECSSProperty eProp,
                                   @Nonnegative final int nMinNumbers,
                                   @Nonnegative final int nMaxNumbers,
@@ -67,17 +61,7 @@ public class CSSPropertyEnumOrColors extends CSSPropertyEnum
                                   @Nonnegative final int nMaxNumbers,
                                   @Nonnull @Nonempty final String... aEnumValues)
   {
-    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
-    ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
-    ValueEnforcer.isGT0 (nMaxNumbers, "MaxNumbers");
-    if (nMaxNumbers < nMinNumbers)
-      throw new IllegalArgumentException ("MaxNumbers (" +
-                                          nMaxNumbers +
-                                          ") must be >= MinNumbers (" +
-                                          nMinNumbers +
-                                          ")");
-    m_nMinNumbers = nMinNumbers;
-    m_nMaxNumbers = nMaxNumbers;
+    super (eProp, eVendorPrefix, aCustomizer, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
   public CSSPropertyEnumOrColors (@Nonnull final ECSSProperty eProp,
@@ -104,29 +88,7 @@ public class CSSPropertyEnumOrColors extends CSSPropertyEnum
                                   @Nonnegative final int nMaxNumbers,
                                   @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
-    super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
-    ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
-    ValueEnforcer.isGT0 (nMaxNumbers, "MaxNumbers");
-    if (nMaxNumbers < nMinNumbers)
-      throw new IllegalArgumentException ("MaxNumbers (" +
-                                          nMaxNumbers +
-                                          ") must be >= MinNumbers (" +
-                                          nMinNumbers +
-                                          ")");
-    m_nMinNumbers = nMinNumbers;
-    m_nMaxNumbers = nMaxNumbers;
-  }
-
-  @Override
-  public int getMinimumArgumentCount ()
-  {
-    return m_nMinNumbers;
-  }
-
-  @Override
-  public int getMaximumArgumentCount ()
-  {
-    return m_nMaxNumbers;
+    super (eProp, eVendorPrefix, aCustomizer, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
   @Override
@@ -138,7 +100,7 @@ public class CSSPropertyEnumOrColors extends CSSPropertyEnum
 
     // Split by whitespaces " a b " results in { "a", "b" }
     final String [] aParts = RegExHelper.getSplitToArray (sValue.trim (), "\\s+");
-    if (aParts.length < m_nMinNumbers || aParts.length > m_nMaxNumbers)
+    if (aParts.length < getMinimumArgumentCount () || aParts.length > getMaximumArgumentCount ())
       return false;
 
     // Check each value
@@ -158,8 +120,8 @@ public class CSSPropertyEnumOrColors extends CSSPropertyEnum
     return new CSSPropertyEnumOrColors (eProp,
                                         getVendorPrefix (),
                                         getCustomizer (),
-                                        m_nMinNumbers,
-                                        m_nMaxNumbers,
+                                        getMinimumArgumentCount (),
+                                        getMaximumArgumentCount (),
                                         directGetEnumValues ());
   }
 
@@ -170,37 +132,8 @@ public class CSSPropertyEnumOrColors extends CSSPropertyEnum
     return new CSSPropertyEnumOrColors (getProp (),
                                         eVendorPrefix,
                                         getCustomizer (),
-                                        m_nMinNumbers,
-                                        m_nMaxNumbers,
+                                        getMinimumArgumentCount (),
+                                        getMaximumArgumentCount (),
                                         directGetEnumValues ());
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (!super.equals (o))
-      return false;
-    final CSSPropertyEnumOrColors rhs = (CSSPropertyEnumOrColors) o;
-    return m_nMinNumbers == rhs.m_nMinNumbers && m_nMaxNumbers == rhs.m_nMaxNumbers;
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return HashCodeGenerator.getDerived (super.hashCode ())
-                            .append (m_nMinNumbers)
-                            .append (m_nMaxNumbers)
-                            .getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("minNumbers", m_nMinNumbers)
-                            .append ("maxNumbers", m_nMaxNumbers)
-                            .getToString ();
   }
 }
