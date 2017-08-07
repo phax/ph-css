@@ -17,7 +17,6 @@
 package com.helger.css.reader;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
@@ -35,15 +34,13 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasReader;
 import com.helger.commons.io.provider.IReaderProvider;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingPushbackInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
@@ -828,91 +825,6 @@ public final class CSSReader
                                                    .setCustomErrorHandler (aCustomErrorHandler));
   }
 
-  private static final class InputStreamAndCharset implements IHasInputStream
-  {
-    private final InputStream m_aIS;
-    private final Charset m_aCharset;
-
-    public InputStreamAndCharset (@Nullable final InputStream aIS, @Nullable final Charset aCharset)
-    {
-      m_aIS = aIS;
-      m_aCharset = aCharset;
-    }
-
-    @Nullable
-    public InputStream getInputStream ()
-    {
-      return m_aIS;
-    }
-
-    public boolean hasInputStream ()
-    {
-      return m_aIS != null;
-    }
-
-    @Nullable
-    public Charset getCharset ()
-    {
-      return m_aCharset;
-    }
-  }
-
-  /**
-   * Open the {@link InputStream} provided by the passed {@link IHasInputStream}
-   * . If a BOM is present in the {@link InputStream} it is read and if possible
-   * the charset is automatically determined from the BOM.
-   *
-   * @param aISP
-   *        The input stream provider to use. May not be <code>null</code>.
-   * @return <code>null</code> if no InputStream could be opened, the pair with
-   *         non-<code>null</code> {@link InputStream} and a potentially
-   *         <code>null</code> {@link Charset} otherwise.
-   */
-  @Nullable
-  private static InputStreamAndCharset _getInputStreamWithoutBOM (@Nonnull final IHasInputStream aISP)
-  {
-    // Try to open input stream
-    final InputStream aIS = aISP.getInputStream ();
-    if (aIS == null)
-      return null;
-
-    // Check for BOM
-    final int nMaxBOMBytes = EUnicodeBOM.getMaximumByteCount ();
-    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (aIS, nMaxBOMBytes);
-    try
-    {
-      final byte [] aBOM = new byte [nMaxBOMBytes];
-      final int nReadBOMBytes = aPIS.read (aBOM);
-      Charset aDeterminedCharset = null;
-      if (nReadBOMBytes > 0)
-      {
-        // Some byte BOMs were read
-        final EUnicodeBOM eBOM = EUnicodeBOM.getFromBytesOrNull (ArrayHelper.getCopy (aBOM, 0, nReadBOMBytes));
-        if (eBOM == null)
-        {
-          // Unread the whole BOM
-          aPIS.unread (aBOM, 0, nReadBOMBytes);
-        }
-        else
-        {
-          // Unread the unnecessary parts of the BOM
-          final int nBOMBytes = eBOM.getByteCount ();
-          if (nBOMBytes < nReadBOMBytes)
-            aPIS.unread (aBOM, nBOMBytes, nReadBOMBytes - nBOMBytes);
-
-          // Use the Charset of the BOM - maybe null!
-          aDeterminedCharset = eBOM.getCharset ();
-        }
-      }
-      return new InputStreamAndCharset (aPIS, aDeterminedCharset);
-    }
-    catch (final IOException ex)
-    {
-      s_aLogger.error ("Failed to determine BOM", ex);
-      return null;
-    }
-  }
-
   /**
    * Determine the charset to read the CSS file. The logic is as follows:
    * <ol>
@@ -940,15 +852,12 @@ public final class CSSReader
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
-    // Open input stream
-    final InputStreamAndCharset aISAndBOM = _getInputStreamWithoutBOM (aISP);
-    if (aISAndBOM == null || !aISAndBOM.hasInputStream ())
-    {
-      // Failed to open stream, so no charset!
+    // Try to open input stream
+    final InputStream aIS = aISP.getInputStream ();
+    if (aIS == null)
       return null;
-    }
 
-    final InputStream aIS = aISAndBOM.getInputStream ();
+    final InputStreamAndCharset aISAndBOM = CharsetHelper.getInputStreamAndCharsetFromBOM (aIS);
     final Charset aBOMCharset = aISAndBOM.getCharset ();
     Charset aStreamCharset = aBOMCharset;
     if (aStreamCharset == null)
@@ -960,7 +869,7 @@ public final class CSSReader
       aStreamCharset = StandardCharsets.ISO_8859_1;
     }
 
-    final Reader aReader = StreamHelper.createReader (aIS, aStreamCharset);
+    final Reader aReader = StreamHelper.createReader (aISAndBOM.getInputStream (), aStreamCharset);
     try
     {
       // Read with the Stream charset
@@ -971,7 +880,7 @@ public final class CSSReader
       if (sCharsetName == null)
       {
         // No charset specified - use the one from the BOM (may be null)
-        return aISAndBOM.getCharset ();
+        return aBOMCharset;
       }
       // Remove leading and trailing quotes from value
       final String sPlainCharsetName = CSSParseHelper.extractStringValue (sCharsetName);
@@ -1127,13 +1036,13 @@ public final class CSSReader
       aCharsetToUse = aSettings.getFallbackCharset ();
     }
 
-    // Open input stream
-    final InputStreamAndCharset aISAndBOM = _getInputStreamWithoutBOM (aISP);
-    if (aISAndBOM == null || !aISAndBOM.hasInputStream ())
-    {
-      // Failed to open stream!
+    // Try to open input stream
+    final InputStream aISOrig = aISP.getInputStream ();
+    if (aISOrig == null)
       return null;
-    }
+
+    // Open input stream
+    final InputStreamAndCharset aISAndBOM = CharsetHelper.getInputStreamAndCharsetFromBOM (aISOrig);
 
     final InputStream aIS = aISAndBOM.getInputStream ();
     final Reader aReader = StreamHelper.createReader (aIS, aCharsetToUse);
