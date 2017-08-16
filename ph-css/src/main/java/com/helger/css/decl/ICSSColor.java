@@ -16,6 +16,8 @@
  */
 package com.helger.css.decl;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -23,7 +25,7 @@ import javax.annotation.Nonnull;
  *
  * @author Philip Helger
  */
-public interface ICSSColor
+public interface ICSSColor extends Serializable
 {
   /**
    * @return The texttual representation of the color.
