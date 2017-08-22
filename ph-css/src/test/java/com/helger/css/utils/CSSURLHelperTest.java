@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.url.SMap;
+import com.helger.commons.collection.attr.StringMap;
 import com.helger.commons.url.SimpleURL;
 import com.helger.css.parser.CSSParseHelper;
 
@@ -90,7 +90,7 @@ public final class CSSURLHelperTest
     // Escaped brackets
     assertEquals ("url('a().gif')", CSSURLHelper.getAsCSSURL ("a().gif", false));
 
-    final SimpleURL aURL = new SimpleURL ("a.gif", new SMap ("x", "y"));
+    final SimpleURL aURL = new SimpleURL ("a.gif", new StringMap ("x", "y"));
     assertEquals ("url(a.gif?x=y)", CSSURLHelper.getAsCSSURL (aURL, false));
     assertEquals ("url('a.gif?x=y')", CSSURLHelper.getAsCSSURL (aURL, true));
     assertEquals ("url()", CSSURLHelper.getAsCSSURL (new SimpleURL (), false));
