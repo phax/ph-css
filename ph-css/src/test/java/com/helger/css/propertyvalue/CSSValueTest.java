@@ -46,7 +46,7 @@ public final class CSSValueTest
     assertNotNull (v21);
     assertNotNull (v22);
     assertTrue (v1 instanceof CSSValue);
-    assertTrue (v3 instanceof CSSValueMultiValue);
+    assertTrue (v3 instanceof CSSValue);
     assertTrue (v4 instanceof CSSValueList);
     assertTrue (v5 instanceof CSSValue);
     assertEquals (v1, v1);

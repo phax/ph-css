@@ -37,14 +37,15 @@ import com.helger.css.property.ICSSProperty;
  * values. This is e.g. if the property <code>display</code> is used with the
  * value <code>inline-block</code> than the result coding should first emit
  * <code>display:-moz-inline-block;</code> and then
- * <code>display:inline-block;</code> for FireFox 2.x specific support.
+ * <code>display:inline-block;</code> for FireFox 2.x specific support. (this
+ * specific example was removed in ph-css 6)
  *
  * @author Philip Helger
  */
 @Immutable
 public class CSSValueMultiValue implements ICSSMultiValue
 {
-  private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList<> ();
+  private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList <> ();
 
   public CSSValueMultiValue (@Nonnull final ICSSProperty aProperty,
                              @Nonnull @Nonempty final String [] aValues,
