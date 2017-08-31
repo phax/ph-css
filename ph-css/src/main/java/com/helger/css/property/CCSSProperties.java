@@ -25,7 +25,6 @@ import com.helger.css.property.customizer.CSSPropertyCustomizerBorderBottomRight
 import com.helger.css.property.customizer.CSSPropertyCustomizerBorderRadius;
 import com.helger.css.property.customizer.CSSPropertyCustomizerBorderTopLeftRadius;
 import com.helger.css.property.customizer.CSSPropertyCustomizerBorderTopRightRadius;
-import com.helger.css.property.customizer.CSSPropertyCustomizerDisplay;
 import com.helger.css.property.customizer.CSSPropertyCustomizerOpacity;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.propertyvalue.ICSSValue;
@@ -398,7 +397,6 @@ public final class CCSSProperties
                                                                 CCSSValue.NONE);
   public static final ICSSProperty Z_INDEX = new CSSPropertyEnumOrInt (ECSSProperty.Z_INDEX, CCSSValue.AUTO);
   public static final ICSSProperty DISPLAY = new CSSPropertyEnum (ECSSProperty.DISPLAY,
-                                                                  new CSSPropertyCustomizerDisplay (),
                                                                   CCSSValue.BLOCK,
                                                                   CCSSValue.INLINE,
                                                                   CCSSValue.INLINE_BLOCK,
@@ -415,7 +413,7 @@ public final class CCSSProperties
                                                                   CCSSValue.TABLE_COLUMN,
                                                                   CCSSValue.TABLE_COLUMN_GROUP,
                                                                   CCSSValue.TABLE_CAPTION,
-                                                                  "-moz-inline-block");
+                                                                  CCSSValue.FLEX);
   public static final ICSSProperty VISIBILITY = new CSSPropertyEnum (ECSSProperty.VISIBILITY,
                                                                      CCSSValue.VISIBLE,
                                                                      CCSSValue.HIDDEN,

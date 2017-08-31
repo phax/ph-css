@@ -87,6 +87,8 @@ public final class CCSSValue
   public static final String CAPITALIZE = "capitalize";
   public static final String CENTER = "center";
   public static final String CIRCLE = "circle";
+  public static final String COLUMN = "column";
+  public static final String COLUMN_REVERSE = "column-reverse";
   public static final String COLLAPSE = "collapse";
   public static final String CONTAIN = "contain";
   public static final String CONTENT_BOX = "content-box";
@@ -104,6 +106,9 @@ public final class CCSSValue
   public static final String FANTASY = "fantasy";
   public static final String FILL = "fill";
   public static final String FIXED = "fixed";
+  public static final String FLEX = "flex";
+  public static final String FLEX_END = "flex-end";
+  public static final String FLEX_START = "flex-start";
   public static final String GROOVE = "groove";
   public static final String HELP = "help";
   public static final String HIDDEN = "hidden";
@@ -159,6 +164,8 @@ public final class CCSSValue
   public static final String REPEAT_Y = "repeat-y";
   public static final String RIDGE = "ridge";
   public static final String RIGHT = "right";
+  public static final String ROW = "row";
+  public static final String ROW_REVERSE = "row-reverse";
   public static final String RTL = "rtl";
   public static final String RUN_IN = "run-in";
   public static final String S_RESIZE = "s-resize";
@@ -173,8 +180,11 @@ public final class CCSSValue
   public static final String SMALL_CAPS = "small-caps";
   public static final String SMALLER = "smaller";
   public static final String SOLID = "solid";
+  public static final String SPACE_AROUND = "space-around";
+  public static final String SPACE_BETWEEN = "space-between";
   public static final String SQUARE = "square";
   public static final String STATIC = "static";
+  public static final String STRETCH = "stretch";
   public static final String SUB = "sub";
   public static final String SUPER = "super";
   public static final String SW_RESIZE = "sw-resize";
@@ -203,6 +213,8 @@ public final class CCSSValue
   public static final String VISIBLE = "visible";
   public static final String W_RESIZE = "w-resize";
   public static final String WAIT = "wait";
+  public static final String WRAP = "wrap";
+  public static final String WRAP_REVERSE = "wrap-reverse";
   public static final String X_LARGE = "x-large";
   public static final String X_SMALL = "x-small";
   public static final String XX_LARGE = "xx-large";
