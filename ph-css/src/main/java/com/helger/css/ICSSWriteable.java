@@ -21,6 +21,8 @@ import java.io.Serializable;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import com.helger.css.writer.CSSWriterSettings;
+
 /**
  * Interface for objects that can be written to CSS.
  *
@@ -30,12 +32,26 @@ public interface ICSSWriteable extends Serializable
 {
   /**
    * Get the contents of this object as a serialized CSS string for writing to
+   * an output using the default writer settings.
+   *
+   * @return The content of this object as CSS string. Never <code>null</code>.
+   * @see #getAsCSSString(ICSSWriterSettings, int)
+   * @since 6.0.0
+   */
+  @Nonnull
+  default String getAsCSSString ()
+  {
+    return getAsCSSString (CSSWriterSettings.DEFAULT_SETTINGS);
+  }
+
+  /**
+   * Get the contents of this object as a serialized CSS string for writing to
    * an output.
    *
    * @param aSettings
    *        The settings to be used to format the output. May not be
    *        <code>null</code>.
-   * @return The content of this object as CSS string.
+   * @return The content of this object as CSS string. Never <code>null</code>.
    * @see #getAsCSSString(ICSSWriterSettings, int)
    * @since 5.0.4
    */
@@ -54,7 +70,7 @@ public interface ICSSWriteable extends Serializable
    *        <code>null</code>.
    * @param nIndentLevel
    *        The current indentation level
-   * @return The content of this object as CSS string.
+   * @return The content of this object as CSS string. Never <code>null</code>.
    */
   @Nonnull
   String getAsCSSString (@Nonnull ICSSWriterSettings aSettings, @Nonnegative int nIndentLevel);

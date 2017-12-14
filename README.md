@@ -17,6 +17,7 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
   * v6.0.0 - work in progress
     * Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
     * Updated to ph-commons 9.0.0
+    * Extended API to more easily access the CSS declaration expression string (#43)
   * v5.0.4 - 2017-04-06
     * Improved special identifier handling in expressions (#38)
     * Added support for css-grid spec with new "line-name" syntax element

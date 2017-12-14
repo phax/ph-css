@@ -41,6 +41,13 @@ import com.helger.css.utils.CSSURLHelper;
 @NotThreadSafe
 public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWriterSettings>
 {
+  /**
+   * Default CSS writer settings to be used for simplified APIs.
+   * 
+   * @since 6.0.0
+   */
+  public static final ICSSWriterSettings DEFAULT_SETTINGS = new CSSWriterSettings ();
+
   /** By default no optimized output */
   public static final boolean DEFAULT_OPTIMIZED_OUTPUT = false;
   /** By default unnecessary code is not removed */

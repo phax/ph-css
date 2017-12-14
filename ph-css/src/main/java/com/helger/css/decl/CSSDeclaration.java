@@ -134,10 +134,21 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    *         10px 25px 9px") as a structured value. Never <code>null</code>.
    */
   @Nonnull
-  @ReturnsMutableObject ("design")
+  @ReturnsMutableObject
   public CSSExpression getExpression ()
   {
     return m_aExpression;
+  }
+
+  /**
+   * Get the CSS expression, but without an eventual `!important` indicator!
+   * 
+   * @return The CSS expression as a parsable String. Never <code>null</code>.
+   */
+  @Nonnull
+  public String getExpressionAsCSSString ()
+  {
+    return m_aExpression.getAsCSSString ();
   }
 
   /**

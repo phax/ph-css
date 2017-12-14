@@ -16,6 +16,8 @@
  */
 package com.helger.css;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
@@ -27,7 +29,7 @@ import com.helger.commons.system.ENewLineMode;
  *
  * @author Philip Helger
  */
-public interface ICSSWriterSettings
+public interface ICSSWriterSettings extends Serializable
 {
   /**
    * @return The CSS version to be used. May not be <code>null</code>.
