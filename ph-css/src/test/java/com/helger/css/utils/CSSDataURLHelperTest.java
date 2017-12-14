@@ -105,6 +105,12 @@ public final class CSSDataURLHelperTest
     assertTrue (CSSDataURLHelper.isDataURL (" data:,"));
     assertTrue (CSSDataURLHelper.isDataURL ("data:any"));
     assertTrue (CSSDataURLHelper.isDataURL (" data:any"));
+    assertTrue (CSSDataURLHelper.isDataURL ("daTA:"));
+    assertTrue (CSSDataURLHelper.isDataURL (" daTA:"));
+    assertTrue (CSSDataURLHelper.isDataURL (" daTA: "));
+    assertTrue (CSSDataURLHelper.isDataURL (" daTA:,"));
+    assertTrue (CSSDataURLHelper.isDataURL ("daTA:any"));
+    assertTrue (CSSDataURLHelper.isDataURL (" daTA:any"));
 
     for (final String sValid : VALID_PLAIN)
       assertTrue (CSSDataURLHelper.isDataURL (sValid));

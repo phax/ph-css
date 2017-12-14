@@ -18,6 +18,7 @@ package com.helger.css.utils;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -73,7 +74,8 @@ public final class CSSDataURLHelper
 
   /**
    * Check if the passed URL is a data URL. It is checked, whether the passed
-   * URL starts with {@value #PREFIX_DATA_URL} (after trimming).
+   * URL starts with {@value #PREFIX_DATA_URL} (after trimming, case
+   * insensitive).
    *
    * @param sURL
    *        The URL to check. May be <code>null</code>.
@@ -85,7 +87,9 @@ public final class CSSDataURLHelper
     if (sURL == null)
       return false;
     final String sRealURL = sURL.trim ();
-    return sRealURL.startsWith (PREFIX_DATA_URL);
+    if (sRealURL.length () < PREFIX_DATA_URL.length ())
+      return false;
+    return sRealURL.substring (0, PREFIX_DATA_URL.length ()).toLowerCase (Locale.US).equals (PREFIX_DATA_URL);
   }
 
   /**
@@ -110,7 +114,7 @@ public final class CSSDataURLHelper
       return null;
 
     // Skip the constant prefix
-    final String sRest = StringHelper.trimStart (sDataURL.trim (), PREFIX_DATA_URL);
+    final String sRest = sDataURL.trim ().substring (PREFIX_DATA_URL.length ());
     if (StringHelper.hasNoText (sRest))
     {
       // Plain "data:" URL - no content
