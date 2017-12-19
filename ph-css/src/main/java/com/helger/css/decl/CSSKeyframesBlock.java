@@ -139,24 +139,11 @@ public class CSSKeyframesBlock implements
     return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
   }
 
-  @Nullable
-  public CSSDeclaration getDeclarationOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
-  {
-    return m_aDeclarations.getDeclarationOfPropertyNameCaseInsensitive (sPropertyName);
-  }
-
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
-  {
-    return m_aDeclarations.getAllDeclarationsOfPropertyNameCaseInsensitive (sPropertyName);
   }
 
   @Nonnull
