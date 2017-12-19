@@ -98,7 +98,7 @@ public class CSSShortHandDescriptor
     ValueEnforcer.notNull (aDeclaration, "Declaration");
 
     // Check that declaration matches this property
-    if (!aDeclaration.getProperty ().equals (m_eProperty.getName ()))
+    if (!aDeclaration.hasProperty (m_eProperty))
       throw new IllegalArgumentException ("Cannot split a '" +
                                           aDeclaration.getProperty () +
                                           "' as a '" +

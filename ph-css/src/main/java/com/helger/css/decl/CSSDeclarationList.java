@@ -118,16 +118,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
     if (StringHelper.hasNoText (sPropertyName))
       return null;
 
-    return findFirst (aDecl -> aDecl.getProperty ().equals (sPropertyName));
-  }
-
-  @Nullable
-  public CSSDeclaration getDeclarationOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
-  {
-    if (StringHelper.hasNoText (sPropertyName))
-      return null;
-
-    return findFirst (aDecl -> aDecl.getProperty ().equalsIgnoreCase (sPropertyName));
+    return findFirst (aDecl -> aDecl.hasProperty (sPropertyName));
   }
 
   @Nonnull
@@ -136,17 +127,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   {
     final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
     if (StringHelper.hasText (sPropertyName))
-      findAll (aDecl -> aDecl.getProperty ().equals (sPropertyName), ret::add);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
-  {
-    final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
-    if (StringHelper.hasText (sPropertyName))
-      findAll (aDecl -> aDecl.getProperty ().equalsIgnoreCase (sPropertyName), ret::add);
+      findAll (aDecl -> aDecl.hasProperty (sPropertyName), ret::add);
     return ret;
   }
 }

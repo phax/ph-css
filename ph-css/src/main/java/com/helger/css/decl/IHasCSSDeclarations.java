@@ -32,8 +32,9 @@ import com.helger.css.ICSSWriteable;
  *
  * @author Philip Helger
  */
-public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>>
-                                     extends ICSSWriteable, IGenericImplTrait <IMPLTYPE>
+public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>> extends
+                                     ICSSWriteable,
+                                     IGenericImplTrait <IMPLTYPE>
 {
   /**
    * Add a new declaration.
@@ -158,7 +159,8 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    * Get the first declaration with the specified property name. If no such
    * property name is present, <code>null</code> is returned. If more than one
    * declaration ith the specified property name is present, always the first in
-   * the list will be returned. The comparison happens <b>case sensitive</b>.
+   * the list will be returned. The comparison happens <b>case insensitive</b>
+   * (since v6.0.0).
    *
    * @param sPropertyName
    *        The property name of the declaration to search (e.g.
@@ -180,13 +182,19 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *        <code>color</code>). May be <code>null</code>.
    * @return <code>null</code> if no such property name was found.
    * @since 3.7.4
+   * @deprecated Since 6.0.0 - use {@link #getDeclarationOfPropertyName(String)}
+   *             instead.
    */
   @Nullable
-  CSSDeclaration getDeclarationOfPropertyNameCaseInsensitive (@Nullable String sPropertyName);
+  @Deprecated
+  default CSSDeclaration getDeclarationOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
+  {
+    return getDeclarationOfPropertyName (sPropertyName);
+  }
 
   /**
    * Get all declarations within this list that have the specified property
-   * name. The comparison happens <b>case sensitive</b>.
+   * name. The comparison happens <b>case insensitive</b> (since v6.0.0).
    *
    * @param sPropertyName
    *        The property name of the declaration to search (e.g.
@@ -207,8 +215,14 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *        <code>color</code>). May be <code>null</code>.
    * @return Never <code>null</code> but maybe an empty list.
    * @since 3.7.4
+   * @deprecated Since 6.0.0 - use
+   *             {@link #getAllDeclarationsOfPropertyName(String)} instead.
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable String sPropertyName);
+  @Deprecated
+  default ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
+  {
+    return getAllDeclarationsOfPropertyName (sPropertyName);
+  }
 }

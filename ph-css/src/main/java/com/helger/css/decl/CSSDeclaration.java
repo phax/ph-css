@@ -98,6 +98,44 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
     return m_sProperty;
   }
 
+  @Nonnull
+  private static String _unifyProperty (@Nonnull final String sProperty)
+  {
+    return sProperty.toLowerCase (Locale.US);
+  }
+
+  /**
+   * Check if this declaration has the specified property. The comparison is
+   * case insensitive!
+   *
+   * @param sProperty
+   *        The property to check. May not be <code>null</code>.
+   * @return <code>true</code> if this declaration has the specified property.
+   * @see #hasProperty(ECSSProperty)
+   * @since 6.0.0
+   */
+  public boolean hasProperty (@Nonnull final String sProperty)
+  {
+    ValueEnforcer.notNull (sProperty, "Property");
+    return m_sProperty.equals (_unifyProperty (sProperty));
+  }
+
+  /**
+   * Check if this declaration has the specified property. The comparison is
+   * case insensitive!
+   *
+   * @param eProperty
+   *        The property to check. May not be <code>null</code>.
+   * @return <code>true</code> if this declaration has the specified property.
+   * @see #hasProperty(String)
+   * @since 6.0.0
+   */
+  public boolean hasProperty (@Nonnull final ECSSProperty eProperty)
+  {
+    ValueEnforcer.notNull (eProperty, "Property");
+    return hasProperty (eProperty.getName ());
+  }
+
   /**
    * Set the property of this CSS value (e.g. <code>background-color</code>).
    *
@@ -110,7 +148,8 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
   @Nonnull
   public CSSDeclaration setProperty (@Nonnull @Nonempty final String sProperty)
   {
-    m_sProperty = ValueEnforcer.notEmpty (sProperty, "Property").toLowerCase (Locale.US);
+    ValueEnforcer.notEmpty (sProperty, "Property");
+    m_sProperty = _unifyProperty (sProperty);
     return this;
   }
 
@@ -142,7 +181,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
 
   /**
    * Get the CSS expression, but without an eventual `!important` indicator!
-   * 
+   *
    * @return The CSS expression as a parsable String. Never <code>null</code>.
    */
   @Nonnull
