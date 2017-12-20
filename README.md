@@ -14,51 +14,51 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-  * v6.0.0 - work in progress
-    * Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
-    * Updated to ph-commons 9.0.0
-    * Extended API to more easily access the CSS declaration expression string (#43)
-    * Data URI scheme is treated case-insensitive (#44)
-    * Extended API for easier CSS property comparison (#45)
-  * v5.0.4 - 2017-04-06
-    * Improved special identifier handling in expressions (#38)
-    * Added support for css-grid spec with new "line-name" syntax element
-    * Added new CSS units: `fr`, `vmax` and `Q`
-  * v5.0.3 - 2017-01-09
-    * Binds to ph-commons 8.6.0
-    * Added custom callback for illegal characters
-  * v5.0.2 - 2016-10-21
-    * Made tab size configurable (issue #29)
-    * Improved media expressions (issue #30)
-    * Allowing to disable consistency checks in class `CSSValue`
-    * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
-  * v5.0.1 - 2016-08-17
-    * Using "modern java template" for JavaCC parser - results in quicker execution
-    * Enhancement issue #27
-    * Integrated `ph-csscompress-maven-plugin` into this repository
-    * Bug fix wrong OutputStream (issue #28) 
-  * v5.0.0 - 2016-06-12
-    * Using JDK8 as the basis
-    * removed explicit grammar for CSS 2.1 (issue #20)
-    * Added browser compliant error handler
-  * v4.1.6 - 2016-10-21
-    * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
-  * v4.1.5 - 2016-09-16
-    * Improved media expressions (issue #30)
-    * Integrated ph-csscompress-maven-plugin into this project (compatibility to 5.x)
-  * v4.1.4 - Improved browser compliant parsing (issue #26)
-  * v4.1.3 - Improved browser compliant parsing (issue #24)
-  * v4.1.2 - Improved browser compliant parsing (issue #21)
-  * v4.1.1 - Skipping style rules with invalid selectors in browser compliant mode; allowing "--" identifier prefix; improved unknown rule parsing (issues #17, #18, #19)
-  * v4.1.0 - Improved calc parsing; extended support for page rules with page margin blocks
-  * v4.0.1 - Added customizable newline characters
-  * v4.0.0 - Updated to ph-commons 6.0.0 and added "browser compliant parsing mode"
-  * v3.9.2 - Updated to ph-commons 5.7.1 and fix for some minor issues
-  * v3.9.1 - Updated to ph-commons 5.6.0 and fix for some shorthand handling
-  * v3.9.0 - API improvements and support for vendor specific "-calc" added
-  * v3.8.2 - small bugfix release
-  * v3.8.1 - improvements for expression parsing and single line comment handling 
-  * v3.8.0 - initial version in com.helger group and package 
+* v6.0.0 - 2017-12-20
+  * Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
+  * Updated to ph-commons 9.0.0
+  * Extended API to more easily access the CSS declaration expression string (#43)
+  * Data URI scheme is treated case-insensitive (#44)
+  * Extended API for easier CSS property comparison (#45)
+* v5.0.4 - 2017-04-06
+  * Improved special identifier handling in expressions (#38)
+  * Added support for css-grid spec with new "line-name" syntax element
+  * Added new CSS units: `fr`, `vmax` and `Q`
+* v5.0.3 - 2017-01-09
+  * Binds to ph-commons 8.6.0
+  * Added custom callback for illegal characters
+* v5.0.2 - 2016-10-21
+  * Made tab size configurable (issue #29)
+  * Improved media expressions (issue #30)
+  * Allowing to disable consistency checks in class `CSSValue`
+  * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
+* v5.0.1 - 2016-08-17
+  * Using "modern java template" for JavaCC parser - results in quicker execution
+  * Enhancement issue #27
+  * Integrated `ph-csscompress-maven-plugin` into this repository
+  * Bug fix wrong OutputStream (issue #28) 
+* v5.0.0 - 2016-06-12
+  * Using JDK8 as the basis
+  * removed explicit grammar for CSS 2.1 (issue #20)
+  * Added browser compliant error handler
+* v4.1.6 - 2016-10-21
+  * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
+* v4.1.5 - 2016-09-16
+  * Improved media expressions (issue #30)
+  * Integrated ph-csscompress-maven-plugin into this project (compatibility to 5.x)
+* v4.1.4 - Improved browser compliant parsing (issue #26)
+* v4.1.3 - Improved browser compliant parsing (issue #24)
+* v4.1.2 - Improved browser compliant parsing (issue #21)
+* v4.1.1 - Skipping style rules with invalid selectors in browser compliant mode; allowing "--" identifier prefix; improved unknown rule parsing (issues #17, #18, #19)
+* v4.1.0 - Improved calc parsing; extended support for page rules with page margin blocks
+* v4.0.1 - Added customizable newline characters
+* v4.0.0 - Updated to ph-commons 6.0.0 and added "browser compliant parsing mode"
+* v3.9.2 - Updated to ph-commons 5.7.1 and fix for some minor issues
+* v3.9.1 - Updated to ph-commons 5.6.0 and fix for some shorthand handling
+* v3.9.0 - API improvements and support for vendor specific "-calc" added
+* v3.8.2 - small bugfix release
+* v3.8.1 - improvements for expression parsing and single line comment handling 
+* v3.8.0 - initial version in com.helger group and package 
 
 ph-css will be part of [Apache JMeter 3](https://github.com/apache/jmeter) :)
 
@@ -68,7 +68,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>5.0.4</version>
+  <version>6.0.0</version>
 </dependency>
 ```
 
@@ -265,7 +265,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>5.0.4</version>
+        <version>6.0.0</version>
         <executions>
           <execution>
             <goals>
