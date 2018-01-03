@@ -19,8 +19,6 @@ package com.helger.css.supplementary.issues;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
@@ -37,8 +35,6 @@ import com.helger.css.writer.CSSWriterSettings;
  */
 public final class Issue36Test
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (Issue36Test.class);
-
   @Test
   public void testIssue ()
   {

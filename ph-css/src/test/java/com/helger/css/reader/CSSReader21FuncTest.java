@@ -36,7 +36,7 @@ public final class CSSReader21FuncTest extends AbstractFuncTestCSSReader
   @Parameters (name = "{index}: browserCompliant={0}")
   public static Iterable <Object []> data ()
   {
-    return new CommonsArrayList<> (new Object [] { true }, new Object [] { false });
+    return new CommonsArrayList <> (new Object [] { Boolean.TRUE }, new Object [] { Boolean.FALSE });
   }
 
   public CSSReader21FuncTest (final boolean bBrowserCompliant)

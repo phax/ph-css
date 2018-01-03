@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -40,8 +38,6 @@ import com.helger.css.writer.CSSWriterSettings;
  */
 public final class Issue35Test
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (Issue35Test.class);
-
   @Test
   public void testIssue ()
   {

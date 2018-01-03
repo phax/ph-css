@@ -17,19 +17,16 @@
 package com.helger.css.handler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
-import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
 
 /**
  * This class is the entry point for converting AST nodes from the parser to
@@ -40,11 +37,6 @@ import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
 @Immutable
 public final class CSSHandler
 {
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-
-  @GuardedBy ("s_aRWLock")
-  private static ICSSInterpretErrorHandler s_aDefaultInterpretErrorHandler = new LoggingCSSInterpretErrorHandler ();
-
   @PresentForCodeCoverage
   private static final CSSHandler s_aInstance = new CSSHandler ();
 

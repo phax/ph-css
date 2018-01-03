@@ -711,38 +711,36 @@ final class CSSNodeToDomainObject
 
       return ret;
     }
-    else
+
+    String sPseudoPage = null;
+    int nStartIndex = 0;
+    if (nChildCount > 0)
     {
-      String sPseudoPage = null;
-      int nStartIndex = 0;
-      if (nChildCount > 0)
+      final CSSNode aFirstChild = aNode.jjtGetChild (0);
+      if (ECSSNodeType.PSEUDOPAGE.isNode (aFirstChild, m_eVersion))
       {
-        final CSSNode aFirstChild = aNode.jjtGetChild (0);
-        if (ECSSNodeType.PSEUDOPAGE.isNode (aFirstChild, m_eVersion))
-        {
-          sPseudoPage = aFirstChild.getText ();
-          nStartIndex++;
-        }
+        sPseudoPage = aFirstChild.getText ();
+        nStartIndex++;
       }
-
-      final CSSPageRule ret = new CSSPageRule (sPseudoPage);
-      ret.setSourceLocation (aNode.getSourceLocation ());
-      for (int nIndex = nStartIndex; nIndex < nChildCount; ++nIndex)
-      {
-        final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
-
-        if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
-        {
-          // Read all contained declarations
-          _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addMember (aDeclaration));
-        }
-        else
-          if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-            m_aErrorHandler.onCSSInterpretationError ("Unsupported page rule child: " +
-                                                      ECSSNodeType.getNodeName (aChildNode, m_eVersion));
-      }
-      return ret;
     }
+
+    final CSSPageRule ret = new CSSPageRule (sPseudoPage);
+    ret.setSourceLocation (aNode.getSourceLocation ());
+    for (int nIndex = nStartIndex; nIndex < nChildCount; ++nIndex)
+    {
+      final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
+
+      if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
+      {
+        // Read all contained declarations
+        _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addMember (aDeclaration));
+      }
+      else
+        if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported page rule child: " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+    }
+    return ret;
   }
 
   @Nonnull
