@@ -741,7 +741,8 @@ void mathSumOperator() : {}
 void mathSum() #void : {}
 {
   mathProduct()
-  ( <S>
+  ( LOOKAHEAD(2)
+    <S>
     mathSumOperator()
     <S>
     mathProduct ()

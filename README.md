@@ -14,6 +14,8 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
+* v6.0.1 - work in progress
+  * Fixed a grammar issue for `calc` with spaces (as in `width: calc( 100% - 2.4em );`)
 * v6.0.0 - 2017-12-20
   * Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
   * Updated to ph-commons 9.0.0
