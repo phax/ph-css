@@ -18,7 +18,6 @@ options {
 // JavaCC options
   // LOOKAHEAD = 2;
   CHOICE_AMBIGUITY_CHECK = 5;
-  STATIC = false;  // to allow for multiple parser instances
   // DEBUG_PARSER = true;
   // DEBUG_LOOKAHEAD = true;
   // DEBUG_TOKEN_MANAGER = true;
@@ -28,7 +27,7 @@ options {
   IGNORE_CASE = true;
   // USER_TOKEN_MANAGER = true;
   // SUPPORT_CLASS_VISIBILITY_PUBLIC = false;
-  // USER_CHAR_STREAM = true;
+  USER_CHAR_STREAM = true;
   FORCE_LA_CHECK = true;
   // The modern template is quicker!
   // When changing it here, change it in ALL jjt files!
