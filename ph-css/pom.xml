@@ -103,7 +103,6 @@
               <!-- Used in generated classes  
               <bundledSignature>jdk-system-out</bundledSignature>
               -->
-
             </bundledSignatures>
           </configuration>
         </plugin>
@@ -124,6 +123,7 @@
         <configuration>
           <jdkVersion>1.8</jdkVersion>
           <javadocFriendlyComments>true</javadocFriendlyComments>
+          <outputEncoding>utf-8</outputEncoding>
         </configuration>
       </plugin>
       <plugin>
