@@ -112,7 +112,7 @@
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-javacc-maven-plugin</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>4.0.2</version>
         <executions>
           <execution>
             <goals>
@@ -124,6 +124,8 @@
           <jdkVersion>1.8</jdkVersion>
           <javadocFriendlyComments>true</javadocFriendlyComments>
           <outputEncoding>utf-8</outputEncoding>
+          <!-- The modern template is quicker! --> 
+          <javaTemplateType>modern</javaTemplateType>
         </configuration>
       </plugin>
       <plugin>

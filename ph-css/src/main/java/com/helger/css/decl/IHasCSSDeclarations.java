@@ -31,6 +31,8 @@ import com.helger.css.ICSSWriteable;
  * Sanity interface for all objects having CSS declarations.
  *
  * @author Philip Helger
+ * @param <IMPLTYPE>
+ *        Implementation type
  */
 public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>> extends
                                      ICSSWriteable,
