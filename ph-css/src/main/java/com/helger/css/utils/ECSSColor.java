@@ -16,8 +16,6 @@
  */
 package com.helger.css.utils;
 
-import java.awt.Color;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -278,15 +276,6 @@ public enum ECSSColor implements ICSSNamedColor
   public float getLightness ()
   {
     return m_fLightness;
-  }
-
-  /**
-   * @return This CSS color as a java.awt.Color object. Never <code>null</code>.
-   */
-  @Nonnull
-  public Color getAsAwtColor ()
-  {
-    return new Color (m_nRed, m_nGreen, m_nBlue);
   }
 
   /**
