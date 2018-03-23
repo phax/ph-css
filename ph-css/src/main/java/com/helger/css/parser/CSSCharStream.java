@@ -194,7 +194,7 @@ public final class CSSCharStream implements CharStream
    * @throws IOException
    *         from readChar
    */
-  public char beginToken () throws IOException
+  public char BeginToken () throws IOException
   {
     if (m_nInBuf > 0)
     {
@@ -341,7 +341,7 @@ public final class CSSCharStream implements CharStream
   }
 
   /** @return token image as String */
-  public String getImage ()
+  public String GetImage ()
   {
     if (m_nBufpos >= m_nTokenBegin)
       return new String (m_aBuffer, m_nTokenBegin, m_nBufpos - m_nTokenBegin + 1);
@@ -350,7 +350,7 @@ public final class CSSCharStream implements CharStream
   }
 
   /** @return suffix */
-  public char [] getSuffix (final int len)
+  public char [] GetSuffix (final int len)
   {
     final char [] ret = new char [len];
 
@@ -366,7 +366,7 @@ public final class CSSCharStream implements CharStream
   }
 
   /** Set buffers back to null when finished. */
-  public void done ()
+  public void Done ()
   {
     m_aNextCharBuf = null;
     m_aBuffer = null;
@@ -440,7 +440,7 @@ public final class CSSCharStream implements CharStream
     m_nColumn = m_aBufColumn[j];
   }
 
-  public boolean isTrackLineColumn ()
+  public boolean getTrackLineColumn ()
   {
     return m_bTrackLineColumn;
   }
