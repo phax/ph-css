@@ -14,8 +14,9 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-* v6.0.1 - work in progress
+* v6.1.0 - 2018-03-23
   * Fixed a grammar issue for `calc` with spaces (as in `width: calc( 100% - 2.4em );`)
+  * Removed dependency upon `java.awt.Color` for improved Android compatibility.
 * v6.0.0 - 2017-12-20
   * Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
   * Updated to ph-commons 9.0.0
@@ -43,6 +44,8 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
   * Using JDK8 as the basis
   * removed explicit grammar for CSS 2.1 (issue #20)
   * Added browser compliant error handler
+* v4.2.0 - 2018-03-22
+  * Removed dependency upon `java.awt.Color` for improved Android compatibility.
 * v4.1.6 - 2016-10-21
   * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
 * v4.1.5 - 2016-09-16
@@ -70,7 +73,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>6.0.0</version>
+  <version>6.1.0</version>
 </dependency>
 ```
 
@@ -267,7 +270,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>6.0.0</version>
+        <version>6.1.0</version>
         <executions>
           <execution>
             <goals>

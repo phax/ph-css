@@ -16,8 +16,6 @@
  */
 package com.helger.css.utils;
 
-import java.awt.Color;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -618,9 +616,39 @@ public final class CSSColorHelper
   public static float [] getRGBAsHSLValue (final int nRed, final int nGreen, final int nBlue)
   {
     // Convert RGB to HSB(=HSL) - brightness vs. lightness
-    // All returned values in the range 0-1
-    final float [] aHSL = Color.RGBtoHSB (nRed, nGreen, nBlue, new float [3]);
-    return new float [] { aHSL[0] * HSL_MAX, aHSL[1] * PERCENTAGE_MAX, aHSL[2] * PERCENTAGE_MAX };
+    int cmax = nRed > nGreen ? nRed : nGreen;
+    if (nBlue > cmax)
+      cmax = nBlue;
+    int cmin = nRed < nGreen ? nRed : nGreen;
+    if (nBlue < cmin)
+      cmin = nBlue;
+
+    final float brightness = cmax / 255.0f;
+    float saturation;
+    if (cmax != 0)
+      saturation = ((float) (cmax - cmin)) / ((float) cmax);
+    else
+      saturation = 0;
+    float hue;
+    if (saturation == 0)
+      hue = 0;
+    else
+    {
+      final float redc = ((float) (cmax - nRed)) / ((float) (cmax - cmin));
+      final float greenc = ((float) (cmax - nGreen)) / ((float) (cmax - cmin));
+      final float bluec = ((float) (cmax - nBlue)) / ((float) (cmax - cmin));
+      if (nRed == cmax)
+        hue = bluec - greenc;
+      else
+        if (nGreen == cmax)
+          hue = 2.0f + redc - bluec;
+        else
+          hue = 4.0f + greenc - redc;
+      hue = hue / 6.0f;
+      if (hue < 0)
+        hue = hue + 1.0f;
+    }
+    return new float [] { hue * HSL_MAX, saturation * PERCENTAGE_MAX, brightness * PERCENTAGE_MAX };
   }
 
   /**
@@ -641,8 +669,57 @@ public final class CSSColorHelper
   public static int [] getHSLAsRGBValue (final float fHue, final float fSaturation, final float fLightness)
   {
     // Convert RGB to HSB(=HSL) - brightness vs. lightness
-    // All returned values in the range 0-255
-    final int ret = Color.HSBtoRGB (fHue / HSL_MAX, fSaturation / PERCENTAGE_MAX, fLightness / PERCENTAGE_MAX);
-    return new int [] { (ret >> 16) & 0xff, (ret >> 8) & 0xff, ret & 0xff };
+    final float hue = fHue / HSL_MAX;
+    final float saturation = fSaturation / PERCENTAGE_MAX;
+    final float brightness = fLightness / PERCENTAGE_MAX;
+    int r = 0;
+    int g = 0;
+    int b = 0;
+    if (saturation == 0)
+    {
+      r = g = b = (int) (brightness * 255.0f + 0.5f);
+    }
+    else
+    {
+      final float h = (hue - (float) Math.floor (hue)) * 6.0f;
+      final float f = h - (float) java.lang.Math.floor (h);
+      final float p = brightness * (1.0f - saturation);
+      final float q = brightness * (1.0f - saturation * f);
+      final float t = brightness * (1.0f - (saturation * (1.0f - f)));
+      switch ((int) h)
+      {
+        case 0:
+          r = (int) (brightness * 255.0f + 0.5f);
+          g = (int) (t * 255.0f + 0.5f);
+          b = (int) (p * 255.0f + 0.5f);
+          break;
+        case 1:
+          r = (int) (q * 255.0f + 0.5f);
+          g = (int) (brightness * 255.0f + 0.5f);
+          b = (int) (p * 255.0f + 0.5f);
+          break;
+        case 2:
+          r = (int) (p * 255.0f + 0.5f);
+          g = (int) (brightness * 255.0f + 0.5f);
+          b = (int) (t * 255.0f + 0.5f);
+          break;
+        case 3:
+          r = (int) (p * 255.0f + 0.5f);
+          g = (int) (q * 255.0f + 0.5f);
+          b = (int) (brightness * 255.0f + 0.5f);
+          break;
+        case 4:
+          r = (int) (t * 255.0f + 0.5f);
+          g = (int) (p * 255.0f + 0.5f);
+          b = (int) (brightness * 255.0f + 0.5f);
+          break;
+        case 5:
+          r = (int) (brightness * 255.0f + 0.5f);
+          g = (int) (p * 255.0f + 0.5f);
+          b = (int) (q * 255.0f + 0.5f);
+          break;
+      }
+    }
+    return new int [] { r, g, b };
   }
 }
