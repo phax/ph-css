@@ -110,11 +110,14 @@ public interface ICSSMediaList extends Serializable
   /**
    * @return A non-<code>null</code> but maybe empty String with all media in
    *         the order they where inserted and separated by
-   *         {@value CSSMediaList#DEFAULT_MEDIA_STRING_SEPARATOR}
+   *         {@link CSSMediaList#DEFAULT_MEDIA_STRING_SEPARATOR}
    * @see #getMediaString(String)
    */
   @Nonnull
-  String getMediaString ();
+  default String getMediaString ()
+  {
+    return getMediaString (CSSMediaList.DEFAULT_MEDIA_STRING_SEPARATOR);
+  }
 
   /**
    * @param sSeparator

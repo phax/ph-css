@@ -232,12 +232,6 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   }
 
   @Nonnull
-  public String getMediaString ()
-  {
-    return getMediaString (DEFAULT_MEDIA_STRING_SEPARATOR);
-  }
-
-  @Nonnull
   public String getMediaString (@Nonnull final String sSeparator)
   {
     ValueEnforcer.notNull (sSeparator, "Separator");
