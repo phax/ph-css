@@ -14,6 +14,8 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
+* v6.1.1 - work in progress
+  * Allow nested `calc` function (#48)
 * v6.1.0 - 2018-03-23
   * Fixed a grammar issue for `calc` with spaces (as in `width: calc( 100% - 2.4em );`)
   * Removed dependency upon `java.awt.Color` for improved Android compatibility.
