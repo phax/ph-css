@@ -700,6 +700,7 @@ void mathUnit() :
   | t = <PERCENTAGE>
   | t = dimension()
   | function()
+  | math()
   | <LROUND>
     ( <S> )*
     mathSum()
