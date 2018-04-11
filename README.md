@@ -14,7 +14,7 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-* v6.1.1 - work in progress
+* v6.1.1 - 2018-04-11
   * Allow nested `calc` function (#48)
 * v6.1.0 - 2018-03-23
   * Fixed a grammar issue for `calc` with spaces (as in `width: calc( 100% - 2.4em );`)
@@ -75,7 +75,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>6.1.0</version>
+  <version>6.1.1</version>
 </dependency>
 ```
 
@@ -272,7 +272,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>6.1.0</version>
+        <version>6.1.1</version>
         <executions>
           <execution>
             <goals>
