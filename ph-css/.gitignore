@@ -13,3 +13,6 @@ hs_err_pid*
 
 target/
 /**/.pmd
+/.settings/ 
+/.project 
+/.classpath 
