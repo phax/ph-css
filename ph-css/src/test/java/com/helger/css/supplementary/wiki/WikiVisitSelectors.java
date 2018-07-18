@@ -25,7 +25,6 @@ import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.visit.CSSVisitor;
 import com.helger.css.decl.visit.DefaultCSSVisitor;
-import com.helger.css.decl.visit.ICSSVisitor;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriterSettings;
 

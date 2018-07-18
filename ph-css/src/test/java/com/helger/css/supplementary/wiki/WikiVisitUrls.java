@@ -28,7 +28,6 @@ import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.decl.visit.CSSVisitor;
 import com.helger.css.decl.visit.DefaultCSSUrlVisitor;
-import com.helger.css.decl.visit.ICSSUrlVisitor;
 import com.helger.css.reader.CSSReader;
 
 /**

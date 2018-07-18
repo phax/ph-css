@@ -38,7 +38,6 @@ import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasReader;
-import com.helger.commons.io.provider.IReaderProvider;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingStringReader;

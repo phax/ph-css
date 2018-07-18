@@ -31,7 +31,6 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSSpecification;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSVersionAware;
@@ -49,8 +48,10 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSupportsRule extends AbstractHasTopLevelRules
-                             implements ICSSTopLevelRule, ICSSSourceLocationAware, ICSSVersionAware
+public class CSSSupportsRule extends AbstractHasTopLevelRules implements
+                             ICSSTopLevelRule,
+                             ICSSSourceLocationAware,
+                             ICSSVersionAware
 {
   private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
