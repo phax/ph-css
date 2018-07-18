@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.compare.IComparator;
@@ -44,7 +45,7 @@ public final class CSSNumberHelper
 
   static
   {
-    final ICommonsMap <String, ECSSUnit> aNameToUnitMap = new CommonsHashMap<> ();
+    final ICommonsMap <String, ECSSUnit> aNameToUnitMap = new CommonsHashMap <> ();
     for (final ECSSUnit eUnit : ECSSUnit.values ())
       aNameToUnitMap.put (eUnit.getName (), eUnit);
     // Now sort, so that the longest matches are upfront so that they are
@@ -52,7 +53,7 @@ public final class CSSNumberHelper
     s_aNameToUnitMap = aNameToUnitMap.getSortedByKey (IComparator.getComparatorStringLongestFirst ());
   }
 
-  @SuppressWarnings ("unused")
+  @PresentForCodeCoverage
   private static final CSSNumberHelper s_aInstance = new CSSNumberHelper ();
 
   private CSSNumberHelper ()
