@@ -42,7 +42,7 @@ import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
  */
 public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSVisitor30FuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSVisitor30FuncTest.class);
 
   @Test
   public void testVisitContent30 ()
@@ -51,7 +51,7 @@ public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
     {
       final String sKey = aFile.getAbsolutePath ();
       if (true)
-        s_aLogger.info (sKey);
+        LOGGER.info (sKey);
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
                                                                new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
                                                                                        .setCSSVersion (ECSSVersion.CSS30)

@@ -65,7 +65,7 @@ import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 @Immutable
 public final class CSSReaderDeclarationList
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReaderDeclarationList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSReaderDeclarationList.class);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   // Use the ThrowingCSSParseErrorHandler for maximum backward compatibility
@@ -259,7 +259,7 @@ public final class CSSReaderDeclarationList
     final Reader aReader = aRes.getReader (aCharset);
     if (aReader == null)
     {
-      s_aLogger.warn ("Failed to open CSS reader " + aRes);
+      LOGGER.warn ("Failed to open CSS reader " + aRes);
       return false;
     }
     return isValidCSS (aReader, eVersion);

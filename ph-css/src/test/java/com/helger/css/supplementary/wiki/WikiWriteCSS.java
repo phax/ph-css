@@ -36,7 +36,7 @@ import com.helger.css.writer.CSSWriterSettings;
  */
 public final class WikiWriteCSS
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WikiWriteCSS.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (WikiWriteCSS.class);
 
   /**
    * Write a CSS 3.0 declaration to a file using UTF-8 encoding.
@@ -67,7 +67,7 @@ public final class WikiWriteCSS
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Failed to write the CSS to a file", ex);
+      LOGGER.error ("Failed to write the CSS to a file", ex);
       return ESuccess.FAILURE;
     }
   }

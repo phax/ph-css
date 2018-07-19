@@ -36,7 +36,7 @@ import com.helger.css.reader.CSSReader;
 @Immutable
 public final class CSSCompressor
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSCompressor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSCompressor.class);
 
   @PresentForCodeCoverage
   private static final CSSCompressor s_aInstance = new CSSCompressor ();
@@ -110,7 +110,7 @@ public final class CSSCompressor
       }
       catch (final Exception ex)
       {
-        s_aLogger.warn ("Failed to write optimized CSS!", ex);
+        LOGGER.warn ("Failed to write optimized CSS!", ex);
       }
     }
     return sOriginalCSS;

@@ -33,7 +33,7 @@ import com.helger.css.reader.CSSReader;
  */
 public final class WikiReadCSS
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WikiReadCSS.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (WikiReadCSS.class);
 
   /**
    * Read a CSS 3.0 declaration from a file using UTF-8 encoding.
@@ -49,7 +49,7 @@ public final class WikiReadCSS
     if (aCSS == null)
     {
       // Most probably a syntax error
-      s_aLogger.warn ("Failed to read CSS - please see previous logging entries!");
+      LOGGER.warn ("Failed to read CSS - please see previous logging entries!");
       return null;
     }
     return aCSS;

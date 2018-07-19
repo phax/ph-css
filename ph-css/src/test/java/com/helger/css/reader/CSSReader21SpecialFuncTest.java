@@ -37,7 +37,7 @@ import com.helger.css.writer.CSSWriter;
  */
 public final class CSSReader21SpecialFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReader21SpecialFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSReader21SpecialFuncTest.class);
 
   @Test
   public void testReadSpecialGood ()
@@ -51,6 +51,6 @@ public final class CSSReader21SpecialFuncTest
     final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
     assertNotNull (sCSS);
     if (false)
-      s_aLogger.info (sCSS);
+      LOGGER.info (sCSS);
   }
 }

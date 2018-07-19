@@ -49,7 +49,7 @@ public class CSSValue implements ICSSValue
 {
   public static final boolean DEFAULT_CONSISTENCY_CHECKS_ENABLED = true;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSValue.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSValue.class);
   private static boolean s_bConsistencyChecksEnabled = DEFAULT_CONSISTENCY_CHECKS_ENABLED;
 
   /**
@@ -174,13 +174,13 @@ public class CSSValue implements ICSSValue
     if (areConsistencyChecksEnabled ())
     {
       if (!m_aProperty.isValidValue (sValue))
-        s_aLogger.warn ("CSS: the value '" +
+        LOGGER.warn ("CSS: the value '" +
                         sValue +
                         "' is not valid for property '" +
                         m_aProperty.getPropertyName () +
                         "'");
       if (sValue.contains (CCSS.IMPORTANT_SUFFIX))
-        s_aLogger.warn ("CSS: the value '" +
+        LOGGER.warn ("CSS: the value '" +
                         sValue +
                         "' should not contain the '" +
                         CCSS.IMPORTANT_SUFFIX +

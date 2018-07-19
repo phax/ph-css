@@ -32,7 +32,7 @@ import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 @NotThreadSafe
 public abstract class AbstractParserCSS
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractParserCSS.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractParserCSS.class);
 
   protected ICSSParseErrorHandler m_aCustomErrorHandler;
   protected boolean m_bBrowserCompliantMode = false;
@@ -83,14 +83,14 @@ public abstract class AbstractParserCSS
   // Used when NODE_SCOPE_HOOK is true - for debugging only
   public void jjtreeOpenNodeScope (final Node aNode)
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Opening scope for " + aNode.toString ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Opening scope for " + aNode.toString ());
   }
 
   // Used when NODE_SCOPE_HOOK is true - for debugging only
   public void jjtreeCloseNodeScope (final Node aNode)
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Closing scope for " + aNode.toString ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Closing scope for " + aNode.toString ());
   }
 }

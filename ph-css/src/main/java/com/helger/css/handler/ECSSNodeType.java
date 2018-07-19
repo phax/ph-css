@@ -111,7 +111,7 @@ public enum ECSSNodeType
   // rest
   ERROR_SKIPTO (ParserCSS30TreeConstants.JJTERRORSKIPTO);
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ECSSNodeType.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ECSSNodeType.class);
 
   private final int m_nParserType30;
 
@@ -189,7 +189,7 @@ public enum ECSSNodeType
     final ECSSNodeType eNodeType = getNodeType (aParserNode, eVersion);
     if (eNodeType != null)
       return eNodeType.getNodeName (eVersion);
-    s_aLogger.warn ("Unsupported node type " + aParserNode.getNodeType () + " in version " + eVersion);
+    LOGGER.warn ("Unsupported node type " + aParserNode.getNodeType () + " in version " + eVersion);
     return null;
   }
 

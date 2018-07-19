@@ -41,7 +41,7 @@ import com.helger.css.CSSSourceLocation;
  */
 public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectTrait
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSNode.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSNode.class);
 
   private final int m_nType;
   private CSSNode m_aParent;
@@ -206,7 +206,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
 
   public void dump (@Nonnull final String sPrefix)
   {
-    s_aLogger.info (sPrefix + toString ());
+    LOGGER.info (sPrefix + toString ());
     if (m_aChildren != null)
       for (final CSSNode aChild : m_aChildren)
         if (aChild != null)

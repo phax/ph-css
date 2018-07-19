@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class LoggingCSSInterpretErrorHandler implements ICSSInterpretErrorHandler
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingCSSInterpretErrorHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingCSSInterpretErrorHandler.class);
 
   /**
    * Default constructor.
@@ -45,12 +45,12 @@ public class LoggingCSSInterpretErrorHandler implements ICSSInterpretErrorHandle
 
   public void onCSSInterpretationWarning (@Nonnull @Nonempty final String sMessage)
   {
-    s_aLogger.warn (sMessage);
+    LOGGER.warn (sMessage);
   }
 
   public void onCSSInterpretationError (@Nonnull @Nonempty final String sMessage)
   {
-    s_aLogger.error (sMessage);
+    LOGGER.error (sMessage);
   }
 
   @Override

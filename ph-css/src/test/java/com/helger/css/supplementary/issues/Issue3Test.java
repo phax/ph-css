@@ -41,13 +41,13 @@ import com.helger.css.writer.CSSWriterSettings;
  */
 public final class Issue3Test
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (Issue3Test.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (Issue3Test.class);
 
   @Nonnull
   private static CascadingStyleSheet _parse (@Nonnull final String sCSS, final boolean bBrowserCompliantMode)
   {
     if (true)
-      s_aLogger.info ("[Parsing] " + sCSS);
+      LOGGER.info ("[Parsing] " + sCSS);
     return CSSReader.readFromStringReader (sCSS,
                                            new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
                                                                    .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
@@ -56,7 +56,7 @@ public final class Issue3Test
 
   private static void _print (@Nonnull final CascadingStyleSheet aCSS)
   {
-    s_aLogger.info (new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).setWriteHeaderText (false)
+    LOGGER.info (new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).setWriteHeaderText (false)
                                                                                                        .getCSSAsString (aCSS));
   }
 

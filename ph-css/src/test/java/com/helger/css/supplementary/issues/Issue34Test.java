@@ -39,7 +39,7 @@ import com.helger.css.writer.CSSWriterSettings;
  */
 public final class Issue34Test
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (Issue34Test.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (Issue34Test.class);
 
   @Test
   @Ignore ("TODO")
@@ -53,6 +53,6 @@ public final class Issue34Test
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
     assertNotNull (cascadingStyleSheet);
     final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
-    s_aLogger.info (writer.getCSSAsString (cascadingStyleSheet));
+    LOGGER.info (writer.getCSSAsString (cascadingStyleSheet));
   }
 }

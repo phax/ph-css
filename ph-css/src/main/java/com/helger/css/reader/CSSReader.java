@@ -75,7 +75,7 @@ import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 @ThreadSafe
 public final class CSSReader
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSReader.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSReader.class);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   // Use the ThrowingCSSParseErrorHandler for maximum backward compatibility
@@ -280,7 +280,7 @@ public final class CSSReader
     final Reader aReader = aRes.getReader (aFallbackCharset);
     if (aReader == null)
     {
-      s_aLogger.warn ("Failed to open CSS reader " + aRes);
+      LOGGER.warn ("Failed to open CSS reader " + aRes);
       return false;
     }
     return isValidCSS (aReader, eVersion);
@@ -888,7 +888,7 @@ public final class CSSReader
       if (aBOMCharset != null && !aBOMCharset.equals (aReadCharset))
       {
         // BOM charset different from read charset
-        s_aLogger.warn ("The charset found in the CSS data (" +
+        LOGGER.warn ("The charset found in the CSS data (" +
                         aReadCharset.name () +
                         ") differs from the charset determined by the BOM (" +
                         aBOMCharset.name () +
@@ -1025,8 +1025,8 @@ public final class CSSReader
     }
     if (aDeclaredCharset != null)
     {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Reading CSS definition again with explicit charset '" + aDeclaredCharset.name () + "'");
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Reading CSS definition again with explicit charset '" + aDeclaredCharset.name () + "'");
       aCharsetToUse = aDeclaredCharset;
     }
     else

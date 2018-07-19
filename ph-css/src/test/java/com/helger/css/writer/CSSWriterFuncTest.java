@@ -40,12 +40,12 @@ import com.helger.css.reader.CSSReader;
 
 public final class CSSWriterFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSWriterFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSWriterFuncTest.class);
 
   private void _testMe (@Nonnull final File aFile, @Nonnull final ECSSVersion eVersion)
   {
     if (false)
-      s_aLogger.info (aFile.getAbsolutePath ());
+      LOGGER.info (aFile.getAbsolutePath ());
 
     // read and interpret
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, eVersion);

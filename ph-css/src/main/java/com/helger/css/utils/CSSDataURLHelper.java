@@ -64,7 +64,7 @@ public final class CSSDataURLHelper
   /** Data URLs should use the URL code to quote values! */
   public static final EMimeQuoting MIME_QUOTING = EMimeQuoting.URL_ESCAPE;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CSSDataURLHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSDataURLHelper.class);
 
   @PresentForCodeCoverage
   private static final CSSDataURLHelper s_aInstance = new CSSDataURLHelper ();
@@ -195,7 +195,7 @@ public final class CSSDataURLHelper
       aMimeType = MimeTypeParser.safeParseMimeType (sMimeType, EMimeQuoting.URL_ESCAPE);
       if (aMimeType == null)
       {
-        s_aLogger.warn ("Data URL contains invalid MIME type: '" + sMimeType + "'");
+        LOGGER.warn ("Data URL contains invalid MIME type: '" + sMimeType + "'");
         return null;
       }
 
@@ -206,7 +206,7 @@ public final class CSSDataURLHelper
         aCharset = CharsetHelper.getCharsetFromNameOrNull (sCharsetParam);
         if (aCharset == null)
         {
-          s_aLogger.warn ("Illegal charset '" +
+          LOGGER.warn ("Illegal charset '" +
                           sCharsetParam +
                           "' contained. Defaulting to '" +
                           DEFAULT_CHARSET.name () +
@@ -227,7 +227,7 @@ public final class CSSDataURLHelper
       aContent = Base64.safeDecode (aContent);
       if (aContent == null)
       {
-        s_aLogger.warn ("Failed to decode Base64 value: " + sContent);
+        LOGGER.warn ("Failed to decode Base64 value: " + sContent);
         return null;
       }
 

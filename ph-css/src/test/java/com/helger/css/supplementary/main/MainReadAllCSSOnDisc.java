@@ -43,7 +43,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class MainReadAllCSSOnDisc
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainReadAllCSSOnDisc.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainReadAllCSSOnDisc.class);
 
   @SuppressFBWarnings ("DMI_HARDCODED_ABSOLUTE_FILENAME")
   public static void main (final String [] args)
@@ -56,21 +56,21 @@ public final class MainReadAllCSSOnDisc
     for (final File aFile : new FileSystemRecursiveIterator (new File ("/")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
       if (false)
-        s_aLogger.info (aFile.getAbsolutePath ());
+        LOGGER.info (aFile.getAbsolutePath ());
       aCurrentFile.set (aFile);
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, ECSSVersion.CSS30, aHdl);
       if (aCSS == null)
       {
         nFilesError++;
-        s_aLogger.warn ("  " + aFile.getAbsolutePath () + " failed!");
+        LOGGER.warn ("  " + aFile.getAbsolutePath () + " failed!");
       }
       else
         nFilesOK++;
     }
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
     for (final Map.Entry <File, ParseException> aEntry : aErrors.entrySet ())
-      s_aLogger.info ("  " + aEntry.getKey ().getAbsolutePath () + ":\n" + aEntry.getValue ().getMessage () + "\n");
-    s_aLogger.info ("OK: " + nFilesOK + "; Error: " + nFilesError);
+      LOGGER.info ("  " + aEntry.getKey ().getAbsolutePath () + ":\n" + aEntry.getValue ().getMessage () + "\n");
+    LOGGER.info ("OK: " + nFilesOK + "; Error: " + nFilesError);
   }
 }

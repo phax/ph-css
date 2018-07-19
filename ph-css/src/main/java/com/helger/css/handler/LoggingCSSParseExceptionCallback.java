@@ -35,13 +35,13 @@ import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 @Immutable
 public class LoggingCSSParseExceptionCallback implements ICSSParseExceptionCallback
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingCSSParseExceptionCallback.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingCSSParseExceptionCallback.class);
 
   public LoggingCSSParseExceptionCallback ()
   {}
 
   public void onException (@Nonnull final ParseException ex)
   {
-    s_aLogger.error ("Failed to parse CSS: " + LoggingCSSParseErrorHandler.createLoggingStringParseError (ex));
+    LOGGER.error ("Failed to parse CSS: " + LoggingCSSParseErrorHandler.createLoggingStringParseError (ex));
   }
 }

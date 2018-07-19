@@ -39,7 +39,7 @@ import com.helger.css.parser.Token;
 @Immutable
 public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingCSSParseErrorHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingCSSParseErrorHandler.class);
   private static final int TOKEN_EOF = 0;
 
   /**
@@ -126,9 +126,9 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                @Nullable final Token aLastSkippedToken) throws ParseException
   {
     if (aParseEx.expectedTokenSequences == null)
-      s_aLogger.warn (aParseEx.getMessage ());
+      LOGGER.warn (aParseEx.getMessage ());
     else
-      s_aLogger.warn (createLoggingStringParseError (aParseEx.currentToken,
+      LOGGER.warn (createLoggingStringParseError (aParseEx.currentToken,
                                                      aParseEx.expectedTokenSequences,
                                                      aParseEx.tokenImage,
                                                      aLastSkippedToken));
@@ -167,7 +167,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sRule,
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
-    s_aLogger.warn (createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
+    LOGGER.warn (createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
 
   @Nonnull
@@ -198,7 +198,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                          @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException
   {
-    s_aLogger.warn (createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
+    LOGGER.warn (createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
   }
 
   @Nonnull
@@ -214,7 +214,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
 
   public void onIllegalCharacter (final char cIllegalChar)
   {
-    s_aLogger.warn (createLoggingStringIllegalCharacter (cIllegalChar));
+    LOGGER.warn (createLoggingStringIllegalCharacter (cIllegalChar));
   }
 
   @Override
