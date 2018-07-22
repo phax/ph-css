@@ -55,7 +55,7 @@
   </developers>
 
   <properties>
-    <maven.version>3.0</maven.version>
+    <maven.version>3.5.0</maven.version>
   </properties>
   
   <dependencies>
@@ -83,7 +83,7 @@
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>2.1</version>
+      <version>3.0.24</version>
     </dependency>
 
     <dependency>
