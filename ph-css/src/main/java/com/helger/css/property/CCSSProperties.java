@@ -751,6 +751,7 @@ public final class CCSSProperties
 
   // Special predefined properties that are used quite often
   public static final ICSSValue DISPLAY_BLOCK = DISPLAY.newValue (CCSSValue.BLOCK);
+  public static final ICSSValue DISPLAY_FLEX = DISPLAY.newValue (CCSSValue.FLEX);
   public static final ICSSValue DISPLAY_INLINE = DISPLAY.newValue (CCSSValue.INLINE);
   public static final ICSSValue DISPLAY_INLINE_BLOCK = DISPLAY.newValue (CCSSValue.INLINE_BLOCK);
   public static final ICSSValue DISPLAY_NONE = DISPLAY.newValue (CCSSValue.NONE);
