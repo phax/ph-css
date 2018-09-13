@@ -14,45 +14,47 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
+* v6.1.2 - work in progress
+    * Extended list of media expression features
 * v6.1.1 - 2018-04-11
-  * Allow nested `calc` function (#48)
+    * Allow nested `calc` function (#48)
 * v6.1.0 - 2018-03-23
-  * Fixed a grammar issue for `calc` with spaces (as in `width: calc( 100% - 2.4em );`)
-  * Removed dependency upon `java.awt.Color` for improved Android compatibility.
+    * Fixed a grammar issue for `calc` with spaces (as in `width: calc( 100% - 2.4em );`)
+    * Removed dependency upon `java.awt.Color` for improved Android compatibility.
 * v6.0.0 - 2017-12-20
-  * Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
-  * Updated to ph-commons 9.0.0
-  * Extended API to more easily access the CSS declaration expression string (#43)
-  * Data URI scheme is treated case-insensitive (#44)
-  * Extended API for easier CSS property comparison (#45)
+    * Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
+    * Updated to ph-commons 9.0.0
+    * Extended API to more easily access the CSS declaration expression string (#43)
+    * Data URI scheme is treated case-insensitive (#44)
+    * Extended API for easier CSS property comparison (#45)
 * v5.0.4 - 2017-04-06
-  * Improved special identifier handling in expressions (#38)
-  * Added support for css-grid spec with new "line-name" syntax element
-  * Added new CSS units: `fr`, `vmax` and `Q`
+    * Improved special identifier handling in expressions (#38)
+    * Added support for css-grid spec with new "line-name" syntax element
+    * Added new CSS units: `fr`, `vmax` and `Q`
 * v5.0.3 - 2017-01-09
-  * Binds to ph-commons 8.6.0
-  * Added custom callback for illegal characters
+    * Binds to ph-commons 8.6.0
+    * Added custom callback for illegal characters
 * v5.0.2 - 2016-10-21
-  * Made tab size configurable (issue #29)
-  * Improved media expressions (issue #30)
-  * Allowing to disable consistency checks in class `CSSValue`
-  * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
+    * Made tab size configurable (issue #29)
+    * Improved media expressions (issue #30)
+    * Allowing to disable consistency checks in class `CSSValue`
+    * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
 * v5.0.1 - 2016-08-17
-  * Using "modern java template" for JavaCC parser - results in quicker execution
-  * Enhancement issue #27
-  * Integrated `ph-csscompress-maven-plugin` into this repository
-  * Bug fix wrong OutputStream (issue #28) 
+    * Using "modern java template" for JavaCC parser - results in quicker execution
+    * Enhancement issue #27
+    * Integrated `ph-csscompress-maven-plugin` into this repository
+    * Bug fix wrong OutputStream (issue #28) 
 * v5.0.0 - 2016-06-12
-  * Using JDK8 as the basis
-  * removed explicit grammar for CSS 2.1 (issue #20)
-  * Added browser compliant error handler
+    * Using JDK8 as the basis
+    * removed explicit grammar for CSS 2.1 (issue #20)
+    * Added browser compliant error handler
 * v4.2.0 - 2018-03-22
-  * Removed dependency upon `java.awt.Color` for improved Android compatibility.
+    * Removed dependency upon `java.awt.Color` for improved Android compatibility.
 * v4.1.6 - 2016-10-21
-  * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
+    * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
 * v4.1.5 - 2016-09-16
-  * Improved media expressions (issue #30)
-  * Integrated ph-csscompress-maven-plugin into this project (compatibility to 5.x)
+    * Improved media expressions (issue #30)
+    * Integrated ph-csscompress-maven-plugin into this project (compatibility to 5.x)
 * v4.1.4 - Improved browser compliant parsing (issue #26)
 * v4.1.3 - Improved browser compliant parsing (issue #24)
 * v4.1.2 - Improved browser compliant parsing (issue #21)
