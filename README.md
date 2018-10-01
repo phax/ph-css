@@ -88,7 +88,7 @@ As ph-css is mainly concerned about the grammatical structure of CSS, the main c
 
 ## Coding paradigms used
 
-Please look at my personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md) for the naming conventions used in this project.
+Please look at my personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodingStyleguide.md) for the naming conventions used in this project.
   
 ## Basic Classes
 A complete stylesheet is represented as an instance of `com.helger.css.decl.CascadingStyleSheet`. There is no difference between CSS 2.1 and CSS 3.0 instances. The class `com.helger.css.decl.CascadingStyleSheet` contains all top-level rules that may be present in a CSS:
