@@ -60,7 +60,7 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
   {
     if (ex != null)
       throw ex;
-    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex,
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (null,
                                                                                                    aFromToken,
                                                                                                    aToToken));
   }

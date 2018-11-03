@@ -55,6 +55,8 @@ import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * This is the central user class for reading and parsing partial CSS from
  * different sources. This class reads CSS style declarations as used in HTML
@@ -63,6 +65,7 @@ import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
  * @author Philip Helger
  */
 @Immutable
+@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public final class CSSReaderDeclarationList
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CSSReaderDeclarationList.class);
