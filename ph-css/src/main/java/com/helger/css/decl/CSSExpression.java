@@ -227,10 +227,23 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
     return addMember (nIndex, new CSSExpressionMemberTermSimple (dValue));
   }
 
+  /**
+   * Get a quoted string value. Every double quote (") is replaced to a
+   * backslash and a double quote (\").
+   *
+   * @param sValue
+   *        The source value. May not be <code>null</code>.
+   * @return An opening double quote + the quoted string + a closing double
+   *         quote
+   * @since 6.1.2
+   */
   @Nonnull
   @Nonempty
-  private static String _createStringValue (@Nonnull final String sValue)
+  public static String getQuotedStringValue (@Nonnull final String sValue)
   {
+    ValueEnforcer.notNull (sValue, "Value");
+    if (sValue.length () == 0)
+      return "\"\"";
     return '"' + StringHelper.replaceAll (sValue, "\"", "\\\"") + '"';
   }
 
@@ -244,7 +257,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public CSSExpression addString (@Nonnull final String sValue)
   {
-    return addTermSimple (_createStringValue (sValue));
+    return addTermSimple (getQuotedStringValue (sValue));
   }
 
   /**
@@ -259,7 +272,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Nonnull
   public CSSExpression addString (@Nonnegative final int nIndex, @Nonnull final String sValue)
   {
-    return addTermSimple (nIndex, _createStringValue (sValue));
+    return addTermSimple (nIndex, getQuotedStringValue (sValue));
   }
 
   /**
