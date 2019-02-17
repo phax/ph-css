@@ -14,8 +14,8 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-* v6.1.2 - work in progress
-    * Extended list of media expression features
+* v6.1.2 - 2019-02-17
+    * Extended list of known media expression features (e.g. used in Bootstrap 4)
 * v6.1.1 - 2018-04-11
     * Allow nested `calc` function (#48)
 * v6.1.0 - 2018-03-23
@@ -77,7 +77,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>6.1.1</version>
+  <version>6.1.2</version>
 </dependency>
 ```
 
@@ -274,7 +274,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>6.1.1</version>
+        <version>6.1.2</version>
         <executions>
           <execution>
             <goals>
