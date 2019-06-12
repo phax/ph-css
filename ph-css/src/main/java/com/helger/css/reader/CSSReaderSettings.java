@@ -43,6 +43,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public static final ECSSVersion DEFAULT_VERSION = ECSSVersion.CSS30;
   public static final Charset DEFAULT_CHARSET = StandardCharsets.ISO_8859_1;
   public static final boolean DEFAULT_BROWSER_COMPLIANT_MODE = false;
+  public static final boolean DEFAULT_USE_SOURCE_LOCATION = true;
   public static final int DEFAULT_TAB_SIZE = 8;
 
   private ECSSVersion m_eCSSVersion = DEFAULT_VERSION;
@@ -50,6 +51,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   private ICSSParseErrorHandler m_aCustomErrorHandler;
   private ICSSParseExceptionCallback m_aCustomExceptionHandler;
   private boolean m_bBrowserCompliantMode = DEFAULT_BROWSER_COMPLIANT_MODE;
+  private boolean m_bUseSourceLocation = DEFAULT_USE_SOURCE_LOCATION;
   private int m_nTabSize = DEFAULT_TAB_SIZE;
   private ICSSInterpretErrorHandler m_aInterpretErrorHandler;
 
@@ -64,6 +66,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     m_aCustomErrorHandler = aOther.m_aCustomErrorHandler;
     m_aCustomExceptionHandler = aOther.m_aCustomExceptionHandler;
     m_bBrowserCompliantMode = aOther.m_bBrowserCompliantMode;
+    m_bUseSourceLocation = aOther.m_bUseSourceLocation;
     m_nTabSize = aOther.m_nTabSize;
     m_aInterpretErrorHandler = aOther.m_aInterpretErrorHandler;
   }
@@ -203,6 +206,34 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   }
 
   /**
+   * @return <code>true</code> if the source location should be stored,
+   *         <code>false</code> to ignore them. The default is
+   *         {@link #DEFAULT_USE_SOURCE_LOCATION}.
+   * @since 6.1.3
+   */
+  public boolean isUseSourceLocation ()
+  {
+    return m_bUseSourceLocation;
+  }
+
+  /**
+   * Change if source location should be used or not. If source location usage
+   * is disabled, it improves parsing speed.
+   *
+   * @param bUseSourceLocation
+   *        <code>true</code> to remember the source location,
+   *        <code>false</code> to ignore them.
+   * @return this
+   * @since 6.1.3
+   */
+  @Nonnull
+  public CSSReaderSettings setUseSourceLocation (final boolean bUseSourceLocation)
+  {
+    m_bUseSourceLocation = bUseSourceLocation;
+    return this;
+  }
+
+  /**
    * @return The tab size to be used to determine the source location. Always
    *         &gt; 0. Default value is {@link #DEFAULT_TAB_SIZE}.
    * @since 5.0.2
@@ -272,6 +303,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
                                        .append ("CustomErrorHandler", m_aCustomErrorHandler)
                                        .append ("CustomExceptionHandler", m_aCustomExceptionHandler)
                                        .append ("BrowserCompliantMode", m_bBrowserCompliantMode)
+                                       .append ("UseSourceLocation", m_bUseSourceLocation)
                                        .append ("TabSize", m_nTabSize)
                                        .append ("InterpretErrorHandler", m_aInterpretErrorHandler)
                                        .getToString ();

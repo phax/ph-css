@@ -26,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.*;
 import com.helger.css.decl.CSSMediaQuery.EModifier;
@@ -48,6 +49,7 @@ final class CSSNodeToDomainObject
 {
   private final ECSSVersion m_eVersion;
   private final ICSSInterpretErrorHandler m_aErrorHandler;
+  private final boolean m_bUseSourceLocation;
 
   /**
    * Constructor
@@ -56,12 +58,18 @@ final class CSSNodeToDomainObject
    *        The CSS version to use. May not be <code>null</code>.
    * @param aErrorHandler
    *        Error handler to use. May not be <code>null</code>.
+   * @param bUseSourceLocation
+   *        <code>true</code> to keep the source location, <code>false</code> to
+   *        ignore the source location. Disabling the source location may be a
+   *        performance improvement.
    */
   public CSSNodeToDomainObject (@Nonnull final ECSSVersion eVersion,
-                                @Nonnull final ICSSInterpretErrorHandler aErrorHandler)
+                                @Nonnull final ICSSInterpretErrorHandler aErrorHandler,
+                                final boolean bUseSourceLocation)
   {
     m_eVersion = ValueEnforcer.notNull (eVersion, "Version");
     m_aErrorHandler = ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
+    m_bUseSourceLocation = bUseSourceLocation;
   }
 
   private void _expectNodeType (@Nonnull final CSSNode aNode, @Nonnull final ECSSNodeType eExpected)
@@ -99,7 +107,8 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.URL.isNode (aURINode, m_eVersion))
       {
         aImportURI = new CSSURI (aURINode.getText ());
-        aImportURI.setSourceLocation (aURINode.getSourceLocation ());
+        if (m_bUseSourceLocation)
+          aImportURI.setSourceLocation (aURINode.getSourceLocation ());
         ++nCurrentIndex;
       }
       else
@@ -113,11 +122,14 @@ final class CSSNodeToDomainObject
       // No URI child node present, so the location is printed directly
       // E.g. @import "abc.css"
       aImportURI = new CSSURI (CSSParseHelper.extractStringValue (aNode.getText ()));
+      if (m_bUseSourceLocation)
+        aImportURI.setSourceLocation (aNode.getSourceLocation ());
     }
 
     // Import rule
     final CSSImportRule ret = new CSSImportRule (aImportURI);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     if (nChildCount > nCurrentIndex)
     {
       // We have a media query present!
@@ -185,7 +197,8 @@ final class CSSNodeToDomainObject
                                       ECSSAttributeOperator.getFromNameOrNull (aOperator.getText ()),
                                       aAttrValue.getText ());
     }
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     return ret;
   }
 
@@ -202,7 +215,8 @@ final class CSSNodeToDomainObject
       if (nChildCount != 0)
         _throwUnexpectedChildrenCount (aNode, "CSS simple selector member expected 0 children and got " + nChildCount);
       final CSSSelectorSimpleMember ret = new CSSSelectorSimpleMember (aNode.getText ());
-      ret.setSourceLocation (aNode.getSourceLocation ());
+      if (m_bUseSourceLocation)
+        ret.setSourceLocation (aNode.getSourceLocation ());
       return ret;
     }
 
@@ -230,7 +244,8 @@ final class CSSNodeToDomainObject
       }
 
       final CSSSelectorMemberNot ret = new CSSSelectorMemberNot (aNestedSelectors);
-      ret.setSourceLocation (aNode.getSourceLocation ());
+      if (m_bUseSourceLocation)
+        ret.setSourceLocation (aNode.getSourceLocation ());
       return ret;
     }
 
@@ -240,7 +255,8 @@ final class CSSNodeToDomainObject
       {
         // E.g. ":focus" or ":hover"
         final CSSSelectorSimpleMember ret = new CSSSelectorSimpleMember (aNode.getText ());
-        ret.setSourceLocation (aNode.getSourceLocation ());
+        if (m_bUseSourceLocation)
+          ret.setSourceLocation (aNode.getSourceLocation ());
         return ret;
       }
 
@@ -253,14 +269,16 @@ final class CSSNodeToDomainObject
           final CSSSelectorSimpleMember ret = new CSSSelectorSimpleMember (aNode.getText () +
                                                                            aChildNode.getText () +
                                                                            ")");
-          ret.setSourceLocation (aNode.getSourceLocation ());
+          if (m_bUseSourceLocation)
+            ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;
         }
 
         // It's a function (e.g. ":lang(fr)")
         final CSSExpression aExpr = _createExpression (aChildNode);
         final CSSSelectorMemberFunctionLike ret = new CSSSelectorMemberFunctionLike (aNode.getText (), aExpr);
-        ret.setSourceLocation (aNode.getSourceLocation ());
+        if (m_bUseSourceLocation)
+          ret.setSourceLocation (aNode.getSourceLocation ());
         return ret;
       }
 
@@ -280,7 +298,8 @@ final class CSSNodeToDomainObject
   {
     _expectNodeType (aNode, ECSSNodeType.SELECTOR);
     final CSSSelector ret = new CSSSelector ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
     {
       final ICSSSelectorMember aMember = _createSelectorMember (aChildNode);
@@ -296,7 +315,8 @@ final class CSSNodeToDomainObject
     _expectNodeType (aNode, ECSSNodeType.MATHPRODUCT);
 
     final CSSExpressionMemberMathProduct ret = new CSSExpressionMemberMathProduct ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
 
     // read all sums
     for (final CSSNode aChildNode : aNode)
@@ -307,7 +327,8 @@ final class CSSNodeToDomainObject
         if (nChildCount == 0)
         {
           final CSSExpressionMemberMathUnitSimple aMember = new CSSExpressionMemberMathUnitSimple (aChildNode.getText ());
-          aMember.setSourceLocation (aChildNode.getSourceLocation ());
+          if (m_bUseSourceLocation)
+            aMember.setSourceLocation (aChildNode.getSourceLocation ());
           ret.addMember (aMember);
         }
         else
@@ -356,6 +377,8 @@ final class CSSNodeToDomainObject
                                                               ECSSNodeType.getNodeName (aChildChildNode, m_eVersion));
                   }
               }
+              if (m_bUseSourceLocation)
+                aNestedProduct.setSourceLocation (aChildNode.getSourceLocation ());
               ret.addMember (new CSSExpressionMemberMathUnitProduct (aNestedProduct));
             }
       }
@@ -389,8 +412,14 @@ final class CSSNodeToDomainObject
       _throwUnexpectedChildrenCount (aNode, "Expected 0 children but got " + nChildCount + "!");
 
     final CSSURI aURI = new CSSURI (aNode.getText ());
-    aURI.setSourceLocation (aNode.getSourceLocation ());
-    return new CSSExpressionMemberTermURI (aURI);
+    final CSSExpressionMemberTermURI ret = new CSSExpressionMemberTermURI (aURI);
+    if (m_bUseSourceLocation)
+    {
+      final CSSSourceLocation aSrcLoc = aNode.getSourceLocation ();
+      aURI.setSourceLocation (aSrcLoc);
+      ret.setSourceLocation (aSrcLoc);
+    }
+    return ret;
   }
 
   @Nonnull
@@ -416,7 +445,8 @@ final class CSSNodeToDomainObject
       // No parameters
       aFunc = new CSSExpressionMemberFunction (sFunctionName);
     }
-    aFunc.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      aFunc.setSourceLocation (aNode.getSourceLocation ());
     return aFunc;
   }
 
@@ -426,7 +456,8 @@ final class CSSNodeToDomainObject
     _expectNodeType (aNode, ECSSNodeType.MATH);
 
     final CSSExpressionMemberMath ret = new CSSExpressionMemberMath ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
 
     // read all sums
     for (final CSSNode aChildNode : aNode)
@@ -461,7 +492,8 @@ final class CSSNodeToDomainObject
     _expectNodeType (aNode, ECSSNodeType.LINE_NAMES);
 
     final CSSExpressionMemberLineNames ret = new CSSExpressionMemberLineNames ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
 
     // read all sums
     for (final CSSNode aChildNode : aNode)
@@ -492,7 +524,8 @@ final class CSSNodeToDomainObject
     if (nChildCount == 0)
     {
       final CSSExpressionMemberTermSimple ret = new CSSExpressionMemberTermSimple (aNode.getText ());
-      ret.setSourceLocation (aNode.getSourceLocation ());
+      if (m_bUseSourceLocation)
+        ret.setSourceLocation (aNode.getSourceLocation ());
       return ret;
     }
 
@@ -531,7 +564,8 @@ final class CSSNodeToDomainObject
   {
     _expectNodeType (aNode, ECSSNodeType.EXPR);
     final CSSExpression ret = new CSSExpression ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
     {
       if (ECSSNodeType.EXPRTERM.isNode (aChildNode, m_eVersion))
@@ -594,7 +628,8 @@ final class CSSNodeToDomainObject
     }
 
     final CSSDeclaration ret = new CSSDeclaration (sProperty, aExpression, bImportant);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     return ret;
   }
 
@@ -623,7 +658,8 @@ final class CSSNodeToDomainObject
   {
     _expectNodeType (aNode, ECSSNodeType.STYLERULE);
     final CSSStyleRule ret = new CSSStyleRule ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     boolean bSelectors = true;
     for (final CSSNode aChildNode : aNode)
     {
@@ -683,7 +719,8 @@ final class CSSNodeToDomainObject
       }
 
       final CSSPageRule ret = new CSSPageRule (aSelectors);
-      ret.setSourceLocation (aNode.getSourceLocation ());
+      if (m_bUseSourceLocation)
+        ret.setSourceLocation (aNode.getSourceLocation ());
 
       // Read page body
       final CSSNode aBodyNode = aNode.jjtGetChild (nChildCount - 1);
@@ -703,6 +740,8 @@ final class CSSNodeToDomainObject
           if (ECSSNodeType.PAGEMARGINSYMBOL.isNode (aBodyChildNode, m_eVersion))
           {
             final CSSPageMarginBlock aBlock = new CSSPageMarginBlock (aBodyChildNode.getText ());
+            if (m_bUseSourceLocation)
+              aBlock.setSourceLocation (aBodyChildNode.getSourceLocation ());
 
             final CSSNode aBodyNextChildNode = aBodyNode.jjtGetChild (nIndex + 1);
             _readStyleDeclarationList (aBodyNextChildNode, aDeclaration -> aBlock.addDeclaration (aDeclaration));
@@ -734,7 +773,8 @@ final class CSSNodeToDomainObject
     }
 
     final CSSPageRule ret = new CSSPageRule (sPseudoPage);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (int nIndex = nStartIndex; nIndex < nChildCount; ++nIndex)
     {
       final CSSNode aChildNode = aNode.jjtGetChild (nIndex);
@@ -757,7 +797,8 @@ final class CSSNodeToDomainObject
   {
     _expectNodeType (aNode, ECSSNodeType.MEDIARULE);
     final CSSMediaRule ret = new CSSMediaRule ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
     {
       if (ECSSNodeType.MEDIALIST.isNode (aChildNode, m_eVersion))
@@ -816,7 +857,8 @@ final class CSSNodeToDomainObject
                                                     sMedium +
                                                     "'");
       final CSSMediaQuery ret = new CSSMediaQuery (EModifier.NONE, sMedium);
-      ret.setSourceLocation (aNode.getSourceLocation ());
+      if (m_bUseSourceLocation)
+        ret.setSourceLocation (aNode.getSourceLocation ());
       return ret;
     }
 
@@ -868,7 +910,8 @@ final class CSSNodeToDomainObject
     }
 
     final CSSMediaQuery ret = new CSSMediaQuery (eModifier, sMedium);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (int i = nStartIndex; i < nChildCount; ++i)
     {
       final CSSNode aChildNode = aNode.jjtGetChild (i);
@@ -910,7 +953,8 @@ final class CSSNodeToDomainObject
       final CSSNode aValueNode = aNode.jjtGetChild (1);
       ret = new CSSMediaExpression (sFeature, _createExpression (aValueNode));
     }
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     return ret;
   }
 
@@ -921,7 +965,8 @@ final class CSSNodeToDomainObject
 
     final String sFontFaceDeclaration = aNode.getText ();
     final CSSFontFaceRule ret = new CSSFontFaceRule (sFontFaceDeclaration);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
     {
       if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
@@ -955,7 +1000,8 @@ final class CSSNodeToDomainObject
     final String sAnimationName = aAnimationNameNode.getText ();
 
     final CSSKeyframesRule ret = new CSSKeyframesRule (sKeyframesDeclaration, sAnimationName);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
 
     // Get the key frame blocks
     int nIndex = 1;
@@ -973,7 +1019,8 @@ final class CSSNodeToDomainObject
           aKeyframesSelectors.add (aSelectorChild.getText ());
         }
         aBlock = new CSSKeyframesBlock (aKeyframesSelectors);
-        aBlock.setSourceLocation (aChildNode.getSourceLocation ());
+        if (m_bUseSourceLocation)
+          aBlock.setSourceLocation (aChildNode.getSourceLocation ());
         ret.addBlock (aBlock);
       }
       else
@@ -1006,7 +1053,8 @@ final class CSSNodeToDomainObject
     final String sViewportDeclaration = aNode.getText ();
 
     final CSSViewportRule ret = new CSSViewportRule (sViewportDeclaration);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
     {
       if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
@@ -1044,7 +1092,8 @@ final class CSSNodeToDomainObject
     final String sURL = CSSParseHelper.extractStringValue (aURLNode.getText ());
 
     final CSSNamespaceRule ret = new CSSNamespaceRule (sPrefix, sURL);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     return ret;
   }
 
@@ -1071,7 +1120,8 @@ final class CSSNodeToDomainObject
         return null;
 
       final CSSSupportsConditionNegation ret = new CSSSupportsConditionNegation (aNestedMember);
-      ret.setSourceLocation (aNode.getSourceLocation ());
+      if (m_bUseSourceLocation)
+        ret.setSourceLocation (aNode.getSourceLocation ());
       return ret;
     }
 
@@ -1088,7 +1138,8 @@ final class CSSNodeToDomainObject
         if (aDeclaration == null)
           throw new CSSHandlingException (aChildNode, "The style declaration in the @supports rule is invalid!");
         final CSSSupportsConditionDeclaration ret = new CSSSupportsConditionDeclaration (aDeclaration);
-        ret.setSourceLocation (aNode.getSourceLocation ());
+        if (m_bUseSourceLocation)
+          ret.setSourceLocation (aChildNode.getSourceLocation ());
         return ret;
       }
 
@@ -1101,6 +1152,8 @@ final class CSSNodeToDomainObject
           if (aMember != null)
             ret.addMember (aMember);
         }
+        if (m_bUseSourceLocation)
+          ret.setSourceLocation (aChildNode.getSourceLocation ());
         return ret;
       }
 
@@ -1121,7 +1174,8 @@ final class CSSNodeToDomainObject
   {
     _expectNodeType (aNode, ECSSNodeType.SUPPORTSRULE);
     final CSSSupportsRule ret = new CSSSupportsRule ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
     {
       if (ECSSNodeType.SUPPORTSCONDITION.isNode (aChildNode, m_eVersion))
@@ -1185,7 +1239,8 @@ final class CSSNodeToDomainObject
     final String sRuleDeclaration = aNode.getText ();
 
     final CSSUnknownRule ret = new CSSUnknownRule (sRuleDeclaration);
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     ret.setParameterList (aParameterList.getText ());
     ret.setBody (aBody.getText ());
     return ret;
@@ -1196,7 +1251,8 @@ final class CSSNodeToDomainObject
   {
     _expectNodeType (aNode, ECSSNodeType.ROOT);
     final CascadingStyleSheet ret = new CascadingStyleSheet ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
     {
       if (ECSSNodeType.CHARSET.isNode (aChildNode, m_eVersion))
@@ -1256,7 +1312,8 @@ final class CSSNodeToDomainObject
   public CSSDeclarationList createDeclarationListFromNode (@Nonnull final CSSNode aNode)
   {
     final CSSDeclarationList ret = new CSSDeclarationList ();
-    ret.setSourceLocation (aNode.getSourceLocation ());
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
     _readStyleDeclarationList (aNode, aDeclaration -> ret.addDeclaration (aDeclaration));
     return ret;
   }

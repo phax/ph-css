@@ -889,10 +889,10 @@ public final class CSSReader
       {
         // BOM charset different from read charset
         LOGGER.warn ("The charset found in the CSS data (" +
-                        aReadCharset.name () +
-                        ") differs from the charset determined by the BOM (" +
-                        aBOMCharset.name () +
-                        ") -> Using the read charset");
+                     aReadCharset.name () +
+                     ") differs from the charset determined by the BOM (" +
+                     aBOMCharset.name () +
+                     ") -> Using the read charset");
       }
 
       return aReadCharset;
@@ -1078,8 +1078,13 @@ public final class CSSReader
       if (aRealInterpretErrorHandler == null)
         aRealInterpretErrorHandler = getDefaultInterpretErrorHandler ();
 
+      final boolean bUseSourceLocation = aSettings.isUseSourceLocation ();
+
       // Convert the AST to a domain object
-      return CSSHandler.readCascadingStyleSheetFromNode (eVersion, aNode, aRealInterpretErrorHandler);
+      return CSSHandler.readCascadingStyleSheetFromNode (eVersion,
+                                                         aRealInterpretErrorHandler,
+                                                         bUseSourceLocation,
+                                                         aNode);
     }
     finally
     {
@@ -1185,8 +1190,13 @@ public final class CSSReader
       if (aRealInterpretErrorHandler == null)
         aRealInterpretErrorHandler = getDefaultInterpretErrorHandler ();
 
+      final boolean bUseSourceLocation = aSettings.isUseSourceLocation ();
+
       // Convert the AST to a domain object
-      return CSSHandler.readCascadingStyleSheetFromNode (eVersion, aNode, aRealInterpretErrorHandler);
+      return CSSHandler.readCascadingStyleSheetFromNode (eVersion,
+                                                         aRealInterpretErrorHandler,
+                                                         bUseSourceLocation,
+                                                         aNode);
     }
     finally
     {

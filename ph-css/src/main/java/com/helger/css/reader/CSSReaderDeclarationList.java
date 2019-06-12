@@ -793,8 +793,10 @@ public final class CSSReaderDeclarationList
       if (aRealInterpretErrorHandler == null)
         aRealInterpretErrorHandler = getDefaultInterpretErrorHandler ();
 
+      final boolean bUseSourceLocation = aSettings.isUseSourceLocation ();
+
       // Convert the AST to a domain object
-      return CSSHandler.readDeclarationListFromNode (eVersion, aNode, aRealInterpretErrorHandler);
+      return CSSHandler.readDeclarationListFromNode (eVersion, aRealInterpretErrorHandler, bUseSourceLocation, aNode);
     }
     finally
     {
