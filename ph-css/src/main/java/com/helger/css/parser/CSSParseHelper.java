@@ -17,6 +17,7 @@
 package com.helger.css.parser;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,7 +25,7 @@ import javax.annotation.RegEx;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.regex.RegExHelper;
+import com.helger.commons.regex.RegExCache;
 import com.helger.commons.string.StringHelper;
 import com.helger.css.propertyvalue.CCSSValue;
 
@@ -42,6 +43,7 @@ public final class CSSParseHelper
   // Order of the rules in brackets is important!
   @RegEx
   private static final String SPLIT_NUMBER_REGEX = "^([0-9]*\\.[0-9]+|[0-9]+).*$";
+  private static final Pattern SPLIT_NUMBER_PATTERN = RegExCache.getPattern (SPLIT_NUMBER_REGEX);
 
   @PresentForCodeCoverage
   private static final CSSParseHelper s_aInstance = new CSSParseHelper ();
@@ -141,7 +143,7 @@ public final class CSSParseHelper
   public static String splitNumber (@Nonnull final StringBuilder aPattern)
   {
     // Find the longest matching number within the pattern
-    final Matcher m = RegExHelper.getMatcher (SPLIT_NUMBER_REGEX, aPattern.toString ());
+    final Matcher m = SPLIT_NUMBER_PATTERN.matcher (aPattern);
     if (m.matches ())
       return m.group (1);
     return "";
