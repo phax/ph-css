@@ -17,6 +17,7 @@
 package com.helger.css.utils;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,7 +77,11 @@ public final class CSSNumberHelper
   {
     ValueEnforcer.notNull (sCSSValue, "CSSValue");
     // Search units, the ones with the longest names come first
-    return s_aNameToUnitMap.findFirstValue (aEntry -> sCSSValue.endsWith (aEntry.getKey ()));
+    // Don't use Lambda here - occurs quite often (performance)
+    for (final Map.Entry <String, ECSSUnit> aEntry : s_aNameToUnitMap.entrySet ())
+      if (sCSSValue.endsWith (aEntry.getKey ()))
+        return aEntry.getValue ();
+    return null;
   }
 
   /**

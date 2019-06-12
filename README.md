@@ -14,6 +14,8 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
+* v6.1.3 - work in progress
+    * Added some performance tweaks
 * v6.1.2 - 2019-02-17
     * Extended list of known media expression features (e.g. used in Bootstrap 4)
 * v6.1.1 - 2018-04-11
