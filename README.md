@@ -14,7 +14,7 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-* v6.1.3 - work in progress
+* v6.1.3 - 2019-06-12
     * Added some performance tweaks
     * Added possibility to disable the usage of the source location using `CSSReaderSettings` (for performance reasons)
 * v6.1.2 - 2019-02-17
@@ -80,7 +80,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>6.1.2</version>
+  <version>6.1.3</version>
 </dependency>
 ```
 
@@ -277,7 +277,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>6.1.2</version>
+        <version>6.1.3</version>
         <executions>
           <execution>
             <goals>
