@@ -21,6 +21,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 
 import com.helger.css.AbstractCSS30TestCase;
@@ -34,16 +36,30 @@ import com.helger.css.ICSSWriterSettings;
  */
 public final class CSSWriterSettingsTest extends AbstractCSS30TestCase
 {
-  @Test
-  public void testDefault ()
+  private static void _checkDefault (@Nonnull final ICSSWriterSettings aSettings)
   {
-    final ICSSWriterSettings aSettings = CSSWriterSettings.DEFAULT_SETTINGS;
-    assertNotNull (aSettings);
     assertSame (ECSSVersion.CSS30, aSettings.getVersion ());
     assertTrue (CSSWriterSettings.DEFAULT_OPTIMIZED_OUTPUT == aSettings.isOptimizedOutput ());
     assertTrue (CSSWriterSettings.DEFAULT_REMOVE_UNNECESSARY_CODE == aSettings.isRemoveUnnecessaryCode ());
     assertSame (CSSWriterSettings.DEFAULT_NEW_LINE_MODE, aSettings.getNewLineMode ());
     assertEquals (CSSWriterSettings.DEFAULT_INDENT, aSettings.getIndent (1));
     assertTrue (CSSWriterSettings.DEFAULT_QUOTE_URLS == aSettings.isQuoteURLs ());
+    assertTrue (CSSWriterSettings.DEFAULT_WRITE_NAMESPACE_RULES == aSettings.isWriteNamespaceRules ());
+    assertTrue (CSSWriterSettings.DEFAULT_WRITE_FONT_FACE_RULES == aSettings.isWriteFontFaceRules ());
+    assertTrue (CSSWriterSettings.DEFAULT_WRITE_KEYFRAMES_RULES == aSettings.isWriteKeyframesRules ());
+    assertTrue (CSSWriterSettings.DEFAULT_WRITE_MEDIA_RULES == aSettings.isWriteMediaRules ());
+    assertTrue (CSSWriterSettings.DEFAULT_WRITE_PAGE_RULES == aSettings.isWritePageRules ());
+    assertTrue (CSSWriterSettings.DEFAULT_WRITE_VIEWPORT_RULES == aSettings.isWriteViewportRules ());
+    assertTrue (CSSWriterSettings.DEFAULT_WRITE_SUPPORTS_RULES == aSettings.isWriteSupportsRules ());
+    assertTrue (CSSWriterSettings.DEFAULT_WRITE_UNKNOWN_RULES == aSettings.isWriteUnknownRules ());
+  }
+
+  @Test
+  public void testDefault ()
+  {
+    final ICSSWriterSettings aSettings = CSSWriterSettings.DEFAULT_SETTINGS;
+    assertNotNull (aSettings);
+    _checkDefault (aSettings);
+    _checkDefault (new CSSWriterSettings (aSettings));
   }
 }
