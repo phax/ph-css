@@ -98,7 +98,9 @@ public enum ECSSMediaExpressionFeature implements IHasName
   _MOZ_WINDOWS_COMPOSITOR ("-moz-windows-compositor"),
   _MOZ_WINDOWS_DEFAULT_THEME ("-moz-windows-default-theme"),
   _MOZ_WINDOWS_GLASS ("-moz-windows-glass"),
-  _MOZ_WINDOWS_THEME ("-moz-windows-theme");
+  _MOZ_WINDOWS_THEME ("-moz-windows-theme"),
+  _O_MAX_DEVICE_PIXEL_RATIO ("-o-max-device-pixel-ratio"),
+  _O_MIN_DEVICE_PIXEL_RATIO ("-o-min-device-pixel-ratio");
 
   private final String m_sName;
 
