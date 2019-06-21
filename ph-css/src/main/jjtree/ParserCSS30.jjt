@@ -574,7 +574,7 @@ try{
     ( syntaxCrap() )?
   )*
   <EOF>
-} catch (ParseEOFException ex) {
+} catch (/* final */ ParseEOFException ex) {
   if (m_bBrowserCompliantMode) {
     /* ignore special EOF excpetion */
   }
@@ -588,7 +588,7 @@ void syntaxCrap() #void : {}
 {
   <UNKNOWN>
 //try {
-//} catch (ParseEOFException ex) {
+//} catch (final ParseEOFException ex) {
 //  if (m_bBrowserCompliantMode) {
 //    if (m_aCustomErrorHandler != null)
 //      m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex, ex.currentToken, token);
@@ -1126,7 +1126,7 @@ try{
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip (ex);
+    browserCompliantSkipDecl (ex);
   else
     errorSkipTo (ex, RBRACE);
 }

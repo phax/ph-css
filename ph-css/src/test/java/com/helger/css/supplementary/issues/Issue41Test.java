@@ -19,7 +19,6 @@ package com.helger.css.supplementary.issues;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.system.ENewLineMode;
@@ -40,7 +39,6 @@ import com.helger.css.writer.CSSWriterSettings;
  */
 public final class Issue41Test
 {
-  @Ignore
   @Test
   public void testIssue ()
   {
@@ -62,10 +60,8 @@ public final class Issue41Test
                                                                              .setIndent (" ");
     assertEquals ("@media (min--moz-device-pixel-ratio:1.3), (-o-min-device-pixel-ratio:2.6/2), (-webkit-min-device-pixel-ratio:1.3), (min-device-pixel-ratio:1.3), (min-resolution:1.3dppx) {\r\n" +
                   " .social .facebook a,\r\n" +
-                  " .social .twitter a {\r\n" +
-                  "  background-size: 652px 295px;\r\n" +
-                  " }\r\n" +
-                  "}",
+                  " .social .twitter a { background-size:-webkit-background-size; }\r\n" +
+                  "}\r\n",
                   new CSSWriter (aCWS).setWriteHeaderText (false).setWriteFooterText (false).getCSSAsString (aCSS));
   }
 }
