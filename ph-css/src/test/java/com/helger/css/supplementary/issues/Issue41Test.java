@@ -26,7 +26,6 @@ import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
-import com.helger.css.reader.errorhandler.DoNothingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
 
@@ -38,7 +37,7 @@ import com.helger.css.writer.CSSWriterSettings;
 public final class Issue41Test
 {
   @Test
-  public void testIssue ()
+  public void testIssue1 ()
   {
     final String css = "@media (min--moz-device-pixel-ratio: 1.3),(-o-min-device-pixel-ratio: 2.6/2),(-webkit-min-device-pixel-ratio: 1.3),(min-device-pixel-ratio: 1.3),(min-resolution: 1.3dppx) {\r\n" +
                        " .social .facebook a, .social .twitter a {\r\n" +
@@ -47,8 +46,7 @@ public final class Issue41Test
                        " }\r\n" +
                        "}";
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true)
-                                                                .setCustomErrorHandler (new DoNothingCSSParseErrorHandler ());
+                                                                .setBrowserCompliantMode (true);
     final CascadingStyleSheet aCSS = CSSReader.readFromStringStream (css, aSettings);
     assertNotNull (aCSS);
 

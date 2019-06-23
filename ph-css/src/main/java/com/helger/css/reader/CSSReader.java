@@ -62,7 +62,7 @@ import com.helger.css.parser.ParserCSSCharsetDetectorTokenManager;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
-import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
+import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 /**
  * This is the central user class for reading and parsing CSS from different
@@ -79,8 +79,9 @@ public final class CSSReader
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   // Use the ThrowingCSSParseErrorHandler for maximum backward compatibility
+  // Changed to LoggingCSSParseErrorHandler in v6.1.4
   @GuardedBy ("s_aRWLock")
-  private static ICSSParseErrorHandler s_aDefaultParseErrorHandler = new ThrowingCSSParseErrorHandler ();
+  private static ICSSParseErrorHandler s_aDefaultParseErrorHandler = new LoggingCSSParseErrorHandler ();
 
   // Use the LoggingCSSParseExceptionHandler for maximum backward compatibility
   @GuardedBy ("s_aRWLock")
