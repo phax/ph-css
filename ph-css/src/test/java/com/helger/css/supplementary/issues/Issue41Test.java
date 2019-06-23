@@ -24,11 +24,9 @@ import org.junit.Test;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
-import com.helger.css.handler.LoggingCSSParseExceptionCallback;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
-import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
-import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
+import com.helger.css.reader.errorhandler.DoNothingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
 
@@ -50,18 +48,31 @@ public final class Issue41Test
                        "}";
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
                                                                 .setBrowserCompliantMode (true)
-                                                                .setCustomExceptionHandler (new LoggingCSSParseExceptionCallback ())
-                                                                .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
-                                                                .setInterpretErrorHandler (new LoggingCSSInterpretErrorHandler ());
+                                                                .setCustomErrorHandler (new DoNothingCSSParseErrorHandler ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStringStream (css, aSettings);
     assertNotNull (aCSS);
 
-    final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.LATEST).setNewLineMode (ENewLineMode.WINDOWS)
-                                                                             .setIndent (" ");
+    final CSSWriterSettings aCWS = new CSSWriterSettings ().setCSSVersion (ECSSVersion.LATEST)
+                                                           .setNewLineMode (ENewLineMode.WINDOWS)
+                                                           .setIndent (" ");
     assertEquals ("@media (min--moz-device-pixel-ratio:1.3), (-o-min-device-pixel-ratio:2.6/2), (-webkit-min-device-pixel-ratio:1.3), (min-device-pixel-ratio:1.3), (min-resolution:1.3dppx) {\r\n" +
                   " .social .facebook a,\r\n" +
                   " .social .twitter a { background-size:-webkit-background-size; }\r\n" +
                   "}\r\n",
+                  new CSSWriter (aCWS).setWriteHeaderText (false).setWriteFooterText (false).getCSSAsString (aCSS));
+  }
+
+  @Test
+  public void testIssue2 ()
+  {
+    final String css = ".someRule {\r\n" + "   color:red;\r\n" + "}\r\n" + "\r\n" + "------- This is bad";
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
+                                                                .setBrowserCompliantMode (true);
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringStream (css, aSettings);
+    assertNotNull (aCSS);
+
+    final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.LATEST).setNewLineMode (ENewLineMode.WINDOWS);
+    assertEquals (".someRule { color:red; }\r\n",
                   new CSSWriter (aCWS).setWriteHeaderText (false).setWriteFooterText (false).getCSSAsString (aCSS));
   }
 }

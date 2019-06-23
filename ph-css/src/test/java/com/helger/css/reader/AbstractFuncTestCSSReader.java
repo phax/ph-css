@@ -33,6 +33,7 @@ import com.helger.commons.io.file.FileSystemRecursiveIterator;
 import com.helger.commons.io.file.IFileFilter;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.decl.CascadingStyleSheet;
+import com.helger.css.handler.LoggingCSSParseExceptionCallback;
 import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
@@ -56,7 +57,9 @@ public abstract class AbstractFuncTestCSSReader
   {
     m_bDebug = bDebug;
     m_aReaderSettings = new CSSReaderSettings ().setFallbackCharset (aCharset)
-                                                .setBrowserCompliantMode (bBrowserCompliantMode);
+                                                .setBrowserCompliantMode (bBrowserCompliantMode)
+                                                .setCustomExceptionHandler (new LoggingCSSParseExceptionCallback ())
+                                                .setCustomErrorHandler (new LoggingCSSParseErrorHandler ());
     m_aWriterSettings = new CSSWriterSettings ();
     if (m_bDebug)
       m_aLogger.info ("Running test in " + (bBrowserCompliantMode ? "browser compliant mode" : "strict mode"));

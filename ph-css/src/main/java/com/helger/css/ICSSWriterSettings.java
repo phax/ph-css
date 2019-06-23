@@ -35,7 +35,18 @@ public interface ICSSWriterSettings extends Serializable
    * @return The CSS version to be used. May not be <code>null</code>.
    */
   @Nonnull
-  ECSSVersion getVersion ();
+  ECSSVersion getCSSVersion ();
+
+  /**
+   * @return The CSS version to be used. May not be <code>null</code>.
+   * @deprecated Use {@link #getCSSVersion()} instead
+   */
+  @Nonnull
+  @Deprecated
+  default ECSSVersion getVersion ()
+  {
+    return getCSSVersion ();
+  }
 
   /**
    * @return <code>true</code> if all unnecessary whitespaces should be ignored

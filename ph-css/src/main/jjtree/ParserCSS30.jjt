@@ -574,9 +574,9 @@ try{
     ( syntaxCrap() )?
   )*
   <EOF>
-} catch (/* final */ ParseEOFException ex) {
+} catch (/* final */ ParseException ex) {
   if (m_bBrowserCompliantMode) {
-    /* ignore special EOF excpetion */
+    /* ignore special EOF exception */
   }
   else
     throw ex;
