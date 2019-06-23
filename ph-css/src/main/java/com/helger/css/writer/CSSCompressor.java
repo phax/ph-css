@@ -101,7 +101,7 @@ public final class CSSCompressor
     ValueEnforcer.notNull (sOriginalCSS, "OriginalCSS");
     ValueEnforcer.notNull (aSettings, "Settings");
 
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sOriginalCSS, aSettings.getVersion ());
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sOriginalCSS, aSettings.getCSSVersion ());
     if (aCSS != null)
     {
       try

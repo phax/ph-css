@@ -33,6 +33,7 @@ public interface ICSSWriterSettings extends Serializable
 {
   /**
    * @return The CSS version to be used. May not be <code>null</code>.
+   * @since v6.1.4
    */
   @Nonnull
   ECSSVersion getCSSVersion ();
