@@ -41,7 +41,7 @@ public final class Issue26Test
   @Test
   public void testIssue ()
   {
-    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad_but_browsercompliant/issue26.css");
+    final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue26.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
