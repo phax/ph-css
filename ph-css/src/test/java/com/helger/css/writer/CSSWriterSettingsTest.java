@@ -38,7 +38,7 @@ public final class CSSWriterSettingsTest extends AbstractCSS30TestCase
 {
   private static void _checkDefault (@Nonnull final ICSSWriterSettings aSettings)
   {
-    assertSame (ECSSVersion.CSS30, aSettings.getVersion ());
+    assertSame (ECSSVersion.CSS30, aSettings.getCSSVersion ());
     assertTrue (CSSWriterSettings.DEFAULT_OPTIMIZED_OUTPUT == aSettings.isOptimizedOutput ());
     assertTrue (CSSWriterSettings.DEFAULT_REMOVE_UNNECESSARY_CODE == aSettings.isRemoveUnnecessaryCode ());
     assertSame (CSSWriterSettings.DEFAULT_NEW_LINE_MODE, aSettings.getNewLineMode ());

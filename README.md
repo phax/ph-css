@@ -14,7 +14,7 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-* v6.1.4 - work in progress
+* v6.2.0 - work in progress
     * Fixed NPE in `CSSWriterSettings.DEFAULT_SETTINGS` because of wrong initialization order (#53)
     * Added some `-o-` media expression features
     * Changing browser compliant parsing in a way, so that less `null` is returned in parsing (#41)

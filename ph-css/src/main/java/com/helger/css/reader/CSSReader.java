@@ -79,7 +79,7 @@ public final class CSSReader
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   // Use the ThrowingCSSParseErrorHandler for maximum backward compatibility
-  // Changed to LoggingCSSParseErrorHandler in v6.1.4
+  // Changed to LoggingCSSParseErrorHandler in v6.2.0
   @GuardedBy ("s_aRWLock")
   private static ICSSParseErrorHandler s_aDefaultParseErrorHandler = new LoggingCSSParseErrorHandler ();
 
