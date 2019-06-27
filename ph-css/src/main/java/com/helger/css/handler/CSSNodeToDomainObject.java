@@ -1246,11 +1246,10 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  public CascadingStyleSheet createCascadingStyleSheetFromNode (@Nonnull final CSSNode aNode)
+  private void _recursiveFillCascadingStyleSheetFromNode (@Nonnull final CSSNode aNode,
+                                                          @Nonnull final CascadingStyleSheet ret)
   {
     _expectNodeType (aNode, ECSSNodeType.ROOT);
-    final CascadingStyleSheet ret = new CascadingStyleSheet ();
     if (m_bUseSourceLocation)
       ret.setSourceLocation (aNode.getSourceLocation ());
     for (final CSSNode aChildNode : aNode)
@@ -1299,12 +1298,33 @@ final class CSSNodeToDomainObject
                             ret.addRule (_createUnknownRule (aChildNode));
                           }
                           else
-                            m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
-                                                                      ECSSNodeType.getNodeName (aNode, m_eVersion) +
-                                                                      ": " +
-                                                                      ECSSNodeType.getNodeName (aChildNode,
-                                                                                                m_eVersion));
+                            if (ECSSNodeType.ROOT.isNode (aChildNode, m_eVersion))
+                            {
+                              /*
+                               * In case a parsing error occurs (as e.g.
+                               * happening in issue #41) and browser compliant
+                               * mode is enabled, some CSS code is skipped and a
+                               * retry happens. This retry will be a recursive
+                               * stylesheet object that is a child of the
+                               * previous stylesheet but "flattened" for the
+                               * result object.
+                               */
+                              _recursiveFillCascadingStyleSheetFromNode (aChildNode, ret);
+                            }
+                            else
+                              m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                                        ECSSNodeType.getNodeName (aNode, m_eVersion) +
+                                                                        ": " +
+                                                                        ECSSNodeType.getNodeName (aChildNode,
+                                                                                                  m_eVersion));
     }
+  }
+
+  @Nonnull
+  public CascadingStyleSheet createCascadingStyleSheetFromNode (@Nonnull final CSSNode aNode)
+  {
+    final CascadingStyleSheet ret = new CascadingStyleSheet ();
+    _recursiveFillCascadingStyleSheetFromNode (aNode, ret);
     return ret;
   }
 

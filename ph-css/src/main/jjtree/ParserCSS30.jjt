@@ -522,6 +522,18 @@ private void browserCompliantSkipSelector(final ParseException ex) throws ParseE
 
 JAVACODE
 /**
+ * Browser compliant skip to the next closing '}' (not being inside a '}') and consuming the "}"
+ * @param ex The source ParseException. May not be <code>null</code>
+ * @throws ParseEOFException If EOF occurs while skipping
+ */
+private void browserCompliantSkipStylesheet(final ParseException ex) throws ParseEOFException #void {
+  javaSkipToClosingBrace (0);
+  if (m_aCustomErrorHandler != null)
+    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex, ex.currentToken, token);
+}
+
+JAVACODE
+/**
  * Browser compliant skip to matching closing '}' or ';'
  * @param ex The source ParseException. May not be <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
@@ -574,9 +586,23 @@ try{
     ( syntaxCrap() )?
   )*
   <EOF>
-} catch (/* final */ ParseException ex) {
+} catch (/* final */ ParseEOFException ex) {
   if (m_bBrowserCompliantMode) {
     /* ignore special EOF exception */
+  }
+  else
+    throw ex;
+}
+catch (/* final */ ParseException ex) {
+  if (m_bBrowserCompliantMode) {
+    /* Found some syntax crap - try going to the next "}" and try again */
+    try
+    {
+      browserCompliantSkipStylesheet (ex);
+      styleSheet();
+    } catch (ParseEOFException ex2){
+      // EOF in searching for next - ignore finally
+    }
   }
   else
     throw ex;

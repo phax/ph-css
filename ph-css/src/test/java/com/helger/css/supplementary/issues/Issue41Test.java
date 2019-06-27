@@ -24,8 +24,11 @@ import org.junit.Test;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
+import com.helger.css.handler.LoggingCSSParseExceptionCallback;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
+import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
+import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
 
@@ -47,7 +50,7 @@ public final class Issue41Test
                        "}";
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
                                                                 .setBrowserCompliantMode (true);
-    final CascadingStyleSheet aCSS = CSSReader.readFromStringStream (css, aSettings);
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css, aSettings);
     assertNotNull (aCSS);
 
     final CSSWriterSettings aCWS = new CSSWriterSettings ().setCSSVersion (ECSSVersion.LATEST)
@@ -66,11 +69,36 @@ public final class Issue41Test
     final String css = ".someRule {\r\n" + "   color:red;\r\n" + "}\r\n" + "\r\n" + "------- This is bad";
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
                                                                 .setBrowserCompliantMode (true);
-    final CascadingStyleSheet aCSS = CSSReader.readFromStringStream (css, aSettings);
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css, aSettings);
     assertNotNull (aCSS);
 
     final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.LATEST).setNewLineMode (ENewLineMode.WINDOWS);
     assertEquals (".someRule { color:red; }\r\n",
+                  new CSSWriter (aCWS).setWriteHeaderText (false).setWriteFooterText (false).getCSSAsString (aCSS));
+  }
+
+  @Test
+  public void testIssue3 ()
+  {
+    final String css = "------- This is bad\r\n" +
+                       "\r\n" +
+                       ".someRule {\r\n" +
+                       "   color:red;\r\n" +
+                       "}\r\n" +
+                       "\r\n" +
+                       ".someOtherRule {\r\n" +
+                       "   color:blue;\r\n" +
+                       "}";
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
+                                                                .setBrowserCompliantMode (true)
+                                                                .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
+                                                                .setCustomExceptionHandler (new LoggingCSSParseExceptionCallback ())
+                                                                .setInterpretErrorHandler (new LoggingCSSInterpretErrorHandler ());
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css, aSettings);
+    assertNotNull (aCSS);
+
+    final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.LATEST).setNewLineMode (ENewLineMode.WINDOWS);
+    assertEquals (".someOtherRule { color:blue; }\r\n",
                   new CSSWriter (aCWS).setWriteHeaderText (false).setWriteFooterText (false).getCSSAsString (aCSS));
   }
 }
