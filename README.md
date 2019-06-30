@@ -14,11 +14,12 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-* v6.2.0 - work in progress
+* v6.2.0 - 2019-06-30
     * Fixed NPE in `CSSWriterSettings.DEFAULT_SETTINGS` because of wrong initialization order (#53)
     * Added some `-o-` media expression features
     * Changing browser compliant parsing in a way, so that less `null` is returned in parsing (#41)
     * The default "custom error handler" for parsing was changed from `ThrowingCSSParseErrorHandler` to `LoggingCSSParseErrorHandler` for best browser compliant mode handling
+    * Improved fault tolerance in parsing when "browser compliant mode" is enabled
 * v6.1.3 - 2019-06-12
     * Added some performance tweaks
     * Added possibility to disable the usage of the source location using `CSSReaderSettings` (for performance reasons)
@@ -85,7 +86,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>6.1.3</version>
+  <version>6.2.0</version>
 </dependency>
 ```
 
@@ -282,7 +283,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>6.1.3</version>
+        <version>6.2.0</version>
         <executions>
           <execution>
             <goals>
