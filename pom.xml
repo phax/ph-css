@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.10.8</version>
+    <version>1.10.9</version>
   </parent>
   <artifactId>ph-css-parent-pom</artifactId>
   <version>6.2.1-SNAPSHOT</version>
