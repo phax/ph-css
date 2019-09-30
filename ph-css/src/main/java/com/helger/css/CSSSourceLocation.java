@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -57,8 +58,7 @@ public class CSSSourceLocation implements Serializable
    */
   public CSSSourceLocation (@Nullable final CSSSourceArea aFirstTokenArea, @Nullable final CSSSourceArea aLastTokenArea)
   {
-    if (aFirstTokenArea == null && aLastTokenArea == null)
-      throw new IllegalArgumentException ("At least one of the areas must be set!");
+    ValueEnforcer.isFalse (aFirstTokenArea == null && aLastTokenArea == null, "At least one of the areas must be set!");
     m_aFirstTokenArea = aFirstTokenArea;
     m_aLastTokenArea = aLastTokenArea;
   }

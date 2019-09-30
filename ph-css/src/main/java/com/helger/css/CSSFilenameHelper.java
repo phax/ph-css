@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
 
@@ -86,8 +87,8 @@ public final class CSSFilenameHelper
   @Nonnull
   public static String getMinifiedCSSFilename (@Nonnull final String sCSSFilename)
   {
-    if (!isCSSFilename (sCSSFilename))
-      throw new IllegalArgumentException ("Passed file name '" + sCSSFilename + "' is not a CSS file name!");
+    ValueEnforcer.isTrue (isCSSFilename (sCSSFilename),
+                          "Passed file name '" + sCSSFilename + "' is not a CSS file name!");
     if (isMinifiedCSSFilename (sCSSFilename))
       return sCSSFilename;
     return StringHelper.trimEnd (sCSSFilename, CCSS.FILE_EXTENSION_CSS) + CCSS.FILE_EXTENSION_MIN_CSS;
