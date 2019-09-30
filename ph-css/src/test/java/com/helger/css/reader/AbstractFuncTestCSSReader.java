@@ -59,7 +59,8 @@ public abstract class AbstractFuncTestCSSReader
     m_aReaderSettings = new CSSReaderSettings ().setFallbackCharset (aCharset)
                                                 .setBrowserCompliantMode (bBrowserCompliantMode)
                                                 .setCustomExceptionHandler (new LoggingCSSParseExceptionCallback ())
-                                                .setCustomErrorHandler (new LoggingCSSParseErrorHandler ());
+                                                .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
+                                                .setUseSourceLocation (true);
     m_aWriterSettings = new CSSWriterSettings ();
     if (m_bDebug)
       m_aLogger.info ("Running test in " + (bBrowserCompliantMode ? "browser compliant mode" : "strict mode"));
