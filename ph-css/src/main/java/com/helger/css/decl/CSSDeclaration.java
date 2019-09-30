@@ -146,7 +146,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @since 3.7.4
    */
   @Nonnull
-  public CSSDeclaration setProperty (@Nonnull @Nonempty final String sProperty)
+  public final CSSDeclaration setProperty (@Nonnull @Nonempty final String sProperty)
   {
     ValueEnforcer.notEmpty (sProperty, "Property");
     m_sProperty = _unifyProperty (sProperty);
@@ -162,7 +162,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @since 3.7.4
    */
   @Nonnull
-  public CSSDeclaration setProperty (@Nonnull final ECSSProperty eProperty)
+  public final CSSDeclaration setProperty (@Nonnull final ECSSProperty eProperty)
   {
     ValueEnforcer.notNull (eProperty, "Property");
     return setProperty (eProperty.getName ());
@@ -199,7 +199,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @since 3.7.4
    */
   @Nonnull
-  public CSSDeclaration setExpression (@Nonnull final CSSExpression aExpression)
+  public final CSSDeclaration setExpression (@Nonnull final CSSExpression aExpression)
   {
     m_aExpression = ValueEnforcer.notNull (aExpression, "Expression");
     return this;
@@ -224,7 +224,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @since 3.7.4
    */
   @Nonnull
-  public CSSDeclaration setImportant (final boolean bIsImportant)
+  public final CSSDeclaration setImportant (final boolean bIsImportant)
   {
     m_bIsImportant = bIsImportant;
     return this;
