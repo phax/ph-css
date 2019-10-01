@@ -114,7 +114,7 @@ public final class CSSColorHelper
                                              PATTERN_PART_OPACITY +
                                              "\\s*\\)$";
   @RegEx
-  private static final String PATTERN_HEX = "^" + CCSSValue.PREFIX_HEX + "[0-9a-fA-F]{1,6}$";
+  private static final String PATTERN_HEX = "^" + CCSSValue.PREFIX_HEX + "([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$";
 
   @PresentForCodeCoverage
   private static final CSSColorHelper s_aInstance = new CSSColorHelper ();
