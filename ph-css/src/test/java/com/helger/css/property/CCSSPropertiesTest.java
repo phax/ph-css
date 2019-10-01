@@ -46,8 +46,8 @@ public final class CCSSPropertiesTest
     assertTrue (CCSSProperties.COLOR.isValidValue (" #ffffff "));
     assertTrue (CCSSProperties.COLOR.isValidValue ("#fff"));
     assertTrue (CCSSProperties.COLOR.isValidValue (" #fff   "));
-    assertTrue (CCSSProperties.COLOR.isValidValue ("#fffe"));
-    assertTrue (CCSSProperties.COLOR.isValidValue (" #fffe   "));
+    assertFalse (CCSSProperties.COLOR.isValidValue ("#fffe"));
+    assertFalse (CCSSProperties.COLOR.isValidValue (" #fffe   "));
     assertFalse (CCSSProperties.COLOR.isValidValue ("#fffffff"));
     assertFalse (CCSSProperties.COLOR.isValidValue ("#aag"));
     assertFalse (CCSSProperties.COLOR.isValidValue ("#ppp"));

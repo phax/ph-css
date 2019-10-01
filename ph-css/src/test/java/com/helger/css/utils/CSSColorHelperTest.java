@@ -166,14 +166,19 @@ public final class CSSColorHelperTest
                                                  "#ffffff",
                                                  "#aaa",
                                                  "#000",
-                                                 "#1234",
-                                                 "#000f" };
+                                                 "#123",
+                                                 "#000" };
     for (final String sHexColor : HEX_COLORS)
     {
       assertTrue (sHexColor, CSSColorHelper.isHexColorValue (sHexColor));
       assertTrue (sHexColor, CSSColorHelper.isColorValue (sHexColor));
     }
     assertFalse (CSSColorHelper.isHexColorValue ("123456"));
+    assertFalse (CSSColorHelper.isHexColorValue ("#"));
+    assertFalse (CSSColorHelper.isHexColorValue ("#1"));
+    assertFalse (CSSColorHelper.isHexColorValue ("#12"));
+    assertFalse (CSSColorHelper.isHexColorValue ("#1234"));
+    assertFalse (CSSColorHelper.isHexColorValue ("#12345"));
     assertFalse (CSSColorHelper.isHexColorValue ("#1234567"));
   }
 

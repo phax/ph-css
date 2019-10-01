@@ -14,6 +14,8 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
+* v6.2.1 - work in progress
+    * Improved the pattern for colors in hex values ([PR #55](https://github.com/phax/ph-css/pull/55))
 * v6.2.0 - 2019-06-30
     * Fixed NPE in `CSSWriterSettings.DEFAULT_SETTINGS` because of wrong initialization order (#53)
     * Added some `-o-` media expression features
