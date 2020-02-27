@@ -64,3 +64,7 @@ div {
   margin: calc(1rem - 2px) calc(1rem - 1px);
   b: calc(100% - (calc(1% + 30px)));
 }
+
+.issue57 {
+  left: calc(50% - (600px / 2 + var(--page-column-padding-x)));
+}

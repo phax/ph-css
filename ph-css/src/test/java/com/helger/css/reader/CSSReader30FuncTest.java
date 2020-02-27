@@ -351,10 +351,11 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     final CSSWriterSettings aWriterSettings = new CSSWriterSettings ().setCSSVersion (ECSSVersion.CSS30)
                                                                       .setOptimizedOutput (true);
 
-    // Parsing problem
-    String sCSS = ".class{color:red;.class{color:green}.class{color:blue}";
     CascadingStyleSheet aCSS;
     CascadingStyleSheet aCSS2;
+
+    // Parsing problem
+    String sCSS = ".class{color:red;.class{color:green}.class{color:blue}";
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
     assertNotNull (aCSS);
     assertEquals (bBrowserCompliantMode ? "" : ".class{color:red}.class{color:blue}",
@@ -474,5 +475,12 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     }
     else
       assertNull (aCSS);
+
+    // Issue 57
+    sCSS = ".x{left: calc(50% - (600px / 2 + var(--page-column-padding-x)));}";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals (".x{left:calc(50% - (600px/2 + var(--page-column-padding-x)))}",
+                  new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
   }
 }
