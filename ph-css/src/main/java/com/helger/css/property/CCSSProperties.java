@@ -16,6 +16,8 @@
  */
 package com.helger.css.property;
 
+import static com.helger.css.propertyvalue.CCSSValue.*;
+
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -40,115 +42,86 @@ public final class CCSSProperties
 {
   // Text formatting
   public static final ICSSProperty FONT_FAMILY = new CSSPropertyFree (ECSSProperty.FONT_FAMILY);
-  public static final ICSSProperty FONT_STYLE = new CSSPropertyEnum (ECSSProperty.FONT_STYLE,
-                                                                     CCSSValue.ITALIC,
-                                                                     CCSSValue.OBLIQUE,
-                                                                     CCSSValue.NORMAL);
-  public static final ICSSProperty FONT_VARIANT = new CSSPropertyEnum (ECSSProperty.FONT_VARIANT,
-                                                                       CCSSValue.SMALL_CAPS,
-                                                                       CCSSValue.NORMAL);
+  public static final ICSSProperty FONT_STYLE = new CSSPropertyEnum (ECSSProperty.FONT_STYLE, ITALIC, OBLIQUE, NORMAL);
+  public static final ICSSProperty FONT_VARIANT = new CSSPropertyEnum (ECSSProperty.FONT_VARIANT, SMALL_CAPS, NORMAL);
   public static final ICSSProperty FONT_SIZE = new CSSPropertyEnumOrNumber (ECSSProperty.FONT_SIZE,
                                                                             true,
-                                                                            CCSSValue.XX_SMALL,
-                                                                            CCSSValue.X_SMALL,
-                                                                            CCSSValue.SMALL,
-                                                                            CCSSValue.MEDIUM,
-                                                                            CCSSValue.LARGE,
-                                                                            CCSSValue.X_LARGE,
-                                                                            CCSSValue.XX_LARGE,
-                                                                            CCSSValue.SMALLER,
-                                                                            CCSSValue.LARGER);
+                                                                            XX_SMALL,
+                                                                            X_SMALL,
+                                                                            SMALL,
+                                                                            MEDIUM,
+                                                                            LARGE,
+                                                                            X_LARGE,
+                                                                            XX_LARGE,
+                                                                            SMALLER,
+                                                                            LARGER);
   public static final ICSSProperty FONT_WEIGHT = new CSSPropertyEnum (ECSSProperty.FONT_WEIGHT,
-                                                                      CCSSValue.BOLD,
-                                                                      CCSSValue.BOLDER,
-                                                                      CCSSValue.LIGHTER,
-                                                                      CCSSValue.NORMAL,
-                                                                      CCSSValue._100,
-                                                                      CCSSValue._200,
-                                                                      CCSSValue._300,
-                                                                      CCSSValue._400,
-                                                                      CCSSValue._500,
-                                                                      CCSSValue._600,
-                                                                      CCSSValue._700,
-                                                                      CCSSValue._800,
-                                                                      CCSSValue._900);
+                                                                      BOLD,
+                                                                      BOLDER,
+                                                                      LIGHTER,
+                                                                      NORMAL,
+                                                                      _100,
+                                                                      _200,
+                                                                      _300,
+                                                                      _400,
+                                                                      _500,
+                                                                      _600,
+                                                                      _700,
+                                                                      _800,
+                                                                      _900);
   public static final ICSSProperty WORD_SPACING = new CSSPropertyNumber (ECSSProperty.WORD_SPACING, false);
   public static final ICSSProperty LETTER_SPACING = new CSSPropertyNumber (ECSSProperty.LETTER_SPACING, false);
   public static final ICSSProperty TEXT_DECORATION = new CSSPropertyEnum (ECSSProperty.TEXT_DECORATION,
-                                                                          CCSSValue.UNDERLINE,
-                                                                          CCSSValue.OVERLINE,
-                                                                          CCSSValue.LINE_THROUGH,
-                                                                          CCSSValue.BLINK,
-                                                                          CCSSValue.NONE);
+                                                                          UNDERLINE,
+                                                                          OVERLINE,
+                                                                          LINE_THROUGH,
+                                                                          BLINK,
+                                                                          NONE);
   public static final ICSSProperty TEXT_TRANSFORM = new CSSPropertyEnum (ECSSProperty.TEXT_TRANSFORM,
-                                                                         CCSSValue.CAPITALIZE,
-                                                                         CCSSValue.UPPERCASE,
-                                                                         CCSSValue.LOWERCASE,
-                                                                         CCSSValue.NONE);
+                                                                         CAPITALIZE,
+                                                                         UPPERCASE,
+                                                                         LOWERCASE,
+                                                                         NONE);
   public static final ICSSProperty COLOR = new CSSPropertyColor (ECSSProperty.COLOR);
 
   // Orientation and paragraph control
   public static final ICSSProperty TEXT_INDENT = new CSSPropertyNumber (ECSSProperty.TEXT_INDENT, true);
-  public static final ICSSProperty LINE_HEIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.LINE_HEIGHT,
-                                                                              true,
-                                                                              CCSSValue.NORMAL);
+  public static final ICSSProperty LINE_HEIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.LINE_HEIGHT, true, NORMAL);
   public static final ICSSProperty VERTICAL_ALIGN = new CSSPropertyEnum (ECSSProperty.VERTICAL_ALIGN,
                                                                          CCSSValue.TOP,
-                                                                         CCSSValue.MIDDLE,
+                                                                         MIDDLE,
                                                                          CCSSValue.BOTTOM,
-                                                                         CCSSValue.BASELINE,
-                                                                         CCSSValue.SUB,
-                                                                         CCSSValue.SUPER,
-                                                                         CCSSValue.TEXT_TOP,
-                                                                         CCSSValue.TEXT_BOTTOM);
+                                                                         BASELINE,
+                                                                         SUB,
+                                                                         SUPER,
+                                                                         TEXT_TOP,
+                                                                         TEXT_BOTTOM);
   public static final ICSSProperty TEXT_ALIGN = new CSSPropertyEnum (ECSSProperty.TEXT_ALIGN,
                                                                      CCSSValue.LEFT,
-                                                                     CCSSValue.CENTER,
+                                                                     CENTER,
                                                                      CCSSValue.RIGHT,
-                                                                     CCSSValue.JUSTIFY);
+                                                                     JUSTIFY);
   public static final ICSSProperty WHITE_SPACE = new CSSPropertyEnum (ECSSProperty.WHITE_SPACE,
-                                                                      CCSSValue.NORMAL,
-                                                                      CCSSValue.PRE,
-                                                                      CCSSValue.NOWRAP,
-                                                                      CCSSValue.PRE_LINE,
-                                                                      CCSSValue.PRE_WRAP);
+                                                                      NORMAL,
+                                                                      PRE,
+                                                                      NOWRAP,
+                                                                      PRE_LINE,
+                                                                      PRE_WRAP);
 
   // margin
-  public static final ICSSProperty MARGIN_TOP = new CSSPropertyEnumOrNumber (ECSSProperty.MARGIN_TOP,
-                                                                             true,
-                                                                             CCSSValue.AUTO);
-  public static final ICSSProperty MARGIN_RIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.MARGIN_RIGHT,
-                                                                               true,
-                                                                               CCSSValue.AUTO);
-  public static final ICSSProperty MARGIN_BOTTOM = new CSSPropertyEnumOrNumber (ECSSProperty.MARGIN_BOTTOM,
-                                                                                true,
-                                                                                CCSSValue.AUTO);
-  public static final ICSSProperty MARGIN_LEFT = new CSSPropertyEnumOrNumber (ECSSProperty.MARGIN_LEFT,
-                                                                              true,
-                                                                              CCSSValue.AUTO);
-  public static final ICSSProperty MARGIN = new CSSPropertyEnumOrNumbers (ECSSProperty.MARGIN,
-                                                                          true,
-                                                                          1,
-                                                                          4,
-                                                                          CCSSValue.AUTO);
+  public static final ICSSProperty MARGIN_TOP = new CSSPropertyEnumOrNumber (ECSSProperty.MARGIN_TOP, true, AUTO);
+  public static final ICSSProperty MARGIN_RIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.MARGIN_RIGHT, true, AUTO);
+  public static final ICSSProperty MARGIN_BOTTOM = new CSSPropertyEnumOrNumber (ECSSProperty.MARGIN_BOTTOM, true, AUTO);
+  public static final ICSSProperty MARGIN_LEFT = new CSSPropertyEnumOrNumber (ECSSProperty.MARGIN_LEFT, true, AUTO);
+  public static final ICSSProperty MARGIN = new CSSPropertyEnumOrNumbers (ECSSProperty.MARGIN, true, 1, 4, AUTO);
   // padding
-  public static final ICSSProperty PADDING_TOP = new CSSPropertyEnumOrNumber (ECSSProperty.PADDING_TOP,
-                                                                              true,
-                                                                              CCSSValue.AUTO);
-  public static final ICSSProperty PADDING_RIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.PADDING_RIGHT,
-                                                                                true,
-                                                                                CCSSValue.AUTO);
+  public static final ICSSProperty PADDING_TOP = new CSSPropertyEnumOrNumber (ECSSProperty.PADDING_TOP, true, AUTO);
+  public static final ICSSProperty PADDING_RIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.PADDING_RIGHT, true, AUTO);
   public static final ICSSProperty PADDING_BOTTOM = new CSSPropertyEnumOrNumber (ECSSProperty.PADDING_BOTTOM,
                                                                                  true,
-                                                                                 CCSSValue.AUTO);
-  public static final ICSSProperty PADDING_LEFT = new CSSPropertyEnumOrNumber (ECSSProperty.PADDING_LEFT,
-                                                                               true,
-                                                                               CCSSValue.AUTO);
-  public static final ICSSProperty PADDING = new CSSPropertyEnumOrNumbers (ECSSProperty.PADDING,
-                                                                           true,
-                                                                           1,
-                                                                           4,
-                                                                           CCSSValue.AUTO);
+                                                                                 AUTO);
+  public static final ICSSProperty PADDING_LEFT = new CSSPropertyEnumOrNumber (ECSSProperty.PADDING_LEFT, true, AUTO);
+  public static final ICSSProperty PADDING = new CSSPropertyEnumOrNumbers (ECSSProperty.PADDING, true, 1, 4, AUTO);
 
   // borders
   public static final ICSSProperty BORDER = new CSSPropertyFree (ECSSProperty.BORDER);
@@ -158,100 +131,100 @@ public final class CCSSProperties
   public static final ICSSProperty BORDER_LEFT = new CSSPropertyFree (ECSSProperty.BORDER_LEFT);
   public static final ICSSProperty BORDER_TOP_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_TOP_WIDTH,
                                                                                    false,
-                                                                                   CCSSValue.THIN,
-                                                                                   CCSSValue.MEDIUM,
-                                                                                   CCSSValue.THICK);
+                                                                                   THIN,
+                                                                                   MEDIUM,
+                                                                                   THICK);
   public static final ICSSProperty BORDER_RIGHT_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_RIGHT_WIDTH,
                                                                                      false,
-                                                                                     CCSSValue.THIN,
-                                                                                     CCSSValue.MEDIUM,
-                                                                                     CCSSValue.THICK);
+                                                                                     THIN,
+                                                                                     MEDIUM,
+                                                                                     THICK);
   public static final ICSSProperty BORDER_BOTTOM_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_BOTTOM_WIDTH,
                                                                                       false,
-                                                                                      CCSSValue.THIN,
-                                                                                      CCSSValue.MEDIUM,
-                                                                                      CCSSValue.THICK);
+                                                                                      THIN,
+                                                                                      MEDIUM,
+                                                                                      THICK);
   public static final ICSSProperty BORDER_LEFT_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_LEFT_WIDTH,
                                                                                     false,
-                                                                                    CCSSValue.THIN,
-                                                                                    CCSSValue.MEDIUM,
-                                                                                    CCSSValue.THICK);
+                                                                                    THIN,
+                                                                                    MEDIUM,
+                                                                                    THICK);
   public static final ICSSProperty BORDER_WIDTH = new CSSPropertyEnumOrNumbers (ECSSProperty.BORDER_WIDTH,
                                                                                 false,
                                                                                 1,
                                                                                 4,
-                                                                                CCSSValue.THIN,
-                                                                                CCSSValue.MEDIUM,
-                                                                                CCSSValue.THICK);
+                                                                                THIN,
+                                                                                MEDIUM,
+                                                                                THICK);
   public static final ICSSProperty BORDER_TOP_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BORDER_TOP_COLOR,
-                                                                                  CCSSValue.TRANSPARENT);
+                                                                                  TRANSPARENT);
   public static final ICSSProperty BORDER_RIGHT_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BORDER_RIGHT_COLOR,
-                                                                                    CCSSValue.TRANSPARENT);
+                                                                                    TRANSPARENT);
   public static final ICSSProperty BORDER_BOTTOM_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BORDER_BOTTOM_COLOR,
-                                                                                     CCSSValue.TRANSPARENT);
+                                                                                     TRANSPARENT);
   public static final ICSSProperty BORDER_LEFT_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BORDER_LEFT_COLOR,
-                                                                                   CCSSValue.TRANSPARENT);
+                                                                                   TRANSPARENT);
   public static final ICSSProperty BORDER_COLOR = new CSSPropertyEnumOrColors (ECSSProperty.BORDER_COLOR,
                                                                                1,
                                                                                4,
-                                                                               CCSSValue.TRANSPARENT);
+                                                                               TRANSPARENT);
   public static final ICSSProperty BORDER_TOP_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_TOP_STYLE,
-                                                                           CCSSValue.NONE,
-                                                                           CCSSValue.HIDDEN,
-                                                                           CCSSValue.DOTTED,
-                                                                           CCSSValue.DASHED,
-                                                                           CCSSValue.SOLID,
-                                                                           CCSSValue.DOUBLE,
-                                                                           CCSSValue.GROOVE,
-                                                                           CCSSValue.RIDGE,
-                                                                           CCSSValue.INSET,
-                                                                           CCSSValue.OUTSET);
+                                                                           NONE,
+                                                                           HIDDEN,
+                                                                           DOTTED,
+                                                                           DASHED,
+                                                                           SOLID,
+                                                                           DOUBLE,
+                                                                           GROOVE,
+                                                                           RIDGE,
+                                                                           INSET,
+                                                                           OUTSET);
   public static final ICSSProperty BORDER_RIGHT_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_RIGHT_STYLE,
-                                                                             CCSSValue.NONE,
-                                                                             CCSSValue.HIDDEN,
-                                                                             CCSSValue.DOTTED,
-                                                                             CCSSValue.DASHED,
-                                                                             CCSSValue.SOLID,
-                                                                             CCSSValue.DOUBLE,
-                                                                             CCSSValue.GROOVE,
-                                                                             CCSSValue.RIDGE,
-                                                                             CCSSValue.INSET,
-                                                                             CCSSValue.OUTSET);
+                                                                             NONE,
+                                                                             HIDDEN,
+                                                                             DOTTED,
+                                                                             DASHED,
+                                                                             SOLID,
+                                                                             DOUBLE,
+                                                                             GROOVE,
+                                                                             RIDGE,
+                                                                             INSET,
+                                                                             OUTSET);
   public static final ICSSProperty BORDER_BOTTOM_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_BOTTOM_STYLE,
-                                                                              CCSSValue.NONE,
-                                                                              CCSSValue.HIDDEN,
-                                                                              CCSSValue.DOTTED,
-                                                                              CCSSValue.DASHED,
-                                                                              CCSSValue.SOLID,
-                                                                              CCSSValue.DOUBLE,
-                                                                              CCSSValue.GROOVE,
-                                                                              CCSSValue.RIDGE,
-                                                                              CCSSValue.INSET,
-                                                                              CCSSValue.OUTSET);
+                                                                              NONE,
+                                                                              HIDDEN,
+                                                                              DOTTED,
+                                                                              DASHED,
+                                                                              SOLID,
+                                                                              DOUBLE,
+                                                                              GROOVE,
+                                                                              RIDGE,
+                                                                              INSET,
+                                                                              OUTSET);
   public static final ICSSProperty BORDER_LEFT_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_LEFT_STYLE,
-                                                                            CCSSValue.NONE,
-                                                                            CCSSValue.HIDDEN,
-                                                                            CCSSValue.DOTTED,
-                                                                            CCSSValue.DASHED,
-                                                                            CCSSValue.SOLID,
-                                                                            CCSSValue.DOUBLE,
-                                                                            CCSSValue.GROOVE,
-                                                                            CCSSValue.RIDGE,
-                                                                            CCSSValue.INSET,
-                                                                            CCSSValue.OUTSET);
+                                                                            NONE,
+                                                                            HIDDEN,
+                                                                            DOTTED,
+                                                                            DASHED,
+                                                                            SOLID,
+                                                                            DOUBLE,
+                                                                            GROOVE,
+                                                                            RIDGE,
+                                                                            INSET,
+                                                                            OUTSET);
   public static final ICSSProperty BORDER_STYLE = new CSSPropertyEnums (ECSSProperty.BORDER_STYLE,
                                                                         1,
                                                                         4,
-                                                                        CCSSValue.NONE,
-                                                                        CCSSValue.HIDDEN,
-                                                                        CCSSValue.DOTTED,
-                                                                        CCSSValue.DASHED,
-                                                                        CCSSValue.SOLID,
-                                                                        CCSSValue.DOUBLE,
-                                                                        CCSSValue.GROOVE,
-                                                                        CCSSValue.RIDGE,
-                                                                        CCSSValue.INSET,
-                                                                        CCSSValue.OUTSET);
+                                                                        NONE,
+                                                                        HIDDEN,
+                                                                        DOTTED,
+                                                                        DASHED,
+                                                                        SOLID,
+                                                                        DOUBLE,
+                                                                        GROOVE,
+                                                                        RIDGE,
+                                                                        INSET,
+                                                                        OUTSET);
   public static final ICSSProperty BORDER_RADIUS = new CSSPropertyFree (ECSSProperty.BORDER_RADIUS,
                                                                         new CSSPropertyCustomizerBorderRadius ());
   public static final ICSSProperty BORDER_TOP_LEFT_RADIUS = new CSSPropertyFree (ECSSProperty.BORDER_TOP_LEFT_RADIUS,
@@ -266,184 +239,239 @@ public final class CCSSProperties
                                                                                  false,
                                                                                  1,
                                                                                  4,
-                                                                                 CCSSValue.THIN,
-                                                                                 CCSSValue.MEDIUM,
-                                                                                 CCSSValue.THICK);
+                                                                                 THIN,
+                                                                                 MEDIUM,
+                                                                                 THICK);
   public static final ICSSProperty OUTLINE_COLOR = new CSSPropertyEnumOrColors (ECSSProperty.OUTLINE_COLOR,
                                                                                 1,
                                                                                 4,
-                                                                                CCSSValue.INVERT,
-                                                                                CCSSValue.TRANSPARENT);
+                                                                                INVERT,
+                                                                                TRANSPARENT);
   public static final ICSSProperty OUTLINE_STYLE = new CSSPropertyEnums (ECSSProperty.OUTLINE_STYLE,
                                                                          1,
                                                                          4,
-                                                                         CCSSValue.NONE,
-                                                                         CCSSValue.HIDDEN,
-                                                                         CCSSValue.DOTTED,
-                                                                         CCSSValue.DASHED,
-                                                                         CCSSValue.SOLID,
-                                                                         CCSSValue.DOUBLE,
-                                                                         CCSSValue.GROOVE,
-                                                                         CCSSValue.RIDGE,
-                                                                         CCSSValue.INSET,
-                                                                         CCSSValue.OUTSET);
+                                                                         NONE,
+                                                                         HIDDEN,
+                                                                         DOTTED,
+                                                                         DASHED,
+                                                                         SOLID,
+                                                                         DOUBLE,
+                                                                         GROOVE,
+                                                                         RIDGE,
+                                                                         INSET,
+                                                                         OUTSET);
 
   // background stuff
   public static final ICSSProperty BACKGROUND = new CSSPropertyFree (ECSSProperty.BACKGROUND);
   public static final ICSSProperty BACKGROUND_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BACKGROUND_COLOR,
-                                                                                  CCSSValue.TRANSPARENT);
+                                                                                  TRANSPARENT);
   public static final ICSSProperty BACKGROUND_IMAGE = new CSSPropertyURL (ECSSProperty.BACKGROUND_IMAGE);
   public static final ICSSProperty BACKGROUND_REPEAT = new CSSPropertyEnum (ECSSProperty.BACKGROUND_REPEAT,
-                                                                            CCSSValue.REPEAT,
-                                                                            CCSSValue.REPEAT_X,
-                                                                            CCSSValue.REPEAT_Y,
-                                                                            CCSSValue.NO_REPEAT);
+                                                                            REPEAT,
+                                                                            REPEAT_X,
+                                                                            REPEAT_Y,
+                                                                            NO_REPEAT);
   public static final ICSSProperty BACKGROUND_ATTACHMENT = new CSSPropertyEnum (ECSSProperty.BACKGROUND_ATTACHMENT,
-                                                                                CCSSValue.SCROLL,
-                                                                                CCSSValue.FIXED);
+                                                                                SCROLL,
+                                                                                FIXED);
   public static final ICSSProperty BACKGROUND_CLIP = new CSSPropertyEnum (ECSSProperty.BACKGROUND_CLIP,
-                                                                          CCSSValue.BORDER_BOX,
-                                                                          CCSSValue.PADDING_BOX,
-                                                                          CCSSValue.CONTENT_BOX);
+                                                                          BORDER_BOX,
+                                                                          PADDING_BOX,
+                                                                          CONTENT_BOX);
   public static final ICSSProperty BACKGROUND_ORIGIN = new CSSPropertyEnum (ECSSProperty.BACKGROUND_ORIGIN,
-                                                                            CCSSValue.BORDER_BOX,
-                                                                            CCSSValue.PADDING_BOX,
-                                                                            CCSSValue.CONTENT_BOX);
+                                                                            BORDER_BOX,
+                                                                            PADDING_BOX,
+                                                                            CONTENT_BOX);
   public static final ICSSProperty BACKGROUND_POSITION = new CSSPropertyEnumOrNumbers (ECSSProperty.BACKGROUND_POSITION,
                                                                                        true,
                                                                                        2,
                                                                                        2,
                                                                                        CCSSValue.TOP,
                                                                                        CCSSValue.BOTTOM,
-                                                                                       CCSSValue.CENTER,
+                                                                                       CENTER,
                                                                                        CCSSValue.LEFT,
                                                                                        CCSSValue.RIGHT);
   public static final ICSSProperty BACKGROUND_SIZE = new CSSPropertyEnumOrNumbers (ECSSProperty.BACKGROUND_SIZE,
                                                                                    true,
                                                                                    2,
                                                                                    2,
-                                                                                   CCSSValue.AUTO,
-                                                                                   CCSSValue.COVER,
-                                                                                   CCSSValue.CONTAIN);
+                                                                                   AUTO,
+                                                                                   COVER,
+                                                                                   CONTAIN);
 
   // list formatting
   public static final ICSSProperty LIST_STYLE_TYPE = new CSSPropertyEnum (ECSSProperty.LIST_STYLE_TYPE,
-                                                                          CCSSValue.DECIMAL,
-                                                                          CCSSValue.LOWER_ROMAN,
-                                                                          CCSSValue.UPPER_ROMAN,
-                                                                          CCSSValue.LOWER_ALPHA,
-                                                                          CCSSValue.UPPER_ALPHA,
-                                                                          CCSSValue.LOWER_LATIN,
-                                                                          CCSSValue.UPPER_LATIN,
-                                                                          CCSSValue.DISC,
-                                                                          CCSSValue.CIRCLE,
-                                                                          CCSSValue.SQUARE,
-                                                                          CCSSValue.NONE);
+                                                                          DECIMAL,
+                                                                          LOWER_ROMAN,
+                                                                          UPPER_ROMAN,
+                                                                          LOWER_ALPHA,
+                                                                          UPPER_ALPHA,
+                                                                          LOWER_LATIN,
+                                                                          UPPER_LATIN,
+                                                                          DISC,
+                                                                          CIRCLE,
+                                                                          SQUARE,
+                                                                          NONE);
   public static final ICSSProperty LIST_STYLE_POSITION = new CSSPropertyEnum (ECSSProperty.LIST_STYLE_POSITION,
-                                                                              CCSSValue.INSIDE,
-                                                                              CCSSValue.OUTSIDE);
+                                                                              INSIDE,
+                                                                              OUTSIDE);
   public static final ICSSProperty LIST_STYLE_IMAGE = new CSSPropertyURL (ECSSProperty.LIST_STYLE_IMAGE);
 
   // table formatting
   public static final ICSSProperty CAPTION_SIDE = new CSSPropertyEnum (ECSSProperty.CAPTION_SIDE,
                                                                        CCSSValue.TOP,
                                                                        CCSSValue.BOTTOM);
-  public static final ICSSProperty TABLE_LAYOUT = new CSSPropertyEnum (ECSSProperty.TABLE_LAYOUT,
-                                                                       CCSSValue.AUTO,
-                                                                       CCSSValue.FIXED);
+  public static final ICSSProperty TABLE_LAYOUT = new CSSPropertyEnum (ECSSProperty.TABLE_LAYOUT, AUTO, FIXED);
   public static final ICSSProperty BORDER_COLLAPSE = new CSSPropertyEnum (ECSSProperty.BORDER_COLLAPSE,
-                                                                          CCSSValue.SEPARATE,
-                                                                          CCSSValue.COLLAPSE);
+                                                                          SEPARATE,
+                                                                          COLLAPSE);
   public static final ICSSProperty BORDER_SPACING = new CSSPropertyNumber (ECSSProperty.BORDER_SPACING, true);
-  public static final ICSSProperty EMPTY_CELLS = new CSSPropertyEnum (ECSSProperty.EMPTY_CELLS,
-                                                                      CCSSValue.SHOW,
-                                                                      CCSSValue.HIDE);
-  public static final ICSSProperty SPEAK_HEADER = new CSSPropertyEnum (ECSSProperty.SPEAK_HEADER,
-                                                                       CCSSValue.ALWAYS,
-                                                                       CCSSValue.ONCE);
+  public static final ICSSProperty EMPTY_CELLS = new CSSPropertyEnum (ECSSProperty.EMPTY_CELLS, SHOW, HIDE);
+  public static final ICSSProperty SPEAK_HEADER = new CSSPropertyEnum (ECSSProperty.SPEAK_HEADER, ALWAYS, ONCE);
 
   // positioning
   public static final ICSSProperty POSITION = new CSSPropertyEnum (ECSSProperty.POSITION,
-                                                                   CCSSValue.STATIC,
-                                                                   CCSSValue.RELATIVE,
-                                                                   CCSSValue.ABSOLUTE,
-                                                                   CCSSValue.FIXED);
-  public static final ICSSProperty TOP = new CSSPropertyEnumOrNumber (ECSSProperty.TOP, true, CCSSValue.AUTO);
-  public static final ICSSProperty LEFT = new CSSPropertyEnumOrNumber (ECSSProperty.LEFT, true, CCSSValue.AUTO);
-  public static final ICSSProperty BOTTOM = new CSSPropertyEnumOrNumber (ECSSProperty.BOTTOM, true, CCSSValue.AUTO);
-  public static final ICSSProperty RIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.RIGHT, true, CCSSValue.AUTO);
-  public static final ICSSProperty WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.WIDTH, true, CCSSValue.AUTO);
+                                                                   STATIC,
+                                                                   RELATIVE,
+                                                                   ABSOLUTE,
+                                                                   FIXED);
+  public static final ICSSProperty TOP = new CSSPropertyEnumOrNumber (ECSSProperty.TOP, true, AUTO);
+  public static final ICSSProperty LEFT = new CSSPropertyEnumOrNumber (ECSSProperty.LEFT, true, AUTO);
+  public static final ICSSProperty BOTTOM = new CSSPropertyEnumOrNumber (ECSSProperty.BOTTOM, true, AUTO);
+  public static final ICSSProperty RIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.RIGHT, true, AUTO);
+  public static final ICSSProperty WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.WIDTH, true, AUTO);
   public static final ICSSProperty MIN_WIDTH = new CSSPropertyNumber (ECSSProperty.MIN_WIDTH, true);
   public static final ICSSProperty MAX_WIDTH = new CSSPropertyNumber (ECSSProperty.MAX_WIDTH, true);
-  public static final ICSSProperty HEIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.HEIGHT, true, CCSSValue.AUTO);
+  public static final ICSSProperty HEIGHT = new CSSPropertyEnumOrNumber (ECSSProperty.HEIGHT, true, AUTO);
   public static final ICSSProperty MIN_HEIGHT = new CSSPropertyNumber (ECSSProperty.MIN_HEIGHT, true);
   public static final ICSSProperty MAX_HEIGHT = new CSSPropertyNumber (ECSSProperty.MAX_HEIGHT, true);
   public static final ICSSProperty OVERFLOW = new CSSPropertyEnum (ECSSProperty.OVERFLOW,
-                                                                   CCSSValue.VISIBLE,
-                                                                   CCSSValue.HIDDEN,
-                                                                   CCSSValue.SCROLL,
-                                                                   CCSSValue.AUTO);
-  public static final ICSSProperty DIRECTION = new CSSPropertyEnum (ECSSProperty.DIRECTION,
-                                                                    CCSSValue.LTR,
-                                                                    CCSSValue.RTL);
+                                                                   VISIBLE,
+                                                                   HIDDEN,
+                                                                   SCROLL,
+                                                                   AUTO);
   public static final ICSSProperty FLOAT = new CSSPropertyEnum (ECSSProperty.FLOAT,
                                                                 CCSSValue.LEFT,
                                                                 CCSSValue.RIGHT,
-                                                                CCSSValue.NONE);
+                                                                NONE);
   public static final ICSSProperty CLEAR = new CSSPropertyEnum (ECSSProperty.CLEAR,
                                                                 CCSSValue.LEFT,
                                                                 CCSSValue.RIGHT,
-                                                                CCSSValue.BOTH,
-                                                                CCSSValue.NONE);
-  public static final ICSSProperty Z_INDEX = new CSSPropertyEnumOrInt (ECSSProperty.Z_INDEX, CCSSValue.AUTO);
+                                                                BOTH,
+                                                                NONE);
+  public static final ICSSProperty Z_INDEX = new CSSPropertyEnumOrInt (ECSSProperty.Z_INDEX, AUTO);
   public static final ICSSProperty DISPLAY = new CSSPropertyEnum (ECSSProperty.DISPLAY,
-                                                                  CCSSValue.BLOCK,
-                                                                  CCSSValue.INLINE,
-                                                                  CCSSValue.INLINE_BLOCK,
-                                                                  CCSSValue.LIST_ITEM,
-                                                                  CCSSValue.RUN_IN,
-                                                                  CCSSValue.NONE,
-                                                                  CCSSValue.TABLE,
-                                                                  CCSSValue.INLINE_TABLE,
-                                                                  CCSSValue.TABLE_ROW,
-                                                                  CCSSValue.TABLE_CELL,
-                                                                  CCSSValue.TABLE_ROW_GROUP,
-                                                                  CCSSValue.TABLE_HEADER_GROUP,
-                                                                  CCSSValue.TABLE_FOOTER_GROUP,
-                                                                  CCSSValue.TABLE_COLUMN,
-                                                                  CCSSValue.TABLE_COLUMN_GROUP,
-                                                                  CCSSValue.TABLE_CAPTION,
+                                                                  BLOCK,
+                                                                  INLINE,
+                                                                  INLINE_BLOCK,
+                                                                  LIST_ITEM,
+                                                                  RUN_IN,
+                                                                  NONE,
+                                                                  TABLE,
+                                                                  INLINE_TABLE,
+                                                                  TABLE_ROW,
+                                                                  TABLE_CELL,
+                                                                  TABLE_ROW_GROUP,
+                                                                  TABLE_HEADER_GROUP,
+                                                                  TABLE_FOOTER_GROUP,
+                                                                  TABLE_COLUMN,
+                                                                  TABLE_COLUMN_GROUP,
+                                                                  TABLE_CAPTION,
                                                                   CCSSValue.FLEX);
   public static final ICSSProperty VISIBILITY = new CSSPropertyEnum (ECSSProperty.VISIBILITY,
-                                                                     CCSSValue.VISIBLE,
-                                                                     CCSSValue.HIDDEN,
-                                                                     CCSSValue.COLLAPSE);
-  public static final ICSSProperty CLIP = new CSSPropertyEnumOrRect (ECSSProperty.CLIP, CCSSValue.AUTO);
+                                                                     VISIBLE,
+                                                                     HIDDEN,
+                                                                     COLLAPSE);
+  public static final ICSSProperty CLIP = new CSSPropertyEnumOrRect (ECSSProperty.CLIP, AUTO);
 
   // display window
-  public static final ICSSProperty CURSOR = new CSSPropertyEnum (ECSSProperty.CURSOR,
-                                                                 CCSSValue.AUTO,
-                                                                 CCSSValue.DEFAULT,
-                                                                 CCSSValue.CROSSHAIR,
-                                                                 CCSSValue.POINTER,
-                                                                 CCSSValue.MOVE,
-                                                                 CCSSValue.N_RESIZE,
-                                                                 CCSSValue.NE_RESIZE,
-                                                                 CCSSValue.E_RESIZE,
-                                                                 CCSSValue.SE_RESIZE,
-                                                                 CCSSValue.S_RESIZE,
-                                                                 CCSSValue.SW_RESIZE,
-                                                                 CCSSValue.W_RESIZE,
-                                                                 CCSSValue.NW_RESIZE,
-                                                                 CCSSValue.TEXT,
-                                                                 CCSSValue.WAIT,
-                                                                 CCSSValue.HELP,
-                                                                 CCSSValue.PROGRESS);
-
   public static final ICSSProperty OPACITY = new CSSPropertyDouble (ECSSProperty.OPACITY,
                                                                     new CSSPropertyCustomizerOpacity ());
 
-  // Unspecified stuff (created by MainAddMissingParameters)
+  /*
+   * CSS Writing Modes Level 3
+   */
+  public static final ICSSProperty DIRECTION = new CSSPropertyEnum (ECSSProperty.DIRECTION, LTR, RTL);
+  public static final ICSSProperty GLYPH_ORIENTATION_VERTICAL = new CSSPropertyEnumOrNumber (ECSSProperty.GLYPH_ORIENTATION_VERTICAL,
+                                                                                             false,
+                                                                                             AUTO,
+                                                                                             ECSSUnit.deg (0),
+                                                                                             ECSSUnit.deg (90));
+  @Deprecated
+  public static final ICSSProperty TEXT_COMBINE_HORIZONTAL = new CSSPropertyFree (ECSSProperty.TEXT_COMBINE_HORIZONTAL);
+  public static final ICSSProperty TEXT_COMBINE_UPRIGHT = new CSSPropertyEnum (ECSSProperty.TEXT_COMBINE_UPRIGHT,
+                                                                               NONE,
+                                                                               CCSSValue.ALL);
+  public static final ICSSProperty TEXT_ORIENTATION = new CSSPropertyEnum (ECSSProperty.TEXT_ORIENTATION,
+                                                                           MIXED,
+                                                                           UPRIGHT,
+                                                                           SIDEWAYS);
+  public static final ICSSProperty UNICODE_BIDI = new CSSPropertyEnum (ECSSProperty.UNICODE_BIDI,
+                                                                       NORMAL,
+                                                                       EMBED,
+                                                                       ISOLATE,
+                                                                       BIDI_OVERRIDE,
+                                                                       ISOLATE_OVERRIDE,
+                                                                       PLAINTEXT);
+  public static final ICSSProperty WRITING_MODE = new CSSPropertyEnum (ECSSProperty.WRITING_MODE,
+                                                                       HORIZONTAL_TB,
+                                                                       VERTICAL_RL,
+                                                                       VERTICAL_LR);
+
+  /*
+   * CSS Basic User Interface Level 3
+   */
+  public static final ICSSProperty BOX_SIZING = new CSSPropertyEnum (ECSSProperty.BOX_SIZING, CONTENT_BOX, BORDER_BOX);
+  public static final ICSSProperty CARET_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.CARET_COLOR, AUTO);
+  // URL prefix is missing
+  // [ [<url> [<x> <y>]?,]* [ auto | ... ] ]
+  public static final ICSSProperty CURSOR = new CSSPropertyEnum (ECSSProperty.CURSOR,
+                                                                 AUTO,
+                                                                 DEFAULT,
+                                                                 NONE,
+                                                                 CONTEXT_MENU,
+                                                                 HELP,
+                                                                 POINTER,
+                                                                 PROGRESS,
+                                                                 WAIT,
+                                                                 CELL,
+                                                                 CROSSHAIR,
+                                                                 TEXT,
+                                                                 VERTICAL_TEXT,
+                                                                 ALIAS,
+                                                                 COPY,
+                                                                 MOVE,
+                                                                 NO_DROP,
+                                                                 NOT_ALLOWED,
+                                                                 GRAB,
+                                                                 GRABBING,
+                                                                 E_RESIZE,
+                                                                 N_RESIZE,
+                                                                 NE_RESIZE,
+                                                                 NW_RESIZE,
+                                                                 S_RESIZE,
+                                                                 SE_RESIZE,
+                                                                 SW_RESIZE,
+                                                                 W_RESIZE,
+                                                                 EW_RESIZE,
+                                                                 NS_RESIZE,
+                                                                 NESW_RESIZE,
+                                                                 NWSE_RESIZE,
+                                                                 COL_RESIZE,
+                                                                 ROW_RESIZE,
+                                                                 ALL_SCROLL,
+                                                                 ZOOM_IN,
+                                                                 ZOOM_OUT);
+  public static final ICSSProperty OUTLINE = new CSSPropertyFree (ECSSProperty.OUTLINE);
+  public static final ICSSProperty OUTLINE_OFFSET = new CSSPropertyFree (ECSSProperty.OUTLINE_OFFSET);
+  public static final ICSSProperty RESIZE = new CSSPropertyFree (ECSSProperty.RESIZE);
+  public static final ICSSProperty TEXT_OVERFLOW = new CSSPropertyEnum (ECSSProperty.TEXT_OVERFLOW,
+                                                                        CCSSValue.CLIP,
+                                                                        ELLIPSIS);
+
+  /*
+   * Unspecified stuff (created by MainAddMissingParameters)
+   */
   public static final ICSSProperty ALIGN_CONTENT = new CSSPropertyFree (ECSSProperty.ALIGN_CONTENT);
   public static final ICSSProperty ALIGN_ITEMS = new CSSPropertyFree (ECSSProperty.ALIGN_ITEMS);
   public static final ICSSProperty ALIGN_SELF = new CSSPropertyFree (ECSSProperty.ALIGN_SELF);
@@ -479,7 +507,6 @@ public final class CCSSProperties
   public static final ICSSProperty BORDER_IMAGE_WIDTH = new CSSPropertyFree (ECSSProperty.BORDER_IMAGE_WIDTH);
   public static final ICSSProperty BOX_DECORATION_BREAK = new CSSPropertyFree (ECSSProperty.BOX_DECORATION_BREAK);
   public static final ICSSProperty BOX_SHADOW = new CSSPropertyFree (ECSSProperty.BOX_SHADOW);
-  public static final ICSSProperty BOX_SIZING = new CSSPropertyFree (ECSSProperty.BOX_SIZING);
   public static final ICSSProperty BOX_SNAP = new CSSPropertyFree (ECSSProperty.BOX_SNAP);
   public static final ICSSProperty BOX_SUPPRESS = new CSSPropertyFree (ECSSProperty.BOX_SUPPRESS);
   public static final ICSSProperty BREAK_AFTER = new CSSPropertyFree (ECSSProperty.BREAK_AFTER);
@@ -645,8 +672,6 @@ public final class CCSSProperties
   public static final ICSSProperty ORDER = new CSSPropertyFree (ECSSProperty.ORDER);
   public static final ICSSProperty ORIENTATION = new CSSPropertyFree (ECSSProperty.ORIENTATION);
   public static final ICSSProperty ORPHANS = new CSSPropertyFree (ECSSProperty.ORPHANS);
-  public static final ICSSProperty OUTLINE = new CSSPropertyFree (ECSSProperty.OUTLINE);
-  public static final ICSSProperty OUTLINE_OFFSET = new CSSPropertyFree (ECSSProperty.OUTLINE_OFFSET);
   @Deprecated
   public static final ICSSProperty OVERFLOW_STYLE = new CSSPropertyFree (ECSSProperty.OVERFLOW_STYLE);
   public static final ICSSProperty OVERFLOW_WRAP = new CSSPropertyFree (ECSSProperty.OVERFLOW_WRAP);
@@ -665,7 +690,6 @@ public final class CCSSProperties
   public static final ICSSProperty PLAY_DURING = new CSSPropertyFree (ECSSProperty.PLAY_DURING);
   public static final ICSSProperty QUOTES = new CSSPropertyFree (ECSSProperty.QUOTES);
   public static final ICSSProperty REGION_FRAGMENT = new CSSPropertyFree (ECSSProperty.REGION_FRAGMENT);
-  public static final ICSSProperty RESIZE = new CSSPropertyFree (ECSSProperty.RESIZE);
   public static final ICSSProperty RESOLUTION = new CSSPropertyFree (ECSSProperty.RESOLUTION);
   public static final ICSSProperty REST = new CSSPropertyFree (ECSSProperty.REST);
   public static final ICSSProperty REST_AFTER = new CSSPropertyFree (ECSSProperty.REST_AFTER);
@@ -702,9 +726,6 @@ public final class CCSSProperties
   @Deprecated
   public static final ICSSProperty TARGET_POSITION = new CSSPropertyFree (ECSSProperty.TARGET_POSITION);
   public static final ICSSProperty TEXT_ALIGN_LAST = new CSSPropertyFree (ECSSProperty.TEXT_ALIGN_LAST);
-  @Deprecated
-  public static final ICSSProperty TEXT_COMBINE_HORIZONTAL = new CSSPropertyFree (ECSSProperty.TEXT_COMBINE_HORIZONTAL);
-  public static final ICSSProperty TEXT_COMBINE_UPRIGHT = new CSSPropertyFree (ECSSProperty.TEXT_COMBINE_UPRIGHT);
   public static final ICSSProperty TEXT_DECORATION_COLOR = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_COLOR);
   public static final ICSSProperty TEXT_DECORATION_LINE = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_LINE);
   public static final ICSSProperty TEXT_DECORATION_SKIP = new CSSPropertyFree (ECSSProperty.TEXT_DECORATION_SKIP);
@@ -715,8 +736,6 @@ public final class CCSSProperties
   public static final ICSSProperty TEXT_EMPHASIS_STYLE = new CSSPropertyFree (ECSSProperty.TEXT_EMPHASIS_STYLE);
   public static final ICSSProperty TEXT_HEIGHT = new CSSPropertyFree (ECSSProperty.TEXT_HEIGHT);
   public static final ICSSProperty TEXT_JUSTIFY = new CSSPropertyFree (ECSSProperty.TEXT_JUSTIFY);
-  public static final ICSSProperty TEXT_ORIENTATION = new CSSPropertyFree (ECSSProperty.TEXT_ORIENTATION);
-  public static final ICSSProperty TEXT_OVERFLOW = new CSSPropertyFree (ECSSProperty.TEXT_OVERFLOW);
   public static final ICSSProperty TEXT_SHADOW = new CSSPropertyFree (ECSSProperty.TEXT_SHADOW);
   public static final ICSSProperty TEXT_UNDERLINE_POSITION = new CSSPropertyFree (ECSSProperty.TEXT_UNDERLINE_POSITION);
   public static final ICSSProperty TOUCH_ACTION = new CSSPropertyFree (ECSSProperty.TOUCH_ACTION);
@@ -728,7 +747,6 @@ public final class CCSSProperties
   public static final ICSSProperty TRANSITION_DURATION = new CSSPropertyFree (ECSSProperty.TRANSITION_DURATION);
   public static final ICSSProperty TRANSITION_PROPERTY = new CSSPropertyFree (ECSSProperty.TRANSITION_PROPERTY);
   public static final ICSSProperty TRANSITION_TIMING_FUNCTION = new CSSPropertyFree (ECSSProperty.TRANSITION_TIMING_FUNCTION);
-  public static final ICSSProperty UNICODE_BIDI = new CSSPropertyFree (ECSSProperty.UNICODE_BIDI);
   public static final ICSSProperty UNICODE_RANGE = new CSSPropertyFree (ECSSProperty.UNICODE_RANGE);
   public static final ICSSProperty USER_ZOOM = new CSSPropertyFree (ECSSProperty.USER_ZOOM);
   public static final ICSSProperty VOICE_BALANCE = new CSSPropertyFree (ECSSProperty.VOICE_BALANCE);
@@ -746,18 +764,17 @@ public final class CCSSProperties
   public static final ICSSProperty WORD_WRAP = new CSSPropertyFree (ECSSProperty.WORD_WRAP);
   public static final ICSSProperty WRAP_FLOW = new CSSPropertyFree (ECSSProperty.WRAP_FLOW);
   public static final ICSSProperty WRAP_THROUGH = new CSSPropertyFree (ECSSProperty.WRAP_THROUGH);
-  public static final ICSSProperty WRITING_MODE = new CSSPropertyFree (ECSSProperty.WRITING_MODE);
   public static final ICSSProperty ZOOM = new CSSPropertyFree (ECSSProperty.ZOOM);
 
   // Special predefined properties that are used quite often
-  public static final ICSSValue DISPLAY_BLOCK = DISPLAY.newValue (CCSSValue.BLOCK);
+  public static final ICSSValue DISPLAY_BLOCK = DISPLAY.newValue (BLOCK);
   public static final ICSSValue DISPLAY_FLEX = DISPLAY.newValue (CCSSValue.FLEX);
-  public static final ICSSValue DISPLAY_INLINE = DISPLAY.newValue (CCSSValue.INLINE);
-  public static final ICSSValue DISPLAY_INLINE_BLOCK = DISPLAY.newValue (CCSSValue.INLINE_BLOCK);
-  public static final ICSSValue DISPLAY_NONE = DISPLAY.newValue (CCSSValue.NONE);
+  public static final ICSSValue DISPLAY_INLINE = DISPLAY.newValue (INLINE);
+  public static final ICSSValue DISPLAY_INLINE_BLOCK = DISPLAY.newValue (INLINE_BLOCK);
+  public static final ICSSValue DISPLAY_NONE = DISPLAY.newValue (NONE);
 
-  public static final ICSSValue VISIBILITY_VISIBLE = VISIBILITY.newValue (CCSSValue.VISIBLE);
-  public static final ICSSValue VISIBILITY_HIDDEN = VISIBILITY.newValue (CCSSValue.HIDDEN);
+  public static final ICSSValue VISIBILITY_VISIBLE = VISIBILITY.newValue (VISIBLE);
+  public static final ICSSValue VISIBILITY_HIDDEN = VISIBILITY.newValue (HIDDEN);
 
   public static final ICSSValue WIDTH_0 = WIDTH.newValue (ECSSUnit.zero ());
   public static final ICSSValue WIDTH_100PERC = WIDTH.newValue (ECSSUnit.perc (100));

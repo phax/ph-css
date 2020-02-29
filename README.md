@@ -14,8 +14,9 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 
 ## News and noteworthy
 
-* v6.2.1 - work in progress
+* v6.2.1 - 2020-02-29
     * Improved the pattern for colors in hex values ([PR #55](https://github.com/phax/ph-css/pull/55))
+    * Fixed a grammar issue that resulted in failed `calc` parsing ([issue #57](https://github.com/phax/ph-css/pull/57)). The implications of this change are, that the special IE6 and IE7 hacks with `$` and `*` as identifier prefixes are no longer supported. If you need to parse CSS suitable for these old browsers, stay with v6.2.0. 
 * v6.2.0 - 2019-06-30
     * Fixed NPE in `CSSWriterSettings.DEFAULT_SETTINGS` because of wrong initialization order (#53)
     * Added some `-o-` media expression features
@@ -88,7 +89,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>6.2.0</version>
+  <version>6.2.1</version>
 </dependency>
 ```
 
@@ -285,7 +286,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>6.2.0</version>
+        <version>6.2.1</version>
         <executions>
           <execution>
             <goals>
