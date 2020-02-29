@@ -96,7 +96,8 @@ SPECIAL_TOKEN :
 TOKEN :
 {
   < S: (" "|"\t"|"\n"|"\r\n"|"\r"|"\f")+ >
-| < W: ( <S> )? >
+// Usually it is "( <S> )*" instead of "....?" because if comments are contained, that can be multiple <S> than
+| < W: ( <S> )* >
 }
 
 <IN_NTH>
@@ -251,12 +252,10 @@ TOKEN :
 | < OR_SYM: "or" >
 
 // ident        (--|-|$|*)?{nmstart}{nmchar}*
-// Note: "*" hack for IE <= 6
-// Note: "$" hack for IE <= 7
+// Note: "*" hack for IE <= 6 was altered in 6.2.1
+// Note: "$" hack for IE <= 7 was altered in 6.2.1
 | < IDENT: ( "--"
-           | "-"
-           | "$" ( <S> )*
-           | "*" ( <S> )* )?
+           | "-" )?
            <NMSTART>
            ( <NMCHAR> )* > { matchedToken.image = CSSParseHelper.validateIdentifier(image); }
 
@@ -793,7 +792,7 @@ void lineNames() : {}
   ( <S> )*
   ( LOOKAHEAD(2)
     lineName()
-    ( ( <S> )? 
+    ( ( <S> )* 
       lineName()
     )*
     ( <S> )*

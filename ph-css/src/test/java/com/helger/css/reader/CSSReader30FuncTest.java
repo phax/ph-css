@@ -448,11 +448,15 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     else
       assertNull (aCSS);
 
-    // Valid version of previous variant
-    sCSS = "*abc{color:red;}";
-    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
-    assertNotNull (aCSS);
-    assertEquals ("*abc{color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    // Deactivated in 6.2.1 for #57
+    if (false)
+    {
+      // Valid version of previous variant
+      sCSS = "*abc{color:red;}";
+      aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+      assertNotNull (aCSS);
+      assertEquals ("*abc{color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    }
 
     // Invalid identifier 4
     sCSS = "0{color:red;}";

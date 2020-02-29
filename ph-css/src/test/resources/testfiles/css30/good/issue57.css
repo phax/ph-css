@@ -1,0 +1,4 @@
+.pageColumn > .center:before{
+  width: calc(600px + 2 * var(--page-column-padding-x));
+  z-index: 0;
+}
