@@ -17,6 +17,7 @@ ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 
 * v6.2.1 - 2020-02-29
     * Improved the pattern for colors in hex values ([PR #55](https://github.com/phax/ph-css/pull/55))
     * Fixed a grammar issue that resulted in failed `calc` parsing ([issue #57](https://github.com/phax/ph-css/pull/57)). The implications of this change are, that the special IE6 and IE7 hacks with `$` and `*` as identifier prefixes are no longer supported. If you need to parse CSS suitable for these old browsers, stay with v6.2.0. 
+    * Updated CSS properties of the completed specifications
 * v6.2.0 - 2019-06-30
     * Fixed NPE in `CSSWriterSettings.DEFAULT_SETTINGS` because of wrong initialization order (#53)
     * Added some `-o-` media expression features

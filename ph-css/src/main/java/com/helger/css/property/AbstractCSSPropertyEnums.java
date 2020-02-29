@@ -47,9 +47,9 @@ public abstract class AbstractCSSPropertyEnums extends CSSPropertyEnum
                                    @Nonnull @Nonempty final String... aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
-    ValueEnforcer.isGT0 (nMinArgCount, "MinNumbers");
-    ValueEnforcer.isGT0 (nMaxArgCount, "MaxNumbers");
-    ValueEnforcer.isTrue (nMinArgCount < nMaxArgCount,
+    ValueEnforcer.isGT0 (nMinArgCount, "MinArgCount");
+    ValueEnforcer.isGT0 (nMaxArgCount, "MaxArgCount");
+    ValueEnforcer.isTrue (nMinArgCount <= nMaxArgCount,
                           () -> "MaxArgCount (" + nMaxArgCount + ") must be >= MinArgCount (" + nMinArgCount + ")");
     m_nMinArgCount = nMinArgCount;
     m_nMaxArgCount = nMaxArgCount;
@@ -63,22 +63,22 @@ public abstract class AbstractCSSPropertyEnums extends CSSPropertyEnum
                                    @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
-    ValueEnforcer.isGT0 (nMinArgCount, "MinNumbers");
-    ValueEnforcer.isGT0 (nMaxArgCount, "MaxNumbers");
-    ValueEnforcer.isTrue (nMinArgCount < nMaxArgCount,
+    ValueEnforcer.isGT0 (nMinArgCount, "MinArgCount");
+    ValueEnforcer.isGT0 (nMaxArgCount, "MaxArgCount");
+    ValueEnforcer.isTrue (nMinArgCount <= nMaxArgCount,
                           () -> "MaxArgCount (" + nMaxArgCount + ") must be >= MinArgCount (" + nMinArgCount + ")");
     m_nMinArgCount = nMinArgCount;
     m_nMaxArgCount = nMaxArgCount;
   }
 
   @Override
-  public int getMinimumArgumentCount ()
+  public final int getMinimumArgumentCount ()
   {
     return m_nMinArgCount;
   }
 
   @Override
-  public int getMaximumArgumentCount ()
+  public final int getMaximumArgumentCount ()
   {
     return m_nMaxArgCount;
   }
@@ -107,8 +107,8 @@ public abstract class AbstractCSSPropertyEnums extends CSSPropertyEnum
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("MinNumbers", m_nMinArgCount)
-                            .append ("MaxNumbers", m_nMaxArgCount)
+                            .append ("MinArgCount", m_nMinArgCount)
+                            .append ("MaxArgCount", m_nMaxArgCount)
                             .getToString ();
   }
 }

@@ -137,6 +137,7 @@ public final class CSSColorHelper
    * @see ECSSColor#isDefaultColorName(String)
    * @see ECSSColorName#isDefaultColorName(String)
    * @see CCSSValue#CURRENTCOLOR
+   * @see CCSSValue#TRANSPARENT
    */
   public static boolean isColorValue (@Nullable final String sValue)
   {

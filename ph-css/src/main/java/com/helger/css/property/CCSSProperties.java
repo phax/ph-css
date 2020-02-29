@@ -21,6 +21,7 @@ import static com.helger.css.propertyvalue.CCSSValue.*;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.css.ECSSUnit;
 import com.helger.css.property.customizer.CSSPropertyCustomizerBorderBottomLeftRadius;
 import com.helger.css.property.customizer.CSSPropertyCustomizerBorderBottomRightRadius;
@@ -40,6 +41,26 @@ import com.helger.css.propertyvalue.ICSSValue;
 @Immutable
 public final class CCSSProperties
 {
+  private static final String [] ARRAY_ATTACHMENT = new String [] { SCROLL, FIXED, LOCAL };
+  private static final String [] ARRAY_BORDER_STYLE = new String [] { NONE,
+                                                                      HIDDEN,
+                                                                      DOTTED,
+                                                                      DASHED,
+                                                                      SOLID,
+                                                                      DOUBLE,
+                                                                      GROOVE,
+                                                                      RIDGE,
+                                                                      INSET,
+                                                                      OUTSET };
+  private static final String [] ARRAY_BOX = new String [] { BORDER_BOX, PADDING_BOX, CONTENT_BOX };
+  private static final String [] ARRAY_LINE_WIDTH = new String [] { THIN, MEDIUM, THICK };
+  private static final String [] ARRAY_REPEAT_STYLE = new String [] { REPEAT_X,
+                                                                      REPEAT_Y,
+                                                                      REPEAT,
+                                                                      SPACE,
+                                                                      ROUND,
+                                                                      NO_REPEAT };
+
   // Text formatting
   public static final ICSSProperty FONT_FAMILY = new CSSPropertyFree (ECSSProperty.FONT_FAMILY);
   public static final ICSSProperty FONT_STYLE = new CSSPropertyEnum (ECSSProperty.FONT_STYLE, ITALIC, OBLIQUE, NORMAL);
@@ -124,180 +145,6 @@ public final class CCSSProperties
   public static final ICSSProperty PADDING = new CSSPropertyEnumOrNumbers (ECSSProperty.PADDING, true, 1, 4, AUTO);
 
   // borders
-  public static final ICSSProperty BORDER = new CSSPropertyFree (ECSSProperty.BORDER);
-  public static final ICSSProperty BORDER_TOP = new CSSPropertyFree (ECSSProperty.BORDER_TOP);
-  public static final ICSSProperty BORDER_RIGHT = new CSSPropertyFree (ECSSProperty.BORDER_RIGHT);
-  public static final ICSSProperty BORDER_BOTTOM = new CSSPropertyFree (ECSSProperty.BORDER_BOTTOM);
-  public static final ICSSProperty BORDER_LEFT = new CSSPropertyFree (ECSSProperty.BORDER_LEFT);
-  public static final ICSSProperty BORDER_TOP_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_TOP_WIDTH,
-                                                                                   false,
-                                                                                   THIN,
-                                                                                   MEDIUM,
-                                                                                   THICK);
-  public static final ICSSProperty BORDER_RIGHT_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_RIGHT_WIDTH,
-                                                                                     false,
-                                                                                     THIN,
-                                                                                     MEDIUM,
-                                                                                     THICK);
-  public static final ICSSProperty BORDER_BOTTOM_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_BOTTOM_WIDTH,
-                                                                                      false,
-                                                                                      THIN,
-                                                                                      MEDIUM,
-                                                                                      THICK);
-  public static final ICSSProperty BORDER_LEFT_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_LEFT_WIDTH,
-                                                                                    false,
-                                                                                    THIN,
-                                                                                    MEDIUM,
-                                                                                    THICK);
-  public static final ICSSProperty BORDER_WIDTH = new CSSPropertyEnumOrNumbers (ECSSProperty.BORDER_WIDTH,
-                                                                                false,
-                                                                                1,
-                                                                                4,
-                                                                                THIN,
-                                                                                MEDIUM,
-                                                                                THICK);
-  public static final ICSSProperty BORDER_TOP_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BORDER_TOP_COLOR,
-                                                                                  TRANSPARENT);
-  public static final ICSSProperty BORDER_RIGHT_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BORDER_RIGHT_COLOR,
-                                                                                    TRANSPARENT);
-  public static final ICSSProperty BORDER_BOTTOM_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BORDER_BOTTOM_COLOR,
-                                                                                     TRANSPARENT);
-  public static final ICSSProperty BORDER_LEFT_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BORDER_LEFT_COLOR,
-                                                                                   TRANSPARENT);
-  public static final ICSSProperty BORDER_COLOR = new CSSPropertyEnumOrColors (ECSSProperty.BORDER_COLOR,
-                                                                               1,
-                                                                               4,
-                                                                               TRANSPARENT);
-  public static final ICSSProperty BORDER_TOP_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_TOP_STYLE,
-                                                                           NONE,
-                                                                           HIDDEN,
-                                                                           DOTTED,
-                                                                           DASHED,
-                                                                           SOLID,
-                                                                           DOUBLE,
-                                                                           GROOVE,
-                                                                           RIDGE,
-                                                                           INSET,
-                                                                           OUTSET);
-  public static final ICSSProperty BORDER_RIGHT_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_RIGHT_STYLE,
-                                                                             NONE,
-                                                                             HIDDEN,
-                                                                             DOTTED,
-                                                                             DASHED,
-                                                                             SOLID,
-                                                                             DOUBLE,
-                                                                             GROOVE,
-                                                                             RIDGE,
-                                                                             INSET,
-                                                                             OUTSET);
-  public static final ICSSProperty BORDER_BOTTOM_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_BOTTOM_STYLE,
-                                                                              NONE,
-                                                                              HIDDEN,
-                                                                              DOTTED,
-                                                                              DASHED,
-                                                                              SOLID,
-                                                                              DOUBLE,
-                                                                              GROOVE,
-                                                                              RIDGE,
-                                                                              INSET,
-                                                                              OUTSET);
-  public static final ICSSProperty BORDER_LEFT_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_LEFT_STYLE,
-                                                                            NONE,
-                                                                            HIDDEN,
-                                                                            DOTTED,
-                                                                            DASHED,
-                                                                            SOLID,
-                                                                            DOUBLE,
-                                                                            GROOVE,
-                                                                            RIDGE,
-                                                                            INSET,
-                                                                            OUTSET);
-  public static final ICSSProperty BORDER_STYLE = new CSSPropertyEnums (ECSSProperty.BORDER_STYLE,
-                                                                        1,
-                                                                        4,
-                                                                        NONE,
-                                                                        HIDDEN,
-                                                                        DOTTED,
-                                                                        DASHED,
-                                                                        SOLID,
-                                                                        DOUBLE,
-                                                                        GROOVE,
-                                                                        RIDGE,
-                                                                        INSET,
-                                                                        OUTSET);
-  public static final ICSSProperty BORDER_RADIUS = new CSSPropertyFree (ECSSProperty.BORDER_RADIUS,
-                                                                        new CSSPropertyCustomizerBorderRadius ());
-  public static final ICSSProperty BORDER_TOP_LEFT_RADIUS = new CSSPropertyFree (ECSSProperty.BORDER_TOP_LEFT_RADIUS,
-                                                                                 new CSSPropertyCustomizerBorderTopLeftRadius ());
-  public static final ICSSProperty BORDER_TOP_RIGHT_RADIUS = new CSSPropertyFree (ECSSProperty.BORDER_TOP_RIGHT_RADIUS,
-                                                                                  new CSSPropertyCustomizerBorderTopRightRadius ());
-  public static final ICSSProperty BORDER_BOTTOM_LEFT_RADIUS = new CSSPropertyFree (ECSSProperty.BORDER_BOTTOM_LEFT_RADIUS,
-                                                                                    new CSSPropertyCustomizerBorderBottomLeftRadius ());
-  public static final ICSSProperty BORDER_BOTTOM_RIGHT_RADIUS = new CSSPropertyFree (ECSSProperty.BORDER_BOTTOM_RIGHT_RADIUS,
-                                                                                     new CSSPropertyCustomizerBorderBottomRightRadius ());
-  public static final ICSSProperty OUTLINE_WIDTH = new CSSPropertyEnumOrNumbers (ECSSProperty.OUTLINE_WIDTH,
-                                                                                 false,
-                                                                                 1,
-                                                                                 4,
-                                                                                 THIN,
-                                                                                 MEDIUM,
-                                                                                 THICK);
-  public static final ICSSProperty OUTLINE_COLOR = new CSSPropertyEnumOrColors (ECSSProperty.OUTLINE_COLOR,
-                                                                                1,
-                                                                                4,
-                                                                                INVERT,
-                                                                                TRANSPARENT);
-  public static final ICSSProperty OUTLINE_STYLE = new CSSPropertyEnums (ECSSProperty.OUTLINE_STYLE,
-                                                                         1,
-                                                                         4,
-                                                                         NONE,
-                                                                         HIDDEN,
-                                                                         DOTTED,
-                                                                         DASHED,
-                                                                         SOLID,
-                                                                         DOUBLE,
-                                                                         GROOVE,
-                                                                         RIDGE,
-                                                                         INSET,
-                                                                         OUTSET);
-
-  // background stuff
-  public static final ICSSProperty BACKGROUND = new CSSPropertyFree (ECSSProperty.BACKGROUND);
-  public static final ICSSProperty BACKGROUND_COLOR = new CSSPropertyEnumOrColor (ECSSProperty.BACKGROUND_COLOR,
-                                                                                  TRANSPARENT);
-  public static final ICSSProperty BACKGROUND_IMAGE = new CSSPropertyURL (ECSSProperty.BACKGROUND_IMAGE);
-  public static final ICSSProperty BACKGROUND_REPEAT = new CSSPropertyEnum (ECSSProperty.BACKGROUND_REPEAT,
-                                                                            REPEAT,
-                                                                            REPEAT_X,
-                                                                            REPEAT_Y,
-                                                                            NO_REPEAT);
-  public static final ICSSProperty BACKGROUND_ATTACHMENT = new CSSPropertyEnum (ECSSProperty.BACKGROUND_ATTACHMENT,
-                                                                                SCROLL,
-                                                                                FIXED);
-  public static final ICSSProperty BACKGROUND_CLIP = new CSSPropertyEnum (ECSSProperty.BACKGROUND_CLIP,
-                                                                          BORDER_BOX,
-                                                                          PADDING_BOX,
-                                                                          CONTENT_BOX);
-  public static final ICSSProperty BACKGROUND_ORIGIN = new CSSPropertyEnum (ECSSProperty.BACKGROUND_ORIGIN,
-                                                                            BORDER_BOX,
-                                                                            PADDING_BOX,
-                                                                            CONTENT_BOX);
-  public static final ICSSProperty BACKGROUND_POSITION = new CSSPropertyEnumOrNumbers (ECSSProperty.BACKGROUND_POSITION,
-                                                                                       true,
-                                                                                       2,
-                                                                                       2,
-                                                                                       CCSSValue.TOP,
-                                                                                       CCSSValue.BOTTOM,
-                                                                                       CENTER,
-                                                                                       CCSSValue.LEFT,
-                                                                                       CCSSValue.RIGHT);
-  public static final ICSSProperty BACKGROUND_SIZE = new CSSPropertyEnumOrNumbers (ECSSProperty.BACKGROUND_SIZE,
-                                                                                   true,
-                                                                                   2,
-                                                                                   2,
-                                                                                   AUTO,
-                                                                                   COVER,
-                                                                                   CONTAIN);
 
   // list formatting
   public static final ICSSProperty LIST_STYLE_TYPE = new CSSPropertyEnum (ECSSProperty.LIST_STYLE_TYPE,
@@ -463,14 +310,130 @@ public final class CCSSProperties
                                                                  ZOOM_IN,
                                                                  ZOOM_OUT);
   public static final ICSSProperty OUTLINE = new CSSPropertyFree (ECSSProperty.OUTLINE);
-  public static final ICSSProperty OUTLINE_OFFSET = new CSSPropertyFree (ECSSProperty.OUTLINE_OFFSET);
-  public static final ICSSProperty RESIZE = new CSSPropertyFree (ECSSProperty.RESIZE);
+  public static final ICSSProperty OUTLINE_COLOR = new CSSPropertyEnumOrColors (ECSSProperty.OUTLINE_COLOR,
+                                                                                1,
+                                                                                4,
+                                                                                INVERT);
+  public static final ICSSProperty OUTLINE_OFFSET = new CSSPropertyNumber (ECSSProperty.OUTLINE_OFFSET, false);
+  public static final ICSSProperty OUTLINE_STYLE = new CSSPropertyEnums (ECSSProperty.OUTLINE_STYLE,
+                                                                         1,
+                                                                         4,
+                                                                         ArrayHelper.getConcatenated (AUTO,
+                                                                                                      ARRAY_BORDER_STYLE));
+  public static final ICSSProperty OUTLINE_WIDTH = new CSSPropertyEnumOrNumbers (ECSSProperty.OUTLINE_WIDTH,
+                                                                                 false,
+                                                                                 1,
+                                                                                 4,
+                                                                                 ARRAY_LINE_WIDTH);
+  public static final ICSSProperty RESIZE = new CSSPropertyEnum (ECSSProperty.RESIZE, NONE, BOTH, HORIZONTAL, VERTICAL);
   public static final ICSSProperty TEXT_OVERFLOW = new CSSPropertyEnum (ECSSProperty.TEXT_OVERFLOW,
                                                                         CCSSValue.CLIP,
                                                                         ELLIPSIS);
 
   /*
-   * Unspecified stuff (created by MainAddMissingParameters)
+   * CSS Containment Module Level 1
+   */
+  // none | strict | content | [ size || layout || paint ]
+  public static final ICSSProperty CONTAIN = new CSSPropertyFree (ECSSProperty.CONTAIN);
+
+  /*
+   * CSS Backgrounds and Borders Level 3
+   */
+  public static final ICSSProperty BACKGROUND = new CSSPropertyFree (ECSSProperty.BACKGROUND);
+  public static final ICSSProperty BACKGROUND_ATTACHMENT = new CSSPropertyEnum (ECSSProperty.BACKGROUND_ATTACHMENT,
+                                                                                ARRAY_ATTACHMENT);
+  public static final ICSSProperty BACKGROUND_CLIP = new CSSPropertyEnum (ECSSProperty.BACKGROUND_CLIP, ARRAY_BOX);
+  public static final ICSSProperty BACKGROUND_COLOR = new CSSPropertyColor (ECSSProperty.BACKGROUND_COLOR);
+  public static final ICSSProperty BACKGROUND_IMAGE = new CSSPropertyEnumOrURL (ECSSProperty.BACKGROUND_IMAGE, NONE);
+  public static final ICSSProperty BACKGROUND_ORIGIN = new CSSPropertyEnum (ECSSProperty.BACKGROUND_ORIGIN, ARRAY_BOX);
+  public static final ICSSProperty BACKGROUND_POSITION = new CSSPropertyEnumOrNumbers (ECSSProperty.BACKGROUND_POSITION,
+                                                                                       true,
+                                                                                       2,
+                                                                                       2,
+                                                                                       CCSSValue.TOP,
+                                                                                       CCSSValue.BOTTOM,
+                                                                                       CENTER,
+                                                                                       CCSSValue.LEFT,
+                                                                                       CCSSValue.RIGHT);
+  // repeat-x | repeat-y | [repeat | space | round | no-repeat]{1,2}
+  public static final ICSSProperty BACKGROUND_REPEAT = new CSSPropertyEnums (ECSSProperty.BACKGROUND_REPEAT,
+                                                                             1,
+                                                                             2,
+                                                                             ARRAY_REPEAT_STYLE);
+  public static final ICSSProperty BACKGROUND_SIZE = new CSSPropertyEnumOrNumbers (ECSSProperty.BACKGROUND_SIZE,
+                                                                                   true,
+                                                                                   2,
+                                                                                   2,
+                                                                                   AUTO,
+                                                                                   COVER,
+                                                                                   CCSSValue.CONTAIN);
+  public static final ICSSProperty BORDER = new CSSPropertyFree (ECSSProperty.BORDER);
+  public static final ICSSProperty BORDER_BOTTOM = new CSSPropertyFree (ECSSProperty.BORDER_BOTTOM);
+  public static final ICSSProperty BORDER_LEFT = new CSSPropertyFree (ECSSProperty.BORDER_LEFT);
+  public static final ICSSProperty BORDER_RIGHT = new CSSPropertyFree (ECSSProperty.BORDER_RIGHT);
+  public static final ICSSProperty BORDER_TOP = new CSSPropertyFree (ECSSProperty.BORDER_TOP);
+
+  public static final ICSSProperty BORDER_BOTTOM_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_BOTTOM_WIDTH,
+                                                                                      false,
+                                                                                      ARRAY_LINE_WIDTH);
+  public static final ICSSProperty BORDER_LEFT_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_LEFT_WIDTH,
+                                                                                    false,
+                                                                                    ARRAY_LINE_WIDTH);
+  public static final ICSSProperty BORDER_RIGHT_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_RIGHT_WIDTH,
+                                                                                     false,
+                                                                                     ARRAY_LINE_WIDTH);
+  public static final ICSSProperty BORDER_TOP_WIDTH = new CSSPropertyEnumOrNumber (ECSSProperty.BORDER_TOP_WIDTH,
+                                                                                   false,
+                                                                                   ARRAY_LINE_WIDTH);
+  public static final ICSSProperty BORDER_WIDTH = new CSSPropertyEnumOrNumbers (ECSSProperty.BORDER_WIDTH,
+                                                                                false,
+                                                                                1,
+                                                                                4,
+                                                                                ARRAY_LINE_WIDTH);
+  public static final ICSSProperty BORDER_BOTTOM_COLOR = new CSSPropertyColor (ECSSProperty.BORDER_BOTTOM_COLOR);
+  public static final ICSSProperty BORDER_LEFT_COLOR = new CSSPropertyColor (ECSSProperty.BORDER_LEFT_COLOR);
+  public static final ICSSProperty BORDER_RIGHT_COLOR = new CSSPropertyColor (ECSSProperty.BORDER_RIGHT_COLOR);
+  public static final ICSSProperty BORDER_TOP_COLOR = new CSSPropertyColor (ECSSProperty.BORDER_TOP_COLOR);
+  public static final ICSSProperty BORDER_COLOR = new CSSPropertyColors (ECSSProperty.BORDER_COLOR, 1, 4);
+
+  public static final ICSSProperty BORDER_BOTTOM_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_BOTTOM_STYLE,
+                                                                              ARRAY_BORDER_STYLE);
+  public static final ICSSProperty BORDER_LEFT_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_LEFT_STYLE,
+                                                                            ARRAY_BORDER_STYLE);
+  public static final ICSSProperty BORDER_RIGHT_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_RIGHT_STYLE,
+                                                                             ARRAY_BORDER_STYLE);
+  public static final ICSSProperty BORDER_TOP_STYLE = new CSSPropertyEnum (ECSSProperty.BORDER_TOP_STYLE,
+                                                                           ARRAY_BORDER_STYLE);
+  public static final ICSSProperty BORDER_STYLE = new CSSPropertyEnums (ECSSProperty.BORDER_STYLE,
+                                                                        1,
+                                                                        4,
+                                                                        ARRAY_BORDER_STYLE);
+
+  public static final ICSSProperty BORDER_TOP_LEFT_RADIUS = new CSSPropertyNumbers (ECSSProperty.BORDER_TOP_LEFT_RADIUS,
+                                                                                    new CSSPropertyCustomizerBorderTopLeftRadius (),
+                                                                                    true,
+                                                                                    1,
+                                                                                    2);
+  public static final ICSSProperty BORDER_TOP_RIGHT_RADIUS = new CSSPropertyNumbers (ECSSProperty.BORDER_TOP_RIGHT_RADIUS,
+                                                                                     new CSSPropertyCustomizerBorderTopRightRadius (),
+                                                                                     true,
+                                                                                     1,
+                                                                                     2);
+  public static final ICSSProperty BORDER_BOTTOM_LEFT_RADIUS = new CSSPropertyNumbers (ECSSProperty.BORDER_BOTTOM_LEFT_RADIUS,
+                                                                                       new CSSPropertyCustomizerBorderBottomLeftRadius (),
+                                                                                       true,
+                                                                                       1,
+                                                                                       2);
+  public static final ICSSProperty BORDER_BOTTOM_RIGHT_RADIUS = new CSSPropertyNumbers (ECSSProperty.BORDER_BOTTOM_RIGHT_RADIUS,
+                                                                                        new CSSPropertyCustomizerBorderBottomRightRadius (),
+                                                                                        true,
+                                                                                        1,
+                                                                                        2);
+  public static final ICSSProperty BORDER_RADIUS = new CSSPropertyFree (ECSSProperty.BORDER_RADIUS,
+                                                                        new CSSPropertyCustomizerBorderRadius ());
+
+  /*
+   * Unspecified stuff (created by MainAddMissingProperties)
    */
   public static final ICSSProperty ALIGN_CONTENT = new CSSPropertyFree (ECSSProperty.ALIGN_CONTENT);
   public static final ICSSProperty ALIGN_ITEMS = new CSSPropertyFree (ECSSProperty.ALIGN_ITEMS);

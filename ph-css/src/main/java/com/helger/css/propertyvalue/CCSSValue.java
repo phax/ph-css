@@ -98,6 +98,7 @@ public final class CCSSValue
   public static final String COLUMN_REVERSE = "column-reverse";
   public static final String COLLAPSE = "collapse";
   public static final String CONTAIN = "contain";
+  public static final String CONTENT = "content";
   public static final String CONTENT_BOX = "content-box";
   public static final String CONTEXT_MENU = "context-menu";
   public static final String COPY = "copy";
@@ -127,6 +128,7 @@ public final class CCSSValue
   public static final String HELP = "help";
   public static final String HIDDEN = "hidden";
   public static final String HIDE = "hide";
+  public static final String HORIZONTAL = "horizontal";
   public static final String HORIZONTAL_TB = "horizontal-tb";
   public static final String INHERIT = "inherit";
   public static final String INITIAL = "initial";
@@ -147,6 +149,7 @@ public final class CCSSValue
   public static final String LIGHTER = "lighter";
   public static final String LINE_THROUGH = "line-through";
   public static final String LIST_ITEM = "list-item";
+  public static final String LOCAL = "local";
   public static final String LOWER_ALPHA = "lower-alpha";
   public static final String LOWER_LATIN = "lower-latin";
   public static final String LOWER_ROMAN = "lower-roman";
@@ -188,6 +191,7 @@ public final class CCSSValue
   public static final String REPEAT_Y = "repeat-y";
   public static final String RIDGE = "ridge";
   public static final String RIGHT = "right";
+  public static final String ROUND = "round";
   public static final String ROW = "row";
   public static final String ROW_RESIZE = "row-resize";
   public static final String ROW_REVERSE = "row-reverse";
@@ -206,11 +210,13 @@ public final class CCSSValue
   public static final String SMALL_CAPS = "small-caps";
   public static final String SMALLER = "smaller";
   public static final String SOLID = "solid";
+  public static final String SPACE = "space";
   public static final String SPACE_AROUND = "space-around";
   public static final String SPACE_BETWEEN = "space-between";
   public static final String SQUARE = "square";
   public static final String STATIC = "static";
   public static final String STRETCH = "stretch";
+  public static final String STRICT = "strict";
   public static final String SUB = "sub";
   public static final String SUPER = "super";
   public static final String SW_RESIZE = "sw-resize";
@@ -237,6 +243,7 @@ public final class CCSSValue
   public static final String UPPER_ROMAN = "upper-roman";
   public static final String UPPERCASE = "uppercase";
   public static final String UPRIGHT = "upright";
+  public static final String VERTICAL = "vertical";
   public static final String VERTICAL_LR = "vertical-lr";
   public static final String VERTICAL_RL = "vertical-rl";
   public static final String VERTICAL_TEXT = "vertical-text";

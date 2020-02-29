@@ -68,6 +68,10 @@ public enum ECSSSpecification implements IHasID <String>
                        "https://www.w3.org/TR/2019/REC-css-writing-modes-3-20191210/"),
   /** CSS Basic User Interface Level 3 */
   CSS_UI_3 ("css-ui-3", ECSSSpecificationStatus.COMPLETED, "https://www.w3.org/TR/2018/REC-css-ui-3-20180621/"),
+  /** CSS Containment Module Level 1 */
+  CSS_CONTAIN_1 ("css-contain-1",
+                 ECSSSpecificationStatus.COMPLETED,
+                 "https://www.w3.org/TR/2019/REC-css-contain-1-20191121/"),
 
   /*
    * STABLE
@@ -76,7 +80,7 @@ public enum ECSSSpecification implements IHasID <String>
   /** CSS Backgrounds and Borders Level 3 */
   CSS3_BACKGROUND ("css3-background",
                    ECSSSpecificationStatus.STABLE,
-                   "http://www.w3.org/TR/2014/CR-css3-background-20140909/"),
+                   "https://www.w3.org/TR/2017/CR-css-backgrounds-3-20171017/"),
   /** CSS Conditional Rules Level 3 */
   CSS3_CONDITIONAL ("css3-conditional",
                     ECSSSpecificationStatus.STABLE,

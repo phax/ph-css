@@ -39,57 +39,53 @@ import com.helger.css.utils.CSSNumberHelper;
 public class CSSPropertyNumbers extends AbstractCSSProperty
 {
   private final boolean m_bWithPercentage;
-  private final int m_nMinNumbers;
-  private final int m_nMaxNumbers;
+  private final int m_nMinArgCount;
+  private final int m_nMaxArgCount;
 
   public CSSPropertyNumbers (@Nonnull final ECSSProperty eProp,
                              final boolean bWithPercentage,
-                             @Nonnegative final int nMinNumbers,
-                             @Nonnegative final int nMaxNumbers)
+                             @Nonnegative final int nMinArgCount,
+                             @Nonnegative final int nMaxArgCount)
   {
-    this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, nMinNumbers, nMaxNumbers);
+    this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, nMinArgCount, nMaxArgCount);
   }
 
   public CSSPropertyNumbers (@Nonnull final ECSSProperty eProp,
                              @Nullable final ICSSPropertyCustomizer aCustomizer,
                              final boolean bWithPercentage,
-                             @Nonnegative final int nMinNumbers,
-                             @Nonnegative final int nMaxNumbers)
+                             @Nonnegative final int nMinArgCount,
+                             @Nonnegative final int nMaxArgCount)
   {
-    this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, nMinNumbers, nMaxNumbers);
+    this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, nMinArgCount, nMaxArgCount);
   }
 
   public CSSPropertyNumbers (@Nonnull final ECSSProperty eProp,
                              @Nullable final ECSSVendorPrefix eVendorPrefix,
                              @Nullable final ICSSPropertyCustomizer aCustomizer,
                              final boolean bWithPercentage,
-                             @Nonnegative final int nMinNumbers,
-                             @Nonnegative final int nMaxNumbers)
+                             @Nonnegative final int nMinArgCount,
+                             @Nonnegative final int nMaxArgCount)
   {
     super (eProp, eVendorPrefix, aCustomizer);
-    ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
-    ValueEnforcer.isGT0 (nMaxNumbers, "MaxNumbers");
-    if (nMaxNumbers < nMinNumbers)
-      throw new IllegalArgumentException ("MaxNumbers (" +
-                                          nMaxNumbers +
-                                          ") must be >= MinNumbers (" +
-                                          nMinNumbers +
-                                          ")");
+    ValueEnforcer.isGT0 (nMinArgCount, "MinNumbers");
+    ValueEnforcer.isGT0 (nMaxArgCount, "MaxNumbers");
+    ValueEnforcer.isTrue (nMinArgCount <= nMaxArgCount,
+                          () -> "MaxArgCount (" + nMaxArgCount + ") must be >= MinArgCount (" + nMinArgCount + ")");
     m_bWithPercentage = bWithPercentage;
-    m_nMinNumbers = nMinNumbers;
-    m_nMaxNumbers = nMaxNumbers;
+    m_nMinArgCount = nMinArgCount;
+    m_nMaxArgCount = nMaxArgCount;
   }
 
   @Override
   public int getMinimumArgumentCount ()
   {
-    return m_nMinNumbers;
+    return m_nMinArgCount;
   }
 
   @Override
   public int getMaximumArgumentCount ()
   {
-    return m_nMaxNumbers;
+    return m_nMaxArgCount;
   }
 
   @Override
@@ -104,7 +100,7 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
 
     // Split by whitespaces
     final String [] aParts = RegExHelper.getSplitToArray (sValue.trim (), "\\s+");
-    if (aParts.length < m_nMinNumbers || aParts.length > m_nMaxNumbers)
+    if (aParts.length < m_nMinArgCount || aParts.length > m_nMaxArgCount)
       return false;
 
     // Check if each part is a valid number
@@ -121,8 +117,8 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
                                    getVendorPrefix (),
                                    getCustomizer (),
                                    m_bWithPercentage,
-                                   m_nMinNumbers,
-                                   m_nMaxNumbers);
+                                   m_nMinArgCount,
+                                   m_nMaxArgCount);
   }
 
   @Nonnull
@@ -132,8 +128,8 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
                                    eVendorPrefix,
                                    getCustomizer (),
                                    m_bWithPercentage,
-                                   m_nMinNumbers,
-                                   m_nMaxNumbers);
+                                   m_nMinArgCount,
+                                   m_nMaxArgCount);
   }
 
   @Override
@@ -145,8 +141,8 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
       return false;
     final CSSPropertyNumbers rhs = (CSSPropertyNumbers) o;
     return m_bWithPercentage == rhs.m_bWithPercentage &&
-           m_nMinNumbers == rhs.m_nMinNumbers &&
-           m_nMaxNumbers == rhs.m_nMaxNumbers;
+           m_nMinArgCount == rhs.m_nMinArgCount &&
+           m_nMaxArgCount == rhs.m_nMaxArgCount;
   }
 
   @Override
@@ -154,8 +150,8 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
   {
     return HashCodeGenerator.getDerived (super.hashCode ())
                             .append (m_bWithPercentage)
-                            .append (m_nMinNumbers)
-                            .append (m_nMaxNumbers)
+                            .append (m_nMinArgCount)
+                            .append (m_nMaxArgCount)
                             .getHashCode ();
   }
 
@@ -163,9 +159,9 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("withPercentage", m_bWithPercentage)
-                            .append ("minNumbers", m_nMinNumbers)
-                            .append ("maxNumbers", m_nMaxNumbers)
+                            .append ("WithPercentage", m_bWithPercentage)
+                            .append ("MinArgCount", m_nMinArgCount)
+                            .append ("MaxArgCount", m_nMaxArgCount)
                             .getToString ();
   }
 }
