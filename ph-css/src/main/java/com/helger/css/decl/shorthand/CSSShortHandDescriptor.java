@@ -64,7 +64,6 @@ public class CSSShortHandDescriptor
         throw new IllegalArgumentException ("The SubProperty " +
                                             aSubProperty +
                                             " may not use an unspecified CSSPropertyFree except for the last element!");
-
     }
   }
 

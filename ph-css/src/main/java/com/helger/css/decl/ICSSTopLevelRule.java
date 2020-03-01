@@ -24,14 +24,14 @@ import com.helger.css.ICSSWriteable;
  * Marker interface for all top level CSS elements that can occur in any order
  * </p>
  * <ul>
- * <li>style rules - {@link CSSStyleRule}</li>
- * <li>page rules - {@link CSSPageRule}</li>
- * <li>media rules - {@link CSSMediaRule}</li>
  * <li>font face rules - {@link CSSFontFaceRule}</li>
  * <li>keyframes rules - {@link CSSKeyframesRule}</li>
- * <li>viewport rules - {@link CSSViewportRule}</li>
+ * <li>media rules - {@link CSSMediaRule}</li>
+ * <li>page rules - {@link CSSPageRule}</li>
+ * <li>style rules - {@link CSSStyleRule}</li>
  * <li>supports rules - {@link CSSSupportsRule}</li>
  * <li>unknown rules - {@link CSSUnknownRule}</li>
+ * <li>viewport rules - {@link CSSViewportRule}</li>
  * </ul>
  * <p>
  * To easily iterate over all rules contained in a {@link CascadingStyleSheet}

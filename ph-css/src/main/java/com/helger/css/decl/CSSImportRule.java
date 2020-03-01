@@ -191,7 +191,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    * @return this;
    */
   @Nonnull
-  public CSSImportRule setLocation (@Nonnull final CSSURI aLocation)
+  public final CSSImportRule setLocation (@Nonnull final CSSURI aLocation)
   {
     ValueEnforcer.notNull (aLocation, "Location");
 
