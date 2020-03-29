@@ -198,7 +198,7 @@ public final class CSSShortHandRegistry
   @ReturnsMutableCopy
   public static ICommonsSet <ECSSProperty> getAllShortHandProperties ()
   {
-    return s_aRWLock.readLocked ( () -> s_aMap.copyOfKeySet ());
+    return s_aRWLock.readLockedGet (s_aMap::copyOfKeySet);
   }
 
   public static boolean isShortHandProperty (@Nullable final ECSSProperty eProperty)
@@ -206,7 +206,7 @@ public final class CSSShortHandRegistry
     if (eProperty == null)
       return false;
 
-    return s_aRWLock.readLocked ( () -> s_aMap.containsKey (eProperty));
+    return s_aRWLock.readLockedBoolean ( () -> s_aMap.containsKey (eProperty));
   }
 
   @Nullable
@@ -215,6 +215,6 @@ public final class CSSShortHandRegistry
     if (eProperty == null)
       return null;
 
-    return s_aRWLock.readLocked ( () -> s_aMap.get (eProperty));
+    return s_aRWLock.readLockedGet ( () -> s_aMap.get (eProperty));
   }
 }

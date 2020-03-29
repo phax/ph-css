@@ -43,7 +43,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
 {
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsList <CSSParseError> m_aErrors = new CommonsArrayList<> ();
+  private final ICommonsList <CSSParseError> m_aErrors = new CommonsArrayList <> ();
 
   public CollectingCSSParseErrorHandler ()
   {}
@@ -66,19 +66,23 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sRule,
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
+    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken,
+                                                                                            sRule,
+                                                                                            sMsg)));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
                                          @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
+    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex,
+                                                                                                  aFromToken,
+                                                                                                  aToToken)));
   }
 
   public void onIllegalCharacter (final char cIllegalChar)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createIllegalCharacter (cIllegalChar)));
+    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createIllegalCharacter (cIllegalChar)));
   }
 
   /**
@@ -88,7 +92,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonnegative
   public boolean hasParseErrors ()
   {
-    return m_aRWLock.readLocked ( () -> m_aErrors.isNotEmpty ());
+    return m_aRWLock.readLockedBoolean (m_aErrors::isNotEmpty);
   }
 
   /**
@@ -97,7 +101,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonnegative
   public int getParseErrorCount ()
   {
-    return m_aRWLock.readLocked ( () -> m_aErrors.size ());
+    return m_aRWLock.readLockedInt (m_aErrors::size);
   }
 
   /**
@@ -110,12 +114,12 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   @ReturnsMutableCopy
   public ICommonsList <CSSParseError> getAllParseErrors ()
   {
-    return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
+    return m_aRWLock.readLockedGet (m_aErrors::getClone);
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("errors", m_aErrors).getToString ();
+    return new ToStringGenerator (this).append ("Errors", m_aErrors).getToString ();
   }
 }

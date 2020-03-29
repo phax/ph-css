@@ -38,6 +38,7 @@ import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasReader;
+import com.helger.commons.io.provider.IReaderProvider;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingStringReader;
@@ -63,6 +64,7 @@ import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
+import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 
 /**
  * This is the central user class for reading and parsing CSS from different
@@ -104,7 +106,7 @@ public final class CSSReader
   @Nullable
   public static ICSSParseErrorHandler getDefaultParseErrorHandler ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultParseErrorHandler);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultParseErrorHandler);
   }
 
   /**
@@ -116,7 +118,7 @@ public final class CSSReader
    */
   public static void setDefaultParseErrorHandler (@Nullable final ICSSParseErrorHandler aDefaultParseErrorHandler)
   {
-    s_aRWLock.writeLocked ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
   }
 
   /**
@@ -128,7 +130,7 @@ public final class CSSReader
   @Nonnull
   public static ICSSParseExceptionCallback getDefaultParseExceptionHandler ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultParseExceptionHandler);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultParseExceptionHandler);
   }
 
   /**
@@ -143,7 +145,7 @@ public final class CSSReader
   {
     ValueEnforcer.notNull (aDefaultParseExceptionHandler, "DefaultParseExceptionHandler");
 
-    s_aRWLock.writeLocked ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
   }
 
   /**
@@ -154,7 +156,7 @@ public final class CSSReader
   @Nonnull
   public static ICSSInterpretErrorHandler getDefaultInterpretErrorHandler ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultInterpretErrorHandler);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultInterpretErrorHandler);
   }
 
   /**
@@ -169,7 +171,7 @@ public final class CSSReader
   {
     ValueEnforcer.notNull (aDefaultErrorHandler, "DefaultErrorHandler");
 
-    s_aRWLock.writeLocked ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
   }
 
   /**

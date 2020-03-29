@@ -97,7 +97,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   public static ICSSParseErrorHandler getDefaultParseErrorHandler ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultParseErrorHandler);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultParseErrorHandler);
   }
 
   /**
@@ -110,7 +110,7 @@ public final class CSSReaderDeclarationList
    */
   public static void setDefaultParseErrorHandler (@Nullable final ICSSParseErrorHandler aDefaultParseErrorHandler)
   {
-    s_aRWLock.writeLocked ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
   }
 
   /**
@@ -122,7 +122,7 @@ public final class CSSReaderDeclarationList
   @Nonnull
   public static ICSSParseExceptionCallback getDefaultParseExceptionHandler ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultParseExceptionHandler);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultParseExceptionHandler);
   }
 
   /**
@@ -137,7 +137,7 @@ public final class CSSReaderDeclarationList
   {
     ValueEnforcer.notNull (aDefaultParseExceptionHandler, "DefaultParseExceptionHandler");
 
-    s_aRWLock.writeLocked ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
   }
 
   /**
@@ -148,7 +148,7 @@ public final class CSSReaderDeclarationList
   @Nonnull
   public static ICSSInterpretErrorHandler getDefaultInterpretErrorHandler ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultInterpretErrorHandler);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultInterpretErrorHandler);
   }
 
   /**
@@ -163,7 +163,7 @@ public final class CSSReaderDeclarationList
   {
     ValueEnforcer.notNull (aDefaultErrorHandler, "DefaultErrorHandler");
 
-    s_aRWLock.writeLocked ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
   }
 
   /**
