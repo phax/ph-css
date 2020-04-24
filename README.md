@@ -81,22 +81,22 @@ Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a
 
 ### Unrecoverable Errors
 
-In case of an unrecoverable error, the underlying parser engine of JavaCC throws a `com.helger.css.parser.ParseException`. This exception contains all the necessary information on where the error occurred. In case of such an unrecoverable error, the result of the reading will always be `null` and the exception is not automatically propagated to the caller. To explicitly get notified when such a parse error occurs, the handler interface `com.helger.css.handler.ICSSParseExceptionHandler` is available. The available implementations are (all residing in package `com.helger.css.handler`):
+In case of an unrecoverable error, the underlying parser engine of JavaCC throws a `com.helger.css.parser.ParseException`. This exception contains all the necessary information on where the error occurred. In case of such an unrecoverable error, the result of the reading will always be `null` and the exception is not automatically propagated to the caller. To explicitly get notified when such a parse error occurs, the handler interface `com.helger.css.handler.ICSSParseExceptionCallback` is available. The available implementations are (all residing in package `com.helger.css.handler`):
 
   * `DoNothingCSSParseExceptionHandler` - silently ignore all unrecoverable errors
   * `LoggingCSSParseExceptionHandler` - log all unrecoverable errors to an SLF4J logger 
 
-As there is at most one unrecoverable error per parse there is no collecting implementation of an `ICSSParseExceptionHandler` available. If it is desired to propagate the Exception to the caller you need to implement your own `ICSSParseExceptionHandler` subclass that throws an unchecked exception (one derived from `RuntimeException`). Example:
+As there is at most one unrecoverable error per parse there is no collecting implementation of an `ICSSParseExceptionCallback` available. If it is desired to propagate the Exception to the caller you need to implement your own `ICSSParseExceptionCallback` subclass that throws an unchecked exception (one derived from `RuntimeException`). Example:
 
 ```java
-  final ICSSParseExceptionHandler aThrowingExceptionHandler = new ICSSParseExceptionHandler () {
+  final ICSSParseExceptionCallback aThrowingExceptionHandler = new ICSSParseExceptionCallback () {
     public void onException (final ParseException ex) {
       throw new IllegalStateException ("Failed to parse CSS", ex);
     }
   };
 ```
 
-Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a default unrecoverable error handler using the method `setDefaultParseExceptionHandler(ICSSParseExceptionHandler)`. If a reading method is invoked without an explicit `ICSSParseExceptionHandler` than this default exception handler is used. 
+Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a default unrecoverable error handler using the method `setDefaultParseExceptionHandler(ICSSParseExceptionCallback)`. If a reading method is invoked without an explicit `ICSSParseExceptionCallback` than this default exception handler is used. 
 
 ## CSS iteration/visiting
 Once a CSS file was successfully read, it can easily be iterated using the class `com.helger.css.decl.visit.CSSVisitor`. It requires a valid instance of `com.helger.css.decl.CascadingStyleSheet` as well as an implementation of `com.helger.css.decl.visit.ICSSVisitor`. The `CascadingStyleSheet` can be acquired either by reading from a file/stream or by creating a new one from scratch. For the `ICSSVisitor` it is recommended to use the class `com.helger.css.decl.visit.DefaultCSSVisitor` as the base class - this class contains empty implementations of all methods defined in the `ICSSVisitor` interface. To visit all declarations (e.g. `color:red;`) it is sufficient to simply override the method `public void onDeclaration (@Nonnull final CSSDeclaration aDeclaration)`. For details please have a look at the JavaDocs of `ICSSVisitor`. To start the visiting call `CSSVisitor.visitCSS (CascadingStyleSheet, ICSSVisitor)`.
