@@ -22,7 +22,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>6.2.2</version>
+  <version>6.2.3</version>
 </dependency>
 ```
 
@@ -102,6 +102,7 @@ Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a
 Once a CSS file was successfully read, it can easily be iterated using the class `com.helger.css.decl.visit.CSSVisitor`. It requires a valid instance of `com.helger.css.decl.CascadingStyleSheet` as well as an implementation of `com.helger.css.decl.visit.ICSSVisitor`. The `CascadingStyleSheet` can be acquired either by reading from a file/stream or by creating a new one from scratch. For the `ICSSVisitor` it is recommended to use the class `com.helger.css.decl.visit.DefaultCSSVisitor` as the base class - this class contains empty implementations of all methods defined in the `ICSSVisitor` interface. To visit all declarations (e.g. `color:red;`) it is sufficient to simply override the method `public void onDeclaration (@Nonnull final CSSDeclaration aDeclaration)`. For details please have a look at the JavaDocs of `ICSSVisitor`. To start the visiting call `CSSVisitor.visitCSS (CascadingStyleSheet, ICSSVisitor)`.
 
 A special visitor is present for URLs. URLs can occur on several places in CSS files, especially in the `@import` rules and within declarations (like in `background-image: url(../images/bg.gif)`). Therefore a special interface `com.helger.css.decl.visit.ICSSUrlVisitor` together with the empty default implementation `com.helger.css.decl.visit.DefaultCSSUrlVisitor` is provided. So to visit all URLs within a CSS call `CSSVisitor.visitCSSUrl(CascadingStyleSheet, ICSSUrlVisitor)`.
+Since v6.2.3 the URL visitor recursively descends into expression members (see [issue #59](https://github.com/phax/ph-css/issues/59)). 
 
 For modifying URLs (e.g. to adopt paths to a different environment) a special base class `com.helger.css.decl.visit.AbstractModifyingCSSUrlVisitor` is available. It offers the abstract method `protected abstract String getModifiedURI (@Nonnull String sURI)` to modify a URL and write the result back into the original `CascadingStyleSheet`. An example of how this can be used, can be found in the test method `com.helger.css.decl.visit.CSSVisitorDeclarationListTest.testModifyingCSSUrlVisitor ()`.
 
@@ -221,7 +222,7 @@ It requires Java 8 and Maven 3 to run.
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>6.2.2</version>
+        <version>6.2.3</version>
         <executions>
           <execution>
             <goals>
