@@ -380,5 +380,10 @@ public abstract class AbstractCSS30TestCase
                                        "    -moz-animation-timing-function: ease-in;\n" +
                                        "    background: url(../images/email.png) left center no-repeat;\n" +
                                        "  }\n" +
-                                       "}\n";
+                                       "}\n" +
+                                       "\n" +
+                                       "dd {\n" +
+                                       "    background-image: cross-fade(20% url(http://example.com/first.png), url(/second.png));\n" +
+                                       "    left: calc(50% - cross-fade(20% url(bla.png), url(/second-in-math.png)));\n" +
+                                       "}";
 }

@@ -68,3 +68,7 @@ div {
 .issue57 {
   left: calc(50% - (600px / 2 + var(--page-column-padding-x)));
 }
+
+.issue59 {
+  left: calc(50% - cross-fade(20% url(http://example.com/first.png), url(/second.png)));
+}

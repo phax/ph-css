@@ -17,28 +17,12 @@
 package com.helger.css.decl.visit;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.NonBlockingStack;
-import com.helger.css.decl.CSSDeclaration;
-import com.helger.css.decl.CSSExpression;
-import com.helger.css.decl.CSSExpressionMemberTermURI;
-import com.helger.css.decl.CSSFontFaceRule;
-import com.helger.css.decl.CSSImportRule;
-import com.helger.css.decl.CSSKeyframesBlock;
-import com.helger.css.decl.CSSKeyframesRule;
-import com.helger.css.decl.CSSMediaRule;
-import com.helger.css.decl.CSSNamespaceRule;
-import com.helger.css.decl.CSSPageMarginBlock;
-import com.helger.css.decl.CSSPageRule;
-import com.helger.css.decl.CSSSelector;
-import com.helger.css.decl.CSSStyleRule;
-import com.helger.css.decl.CSSSupportsRule;
-import com.helger.css.decl.CSSUnknownRule;
-import com.helger.css.decl.CSSViewportRule;
-import com.helger.css.decl.ICSSExpressionMember;
-import com.helger.css.decl.ICSSTopLevelRule;
+import com.helger.css.decl.*;
 
 /**
  * A special {@link ICSSVisitor} that is used to extract URLs from the available
@@ -89,16 +73,71 @@ public class CSSVisitorForUrl implements ICSSVisitor
     // No action
   }
 
+  private void _recursiveCheckMathMember (@Nullable final ICSSTopLevelRule aTopLevelRule,
+                                          @Nonnull final CSSDeclaration aDeclaration,
+                                          @Nonnull final ICSSExpressionMathMember aMathMember)
+  {
+    if (aMathMember instanceof CSSExpressionMemberFunction)
+    {
+      final CSSExpressionMemberFunction aRealMathMember = (CSSExpressionMemberFunction) aMathMember;
+      _recursiveCheckExpression (aTopLevelRule, aDeclaration, aRealMathMember.getExpression ());
+    }
+    else
+      if (aMathMember instanceof CSSExpressionMemberMath)
+      {
+        final CSSExpressionMemberMath aRealMathMember = (CSSExpressionMemberMath) aMathMember;
+        for (final ICSSExpressionMathMember aChild : aRealMathMember.getAllMembers ())
+          _recursiveCheckMathMember (aTopLevelRule, aDeclaration, aChild);
+      }
+      else
+        if (aMathMember instanceof CSSExpressionMemberMathProduct)
+        {
+          final CSSExpressionMemberMathProduct aRealMathMember = (CSSExpressionMemberMathProduct) aMathMember;
+          for (final ICSSExpressionMathMember aChild : aRealMathMember.getAllMembers ())
+            _recursiveCheckMathMember (aTopLevelRule, aDeclaration, aChild);
+        }
+        else
+          if (aMathMember instanceof CSSExpressionMemberMathUnitProduct)
+          {
+            final CSSExpressionMemberMathUnitProduct aRealMathMember = (CSSExpressionMemberMathUnitProduct) aMathMember;
+            _recursiveCheckMathMember (aTopLevelRule, aDeclaration, aRealMathMember.getProduct ());
+          }
+  }
+
+  private void _recursiveCheckExpression (@Nullable final ICSSTopLevelRule aTopLevelRule,
+                                          @Nonnull final CSSDeclaration aDeclaration,
+                                          @Nullable final CSSExpression aExpr)
+  {
+    if (aExpr != null)
+      for (final ICSSExpressionMember aMember : aExpr.getAllMembers ())
+      {
+        if (aMember instanceof CSSExpressionMemberFunction)
+        {
+          // Recursive
+          final CSSExpressionMemberFunction aExprMember = (CSSExpressionMemberFunction) aMember;
+          _recursiveCheckExpression (aTopLevelRule, aDeclaration, aExprMember.getExpression ());
+        }
+        else
+          if (aMember instanceof CSSExpressionMemberMath)
+          {
+            // Recursive
+            final CSSExpressionMemberMath aExprMember = (CSSExpressionMemberMath) aMember;
+            for (final ICSSExpressionMathMember aMathMember : aExprMember.getAllMembers ())
+              _recursiveCheckMathMember (aTopLevelRule, aDeclaration, aMathMember);
+          }
+          else
+            if (aMember instanceof CSSExpressionMemberTermURI)
+            {
+              final CSSExpressionMemberTermURI aExprTerm = (CSSExpressionMemberTermURI) aMember;
+              m_aVisitor.onUrlDeclaration (aTopLevelRule, aDeclaration, aExprTerm);
+            }
+      }
+  }
+
   public void onDeclaration (@Nonnull final CSSDeclaration aDeclaration)
   {
     final ICSSTopLevelRule aTopLevelRule = m_aTopLevelRule.isEmpty () ? null : m_aTopLevelRule.peek ();
-    final CSSExpression aExpr = aDeclaration.getExpression ();
-    for (final ICSSExpressionMember aMember : aExpr.getAllMembers ())
-      if (aMember instanceof CSSExpressionMemberTermURI)
-      {
-        final CSSExpressionMemberTermURI aExprTerm = (CSSExpressionMemberTermURI) aMember;
-        m_aVisitor.onUrlDeclaration (aTopLevelRule, aDeclaration, aExprTerm);
-      }
+    _recursiveCheckExpression (aTopLevelRule, aDeclaration, aDeclaration.getExpression ());
   }
 
   public void onBeginStyleRule (@Nonnull final CSSStyleRule aStyleRule)
