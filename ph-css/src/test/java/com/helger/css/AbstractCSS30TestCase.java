@@ -385,5 +385,7 @@ public abstract class AbstractCSS30TestCase
                                        "dd {\n" +
                                        "    background-image: cross-fade(20% url(http://example.com/first.png), url(/second.png));\n" +
                                        "    left: calc(50% - cross-fade(20% url(bla.png), url(/second-in-math.png)));\n" +
-                                       "}";
+                                       "}\n" +
+                                       "\n" +
+                                       "a::after { content: \" (\" url(/second-in-math.png) \")\"; }";
 }
