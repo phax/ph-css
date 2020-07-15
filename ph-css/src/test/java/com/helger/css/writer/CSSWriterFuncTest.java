@@ -60,10 +60,7 @@ public final class CSSWriterFuncTest
         System.out.println ("--" + i + "--\n" + sCSS);
 
       // read again from buffer
-      assertEquals (aFile.getAbsolutePath () +
-                    (i == 0 ? " unoptimized" : " optimized"),
-                    aCSS,
-                    CSSReader.readFromString (sCSS, eVersion));
+      assertEquals (aFile.getAbsolutePath () + (i == 0 ? " unoptimized" : " optimized"), aCSS, CSSReader.readFromString (sCSS, eVersion));
     }
   }
 

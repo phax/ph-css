@@ -146,9 +146,7 @@ public class CSSParseError
                                                     @Nonnull @Nonempty final String sRule,
                                                     @Nonnull @Nonempty final String sMsg)
   {
-    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken,
-                                                                                             sRule,
-                                                                                             sMsg));
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
 
   @Nonnull
@@ -156,9 +154,7 @@ public class CSSParseError
                                                           @Nonnull final Token aFromToken,
                                                           @Nonnull final Token aToToken)
   {
-    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex,
-                                                                                                   aFromToken,
-                                                                                                   aToToken));
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
   }
 
   @Nonnull

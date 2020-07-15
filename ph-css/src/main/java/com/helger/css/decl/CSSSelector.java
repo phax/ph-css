@@ -158,8 +158,6 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("members", m_aMembers)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("members", m_aMembers).appendIfNotNull ("sourceLocation", m_aSourceLocation).getToString ();
   }
 }

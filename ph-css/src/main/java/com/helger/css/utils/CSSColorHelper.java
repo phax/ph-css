@@ -531,10 +531,7 @@ public final class CSSColorHelper
    */
   @Nonnull
   @Nonempty
-  public static String getHSLAColorValue (final int nHue,
-                                          final int nSaturation,
-                                          final int nLightness,
-                                          final float fOpacity)
+  public static String getHSLAColorValue (final int nHue, final int nSaturation, final int nLightness, final float fOpacity)
   {
     return new StringBuilder (32).append (CCSSValue.PREFIX_HSLA_OPEN)
                                  .append (getHSLHueValue (nHue))
@@ -563,10 +560,7 @@ public final class CSSColorHelper
    */
   @Nonnull
   @Nonempty
-  public static String getHSLAColorValue (final float fHue,
-                                          final float fSaturation,
-                                          final float fLightness,
-                                          final float fOpacity)
+  public static String getHSLAColorValue (final float fHue, final float fSaturation, final float fLightness, final float fOpacity)
   {
     return new StringBuilder (32).append (CCSSValue.PREFIX_HSLA_OPEN)
                                  .append (getHSLHueValue (fHue))

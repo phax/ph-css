@@ -231,15 +231,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
   @Nonempty
   public String getAsString ()
   {
-    return CCSSValue.PREFIX_HSLA_OPEN +
-           m_sHue +
-           ',' +
-           m_sSaturation +
-           ',' +
-           m_sLightness +
-           ',' +
-           m_sOpacity +
-           CCSSValue.SUFFIX_HSLA_CLOSE;
+    return CCSSValue.PREFIX_HSLA_OPEN + m_sHue + ',' + m_sSaturation + ',' + m_sLightness + ',' + m_sOpacity + CCSSValue.SUFFIX_HSLA_CLOSE;
   }
 
   @Nonnull
@@ -284,11 +276,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sHue)
-                                       .append (m_sSaturation)
-                                       .append (m_sLightness)
-                                       .append (m_sOpacity)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sHue).append (m_sSaturation).append (m_sLightness).append (m_sOpacity).getHashCode ();
   }
 
   @Override

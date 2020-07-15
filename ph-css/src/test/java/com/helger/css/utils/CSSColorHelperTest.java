@@ -159,15 +159,7 @@ public final class CSSColorHelperTest
   @Test
   public void testIsHexColorValue ()
   {
-    final String [] HEX_COLORS = new String [] { "#000000",
-                                                 "#99aa00",
-                                                 "#9900aa",
-                                                 "#aa9900",
-                                                 "#ffffff",
-                                                 "#aaa",
-                                                 "#000",
-                                                 "#123",
-                                                 "#000" };
+    final String [] HEX_COLORS = new String [] { "#000000", "#99aa00", "#9900aa", "#aa9900", "#ffffff", "#aaa", "#000", "#123", "#000" };
     for (final String sHexColor : HEX_COLORS)
     {
       assertTrue (sHexColor, CSSColorHelper.isHexColorValue (sHexColor));

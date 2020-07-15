@@ -97,10 +97,7 @@ public abstract class AbstractCSSPropertyEnums extends CSSPropertyEnum
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ())
-                            .append (m_nMinArgCount)
-                            .append (m_nMaxArgCount)
-                            .getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_nMinArgCount).append (m_nMaxArgCount).getHashCode ();
   }
 
   @Override

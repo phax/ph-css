@@ -85,18 +85,10 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     }
 
     final StringBuilder retval = new StringBuilder (1024);
-    retval.append ('[')
-          .append (aLastValidToken.next.beginLine)
-          .append (':')
-          .append (aLastValidToken.next.beginColumn)
-          .append (']');
+    retval.append ('[').append (aLastValidToken.next.beginLine).append (':').append (aLastValidToken.next.beginColumn).append (']');
     if (aLastSkippedToken != null)
     {
-      retval.append ("-[")
-            .append (aLastSkippedToken.endLine)
-            .append (':')
-            .append (aLastSkippedToken.endColumn)
-            .append (']');
+      retval.append ("-[").append (aLastSkippedToken.endLine).append (':').append (aLastSkippedToken.endColumn).append (']');
     }
     retval.append (" Encountered");
     Token aCurToken = aLastValidToken.next;
@@ -108,30 +100,25 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
         retval.append (aTokenImageVal[TOKEN_EOF]);
         break;
       }
-      retval.append ("text '")
-            .append (aCurToken.image)
-            .append ("' corresponding to token ")
-            .append (aTokenImageVal[aCurToken.kind]);
+      retval.append ("text '").append (aCurToken.image).append ("' corresponding to token ").append (aTokenImageVal[aCurToken.kind]);
       aCurToken = aCurToken.next;
     }
     retval.append (". ");
     if (aLastSkippedToken != null)
       retval.append ("Skipped until token ").append (aLastSkippedToken).append (". ");
-    retval.append (aExpectedTokenSequencesVal.length == 1 ? "Was expecting:" : "Was expecting one of:")
-          .append (aExpected);
+    retval.append (aExpectedTokenSequencesVal.length == 1 ? "Was expecting:" : "Was expecting one of:").append (aExpected);
     return retval.toString ();
   }
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx,
-                               @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
   {
     if (aParseEx.expectedTokenSequences == null)
       LOGGER.warn (aParseEx.getMessage ());
     else
       LOGGER.warn (createLoggingStringParseError (aParseEx.currentToken,
-                                                     aParseEx.expectedTokenSequences,
-                                                     aParseEx.tokenImage,
-                                                     aLastSkippedToken));
+                                                  aParseEx.expectedTokenSequences,
+                                                  aParseEx.tokenImage,
+                                                  aLastSkippedToken));
   }
 
   /**
@@ -153,14 +140,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                           @Nonnull @Nonempty final String sRule,
                                                           @Nonnull @Nonempty final String sMsg)
   {
-    return "[" +
-           aCurrentToken.beginLine +
-           ":" +
-           aCurrentToken.beginColumn +
-           "] Unexpected rule '" +
-           sRule +
-           "': " +
-           sMsg;
+    return "[" + aCurrentToken.beginLine + ":" + aCurrentToken.beginColumn + "] Unexpected rule '" + sRule + "': " + sMsg;
   }
 
   public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
@@ -205,11 +185,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonempty
   public static String createLoggingStringIllegalCharacter (final char cIllegalChar)
   {
-    return "Found illegal character: " +
-           cIllegalChar +
-           " (0x" +
-           StringHelper.getHexStringLeadingZero (cIllegalChar, 4) +
-           ")";
+    return "Found illegal character: " + cIllegalChar + " (0x" + StringHelper.getHexStringLeadingZero (cIllegalChar, 4) + ")";
   }
 
   public void onIllegalCharacter (final char cIllegalChar)

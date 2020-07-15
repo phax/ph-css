@@ -39,8 +39,7 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
   public ThrowingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx,
-                               @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
   {
     throw aParseEx;
   }
@@ -49,9 +48,7 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sRule,
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
-    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken,
-                                                                                             sRule,
-                                                                                             sMsg));
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
@@ -60,9 +57,7 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
   {
     if (ex != null)
       throw ex;
-    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (null,
-                                                                                                   aFromToken,
-                                                                                                   aToToken));
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (null, aFromToken, aToToken));
   }
 
   public void onIllegalCharacter (final char cIllegalChar)

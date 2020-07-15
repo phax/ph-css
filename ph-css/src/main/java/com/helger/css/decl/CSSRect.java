@@ -183,15 +183,7 @@ public class CSSRect implements ICSSWriteable
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    return CCSSValue.PREFIX_RECT_OPEN +
-           m_sTop +
-           ',' +
-           m_sRight +
-           ',' +
-           m_sBottom +
-           ',' +
-           m_sLeft +
-           CCSSValue.SUFFIX_RECT_CLOSE;
+    return CCSSValue.PREFIX_RECT_OPEN + m_sTop + ',' + m_sRight + ',' + m_sBottom + ',' + m_sLeft + CCSSValue.SUFFIX_RECT_CLOSE;
   }
 
   @Override
@@ -202,20 +194,13 @@ public class CSSRect implements ICSSWriteable
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSRect rhs = (CSSRect) o;
-    return m_sTop.equals (rhs.m_sTop) &&
-           m_sRight.equals (rhs.m_sRight) &&
-           m_sBottom.equals (rhs.m_sBottom) &&
-           m_sLeft.equals (rhs.m_sLeft);
+    return m_sTop.equals (rhs.m_sTop) && m_sRight.equals (rhs.m_sRight) && m_sBottom.equals (rhs.m_sBottom) && m_sLeft.equals (rhs.m_sLeft);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sTop)
-                                       .append (m_sRight)
-                                       .append (m_sBottom)
-                                       .append (m_sLeft)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sTop).append (m_sRight).append (m_sBottom).append (m_sLeft).getHashCode ();
   }
 
   @Override

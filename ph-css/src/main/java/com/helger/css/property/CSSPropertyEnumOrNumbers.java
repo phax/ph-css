@@ -75,11 +75,7 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
     ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
     ValueEnforcer.isGT0 (nMaxNumbers, "MaxNumbers");
     if (nMaxNumbers < nMinNumbers)
-      throw new IllegalArgumentException ("MaxNumbers (" +
-                                          nMaxNumbers +
-                                          ") must be >= MinNumbers (" +
-                                          nMinNumbers +
-                                          ")");
+      throw new IllegalArgumentException ("MaxNumbers (" + nMaxNumbers + ") must be >= MinNumbers (" + nMinNumbers + ")");
     m_bWithPercentage = bWithPercentage;
     m_nMinNumbers = nMinNumbers;
     m_nMaxNumbers = nMaxNumbers;
@@ -116,11 +112,7 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
     ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
     ValueEnforcer.isGT0 (nMaxNumbers, "MaxNumbers");
     if (nMaxNumbers < nMinNumbers)
-      throw new IllegalArgumentException ("MaxNumbers (" +
-                                          nMaxNumbers +
-                                          ") must be >= MinNumbers (" +
-                                          nMinNumbers +
-                                          ")");
+      throw new IllegalArgumentException ("MaxNumbers (" + nMaxNumbers + ") must be >= MinNumbers (" + nMinNumbers + ")");
     m_bWithPercentage = bWithPercentage;
     m_nMinNumbers = nMinNumbers;
     m_nMaxNumbers = nMaxNumbers;
@@ -193,9 +185,7 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
     if (!super.equals (o))
       return false;
     final CSSPropertyEnumOrNumbers rhs = (CSSPropertyEnumOrNumbers) o;
-    return m_bWithPercentage == rhs.m_bWithPercentage &&
-           m_nMinNumbers == rhs.m_nMinNumbers &&
-           m_nMaxNumbers == rhs.m_nMaxNumbers;
+    return m_bWithPercentage == rhs.m_bWithPercentage && m_nMinNumbers == rhs.m_nMinNumbers && m_nMaxNumbers == rhs.m_nMaxNumbers;
   }
 
   @Override

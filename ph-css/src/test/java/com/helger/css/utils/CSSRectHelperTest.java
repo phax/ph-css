@@ -111,35 +111,22 @@ public final class CSSRectHelperTest
     assertNull (CSSRectHelper.getRectValues ("  rect (( 5, 6, 7, 8 )"));
 
     // OK, current syntax
-    assertArrayEquals (new String [] { "0in", "0pt", "100ex", "50em" },
-                       CSSRectHelper.getRectValues ("rect(0in,0pt,100ex,50em)"));
+    assertArrayEquals (new String [] { "0in", "0pt", "100ex", "50em" }, CSSRectHelper.getRectValues ("rect(0in,0pt,100ex,50em)"));
     assertArrayEquals (new String [] { "0", "0", "100", "50" }, CSSRectHelper.getRectValues ("rect(0,0,100,50)"));
-    assertArrayEquals (new String [] { "0", "0", "100", "50" },
-                       CSSRectHelper.getRectValues ("rect( 0 , 0 , 100 , 50 ) "));
-    assertArrayEquals (new String [] { "0%", "0%", "100%", "50%" },
-                       CSSRectHelper.getRectValues ("rect(0%,0%,100%,50%)"));
-    assertArrayEquals (new String [] { "0%", "0%", "100%", "50%" },
-                       CSSRectHelper.getRectValues ("rect( 0% , 0% , 100% , 50% )"));
-    assertArrayEquals (new String [] { "0in", "0px", "10em", "50pt" },
-                       CSSRectHelper.getRectValues ("rect(0in,0px,10em,50pt)"));
-    assertArrayEquals (new String [] { "0in", "0px", "10em", "50pt" },
-                       CSSRectHelper.getRectValues ("rect( 0in , 0px , 10em , 50pt ) "));
-    assertArrayEquals (new String [] { "auto", "auto", "auto", "auto" },
-                       CSSRectHelper.getRectValues ("rect(auto, auto, auto, auto)"));
+    assertArrayEquals (new String [] { "0", "0", "100", "50" }, CSSRectHelper.getRectValues ("rect( 0 , 0 , 100 , 50 ) "));
+    assertArrayEquals (new String [] { "0%", "0%", "100%", "50%" }, CSSRectHelper.getRectValues ("rect(0%,0%,100%,50%)"));
+    assertArrayEquals (new String [] { "0%", "0%", "100%", "50%" }, CSSRectHelper.getRectValues ("rect( 0% , 0% , 100% , 50% )"));
+    assertArrayEquals (new String [] { "0in", "0px", "10em", "50pt" }, CSSRectHelper.getRectValues ("rect(0in,0px,10em,50pt)"));
+    assertArrayEquals (new String [] { "0in", "0px", "10em", "50pt" }, CSSRectHelper.getRectValues ("rect( 0in , 0px , 10em , 50pt ) "));
+    assertArrayEquals (new String [] { "auto", "auto", "auto", "auto" }, CSSRectHelper.getRectValues ("rect(auto, auto, auto, auto)"));
 
     // OK, backward compatible syntax
     assertArrayEquals (new String [] { "0", "0", "100", "50" }, CSSRectHelper.getRectValues ("rect(0 0 100 50)"));
-    assertArrayEquals (new String [] { "0", "0", "100", "50" },
-                       CSSRectHelper.getRectValues ("rect( 0   0   100   50 ) "));
-    assertArrayEquals (new String [] { "0%", "0%", "100%", "50%" },
-                       CSSRectHelper.getRectValues ("rect(0% 0% 100% 50%)"));
-    assertArrayEquals (new String [] { "0%", "0%", "100%", "50%" },
-                       CSSRectHelper.getRectValues ("rect( 0%   0%   100%   50% )"));
-    assertArrayEquals (new String [] { "0in", "0px", "10em", "50pt" },
-                       CSSRectHelper.getRectValues ("rect(0in 0px 10em 50pt)"));
-    assertArrayEquals (new String [] { "0in", "0px", "10em", "50pt" },
-                       CSSRectHelper.getRectValues ("rect( 0in   0px   10em   50pt ) "));
-    assertArrayEquals (new String [] { "auto", "auto", "auto", "auto" },
-                       CSSRectHelper.getRectValues ("rect(auto  auto  auto  auto)"));
+    assertArrayEquals (new String [] { "0", "0", "100", "50" }, CSSRectHelper.getRectValues ("rect( 0   0   100   50 ) "));
+    assertArrayEquals (new String [] { "0%", "0%", "100%", "50%" }, CSSRectHelper.getRectValues ("rect(0% 0% 100% 50%)"));
+    assertArrayEquals (new String [] { "0%", "0%", "100%", "50%" }, CSSRectHelper.getRectValues ("rect( 0%   0%   100%   50% )"));
+    assertArrayEquals (new String [] { "0in", "0px", "10em", "50pt" }, CSSRectHelper.getRectValues ("rect(0in 0px 10em 50pt)"));
+    assertArrayEquals (new String [] { "0in", "0px", "10em", "50pt" }, CSSRectHelper.getRectValues ("rect( 0in   0px   10em   50pt ) "));
+    assertArrayEquals (new String [] { "auto", "auto", "auto", "auto" }, CSSRectHelper.getRectValues ("rect(auto  auto  auto  auto)"));
   }
 }

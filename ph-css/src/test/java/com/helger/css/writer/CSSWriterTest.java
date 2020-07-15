@@ -194,8 +194,7 @@ public final class CSSWriterTest extends AbstractCSS30TestCase
   {
     final CascadingStyleSheet aCSS = CSSReader.readFromString (CSS3, ECSSVersion.CSS30);
     assertNotNull (aCSS);
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30,
-                                                               false).setRemoveUnnecessaryCode (true);
+    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false).setRemoveUnnecessaryCode (true);
     final CSSWriter aWriter = new CSSWriter (aSettings).setWriteHeaderText (false);
     assertEquals ("h1 {\n" +
                   "  color:red;\n" +
@@ -244,8 +243,7 @@ public final class CSSWriterTest extends AbstractCSS30TestCase
   {
     final CascadingStyleSheet aCSS = CSSReader.readFromString (CSS4, ECSSVersion.CSS30);
     assertNotNull (aCSS);
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30,
-                                                               false).setRemoveUnnecessaryCode (true);
+    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false).setRemoveUnnecessaryCode (true);
     final CSSWriter aWriter = new CSSWriter (aSettings).setWriteHeaderText (false);
     assertEquals ("@media print {\n" +
                   "  h1 {\n" +
@@ -304,11 +302,7 @@ public final class CSSWriterTest extends AbstractCSS30TestCase
 
     // Optimized version
     aWriter = new CSSWriter (ECSSVersion.CSS30, true).setWriteHeaderText (true).setHeaderText ("Unit test2");
-    assertEquals ("/*\n" +
-                  " * Unit test2\n" +
-                  " */\n" +
-                  "h1{color:red;margin:1px}h2{color:red;margin:1px}",
-                  aWriter.getCSSAsString (aCSS));
+    assertEquals ("/*\n" + " * Unit test2\n" + " */\n" + "h1{color:red;margin:1px}h2{color:red;margin:1px}", aWriter.getCSSAsString (aCSS));
   }
 
   @Test
@@ -339,10 +333,7 @@ public final class CSSWriterTest extends AbstractCSS30TestCase
     aWriter = new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)
                                                                       .setNewLineMode (ENewLineMode.WINDOWS)).setWriteHeaderText (true)
                                                                                                              .setHeaderText ("Unit test2");
-    assertEquals ("/*\r\n" +
-                  " * Unit test2\r\n" +
-                  " */\r\n" +
-                  "h1{color:red;margin:1px}h2{color:red;margin:1px}",
+    assertEquals ("/*\r\n" + " * Unit test2\r\n" + " */\r\n" + "h1{color:red;margin:1px}h2{color:red;margin:1px}",
                   aWriter.getCSSAsString (aCSS));
   }
 
@@ -374,11 +365,7 @@ public final class CSSWriterTest extends AbstractCSS30TestCase
     aWriter = new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)
                                                                       .setNewLineMode (ENewLineMode.MAC)).setWriteHeaderText (true)
                                                                                                          .setHeaderText ("Unit test2");
-    assertEquals ("/*\r" +
-                  " * Unit test2\r" +
-                  " */\r" +
-                  "h1{color:red;margin:1px}h2{color:red;margin:1px}",
-                  aWriter.getCSSAsString (aCSS));
+    assertEquals ("/*\r" + " * Unit test2\r" + " */\r" + "h1{color:red;margin:1px}h2{color:red;margin:1px}", aWriter.getCSSAsString (aCSS));
   }
 
   @Test

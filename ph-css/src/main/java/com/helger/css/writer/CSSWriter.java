@@ -265,8 +265,7 @@ public class CSSWriter
    *         the constructor.
    * @see #getCSSAsString(CascadingStyleSheet)
    */
-  public void writeCSS (@Nonnull final CascadingStyleSheet aCSS,
-                        @Nonnull @WillClose final Writer aWriter) throws IOException
+  public void writeCSS (@Nonnull final CascadingStyleSheet aCSS, @Nonnull @WillClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aCSS, "CSS");
     ValueEnforcer.notNull (aWriter, "Writer");

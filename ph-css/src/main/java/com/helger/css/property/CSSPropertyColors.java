@@ -39,9 +39,7 @@ public class CSSPropertyColors extends AbstractCSSProperty
   private final int m_nMinArgCount;
   private final int m_nMaxArgCount;
 
-  public CSSPropertyColors (@Nonnull final ECSSProperty eProp,
-                            @Nonnegative final int nMinArgCount,
-                            @Nonnegative final int nMaxArgCount)
+  public CSSPropertyColors (@Nonnull final ECSSProperty eProp, @Nonnegative final int nMinArgCount, @Nonnegative final int nMaxArgCount)
   {
     this (eProp, (ICSSPropertyCustomizer) null, nMinArgCount, nMaxArgCount);
   }
@@ -95,21 +93,13 @@ public class CSSPropertyColors extends AbstractCSSProperty
   @Nonnull
   public CSSPropertyColors getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyColors (eProp,
-                                  getVendorPrefix (),
-                                  getCustomizer (),
-                                  getMinimumArgumentCount (),
-                                  getMaximumArgumentCount ());
+    return new CSSPropertyColors (eProp, getVendorPrefix (), getCustomizer (), getMinimumArgumentCount (), getMaximumArgumentCount ());
   }
 
   @Override
   @Nonnull
   public CSSPropertyColors getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
-    return new CSSPropertyColors (getProp (),
-                                  eVendorPrefix,
-                                  getCustomizer (),
-                                  getMinimumArgumentCount (),
-                                  getMaximumArgumentCount ());
+    return new CSSPropertyColors (getProp (), eVendorPrefix, getCustomizer (), getMinimumArgumentCount (), getMaximumArgumentCount ());
   }
 }

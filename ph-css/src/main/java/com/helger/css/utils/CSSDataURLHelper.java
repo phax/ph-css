@@ -206,11 +206,7 @@ public final class CSSDataURLHelper
         aCharset = CharsetHelper.getCharsetFromNameOrNull (sCharsetParam);
         if (aCharset == null)
         {
-          LOGGER.warn ("Illegal charset '" +
-                          sCharsetParam +
-                          "' contained. Defaulting to '" +
-                          DEFAULT_CHARSET.name () +
-                          "'");
+          LOGGER.warn ("Illegal charset '" + sCharsetParam + "' contained. Defaulting to '" + DEFAULT_CHARSET.name () + "'");
         }
       }
       if (aCharset == null)

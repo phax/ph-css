@@ -36,10 +36,7 @@ public final class WikiCreateFontFaceRuleFuncTest
   @Test
   public void test ()
   {
-    final CascadingStyleSheet aCSS = WikiCreateFontFaceRule.createFontFace ("Your \"typeface\"",
-                                                                            "local font name",
-                                                                            "folder/",
-                                                                            "myfont");
+    final CascadingStyleSheet aCSS = WikiCreateFontFaceRule.createFontFace ("Your \"typeface\"", "local font name", "folder/", "myfont");
     final String sCSS = new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS);
     System.out.println (sCSS);
 

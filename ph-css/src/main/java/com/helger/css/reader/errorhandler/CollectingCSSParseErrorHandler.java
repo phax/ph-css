@@ -48,17 +48,13 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   public CollectingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx,
-                               @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
   {
     m_aRWLock.writeLocked ( () -> {
       if (aParseEx.expectedTokenSequences == null)
         m_aErrors.add (new CSSParseError (aParseEx.getMessage ()));
       else
-        m_aErrors.add (new CSSParseError (aParseEx.currentToken,
-                                          aParseEx.expectedTokenSequences,
-                                          aParseEx.tokenImage,
-                                          aLastSkippedToken));
+        m_aErrors.add (new CSSParseError (aParseEx.currentToken, aParseEx.expectedTokenSequences, aParseEx.tokenImage, aLastSkippedToken));
     });
   }
 
@@ -66,18 +62,14 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sRule,
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken,
-                                                                                            sRule,
-                                                                                            sMsg)));
+    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
                                          @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex,
-                                                                                                  aFromToken,
-                                                                                                  aToToken)));
+    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
   }
 
   public void onIllegalCharacter (final char cIllegalChar)

@@ -174,17 +174,13 @@ public class CSSValue implements ICSSValue
     if (areConsistencyChecksEnabled ())
     {
       if (!m_aProperty.isValidValue (sValue))
-        LOGGER.warn ("CSS: the value '" +
-                        sValue +
-                        "' is not valid for property '" +
-                        m_aProperty.getPropertyName () +
-                        "'");
+        LOGGER.warn ("CSS: the value '" + sValue + "' is not valid for property '" + m_aProperty.getPropertyName () + "'");
       if (sValue.contains (CCSS.IMPORTANT_SUFFIX))
         LOGGER.warn ("CSS: the value '" +
-                        sValue +
-                        "' should not contain the '" +
-                        CCSS.IMPORTANT_SUFFIX +
-                        "' string! Use 'setImportant' method instead.");
+                     sValue +
+                     "' should not contain the '" +
+                     CCSS.IMPORTANT_SUFFIX +
+                     "' string! Use 'setImportant' method instead.");
     }
     m_sValue = sValue.trim ();
     return this;
@@ -241,10 +237,7 @@ public class CSSValue implements ICSSValue
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aProperty.getProp ())
-                                       .append (m_sValue)
-                                       .append (m_bIsImportant)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_aProperty.getProp ()).append (m_sValue).append (m_bIsImportant).getHashCode ();
   }
 
   @Override

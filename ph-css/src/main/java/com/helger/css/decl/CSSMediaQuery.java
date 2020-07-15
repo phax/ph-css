@@ -180,8 +180,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @return this
    */
   @Nonnull
-  public CSSMediaQuery addMediaExpression (@Nonnegative final int nIndex,
-                                           @Nonnull final CSSMediaExpression aMediaExpression)
+  public CSSMediaQuery addMediaExpression (@Nonnegative final int nIndex, @Nonnull final CSSMediaExpression aMediaExpression)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMediaExpression, "MediaExpression");
@@ -324,10 +323,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_eModifier)
-                                       .append (m_sMedium)
-                                       .append (m_aMediaExpressions)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_eModifier).append (m_sMedium).append (m_aMediaExpressions).getHashCode ();
   }
 
   @Override

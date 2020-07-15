@@ -162,10 +162,7 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDeclaration)
-                                       .append (m_sParameterList)
-                                       .append (m_sBody)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDeclaration).append (m_sParameterList).append (m_sBody).getHashCode ();
   }
 
   @Override

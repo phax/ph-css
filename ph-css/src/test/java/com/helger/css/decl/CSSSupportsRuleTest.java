@@ -72,8 +72,7 @@ public final class CSSSupportsRuleTest
 
     // Create the same rule by application
     final CSSSupportsRule aCreated = new CSSSupportsRule ();
-    aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count",
-                                                                             CSSExpression.createNumber (1)));
+    aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count", CSSExpression.createNumber (1)));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 
@@ -123,8 +122,7 @@ public final class CSSSupportsRuleTest
 
     // Create the same rule by application
     final CSSSupportsRule aCreated = new CSSSupportsRule ();
-    aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count",
-                                                                             CSSExpression.createNumber (1)));
+    aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count", CSSExpression.createNumber (1)));
     aCreated.addSupportConditionMember (ECSSSupportsConditionOperator.AND);
     aCreated.addSupportConditionMember (new CSSSupportsConditionNested ().addMember (new CSSSupportsConditionNegation (new CSSSupportsConditionDeclaration ("color",
                                                                                                                                                             CSSExpression.createSimple ("blue")))));

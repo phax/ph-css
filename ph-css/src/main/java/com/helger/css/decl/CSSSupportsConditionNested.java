@@ -69,8 +69,7 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   }
 
   @Nonnull
-  public CSSSupportsConditionNested addMember (@Nonnegative final int nIndex,
-                                               @Nonnull final ICSSSupportsConditionMember aMember)
+  public CSSSupportsConditionNested addMember (@Nonnegative final int nIndex, @Nonnull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
@@ -175,8 +174,6 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("members", m_aMembers)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("members", m_aMembers).appendIfNotNull ("sourceLocation", m_aSourceLocation).getToString ();
   }
 }

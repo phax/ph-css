@@ -222,18 +222,13 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSKeyframesRule rhs = (CSSKeyframesRule) o;
-    return m_sDeclaration.equals (rhs.m_sDeclaration) &&
-           m_sAnimationName.equals (rhs.m_sAnimationName) &&
-           m_aBlocks.equals (rhs.m_aBlocks);
+    return m_sDeclaration.equals (rhs.m_sDeclaration) && m_sAnimationName.equals (rhs.m_sAnimationName) && m_aBlocks.equals (rhs.m_aBlocks);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDeclaration)
-                                       .append (m_sAnimationName)
-                                       .append (m_aBlocks)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDeclaration).append (m_sAnimationName).append (m_aBlocks).getHashCode ();
   }
 
   @Override

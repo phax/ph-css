@@ -78,8 +78,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitNamespaceRule (@Nonnull final CSSNamespaceRule aNamespaceRule,
-                                         @Nonnull final ICSSVisitor aVisitor)
+  public static void visitNamespaceRule (@Nonnull final CSSNamespaceRule aNamespaceRule, @Nonnull final ICSSVisitor aVisitor)
   {
     aVisitor.onNamespace (aNamespaceRule);
   }
@@ -93,8 +92,7 @@ public final class CSSVisitor
    *        The visitor to be invoked on each declaration. May not be
    *        <code>null</code>.
    */
-  public static void visitAllDeclarations (@Nonnull final IHasCSSDeclarations <?> aHasDeclarations,
-                                           @Nonnull final ICSSVisitor aVisitor)
+  public static void visitAllDeclarations (@Nonnull final IHasCSSDeclarations <?> aHasDeclarations, @Nonnull final ICSSVisitor aVisitor)
   {
     // for all declarations
     for (final CSSDeclaration aDeclaration : aHasDeclarations.getAllDeclarations ())
@@ -173,8 +171,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitFontFaceRule (@Nonnull final CSSFontFaceRule aFontFaceRule,
-                                        @Nonnull final ICSSVisitor aVisitor)
+  public static void visitFontFaceRule (@Nonnull final CSSFontFaceRule aFontFaceRule, @Nonnull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginFontFaceRule (aFontFaceRule);
     try
@@ -219,8 +216,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitKeyframesRule (@Nonnull final CSSKeyframesRule aKeyframesRule,
-                                         @Nonnull final ICSSVisitor aVisitor)
+  public static void visitKeyframesRule (@Nonnull final CSSKeyframesRule aKeyframesRule, @Nonnull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginKeyframesRule (aKeyframesRule);
     try
@@ -254,8 +250,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitViewportRule (@Nonnull final CSSViewportRule aViewportRule,
-                                        @Nonnull final ICSSVisitor aVisitor)
+  public static void visitViewportRule (@Nonnull final CSSViewportRule aViewportRule, @Nonnull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginViewportRule (aViewportRule);
     try
@@ -277,8 +272,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitSupportsRule (@Nonnull final CSSSupportsRule aSupportsRule,
-                                        @Nonnull final ICSSVisitor aVisitor)
+  public static void visitSupportsRule (@Nonnull final CSSSupportsRule aSupportsRule, @Nonnull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginSupportsRule (aSupportsRule);
     try
@@ -315,8 +309,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitTopLevelRule (@Nonnull final ICSSTopLevelRule aTopLevelRule,
-                                        @Nonnull final ICSSVisitor aVisitor)
+  public static void visitTopLevelRule (@Nonnull final ICSSTopLevelRule aTopLevelRule, @Nonnull final ICSSVisitor aVisitor)
   {
     if (aTopLevelRule instanceof CSSStyleRule)
     {
@@ -425,8 +418,7 @@ public final class CSSVisitor
    *        The callback to invoke for each found occurrence. May not be
    *        <code>null</code>.
    */
-  public static void visitAllDeclarationUrls (@Nonnull final IHasCSSDeclarations <?> aCSS,
-                                              @Nonnull final ICSSUrlVisitor aVisitor)
+  public static void visitAllDeclarationUrls (@Nonnull final IHasCSSDeclarations <?> aCSS, @Nonnull final ICSSUrlVisitor aVisitor)
   {
     // Visit only the URLs of a CSS with a specific CSS visitor
     visitAllDeclarations (aCSS, new CSSVisitorForUrl (aVisitor));

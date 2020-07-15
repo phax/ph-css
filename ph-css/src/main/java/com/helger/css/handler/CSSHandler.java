@@ -59,13 +59,9 @@ public final class CSSHandler
    */
   @Nonnull
   @Deprecated
-  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ECSSVersion eVersion,
-                                                                     @Nonnull final CSSNode aNode)
+  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ECSSVersion eVersion, @Nonnull final CSSNode aNode)
   {
-    return readCascadingStyleSheetFromNode (eVersion,
-                                            CSSReader.getDefaultInterpretErrorHandler (),
-                                            DEFAULT_USE_SOURCE_LOCATION,
-                                            aNode);
+    return readCascadingStyleSheetFromNode (eVersion, CSSReader.getDefaultInterpretErrorHandler (), DEFAULT_USE_SOURCE_LOCATION, aNode);
   }
 
   /**
@@ -120,9 +116,7 @@ public final class CSSHandler
       throw new CSSHandlingException (aNode, "Passed node is not a root node!");
     ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
 
-    return new CSSNodeToDomainObject (eVersion,
-                                      aErrorHandler,
-                                      bUseSourceLocation).createCascadingStyleSheetFromNode (aNode);
+    return new CSSNodeToDomainObject (eVersion, aErrorHandler, bUseSourceLocation).createCascadingStyleSheetFromNode (aNode);
   }
 
   /**
@@ -139,13 +133,9 @@ public final class CSSHandler
    */
   @Nonnull
   @Deprecated
-  public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ECSSVersion eVersion,
-                                                                @Nonnull final CSSNode aNode)
+  public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ECSSVersion eVersion, @Nonnull final CSSNode aNode)
   {
-    return readDeclarationListFromNode (eVersion,
-                                        CSSReader.getDefaultInterpretErrorHandler (),
-                                        DEFAULT_USE_SOURCE_LOCATION,
-                                        aNode);
+    return readDeclarationListFromNode (eVersion, CSSReader.getDefaultInterpretErrorHandler (), DEFAULT_USE_SOURCE_LOCATION, aNode);
   }
 
   /**
@@ -200,8 +190,6 @@ public final class CSSHandler
       throw new CSSHandlingException (aNode, "Passed node is not a style declaration node!");
     ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
 
-    return new CSSNodeToDomainObject (eVersion,
-                                      aErrorHandler,
-                                      bUseSourceLocation).createDeclarationListFromNode (aNode);
+    return new CSSNodeToDomainObject (eVersion, aErrorHandler, bUseSourceLocation).createDeclarationListFromNode (aNode);
   }
 }

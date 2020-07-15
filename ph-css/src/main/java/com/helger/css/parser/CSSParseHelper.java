@@ -130,9 +130,7 @@ public final class CSSParseHelper
   public static String trimUrl (@Nonnull final CharSequence s)
   {
     // Extract from "url(...)"
-    final String sTrimmed = _trimBy (s,
-                                     CCSSValue.PREFIX_URL_OPEN.length (),
-                                     CCSSValue.SUFFIX_URL_CLOSE.length ()).trim ();
+    final String sTrimmed = _trimBy (s, CCSSValue.PREFIX_URL_OPEN.length (), CCSSValue.SUFFIX_URL_CLOSE.length ()).trim ();
     // Remove the trailing quotes (if any)
     final String sUnquoted = extractStringValue (sTrimmed);
     // Unescape all escaped chars

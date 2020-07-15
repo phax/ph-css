@@ -88,10 +88,7 @@ public class MainCreateSupportedCSSPropertiesFile
                      new Date ().toString ());
 
     body.appendElement ("div").appendElement ("a").setAttribute ("href", "#generic").appendText ("Generic properties");
-    body.appendElement ("div")
-        .appendElement ("a")
-        .setAttribute ("href", "#vendor")
-        .appendText ("Vendor specific properties");
+    body.appendElement ("div").appendElement ("a").setAttribute ("href", "#vendor").appendText ("Vendor specific properties");
 
     body.appendElement ("a").setAttribute ("name", "generic").appendText ("");
     body.appendElement ("h1").appendText ("Generic properties");
@@ -106,8 +103,7 @@ public class MainCreateSupportedCSSPropertiesFile
 
     IMicroElement tbody = table.appendElement ("tbody");
     int nIndex = 0;
-    for (final ECSSProperty eProperty : CollectionHelper.getSorted (ECSSProperty.values (),
-                                                                    IHasName.getComparatorName ()))
+    for (final ECSSProperty eProperty : CollectionHelper.getSorted (ECSSProperty.values (), IHasName.getComparatorName ()))
       if (!eProperty.isVendorSpecific ())
       {
         final Version eMinVersion = eProperty.getMinimumCSSVersion ().getVersion ();
@@ -205,9 +201,7 @@ public class MainCreateSupportedCSSPropertiesFile
                                           new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY)
                                                                   .setSerializeVersion (EXMLSerializeVersion.HTML));
 
-    SimpleFileIO.writeFile (new File ("src/main/resources/supported-css-properties.html"),
-                            sHTML,
-                            StandardCharsets.UTF_8);
+    SimpleFileIO.writeFile (new File ("src/main/resources/supported-css-properties.html"), sHTML, StandardCharsets.UTF_8);
     System.out.println ("Done");
   }
 }

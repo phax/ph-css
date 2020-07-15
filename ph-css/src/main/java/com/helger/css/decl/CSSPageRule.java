@@ -54,8 +54,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
 
   public CSSPageRule (@Nullable final String sPseudoPage)
   {
-    m_aSelectors = StringHelper.hasText (sPseudoPage) ? new CommonsArrayList <> (sPseudoPage)
-                                                      : new CommonsArrayList <> ();
+    m_aSelectors = StringHelper.hasText (sPseudoPage) ? new CommonsArrayList <> (sPseudoPage) : new CommonsArrayList <> ();
   }
 
   public CSSPageRule (@Nonnull final Iterable <String> aSelectors)

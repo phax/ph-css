@@ -42,8 +42,7 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
   private final CSSExpression m_aParamExpr;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberFunctionLike (@Nonnull @Nonempty final String sFuncName,
-                                        @Nonnull final CSSExpression aParamExpr)
+  public CSSSelectorMemberFunctionLike (@Nonnull @Nonempty final String sFuncName, @Nonnull final CSSExpression aParamExpr)
   {
     ValueEnforcer.notEmpty (sFuncName, "FunctionName");
     if (!sFuncName.endsWith ("("))

@@ -35,8 +35,7 @@ public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
   public DoNothingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx,
-                               @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
   {
     /* really do nothing :) */
   }

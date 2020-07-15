@@ -55,8 +55,7 @@ public class CSSPropertyEnumOrColor extends CSSPropertyEnum
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrColor (@Nonnull final ECSSProperty eProp,
-                                 @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnumOrColor (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
   }

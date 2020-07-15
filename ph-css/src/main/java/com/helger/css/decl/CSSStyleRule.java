@@ -81,8 +81,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   }
 
   @Nonnull
-  public CSSStyleRule addSelector (@Nonnegative final int nIndex,
-                                   @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  public CSSStyleRule addSelector (@Nonnegative final int nIndex, @Nonnull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
@@ -186,8 +185,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   }
 
   @Nonnull
-  public CSSStyleRule setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                             @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSStyleRule setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -218,8 +216,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   }
 
   @Nonnull
-  public String getSelectorsAsCSSString (@Nonnull final ICSSWriterSettings aSettings,
-                                         @Nonnegative final int nIndentLevel)
+  public String getSelectorsAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder ();

@@ -62,8 +62,7 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   }
 
   @Nonnull
-  public CSSExpressionMemberMath addMember (@Nonnegative final int nIndex,
-                                            @Nonnull final ICSSExpressionMathMember aMember)
+  public CSSExpressionMemberMath addMember (@Nonnegative final int nIndex, @Nonnull final ICSSExpressionMathMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "Member");
@@ -167,8 +166,6 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .getToString ();
+    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("sourceLocation", m_aSourceLocation).getToString ();
   }
 }

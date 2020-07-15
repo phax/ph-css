@@ -298,10 +298,7 @@ public final class CSSReader30SpecialFuncTest
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/bad_but_recoverable_and_browsercompliant/test-string.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
-                                                             aCharset,
-                                                             eVersion,
-                                                             aErrors.and (new LoggingCSSParseErrorHandler ()));
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion, aErrors.and (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aFile.getAbsolutePath (), aCSS);
   }
 
@@ -320,8 +317,7 @@ public final class CSSReader30SpecialFuncTest
                                                                    ECSSVersion.CSS30,
                                                                    new DoNothingCSSParseErrorHandler ());
         assertNotNull ("Failed to read with BOM " + eBOM, aCSS);
-        assertEquals (".class{color:red}.class{color:blue}",
-                      new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
+        assertEquals (".class{color:red}.class{color:blue}", new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
       }
     }
   }

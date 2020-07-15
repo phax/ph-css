@@ -103,9 +103,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   private final ECSSMetaUnit m_eMetaUnit;
   private final ECSSVersion m_eVersion;
 
-  private ECSSUnit (@Nonnull @Nonempty final String sName,
-                    @Nonnull final ECSSMetaUnit eMetaUnit,
-                    @Nonnull final ECSSVersion eVersion)
+  private ECSSUnit (@Nonnull @Nonempty final String sName, @Nonnull final ECSSMetaUnit eMetaUnit, @Nonnull final ECSSVersion eVersion)
   {
     m_sName = sName;
     m_eMetaUnit = eMetaUnit;

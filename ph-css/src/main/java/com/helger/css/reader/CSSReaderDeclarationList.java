@@ -230,9 +230,7 @@ public final class CSSReaderDeclarationList
    * @return <code>true</code> if the file can be parsed without error,
    *         <code>false</code> if not
    */
-  public static boolean isValidCSS (@Nonnull final File aFile,
-                                    @Nonnull final Charset aCharset,
-                                    @Nonnull final ECSSVersion eVersion)
+  public static boolean isValidCSS (@Nonnull final File aFile, @Nonnull final Charset aCharset, @Nonnull final ECSSVersion eVersion)
   {
     return isValidCSS (new FileSystemResource (aFile), aCharset, eVersion);
   }
@@ -361,8 +359,7 @@ public final class CSSReaderDeclarationList
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromReader (new NonBlockingStringReader (sCSS),
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler));
+                           new CSSReaderSettings ().setCSSVersion (eVersion).setCustomErrorHandler (aCustomErrorHandler));
   }
 
   @Nullable
@@ -371,8 +368,7 @@ public final class CSSReaderDeclarationList
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromReader (new NonBlockingStringReader (sCSS),
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+                           new CSSReaderSettings ().setCSSVersion (eVersion).setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   @Nullable
@@ -392,8 +388,7 @@ public final class CSSReaderDeclarationList
                                                  @Nonnull final Charset aCharset,
                                                  @Nonnull final ECSSVersion eVersion)
   {
-    return readFromReader (new FileSystemResource (aFile).getReader (aCharset),
-                           new CSSReaderSettings ().setCSSVersion (eVersion));
+    return readFromReader (new FileSystemResource (aFile).getReader (aCharset), new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   @Nullable
@@ -403,8 +398,7 @@ public final class CSSReaderDeclarationList
                                                  @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromReader (new FileSystemResource (aFile).getReader (aCharset),
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler));
+                           new CSSReaderSettings ().setCSSVersion (eVersion).setCustomErrorHandler (aCustomErrorHandler));
   }
 
   @Nullable
@@ -414,8 +408,7 @@ public final class CSSReaderDeclarationList
                                                  @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromReader (new FileSystemResource (aFile).getReader (aCharset),
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+                           new CSSReaderSettings ().setCSSVersion (eVersion).setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   @Nullable
@@ -554,8 +547,7 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final Charset aCharset,
                                                    @Nonnull final ECSSVersion eVersion)
   {
-    return readFromReader (StreamHelper.createReader (aIS, aCharset),
-                           new CSSReaderSettings ().setCSSVersion (eVersion));
+    return readFromReader (StreamHelper.createReader (aIS, aCharset), new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
   /**
@@ -582,8 +574,7 @@ public final class CSSReaderDeclarationList
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromReader (StreamHelper.createReader (aIS, aCharset),
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler));
+                           new CSSReaderSettings ().setCSSVersion (eVersion).setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -610,8 +601,7 @@ public final class CSSReaderDeclarationList
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromReader (StreamHelper.createReader (aIS, aCharset),
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+                           new CSSReaderSettings ().setCSSVersion (eVersion).setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -661,8 +651,7 @@ public final class CSSReaderDeclarationList
    *         otherwise.
    */
   @Nullable
-  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader,
-                                                   @Nonnull final ECSSVersion eVersion)
+  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader, @Nonnull final ECSSVersion eVersion)
   {
     return readFromReader (aReader, new CSSReaderSettings ().setCSSVersion (eVersion));
   }
@@ -686,9 +675,7 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromReader (aReader,
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomErrorHandler (aCustomErrorHandler));
+    return readFromReader (aReader, new CSSReaderSettings ().setCSSVersion (eVersion).setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -710,9 +697,7 @@ public final class CSSReaderDeclarationList
                                                    @Nonnull final ECSSVersion eVersion,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
-    return readFromReader (aReader,
-                           new CSSReaderSettings ().setCSSVersion (eVersion)
-                                                   .setCustomExceptionHandler (aCustomExceptionHandler));
+    return readFromReader (aReader, new CSSReaderSettings ().setCSSVersion (eVersion).setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -758,8 +743,7 @@ public final class CSSReaderDeclarationList
    * @since 3.8.2
    */
   @Nullable
-  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader,
-                                                   @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader, @Nonnull final CSSReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -779,10 +763,7 @@ public final class CSSReaderDeclarationList
       if (aRealParseExceptionHandler == null)
         aRealParseExceptionHandler = getDefaultParseExceptionHandler ();
 
-      final CSSNode aNode = _readStyleDeclaration (aCharStream,
-                                                   eVersion,
-                                                   aRealParseErrorHandler,
-                                                   aRealParseExceptionHandler);
+      final CSSNode aNode = _readStyleDeclaration (aCharStream, eVersion, aRealParseErrorHandler, aRealParseExceptionHandler);
 
       // Failed to parse content as CSS?
       if (aNode == null)

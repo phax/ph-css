@@ -50,8 +50,8 @@ public final class MainReadAllCSSOnDisc
   {
     int nFilesOK = 0;
     int nFilesError = 0;
-    final ICommonsOrderedMap <File, ParseException> aErrors = new CommonsLinkedHashMap<> ();
-    final Wrapper <File> aCurrentFile = new Wrapper<> ();
+    final ICommonsOrderedMap <File, ParseException> aErrors = new CommonsLinkedHashMap <> ();
+    final Wrapper <File> aCurrentFile = new Wrapper <> ();
     final ICSSParseExceptionCallback aHdl = ex -> aErrors.put (aCurrentFile.get (), ex);
     for (final File aFile : new FileSystemRecursiveIterator (new File ("/")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {

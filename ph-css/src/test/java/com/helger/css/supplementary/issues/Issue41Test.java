@@ -48,8 +48,7 @@ public final class Issue41Test
                        "  background-size: 652px 295px;\r\n" +
                        " }\r\n" +
                        "}";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (true);
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css, aSettings);
     assertNotNull (aCSS);
 
@@ -67,8 +66,7 @@ public final class Issue41Test
   public void testIssue2 ()
   {
     final String css = ".someRule {\r\n" + "   color:red;\r\n" + "}\r\n" + "\r\n" + "------- This is bad";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (true);
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css, aSettings);
     assertNotNull (aCSS);
 

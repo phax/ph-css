@@ -53,8 +53,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px", ECSSVersion.CSS30)
-                                                         .getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -71,8 +70,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed", ECSSVersion.CSS30)
-                                                         .getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed", ECSSVersion.CSS30).getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -125,8 +123,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.MARGIN);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px", ECSSVersion.CSS30)
-                                                         .getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -145,8 +142,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.MARGIN);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px 3px", ECSSVersion.CSS30)
-                                                         .getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px 3px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -205,8 +201,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.PADDING);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px", ECSSVersion.CSS30)
-                                                         .getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -225,8 +220,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.PADDING);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px 3px", ECSSVersion.CSS30)
-                                                         .getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px 3px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -310,8 +304,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_COLOR);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color: red", ECSSVersion.CSS30)
-                                                         .getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color: red", ECSSVersion.CSS30).getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final List <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);

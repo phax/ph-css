@@ -48,10 +48,7 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSupportsRule extends AbstractHasTopLevelRules implements
-                             ICSSTopLevelRule,
-                             ICSSSourceLocationAware,
-                             ICSSVersionAware
+public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware, ICSSVersionAware
 {
   private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
@@ -80,8 +77,7 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements
   }
 
   @Nonnull
-  public CSSSupportsRule addSupportConditionMember (@Nonnegative final int nIndex,
-                                                    @Nonnull final ICSSSupportsConditionMember aMember)
+  public CSSSupportsRule addSupportConditionMember (@Nonnegative final int nIndex, @Nonnull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");

@@ -34,8 +34,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> implements
-                                IHasCSSDeclarations <CSSDeclarationList>
+public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> implements IHasCSSDeclarations <CSSDeclarationList>
 {
   public CSSDeclarationList ()
   {}
@@ -48,8 +47,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   }
 
   @Nonnull
-  public CSSDeclarationList addDeclaration (@Nonnegative final int nIndex,
-                                            @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSDeclarationList addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
   {
     add (nIndex, aNewDeclaration);
     return this;
@@ -94,8 +92,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   }
 
   @Nonnull
-  public CSSDeclarationList setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                   @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSDeclarationList setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
   {
     set (nIndex, aNewDeclaration);
     return this;

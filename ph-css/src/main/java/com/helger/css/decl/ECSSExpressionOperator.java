@@ -31,7 +31,7 @@ import com.helger.css.ICSSWriterSettings;
  *
  * @author Philip Helger
  */
-public enum ECSSExpressionOperator implements ICSSExpressionMember,IHasName
+public enum ECSSExpressionOperator implements ICSSExpressionMember, IHasName
 {
   SLASH ("/"),
   COMMA (","),

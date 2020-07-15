@@ -217,8 +217,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
   public String toString ()
   {
     return new ToStringGenerator (this).append ("type", m_nType)
-                                       .appendIfNotNull ("parentType",
-                                                         m_aParent == null ? null : Integer.valueOf (m_aParent.m_nType))
+                                       .appendIfNotNull ("parentType", m_aParent == null ? null : Integer.valueOf (m_aParent.m_nType))
                                        .appendIfNotNull ("value", m_aValue)
                                        .appendIfNotNull ("text", m_sText)
                                        .append ("children#", m_aChildren == null ? 0 : m_aChildren.length)

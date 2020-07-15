@@ -80,9 +80,7 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    * @param sBlue
    *        Blue part.
    */
-  public CSSRGB (@Nonnull @Nonempty final String sRed,
-                 @Nonnull @Nonempty final String sGreen,
-                 @Nonnull @Nonempty final String sBlue)
+  public CSSRGB (@Nonnull @Nonempty final String sRed, @Nonnull @Nonempty final String sGreen, @Nonnull @Nonempty final String sBlue)
   {
     setRed (sRed);
     setGreen (sGreen);
@@ -226,9 +224,6 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("red", m_sRed)
-                                       .append ("green", m_sGreen)
-                                       .append ("blue", m_sBlue)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("red", m_sRed).append ("green", m_sGreen).append ("blue", m_sBlue).getToString ();
   }
 }

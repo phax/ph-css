@@ -55,10 +55,7 @@ public class CSSSourceArea implements Serializable
    * @param nEndColumnNumber
    *        Column number of the end. May be -1 if not such token is available.
    */
-  public CSSSourceArea (final int nBeginLineNumber,
-                        final int nBeginColumnNumber,
-                        final int nEndLineNumber,
-                        final int nEndColumnNumber)
+  public CSSSourceArea (final int nBeginLineNumber, final int nBeginColumnNumber, final int nEndLineNumber, final int nEndColumnNumber)
   {
     m_nBeginLineNumber = nBeginLineNumber;
     m_nBeginColumnNumber = nBeginColumnNumber;
@@ -121,15 +118,7 @@ public class CSSSourceArea implements Serializable
       return "(" + m_nBeginLineNumber + ":" + m_nBeginColumnNumber + ")";
 
     // Begin != end
-    return "(" +
-           m_nBeginLineNumber +
-           ":" +
-           m_nBeginColumnNumber +
-           "/" +
-           m_nEndLineNumber +
-           ":" +
-           m_nEndColumnNumber +
-           ")";
+    return "(" + m_nBeginLineNumber + ":" + m_nBeginColumnNumber + "/" + m_nEndLineNumber + ":" + m_nEndColumnNumber + ")";
   }
 
   @Override

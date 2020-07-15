@@ -43,11 +43,7 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSViewportRule implements
-                             ICSSTopLevelRule,
-                             IHasCSSDeclarations <CSSViewportRule>,
-                             ICSSVersionAware,
-                             ICSSSourceLocationAware
+public class CSSViewportRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSViewportRule>, ICSSVersionAware, ICSSSourceLocationAware
 {
   private final String m_sDeclaration;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -122,8 +118,7 @@ public class CSSViewportRule implements
   }
 
   @Nonnull
-  public CSSViewportRule setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSViewportRule setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;

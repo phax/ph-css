@@ -87,8 +87,7 @@ public final class CSSFilenameHelper
   @Nonnull
   public static String getMinifiedCSSFilename (@Nonnull final String sCSSFilename)
   {
-    ValueEnforcer.isTrue (isCSSFilename (sCSSFilename),
-                          "Passed file name '" + sCSSFilename + "' is not a CSS file name!");
+    ValueEnforcer.isTrue (isCSSFilename (sCSSFilename), "Passed file name '" + sCSSFilename + "' is not a CSS file name!");
     if (isMinifiedCSSFilename (sCSSFilename))
       return sCSSFilename;
     return StringHelper.trimEnd (sCSSFilename, CCSS.FILE_EXTENSION_CSS) + CCSS.FILE_EXTENSION_MIN_CSS;

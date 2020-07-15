@@ -38,8 +38,7 @@ public final class Issue38Test
   public void testIssue ()
   {
     final String css = "h1:lang(or) { line-height: 1.2em; }";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (true);
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
     final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
     assertEquals ("h1:lang(or){line-height:1.2em}", writer.getCSSAsString (cascadingStyleSheet));

@@ -34,9 +34,7 @@ import com.helger.css.ICSSWriteable;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>> extends
-                                     ICSSWriteable,
-                                     IGenericImplTrait <IMPLTYPE>
+public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>> extends ICSSWriteable, IGenericImplTrait <IMPLTYPE>
 {
   /**
    * Add a new declaration.

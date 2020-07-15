@@ -47,15 +47,12 @@ public class CSSPropertyCustomizerOpacity extends AbstractCSSPropertyCustomizer
     {
       final int nPerc = (int) (dValue * 100);
       return new CSSValueList (ECSSProperty.OPACITY,
-                               new ICSSProperty [] { new CSSPropertyFree (ECSSProperty.FILTER,
-                                                                          ECSSVendorPrefix.MICROSOFT),
+                               new ICSSProperty [] { new CSSPropertyFree (ECSSProperty.FILTER, ECSSVendorPrefix.MICROSOFT),
                                                      new CSSPropertyFree (ECSSProperty.FILTER),
                                                      aProperty.getClone (ECSSVendorPrefix.MOZILLA),
                                                      aProperty.getClone (ECSSVendorPrefix.WEBKIT),
                                                      aProperty },
-                               new String [] { "\"progid:DXImageTransform.Microsoft.Alpha(Opacity=" +
-                                               nPerc +
-                                               ")\"",
+                               new String [] { "\"progid:DXImageTransform.Microsoft.Alpha(Opacity=" + nPerc + ")\"",
                                                "alpha(opacity=" + nPerc + ")",
                                                sValue,
                                                sValue,

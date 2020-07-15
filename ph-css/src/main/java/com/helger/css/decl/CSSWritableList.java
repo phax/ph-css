@@ -102,8 +102,6 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> extends CommonsArr
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .appendIfNotNull ("SourceLocation", m_aSourceLocation)
-                            .getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
   }
 }

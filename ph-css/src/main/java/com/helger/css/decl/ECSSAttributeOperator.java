@@ -34,7 +34,7 @@ import com.helger.css.ICSSWriterSettings;
  *
  * @author Philip Helger
  */
-public enum ECSSAttributeOperator implements ICSSVersionAware,ICSSWriteable,IHasName
+public enum ECSSAttributeOperator implements ICSSVersionAware, ICSSWriteable, IHasName
 {
   EQUALS ("=", ECSSVersion.CSS21),
   INCLUDES ("~=", ECSSVersion.CSS21),

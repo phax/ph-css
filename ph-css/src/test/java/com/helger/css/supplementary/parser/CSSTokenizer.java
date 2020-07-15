@@ -65,8 +65,7 @@ public class CSSTokenizer
   }
 
   @Nonnull
-  private Charset _determineCharset (@Nonnull @WillNotClose final CSSInputStream aIS) throws IOException,
-                                                                                      CSSTokenizeException
+  private Charset _determineCharset (@Nonnull @WillNotClose final CSSInputStream aIS) throws IOException, CSSTokenizeException
   {
     // Determine charset
     // https://www.w3.org/TR/css-syntax-3/#input-byte-stream
@@ -97,8 +96,8 @@ public class CSSTokenizer
     return m_aFallbackEncoding;
   }
 
-  public void tokenize (@Nonnull @WillClose final InputStream aIS,
-                        @Nonnull final Consumer <CSSToken> aConsumer) throws IOException, CSSTokenizeException
+  public void tokenize (@Nonnull @WillClose final InputStream aIS, @Nonnull final Consumer <CSSToken> aConsumer) throws IOException,
+                                                                                                                 CSSTokenizeException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -127,8 +126,7 @@ public class CSSTokenizer
                                                                            : "read CP " +
                                                                              (nValue >= 0x20 &&
                                                                               nValue <= 0x7f ? Character.toString ((char) nValue)
-                                                                                             : "0x" +
-                                                                                               Integer.toHexString (nValue)) +
+                                                                                             : "0x" + Integer.toHexString (nValue)) +
                                                                              " as " +
                                                                              eTokenStartType));
           }

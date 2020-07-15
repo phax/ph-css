@@ -174,8 +174,6 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSV
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .getToString ();
+    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("sourceLocation", m_aSourceLocation).getToString ();
   }
 }

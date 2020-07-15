@@ -230,9 +230,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSHSL rhs = (CSSHSL) o;
-    return m_sHue.equals (rhs.m_sHue) &&
-           m_sSaturation.equals (rhs.m_sSaturation) &&
-           m_sLightness.equals (rhs.m_sLightness);
+    return m_sHue.equals (rhs.m_sHue) && m_sSaturation.equals (rhs.m_sSaturation) && m_sLightness.equals (rhs.m_sLightness);
   }
 
   @Override

@@ -78,9 +78,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @param bIsImportant
    *        <code>true</code> if it is important, <code>false</code> if not.
    */
-  public CSSDeclaration (@Nonnull @Nonempty final String sProperty,
-                         @Nonnull final CSSExpression aExpression,
-                         final boolean bIsImportant)
+  public CSSDeclaration (@Nonnull @Nonempty final String sProperty, @Nonnull final CSSExpression aExpression, final boolean bIsImportant)
   {
     setProperty (sProperty);
     setExpression (aExpression);
@@ -259,18 +257,13 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSDeclaration rhs = (CSSDeclaration) o;
-    return m_sProperty.equals (rhs.m_sProperty) &&
-           m_aExpression.equals (rhs.m_aExpression) &&
-           m_bIsImportant == rhs.m_bIsImportant;
+    return m_sProperty.equals (rhs.m_sProperty) && m_aExpression.equals (rhs.m_aExpression) && m_bIsImportant == rhs.m_bIsImportant;
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sProperty)
-                                       .append (m_aExpression)
-                                       .append (m_bIsImportant)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sProperty).append (m_aExpression).append (m_bIsImportant).getHashCode ();
   }
 
   @Override

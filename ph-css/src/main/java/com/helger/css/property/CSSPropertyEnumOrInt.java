@@ -55,8 +55,7 @@ public class CSSPropertyEnumOrInt extends CSSPropertyEnum
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrInt (@Nonnull final ECSSProperty eProp,
-                               @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnumOrInt (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
   }

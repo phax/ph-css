@@ -47,11 +47,7 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSFontFaceRule implements
-                             ICSSTopLevelRule,
-                             IHasCSSDeclarations <CSSFontFaceRule>,
-                             ICSSVersionAware,
-                             ICSSSourceLocationAware
+public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSFontFaceRule>, ICSSVersionAware, ICSSSourceLocationAware
 {
   private final String m_sDeclaration;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -131,8 +127,7 @@ public class CSSFontFaceRule implements
   }
 
   @Nonnull
-  public CSSFontFaceRule setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSFontFaceRule setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;

@@ -43,8 +43,7 @@ public final class Issue35Test
   {
     final String css = StreamHelper.getAllBytesAsString (new FileSystemResource ("src/test/resources/testfiles/css30/good/issue35.css"),
                                                          StandardCharsets.UTF_8);
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (false);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (false);
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
     assertNotNull (cascadingStyleSheet);
     final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));

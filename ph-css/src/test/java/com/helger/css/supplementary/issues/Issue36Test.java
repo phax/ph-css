@@ -38,11 +38,7 @@ public final class Issue36Test
   @Test
   public void testIssue ()
   {
-    final String css = "@media screen and (min-width: 768px) {.section {.\r\n" +
-                       "    padding: 40px\r\n" +
-                       "}\r\n" +
-                       "\r\n" +
-                       "}";
+    final String css = "@media screen and (min-width: 768px) {.section {.\r\n" + "    padding: 40px\r\n" + "}\r\n" + "\r\n" + "}";
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
                                                                 .setBrowserCompliantMode (true)
                                                                 .setCustomErrorHandler (new DoNothingCSSParseErrorHandler ());

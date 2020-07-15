@@ -216,8 +216,7 @@ public class CSSSourceLocation implements Serializable
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSourceLocation rhs = (CSSSourceLocation) o;
-    return EqualsHelper.equals (m_aFirstTokenArea, rhs.m_aFirstTokenArea) &&
-           EqualsHelper.equals (m_aLastTokenArea, rhs.m_aLastTokenArea);
+    return EqualsHelper.equals (m_aFirstTokenArea, rhs.m_aFirstTokenArea) && EqualsHelper.equals (m_aLastTokenArea, rhs.m_aLastTokenArea);
   }
 
   @Override

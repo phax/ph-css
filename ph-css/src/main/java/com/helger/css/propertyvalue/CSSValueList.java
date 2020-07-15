@@ -65,12 +65,10 @@ public class CSSValueList implements ICSSMultiValue
         break;
       }
     if (!bFound)
-      throw new IllegalArgumentException ("The property " +
-                                          eProperty +
-                                          " is not contained in an ICSSProperty instance!");
+      throw new IllegalArgumentException ("The property " + eProperty + " is not contained in an ICSSProperty instance!");
 
     m_eProperty = eProperty;
-    m_aValues = new CommonsArrayList<> (aProperties.length);
+    m_aValues = new CommonsArrayList <> (aProperties.length);
     for (int i = 0; i < aProperties.length; ++i)
       m_aValues.add (new CSSValue (aProperties[i], aValues[i], bIsImportant));
   }

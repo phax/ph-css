@@ -63,8 +63,7 @@ public final class MediaQueryTools
    *         empty or not parsable.
    */
   @Nullable
-  public static ICommonsList <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery,
-                                                                @Nonnull final ECSSVersion eVersion)
+  public static ICommonsList <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery, @Nonnull final ECSSVersion eVersion)
   {
     if (StringHelper.hasNoText (sMediaQuery))
       return null;
@@ -89,8 +88,7 @@ public final class MediaQueryTools
    * @return <code>true</code> if the CSS can be wrapped, <code>false</code> if
    *         it can't be wrapped.
    */
-  public static boolean canWrapInMediaQuery (@Nullable final CascadingStyleSheet aCSS,
-                                             final boolean bAllowNestedMediaQueries)
+  public static boolean canWrapInMediaQuery (@Nullable final CascadingStyleSheet aCSS, final boolean bAllowNestedMediaQueries)
   {
     if (aCSS == null)
       return false;

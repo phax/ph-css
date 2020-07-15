@@ -100,22 +100,14 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
   @Nonnull
   public CSSPropertyEnumOrNumber getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyEnumOrNumber (eProp,
-                                        getVendorPrefix (),
-                                        getCustomizer (),
-                                        m_bWithPercentage,
-                                        directGetEnumValues ());
+    return new CSSPropertyEnumOrNumber (eProp, getVendorPrefix (), getCustomizer (), m_bWithPercentage, directGetEnumValues ());
   }
 
   @Override
   @Nonnull
   public CSSPropertyEnumOrNumber getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
-    return new CSSPropertyEnumOrNumber (getProp (),
-                                        eVendorPrefix,
-                                        getCustomizer (),
-                                        m_bWithPercentage,
-                                        directGetEnumValues ());
+    return new CSSPropertyEnumOrNumber (getProp (), eVendorPrefix, getCustomizer (), m_bWithPercentage, directGetEnumValues ());
   }
 
   @Override

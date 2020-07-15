@@ -94,8 +94,7 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   }
 
   @Nonnull
-  public CSSSelectorMemberNot addSelector (@Nonnegative final int nIndex,
-                                           @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  public CSSSelectorMemberNot addSelector (@Nonnegative final int nIndex, @Nonnull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 

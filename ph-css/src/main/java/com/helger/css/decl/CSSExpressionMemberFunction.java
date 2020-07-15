@@ -37,10 +37,7 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSExpressionMemberFunction implements
-                                         ICSSExpressionMember,
-                                         ICSSSourceLocationAware,
-                                         ICSSExpressionMathMember
+public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSourceLocationAware, ICSSExpressionMathMember
 {
   private final String m_sFunctionName;
   private final CSSExpression m_aExpression;
@@ -74,8 +71,7 @@ public class CSSExpressionMemberFunction implements
    * @param aExpression
    *        Optional parameter expression. May be <code>null</code>.
    */
-  public CSSExpressionMemberFunction (@Nonnull @Nonempty final String sFunctionName,
-                                      @Nullable final CSSExpression aExpression)
+  public CSSExpressionMemberFunction (@Nonnull @Nonempty final String sFunctionName, @Nullable final CSSExpression aExpression)
   {
     ValueEnforcer.notEmpty (sFunctionName, "FunctionName");
     // expression may be null

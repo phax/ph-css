@@ -47,9 +47,7 @@ public class CSSValueMultiValue implements ICSSMultiValue
 {
   private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList <> ();
 
-  public CSSValueMultiValue (@Nonnull final ICSSProperty aProperty,
-                             @Nonnull @Nonempty final String [] aValues,
-                             final boolean bIsImportant)
+  public CSSValueMultiValue (@Nonnull final ICSSProperty aProperty, @Nonnull @Nonempty final String [] aValues, final boolean bIsImportant)
   {
     ValueEnforcer.notNull (aProperty, "Property");
     ValueEnforcer.notEmptyNoNullValue (aValues, "Values");

@@ -59,13 +59,8 @@ public final class CSSStyleRuleTest
     assertEquals (1, aSR.getDeclarationCount ());
     assertEquals ("color", aSR.getDeclarationAtIndex (0).getProperty ());
     assertEquals (1, aSR.getDeclarationAtIndex (0).getExpression ().getMemberCount ());
-    assertTrue (aSR.getDeclarationAtIndex (0)
-                   .getExpression ()
-                   .getMemberAtIndex (0) instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("red",
-                  ((CSSExpressionMemberTermSimple) aSR.getDeclarationAtIndex (0)
-                                                      .getExpression ()
-                                                      .getMemberAtIndex (0)).getValue ());
+    assertTrue (aSR.getDeclarationAtIndex (0).getExpression ().getMemberAtIndex (0) instanceof CSSExpressionMemberTermSimple);
+    assertEquals ("red", ((CSSExpressionMemberTermSimple) aSR.getDeclarationAtIndex (0).getExpression ().getMemberAtIndex (0)).getValue ());
 
     // Create the same rule by application
     final CSSStyleRule aCreated = new CSSStyleRule ();
@@ -108,10 +103,7 @@ public final class CSSStyleRuleTest
                                             .addMember (ECSSSelectorCombinator.GREATER)
                                             .addMember (new CSSSelectorSimpleMember (".active")));
     aCreated.addSelector (new CSSSelector ().addMember (new CSSSelectorSimpleMember ("a"))
-                                            .addMember (new CSSSelectorAttribute (null,
-                                                                                  "href",
-                                                                                  ECSSAttributeOperator.BEGINMATCH,
-                                                                                  "red")));
+                                            .addMember (new CSSSelectorAttribute (null, "href", ECSSAttributeOperator.BEGINMATCH, "red")));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 }

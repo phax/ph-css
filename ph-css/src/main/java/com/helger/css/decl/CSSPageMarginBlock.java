@@ -33,10 +33,7 @@ import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
-public class CSSPageMarginBlock implements
-                                ICSSPageRuleMember,
-                                ICSSVersionAware,
-                                IHasCSSDeclarations <CSSPageMarginBlock>
+public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware, IHasCSSDeclarations <CSSPageMarginBlock>
 {
   private String m_sPageMarginSymbol;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -58,8 +55,7 @@ public class CSSPageMarginBlock implements
   public CSSPageMarginBlock setPageMarginSymbol (@Nonnull @Nonempty final String sPargeMarginSymbol)
   {
     ValueEnforcer.notEmpty (sPargeMarginSymbol, "PargeMarginSymbol");
-    ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'),
-                          "Page margin symbol does not start with '@'!");
+    ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'), "Page margin symbol does not start with '@'!");
     m_sPageMarginSymbol = sPargeMarginSymbol;
     return this;
   }
@@ -72,8 +68,7 @@ public class CSSPageMarginBlock implements
   }
 
   @Nonnull
-  public CSSPageMarginBlock addDeclaration (@Nonnegative final int nIndex,
-                                            @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSPageMarginBlock addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
@@ -111,8 +106,7 @@ public class CSSPageMarginBlock implements
   }
 
   @Nonnull
-  public CSSPageMarginBlock setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                   @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSPageMarginBlock setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;

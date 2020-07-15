@@ -57,7 +57,7 @@ public final class Issue3Test
   private static void _print (@Nonnull final CascadingStyleSheet aCSS)
   {
     LOGGER.info (new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).setWriteHeaderText (false)
-                                                                                                       .getCSSAsString (aCSS));
+                                                                                                    .getCSSAsString (aCSS));
   }
 
   @Test

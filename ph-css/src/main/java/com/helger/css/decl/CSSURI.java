@@ -141,8 +141,6 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("URI", m_sURI)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("URI", m_sURI).appendIfNotNull ("sourceLocation", m_aSourceLocation).getToString ();
   }
 }

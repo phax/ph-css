@@ -32,7 +32,7 @@ import com.helger.css.ICSSWriterSettings;
  *
  * @author Philip Helger
  */
-public enum ECSSSupportsConditionOperator implements ICSSSupportsConditionMember,IHasName
+public enum ECSSSupportsConditionOperator implements ICSSSupportsConditionMember, IHasName
 {
   AND ("and"),
   OR ("or");

@@ -50,7 +50,5 @@ public interface ICSSPropertyCustomizer extends Serializable
    *         created.
    */
   @Nullable
-  ICSSValue createSpecialValue (@Nonnull ICSSProperty aProperty,
-                                @Nonnull @Nonempty String sValue,
-                                boolean bIsImportant);
+  ICSSValue createSpecialValue (@Nonnull ICSSProperty aProperty, @Nonnull @Nonempty String sValue, boolean bIsImportant);
 }

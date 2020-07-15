@@ -238,8 +238,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * @return this
    */
   @Nonnull
-  public CascadingStyleSheet addNamespaceRule (@Nonnegative final int nIndex,
-                                               @Nonnull final CSSNamespaceRule aNamespaceRule)
+  public CascadingStyleSheet addNamespaceRule (@Nonnegative final int nIndex, @Nonnull final CSSNamespaceRule aNamespaceRule)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aNamespaceRule, "NamespaceRule");
@@ -324,18 +323,13 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CascadingStyleSheet rhs = (CascadingStyleSheet) o;
-    return m_aImportRules.equals (rhs.m_aImportRules) &&
-           m_aNamespaceRules.equals (rhs.m_aNamespaceRules) &&
-           m_aRules.equals (rhs.m_aRules);
+    return m_aImportRules.equals (rhs.m_aImportRules) && m_aNamespaceRules.equals (rhs.m_aNamespaceRules) && m_aRules.equals (rhs.m_aRules);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aImportRules)
-                                       .append (m_aNamespaceRules)
-                                       .append (m_aRules)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_aImportRules).append (m_aNamespaceRules).append (m_aRules).getHashCode ();
   }
 
   @Override

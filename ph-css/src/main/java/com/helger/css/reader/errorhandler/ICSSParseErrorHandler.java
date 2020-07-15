@@ -81,9 +81,7 @@ public interface ICSSParseErrorHandler
    *         In case the error is fatal and should be propagated.
    * @see com.helger.css.reader.CSSReaderSettings#setBrowserCompliantMode(boolean)
    */
-  void onCSSBrowserCompliantSkip (@Nullable ParseException ex,
-                                  @Nonnull Token aFromToken,
-                                  @Nonnull Token aToToken) throws ParseException;
+  void onCSSBrowserCompliantSkip (@Nullable ParseException ex, @Nonnull Token aFromToken, @Nonnull Token aToToken) throws ParseException;
 
   /**
    * This method is invoked, when an illegal character is encountered (in
@@ -112,8 +110,7 @@ public interface ICSSParseErrorHandler
 
     return new ICSSParseErrorHandler ()
     {
-      public void onCSSParseError (@Nonnull final ParseException aParseEx,
-                                   @Nullable final Token aLastSkippedToken) throws ParseException
+      public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
       {
         aThis.onCSSParseError (aParseEx, aLastSkippedToken);
         aOther.onCSSParseError (aParseEx, aLastSkippedToken);

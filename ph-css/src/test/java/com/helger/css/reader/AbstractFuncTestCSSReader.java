@@ -51,9 +51,7 @@ public abstract class AbstractFuncTestCSSReader
   private final CSSReaderSettings m_aReaderSettings;
   private final CSSWriterSettings m_aWriterSettings;
 
-  protected AbstractFuncTestCSSReader (@Nonnull final Charset aCharset,
-                                       final boolean bDebug,
-                                       final boolean bBrowserCompliantMode)
+  protected AbstractFuncTestCSSReader (@Nonnull final Charset aCharset, final boolean bDebug, final boolean bBrowserCompliantMode)
   {
     m_bDebug = bDebug;
     m_aReaderSettings = new CSSReaderSettings ().setFallbackCharset (aCharset)
@@ -112,8 +110,7 @@ public abstract class AbstractFuncTestCSSReader
 
       // Write non-optimized and code-removed version and ensure it is not
       // null
-      sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)
-                                             .setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
+      sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false).setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
       assertNotNull (sKey, sCSS);
       assertNotNull (sKey, CSSReader.readFromStringReader (sCSS, m_aReaderSettings));
 

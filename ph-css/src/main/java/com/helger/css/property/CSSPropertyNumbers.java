@@ -113,23 +113,13 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
   @Nonnull
   public CSSPropertyNumbers getClone (@Nonnull final ECSSProperty eProp)
   {
-    return new CSSPropertyNumbers (eProp,
-                                   getVendorPrefix (),
-                                   getCustomizer (),
-                                   m_bWithPercentage,
-                                   m_nMinArgCount,
-                                   m_nMaxArgCount);
+    return new CSSPropertyNumbers (eProp, getVendorPrefix (), getCustomizer (), m_bWithPercentage, m_nMinArgCount, m_nMaxArgCount);
   }
 
   @Nonnull
   public CSSPropertyNumbers getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
-    return new CSSPropertyNumbers (getProp (),
-                                   eVendorPrefix,
-                                   getCustomizer (),
-                                   m_bWithPercentage,
-                                   m_nMinArgCount,
-                                   m_nMaxArgCount);
+    return new CSSPropertyNumbers (getProp (), eVendorPrefix, getCustomizer (), m_bWithPercentage, m_nMinArgCount, m_nMaxArgCount);
   }
 
   @Override
@@ -140,9 +130,7 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
     if (!super.equals (o))
       return false;
     final CSSPropertyNumbers rhs = (CSSPropertyNumbers) o;
-    return m_bWithPercentage == rhs.m_bWithPercentage &&
-           m_nMinArgCount == rhs.m_nMinArgCount &&
-           m_nMaxArgCount == rhs.m_nMaxArgCount;
+    return m_bWithPercentage == rhs.m_bWithPercentage && m_nMinArgCount == rhs.m_nMinArgCount && m_nMaxArgCount == rhs.m_nMaxArgCount;
   }
 
   @Override

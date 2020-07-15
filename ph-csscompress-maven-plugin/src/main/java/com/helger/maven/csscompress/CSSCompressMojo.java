@@ -358,8 +358,7 @@ public final class CSSCompressMojo extends AbstractMojo
   {
     // Compress the file only if the compressed file is older than the original
     // file. Note: lastModified on a non-existing file returns 0L
-    final File aCompressed = new File (FilenameHelper.getWithoutExtension (aChild.getAbsolutePath ()) +
-                                       targetFileExtension);
+    final File aCompressed = new File (FilenameHelper.getWithoutExtension (aChild.getAbsolutePath ()) + targetFileExtension);
     if (aCompressed.lastModified () < aChild.lastModified () || forceCompress)
     {
       if (verbose)
@@ -424,9 +423,7 @@ public final class CSSCompressMojo extends AbstractMojo
           _scanDirectory (aChild);
       }
       else
-        if (aChild.isFile () &&
-            CSSFilenameHelper.isCSSFilename (aChild.getName ()) &&
-            !_isAlreadyCompressed (aChild.getName ()))
+        if (aChild.isFile () && CSSFilenameHelper.isCSSFilename (aChild.getName ()) && !_isAlreadyCompressed (aChild.getName ()))
         {
           // We're ready to rumble!
           _compressCSSFile (aChild);
