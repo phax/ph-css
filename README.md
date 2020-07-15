@@ -299,6 +299,8 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v6.2.4 - work in progress
+    * Updated to ph-commons 9.4.6, leading to a more resilient DataURL parsing
 * v6.2.3 - 2020-05-14
     * Fixed an issue with the URL visitor not recursively descending into expression members ([issue #59](https://github.com/phax/ph-css/issues/59))
 * v6.2.2 - 2020-03-29
