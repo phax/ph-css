@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014-2020 Philip Helger (www.helger.com)
+# Copyright (C) 2014-2021 Philip Helger (www.helger.com)
 # philip[at]helger[dot]com
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
