@@ -60,13 +60,13 @@ public final class CSSReader30SpecialFuncTest
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
-    final File aFile = new File ("src/test/resources/testfiles/css30/good/issue57.css");
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/issue63.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
 
     final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
     assertNotNull (sCSS);
-    if (false)
+    if (true)
       LOGGER.info (sCSS);
   }
 
