@@ -99,7 +99,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
   @Nonnull
   private static String _unifyProperty (@Nonnull final String sProperty)
   {
-    return sProperty.toLowerCase (Locale.US);
+    return sProperty.toLowerCase (Locale.ROOT);
   }
 
   /**

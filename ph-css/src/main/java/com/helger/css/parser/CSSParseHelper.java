@@ -177,7 +177,7 @@ public final class CSSParseHelper
     if (c1 == '-' || c1 == '$' || c1 == '*')
     {
       if (nLength > 1 && Character.isDigit (c2))
-        throw new IllegalArgumentException ("Identifier may not start with a hyphen and a digit: " + aPattern);
+        throw new IllegalArgumentException ("Identifier may not start with a hyphen/dollar/star and a digit: " + aPattern);
     }
     else
     {
@@ -186,8 +186,11 @@ public final class CSSParseHelper
     }
 
     if (false)
+    {
+      // This is a CSS variable, so okay
       if (nLength > 1 && c1 == '-' && c2 == '-')
         throw new IllegalArgumentException ("Identifier may not start with two hyphens: " + aPattern);
+    }
 
     return aPattern.toString ();
   }

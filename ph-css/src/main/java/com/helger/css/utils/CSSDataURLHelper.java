@@ -89,7 +89,7 @@ public final class CSSDataURLHelper
     final String sRealURL = sURL.trim ();
     if (sRealURL.length () < PREFIX_DATA_URL.length ())
       return false;
-    return sRealURL.substring (0, PREFIX_DATA_URL.length ()).toLowerCase (Locale.US).equals (PREFIX_DATA_URL);
+    return sRealURL.substring (0, PREFIX_DATA_URL.length ()).toLowerCase (Locale.ROOT).equals (PREFIX_DATA_URL);
   }
 
   /**
