@@ -16,13 +16,13 @@ ph-css is used as a part of [Apache JMeter 3](https://github.com/apache/jmeter) 
 
 # Maven usage
 
-Add the following to your pom.xml to use this artifact:
+Add the following to your pom.xml to use this artifact, replacing `x.y.z` with the latest version:
 
 ```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-css</artifactId>
-  <version>6.2.3</version>
+  <version>x.y.z</version>
 </dependency>
 ```
 
@@ -218,11 +218,13 @@ It requires Java 8 and Maven 3 to run.
 
 ## Maven configuration
 
+Replace `x.y.z` with the version you want to use.
+
 ```xml
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
-        <version>6.2.3</version>
+        <version>x.y.z</version>
         <executions>
           <execution>
             <goals>
@@ -299,7 +301,7 @@ Configuration items are:
 
 ## News and noteworthy
 
-* v6.2.4 - work in progress
+* v6.2.4 - 2021-02-25
     * Updated to ph-commons 9.4.6, leading to a more resilient DataURL parsing
     * Fixed the ignorance of minimum and maximum parameter count in class `CSSPropertyColors`
     * Fixed the case-sensitivity of CSS variables declarations ([issue #63](https://github.com/phax/ph-css/issues/63))
