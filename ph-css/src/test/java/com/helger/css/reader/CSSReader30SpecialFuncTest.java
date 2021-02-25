@@ -64,7 +64,11 @@ public final class CSSReader30SpecialFuncTest
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
 
+    assertEquals ("--a", aCSS.getStyleRuleAtIndex (0).getDeclarationAtIndex (0).getProperty ());
     assertEquals ("background-color:var(--A)", aCSS.getStyleRuleAtIndex (0).getDeclarationAtIndex (1).getAsCSSString ());
+
+    assertEquals ("--A", aCSS.getStyleRuleAtIndex (1).getDeclarationAtIndex (0).getProperty ());
+    assertEquals ("background-color:var(--A)", aCSS.getStyleRuleAtIndex (1).getDeclarationAtIndex (1).getAsCSSString ());
 
     final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
     assertNotNull (sCSS);

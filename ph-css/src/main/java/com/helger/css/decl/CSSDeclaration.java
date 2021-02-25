@@ -99,6 +99,9 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
   @Nonnull
   private static String _unifyProperty (@Nonnull final String sProperty)
   {
+    // CSS variables are case sensitive (see issue 63)
+    if (sProperty.startsWith ("--"))
+      return sProperty;
     return sProperty.toLowerCase (Locale.ROOT);
   }
 
