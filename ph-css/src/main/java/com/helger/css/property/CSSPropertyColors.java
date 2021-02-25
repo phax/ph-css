@@ -68,6 +68,20 @@ public class CSSPropertyColors extends AbstractCSSProperty
   }
 
   @Override
+  @Nonnegative
+  public final int getMinimumArgumentCount ()
+  {
+    return m_nMinArgCount;
+  }
+
+  @Override
+  @Nonnegative
+  public final int getMaximumArgumentCount ()
+  {
+    return m_nMaxArgCount;
+  }
+
+  @Override
   @OverridingMethodsMustInvokeSuper
   public boolean isValidValue (@Nullable final String sValue)
   {
