@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnegative;
@@ -50,7 +49,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSDataURL implements Serializable
+public class CSSDataURL
 {
   private IMimeType m_aMimeType;
   private boolean m_bBase64Encoded;
@@ -144,7 +143,8 @@ public class CSSDataURL implements Serializable
       if (!aCharset.equals (CSSDataURLHelper.DEFAULT_CHARSET))
       {
         // append charset only if it is not the default charset
-        m_aMimeType = ((MimeType) aMimeType.getClone ()).addParameter (CMimeType.PARAMETER_NAME_CHARSET, aCharset.name ());
+        m_aMimeType = ((MimeType) aMimeType.getClone ()).addParameter (CMimeType.PARAMETER_NAME_CHARSET,
+                                                                       aCharset.name ());
       }
       else
       {
@@ -338,7 +338,8 @@ public class CSSDataURL implements Serializable
     {
       // Do not emit the default, if it is the optimized version
       if (!m_aMimeType.equals (CSSDataURLHelper.DEFAULT_MIME_TYPE))
-        if (m_aMimeType.getAsStringWithoutParameters ().equals (CSSDataURLHelper.DEFAULT_MIME_TYPE.getAsStringWithoutParameters ()))
+        if (m_aMimeType.getAsStringWithoutParameters ()
+                       .equals (CSSDataURLHelper.DEFAULT_MIME_TYPE.getAsStringWithoutParameters ()))
         {
           // Emit only the parameters
           aSB.append (m_aMimeType.getParametersAsString (CSSDataURLHelper.MIME_QUOTING));

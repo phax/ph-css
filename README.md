@@ -300,7 +300,9 @@ Configuration items are:
    Defaults to `UTF-8`.  
 
 ## News and noteworthy
-
+ 
+* v6.3.0 - work in progress
+    * Updated to ph-commons 10
 * v6.2.4 - 2021-02-25
     * Updated to ph-commons 9.4.6, leading to a more resilient DataURL parsing
     * Fixed the ignorance of minimum and maximum parameter count in class `CSSPropertyColors`

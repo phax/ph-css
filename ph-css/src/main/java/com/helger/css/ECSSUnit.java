@@ -18,11 +18,11 @@ package com.helger.css;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
@@ -103,7 +103,9 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   private final ECSSMetaUnit m_eMetaUnit;
   private final ECSSVersion m_eVersion;
 
-  private ECSSUnit (@Nonnull @Nonempty final String sName, @Nonnull final ECSSMetaUnit eMetaUnit, @Nonnull final ECSSVersion eVersion)
+  ECSSUnit (@Nonnull @Nonempty final String sName,
+            @Nonnull final ECSSMetaUnit eMetaUnit,
+            @Nonnull final ECSSVersion eVersion)
   {
     m_sName = sName;
     m_eMetaUnit = eMetaUnit;
@@ -176,7 +178,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   public String format (final double dValue)
   {
     // Always format with English locale ('.' as decimal separator)
-    final NumberFormat aNF = NumberFormat.getNumberInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
+    final NumberFormat aNF = NumberFormat.getNumberInstance (Locale.US);
     aNF.setMaximumFractionDigits (CCSS.CSS_MAXIMUM_FRACTION_DIGITS);
     aNF.setGroupingUsed (false);
     return aNF.format (dValue) + m_sName;
@@ -196,7 +198,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   public String format (@Nonnull final BigDecimal aValue)
   {
     // Always format with English locale ('.' as decimal separator)
-    final NumberFormat aNF = NumberFormat.getNumberInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
+    final NumberFormat aNF = NumberFormat.getNumberInstance (Locale.US);
     aNF.setMaximumFractionDigits (CCSS.CSS_MAXIMUM_FRACTION_DIGITS);
     aNF.setGroupingUsed (false);
     return aNF.format (aValue) + m_sName;
