@@ -76,18 +76,18 @@ import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 public final class CSSReader
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CSSReader.class);
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
 
   // Use the ThrowingCSSParseErrorHandler for maximum backward compatibility
   // Changed to LoggingCSSParseErrorHandler in v6.2.0
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static ICSSParseErrorHandler s_aDefaultParseErrorHandler = new LoggingCSSParseErrorHandler ();
 
   // Use the LoggingCSSParseExceptionHandler for maximum backward compatibility
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static ICSSParseExceptionCallback s_aDefaultParseExceptionHandler = new LoggingCSSParseExceptionCallback ();
 
-  @GuardedBy ("s_aRWLock")
+  @GuardedBy ("RW_LOCK")
   private static ICSSInterpretErrorHandler s_aDefaultInterpretErrorHandler = new LoggingCSSInterpretErrorHandler ();
 
   @PresentForCodeCoverage
@@ -104,7 +104,7 @@ public final class CSSReader
   @Nullable
   public static ICSSParseErrorHandler getDefaultParseErrorHandler ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aDefaultParseErrorHandler);
+    return RW_LOCK.readLockedGet ( () -> s_aDefaultParseErrorHandler);
   }
 
   /**
@@ -116,7 +116,7 @@ public final class CSSReader
    */
   public static void setDefaultParseErrorHandler (@Nullable final ICSSParseErrorHandler aDefaultParseErrorHandler)
   {
-    s_aRWLock.writeLockedGet ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
+    RW_LOCK.writeLockedGet ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
   }
 
   /**
@@ -128,7 +128,7 @@ public final class CSSReader
   @Nonnull
   public static ICSSParseExceptionCallback getDefaultParseExceptionHandler ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aDefaultParseExceptionHandler);
+    return RW_LOCK.readLockedGet ( () -> s_aDefaultParseExceptionHandler);
   }
 
   /**
@@ -143,7 +143,7 @@ public final class CSSReader
   {
     ValueEnforcer.notNull (aDefaultParseExceptionHandler, "DefaultParseExceptionHandler");
 
-    s_aRWLock.writeLockedGet ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
+    RW_LOCK.writeLockedGet ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
   }
 
   /**
@@ -154,7 +154,7 @@ public final class CSSReader
   @Nonnull
   public static ICSSInterpretErrorHandler getDefaultInterpretErrorHandler ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aDefaultInterpretErrorHandler);
+    return RW_LOCK.readLockedGet ( () -> s_aDefaultInterpretErrorHandler);
   }
 
   /**
@@ -169,7 +169,7 @@ public final class CSSReader
   {
     ValueEnforcer.notNull (aDefaultErrorHandler, "DefaultErrorHandler");
 
-    s_aRWLock.writeLockedGet ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
+    RW_LOCK.writeLockedGet ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
   }
 
   /**
