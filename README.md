@@ -301,7 +301,7 @@ Configuration items are:
 
 ## News and noteworthy
  
-* v6.3.0 - work in progress
+* v6.3.0 - 2021-03-22
     * Updated to ph-commons 10
 * v6.2.4 - 2021-02-25
     * Updated to ph-commons 9.4.6, leading to a more resilient DataURL parsing
