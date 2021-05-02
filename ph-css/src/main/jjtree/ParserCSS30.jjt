@@ -1307,22 +1307,24 @@ void pageSelectorList() #void : {}
 
 void pageMarginSymbol() : {}
 {
+/* start top left and go clockwise */
   ( <TOPLEFTCORNER_SYM>     { jjtThis.setText (token.image); }
   | <TOPLEFT_SYM>           { jjtThis.setText (token.image); }
   | <TOPCENTER_SYM>         { jjtThis.setText (token.image); }
   | <TOPRIGHT_SYM>          { jjtThis.setText (token.image); }
   | <TOPRIGHTCORNER_SYM>    { jjtThis.setText (token.image); }
-  | <BOTTOMLEFTCORNER_SYM>  { jjtThis.setText (token.image); }
-  | <BOTTOMLEFT_SYM>        { jjtThis.setText (token.image); }
-  | <BOTTOMCENTER_SYM>      { jjtThis.setText (token.image); }
-  | <BOTTOMRIGHT_SYM>       { jjtThis.setText (token.image); }
-  | <BOTTOMRIGHTCORNER_SYM> { jjtThis.setText (token.image); }
-  | <LEFTTOP_SYM>           { jjtThis.setText (token.image); }
-  | <LEFTMIDDLE_SYM>        { jjtThis.setText (token.image); }
-  | <LEFTBOTTOM_SYM>        { jjtThis.setText (token.image); }
   | <RIGHTTOP_SYM>          { jjtThis.setText (token.image); }
   | <RIGHTMIDDLE_SYM>       { jjtThis.setText (token.image); }
   | <RIGHTBOTTOM_SYM>       { jjtThis.setText (token.image); }
+  | <BOTTOMRIGHTCORNER_SYM> { jjtThis.setText (token.image); }
+  | <BOTTOMRIGHT_SYM>       { jjtThis.setText (token.image); }
+  | <BOTTOMCENTER_SYM>      { jjtThis.setText (token.image); }
+  | <BOTTOMLEFT_SYM>        { jjtThis.setText (token.image); }
+  | <BOTTOMLEFTCORNER_SYM>  { jjtThis.setText (token.image); }
+  | <LEFTBOTTOM_SYM>        { jjtThis.setText (token.image); }
+  | <LEFTMIDDLE_SYM>        { jjtThis.setText (token.image); }
+  | <LEFTTOP_SYM>           { jjtThis.setText (token.image); }
+/* Other symbols */  
   | <FOOTNOTE_SYM>          { jjtThis.setText (token.image); }
   )
 }

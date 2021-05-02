@@ -1,0 +1,189 @@
+/**
+ * Copyright (C) 2014-2021 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Source: https://www.w3.org/TR/css-gcpm-3/ */
+
+h1::before { content: 'Chapter ' counter(chapter); }
+h1 { string-set: header content(before) ':' content(text); }
+h1::after { content: '.'; }
+
+section { string-set: header attr(title) }
+
+@page {
+  size: 15cm 10cm;
+  margin: 1.5cm;
+   
+  @top-left {
+    content: "first: " string(heading, first); 
+  }
+  @top-center {
+    content: "start: " string(heading, start); 
+  }
+  @top-right {
+    content: "last: " string(heading, last); 
+  }
+}
+  
+h2 { string-set: heading content() }
+
+@page {
+/* Found not source for @top 
+  @top { content: element(header); }
+  */
+}
+
+h1 { position: running(header); }
+
+@page {
+ @top-center {
+   content: element(heading); 
+   }
+}
+   
+p.rh { 
+  position: running(heading); 
+}
+ 
+p.rh::before { 
+  content: counter(page) ' / '; 
+}
+
+h2 {
+  display: block;
+  running: chapter;
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+h2:running {
+  display: inline;
+  font-size: 11pt;
+  font-weight: normal;
+  font-variant: small-caps;
+  letter-spacing: 1pt;
+}
+
+@page {
+  @top-center {
+    content: element(chapter);
+    }
+  }
+  
+@page {
+  @footnote {
+    float: bottom;
+  }
+}
+
+span.footnote { float: footnote; }
+
+::footnote-call { content: counter(footnote, symbols('*', '†', '‡', '§')); }
+
+::footnote-marker { content: counter(footnote, symbols('*', '†', '‡', '§')) '. '; }
+
+@page {
+  counter-reset: footnote;
+  @footnote {  }
+}
+
+::footnote-call {
+  content: counter(footnote);
+  vertical-align: baseline;
+  font-size: 100%;
+  line-height: inherit;
+  font-variant-position: super;
+}
+
+::footnote-marker {
+  content: counter(footnote);
+}
+
+::footnote-marker::after {
+  content: '. ';
+}
+
+/* :nth not implemented yet
+@page :nth(1) {}
+@page :nth(2n) {}
+ */
+
+div { page: A }
+child { page: B }
+
+/* :nth not implemented yet
+@page :nth(5 of A) {} /* will select 5th page of every <div> *
+@page :nth(1 of B) {} /* will select first page of every <child> *
+@page :nth(5)   {} /* will select 5th page of document *
+ */
+
+a::after { content: target-counter(attr(href url), page) }
+
+.frontmatter a::after { content: leader('.') target-counter(attr(href url), page, lower-roman) }
+.bodymatter a::after { content: leader('.') target-counter(attr(href url), page, decimal) }
+
+a::after { content: ", in the chapter entitled " target-text(attr(href url)) }
+
+section h1 { bookmark-level: 1; }
+section section h1 { bookmark-level: 2; }
+section section section h1 { bookmark-level: 3; }
+
+h1 { 
+bookmark-label: content(text);
+bookmark-level: 1;
+}
+
+@page {
+  counter-reset: footnote;
+  @footnote {
+    counter-increment: footnote;
+    float: bottom;
+    column-span: all;
+    height: auto;
+  }
+}
+
+::footnote-marker {
+  content: counter(footnote);
+  list-style-position: inside;
+}
+
+::footnote-marker::after {
+  content: '. ';
+}
+
+::footnote-call {
+  content: counter(footnote);
+  vertical-align: super;
+  font-size: 65%;
+}
+
+@supports ( font-variant-position: super ) {
+  ::footnote-call {
+    content: counter(footnote);
+    vertical-align: baseline;
+    font-size: 100%;
+    line-height: inherit;
+    font-variant-position: super;
+  }
+}
+
+h1 { bookmark-level: 1 }
+h2 { bookmark-level: 2 }
+h3 { bookmark-level: 3 }
+h4 { bookmark-level: 4 }
+h5 { bookmark-level: 5 }
+h6 { bookmark-level: 6 }
+

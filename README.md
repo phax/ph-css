@@ -301,6 +301,8 @@ Configuration items are:
 
 ## News and noteworthy
  
+* v6.3.1 - work in progress
+    * Added support for `@footnote` in `@page` rules ([PR #64](https://github.com/phax/ph-css/pull/64)) - thanks @schmidti159
 * v6.3.0 - 2021-03-22
     * Updated to ph-commons 10
 * v6.2.4 - 2021-02-25

@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2014-2021 Daniel Schmidt
- * daniel[at]ad-schmidt[dot]de
+ * Copyright (C) 2014-2021 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  * limitations under the License.
  */
  /*
+ Provided by daniel[at]ad-schmidt[dot]de in https://github.com/phax/ph-css/pull/64
+ 
  Styling the @footnote area is part of the CSS Generated Content for Paged Media Module.
  Current W3C Working Draft: https://www.w3.org/TR/css-gcpm-3/
  */
