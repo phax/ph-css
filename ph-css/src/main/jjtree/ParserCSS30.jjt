@@ -230,6 +230,7 @@ TOKEN :
 | < RIGHTTOP_SYM:           "@right-top" >
 | < RIGHTMIDDLE_SYM:        "@right-middle" >
 | < RIGHTBOTTOM_SYM:        "@right-bottom" >
+| < FOOTNOTE_SYM:           "@footnote" >
 | < MEDIA_SYM: "@media" >
 | < FONTFACE_SYM: "@-" <IDENT> "-font-face"
                 | "@font-face" >
@@ -1322,6 +1323,7 @@ void pageMarginSymbol() : {}
   | <RIGHTTOP_SYM>          { jjtThis.setText (token.image); }
   | <RIGHTMIDDLE_SYM>       { jjtThis.setText (token.image); }
   | <RIGHTBOTTOM_SYM>       { jjtThis.setText (token.image); }
+  | <FOOTNOTE_SYM>          { jjtThis.setText (token.image); }
   )
 }
 
@@ -1557,6 +1559,7 @@ void unknownRule() : {}
   | <RIGHTTOP_SYM>          { jjtThis.setText (token.image); }
   | <RIGHTMIDDLE_SYM>       { jjtThis.setText (token.image); }
   | <RIGHTBOTTOM_SYM>       { jjtThis.setText (token.image); }
+  | <FOOTNOTE_SYM>          { jjtThis.setText (token.image); }
   )
   unknownRuleParameterList()
   unknownRuleBody()

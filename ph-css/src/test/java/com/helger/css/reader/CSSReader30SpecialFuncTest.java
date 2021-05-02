@@ -37,6 +37,8 @@ import com.helger.css.decl.CSSExpressionMemberFunction;
 import com.helger.css.decl.CSSExpressionMemberMath;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
+import com.helger.css.decl.CSSPageMarginBlock;
+import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSExpressionMember;
@@ -353,5 +355,26 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (2, aCSS.getStyleRuleAtIndex (10).getDeclarationCount ());
     assertEquals (2, aCSS.getStyleRuleAtIndex (11).getDeclarationCount ());
     assertEquals (1, aCSS.getStyleRuleAtIndex (12).getDeclarationCount ());
+  }
+
+
+  @Test
+  public void testReadFootnote ()
+  {
+    final ECSSVersion eVersion = ECSSVersion.CSS30;
+    final Charset aCharset = StandardCharsets.UTF_8;
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-footnotes.css");
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    assertNotNull (aCSS);
+    assertEquals (5, aCSS.getRuleCount ());
+    assertEquals (3, aCSS.getStyleRuleCount ());
+
+    // @page { @footnote { border-top: ..} }
+    assertTrue ( aCSS.getRuleAtIndex(1) instanceof CSSPageRule);
+    assertEquals ( 1, ((CSSPageRule) aCSS.getRuleAtIndex(1)).getMemberCount());
+    assertTrue ( ((CSSPageRule) aCSS.getRuleAtIndex(1)).getMemberAtIndex(0) instanceof CSSPageMarginBlock);
+    final CSSPageMarginBlock footnoteBlock = (CSSPageMarginBlock) ((CSSPageRule) aCSS.getRuleAtIndex(1)).getMemberAtIndex(0);
+    assertEquals ("@footnote", footnoteBlock.getPageMarginSymbol());
+    assertEquals ( 1, footnoteBlock.getDeclarationCount());
   }
 }
