@@ -233,7 +233,7 @@ final class CSSNodeToDomainObject
       final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
       for (int i = 0; i < nChildCount; ++i)
       {
-        final CSSNode aChildNode = aNode.jjtGetChild (0);
+        final CSSNode aChildNode = aNode.jjtGetChild (i);
         final CSSSelector aSelector = _createSelector (aChildNode);
         aNestedSelectors.add (aSelector);
       }

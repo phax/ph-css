@@ -1,0 +1,6 @@
+body:not(foo, .bar) {
+  background-color: red;
+}
+body:not(foo, .bar, .baz) {
+  background-color: red;
+}

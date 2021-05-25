@@ -301,6 +301,8 @@ Configuration items are:
 
 ## News and noteworthy
  
+* v6.3.2 - 2021-05-25
+    * Fixed an error with the negation parameters ([issue #66](https://github.com/phax/ph-css/issues/66)) - thanks @rockwotj
 * v6.3.1 - 2021-05-02
     * Added support for `@footnote` in `@page` rules ([PR #64](https://github.com/phax/ph-css/pull/64)) - thanks @schmidti159
 * v6.3.0 - 2021-03-22
