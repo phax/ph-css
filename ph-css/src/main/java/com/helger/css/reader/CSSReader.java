@@ -99,7 +99,7 @@ public final class CSSReader
   /**
    * @return The default CSS parse error handler. May be <code>null</code>. For
    *         backwards compatibility reasons this is be default an instance of
-   *         {@link ThrowingCSSParseErrorHandler}.
+   *         {@link LoggingCSSParseErrorHandler}.
    */
   @Nullable
   public static ICSSParseErrorHandler getDefaultParseErrorHandler ()
@@ -1079,9 +1079,9 @@ public final class CSSReader
   }
 
   /**
-   * Read the CSS from the passed {@link IReaderProvider}. If the CSS contains
-   * an explicit <code>@charset</code> rule, it is ignored and the charset used
-   * to create the reader is used instead!
+   * Read the CSS from the passed {@link IHasReader}. If the CSS contains an
+   * explicit <code>@charset</code> rule, it is ignored and the charset used to
+   * create the reader is used instead!
    *
    * @param aRP
    *        The reader provider to use. The reader is retrieved exactly once and
@@ -1111,9 +1111,9 @@ public final class CSSReader
   }
 
   /**
-   * Read the CSS from the passed {@link IReaderProvider}. If the CSS contains
-   * an explicit <code>@charset</code> rule, it is ignored and the charset used
-   * to create the reader is used instead! Also the fallback charset from the
+   * Read the CSS from the passed {@link IHasReader}. If the CSS contains an
+   * explicit <code>@charset</code> rule, it is ignored and the charset used to
+   * create the reader is used instead! Also the fallback charset from the
    * {@link CSSReaderSettings} is ignored.
    *
    * @param aRP
