@@ -823,9 +823,17 @@ final class CSSNodeToDomainObject
                     if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode, m_eVersion))
                       ret.addRule (_createSupportsRule (aChildNode));
                     else
-                      if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-                        m_aErrorHandler.onCSSInterpretationError ("Unsupported media-rule child: " +
-                                                                  ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+                      if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode, m_eVersion))
+                      {
+                        // Unknown rule indicates either
+                        // 1. a parsing error
+                        // 2. a non-standard rule
+                        ret.addRule (_createUnknownRule (aChildNode));
+                      }
+                      else
+                        if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
+                          m_aErrorHandler.onCSSInterpretationError ("Unsupported media-rule child: " +
+                                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
