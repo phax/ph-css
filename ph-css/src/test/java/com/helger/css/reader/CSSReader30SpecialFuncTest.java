@@ -37,7 +37,6 @@ import com.helger.css.decl.CSSExpressionMemberFunction;
 import com.helger.css.decl.CSSExpressionMemberMath;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
-import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSPageMarginBlock;
 import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSStyleRule;
@@ -356,32 +355,6 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (2, aCSS.getStyleRuleAtIndex (10).getDeclarationCount ());
     assertEquals (2, aCSS.getStyleRuleAtIndex (11).getDeclarationCount ());
     assertEquals (1, aCSS.getStyleRuleAtIndex (12).getDeclarationCount ());
-  }
-
-  @Test
-  public void testIssue67 ()
-  {
-    final String sCSS = "@media (max-width: 959px) {\r\n" +
-                        "  @-moz-document url-prefix() {\r\n" +
-                        "    .test-class {\r\n" +
-                        "      height: 1vh;\r\n" +
-                        "      visibility: collapse;\r\n" +
-                        "    }\r\n" +
-                        "  }\r\n" +
-                        "}\r\n" +
-                        "\r\n" +
-                        "@-moz-anything {}";
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS, ECSSVersion.LATEST);
-    assertNotNull (aCSS);
-    assertEquals (2, aCSS.getRuleCount ());
-    assertEquals (1, aCSS.getMediaRuleCount ());
-    assertEquals (1, aCSS.getUnknownRuleCount ());
-
-    final CSSMediaRule aMR = aCSS.getMediaRuleAtIndex (0);
-    assertNotNull (aMR);
-
-    assertEquals (1, aMR.getRuleCount ());
-    assertEquals (1, aMR.getUnknownRuleCount ());
   }
 
   @Test

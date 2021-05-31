@@ -301,6 +301,8 @@ Configuration items are:
 
 ## News and noteworthy
  
+* v6.3.3 - 2021-05-31
+    * Allow unknown rules inside `@media` rules ([issue #67](https://github.com/phax/ph-css/issues/67)) - thanks @yinkwok-ys
 * v6.3.2 - 2021-05-25
     * Fixed an error with the negation parameters ([issue #66](https://github.com/phax/ph-css/issues/66)) - thanks @rockwotj
 * v6.3.1 - 2021-05-02
