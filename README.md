@@ -301,6 +301,8 @@ Configuration items are:
 
 ## News and noteworthy
  
+* v6.3.4 - 2021-06-09
+    * Fixed an error with the shorthand expansion of `border-width` ([PR #68](https://github.com/phax/ph-css/pull/68)) - thanks @rockwotj
 * v6.3.3 - 2021-05-31
     * Allow unknown rules inside `@media` rules ([issue #67](https://github.com/phax/ph-css/issues/67)) - thanks @yinkwok-ys
 * v6.3.2 - 2021-05-25

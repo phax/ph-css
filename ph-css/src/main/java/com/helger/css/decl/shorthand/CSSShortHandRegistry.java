@@ -111,14 +111,14 @@ public final class CSSShortHandRegistry
                                                              new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_LEFT_COLOR,
                                                                                               ECSSColor.BLACK.getName ())));
     registerShortHandDescriptor (new CSSShortHandDescriptorWithAlignment (ECSSProperty.BORDER_WIDTH,
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_TOP_WIDTH,
-                                                                                              ECSSUnit.px (3)),
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_RIGHT_WIDTH,
-                                                                                              ECSSUnit.px (3)),
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_BOTTOM_WIDTH,
-                                                                                              ECSSUnit.px (3)),
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_LEFT_WIDTH,
-                                                                                              ECSSUnit.px (3))));
+                                                                          new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_TOP_WIDTH,
+                                                                                                           ECSSUnit.px (3)),
+                                                                          new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_RIGHT_WIDTH,
+                                                                                                           ECSSUnit.px (3)),
+                                                                          new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_BOTTOM_WIDTH,
+                                                                                                           ECSSUnit.px (3)),
+                                                                          new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_LEFT_WIDTH,
+                                                                                                           ECSSUnit.px (3))));
     registerShortHandDescriptor (new CSSShortHandDescriptorWithAlignment (ECSSProperty.BORDER_STYLE,
                                                                           new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_TOP_STYLE,
                                                                                                            CCSSValue.SOLID),
