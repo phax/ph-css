@@ -43,12 +43,12 @@ public enum ECSSSelectorCombinator implements ICSSSelectorMember, ICSSVersionAwa
   private final String m_sName;
   private final ECSSVersion m_eVersion;
 
-  private ECSSSelectorCombinator (@Nonnull @Nonempty final String sName)
+  ECSSSelectorCombinator (@Nonnull @Nonempty final String sName)
   {
     this (sName, ECSSVersion.CSS21);
   }
 
-  private ECSSSelectorCombinator (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
+  ECSSSelectorCombinator (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
   {
     m_sName = sName;
     m_eVersion = eVersion;

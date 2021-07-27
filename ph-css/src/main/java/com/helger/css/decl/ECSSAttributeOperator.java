@@ -46,7 +46,7 @@ public enum ECSSAttributeOperator implements ICSSVersionAware, ICSSWriteable, IH
   private final String m_sName;
   private final ECSSVersion m_eVersion;
 
-  private ECSSAttributeOperator (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
+  ECSSAttributeOperator (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
   {
     m_sName = sName;
     m_eVersion = eVersion;

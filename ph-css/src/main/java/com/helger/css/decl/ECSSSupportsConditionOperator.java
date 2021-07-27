@@ -39,7 +39,7 @@ public enum ECSSSupportsConditionOperator implements ICSSSupportsConditionMember
 
   private final String m_sName;
 
-  private ECSSSupportsConditionOperator (@Nonnull @Nonempty final String sName)
+  ECSSSupportsConditionOperator (@Nonnull @Nonempty final String sName)
   {
     m_sName = sName;
   }

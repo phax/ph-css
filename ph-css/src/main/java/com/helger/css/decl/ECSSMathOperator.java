@@ -42,7 +42,7 @@ public enum ECSSMathOperator implements ICSSExpressionMathMember, IHasName
   private final String m_sName;
   private final String m_sText;
 
-  private ECSSMathOperator (@Nonnull @Nonempty final String sName, @Nonnull @Nonempty final String sText)
+  ECSSMathOperator (@Nonnull @Nonempty final String sName, @Nonnull @Nonempty final String sText)
   {
     m_sName = sName;
     m_sText = sText;

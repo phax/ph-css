@@ -39,7 +39,7 @@ public enum ECSSExpressionOperator implements ICSSExpressionMember, IHasName
 
   private final String m_sName;
 
-  private ECSSExpressionOperator (@Nonnull @Nonempty final String sName)
+  ECSSExpressionOperator (@Nonnull @Nonempty final String sName)
   {
     m_sName = sName;
   }
