@@ -27,7 +27,7 @@ import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 
 /**
- * Test for issue 61: https://github.com/phax/ph-css/issues/67
+ * Test for issue 67: https://github.com/phax/ph-css/issues/67
  *
  * @author Philip Helger
  */
