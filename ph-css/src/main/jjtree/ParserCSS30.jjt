@@ -47,13 +47,13 @@ package com.helger.css.parser;
 
 public class ParserCSS30 extends com.helger.css.parser.AbstractParserCSS
 {
-  private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS30.class);
+  private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger (ParserCSS30.class);
 }
 PARSER_END(ParserCSS30)
 
 TOKEN_MGR_DECLS :
 {
-  private static final org.slf4j.Logger s_aLogger = org.slf4j.LoggerFactory.getLogger (ParserCSS30TokenManager.class);
+  private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger (ParserCSS30TokenManager.class);
 
   protected com.helger.css.reader.errorhandler.ICSSParseErrorHandler m_aCustomErrorHandler;
   protected boolean m_bBrowserCompliantMode = false;
@@ -335,7 +335,7 @@ SPECIAL_TOKEN :
     if (m_aCustomErrorHandler != null)
       m_aCustomErrorHandler.onIllegalCharacter (image.charAt (0));
     else
-      s_aLogger.error("Illegal character: " + image.toString());
+      LOGGER.error("Illegal character: " + image.toString());
   }
 }
 
@@ -345,7 +345,7 @@ private void errorUnexpectedRule(final String sRule, final String sMsg) #void
   if (m_aCustomErrorHandler != null)
     m_aCustomErrorHandler.onCSSUnexpectedRule (token, sRule, sMsg);
   else
-    s_aLogger.warn("[" + token.beginLine + ":" + token.beginColumn + "] Unexpected rule '" + sRule + "': " + sMsg);
+    LOGGER.warn("[" + token.beginLine + ":" + token.beginColumn + "] Unexpected rule '" + sRule + "': " + sMsg);
 }
 
 JAVACODE
@@ -363,13 +363,13 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
     }
   } while (!com.helger.commons.collection.ArrayHelper.contains (aKinds, tok.kind));
 
-  if (s_aLogger.isDebugEnabled ())
-    s_aLogger.debug ("Skipped until token " + tok.toString ());
+  if (LOGGER.isDebugEnabled ())
+    LOGGER.debug ("Skipped until token " + tok.toString ());
 
   if (m_aCustomErrorHandler != null)
     m_aCustomErrorHandler.onCSSParseError (ex, tok);
   else
-    s_aLogger.warn("CSS recoverable parse error", ex);
+    LOGGER.warn("CSS recoverable parse error", ex);
   return tok;
 }
 
