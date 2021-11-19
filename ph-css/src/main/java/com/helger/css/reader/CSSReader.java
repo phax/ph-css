@@ -116,7 +116,7 @@ public final class CSSReader
    */
   public static void setDefaultParseErrorHandler (@Nullable final ICSSParseErrorHandler aDefaultParseErrorHandler)
   {
-    RW_LOCK.writeLockedGet ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
+    RW_LOCK.writeLocked ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
   }
 
   /**
@@ -143,7 +143,7 @@ public final class CSSReader
   {
     ValueEnforcer.notNull (aDefaultParseExceptionHandler, "DefaultParseExceptionHandler");
 
-    RW_LOCK.writeLockedGet ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
+    RW_LOCK.writeLocked ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
   }
 
   /**
@@ -169,7 +169,7 @@ public final class CSSReader
   {
     ValueEnforcer.notNull (aDefaultErrorHandler, "DefaultErrorHandler");
 
-    RW_LOCK.writeLockedGet ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
+    RW_LOCK.writeLocked ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
   }
 
   /**
@@ -225,7 +225,7 @@ public final class CSSReader
       aCustomExceptionHandler.onException (ex);
       return null;
     }
-    catch (final Throwable ex)
+    catch (final Exception ex)
     {
       // As e.g. indicated by https://github.com/phax/ph-css/issues/9
       aCustomExceptionHandler.onException (new ParseException (ex.getMessage ()));
@@ -887,13 +887,7 @@ public final class CSSReader
 
       return aReadCharset;
     }
-    catch (final ParseException ex)
-    {
-      // Should never occur, as the parse exception is caught inside the
-      // grammar!
-      throw new IllegalStateException ("Failed to parse CSS charset definition", ex);
-    }
-    catch (final Throwable ex)
+    catch (final Exception ex)
     {
       // As e.g. indicated by https://github.com/phax/ph-css/issues/9
       throw new IllegalStateException ("Failed to parse CSS charset definition", ex);

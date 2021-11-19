@@ -60,6 +60,7 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
     throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (null, aFromToken, aToToken));
   }
 
+  @Override
   public void onIllegalCharacter (final char cIllegalChar)
   {
     // Cannot throw ParseException because this is handled in TokenManager

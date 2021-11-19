@@ -110,7 +110,7 @@ public final class CSSReaderDeclarationList
    */
   public static void setDefaultParseErrorHandler (@Nullable final ICSSParseErrorHandler aDefaultParseErrorHandler)
   {
-    RW_LOCK.writeLockedGet ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
+    RW_LOCK.writeLocked ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
   }
 
   /**
@@ -137,7 +137,7 @@ public final class CSSReaderDeclarationList
   {
     ValueEnforcer.notNull (aDefaultParseExceptionHandler, "DefaultParseExceptionHandler");
 
-    RW_LOCK.writeLockedGet ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
+    RW_LOCK.writeLocked ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
   }
 
   /**
@@ -163,7 +163,7 @@ public final class CSSReaderDeclarationList
   {
     ValueEnforcer.notNull (aDefaultErrorHandler, "DefaultErrorHandler");
 
-    RW_LOCK.writeLockedGet ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
+    RW_LOCK.writeLocked ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
   }
 
   /**

@@ -54,6 +54,7 @@ public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
     /* really do nothing :) */
   }
 
+  @Override
   public void onIllegalCharacter (final char cIllegalChar)
   {
     /* really do nothing :) */

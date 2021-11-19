@@ -132,6 +132,7 @@ public interface ICSSParseErrorHandler
         aOther.onCSSBrowserCompliantSkip (ex, aFromToken, aToToken);
       }
 
+      @Override
       public void onIllegalCharacter (final char cIllegalChar)
       {
         aThis.onIllegalCharacter (cIllegalChar);

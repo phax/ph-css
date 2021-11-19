@@ -57,7 +57,7 @@ public enum ECSSVendorPrefix implements IHasDisplayName
   private final String m_sPrefix;
   private final String m_sDisplayName;
 
-  private ECSSVendorPrefix (@Nonnull @Nonempty final String sPrefix, @Nonnull @Nonempty final String sDisplayName)
+  ECSSVendorPrefix (@Nonnull @Nonempty final String sPrefix, @Nonnull @Nonempty final String sDisplayName)
   {
     m_sPrefix = sPrefix;
     m_sDisplayName = sDisplayName;

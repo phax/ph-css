@@ -188,6 +188,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return "Found illegal character: " + cIllegalChar + " (0x" + StringHelper.getHexStringLeadingZero (cIllegalChar, 4) + ")";
   }
 
+  @Override
   public void onIllegalCharacter (final char cIllegalChar)
   {
     LOGGER.warn (createLoggingStringIllegalCharacter (cIllegalChar));

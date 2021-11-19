@@ -633,20 +633,20 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   private final ECSSVersion m_eVersion;
   private final EnumSet <ECSSSpecification> m_aSpecifications;
 
-  private ECSSProperty (@Nonnull @Nonempty final String sName)
+  ECSSProperty (@Nonnull @Nonempty final String sName)
   {
     // Custom properties are always there
     this (sName, ECSSVersion.CSS10, (ECSSSpecification []) null);
   }
 
-  private ECSSProperty (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
+  ECSSProperty (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
   {
     this (sName, eVersion, (ECSSSpecification []) null);
   }
 
-  private ECSSProperty (@Nonnull @Nonempty final String sName,
-                        @Nonnull final ECSSVersion eVersion,
-                        @Nullable final ECSSSpecification... aSpecifications)
+  ECSSProperty (@Nonnull @Nonempty final String sName,
+                @Nonnull final ECSSVersion eVersion,
+                @Nullable final ECSSSpecification... aSpecifications)
   {
     m_sName = sName;
     ECSSVendorPrefix eUsedVendorPrefix = null;

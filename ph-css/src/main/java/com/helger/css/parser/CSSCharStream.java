@@ -135,9 +135,9 @@ public final class CSSCharStream implements CharStream
         m_nBufpos -= m_nTokenBegin;
       }
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      throw new Error ("Something went wrong", t);
+      throw new Error ("Something went wrong", ex);
     }
 
     m_nBufsize += 2048;
@@ -162,7 +162,6 @@ public final class CSSCharStream implements CharStream
         throw new IOException ("EOF in JavaCharStream");
       }
       m_nMaxNextCharInd += i;
-      return;
     }
     catch (final IOException ex)
     {

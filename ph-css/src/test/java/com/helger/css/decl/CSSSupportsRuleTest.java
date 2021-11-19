@@ -102,7 +102,7 @@ public final class CSSSupportsRuleTest
 
     final ICSSSupportsConditionMember aMember1 = aSR.getSupportsConditionMemberAtIndex (1);
     assertTrue (aMember1 instanceof ECSSSupportsConditionOperator);
-    assertSame (aMember1, ECSSSupportsConditionOperator.AND);
+    assertSame (ECSSSupportsConditionOperator.AND, aMember1);
 
     final ICSSSupportsConditionMember aMember2 = aSR.getSupportsConditionMemberAtIndex (2);
     assertTrue (aMember2 instanceof CSSSupportsConditionNested);

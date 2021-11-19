@@ -17,8 +17,6 @@
 package com.helger.css.utils;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
@@ -31,7 +29,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -52,9 +49,9 @@ import com.helger.commons.string.ToStringGenerator;
 public class CSSDataURL
 {
   private IMimeType m_aMimeType;
-  private boolean m_bBase64Encoded;
-  private byte [] m_aContent;
-  private Charset m_aCharset;
+  private final boolean m_bBase64Encoded;
+  private final byte [] m_aContent;
+  private final Charset m_aCharset;
   private String m_sContent;
 
   /**
@@ -143,8 +140,7 @@ public class CSSDataURL
       if (!aCharset.equals (CSSDataURLHelper.DEFAULT_CHARSET))
       {
         // append charset only if it is not the default charset
-        m_aMimeType = ((MimeType) aMimeType.getClone ()).addParameter (CMimeType.PARAMETER_NAME_CHARSET,
-                                                                       aCharset.name ());
+        m_aMimeType = ((MimeType) aMimeType.getClone ()).addParameter (CMimeType.PARAMETER_NAME_CHARSET, aCharset.name ());
       }
       else
       {
@@ -167,25 +163,6 @@ public class CSSDataURL
     m_aContent = ArrayHelper.getCopy (aContent);
     m_aCharset = aCharset;
     m_sContent = sContent;
-  }
-
-  private void writeObject (@Nonnull final ObjectOutputStream out) throws IOException
-  {
-    out.writeObject (m_aMimeType);
-    out.writeBoolean (m_bBase64Encoded);
-    out.writeObject (m_aContent);
-    out.writeUTF (m_aCharset.name ());
-    out.writeObject (m_sContent);
-  }
-
-  private void readObject (@Nonnull final ObjectInputStream in) throws IOException, ClassNotFoundException
-  {
-    m_aMimeType = (IMimeType) in.readObject ();
-    m_bBase64Encoded = in.readBoolean ();
-    m_aContent = (byte []) in.readObject ();
-    final String sCharsetName = in.readUTF ();
-    m_aCharset = CharsetHelper.getCharsetFromName (sCharsetName);
-    m_sContent = (String) in.readObject ();
   }
 
   /**
@@ -338,8 +315,7 @@ public class CSSDataURL
     {
       // Do not emit the default, if it is the optimized version
       if (!m_aMimeType.equals (CSSDataURLHelper.DEFAULT_MIME_TYPE))
-        if (m_aMimeType.getAsStringWithoutParameters ()
-                       .equals (CSSDataURLHelper.DEFAULT_MIME_TYPE.getAsStringWithoutParameters ()))
+        if (m_aMimeType.getAsStringWithoutParameters ().equals (CSSDataURLHelper.DEFAULT_MIME_TYPE.getAsStringWithoutParameters ()))
         {
           // Emit only the parameters
           aSB.append (m_aMimeType.getParametersAsString (CSSDataURLHelper.MIME_QUOTING));

@@ -265,14 +265,14 @@ public enum ECSSSpecification implements IHasID <String>
   private final ECSSSpecificationStatus m_eStatus;
   private final String m_sHandledURL;
 
-  private ECSSSpecification (@Nonnull @Nonempty final String sID, @Nonnull final ECSSSpecificationStatus eStatus)
+  ECSSSpecification (@Nonnull @Nonempty final String sID, @Nonnull final ECSSSpecificationStatus eStatus)
   {
     this (sID, eStatus, null);
   }
 
-  private ECSSSpecification (@Nonnull @Nonempty final String sID,
-                             @Nonnull final ECSSSpecificationStatus eStatus,
-                             @Nullable final String sHandledURL)
+  ECSSSpecification (@Nonnull @Nonempty final String sID,
+                     @Nonnull final ECSSSpecificationStatus eStatus,
+                     @Nullable final String sHandledURL)
   {
     m_sID = sID;
     m_eStatus = eStatus;

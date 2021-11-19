@@ -42,7 +42,7 @@ public enum ECSSVersion implements IHasVersion
 
   private final Version m_aVersion;
 
-  private ECSSVersion (@Nonnull final Version aVersion)
+  ECSSVersion (@Nonnull final Version aVersion)
   {
     m_aVersion = aVersion;
   }
