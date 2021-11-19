@@ -46,7 +46,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
   private final int m_nType;
   private CSSNode m_aParent;
   private CSSNode [] m_aChildren;
-  private Object m_aValue;
+  private transient Object m_aValue;
   private String m_sText;
   private Token m_aFirstToken;
   private Token m_aLastToken;

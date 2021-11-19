@@ -44,7 +44,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> extends CommonsArr
                              ICSSSourceLocationAware,
                              ICSSWriteable
 {
-  private CSSSourceLocation m_aSourceLocation;
+  private transient CSSSourceLocation m_aSourceLocation;
 
   public CSSWritableList ()
   {}

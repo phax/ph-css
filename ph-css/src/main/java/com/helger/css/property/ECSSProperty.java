@@ -19,6 +19,7 @@ package com.helger.css.property;
 import static com.helger.css.ECSSSpecification.*;
 
 import java.util.EnumSet;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -639,11 +640,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
     this (sName, ECSSVersion.CSS10, (ECSSSpecification []) null);
   }
 
-  ECSSProperty (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
-  {
-    this (sName, eVersion, (ECSSSpecification []) null);
-  }
-
   ECSSProperty (@Nonnull @Nonempty final String sName,
                 @Nonnull final ECSSVersion eVersion,
                 @Nullable final ECSSSpecification... aSpecifications)
@@ -699,7 +695,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
    */
   @Nonnull
   @ReturnsMutableCopy
-  public EnumSet <ECSSSpecification> getAllSpecifications ()
+  public Set <ECSSSpecification> getAllSpecifications ()
   {
     return CollectionHelper.newEnumSet (ECSSSpecification.class, m_aSpecifications);
   }

@@ -34,7 +34,7 @@ import com.helger.css.writer.CSSWriter;
 public final class WikiCreateFontFaceRuleFuncTest
 {
   @Test
-  public void test ()
+  public void testBasic ()
   {
     final CascadingStyleSheet aCSS = WikiCreateFontFaceRule.createFontFace ("Your \"typeface\"", "local font name", "folder/", "myfont");
     final String sCSS = new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS);

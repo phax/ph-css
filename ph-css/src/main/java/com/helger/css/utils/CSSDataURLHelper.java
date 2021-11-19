@@ -234,7 +234,6 @@ public final class CSSDataURLHelper
       sContent = null;
     }
 
-    final CSSDataURL ret = new CSSDataURL (aMimeType, bBase64EncodingUsed, aContent, aCharset, sContent);
-    return ret;
+    return new CSSDataURL (aMimeType, bBase64EncodingUsed, aContent, aCharset, sContent);
   }
 }

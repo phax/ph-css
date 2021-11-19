@@ -29,7 +29,7 @@ import org.junit.Test;
 public final class CCSSPropertiesTest
 {
   @Test
-  public void test ()
+  public void testBasic ()
   {
     assertTrue (CCSSProperties.BORDER_LEFT_STYLE.isValidValue ("none"));
     assertFalse (CCSSProperties.BORDER_LEFT_STYLE.isValidValue ("any"));
