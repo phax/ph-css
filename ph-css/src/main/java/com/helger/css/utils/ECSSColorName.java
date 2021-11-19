@@ -65,7 +65,7 @@ public enum ECSSColorName implements ICSSNamedColor
 
   private final String m_sName;
 
-  private ECSSColorName (@Nonnull @Nonempty final String sName)
+  ECSSColorName (@Nonnull @Nonempty final String sName)
   {
     m_sName = sName;
   }

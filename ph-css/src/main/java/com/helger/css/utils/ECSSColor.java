@@ -192,10 +192,10 @@ public enum ECSSColor implements ICSSNamedColor
   private final float m_fSaturation;
   private final float m_fLightness;
 
-  private ECSSColor (@Nonnull @Nonempty final String sName,
-                     @Nonnegative final int nRed,
-                     @Nonnegative final int nGreen,
-                     @Nonnegative final int nBlue)
+  ECSSColor (@Nonnull @Nonempty final String sName,
+             @Nonnegative final int nRed,
+             @Nonnegative final int nGreen,
+             @Nonnegative final int nBlue)
   {
     ValueEnforcer.isBetweenInclusive (nRed, "Red", CSSColorHelper.RGB_MIN, CSSColorHelper.RGB_MAX);
     ValueEnforcer.isBetweenInclusive (nGreen, "Green", CSSColorHelper.RGB_MIN, CSSColorHelper.RGB_MAX);

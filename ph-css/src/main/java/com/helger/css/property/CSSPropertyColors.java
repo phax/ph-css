@@ -23,7 +23,9 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.regex.RegExHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
@@ -115,5 +117,31 @@ public class CSSPropertyColors extends AbstractCSSProperty
   public CSSPropertyColors getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyColors (getProp (), eVendorPrefix, getCustomizer (), getMinimumArgumentCount (), getMaximumArgumentCount ());
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (!super.equals (o))
+      return false;
+    final CSSPropertyColors rhs = (CSSPropertyColors) o;
+    return m_nMinArgCount == rhs.m_nMinArgCount && m_nMaxArgCount == rhs.m_nMaxArgCount;
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_nMinArgCount).append (m_nMaxArgCount).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("MinArgCount", m_nMinArgCount)
+                            .append ("MaxArgCount", m_nMaxArgCount)
+                            .getToString ();
   }
 }

@@ -23,7 +23,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsEnumMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -45,7 +45,7 @@ public final class CSSShortHandRegistry
 {
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK")
-  private static final ICommonsMap <ECSSProperty, CSSShortHandDescriptor> s_aMap = new CommonsHashMap <> ();
+  private static final ICommonsMap <ECSSProperty, CSSShortHandDescriptor> MAP = new CommonsEnumMap <> (ECSSProperty.class);
 
   static
   {
@@ -180,9 +180,9 @@ public final class CSSShortHandRegistry
 
     final ECSSProperty eProperty = aDescriptor.getProperty ();
     RW_LOCK.writeLocked ( () -> {
-      if (s_aMap.containsKey (eProperty))
+      if (MAP.containsKey (eProperty))
         throw new IllegalStateException ("A short hand for property '" + eProperty.getName () + "' is already registered!");
-      s_aMap.put (eProperty, aDescriptor);
+      MAP.put (eProperty, aDescriptor);
     });
   }
 
@@ -190,7 +190,7 @@ public final class CSSShortHandRegistry
   @ReturnsMutableCopy
   public static ICommonsSet <ECSSProperty> getAllShortHandProperties ()
   {
-    return RW_LOCK.readLockedGet (s_aMap::copyOfKeySet);
+    return RW_LOCK.readLockedGet (MAP::copyOfKeySet);
   }
 
   public static boolean isShortHandProperty (@Nullable final ECSSProperty eProperty)
@@ -198,7 +198,7 @@ public final class CSSShortHandRegistry
     if (eProperty == null)
       return false;
 
-    return RW_LOCK.readLockedBoolean ( () -> s_aMap.containsKey (eProperty));
+    return RW_LOCK.readLockedBoolean ( () -> MAP.containsKey (eProperty));
   }
 
   @Nullable
@@ -207,6 +207,6 @@ public final class CSSShortHandRegistry
     if (eProperty == null)
       return null;
 
-    return RW_LOCK.readLockedGet ( () -> s_aMap.get (eProperty));
+    return RW_LOCK.readLockedGet ( () -> MAP.get (eProperty));
   }
 }

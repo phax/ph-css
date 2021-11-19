@@ -73,7 +73,7 @@ public enum ECSSMedium implements ICSSVersionAware, IHasName
   private final String m_sName;
   private final ECSSVersion m_eVersion;
 
-  private ECSSMedium (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
+  ECSSMedium (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
   {
     m_sName = sName;
     m_eVersion = eVersion;

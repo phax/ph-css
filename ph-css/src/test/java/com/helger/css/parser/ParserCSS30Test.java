@@ -37,7 +37,7 @@ import com.helger.css.reader.CSSReader;
 public final class ParserCSS30Test extends AbstractCSS30TestCase
 {
   @Test
-  public void test1 () throws ParseException
+  public void testBasic1 () throws ParseException
   {
     final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (new CSSCharStream (new NonBlockingStringReader (CSS1)));
     final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
@@ -47,7 +47,7 @@ public final class ParserCSS30Test extends AbstractCSS30TestCase
   }
 
   @Test
-  public void test2 () throws ParseException
+  public void testBasic2 () throws ParseException
   {
     final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (new CSSCharStream (new NonBlockingStringReader (CSS2)));
     final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);

@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 public interface ICSSColor extends Serializable
 {
   /**
-   * @return The texttual representation of the color.
+   * @return The textual representation of the color.
    */
   @Nonnull
   String getAsString ();

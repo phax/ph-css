@@ -48,7 +48,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    *
    * @author Philip Helger
    */
-  public static enum EModifier
+  public enum EModifier
   {
     NONE (""),
     NOT ("not "),
@@ -56,7 +56,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
     private final String m_sText;
 
-    private EModifier (@Nonnull final String sText)
+    EModifier (@Nonnull final String sText)
     {
       m_sText = sText;
     }

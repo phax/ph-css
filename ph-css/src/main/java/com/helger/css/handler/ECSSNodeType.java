@@ -122,7 +122,7 @@ public enum ECSSNodeType
    *        The ID of the node in the 3.0 parser or {@link CGlobal#ILLEGAL_UINT}
    *        if this node is not present in CSS 3.0.
    */
-  private ECSSNodeType (final int nParserType30)
+  ECSSNodeType (final int nParserType30)
   {
     m_nParserType30 = nParserType30;
   }

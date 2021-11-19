@@ -16,7 +16,6 @@
  */
 package com.helger.css.decl;
 
-import java.io.Serializable;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -37,7 +36,7 @@ import com.helger.commons.state.EChange;
  * @since 5.0.5
  */
 @NotThreadSafe
-public abstract class AbstractHasTopLevelRules implements Serializable
+public abstract class AbstractHasTopLevelRules
 {
   protected final ICommonsList <ICSSTopLevelRule> m_aRules = new CommonsArrayList <> ();
 
@@ -241,7 +240,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
    */
   public boolean hasStyleRules ()
   {
-    return m_aRules.containsAny (r -> r instanceof CSSStyleRule);
+    return m_aRules.containsAny (CSSStyleRule.class::isInstance);
   }
 
   /**
@@ -253,7 +252,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nonnegative
   public int getStyleRuleCount ()
   {
-    return m_aRules.getCount (r -> r instanceof CSSStyleRule);
+    return m_aRules.getCount (CSSStyleRule.class::isInstance);
   }
 
   /**
@@ -268,7 +267,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nullable
   public CSSStyleRule getStyleRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRules.getAtIndexMapped (r -> r instanceof CSSStyleRule, nIndex, r -> (CSSStyleRule) r);
+    return m_aRules.getAtIndexMapped (CSSStyleRule.class::isInstance, nIndex, CSSStyleRule.class::cast);
   }
 
   /**
@@ -281,7 +280,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <CSSStyleRule> getAllStyleRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSStyleRule, r -> (CSSStyleRule) r);
+    return m_aRules.getAllMapped (CSSStyleRule.class::isInstance, CSSStyleRule.class::cast);
   }
 
   /**
@@ -293,7 +292,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
    */
   public boolean hasPageRules ()
   {
-    return m_aRules.containsAny (r -> r instanceof CSSPageRule);
+    return m_aRules.containsAny (CSSPageRule.class::isInstance);
   }
 
   /**
@@ -305,7 +304,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nonnegative
   public int getPageRuleCount ()
   {
-    return m_aRules.getCount (r -> r instanceof CSSPageRule);
+    return m_aRules.getCount (CSSPageRule.class::isInstance);
   }
 
   /**
@@ -320,7 +319,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nullable
   public CSSPageRule getPageRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRules.getAtIndexMapped (r -> r instanceof CSSPageRule, nIndex, r -> (CSSPageRule) r);
+    return m_aRules.getAtIndexMapped (CSSPageRule.class::isInstance, nIndex, CSSPageRule.class::cast);
   }
 
   /**
@@ -334,7 +333,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <CSSPageRule> getAllPageRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSPageRule, r -> (CSSPageRule) r);
+    return m_aRules.getAllMapped (CSSPageRule.class::isInstance, CSSPageRule.class::cast);
   }
 
   /**
@@ -346,7 +345,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
    */
   public boolean hasMediaRules ()
   {
-    return m_aRules.containsAny (r -> r instanceof CSSMediaRule);
+    return m_aRules.containsAny (CSSMediaRule.class::isInstance);
   }
 
   /**
@@ -358,7 +357,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nonnegative
   public int getMediaRuleCount ()
   {
-    return m_aRules.getCount (r -> r instanceof CSSMediaRule);
+    return m_aRules.getCount (CSSMediaRule.class::isInstance);
   }
 
   /**
@@ -373,7 +372,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nullable
   public CSSMediaRule getMediaRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRules.getAtIndexMapped (r -> r instanceof CSSMediaRule, nIndex, r -> (CSSMediaRule) r);
+    return m_aRules.getAtIndexMapped (CSSMediaRule.class::isInstance, nIndex, CSSMediaRule.class::cast);
   }
 
   /**
@@ -387,7 +386,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaRule> getAllMediaRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSMediaRule, r -> (CSSMediaRule) r);
+    return m_aRules.getAllMapped (CSSMediaRule.class::isInstance, CSSMediaRule.class::cast);
   }
 
   /**
@@ -399,7 +398,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
    */
   public boolean hasFontFaceRules ()
   {
-    return m_aRules.containsAny (r -> r instanceof CSSFontFaceRule);
+    return m_aRules.containsAny (CSSFontFaceRule.class::isInstance);
   }
 
   /**
@@ -412,7 +411,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nonnegative
   public int getFontFaceRuleCount ()
   {
-    return m_aRules.getCount (r -> r instanceof CSSFontFaceRule);
+    return m_aRules.getCount (CSSFontFaceRule.class::isInstance);
   }
 
   /**
@@ -427,7 +426,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nullable
   public CSSFontFaceRule getFontFaceRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRules.getAtIndexMapped (r -> r instanceof CSSFontFaceRule, nIndex, r -> (CSSFontFaceRule) r);
+    return m_aRules.getAtIndexMapped (CSSFontFaceRule.class::isInstance, nIndex, CSSFontFaceRule.class::cast);
   }
 
   /**
@@ -441,7 +440,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <CSSFontFaceRule> getAllFontFaceRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSFontFaceRule, r -> (CSSFontFaceRule) r);
+    return m_aRules.getAllMapped (CSSFontFaceRule.class::isInstance, CSSFontFaceRule.class::cast);
   }
 
   /**
@@ -453,7 +452,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
    */
   public boolean hasKeyframesRules ()
   {
-    return m_aRules.containsAny (r -> r instanceof CSSKeyframesRule);
+    return m_aRules.containsAny (CSSKeyframesRule.class::isInstance);
   }
 
   /**
@@ -466,7 +465,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nonnegative
   public int getKeyframesRuleCount ()
   {
-    return m_aRules.getCount (r -> r instanceof CSSKeyframesRule);
+    return m_aRules.getCount (CSSKeyframesRule.class::isInstance);
   }
 
   /**
@@ -481,7 +480,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nullable
   public CSSKeyframesRule getKeyframesRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRules.getAtIndexMapped (r -> r instanceof CSSKeyframesRule, nIndex, r -> (CSSKeyframesRule) r);
+    return m_aRules.getAtIndexMapped (CSSKeyframesRule.class::isInstance, nIndex, CSSKeyframesRule.class::cast);
   }
 
   /**
@@ -495,7 +494,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <CSSKeyframesRule> getAllKeyframesRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSKeyframesRule, r -> (CSSKeyframesRule) r);
+    return m_aRules.getAllMapped (CSSKeyframesRule.class::isInstance, CSSKeyframesRule.class::cast);
   }
 
   /**
@@ -507,7 +506,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
    */
   public boolean hasViewportRules ()
   {
-    return m_aRules.containsAny (r -> r instanceof CSSViewportRule);
+    return m_aRules.containsAny (CSSViewportRule.class::isInstance);
   }
 
   /**
@@ -520,7 +519,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nonnegative
   public int getViewportRuleCount ()
   {
-    return m_aRules.getCount (r -> r instanceof CSSViewportRule);
+    return m_aRules.getCount (CSSViewportRule.class::isInstance);
   }
 
   /**
@@ -535,7 +534,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nullable
   public CSSViewportRule getViewportRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRules.getAtIndexMapped (r -> r instanceof CSSViewportRule, nIndex, r -> (CSSViewportRule) r);
+    return m_aRules.getAtIndexMapped (CSSViewportRule.class::isInstance, nIndex, CSSViewportRule.class::cast);
   }
 
   /**
@@ -549,7 +548,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <CSSViewportRule> getAllViewportRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSViewportRule, r -> (CSSViewportRule) r);
+    return m_aRules.getAllMapped (CSSViewportRule.class::isInstance, CSSViewportRule.class::cast);
   }
 
   /**
@@ -561,7 +560,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
    */
   public boolean hasSupportsRules ()
   {
-    return m_aRules.containsAny (r -> r instanceof CSSSupportsRule);
+    return m_aRules.containsAny (CSSSupportsRule.class::isInstance);
   }
 
   /**
@@ -574,7 +573,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nonnegative
   public int getSupportsRuleCount ()
   {
-    return m_aRules.getCount (r -> r instanceof CSSSupportsRule);
+    return m_aRules.getCount (CSSSupportsRule.class::isInstance);
   }
 
   /**
@@ -589,7 +588,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nullable
   public CSSSupportsRule getSupportsRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRules.getAtIndexMapped (r -> r instanceof CSSSupportsRule, nIndex, r -> (CSSSupportsRule) r);
+    return m_aRules.getAtIndexMapped (CSSSupportsRule.class::isInstance, nIndex, CSSSupportsRule.class::cast);
   }
 
   /**
@@ -603,7 +602,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <CSSSupportsRule> getAllSupportsRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSSupportsRule, r -> (CSSSupportsRule) r);
+    return m_aRules.getAllMapped (CSSSupportsRule.class::isInstance, CSSSupportsRule.class::cast);
   }
 
   /**
@@ -615,7 +614,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
    */
   public boolean hasUnknownRules ()
   {
-    return m_aRules.containsAny (r -> r instanceof CSSUnknownRule);
+    return m_aRules.containsAny (CSSUnknownRule.class::isInstance);
   }
 
   /**
@@ -628,7 +627,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nonnegative
   public int getUnknownRuleCount ()
   {
-    return m_aRules.getCount (r -> r instanceof CSSUnknownRule);
+    return m_aRules.getCount (CSSUnknownRule.class::isInstance);
   }
 
   /**
@@ -643,7 +642,7 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @Nullable
   public CSSUnknownRule getUnknownRuleAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRules.getAtIndexMapped (r -> r instanceof CSSUnknownRule, nIndex, r -> (CSSUnknownRule) r);
+    return m_aRules.getAtIndexMapped (CSSUnknownRule.class::isInstance, nIndex, CSSUnknownRule.class::cast);
   }
 
   /**
@@ -657,6 +656,6 @@ public abstract class AbstractHasTopLevelRules implements Serializable
   @ReturnsMutableCopy
   public ICommonsList <CSSUnknownRule> getAllUnknownRules ()
   {
-    return m_aRules.getAllMapped (r -> r instanceof CSSUnknownRule, r -> (CSSUnknownRule) r);
+    return m_aRules.getAllMapped (CSSUnknownRule.class::isInstance, CSSUnknownRule.class::cast);
   }
 }

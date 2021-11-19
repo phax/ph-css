@@ -666,7 +666,7 @@ final class CSSNodeToDomainObject
         if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
         {
           // Read all contained declarations
-          _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addDeclaration (aDeclaration));
+          _readStyleDeclarationList (aChildNode, ret::addDeclaration);
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -733,7 +733,7 @@ final class CSSNodeToDomainObject
               aBlock.setSourceLocation (aBodyChildNode.getSourceLocation ());
 
             final CSSNode aBodyNextChildNode = aBodyNode.jjtGetChild (nIndex + 1);
-            _readStyleDeclarationList (aBodyNextChildNode, aDeclaration -> aBlock.addDeclaration (aDeclaration));
+            _readStyleDeclarationList (aBodyNextChildNode, aBlock::addDeclaration);
 
             ret.addMember (aBlock);
 
@@ -771,7 +771,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
       {
         // Read all contained declarations
-        _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addMember (aDeclaration));
+        _readStyleDeclarationList (aChildNode, ret::addMember);
       }
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -966,7 +966,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
       {
         // Read all contained declarations
-        _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addDeclaration (aDeclaration));
+        _readStyleDeclarationList (aChildNode, ret::addDeclaration);
       }
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -1025,7 +1025,7 @@ final class CSSNodeToDomainObject
 
           // Read all contained declarations
           final CSSKeyframesBlock aFinalBlock = aBlock;
-          _readStyleDeclarationList (aChildNode, aDeclaration -> aFinalBlock.addDeclaration (aDeclaration));
+          _readStyleDeclarationList (aChildNode, aFinalBlock::addDeclaration);
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -1054,7 +1054,7 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode, m_eVersion))
       {
         // Read all contained declarations
-        _readStyleDeclarationList (aChildNode, aDeclaration -> ret.addDeclaration (aDeclaration));
+        _readStyleDeclarationList (aChildNode, ret::addDeclaration);
       }
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
@@ -1324,7 +1324,7 @@ final class CSSNodeToDomainObject
     final CSSDeclarationList ret = new CSSDeclarationList ();
     if (m_bUseSourceLocation)
       ret.setSourceLocation (aNode.getSourceLocation ());
-    _readStyleDeclarationList (aNode, aDeclaration -> ret.addDeclaration (aDeclaration));
+    _readStyleDeclarationList (aNode, ret::addDeclaration);
     return ret;
   }
 }

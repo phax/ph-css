@@ -104,7 +104,7 @@ public enum ECSSMediaExpressionFeature implements IHasName
 
   private final String m_sName;
 
-  private ECSSMediaExpressionFeature (@Nonnull @Nonempty final String sName)
+  ECSSMediaExpressionFeature (@Nonnull @Nonempty final String sName)
   {
     m_sName = sName;
   }
