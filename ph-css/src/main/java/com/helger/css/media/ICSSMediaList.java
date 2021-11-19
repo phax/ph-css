@@ -16,8 +16,6 @@
  */
 package com.helger.css.media;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,7 +28,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedSet;
  *
  * @author Philip Helger
  */
-public interface ICSSMediaList extends Serializable
+public interface ICSSMediaList
 {
   /**
    * @return The number of contained media. Always &ge; 0.

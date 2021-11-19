@@ -16,8 +16,6 @@
  */
 package com.helger.css.property;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,7 +34,7 @@ import com.helger.css.utils.ICSSNamedColor;
  *      default CSS properties
  * @author Philip Helger
  */
-public interface ICSSProperty extends ICSSVersionAware, Serializable
+public interface ICSSProperty extends ICSSVersionAware
 {
   /**
    * @return The underlying base property. Never <code>null</code>.

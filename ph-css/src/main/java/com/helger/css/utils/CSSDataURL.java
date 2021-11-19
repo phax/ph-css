@@ -39,9 +39,7 @@ import com.helger.commons.mime.MimeTypeHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This class represents a single CSS data URL (RFC 2397).<br>
- * Note: manual serialization is required, because {@link Charset} is not
- * Serializable.
+ * This class represents a single CSS data URL (RFC 2397).
  *
  * @author Philip Helger
  */

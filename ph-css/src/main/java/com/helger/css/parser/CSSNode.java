@@ -16,7 +16,6 @@
  */
 package com.helger.css.parser;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 import javax.annotation.Nonnegative;
@@ -47,7 +46,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
   private final int m_nType;
   private CSSNode m_aParent;
   private CSSNode [] m_aChildren;
-  private Serializable m_aValue;
+  private Object m_aValue;
   private String m_sText;
   private Token m_aFirstToken;
   private Token m_aLastToken;
@@ -132,15 +131,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
     m_aLastToken = aLastToken;
   }
 
-  @Deprecated
   public void setValue (@Nullable final Object aValue)
-  {
-    // All values should be Serializable to work
-    // The old API should stay in
-    setValue ((Serializable) aValue);
-  }
-
-  public void setValue (@Nullable final Serializable aValue)
   {
     m_aValue = aValue;
   }

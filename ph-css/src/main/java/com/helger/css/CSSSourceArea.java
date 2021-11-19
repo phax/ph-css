@@ -16,8 +16,6 @@
  */
 package com.helger.css;
 
-import java.io.Serializable;
-
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -34,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class CSSSourceArea implements Serializable
+public class CSSSourceArea
 {
   private final int m_nBeginLineNumber;
   private final int m_nBeginColumnNumber;

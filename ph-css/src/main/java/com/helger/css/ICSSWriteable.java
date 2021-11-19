@@ -16,8 +16,6 @@
  */
 package com.helger.css;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
@@ -28,7 +26,7 @@ import com.helger.css.writer.CSSWriterSettings;
  *
  * @author Philip Helger
  */
-public interface ICSSWriteable extends Serializable
+public interface ICSSWriteable
 {
   /**
    * Get the contents of this object as a serialized CSS string for writing to

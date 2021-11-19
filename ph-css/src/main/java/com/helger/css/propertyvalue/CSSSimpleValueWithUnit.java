@@ -16,7 +16,6 @@
  */
 package com.helger.css.propertyvalue;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -39,7 +38,7 @@ import com.helger.css.ECSSUnit;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSimpleValueWithUnit implements Serializable
+public class CSSSimpleValueWithUnit
 {
   private BigDecimal m_aValue;
   private ECSSUnit m_eUnit;

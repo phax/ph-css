@@ -16,8 +16,6 @@
  */
 package com.helger.css;
 
-import java.io.Serializable;
-
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class CSSSourceLocation implements Serializable
+public class CSSSourceLocation
 {
   private final CSSSourceArea m_aFirstTokenArea;
   private final CSSSourceArea m_aLastTokenArea;

@@ -16,8 +16,6 @@
  */
 package com.helger.css.property.customizer;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -32,7 +30,7 @@ import com.helger.css.propertyvalue.ICSSValue;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface ICSSPropertyCustomizer extends Serializable
+public interface ICSSPropertyCustomizer
 {
   /**
    * Create a special value for the passed property. For example if the property
