@@ -301,7 +301,7 @@ Configuration items are:
 
 ## News and noteworthy
 
-* v6.4.0 - work in progress
+* v6.4.0 - 2021-11-22
     * Fixed SonarCloud issues
     * Removed the serialisability of the objects, because it was never done in a consistent way
     * Added support for the `flex` shorthand property ([issue #71](https://github.com/phax/ph-css/issues/71)) - thanks @nhubbard
