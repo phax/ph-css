@@ -409,4 +409,123 @@ public final class CSSShortHandDescriptorTest
     assertEquals ("border-bottom-width:4px", aSplittedDecls.get (2).getAsCSSString (CWS));
     assertEquals ("border-left-width:thick", aSplittedDecls.get (3).getAsCSSString (CWS));
   }
+
+  @Test
+  public void testFlexInitial ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:initial", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (3, aSplittedDecls.size ());
+    assertEquals ("flex-grow:0", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("flex-shrink:1", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("flex-basis:auto", aSplittedDecls.get (2).getAsCSSString (CWS));
+  }
+
+  @Test
+  public void testFlexAuto ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:auto", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (3, aSplittedDecls.size ());
+    assertEquals ("flex-grow:1", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("flex-shrink:1", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("flex-basis:auto", aSplittedDecls.get (2).getAsCSSString (CWS));
+  }
+
+  @Test
+  public void testFlexNone ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:none", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (3, aSplittedDecls.size ());
+    assertEquals ("flex-grow:0", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("flex-shrink:0", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("flex-basis:auto", aSplittedDecls.get (2).getAsCSSString (CWS));
+  }
+
+  @Test
+  public void testFlex1Num ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (3, aSplittedDecls.size ());
+    assertEquals ("flex-grow:2", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("flex-shrink:1", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("flex-basis:0", aSplittedDecls.get (2).getAsCSSString (CWS));
+  }
+
+  @Test
+  public void testFlex2Num ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 2", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (3, aSplittedDecls.size ());
+    assertEquals ("flex-grow:2", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("flex-shrink:2", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("flex-basis:auto", aSplittedDecls.get (2).getAsCSSString (CWS));
+  }
+
+  @Test
+  public void testFlex2Width ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 2em", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (3, aSplittedDecls.size ());
+    assertEquals ("flex-grow:2", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("flex-shrink:1", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("flex-basis:2em", aSplittedDecls.get (2).getAsCSSString (CWS));
+  }
+
+  @Test
+  public void testFlex3 ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
+    assertNotNull (aSHD);
+
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 3 4em", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+
+    final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
+    assertNotNull (aSplittedDecls);
+    assertEquals (3, aSplittedDecls.size ());
+    assertEquals ("flex-grow:2", aSplittedDecls.get (0).getAsCSSString (CWS));
+    assertEquals ("flex-shrink:3", aSplittedDecls.get (1).getAsCSSString (CWS));
+    assertEquals ("flex-basis:4em", aSplittedDecls.get (2).getAsCSSString (CWS));
+  }
 }

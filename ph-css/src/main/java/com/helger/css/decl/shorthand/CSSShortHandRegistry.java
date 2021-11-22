@@ -169,6 +169,11 @@ public final class CSSShortHandRegistry
                                                                                               CCSSValue.OUTSIDE),
                                                              new CSSPropertyWithDefaultValue (CCSSProperties.LIST_STYLE_IMAGE,
                                                                                               CCSSValue.NONE)));
+    registerShortHandDescriptor (new CSSShortHandDescriptorFlex (ECSSProperty.FLEX,
+                                                                 new CSSPropertyWithDefaultValue (CCSSProperties.FLEX_GROW, "0"),
+                                                                 new CSSPropertyWithDefaultValue (CCSSProperties.FLEX_SHRINK, "1"),
+                                                                 new CSSPropertyWithDefaultValue (CCSSProperties.FLEX_BASIS,
+                                                                                                  CCSSValue.AUTO)));
   }
 
   private CSSShortHandRegistry ()

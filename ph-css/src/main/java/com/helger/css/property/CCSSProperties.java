@@ -440,11 +440,11 @@ public final class CCSSProperties
   public static final ICSSProperty ENABLE_BACKGROUND = new CSSPropertyFree (ECSSProperty.ENABLE_BACKGROUND);
   public static final ICSSProperty FILTER = new CSSPropertyFree (ECSSProperty.FILTER);
   public static final ICSSProperty FLEX = new CSSPropertyFree (ECSSProperty.FLEX);
-  public static final ICSSProperty FLEX_BASIS = new CSSPropertyFree (ECSSProperty.FLEX_BASIS);
+  public static final ICSSProperty FLEX_BASIS = new CSSPropertyEnumOrNumber (ECSSProperty.FLEX_BASIS, true, AUTO);
   public static final ICSSProperty FLEX_DIRECTION = new CSSPropertyFree (ECSSProperty.FLEX_DIRECTION);
   public static final ICSSProperty FLEX_FLOW = new CSSPropertyFree (ECSSProperty.FLEX_FLOW);
-  public static final ICSSProperty FLEX_GROW = new CSSPropertyFree (ECSSProperty.FLEX_GROW);
-  public static final ICSSProperty FLEX_SHRINK = new CSSPropertyFree (ECSSProperty.FLEX_SHRINK);
+  public static final ICSSProperty FLEX_GROW = new CSSPropertyLong (ECSSProperty.FLEX_GROW);
+  public static final ICSSProperty FLEX_SHRINK = new CSSPropertyLong (ECSSProperty.FLEX_SHRINK);
   public static final ICSSProperty FLEX_WRAP = new CSSPropertyFree (ECSSProperty.FLEX_WRAP);
   @Deprecated
   public static final ICSSProperty FLOAT_OFFSET = new CSSPropertyFree (ECSSProperty.FLOAT_OFFSET);

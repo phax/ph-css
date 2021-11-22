@@ -304,6 +304,7 @@ Configuration items are:
 * v6.4.0 - work in progress
     * Fixed SonarCloud issues
     * Removed the serialisability of the objects, because it was never done in a consistent way
+    * Added support for the `flex` shorthand property ([issue #71](https://github.com/phax/ph-css/issues/71)) - thanks @nhubbard
 * v6.3.4 - 2021-06-09
     * Fixed an error with the shorthand expansion of `border-width` ([PR #68](https://github.com/phax/ph-css/pull/68)) - thanks @rockwotj
 * v6.3.3 - 2021-05-31

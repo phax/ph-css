@@ -105,8 +105,9 @@ public class CSSShortHandDescriptor
     final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
     final ICommonsList <ICSSExpressionMember> aExpressionMembers = aDeclaration.getExpression ().getAllMembers ();
 
-    // Modification for margin and padding
+    // Modification for margin and padding and others
     modifyExpressionMembers (aExpressionMembers);
+
     final int nExpressionMembers = aExpressionMembers.size ();
     final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.CSS30, false);
     final boolean [] aHandledSubProperties = new boolean [nSubProperties];
