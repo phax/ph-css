@@ -2,7 +2,6 @@
 
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger/ph-css/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger/ph-css) 
-[![Join the chat at https://gitter.im/phax/ph-css](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/phax/ph-css?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Java CSS 2 and CSS 3 parser and builder. This version supersedes phloc-css.
 The Maven plugin to compress CSS files at build time is located in sub-project ph-csscompress-maven-plugin and described further down.
