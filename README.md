@@ -299,10 +299,12 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v6.4.1 - 2022-01-10
+    * Added support for `:host` and `::slotted` ([issue #73](https://github.com/phax/ph-css/issues/73) and [PR #74](https://github.com/phax/ph-css/pull/74)) - thanks @shagkur
 * v6.4.0 - 2021-11-22
     * Fixed SonarCloud issues
     * Removed the serialisability of the objects, because it was never done in a consistent way
-    * Added support for the `flex` shorthand property ([issue #71](https://github.com/phax/ph-css/issues/71)) - thanks @nhubbard
+    * Added support for the `flex` shorthand property 
 * v6.3.4 - 2021-06-09
     * Fixed an error with the shorthand expansion of `border-width` ([PR #68](https://github.com/phax/ph-css/pull/68)) - thanks @rockwotj
 * v6.3.3 - 2021-05-31
