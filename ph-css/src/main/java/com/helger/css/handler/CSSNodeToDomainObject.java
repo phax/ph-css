@@ -249,7 +249,13 @@ final class CSSNodeToDomainObject
       if (nChildCount == 0)
       {
         // E.g. ":focus" or ":hover"
-        final CSSSelectorSimpleMember ret = new CSSSelectorSimpleMember (aNode.getText ());
+        String sText = aNode.getText ();
+        if (sText.endsWith ("("))
+        {
+          // Or bogus functions like ":lang()" - see #72
+          sText += ')';
+        }
+        final CSSSelectorSimpleMember ret = new CSSSelectorSimpleMember (sText);
         if (m_bUseSourceLocation)
           ret.setSourceLocation (aNode.getSourceLocation ());
         return ret;
@@ -267,18 +273,19 @@ final class CSSNodeToDomainObject
           return ret;
         }
 
-        if (ECSSNodeType.HOST.isNode(aChildNode, m_eVersion))
+        if (ECSSNodeType.HOST.isNode (aChildNode, m_eVersion))
         {
-          final ICSSSelectorMember aMember = _createSelectorMember (aChildNode.jjtGetChild(0));
-          final CSSSelectorMemberHost ret = new CSSSelectorMemberHost(aMember);
+          final ICSSSelectorMember aMember = _createSelectorMember (aChildNode.jjtGetChild (0));
+          final CSSSelectorMemberHost ret = new CSSSelectorMemberHost (aMember);
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;
         }
 
-        if (ECSSNodeType.SLOTTED.isNode(aChildNode, m_eVersion)) {
-          final ICSSSelectorMember aMember = _createSelectorMember (aChildNode.jjtGetChild(0));
-          final CSSSelectorMemberSlotted ret = new CSSSelectorMemberSlotted(aMember);
+        if (ECSSNodeType.SLOTTED.isNode (aChildNode, m_eVersion))
+        {
+          final ICSSSelectorMember aMember = _createSelectorMember (aChildNode.jjtGetChild (0));
+          final CSSSelectorMemberSlotted ret = new CSSSelectorMemberSlotted (aMember);
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;
