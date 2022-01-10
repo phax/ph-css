@@ -57,6 +57,8 @@ public enum ECSSNodeType
   HASH (ParserCSS30TreeConstants.JJTHASH),
   CLASS (ParserCSS30TreeConstants.JJTCLASS),
   PSEUDO (ParserCSS30TreeConstants.JJTPSEUDO),
+  HOST (ParserCSS30TreeConstants.JJTHOST),
+  SLOTTED (ParserCSS30TreeConstants.JJTSLOTTED),
   NEGATION (ParserCSS30TreeConstants.JJTNEGATION),
   ATTRIB (ParserCSS30TreeConstants.JJTATTRIB),
   ATTRIBOPERATOR (ParserCSS30TreeConstants.JJTATTRIBOPERATOR),

@@ -300,6 +300,8 @@ TOKEN :
 | < FUNCTION_CALC: "calc("
                  | "-" <IDENT> "-calc(" >
 | < FUNCTION_NOT: ":not(" >
+| < FUNCTION_HOST: "host(" >
+| < FUNCTION_SLOTTED: "slotted(" >
 | < FUNCTION_NTH: "nth-child("
                 | "nth-last-child("
                 | "nth-of-type("
@@ -765,9 +767,9 @@ void mathSum() #void : {}
 {
   mathProduct()
   ( LOOKAHEAD(2)
-    <S>
+    ( <S> )*
     mathSumOperator()
-    <S>
+    ( <S> )*
     mathProduct ()
   )*
 }
@@ -1006,6 +1008,18 @@ void pseudoNth () #nth :
   ( <S> )*
 }
 
+void pseudoHost () #host : {}
+{
+  ( <S> )*
+  ( simpleSelectorSequence () )?
+}
+
+void pseudoSlotted () #slotted : {}
+{
+  ( <S> )*
+  ( simpleSelectorSequence () )?
+}
+
 void pseudo() : {}
 {
   <COLON> { jjtThis.setText (":"); }
@@ -1014,6 +1028,12 @@ void pseudo() : {}
   ( <FUNCTION_NTH> { jjtThis.appendText (token.image); }
     pseudoNth()
     <RROUND>  // do not append because of expression!
+  | <FUNCTION_HOST> { jjtThis.appendText (token.image); }
+    pseudoHost()
+    <RROUND> // do not append because of expression!
+  | <FUNCTION_SLOTTED> { jjtThis.appendText (token.image); }
+    pseudoSlotted()
+    <RROUND> // do not append because of expression!
   | LOOKAHEAD( <FUNCTION> )
     <FUNCTION> { jjtThis.appendText (token.image); }
     ( <S> )*
