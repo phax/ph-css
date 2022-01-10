@@ -267,6 +267,23 @@ final class CSSNodeToDomainObject
           return ret;
         }
 
+        if (ECSSNodeType.HOST.isNode(aChildNode, m_eVersion))
+        {
+          final ICSSSelectorMember aMember = _createSelectorMember (aChildNode.jjtGetChild(0));
+          final CSSSelectorMemberHost ret = new CSSSelectorMemberHost(aMember);
+          if (m_bUseSourceLocation)
+            ret.setSourceLocation (aNode.getSourceLocation ());
+          return ret;
+        }
+
+        if (ECSSNodeType.SLOTTED.isNode(aChildNode, m_eVersion)) {
+          final ICSSSelectorMember aMember = _createSelectorMember (aChildNode.jjtGetChild(0));
+          final CSSSelectorMemberSlotted ret = new CSSSelectorMemberSlotted(aMember);
+          if (m_bUseSourceLocation)
+            ret.setSourceLocation (aNode.getSourceLocation ());
+          return ret;
+        }
+
         // It's a function (e.g. ":lang(fr)")
         final CSSExpression aExpr = _createExpression (aChildNode);
         final CSSSelectorMemberFunctionLike ret = new CSSSelectorMemberFunctionLike (aNode.getText (), aExpr);
