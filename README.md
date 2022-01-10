@@ -303,6 +303,7 @@ Configuration items are:
     * Added support for `:host` and `::slotted`. See [issue #73](https://github.com/phax/ph-css/issues/73) and [PR #74](https://github.com/phax/ph-css/pull/74) - thanks @shagkur
     * Renamed the "math*" rules to "calc*" - that also touched a few internal constants
     * Fixed the emitting of pseudo selector functions without parameters (as in `:lang()`). See [issue #72](https://github.com/phax/ph-css/issues/72)) - thanks @shagkur
+    * Updated to latest version of ParserGeneratorCC for a bit more efficient code
 * v6.4.0 - 2021-11-22
     * Fixed SonarCloud issues
     * Removed the serialisability of the objects, because it was never done in a consistent way
