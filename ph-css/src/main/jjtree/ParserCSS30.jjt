@@ -713,7 +713,7 @@ Token dimension() #void :
   { return t; }
 }
 
-void mathUnit() :
+void calcValue() :
 {
   String sPrefix = null;
   Token t = null;
@@ -724,10 +724,10 @@ void mathUnit() :
   | t = <PERCENTAGE>
   | t = dimension()
   | function()
-  | math()
+  | calc()
   | <LROUND>
     ( <S> )*
-    mathSum()
+    calcSum()
     ( <S> )*
     <RROUND>
   )
@@ -739,46 +739,46 @@ void mathUnit() :
   }
 }
 
-void mathProductOperator() : {}
+void calcProductOperator() : {}
 {
   <ASTERISK> { jjtThis.setText ("*"); }
 | <SLASH>    { jjtThis.setText ("/"); }
 }
 
-void mathProduct() : {}
+void calcProduct() : {}
 {
-  mathUnit()
+  calcValue()
   ( LOOKAHEAD(2)
     ( <S> )*
-    mathProductOperator()
+    calcProductOperator()
     ( <S> )*
-    mathUnit()
+    calcValue()
   )*
 }
 
-void mathSumOperator() : {}
+void calcSumOperator() : {}
 {
   ( <PLUS>  { jjtThis.setText ("+"); }
   | <MINUS> { jjtThis.setText ("-"); }
   )
 }
 
-void mathSum() #void : {}
+void calcSum() #void : {}
 {
-  mathProduct()
+  calcProduct()
   ( LOOKAHEAD(2)
     ( <S> )*
-    mathSumOperator()
+    calcSumOperator()
     ( <S> )*
-    mathProduct ()
+    calcProduct()
   )*
 }
 
-void math() : {}
+void calc() : {}
 {
   <FUNCTION_CALC>
   ( <S> )*
-  mathSum()
+  calcSum()
   ( <S> )*
   <RROUND>
 }
@@ -793,8 +793,7 @@ void lineNames() : {}
 {
   <LSQUARE>
   ( <S> )*
-  ( LOOKAHEAD(2)
-    lineName()
+  ( lineName()
     ( LOOKAHEAD(2)
       ( <S> )* 
       lineName()
@@ -822,7 +821,7 @@ void exprTerm() :
   | url()
   | t = <HASH>
   | function()
-  | math()
+  | calc()
   | t = <URANGE>
   | lineNames()
   )

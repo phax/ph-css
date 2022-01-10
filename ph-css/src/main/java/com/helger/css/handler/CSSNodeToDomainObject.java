@@ -319,9 +319,9 @@ final class CSSNodeToDomainObject
   }
 
   @Nonnull
-  private CSSExpressionMemberMathProduct _createExpressionMathProduct (@Nonnull final CSSNode aNode)
+  private CSSExpressionMemberMathProduct _createExpressionCalcProduct (@Nonnull final CSSNode aNode)
   {
-    _expectNodeType (aNode, ECSSNodeType.MATHPRODUCT);
+    _expectNodeType (aNode, ECSSNodeType.CALCPRODUCT);
 
     final CSSExpressionMemberMathProduct ret = new CSSExpressionMemberMathProduct ();
     if (m_bUseSourceLocation)
@@ -330,7 +330,7 @@ final class CSSNodeToDomainObject
     // read all sums
     for (final CSSNode aChildNode : aNode)
     {
-      if (ECSSNodeType.MATHUNIT.isNode (aChildNode, m_eVersion))
+      if (ECSSNodeType.CALCUNIT.isNode (aChildNode, m_eVersion))
       {
         final int nChildCount = aChildNode.jjtGetNumChildren ();
         if (nChildCount == 0)
@@ -347,7 +347,7 @@ final class CSSNodeToDomainObject
             ret.addMember (_createExpressionFunction (aChildNode.jjtGetChild (0)));
           }
           else
-            if (nChildCount == 1 && ECSSNodeType.MATH.isNode (aChildNode.jjtGetChild (0), m_eVersion))
+            if (nChildCount == 1 && ECSSNodeType.CALC.isNode (aChildNode.jjtGetChild (0), m_eVersion))
             {
               // Source location is taken from aNestedProduct
               ret.addMember (_createExpressionCalc (aChildNode.jjtGetChild (0)));
@@ -362,13 +362,13 @@ final class CSSNodeToDomainObject
               for (int i = 0; i < nChildCount; ++i)
               {
                 final CSSNode aChildChildNode = aChildNode.jjtGetChild (i);
-                if (ECSSNodeType.MATHPRODUCT.isNode (aChildChildNode, m_eVersion))
+                if (ECSSNodeType.CALCPRODUCT.isNode (aChildChildNode, m_eVersion))
                 {
                   // Source location is taken from aNestedProduct
-                  aNestedProduct.addMember (_createExpressionMathProduct (aChildChildNode));
+                  aNestedProduct.addMember (_createExpressionCalcProduct (aChildChildNode));
                 }
                 else
-                  if (ECSSNodeType.MATHSUMOPERATOR.isNode (aChildChildNode, m_eVersion))
+                  if (ECSSNodeType.CALCSUMOPERATOR.isNode (aChildChildNode, m_eVersion))
                   {
                     final String sText = aChildChildNode.getText ();
                     final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
@@ -391,7 +391,7 @@ final class CSSNodeToDomainObject
             }
       }
       else
-        if (ECSSNodeType.MATHPRODUCTOPERATOR.isNode (aChildNode, m_eVersion))
+        if (ECSSNodeType.CALCPRODUCTOPERATOR.isNode (aChildNode, m_eVersion))
         {
           final String sText = aChildNode.getText ();
           final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
@@ -461,7 +461,7 @@ final class CSSNodeToDomainObject
   @Nonnull
   private CSSExpressionMemberMath _createExpressionCalc (@Nonnull final CSSNode aNode)
   {
-    _expectNodeType (aNode, ECSSNodeType.MATH);
+    _expectNodeType (aNode, ECSSNodeType.CALC);
 
     final CSSExpressionMemberMath ret = new CSSExpressionMemberMath ();
     if (m_bUseSourceLocation)
@@ -470,12 +470,12 @@ final class CSSNodeToDomainObject
     // read all sums
     for (final CSSNode aChildNode : aNode)
     {
-      if (ECSSNodeType.MATHPRODUCT.isNode (aChildNode, m_eVersion))
+      if (ECSSNodeType.CALCPRODUCT.isNode (aChildNode, m_eVersion))
       {
-        ret.addMember (_createExpressionMathProduct (aChildNode));
+        ret.addMember (_createExpressionCalcProduct (aChildNode));
       }
       else
-        if (ECSSNodeType.MATHSUMOPERATOR.isNode (aChildNode, m_eVersion))
+        if (ECSSNodeType.CALCSUMOPERATOR.isNode (aChildNode, m_eVersion))
         {
           final String sText = aChildNode.getText ();
           final ECSSMathOperator eMathOp = ECSSMathOperator.getFromNameOrNull (sText);
@@ -551,7 +551,7 @@ final class CSSNodeToDomainObject
         return _createExpressionFunction (aChildNode);
       }
       else
-        if (ECSSNodeType.MATH.isNode (aChildNode, m_eVersion))
+        if (ECSSNodeType.CALC.isNode (aChildNode, m_eVersion))
         {
           // Math value
           return _createExpressionCalc (aChildNode);

@@ -301,6 +301,7 @@ Configuration items are:
 
 * v6.4.1 - 2022-01-10
     * Added support for `:host` and `::slotted` ([issue #73](https://github.com/phax/ph-css/issues/73) and [PR #74](https://github.com/phax/ph-css/pull/74)) - thanks @shagkur
+    * Renamed the "math*" rules to "calc*" - that also touched a few internal constants
 * v6.4.0 - 2021-11-22
     * Fixed SonarCloud issues
     * Removed the serialisability of the objects, because it was never done in a consistent way
