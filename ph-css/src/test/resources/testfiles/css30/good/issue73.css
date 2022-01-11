@@ -1,0 +1,40 @@
+/* Selects a shadow root host, only if it is
+   matched by the selector argument */
+:host(.special-custom-element) {
+  font-weight: bold;
+}
+
+:host(:active){
+  color:yellow;
+}
+
+:host(:hover){
+  color:green;
+}
+
+:host(:active:active){
+  color:yellow;
+}
+
+:host(:not(:active)){
+  color:grey;
+}
+
+:host(:hover:hover){
+  color:green;
+}
+
+::slotted(*) {
+  border: 3px solid lightcoral;
+  color: blue;      /* only applied when color is not applied in Global CSS (higher Specificity)*/
+  background: var(--slottedbackground) /* shadowDOM can read ALL inherited CSS variables */
+}
+::slotted(.lightdom) {
+  background: whitesmoke;
+}
+::slotted(*)::after {
+  color: red !important;      /* applied !important overrules global CSS Specificity */
+}
+[name="oneword"]:not(:active) {
+  text-transform: uppercase;
+}

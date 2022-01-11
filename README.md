@@ -299,30 +299,35 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v6.4.1 - 2022-01-10
+    * Added support for `:host` and `::slotted`. See [issue #73](https://github.com/phax/ph-css/issues/73) and [PR #74](https://github.com/phax/ph-css/pull/74) - thanks @shagkur
+    * Renamed the "math*" rules to "calc*" - that also touched a few internal constants
+    * Fixed the emitting of pseudo selector functions without parameters (as in `:lang()`). See [issue #72](https://github.com/phax/ph-css/issues/72)) - thanks @shagkur
+    * Updated to latest version of ParserGeneratorCC for a bit more efficient code
 * v6.4.0 - 2021-11-22
     * Fixed SonarCloud issues
     * Removed the serialisability of the objects, because it was never done in a consistent way
-    * Added support for the `flex` shorthand property ([issue #71](https://github.com/phax/ph-css/issues/71)) - thanks @nhubbard
+    * Added support for the `flex` shorthand property 
 * v6.3.4 - 2021-06-09
-    * Fixed an error with the shorthand expansion of `border-width` ([PR #68](https://github.com/phax/ph-css/pull/68)) - thanks @rockwotj
+    * Fixed an error with the shorthand expansion of `border-width`. See [PR #68](https://github.com/phax/ph-css/pull/68) - thanks @rockwotj
 * v6.3.3 - 2021-05-31
-    * Allow unknown rules inside `@media` rules ([issue #67](https://github.com/phax/ph-css/issues/67)) - thanks @yinkwok-ys
+    * Allow unknown rules inside `@media` rules. See [issue #67](https://github.com/phax/ph-css/issues/67) - thanks @yinkwok-ys
 * v6.3.2 - 2021-05-25
-    * Fixed an error with the negation parameters ([issue #66](https://github.com/phax/ph-css/issues/66)) - thanks @rockwotj
+    * Fixed an error with the negation parameters. See [issue #66](https://github.com/phax/ph-css/issues/66) - thanks @rockwotj
 * v6.3.1 - 2021-05-02
-    * Added support for `@footnote` in `@page` rules ([PR #64](https://github.com/phax/ph-css/pull/64)) - thanks @schmidti159
+    * Added support for `@footnote` in `@page` rules. See [PR #64](https://github.com/phax/ph-css/pull/64) - thanks @schmidti159
 * v6.3.0 - 2021-03-22
     * Updated to ph-commons 10
 * v6.2.4 - 2021-02-25
     * Updated to ph-commons 9.4.6, leading to a more resilient DataURL parsing
     * Fixed the ignorance of minimum and maximum parameter count in class `CSSPropertyColors`
-    * Fixed the case-sensitivity of CSS variables declarations ([issue #63](https://github.com/phax/ph-css/issues/63))
+    * Fixed the case-sensitivity of CSS variables declarations. See [issue #63](https://github.com/phax/ph-css/issues/63)
 * v6.2.3 - 2020-05-14
-    * Fixed an issue with the URL visitor not recursively descending into expression members ([issue #59](https://github.com/phax/ph-css/issues/59))
+    * Fixed an issue with the URL visitor not recursively descending into expression members. See [issue #59](https://github.com/phax/ph-css/issues/59)
 * v6.2.2 - 2020-03-29
     * Updated to ph-commons 9.4.0
 * v6.2.1 - 2020-02-29
-    * Improved the pattern for colors in hex values ([PR #55](https://github.com/phax/ph-css/pull/55))
+    * Improved the pattern for colors in hex values. See [PR #55](https://github.com/phax/ph-css/pull/55).
     * Fixed a grammar issue that resulted in failed `calc` parsing ([issue #57](https://github.com/phax/ph-css/pull/57)). The implications of this change are, that the special IE6 and IE7 hacks with `$` and `*` as identifier prefixes are no longer supported. If you need to parse CSS suitable for these old browsers, stay with v6.2.0. 
     * Updated CSS properties of the completed specifications
 * v6.2.0 - 2019-06-30

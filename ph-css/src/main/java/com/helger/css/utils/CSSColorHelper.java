@@ -618,32 +618,34 @@ public final class CSSColorHelper
     if (nBlue < cmin)
       cmin = nBlue;
 
-    final float brightness = cmax / 255.0f;
-    float saturation;
+    final float fBrightness = cmax / 255.0f;
+
+    final float fSaturation;
     if (cmax != 0)
-      saturation = ((float) (cmax - cmin)) / ((float) cmax);
+      fSaturation = ((float) (cmax - cmin)) / ((float) cmax);
     else
-      saturation = 0;
-    float hue;
-    if (saturation == 0)
-      hue = 0;
+      fSaturation = 0;
+
+    float fHue;
+    if (fSaturation == 0)
+      fHue = 0;
     else
     {
       final float redc = ((float) (cmax - nRed)) / ((float) (cmax - cmin));
       final float greenc = ((float) (cmax - nGreen)) / ((float) (cmax - cmin));
       final float bluec = ((float) (cmax - nBlue)) / ((float) (cmax - cmin));
       if (nRed == cmax)
-        hue = bluec - greenc;
+        fHue = bluec - greenc;
       else
         if (nGreen == cmax)
-          hue = 2.0f + redc - bluec;
+          fHue = 2.0f + redc - bluec;
         else
-          hue = 4.0f + greenc - redc;
-      hue = hue / 6.0f;
-      if (hue < 0)
-        hue = hue + 1.0f;
+          fHue = 4.0f + greenc - redc;
+      fHue = fHue / 6.0f;
+      if (fHue < 0)
+        fHue = fHue + 1.0f;
     }
-    return new float [] { hue * HSL_MAX, saturation * PERCENTAGE_MAX, brightness * PERCENTAGE_MAX };
+    return new float [] { fHue * HSL_MAX, fSaturation * PERCENTAGE_MAX, fBrightness * PERCENTAGE_MAX };
   }
 
   /**

@@ -97,7 +97,7 @@ TOKEN :
 {
   < S: (" "|"\t"|"\n"|"\r\n"|"\r"|"\f")+ >
 // Usually it is "( <S> )*" instead of "....?" because if comments are contained, that can be multiple <S> than
-| < W: ( <S> )* >
+//| < W: ( <S> )* >
 }
 
 <IN_NTH>
@@ -188,12 +188,12 @@ TOKEN :
                        >
 | < NUMBER: <NUM> >
 
-| < LBRACE: <W> "{" >
+| < LBRACE: "{" >
 | < RBRACE: "}" >
 | < LSQUARE: "[" >
 | < RSQUARE: "]" >
 | < DOT: "." >
-| < COMMA: <W> "," >
+| < COMMA: "," >
 | < SEMICOLON: ";" >
 | < COLON: ":" >
 | < ASTERISK: "*" >
@@ -300,6 +300,8 @@ TOKEN :
 | < FUNCTION_CALC: "calc("
                  | "-" <IDENT> "-calc(" >
 | < FUNCTION_NOT: ":not(" >
+| < FUNCTION_HOST: "host(" >
+| < FUNCTION_SLOTTED: "slotted(" >
 | < FUNCTION_NTH: "nth-child("
                 | "nth-last-child("
                 | "nth-of-type("
@@ -711,7 +713,7 @@ Token dimension() #void :
   { return t; }
 }
 
-void mathUnit() :
+void calcValue() :
 {
   String sPrefix = null;
   Token t = null;
@@ -722,10 +724,10 @@ void mathUnit() :
   | t = <PERCENTAGE>
   | t = dimension()
   | function()
-  | math()
+  | calc()
   | <LROUND>
     ( <S> )*
-    mathSum()
+    calcSum()
     ( <S> )*
     <RROUND>
   )
@@ -737,46 +739,46 @@ void mathUnit() :
   }
 }
 
-void mathProductOperator() : {}
+void calcProductOperator() : {}
 {
   <ASTERISK> { jjtThis.setText ("*"); }
 | <SLASH>    { jjtThis.setText ("/"); }
 }
 
-void mathProduct() : {}
+void calcProduct() : {}
 {
-  mathUnit()
+  calcValue()
   ( LOOKAHEAD(2)
     ( <S> )*
-    mathProductOperator()
+    calcProductOperator()
     ( <S> )*
-    mathUnit()
+    calcValue()
   )*
 }
 
-void mathSumOperator() : {}
+void calcSumOperator() : {}
 {
   ( <PLUS>  { jjtThis.setText ("+"); }
   | <MINUS> { jjtThis.setText ("-"); }
   )
 }
 
-void mathSum() #void : {}
+void calcSum() #void : {}
 {
-  mathProduct()
+  calcProduct()
   ( LOOKAHEAD(2)
-    <S>
-    mathSumOperator()
-    <S>
-    mathProduct ()
+    ( <S> )*
+    calcSumOperator()
+    ( <S> )*
+    calcProduct()
   )*
 }
 
-void math() : {}
+void calc() : {}
 {
   <FUNCTION_CALC>
   ( <S> )*
-  mathSum()
+  calcSum()
   ( <S> )*
   <RROUND>
 }
@@ -791,9 +793,9 @@ void lineNames() : {}
 {
   <LSQUARE>
   ( <S> )*
-  ( LOOKAHEAD(2)
-    lineName()
-    ( ( <S> )* 
+  ( lineName()
+    ( LOOKAHEAD(2)
+      ( <S> )* 
       lineName()
     )*
     ( <S> )*
@@ -819,7 +821,7 @@ void exprTerm() :
   | url()
   | t = <HASH>
   | function()
-  | math()
+  | calc()
   | t = <URANGE>
   | lineNames()
   )
@@ -834,17 +836,20 @@ void exprTerm() :
 
 void exprOperator() : {}
 {
-  ( <SLASH>  ( <S> )* { jjtThis.setText ("/"); }
-  | <COMMA>  ( <S> )* { jjtThis.setText (","); }
+  ( <SLASH>  { jjtThis.setText ("/"); }
+  | <COMMA>  { jjtThis.setText (","); }
   /* Extension for Microsoft filters (alpha=50) */
-  | <EQUALS> ( <S> )* { jjtThis.setText ("="); }
+  | <EQUALS> { jjtThis.setText ("="); }
   )
 }
 
 void expr() : {}
 {
   exprTerm()
-  ( ( exprOperator() )?
+  ( ( <S> )*
+    ( exprOperator()
+      ( <S> )* 
+    )?
     exprTerm()
   )*
 }
@@ -1006,6 +1011,18 @@ void pseudoNth () #nth :
   ( <S> )*
 }
 
+void pseudoHost () #host : {}
+{
+  ( <S> )*
+  ( simpleSelectorSequence () )?
+}
+
+void pseudoSlotted () #slotted : {}
+{
+  ( <S> )*
+  ( simpleSelectorSequence () )?
+}
+
 void pseudo() : {}
 {
   <COLON> { jjtThis.setText (":"); }
@@ -1014,6 +1031,12 @@ void pseudo() : {}
   ( <FUNCTION_NTH> { jjtThis.appendText (token.image); }
     pseudoNth()
     <RROUND>  // do not append because of expression!
+  | <FUNCTION_HOST> { jjtThis.appendText (token.image); }
+    pseudoHost()
+    <RROUND> // do not append because of expression!
+  | <FUNCTION_SLOTTED> { jjtThis.appendText (token.image); }
+    pseudoSlotted()
+    <RROUND> // do not append because of expression!
   | LOOKAHEAD( <FUNCTION> )
     <FUNCTION> { jjtThis.appendText (token.image); }
     ( <S> )*
@@ -1077,7 +1100,7 @@ void selectorCombinator() : {}
 void selector() : {}
 {
   simpleSelectorSequence()
-  ( LOOKAHEAD(3)
+  ( LOOKAHEAD(4)
     selectorCombinator()
     ( <S> )*
     simpleSelectorSequence()
@@ -1233,6 +1256,7 @@ void mediaQuery() : {}
 void mediaList() : {}
 {
   mediaQuery()
+  ( <S> )*
   ( <COMMA>
     ( <S> )*
     mediaQuery()
@@ -1261,7 +1285,9 @@ void mediaRule() : {}
 {
   <MEDIA_SYM>
   ( <S> )*
-  ( mediaList() )?
+  ( mediaList() 
+    ( <S> )*
+  )?
   <LBRACE>
 try{
   ( <S> )*
@@ -1364,7 +1390,9 @@ void pageRule() : {}
 {
   <PAGE_SYM>
   ( <S> )*
-  ( pageSelectorList() )?
+  ( pageSelectorList() 
+    ( <S> )*
+  )?
   pageRuleBlock()
 }
 
@@ -1374,6 +1402,7 @@ void pageRule() : {}
 void fontfaceRule() : {}
 {
   <FONTFACE_SYM>  { jjtThis.setText (token.image); }
+  ( <S> )*
   styleDeclarationBlock()
 }
 
@@ -1408,6 +1437,7 @@ void keyframesSelector() : {}
 void keyframesBlocks() #void : {}
 {
   ( keyframesSelector()
+    ( <S> )*
     styleDeclarationBlock()
     ( <S> )*
   )*
@@ -1418,6 +1448,7 @@ void keyframesRule() : {}
   <KEYFRAMES_SYM> { jjtThis.setText (token.image); }
   <S>
   keyframesIdentifier()
+  ( <S> )*
   <LBRACE>
 try{
   ( <S> )*
@@ -1438,6 +1469,7 @@ try{
 void viewportRule() : {}
 {
   <VIEWPORT_SYM> { jjtThis.setText (token.image); }
+  ( <S> )*
   styleDeclarationBlock()
 }
 
@@ -1522,6 +1554,7 @@ void supportsRule() : {}
   <SUPPORTS_SYM>
   ( <S> )*
   supportsCondition()
+  ( <S> )*
   supportsRuleBody()
 }
 
