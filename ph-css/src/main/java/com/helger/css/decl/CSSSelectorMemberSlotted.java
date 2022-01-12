@@ -32,27 +32,28 @@ import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single, simple CSS selector as used for the "::slotted()" CSS pseudo element.<br>
- * Note: this class was completely redesigned for version 3.7.4
+ * Represents a single, simple CSS selector as used for the "::slotted()" CSS
+ * pseudo element.<br>
  *
  * @author Philip Helger
+ * @since 6.4.1
  */
 @NotThreadSafe
 public class CSSSelectorMemberSlotted implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final ICSSSelectorMember m_aSimpleSelector;
+  private final CSSSelector m_aSelector;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberSlotted (@Nonnull final ICSSSelectorMember aSimpleSelector)
+  public CSSSelectorMemberSlotted (@Nonnull final CSSSelector aSelector)
   {
-    ValueEnforcer.notNull (aSimpleSelector, "SimpleSelector");
-    m_aSimpleSelector = aSimpleSelector;
+    ValueEnforcer.notNull (aSelector, "Selector");
+    m_aSelector = aSelector;
   }
 
   @Nonnull
-  public ICSSSelectorMember getSimpleSelector ()
+  public final CSSSelector getSelector ()
   {
-    return m_aSimpleSelector;
+    return m_aSelector;
   }
 
   @Nonnull
@@ -62,7 +63,7 @@ public class CSSSelectorMemberSlotted implements ICSSSelectorMember, ICSSVersion
     aSettings.checkVersionRequirements (this);
 
     final StringBuilder aSB = new StringBuilder ("::slotted(");
-    aSB.append (m_aSimpleSelector.getAsCSSString (aSettings, 0));
+    aSB.append (m_aSelector.getAsCSSString (aSettings, 0));
     return aSB.append (')').toString ();
   }
 
@@ -72,15 +73,15 @@ public class CSSSelectorMemberSlotted implements ICSSSelectorMember, ICSSVersion
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -91,20 +92,20 @@ public class CSSSelectorMemberSlotted implements ICSSSelectorMember, ICSSVersion
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSelectorMemberSlotted rhs = (CSSSelectorMemberSlotted) o;
-    return m_aSimpleSelector.equals (rhs.m_aSimpleSelector);
+    return m_aSelector.equals (rhs.m_aSelector);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aSimpleSelector).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aSelector).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("simpleSelector", m_aSimpleSelector)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+    return new ToStringGenerator (null).append ("Selector", m_aSelector)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

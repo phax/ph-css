@@ -275,8 +275,11 @@ final class CSSNodeToDomainObject
 
         if (ECSSNodeType.HOST.isNode (aChildNode, m_eVersion))
         {
-          final ICSSSelectorMember aMember = _createSelectorMember (aChildNode.jjtGetChild (0));
-          final CSSSelectorMemberHost ret = new CSSSelectorMemberHost (aMember);
+          final CSSSelector aSelector = new CSSSelector ();
+          final int nChildChildCount = aChildNode.jjtGetNumChildren ();
+          for (int j = 0; j < nChildChildCount; ++j)
+            aSelector.addMember (_createSelectorMember (aChildNode.jjtGetChild (j)));
+          final CSSSelectorMemberHost ret = new CSSSelectorMemberHost (aSelector);
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;
@@ -284,8 +287,11 @@ final class CSSNodeToDomainObject
 
         if (ECSSNodeType.SLOTTED.isNode (aChildNode, m_eVersion))
         {
-          final ICSSSelectorMember aMember = _createSelectorMember (aChildNode.jjtGetChild (0));
-          final CSSSelectorMemberSlotted ret = new CSSSelectorMemberSlotted (aMember);
+          final CSSSelector aSelector = new CSSSelector ();
+          final int nChildChildCount = aChildNode.jjtGetNumChildren ();
+          for (int j = 0; j < nChildChildCount; ++j)
+            aSelector.addMember (_createSelectorMember (aChildNode.jjtGetChild (j)));
+          final CSSSelectorMemberSlotted ret = new CSSSelectorMemberSlotted (aSelector);
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;

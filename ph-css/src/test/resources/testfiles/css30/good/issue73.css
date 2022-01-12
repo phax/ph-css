@@ -16,6 +16,10 @@
   color:yellow;
 }
 
+:host(.class1 .class2 .class3){
+  color:yellow;
+}
+
 :host(:not(:active)){
   color:grey;
 }
@@ -37,4 +41,8 @@
 }
 [name="oneword"]:not(:active) {
   text-transform: uppercase;
+}
+
+::slotted(.lightdom .class2 .class3:active) {
+  background: whitesmoke;
 }
