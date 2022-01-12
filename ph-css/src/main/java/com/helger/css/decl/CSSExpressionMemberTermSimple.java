@@ -26,6 +26,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
@@ -68,7 +69,7 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
   }
 
   @Nonnull
-  public CSSExpressionMemberTermSimple setValue (@Nonnull @Nonempty final String sValue)
+  public final CSSExpressionMemberTermSimple setValue (@Nonnull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sValue, "Value");
     m_sValue = sValue;
@@ -100,12 +101,12 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
 
   /**
    * @return <code>true</code> if this value is a string literal.
-   *         Otherwise it is considered to be an identifier.
+   *         <code>false</code> it is considered to be an identifier.
    */
   public boolean isStringLiteral ()
   {
-    return (StringHelper.startsWith(m_sValue, '\'') &&  StringHelper.endsWith(m_sValue, '\'')) ||
-           (StringHelper.startsWith(m_sValue, '\"') &&  StringHelper.endsWith(m_sValue, '\"'));
+    final char cFirst = m_sValue.charAt (0);
+    return (cFirst == CCSS.DOUBLE_QUOTE || cFirst == CCSS.SINGLE_QUOTE) && cFirst == StringHelper.getLastChar (m_sValue);
   }
 
   @Nonnull

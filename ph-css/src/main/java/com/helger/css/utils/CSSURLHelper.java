@@ -25,6 +25,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.ISimpleURL;
+import com.helger.css.CCSS;
 import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.propertyvalue.CCSSValue;
 
@@ -152,7 +153,7 @@ public final class CSSURLHelper
    * @param sURL
    *        The URL to be escaped. May not be <code>null</code>.
    * @param cQuoteChar
-   *        The quote char that is used. Either '\'' or '"'
+   *        The quote char that is used. Either single quote or double quote.
    * @return The escaped string. Never <code>null</code>.
    */
   @Nonnull
@@ -200,9 +201,9 @@ public final class CSSURLHelper
     {
       // Determine the best quote char to use - default to '\'' for backwards
       // compatibility
-      final int nIndexSingleQuote = sURL.indexOf ('\'');
-      final int nIndexDoubleQuote = sURL.indexOf ('"');
-      final char cQuote = nIndexSingleQuote >= 0 && nIndexDoubleQuote < 0 ? '"' : '\'';
+      final int nIndexSingleQuote = sURL.indexOf (CCSS.SINGLE_QUOTE);
+      final int nIndexDoubleQuote = sURL.indexOf (CCSS.DOUBLE_QUOTE);
+      final char cQuote = nIndexSingleQuote >= 0 && nIndexDoubleQuote < 0 ? CCSS.DOUBLE_QUOTE : CCSS.SINGLE_QUOTE;
       // Append the quoted and escaped URL
       aSB.append (cQuote).append (getEscapedCSSURL (sURL, cQuote)).append (cQuote);
     }
