@@ -27,6 +27,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.regex.RegExCache;
 import com.helger.commons.string.StringHelper;
+import com.helger.css.CCSS;
 import com.helger.css.propertyvalue.CCSSValue;
 
 /**
@@ -72,7 +73,7 @@ public final class CSSParseHelper
       return sStr;
 
     final char cFirst = sStr.charAt (0);
-    if ((cFirst == '"' || cFirst == '\'') && StringHelper.getLastChar (sStr) == cFirst)
+    if ((cFirst == CCSS.DOUBLE_QUOTE || cFirst == CCSS.SINGLE_QUOTE) && StringHelper.getLastChar (sStr) == cFirst)
     {
       // Remove quotes around the string
       return _trimBy (sStr, 1, 1);

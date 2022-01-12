@@ -50,6 +50,11 @@ public final class CCSS
   /** The "!important" suffix for property values */
   public static final String IMPORTANT_SUFFIX = " !important";
 
+  /** Single quote for Strings */
+  public static final char SINGLE_QUOTE = '\'';
+  /** Double quote for Strings */
+  public static final char DOUBLE_QUOTE = '"';
+
   /**
    * The maximum fraction digits to be considered when printing CSS decimal
    * values.

@@ -30,6 +30,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriteable;
@@ -244,7 +245,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
     ValueEnforcer.notNull (sValue, "Value");
     if (sValue.length () == 0)
       return "\"\"";
-    return '"' + StringHelper.replaceAll (sValue, "\"", "\\\"") + '"';
+    return CCSS.DOUBLE_QUOTE + StringHelper.replaceAll (sValue, "\"", "\\\"") + CCSS.DOUBLE_QUOTE;
   }
 
   /**

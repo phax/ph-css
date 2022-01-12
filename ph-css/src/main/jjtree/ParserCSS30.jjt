@@ -1014,13 +1014,17 @@ void pseudoNth () #nth :
 void pseudoHost () #host : {}
 {
   ( <S> )*
-  ( simpleSelectorSequence () )?
+  ( simpleSelectorSequence () 
+    ( <S> )*
+  )*
 }
 
 void pseudoSlotted () #slotted : {}
 {
   ( <S> )*
-  ( simpleSelectorSequence () )?
+  ( simpleSelectorSequence () 
+    ( <S> )*
+  )*
 }
 
 void pseudo() : {}
