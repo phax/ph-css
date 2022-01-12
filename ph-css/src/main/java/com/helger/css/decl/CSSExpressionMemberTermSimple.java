@@ -24,6 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
@@ -95,6 +96,16 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
   public String getOptimizedValue ()
   {
     return m_sOptimizedValue;
+  }
+
+  /**
+   * @return <code>true</code> if this value is a string literal.
+   *         Otherwise it is considered to be an identifier.
+   */
+  public boolean isStringLiteral ()
+  {
+    return (StringHelper.startsWith(m_sValue, '\'') &&  StringHelper.endsWith(m_sValue, '\'')) ||
+           (StringHelper.startsWith(m_sValue, '\"') &&  StringHelper.endsWith(m_sValue, '\"'));
   }
 
   @Nonnull
