@@ -299,9 +299,9 @@ Configuration items are:
 
 ## News and noteworthy
 
-* v6.4.3 - work in progress
+* v6.4.3 - 2022-01-13
     * Extended API of `CSSReaderDeclarationList`. See [issue #78](https://github.com/phax/ph-css/issues/78) - thanks @shagkur
-    * Added support for the scientific number support in parsing. See [issue #79](https://github.com/phax/ph-css/issues/79) - thanks @shagkur
+    * Added support for the scientific number (as in `1e6`) support in parsing. See [issue #79](https://github.com/phax/ph-css/issues/79) - thanks @shagkur
 * v6.4.2 - 2022-01-12
     * Improved support for `:host` and `::slotted`. See [issue #77](https://github.com/phax/ph-css/issues/77) - thanks @shagkur
     * Added a possibility to differentiate between String and Identifier in `CSSExpressionMemberTermSimple`. See [issue #75](https://github.com/phax/ph-css/issues/75) and [PR #76](https://github.com/phax/ph-css/pull/76) - thanks @shagkur
