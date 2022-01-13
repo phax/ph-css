@@ -1,0 +1,25 @@
+div {
+  padding: 1e6;
+  padding: 1e-6;
+  padding: 1e-06;
+  padding: 1e+6;
+  padding: 1e+06;
+  padding: 999e6;
+  padding: 999e-6;
+  padding: 999e-06;
+  padding: 999e+6;
+  padding: 999e+06;
+}
+
+span {
+  padding: 1e6em;
+  padding: 1e-6em;
+  padding: 1e-06em;
+  padding: 1e+6em;
+  padding: 1e+06em;
+  padding: 999e6em;
+  padding: 999e-6em;
+  padding: 999e-06em;
+  padding: 999e+6em;
+  padding: 999e+06em;
+}
