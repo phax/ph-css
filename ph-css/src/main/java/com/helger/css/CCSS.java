@@ -64,7 +64,7 @@ public final class CCSS
   public static final int CSS_MAXIMUM_FRACTION_DIGITS = 16;
 
   @PresentForCodeCoverage
-  private static final CCSS s_aInstance = new CCSS ();
+  private static final CCSS INSTANCE = new CCSS ();
 
   private CCSS ()
   {}

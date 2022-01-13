@@ -41,7 +41,7 @@ public final class CSSURLHelper
   public static final boolean DEFAULT_QUOTE_URLS = false;
 
   @PresentForCodeCoverage
-  private static final CSSURLHelper s_aInstance = new CSSURLHelper ();
+  private static final CSSURLHelper INSTANCE = new CSSURLHelper ();
 
   private CSSURLHelper ()
   {}

@@ -686,7 +686,7 @@ public final class CCSSProperties
   public static final ICSSValue MARGIN_LEFT_0 = MARGIN_LEFT.newValue (ECSSUnit.zero ());
 
   @PresentForCodeCoverage
-  private static final CCSSProperties s_aInstance = new CCSSProperties ();
+  private static final CCSSProperties INSTANCE = new CCSSProperties ();
 
   private CCSSProperties ()
   {}

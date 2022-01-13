@@ -83,7 +83,7 @@ public final class CSSReaderDeclarationList
   private static ICSSInterpretErrorHandler s_aDefaultInterpretErrorHandler = new LoggingCSSInterpretErrorHandler ();
 
   @PresentForCodeCoverage
-  private static final CSSReaderDeclarationList s_aInstance = new CSSReaderDeclarationList ();
+  private static final CSSReaderDeclarationList INSTANCE = new CSSReaderDeclarationList ();
 
   private CSSReaderDeclarationList ()
   {}
@@ -347,12 +347,37 @@ public final class CSSReaderDeclarationList
     }
   }
 
+  /**
+   * Read the CSS from the passed String using a byte stream.
+   *
+   * @param sCSS
+   *        The source string containing the CSS to be parsed. May not be
+   *        <code>null</code>.
+   * @param eVersion
+   *        The CSS version to use. May not be <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations
+   *         otherwise.
+   */
   @Nullable
   public static CSSDeclarationList readFromString (@Nonnull final String sCSS, @Nonnull final ECSSVersion eVersion)
   {
     return readFromReader (new NonBlockingStringReader (sCSS), new CSSReaderSettings ().setCSSVersion (eVersion));
   }
 
+  /**
+   * Read the CSS from the passed String using a byte stream.
+   *
+   * @param sCSS
+   *        The source string containing the CSS to be parsed. May not be
+   *        <code>null</code>.
+   * @param aCharset
+   *        The charset to be used in case neither a <code>@charset</code> rule
+   *        nor a BOM is present. May not be <code>null</code>.
+   * @param eVersion
+   *        The CSS version to use. May not be <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations
+   *         otherwise.
+   */
   @Nullable
   public static CSSDeclarationList readFromString (@Nonnull final String sCSS,
                                                    @Nonnull final ECSSVersion eVersion,
@@ -362,6 +387,20 @@ public final class CSSReaderDeclarationList
                            new CSSReaderSettings ().setCSSVersion (eVersion).setCustomErrorHandler (aCustomErrorHandler));
   }
 
+  /**
+   * Read the CSS from the passed String using a byte stream.
+   *
+   * @param sCSS
+   *        The source string containing the CSS to be parsed. May not be
+   *        <code>null</code>.
+   * @param eVersion
+   *        The CSS version to use. May not be <code>null</code>.
+   * @param aCustomExceptionHandler
+   *        An optional custom exception handler that can be used to collect the
+   *        unrecoverable parsing errors. May be <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations
+   *         otherwise.
+   */
   @Nullable
   public static CSSDeclarationList readFromString (@Nonnull final String sCSS,
                                                    @Nonnull final ECSSVersion eVersion,

@@ -47,7 +47,7 @@ public final class CSSParseHelper
   private static final Pattern SPLIT_NUMBER_PATTERN = RegExCache.getPattern (SPLIT_NUMBER_REGEX);
 
   @PresentForCodeCoverage
-  private static final CSSParseHelper s_aInstance = new CSSParseHelper ();
+  private static final CSSParseHelper INSTANCE = new CSSParseHelper ();
 
   private CSSParseHelper ()
   {}

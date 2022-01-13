@@ -91,7 +91,7 @@ public final class CSSReader
   private static ICSSInterpretErrorHandler s_aDefaultInterpretErrorHandler = new LoggingCSSInterpretErrorHandler ();
 
   @PresentForCodeCoverage
-  private static final CSSReader s_aInstance = new CSSReader ();
+  private static final CSSReader INSTANCE = new CSSReader ();
 
   private CSSReader ()
   {}

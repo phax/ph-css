@@ -33,7 +33,7 @@ import com.helger.commons.string.StringHelper;
 public final class CSSFilenameHelper
 {
   @PresentForCodeCoverage
-  private static final CSSFilenameHelper s_aInstance = new CSSFilenameHelper ();
+  private static final CSSFilenameHelper INSTANCE = new CSSFilenameHelper ();
 
   private CSSFilenameHelper ()
   {}

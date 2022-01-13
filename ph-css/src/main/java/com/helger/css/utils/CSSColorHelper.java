@@ -117,7 +117,7 @@ public final class CSSColorHelper
   private static final String PATTERN_HEX = "^" + CCSSValue.PREFIX_HEX + "([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$";
 
   @PresentForCodeCoverage
-  private static final CSSColorHelper s_aInstance = new CSSColorHelper ();
+  private static final CSSColorHelper INSTANCE = new CSSColorHelper ();
 
   private CSSColorHelper ()
   {}

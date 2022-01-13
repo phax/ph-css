@@ -67,7 +67,7 @@ public final class CSSDataURLHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (CSSDataURLHelper.class);
 
   @PresentForCodeCoverage
-  private static final CSSDataURLHelper s_aInstance = new CSSDataURLHelper ();
+  private static final CSSDataURLHelper INSTANCE = new CSSDataURLHelper ();
 
   private CSSDataURLHelper ()
   {}
