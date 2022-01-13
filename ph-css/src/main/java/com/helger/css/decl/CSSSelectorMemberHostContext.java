@@ -32,11 +32,12 @@ import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single, simple CSS selector as used for the ":host-context()" CSS pseudo
- * class function.<br>
- * Note: this class was completely redesigned for version 3.7.4
+ * Represents a single, simple CSS selector as used for the ":host-context()"
+ * CSS pseudo class function.
  *
+ * @author Mike Wiedenauer
  * @author Philip Helger
+ * @since 6.4.4
  */
 @NotThreadSafe
 public class CSSSelectorMemberHostContext implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware

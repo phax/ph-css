@@ -235,15 +235,15 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
     return aSB.toString ();
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -268,7 +268,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
   {
     return new ToStringGenerator (this).append ("mediaQueries", m_aMediaQueries)
                                        .append ("styleRules", m_aRules)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

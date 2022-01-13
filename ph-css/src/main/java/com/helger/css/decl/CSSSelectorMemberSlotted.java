@@ -35,6 +35,7 @@ import com.helger.css.ICSSWriterSettings;
  * Represents a single, simple CSS selector as used for the "::slotted()" CSS
  * pseudo element.<br>
  *
+ * @author Mike Wiedenauer
  * @author Philip Helger
  * @since 6.4.1
  */

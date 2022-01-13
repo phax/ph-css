@@ -119,15 +119,15 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     return aSB.append (']').toString ();
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -161,7 +161,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
                                        .append ("attrName", m_sAttrName)
                                        .appendIfNotNull ("operator", m_eOperator)
                                        .appendIfNotNull ("attrValue", m_sAttrValue)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

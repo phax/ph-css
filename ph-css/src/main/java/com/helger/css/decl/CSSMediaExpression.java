@@ -69,13 +69,13 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSVersionAware, ICSS
 
   @Nonnull
   @Nonempty
-  public String getFeature ()
+  public final String getFeature ()
   {
     return m_sFeature;
   }
 
   @Nullable
-  public CSSExpression getValue ()
+  public final CSSExpression getValue ()
   {
     return m_aValue;
   }
@@ -99,15 +99,15 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSVersionAware, ICSS
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -132,7 +132,7 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSVersionAware, ICSS
   {
     return new ToStringGenerator (this).append ("feature", m_sFeature)
                                        .appendIfNotNull ("value", m_aValue)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

@@ -194,15 +194,15 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -227,7 +227,7 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
   {
     return new ToStringGenerator (this).append ("conditionMembers", m_aConditionMembers)
                                        .append ("rules", m_aRules)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

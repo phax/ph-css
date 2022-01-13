@@ -54,7 +54,7 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
    * @return The URI string (without the leading "url(" and the closing ")")
    */
   @Nonnull
-  public String getURI ()
+  public final String getURI ()
   {
     return m_sURI;
   }
@@ -70,7 +70,7 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
    * @return this
    */
   @Nonnull
-  public CSSURI setURI (@Nonnull final String sURI)
+  public final CSSURI setURI (@Nonnull final String sURI)
   {
     ValueEnforcer.notNull (sURI, "URI");
     if (CSSURLHelper.isURLValue (sURI))
@@ -110,15 +110,15 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
     return CSSURLHelper.getAsCSSURL (m_sURI, aSettings.isQuoteURLs ());
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -141,6 +141,6 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("URI", m_sURI).appendIfNotNull ("sourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (this).append ("URI", m_sURI).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
   }
 }

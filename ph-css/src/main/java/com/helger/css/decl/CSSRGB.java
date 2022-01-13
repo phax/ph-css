@@ -92,13 +92,13 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    */
   @Nonnull
   @Nonempty
-  public String getRed ()
+  public final String getRed ()
   {
     return m_sRed;
   }
 
   @Nonnull
-  public CSSRGB setRed (@Nonnull @Nonempty final String sRed)
+  public final CSSRGB setRed (@Nonnull @Nonempty final String sRed)
   {
     ValueEnforcer.notEmpty (sRed, "Red");
 
@@ -111,13 +111,13 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    */
   @Nonnull
   @Nonempty
-  public String getGreen ()
+  public final String getGreen ()
   {
     return m_sGreen;
   }
 
   @Nonnull
-  public CSSRGB setGreen (@Nonnull @Nonempty final String sGreen)
+  public final CSSRGB setGreen (@Nonnull @Nonempty final String sGreen)
   {
     ValueEnforcer.notEmpty (sGreen, "Green");
 
@@ -130,13 +130,13 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    */
   @Nonnull
   @Nonempty
-  public String getBlue ()
+  public final String getBlue ()
   {
     return m_sBlue;
   }
 
   @Nonnull
-  public CSSRGB setBlue (@Nonnull @Nonempty final String sBlue)
+  public final CSSRGB setBlue (@Nonnull @Nonempty final String sBlue)
   {
     ValueEnforcer.notEmpty (sBlue, "Blue");
 

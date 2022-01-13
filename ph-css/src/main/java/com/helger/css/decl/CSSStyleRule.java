@@ -256,15 +256,15 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return aSB.toString ();
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -289,7 +289,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   {
     return new ToStringGenerator (this).append ("selectors", m_aSelectors)
                                        .append ("declarations", m_aDeclarations)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

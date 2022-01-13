@@ -51,7 +51,9 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   public enum EModifier
   {
     NONE (""),
+    // Trailing whitespace by purpose
     NOT ("not "),
+    // Trailing whitespace by purpose
     ONLY ("only ");
 
     private final String m_sText;
@@ -104,7 +106,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @return The media query modifier that was used. Never <code>null</code>.
    */
   @Nonnull
-  public EModifier getModifier ()
+  public final EModifier getModifier ()
   {
     return m_eModifier;
   }
@@ -113,7 +115,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @return <code>true</code> if the modifier is {@link EModifier#NOT}.
    * @see #getModifier()
    */
-  public boolean isNot ()
+  public final boolean isNot ()
   {
     return m_eModifier == EModifier.NOT;
   }
@@ -122,7 +124,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @return <code>true</code> if the modifier is {@link EModifier#ONLY}.
    * @see #getModifier()
    */
-  public boolean isOnly ()
+  public final boolean isOnly ()
   {
     return m_eModifier == EModifier.ONLY;
   }
@@ -131,7 +133,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @return The medium passed in the constructor.
    */
   @Nullable
-  public String getMedium ()
+  public final String getMedium ()
   {
     return m_sMedium;
   }
@@ -296,15 +298,15 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
     return aSB.toString ();
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -329,10 +331,10 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("modifier", m_eModifier)
-                                       .append ("medium", m_sMedium)
-                                       .append ("expressions", m_aMediaExpressions)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+    return new ToStringGenerator (this).append ("Modifier", m_eModifier)
+                                       .append ("Medium", m_sMedium)
+                                       .append ("Expressions", m_aMediaExpressions)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

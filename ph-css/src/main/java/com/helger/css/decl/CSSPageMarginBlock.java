@@ -46,13 +46,13 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
 
   @Nonnull
   @Nonempty
-  public String getPageMarginSymbol ()
+  public final String getPageMarginSymbol ()
   {
     return m_sPageMarginSymbol;
   }
 
   @Nonnull
-  public CSSPageMarginBlock setPageMarginSymbol (@Nonnull @Nonempty final String sPargeMarginSymbol)
+  public final CSSPageMarginBlock setPageMarginSymbol (@Nonnull @Nonempty final String sPargeMarginSymbol)
   {
     ValueEnforcer.notEmpty (sPargeMarginSymbol, "PargeMarginSymbol");
     ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'), "Page margin symbol does not start with '@'!");
@@ -157,15 +157,15 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -190,7 +190,7 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
   {
     return new ToStringGenerator (this).append ("pageMarginSymbol", m_sPageMarginSymbol)
                                        .append ("declarations", m_aDeclarations)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

@@ -73,14 +73,14 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
    */
   @Nonnull
   @Nonempty
-  public String getDeclaration ()
+  public final String getDeclaration ()
   {
     return m_sDeclaration;
   }
 
   @Nonnull
   @Nonempty
-  public String getAnimationName ()
+  public final String getAnimationName ()
   {
     return m_sAnimationName;
   }
@@ -203,15 +203,15 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -237,7 +237,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     return new ToStringGenerator (this).append ("declaration", m_sDeclaration)
                                        .append ("animationName", m_sAnimationName)
                                        .append ("blocks", m_aBlocks)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

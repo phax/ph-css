@@ -46,7 +46,7 @@ public class CSSExpressionMemberMathUnitProduct implements ICSSExpressionMathMem
   }
 
   @Nonnull
-  public CSSExpressionMemberMathProduct getProduct ()
+  public final CSSExpressionMemberMathProduct getProduct ()
   {
     return m_aProduct;
   }
@@ -65,15 +65,15 @@ public class CSSExpressionMemberMathUnitProduct implements ICSSExpressionMathMem
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aProduct.setSourceLocation (aSourceLocation);
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aProduct.getSourceLocation ();
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aProduct.setSourceLocation (aSourceLocation);
   }
 
   @Override

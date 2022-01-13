@@ -74,13 +74,13 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
   }
 
   @Nullable
-  public String getNamespacePrefix ()
+  public final String getNamespacePrefix ()
   {
     return m_sPrefix;
   }
 
   @Nonnull
-  public CSSNamespaceRule setNamespacePrefix (@Nullable final String sNamespacePrefix)
+  public final CSSNamespaceRule setNamespacePrefix (@Nullable final String sNamespacePrefix)
   {
     m_sPrefix = sNamespacePrefix;
     return this;
@@ -90,13 +90,13 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
    * @return The namespace URL. May not be <code>null</code> but maybe empty!
    */
   @Nonnull
-  public String getNamespaceURL ()
+  public final String getNamespaceURL ()
   {
     return m_sURL;
   }
 
   @Nonnull
-  public CSSNamespaceRule setNamespaceURL (@Nonnull final String sURL)
+  public final CSSNamespaceRule setNamespaceURL (@Nonnull final String sURL)
   {
     ValueEnforcer.notNull (sURL, "URL");
 
@@ -123,15 +123,15 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
     return aSB.append (';').append (aSettings.getNewLineString ()).toString ();
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -156,7 +156,7 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
   {
     return new ToStringGenerator (this).appendIfNotNull ("prefix", m_sPrefix)
                                        .append ("URL", m_sURL)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

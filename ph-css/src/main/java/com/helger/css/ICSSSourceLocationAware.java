@@ -26,18 +26,18 @@ import javax.annotation.Nullable;
 public interface ICSSSourceLocationAware
 {
   /**
-   * Set the source location of the object, determined while parsing.
-   *
-   * @param aSourceLocation
-   *        The source location to use. May be <code>null</code>.
-   */
-  void setSourceLocation (@Nullable CSSSourceLocation aSourceLocation);
-
-  /**
    * @return The source location of this object when it was read by the parser.
    *         May be <code>null</code> if an object was not read but manually
    *         created.
    */
   @Nullable
   CSSSourceLocation getSourceLocation ();
+
+  /**
+   * Set the source location of the object, determined while parsing.
+   *
+   * @param aSourceLocation
+   *        The source location to use. May be <code>null</code>.
+   */
+  void setSourceLocation (@Nullable CSSSourceLocation aSourceLocation);
 }

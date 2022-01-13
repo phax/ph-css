@@ -167,7 +167,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    * @return The URL object of the CSS file to import. Never <code>null</code>.
    */
   @Nonnull
-  public CSSURI getLocation ()
+  public final CSSURI getLocation ()
   {
     return m_aLocation;
   }
@@ -178,7 +178,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    */
   @Nonnull
   @Nonempty
-  public String getLocationString ()
+  public final String getLocationString ()
   {
     return m_aLocation.getURI ();
   }
@@ -207,7 +207,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    * @return this;
    */
   @Nonnull
-  public CSSImportRule setLocationString (@Nonnull final String sLocationURI)
+  public final CSSImportRule setLocationString (@Nonnull final String sLocationURI)
   {
     m_aLocation.setURI (sLocationURI);
     return this;
@@ -237,15 +237,15 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
     return aSB.append (';').append (aSettings.getNewLineString ()).toString ();
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -270,7 +270,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   {
     return new ToStringGenerator (this).append ("location", m_aLocation)
                                        .append ("mediaQueries", m_aMediaQueries)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

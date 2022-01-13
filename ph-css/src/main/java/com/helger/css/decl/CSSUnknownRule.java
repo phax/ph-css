@@ -135,15 +135,15 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return aSB.toString ();
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -171,7 +171,7 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return new ToStringGenerator (this).append ("declaration", m_sDeclaration)
                                        .appendIfNotNull ("parameterList", m_sParameterList)
                                        .appendIfNotNull ("body", m_sBody)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }
