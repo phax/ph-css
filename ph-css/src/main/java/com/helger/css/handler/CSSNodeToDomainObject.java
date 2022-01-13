@@ -285,6 +285,18 @@ final class CSSNodeToDomainObject
           return ret;
         }
 
+        if (ECSSNodeType.HOSTCONTEXT.isNode (aChildNode, m_eVersion))
+        {
+          final CSSSelector aSelector = new CSSSelector ();
+          final int nChildChildCount = aChildNode.jjtGetNumChildren ();
+          for (int j = 0; j < nChildChildCount; ++j)
+            aSelector.addMember (_createSelectorMember (aChildNode.jjtGetChild (j)));
+          final CSSSelectorMemberHostContext ret = new CSSSelectorMemberHostContext (aSelector);
+          if (m_bUseSourceLocation)
+            ret.setSourceLocation (aNode.getSourceLocation ());
+          return ret;
+        }
+
         if (ECSSNodeType.SLOTTED.isNode (aChildNode, m_eVersion))
         {
           final CSSSelector aSelector = new CSSSelector ();
