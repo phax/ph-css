@@ -302,6 +302,7 @@ TOKEN :
                  | "-" <IDENT> "-calc(" >
 | < FUNCTION_NOT: ":not(" >
 | < FUNCTION_HOST: "host(" >
+| < FUNCTION_HOSTCONTEXT: "host-context(" >
 | < FUNCTION_SLOTTED: "slotted(" >
 | < FUNCTION_NTH: "nth-child("
                 | "nth-last-child("
@@ -1020,6 +1021,14 @@ void pseudoHost () #host : {}
   )*
 }
 
+void pseudoHostContext () #hostcontext : {}
+{
+  ( <S> )*
+  ( simpleSelectorSequence () 
+    ( <S> )*
+  )*
+}
+
 void pseudoSlotted () #slotted : {}
 {
   ( <S> )*
@@ -1038,6 +1047,9 @@ void pseudo() : {}
     <RROUND>  // do not append because of expression!
   | <FUNCTION_HOST> { jjtThis.appendText (token.image); }
     pseudoHost()
+    <RROUND> // do not append because of expression!
+  | <FUNCTION_HOSTCONTEXT> { jjtThis.appendText (token.image); }
+    pseudoHostContext()
     <RROUND> // do not append because of expression!
   | <FUNCTION_SLOTTED> { jjtThis.appendText (token.image); }
     pseudoSlotted()
