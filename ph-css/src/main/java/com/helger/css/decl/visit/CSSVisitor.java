@@ -52,7 +52,7 @@ import com.helger.css.decl.IHasCSSDeclarations;
 public final class CSSVisitor
 {
   @PresentForCodeCoverage
-  private static final CSSVisitor s_aInstance = new CSSVisitor ();
+  private static final CSSVisitor INSTANCE = new CSSVisitor ();
 
   private CSSVisitor ()
   {}

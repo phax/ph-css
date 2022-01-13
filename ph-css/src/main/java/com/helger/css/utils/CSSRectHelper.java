@@ -65,7 +65,7 @@ public final class CSSRectHelper
                                                    "\\s*\\)$";
 
   @PresentForCodeCoverage
-  private static final CSSRectHelper s_aInstance = new CSSRectHelper ();
+  private static final CSSRectHelper INSTANCE = new CSSRectHelper ();
 
   private CSSRectHelper ()
   {}

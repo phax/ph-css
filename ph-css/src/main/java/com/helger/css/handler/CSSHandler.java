@@ -40,7 +40,7 @@ public final class CSSHandler
   public static final boolean DEFAULT_USE_SOURCE_LOCATION = true;
 
   @PresentForCodeCoverage
-  private static final CSSHandler s_aInstance = new CSSHandler ();
+  private static final CSSHandler INSTANCE = new CSSHandler ();
 
   private CSSHandler ()
   {}

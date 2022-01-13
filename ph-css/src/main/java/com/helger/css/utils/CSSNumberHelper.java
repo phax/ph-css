@@ -55,7 +55,7 @@ public final class CSSNumberHelper
   }
 
   @PresentForCodeCoverage
-  private static final CSSNumberHelper s_aInstance = new CSSNumberHelper ();
+  private static final CSSNumberHelper INSTANCE = new CSSNumberHelper ();
 
   private CSSNumberHelper ()
   {}

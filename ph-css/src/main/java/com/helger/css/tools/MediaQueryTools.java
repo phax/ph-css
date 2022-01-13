@@ -46,7 +46,7 @@ import com.helger.css.reader.CSSReader;
 public final class MediaQueryTools
 {
   @PresentForCodeCoverage
-  private static final MediaQueryTools s_aInstance = new MediaQueryTools ();
+  private static final MediaQueryTools INSTANCE = new MediaQueryTools ();
 
   private MediaQueryTools ()
   {}

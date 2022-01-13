@@ -39,7 +39,7 @@ public final class CSSCompressor
   private static final Logger LOGGER = LoggerFactory.getLogger (CSSCompressor.class);
 
   @PresentForCodeCoverage
-  private static final CSSCompressor s_aInstance = new CSSCompressor ();
+  private static final CSSCompressor INSTANCE = new CSSCompressor ();
 
   private CSSCompressor ()
   {}

@@ -41,13 +41,16 @@ public final class CSSParseHelper
   /** The character used to quote elements in CSS URLs */
   public static final char URL_ESCAPE_CHAR = '\\';
 
-  // Order of the rules in brackets is important!
+  /**
+   * Order of the rules in brackets is important!<br>
+   * The part "([eE][+-]?[0-9]+)?" was added for #79
+   */
   @RegEx
-  private static final String SPLIT_NUMBER_REGEX = "^([0-9]*\\.[0-9]+|[0-9]+).*$";
+  private static final String SPLIT_NUMBER_REGEX = "^([0-9]*\\.[0-9]+|[0-9]+([eE][+-]?[0-9]+)?).*$";
   private static final Pattern SPLIT_NUMBER_PATTERN = RegExCache.getPattern (SPLIT_NUMBER_REGEX);
 
   @PresentForCodeCoverage
-  private static final CSSParseHelper s_aInstance = new CSSParseHelper ();
+  private static final CSSParseHelper INSTANCE = new CSSParseHelper ();
 
   private CSSParseHelper ()
   {}

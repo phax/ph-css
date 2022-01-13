@@ -25,7 +25,7 @@
     <version>1.11.4</version>
   </parent>
   <artifactId>ph-css-parent-pom</artifactId>
-  <version>6.4.2-SNAPSHOT</version>
+  <version>6.4.3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ph-css-parent-pom</name>
   <description>Base POM to build the ph-css projects</description>

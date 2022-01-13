@@ -44,7 +44,7 @@ public final class CSSExpressionTermOptimizer
   }
 
   @PresentForCodeCoverage
-  private static final CSSExpressionTermOptimizer s_aInstance = new CSSExpressionTermOptimizer ();
+  private static final CSSExpressionTermOptimizer INSTANCE = new CSSExpressionTermOptimizer ();
 
   private CSSExpressionTermOptimizer ()
   {}
