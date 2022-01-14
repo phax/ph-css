@@ -82,7 +82,7 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
    */
   @Nonnull
   @Nonempty
-  public String getValue ()
+  public final String getValue ()
   {
     return m_sValue;
   }
@@ -94,7 +94,7 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
    */
   @Nonnull
   @Nonempty
-  public String getOptimizedValue ()
+  public final String getOptimizedValue ()
   {
     return m_sOptimizedValue;
   }
@@ -103,7 +103,7 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
    * @return <code>true</code> if this value is a string literal.
    *         <code>false</code> it is considered to be an identifier.
    */
-  public boolean isStringLiteral ()
+  public final boolean isStringLiteral ()
   {
     final char cFirst = m_sValue.charAt (0);
     return (cFirst == CCSS.DOUBLE_QUOTE || cFirst == CCSS.SINGLE_QUOTE) && cFirst == StringHelper.getLastChar (m_sValue);
@@ -122,15 +122,15 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
     return aSettings.isOptimizedOutput () ? m_sOptimizedValue : m_sValue;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -156,7 +156,7 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
   {
     return new ToStringGenerator (null).append ("value", m_sValue)
                                        .append ("optimizedValue", m_sOptimizedValue)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

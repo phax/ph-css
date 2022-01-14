@@ -85,7 +85,7 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
    */
   @Nonnull
   @Nonempty
-  public String getFunctionName ()
+  public final String getFunctionName ()
   {
     return m_sFunctionName;
   }
@@ -104,7 +104,7 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
    * @return The optional expression parameter. May be <code>null</code>.
    */
   @Nullable
-  public CSSExpression getExpression ()
+  public final CSSExpression getExpression ()
   {
     return m_aExpression;
   }
@@ -114,7 +114,7 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
    *         <code>false</code> otherwise.
    * @since 5.0.0
    */
-  public boolean hasExpression ()
+  public final boolean hasExpression ()
   {
     return m_aExpression != null;
   }
@@ -148,15 +148,15 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -181,7 +181,7 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
   {
     return new ToStringGenerator (null).append ("funcName", m_sFunctionName)
                                        .appendIfNotNull ("expression", m_aExpression)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

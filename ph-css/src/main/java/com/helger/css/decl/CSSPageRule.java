@@ -201,15 +201,15 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
     return ECSSVersion.CSS21;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -233,7 +233,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
   public String toString ()
   {
     return new ToStringGenerator (this).append ("declarations", m_aMembers)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

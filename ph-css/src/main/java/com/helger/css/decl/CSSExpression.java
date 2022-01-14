@@ -405,15 +405,15 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
     return aSB.toString ();
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -436,7 +436,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("sourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
   }
 
   /**

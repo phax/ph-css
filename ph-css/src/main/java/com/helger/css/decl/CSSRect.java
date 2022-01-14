@@ -80,7 +80,7 @@ public class CSSRect implements ICSSWriteable
    */
   @Nonnull
   @Nonempty
-  public String getTop ()
+  public final String getTop ()
   {
     return m_sTop;
   }
@@ -93,7 +93,7 @@ public class CSSRect implements ICSSWriteable
    * @return this
    */
   @Nonnull
-  public CSSRect setTop (@Nonnull @Nonempty final String sTop)
+  public final CSSRect setTop (@Nonnull @Nonempty final String sTop)
   {
     ValueEnforcer.notEmpty (sTop, "Top");
 
@@ -106,7 +106,7 @@ public class CSSRect implements ICSSWriteable
    */
   @Nonnull
   @Nonempty
-  public String getRight ()
+  public final String getRight ()
   {
     return m_sRight;
   }
@@ -119,7 +119,7 @@ public class CSSRect implements ICSSWriteable
    * @return this
    */
   @Nonnull
-  public CSSRect setRight (@Nonnull @Nonempty final String sRight)
+  public final CSSRect setRight (@Nonnull @Nonempty final String sRight)
   {
     ValueEnforcer.notEmpty (sRight, "Right");
 
@@ -132,7 +132,7 @@ public class CSSRect implements ICSSWriteable
    */
   @Nonnull
   @Nonempty
-  public String getBottom ()
+  public final String getBottom ()
   {
     return m_sBottom;
   }
@@ -145,7 +145,7 @@ public class CSSRect implements ICSSWriteable
    * @return this
    */
   @Nonnull
-  public CSSRect setBottom (@Nonnull @Nonempty final String sBottom)
+  public final CSSRect setBottom (@Nonnull @Nonempty final String sBottom)
   {
     ValueEnforcer.notEmpty (sBottom, "Bottom");
 
@@ -158,7 +158,7 @@ public class CSSRect implements ICSSWriteable
    */
   @Nonnull
   @Nonempty
-  public String getLeft ()
+  public final String getLeft ()
   {
     return m_sLeft;
   }
@@ -171,7 +171,7 @@ public class CSSRect implements ICSSWriteable
    * @return this
    */
   @Nonnull
-  public CSSRect setLeft (@Nonnull @Nonempty final String sLeft)
+  public final CSSRect setLeft (@Nonnull @Nonempty final String sLeft)
   {
     ValueEnforcer.notEmpty (sLeft, "Left");
 
@@ -206,10 +206,10 @@ public class CSSRect implements ICSSWriteable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("top", m_sTop)
-                                       .append ("right", m_sRight)
-                                       .append ("bottom", m_sBottom)
-                                       .append ("left", m_sLeft)
+    return new ToStringGenerator (this).append ("Top", m_sTop)
+                                       .append ("Right", m_sRight)
+                                       .append ("Bottom", m_sBottom)
+                                       .append ("Left", m_sLeft)
                                        .getToString ();
   }
 }

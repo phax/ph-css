@@ -177,15 +177,15 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -209,7 +209,7 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   public String toString ()
   {
     return new ToStringGenerator (null).append ("nestedSelectors", m_aNestedSelectors)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

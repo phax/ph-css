@@ -140,13 +140,13 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
    */
   @Nonnull
   @Nonempty
-  public String getHue ()
+  public final String getHue ()
   {
     return m_sHue;
   }
 
   @Nonnull
-  public CSSHSLA setHue (@Nonnull @Nonempty final String sHue)
+  public final CSSHSLA setHue (@Nonnull @Nonempty final String sHue)
   {
     ValueEnforcer.notEmpty (sHue, "Hue");
 
@@ -159,13 +159,13 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
    */
   @Nonnull
   @Nonempty
-  public String getSaturation ()
+  public final String getSaturation ()
   {
     return m_sSaturation;
   }
 
   @Nonnull
-  public CSSHSLA setSaturation (@Nonnull @Nonempty final String sSaturation)
+  public final CSSHSLA setSaturation (@Nonnull @Nonempty final String sSaturation)
   {
     ValueEnforcer.notEmpty (sSaturation, "Saturation");
 
@@ -178,13 +178,13 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
    */
   @Nonnull
   @Nonempty
-  public String getLightness ()
+  public final String getLightness ()
   {
     return m_sLightness;
   }
 
   @Nonnull
-  public CSSHSLA setLightness (@Nonnull @Nonempty final String sLightness)
+  public final CSSHSLA setLightness (@Nonnull @Nonempty final String sLightness)
   {
     ValueEnforcer.notEmpty (sLightness, "Lightness");
 
@@ -197,13 +197,13 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
    */
   @Nonnull
   @Nonempty
-  public String getOpacity ()
+  public final String getOpacity ()
   {
     return m_sOpacity;
   }
 
   @Nonnull
-  public CSSHSLA setOpacity (@Nonnull @Nonempty final String sOpacity)
+  public final CSSHSLA setOpacity (@Nonnull @Nonempty final String sOpacity)
   {
     ValueEnforcer.notEmpty (sOpacity, "Opacity");
 
@@ -282,10 +282,10 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hue", m_sHue)
-                                       .append ("saturation", m_sSaturation)
-                                       .append ("lightness", m_sLightness)
-                                       .append ("opacity", m_sOpacity)
+    return new ToStringGenerator (this).append ("Hue", m_sHue)
+                                       .append ("Saturation", m_sSaturation)
+                                       .append ("Lightness", m_sLightness)
+                                       .append ("Opacity", m_sOpacity)
                                        .getToString ();
   }
 }

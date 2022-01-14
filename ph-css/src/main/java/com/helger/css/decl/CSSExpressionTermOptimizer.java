@@ -21,8 +21,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.css.ECSSUnit;
 import com.helger.css.propertyvalue.CCSSValue;
 
@@ -34,13 +34,13 @@ import com.helger.css.propertyvalue.CCSSValue;
 @Immutable
 public final class CSSExpressionTermOptimizer
 {
-  private static final ICommonsList <String> s_aUnitValues0 = new CommonsArrayList <> ();
+  private static final ICommonsSet <String> UNIT_VALUES_0 = new CommonsHashSet <> ();
 
   static
   {
     // Save all "0" formatted unit values
     for (final ECSSUnit eUnit : ECSSUnit.values ())
-      s_aUnitValues0.add (eUnit.format (0));
+      UNIT_VALUES_0.add (eUnit.format (0));
   }
 
   @PresentForCodeCoverage
@@ -54,7 +54,7 @@ public final class CSSExpressionTermOptimizer
   public static String getOptimizedValue (@Nonnull @Nonempty final String sValue)
   {
     // Replace e.g. "0px" with "0"
-    if (s_aUnitValues0.contains (sValue))
+    if (UNIT_VALUES_0.contains (sValue))
       return "0";
 
     // Check for optimized color values (replace #aabbcc with #abc)

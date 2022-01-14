@@ -33,10 +33,11 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single, simple CSS selector as used for the ":host()" CSS pseudo
- * class function.<br>
- * Note: this class was completely redesigned for version 3.7.4
+ * class function.
  *
+ * @author Mike Wiedenauer
  * @author Philip Helger
+ * @since 6.4.1
  */
 @NotThreadSafe
 public class CSSSelectorMemberHost implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware

@@ -50,10 +50,10 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
   }
 
   /**
-   * @return The contained {@link CSSURI} object.
+   * @return The contained {@link CSSURI} object. Never <code>null</code>.
    */
   @Nonnull
-  public CSSURI getURI ()
+  public final CSSURI getURI ()
   {
     return m_aURI;
   }
@@ -63,7 +63,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
    */
   @Nonnull
   @Nonempty
-  public String getURIString ()
+  public final String getURIString ()
   {
     return m_aURI.getURI ();
   }
@@ -76,7 +76,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
    * @return this
    */
   @Nonnull
-  public CSSExpressionMemberTermURI setURI (@Nonnull final CSSURI aURI)
+  public final CSSExpressionMemberTermURI setURI (@Nonnull final CSSURI aURI)
   {
     m_aURI = ValueEnforcer.notNull (aURI, "URI");
     return this;
@@ -91,7 +91,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
    * @return this
    */
   @Nonnull
-  public CSSExpressionMemberTermURI setURIString (@Nonnull final String sURIString)
+  public final CSSExpressionMemberTermURI setURIString (@Nonnull final String sURIString)
   {
     m_aURI.setURI (sURIString);
     return this;
@@ -110,15 +110,15 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
     return m_aURI.getAsCSSString (aSettings, nIndentLevel);
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aURI.setSourceLocation (aSourceLocation);
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aURI.getSourceLocation ();
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aURI.setSourceLocation (aSourceLocation);
   }
 
   @Override

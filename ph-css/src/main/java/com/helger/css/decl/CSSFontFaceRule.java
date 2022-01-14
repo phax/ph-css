@@ -76,7 +76,7 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
    */
   @Nonnull
   @Nonempty
-  public String getDeclaration ()
+  public final String getDeclaration ()
   {
     return m_sDeclaration;
   }
@@ -183,15 +183,15 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -202,20 +202,21 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSFontFaceRule rhs = (CSSFontFaceRule) o;
-    return m_aDeclarations.equals (rhs.m_aDeclarations);
+    return m_sDeclaration.equals (rhs.m_sDeclaration) && m_aDeclarations.equals (rhs.m_aDeclarations);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aDeclarations).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDeclaration).append (m_aDeclarations).append (m_aDeclarations).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declarations", m_aDeclarations)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+    return new ToStringGenerator (this).append ("Declaration", m_sDeclaration)
+                                       .append ("Declarations", m_aDeclarations)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

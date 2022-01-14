@@ -103,13 +103,13 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    */
   @Nonnull
   @Nonempty
-  public String getHue ()
+  public final String getHue ()
   {
     return m_sHue;
   }
 
   @Nonnull
-  public CSSHSL setHue (@Nonnull @Nonempty final String sHue)
+  public final CSSHSL setHue (@Nonnull @Nonempty final String sHue)
   {
     ValueEnforcer.notEmpty (sHue, "Hue");
 
@@ -122,13 +122,13 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    */
   @Nonnull
   @Nonempty
-  public String getSaturation ()
+  public final String getSaturation ()
   {
     return m_sSaturation;
   }
 
   @Nonnull
-  public CSSHSL setSaturation (@Nonnull @Nonempty final String sSaturation)
+  public final CSSHSL setSaturation (@Nonnull @Nonempty final String sSaturation)
   {
     ValueEnforcer.notEmpty (sSaturation, "Saturation");
 
@@ -141,13 +141,13 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    */
   @Nonnull
   @Nonempty
-  public String getLightness ()
+  public final String getLightness ()
   {
     return m_sLightness;
   }
 
   @Nonnull
-  public CSSHSL setLightness (@Nonnull @Nonempty final String sLightness)
+  public final CSSHSL setLightness (@Nonnull @Nonempty final String sLightness)
   {
     ValueEnforcer.notEmpty (sLightness, "Lightness");
 
@@ -242,9 +242,9 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hue", m_sHue)
-                                       .append ("saturation", m_sSaturation)
-                                       .append ("lightness", m_sLightness)
+    return new ToStringGenerator (this).append ("Hue", m_sHue)
+                                       .append ("Saturation", m_sSaturation)
+                                       .append ("Lightness", m_sLightness)
                                        .getToString ();
   }
 }

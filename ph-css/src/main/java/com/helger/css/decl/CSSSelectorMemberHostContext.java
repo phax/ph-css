@@ -26,71 +26,52 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
+import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
+import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single CSS selector like an element name, a hash value (ID), a
- * class or a pseudo class.
+ * Represents a single, simple CSS selector as used for the ":host-context()"
+ * CSS pseudo class function.
  *
+ * @author Mike Wiedenauer
  * @author Philip Helger
+ * @since 6.4.4
  */
 @NotThreadSafe
-public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLocationAware
+public class CSSSelectorMemberHostContext implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final String m_sValue;
+  private final CSSSelector m_aSelector;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorSimpleMember (@Nonnull @Nonempty final String sValue)
+  public CSSSelectorMemberHostContext (@Nonnull final CSSSelector aSimpleSelector)
   {
-    ValueEnforcer.notEmpty (sValue, "Value");
-    m_sValue = sValue;
+    ValueEnforcer.notNull (aSimpleSelector, "SimpleSelector");
+    m_aSelector = aSimpleSelector;
   }
 
   @Nonnull
-  @Nonempty
-  public String getValue ()
+  public final CSSSelector getSelector ()
   {
-    return m_sValue;
-  }
-
-  /**
-   * @return <code>true</code> if it is no hash, no class and no pseudo selector
-   */
-  public boolean isElementName ()
-  {
-    return !isHash () && !isClass () && !isPseudo ();
-  }
-
-  /**
-   * @return <code>true</code> if it is a hash selector
-   */
-  public boolean isHash ()
-  {
-    return m_sValue.charAt (0) == '#';
-  }
-
-  /**
-   * @return <code>true</code> if it is a class selector
-   */
-  public boolean isClass ()
-  {
-    return m_sValue.charAt (0) == '.';
-  }
-
-  /**
-   * @return <code>true</code> if it is a pseudo selector
-   */
-  public boolean isPseudo ()
-  {
-    return m_sValue.charAt (0) == ':';
+    return m_aSelector;
   }
 
   @Nonnull
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    return m_sValue;
+    aSettings.checkVersionRequirements (this);
+
+    final StringBuilder aSB = new StringBuilder (":host-context(");
+    aSB.append (m_aSelector.getAsCSSString (aSettings, 0));
+    return aSB.append (')').toString ();
+  }
+
+  @Nonnull
+  public ECSSVersion getMinimumCSSVersion ()
+  {
+    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -111,19 +92,21 @@ public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLo
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final CSSSelectorSimpleMember rhs = (CSSSelectorSimpleMember) o;
-    return m_sValue.equals (rhs.m_sValue);
+    final CSSSelectorMemberHostContext rhs = (CSSSelectorMemberHostContext) o;
+    return m_aSelector.equals (rhs.m_aSelector);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sValue).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aSelector).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("value", m_sValue).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (null).append ("Selector", m_aSelector)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

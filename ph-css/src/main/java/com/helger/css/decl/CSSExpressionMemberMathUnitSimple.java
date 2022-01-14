@@ -47,16 +47,16 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   public CSSExpressionMemberMathUnitSimple (@Nonnull @Nonempty final String sText)
   {
     if (StringHelper.hasNoTextAfterTrim (sText))
-      throw new IllegalArgumentException ("text");
+      throw new IllegalArgumentException ("text may not be empty after trimming");
     m_sText = sText.trim ();
     m_eUnit = CSSNumberHelper.getMatchingUnitExclPercentage (m_sText);
   }
 
   /**
-   * @return The text including the unit.
+   * @return The text including the unit. Never <code>null</code>.
    */
   @Nonnull
-  public String getText ()
+  public final String getText ()
   {
     return m_sText;
   }
@@ -66,7 +66,7 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
    *         present.
    */
   @Nullable
-  public ECSSUnit getUnit ()
+  public final ECSSUnit getUnit ()
   {
     return m_eUnit;
   }
@@ -85,15 +85,15 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -118,7 +118,7 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   {
     return new ToStringGenerator (this).append ("text", m_sText)
                                        .append ("unit", m_eUnit)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

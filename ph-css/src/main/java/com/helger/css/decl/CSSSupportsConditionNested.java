@@ -143,15 +143,15 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return ECSSVersion.CSS30;
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -174,6 +174,6 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("members", m_aMembers).appendIfNotNull ("sourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (this).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
   }
 }

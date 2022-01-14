@@ -130,13 +130,13 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
    */
   @Nonnull
   @Nonempty
-  public String getRed ()
+  public final String getRed ()
   {
     return m_sRed;
   }
 
   @Nonnull
-  public CSSRGBA setRed (@Nonnull @Nonempty final String sRed)
+  public final CSSRGBA setRed (@Nonnull @Nonempty final String sRed)
   {
     ValueEnforcer.notEmpty (sRed, "Red");
 
@@ -149,13 +149,13 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
    */
   @Nonnull
   @Nonempty
-  public String getGreen ()
+  public final String getGreen ()
   {
     return m_sGreen;
   }
 
   @Nonnull
-  public CSSRGBA setGreen (@Nonnull @Nonempty final String sGreen)
+  public final CSSRGBA setGreen (@Nonnull @Nonempty final String sGreen)
   {
     ValueEnforcer.notEmpty (sGreen, "Green");
 
@@ -168,13 +168,13 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
    */
   @Nonnull
   @Nonempty
-  public String getBlue ()
+  public final String getBlue ()
   {
     return m_sBlue;
   }
 
   @Nonnull
-  public CSSRGBA setBlue (@Nonnull @Nonempty final String sBlue)
+  public final CSSRGBA setBlue (@Nonnull @Nonempty final String sBlue)
   {
     ValueEnforcer.notEmpty (sBlue, "Blue");
 
@@ -187,13 +187,13 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
    */
   @Nonnull
   @Nonempty
-  public String getOpacity ()
+  public final String getOpacity ()
   {
     return m_sOpacity;
   }
 
   @Nonnull
-  public CSSRGBA setOpacity (@Nonnull @Nonempty final String sOpacity)
+  public final CSSRGBA setOpacity (@Nonnull @Nonempty final String sOpacity)
   {
     ValueEnforcer.notEmpty (sOpacity, "Opacity");
 

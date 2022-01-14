@@ -91,7 +91,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    */
   @Nonnull
   @Nonempty
-  public String getProperty ()
+  public final String getProperty ()
   {
     return m_sProperty;
   }
@@ -115,7 +115,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @see #hasProperty(ECSSProperty)
    * @since 6.0.0
    */
-  public boolean hasProperty (@Nonnull final String sProperty)
+  public final boolean hasProperty (@Nonnull final String sProperty)
   {
     ValueEnforcer.notNull (sProperty, "Property");
     return m_sProperty.equals (_unifyProperty (sProperty));
@@ -131,7 +131,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @see #hasProperty(String)
    * @since 6.0.0
    */
-  public boolean hasProperty (@Nonnull final ECSSProperty eProperty)
+  public final boolean hasProperty (@Nonnull final ECSSProperty eProperty)
   {
     ValueEnforcer.notNull (eProperty, "Property");
     return hasProperty (eProperty.getName ());
@@ -175,7 +175,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    */
   @Nonnull
   @ReturnsMutableObject
-  public CSSExpression getExpression ()
+  public final CSSExpression getExpression ()
   {
     return m_aExpression;
   }
@@ -186,7 +186,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @return The CSS expression as a parsable String. Never <code>null</code>.
    */
   @Nonnull
-  public String getExpressionAsCSSString ()
+  public final String getExpressionAsCSSString ()
   {
     return m_aExpression.getAsCSSString ();
   }
@@ -210,7 +210,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @return <code>true</code> if this declaration is important (
    *         <code>!important</code>) or <code>false</code> if not.
    */
-  public boolean isImportant ()
+  public final boolean isImportant ()
   {
     return m_bIsImportant;
   }
@@ -241,15 +241,15 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
            (m_bIsImportant ? CCSS.IMPORTANT_SUFFIX : "");
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -275,7 +275,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
     return new ToStringGenerator (this).append ("property", m_sProperty)
                                        .append ("expression", m_aExpression)
                                        .append ("important", m_bIsImportant)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }

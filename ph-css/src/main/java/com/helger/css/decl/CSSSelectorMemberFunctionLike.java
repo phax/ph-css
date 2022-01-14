@@ -76,15 +76,15 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
     return m_sFuncName + m_aParamExpr.getAsCSSString (aSettings, nIndentLevel) + ')';
   }
 
-  public void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
-  {
-    m_aSourceLocation = aSourceLocation;
-  }
-
   @Nullable
-  public CSSSourceLocation getSourceLocation ()
+  public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
   }
 
   @Override
@@ -109,7 +109,7 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
   {
     return new ToStringGenerator (null).append ("functionName", m_sFuncName)
                                        .append ("paramExpr", m_aParamExpr)
-                                       .appendIfNotNull ("sourceLocation", m_aSourceLocation)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
 }
