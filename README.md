@@ -299,6 +299,9 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v6.4.4 - 2022-01-18
+    * Added support for `:host-context`. See [issue #80](https://github.com/phax/ph-css/issues/80) and [PR #81](https://github.com/phax/ph-css/pull/81) - thanks @shagkur
+    * Improved support for the scientific number parsing. See [issue #82](https://github.com/phax/ph-css/issues/82) and [PR #83](https://github.com/phax/ph-css/pull/83) - thanks @shagkur
 * v6.4.3 - 2022-01-13
     * Extended API of `CSSReaderDeclarationList`. See [issue #78](https://github.com/phax/ph-css/issues/78) - thanks @shagkur
     * Added support for the scientific number (as in `1e6`) support in parsing. See [issue #79](https://github.com/phax/ph-css/issues/79) - thanks @shagkur

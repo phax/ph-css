@@ -14,6 +14,11 @@ div {
   padding: 1.5e-06;
   padding: 1.5e+6;
   padding: 1.5e+06;
+  padding: 123.5678e6;
+  padding: 123.5678e-6;
+  padding: 123.5678e-06;
+  padding: 123.5678e+6;
+  padding: 123.5678e+06;
 }
 
 span {
@@ -32,4 +37,9 @@ span {
   padding: 1.5e-06em;
   padding: 1.5e+6em;
   padding: 1.5e+06em;
+  padding: 123.5678e6em;
+  padding: 123.5678e-6em;
+  padding: 123.5678e-06em;
+  padding: 123.5678e+6em;
+  padding: 123.5678e+06em;
 }
