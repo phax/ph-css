@@ -43,10 +43,10 @@ public final class CSSParseHelper
 
   /**
    * Order of the rules in brackets is important!<br>
-   * The part "([eE][+-]?[0-9]+)?" was added for #79
+   * The parts "([eE][+-]?[0-9]+)?" were added for #79, #82
    */
   @RegEx
-  private static final String SPLIT_NUMBER_REGEX = "^([0-9]*\\.[0-9]+|[0-9]+([eE][+-]?[0-9]+)?).*$";
+  private static final String SPLIT_NUMBER_REGEX = "^([0-9]*\\.[0-9]+([eE][+-]?[0-9]+)?|[0-9]+([eE][+-]?[0-9]+)?).*$";
   private static final Pattern SPLIT_NUMBER_PATTERN = RegExCache.getPattern (SPLIT_NUMBER_REGEX);
 
   @PresentForCodeCoverage
