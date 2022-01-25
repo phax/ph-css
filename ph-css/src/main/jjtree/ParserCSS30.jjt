@@ -204,6 +204,7 @@ TOKEN :
 | < DASH: "|" >
 | < GREATER: ">" >
 | < TILDE: "~" >
+| < DOLLAR: "$" >
 | < HASH: "#" <NAME> >
 | < INCLUDES: "~=" >
 | < DASHMATCH: "|=" >
@@ -342,6 +343,12 @@ SPECIAL_TOKEN :
     else
       LOGGER.error("Illegal character: " + image.toString());
   }
+}
+
+JAVACODE
+private void errorDeprecated(final Token tok, final int... aKinds) throws ParseException #void {
+  int expectedSeq[][] = { aKinds };
+  throw new ParseException(tok, expectedSeq, tokenImage);
 }
 
 JAVACODE
@@ -1125,10 +1132,17 @@ void selector() : {}
   )*
 }
 
-void property() : {}
+void property() :
 {
-  <IDENT> { jjtThis.setText (token.image); }
-  ( <S> )*
+  Token save;
+}
+{
+  ( <IDENT> { jjtThis.setText (token.image); }
+    ( <S> )*
+  )
+  | LOOKAHEAD(2, (<ASTERISK> | <DOLLAR>) <IDENT>)
+    { save = token; }
+    (<ASTERISK> | <DOLLAR>) { errorDeprecated(save, IDENT); }
 }
 
 void important() : {}
