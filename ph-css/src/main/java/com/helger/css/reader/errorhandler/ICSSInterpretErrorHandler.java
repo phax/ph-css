@@ -35,7 +35,7 @@ public interface ICSSInterpretErrorHandler
    * @param sMessage
    *        The message text of the error.
    */
-  void onCSSInterpretationWarning (@Nonnull @Nonempty final String sMessage);
+  void onCSSInterpretationWarning (@Nonnull @Nonempty String sMessage);
 
   /**
    * Called when an interpretation error occurs.
@@ -43,5 +43,5 @@ public interface ICSSInterpretErrorHandler
    * @param sMessage
    *        The message text of the error.
    */
-  void onCSSInterpretationError (@Nonnull @Nonempty final String sMessage);
+  void onCSSInterpretationError (@Nonnull @Nonempty String sMessage);
 }
