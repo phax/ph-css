@@ -18,9 +18,7 @@ options {
 // JavaCC options
   // LOOKAHEAD = 2;
   CHOICE_AMBIGUITY_CHECK = 5;
-  // DEBUG_PARSER = true;
-  // DEBUG_LOOKAHEAD = true;
-  // DEBUG_TOKEN_MANAGER = true;
+  // DEBUG_PARSER = true; DEBUG_LOOKAHEAD = true; DEBUG_TOKEN_MANAGER = true;
   // ERROR_REPORTING = false;
   JAVA_UNICODE_ESCAPE = true;
   UNICODE_INPUT = true;
@@ -346,9 +344,24 @@ SPECIAL_TOKEN :
 }
 
 JAVACODE
-private void errorDeprecated(final Token tok, final int... aKinds) throws ParseException #void {
-  int expectedSeq[][] = { aKinds };
-  throw new ParseException(tok, expectedSeq, tokenImage);
+private void errorDeprecatedProperty(final Token aPrefixToken) throws ParseException #void
+{
+  if (m_bBrowserCompliantMode)
+  {
+    if (m_aCustomErrorHandler != null)
+      m_aCustomErrorHandler.onCSSDeprecatedProperty (aPrefixToken, token);
+    else
+      LOGGER.warn("[" + aPrefixToken.beginLine + ":" + aPrefixToken.beginColumn + "] Deprecated property name '" + aPrefixToken.image + token.image + "'");
+  }
+  else
+  {
+    final ParseException ex = new ParseException (aPrefixToken, new int[][] { new int[] { IDENT } }, 
+                                                  tokenImage, token_source == null ? null : ParserCSS30TokenManager.lexStateNames[token_source.curLexState]);
+    // javaSkipToClosingBraceOrSemicolon (1);
+    // LOGGER.warn ("Skipped now '"+s+"'");
+    // if (m_aCustomErrorHandler != null) m_aCustomErrorHandler.onCSSParseError (ex, token);
+    throw ex;
+  }
 }
 
 JAVACODE
@@ -510,7 +523,7 @@ JAVACODE
  * @param ex The source ParseException. May not be <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private void browserCompliantSkip(final ParseException ex) throws ParseEOFException #void {
+private void browserCompliantSkipInRule(final ParseException ex) throws ParseEOFException #void {
   javaSkipToClosingBrace (1);
   // push back last token (char count!!)
   token_source.backup(1);
@@ -524,7 +537,7 @@ JAVACODE
  * @param ex The source ParseException. May not be <code>null</code>
  * @throws ParseEOFException If EOF occurs while skipping
  */
-private void browserCompliantSkipSelector(final ParseException ex) throws ParseEOFException #void {
+private void browserCompliantSkipInSelector(final ParseException ex) throws ParseEOFException #void {
   javaSkipToClosingBrace (0);
   // push back last token (char count!!)
   token_source.backup(1);
@@ -1134,15 +1147,17 @@ void selector() : {}
 
 void property() :
 {
-  Token save;
+  Token aPrefixToken;
 }
 {
   ( <IDENT> { jjtThis.setText (token.image); }
     ( <S> )*
-  )
-  | LOOKAHEAD(2, (<ASTERISK> | <DOLLAR>) <IDENT>)
-    { save = token; }
-    (<ASTERISK> | <DOLLAR>) { errorDeprecated(save, IDENT); }
+  | LOOKAHEAD(2, ( <ASTERISK> | <DOLLAR> ) <IDENT> )
+    ( <ASTERISK> | <DOLLAR> ) { aPrefixToken = token; }
+    <IDENT>                   { errorDeprecatedProperty (aPrefixToken); }
+    /* leaving jjtThis.text null is handled inside the code */
+    ( <S> )*
+  )  
 }
 
 void important() : {}
@@ -1190,25 +1205,34 @@ void styleDeclarationOrRule() #void : {}
 
 CSSNode styleDeclarationList() : {}
 {
+try {
   ( <S> )*
   ( styleDeclarationOrRule() )?
   ( <SEMICOLON>
     ( <S> )*
     ( styleDeclarationOrRule() )?
   )*
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl (ex);
+  else {
+    errorSkipTo (ex, RBRACE);
+    token_source.backup(1);
+  }
+}
   { return jjtThis; }
 }
 
 void styleDeclarationBlock() #void : {}
 {
   <LBRACE>
-try{
+try {
   styleDeclarationList()
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
     browserCompliantSkipDecl (ex);
-  else
+  else 
     errorSkipTo (ex, RBRACE);
 }
 }
@@ -1226,7 +1250,7 @@ try{
   styleDeclarationBlock()
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkipSelector (ex);
+    browserCompliantSkipInSelector (ex);
   else
     throw ex;
 }
@@ -1327,7 +1351,7 @@ try{
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip (ex);
+    browserCompliantSkipInRule (ex);
   else
     errorSkipTo (ex, RBRACE);
 }
@@ -1412,7 +1436,7 @@ try{
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip (ex);
+    browserCompliantSkipInRule (ex);
   else
     errorSkipTo (ex, RBRACE);
 }
@@ -1488,7 +1512,7 @@ try{
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip (ex);
+    browserCompliantSkipInRule (ex);
   else
     errorSkipTo (ex, RBRACE);
 }
@@ -1575,7 +1599,7 @@ try{
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
-    browserCompliantSkip (ex);
+    browserCompliantSkipInRule (ex);
   else
     errorSkipTo (ex, RBRACE);
 }

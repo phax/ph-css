@@ -150,6 +150,38 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     LOGGER.warn (createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
 
+  /**
+   * Create a common string to be used for deprecated properties. To be called,
+   * if a deprecated old IE 6/7 property is found.
+   *
+   * @param aPrefixToken
+   *        The prefix token found (like '$' or '*'). Never <code>null</code>.
+   * @param aIdentifierToken
+   *        The identifier token found. Never <code>null</code>.
+   * @throws ParseException
+   *         In case the error is fatal and should be propagated.
+   * @return The concatenated string with source location, etc. May neither be
+   *         <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  public static String createLoggingStringDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  {
+    return "[" +
+           aPrefixToken.beginLine +
+           ":" +
+           aPrefixToken.beginColumn +
+           "] Deprecated property name '" +
+           aPrefixToken.image +
+           aIdentifierToken.image +
+           "'";
+  }
+
+  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  {
+    LOGGER.warn (createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
+  }
+
   @Nonnull
   @Nonempty
   public static String createLoggingStringBrowserCompliantSkip (@Nullable final ParseException ex,

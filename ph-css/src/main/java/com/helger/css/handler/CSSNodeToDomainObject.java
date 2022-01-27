@@ -644,6 +644,12 @@ final class CSSNodeToDomainObject
     }
 
     final String sProperty = aNode.jjtGetChild (0).getText ();
+    if (sProperty == null)
+    {
+      // Syntax error with deprecated property name (see #84)
+      return null;
+    }
+
     final CSSExpression aExpression = _createExpression (aNode.jjtGetChild (1));
     boolean bImportant = false;
     if (nChildCount == 3)

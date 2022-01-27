@@ -150,6 +150,12 @@ public class CSSParseError
   }
 
   @Nonnull
+  public static CSSParseError createDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  {
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
+  }
+
+  @Nonnull
   public static CSSParseError createBrowserCompliantSkip (@Nullable final ParseException ex,
                                                           @Nonnull final Token aFromToken,
                                                           @Nonnull final Token aToToken)

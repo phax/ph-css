@@ -65,6 +65,19 @@ public interface ICSSParseErrorHandler
                             @Nonnull @Nonempty String sMsg) throws ParseException;
 
   /**
+   * To be called, if a deprecated old IE 6/7 property is found.
+   *
+   * @param aPrefixToken
+   *        The prefix token found (like '$' or '*'). Never <code>null</code>.
+   * @param aIdentifierToken
+   *        The identifier token found. Never <code>null</code>.
+   * @throws ParseException
+   *         In case the error is fatal and should be propagated.
+   * @since 6.4.5
+   */
+  void onCSSDeprecatedProperty (@Nonnull Token aPrefixToken, @Nonnull Token aIdentifierToken) throws ParseException;
+
+  /**
    * This method is only called in browser compliant mode if a certain part of
    * the CSS is skipped.
    *
@@ -75,7 +88,7 @@ public interface ICSSParseErrorHandler
    *        Original token that caused the error and was skipped (inclusive).
    *        Never <code>null</code>.
    * @param aToToken
-   *        The end token until which was skipped(exclusive). Never
+   *        The end token until which was skipped (exclusive). Never
    *        <code>null</code>.
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
@@ -122,6 +135,12 @@ public interface ICSSParseErrorHandler
       {
         aThis.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
         aOther.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
+      }
+
+      public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken) throws ParseException
+      {
+        aThis.onCSSDeprecatedProperty (aPrefixToken, aIdentifierToken);
+        aOther.onCSSDeprecatedProperty (aPrefixToken, aIdentifierToken);
       }
 
       public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
