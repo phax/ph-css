@@ -51,6 +51,11 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
     throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
 
+  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken) throws ParseException
+  {
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
+  }
+
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
                                          @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException

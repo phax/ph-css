@@ -1,0 +1,11 @@
+div {
+  max-width: 100px;
+  *zoom: 1;
+  position: relative;
+}
+
+div {
+  max-width: 100px;
+  $zoom: 1;
+  position: relative;
+}

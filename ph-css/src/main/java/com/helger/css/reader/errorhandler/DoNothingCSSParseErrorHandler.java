@@ -35,21 +35,24 @@ public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
   public DoNothingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
   {
     /* really do nothing :) */
   }
 
   public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
                                    @Nonnull @Nonempty final String sRule,
-                                   @Nonnull @Nonempty final String sMsg) throws ParseException
+                                   @Nonnull @Nonempty final String sMsg)
   {
     /* really do nothing :) */
   }
 
-  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
-                                         @Nonnull final Token aFromToken,
-                                         @Nonnull final Token aToToken) throws ParseException
+  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  {
+    /* really do nothing :) */
+  }
+
+  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex, @Nonnull final Token aFromToken, @Nonnull final Token aToToken)
   {
     /* really do nothing :) */
   }

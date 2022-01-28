@@ -28,6 +28,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 
@@ -44,9 +45,9 @@ public final class IssueGC18Test
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue-gc-18.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
-                                                               StandardCharsets.UTF_8,
-                                                               ECSSVersion.CSS30,
-                                                               new LoggingCSSParseErrorHandler ());
+                                                               new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
+                                                                                       .setCSSVersion (ECSSVersion.CSS30)
+                                                                                       .setCustomErrorHandler (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aCSS);
     if (false)
       System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));

@@ -62,20 +62,25 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @Nonnull @Nonempty final String sRule,
                                    @Nonnull @Nonempty final String sMsg) throws ParseException
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
+  }
+
+  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  {
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createDeprecatedProperty (aPrefixToken, aIdentifierToken)));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
                                          @Nonnull final Token aFromToken,
                                          @Nonnull final Token aToToken) throws ParseException
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
   }
 
   @Override
   public void onIllegalCharacter (final char cIllegalChar)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (CSSParseError.createIllegalCharacter (cIllegalChar)));
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createIllegalCharacter (cIllegalChar)));
   }
 
   /**
