@@ -27,6 +27,7 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
 To build ph-css from source, Maven 3.0.4 is required. Any Maven version below does **NOT** work! 
 
 # Documentation
+
 As ph-css is mainly concerned about the grammatical structure of CSS, the main classes are for reading and writing CSS. Additionally it offers the possibility to traverse the elements in a CSS and make modifications on them.
 
 ## Coding paradigms used
@@ -34,6 +35,7 @@ As ph-css is mainly concerned about the grammatical structure of CSS, the main c
 Please look at my personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodingStyleguide.md) for the naming conventions used in this project.
   
 ## Basic Classes
+
 A complete stylesheet is represented as an instance of `com.helger.css.decl.CascadingStyleSheet`. There is no difference between CSS 2.1 and CSS 3.0 instances. The class `com.helger.css.decl.CascadingStyleSheet` contains all top-level rules that may be present in a CSS:
 
   * Import rules (`@import`) - `com.helger.css.decl.CSSImportRule`
@@ -48,6 +50,7 @@ A complete stylesheet is represented as an instance of `com.helger.css.decl.Casc
   * Any other unknown rules (`@foo`) - `com.helger.css.decl.CSSUnknownRule`
 
 ## CSS reading
+
 ph-css contains two different possibilities to read CSS data:
 
 * Reading a complete CSS file can be achieved using `com.helger.css.reader.CSSReader`. The result in this case will be an instance of `com.helger.css.decl.CascadingStyleSheet`.
@@ -97,6 +100,7 @@ As there is at most one unrecoverable error per parse there is no collecting imp
 Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a default unrecoverable error handler using the method `setDefaultParseExceptionHandler(ICSSParseExceptionCallback)`. If a reading method is invoked without an explicit `ICSSParseExceptionCallback` than this default exception handler is used. 
 
 ## CSS iteration/visiting
+
 Once a CSS file was successfully read, it can easily be iterated using the class `com.helger.css.decl.visit.CSSVisitor`. It requires a valid instance of `com.helger.css.decl.CascadingStyleSheet` as well as an implementation of `com.helger.css.decl.visit.ICSSVisitor`. The `CascadingStyleSheet` can be acquired either by reading from a file/stream or by creating a new one from scratch. For the `ICSSVisitor` it is recommended to use the class `com.helger.css.decl.visit.DefaultCSSVisitor` as the base class - this class contains empty implementations of all methods defined in the `ICSSVisitor` interface. To visit all declarations (e.g. `color:red;`) it is sufficient to simply override the method `public void onDeclaration (@Nonnull final CSSDeclaration aDeclaration)`. For details please have a look at the JavaDocs of `ICSSVisitor`. To start the visiting call `CSSVisitor.visitCSS (CascadingStyleSheet, ICSSVisitor)`.
 
 A special visitor is present for URLs. URLs can occur on several places in CSS files, especially in the `@import` rules and within declarations (like in `background-image: url(../images/bg.gif)`). Therefore a special interface `com.helger.css.decl.visit.ICSSUrlVisitor` together with the empty default implementation `com.helger.css.decl.visit.DefaultCSSUrlVisitor` is provided. So to visit all URLs within a CSS call `CSSVisitor.visitCSSUrl(CascadingStyleSheet, ICSSUrlVisitor)`.
@@ -107,16 +111,19 @@ For modifying URLs (e.g. to adopt paths to a different environment) a special ba
 **Note**: it is safe to modify a CSS while iterating it, but only changes affecting children of the current node may be considered during the same iteration run.
 
 ## CSS writing
+
 CSS writing is performed with the class `com.helger.css.writer.CSSWriter`. The most basic settings can be passed either directly to the constructor or using an instance of `com.helger.css.writer.CSSWriterSettings` which offers a quite find grained control of the output process. To write the content of a `CascadingStyleSheet` or any `ICSSWriteable` to an arbitrary `java.io.Writer`, the method `writeCSS` is what you need. If you want the CSS serialized to a `String` the shortcut method `getCSSAsString` is available. For the remaining configuration methods please check the JavaDoc.
 
 By default all CSS code is pretty-printed. To create a minified version of the CSS code call `setOptimizedOutput (true)` and `setRemoveUnnecessaryCode (true)` on your `CSSWriterSettings` object.
 
 ## Data URL handling
+
 Data URLs are URLs that directly contain the content inline. A regular use case is referencing small images directly inside a CSS. During CSS parsing no special handling for data URLs is added. Instead they are stored in a `String` like any other URL.
 
 To special handle data URLs the class `com.helger.css.utils.CSSDataURLHelper` offers the possibility to check if a URL is a data URL via `public static boolean isDataURL (String)`. If this method returns `true` the method `public static CSSDataURL parseDataURL (String)` can be used to extract all the information contained in the data URL. This method returns `null` if the passed URL is not a data URL.  
 
 ## Shorthand property handling
+
 A *CSS shorthand property* is a property that consists of multiple values. Classical examples are `margin` or `border`. ph-css contains support for selected shorthand properties. All shorthand related classes can be found in package `com.helger.css.decl.shorthand`. The supported shorthand properties are:
 
 * `background`
@@ -156,6 +163,7 @@ In the above example, `aSplittedDecls` will contain 3 elements with the followin
 Even though no color value was provided, the default value `black` is returned. For all "sub-declarations", sensible default values are defined.
 
 ## CSS utilities
+
 ph-css contains a multitude of small utility class covering different aspects of CSS
   * `com.helger.css.utils.CSSColorHelper` contains methods to read and write the different types of CSS color values (rgb, rgba, hsl, hsla and hex value)
   * `com.helger.css.utils.ECSSColor` contains the basic CSS colors as an enumeration
@@ -299,6 +307,9 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v6.5.0 - 2022-01-28
+    * Re-added explicit support for deprecated property names starting with `$` or `*` but only inside style declarations. See [issue #84](https://github.com/phax/ph-css/issues/84) and [PR #85](https://github.com/phax/ph-css/pull/85) - thanks @shagkur
+    * Therefore `ICSSParseErrorHandler.onCSSDeprecatedProperty` was added
 * v6.4.4 - 2022-01-18
     * Added support for `:host-context`. See [issue #80](https://github.com/phax/ph-css/issues/80) and [PR #81](https://github.com/phax/ph-css/pull/81) - thanks @shagkur
     * Improved support for the scientific number parsing. See [issue #82](https://github.com/phax/ph-css/issues/82) and [PR #83](https://github.com/phax/ph-css/pull/83) - thanks @shagkur

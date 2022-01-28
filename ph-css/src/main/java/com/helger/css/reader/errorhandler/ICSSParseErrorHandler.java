@@ -73,7 +73,7 @@ public interface ICSSParseErrorHandler
    *        The identifier token found. Never <code>null</code>.
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
-   * @since 6.4.5
+   * @since 6.5.0
    */
   void onCSSDeprecatedProperty (@Nonnull Token aPrefixToken, @Nonnull Token aIdentifierToken) throws ParseException;
 
