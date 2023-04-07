@@ -39,14 +39,15 @@ public class MainFetchW3C_CSSTests
   public static void main (final String [] args) throws MalformedURLException
   {
     _fetch ("http://www.w3.org/Style/CSS/Test/CSS3/Selectors/current/xml/full/flat/",
-            "src\\test\\resources\\testfiles\\css30\\w3c\\selectors");
+            "src\\test\\resources\\testfiles\\css30\\external\\selectors");
   }
 
   private static void _fetch (final String sURL, final String sDestDir) throws MalformedURLException
   {
     final ICommonsList <String> aCSSFilenames = new CommonsArrayList <> ();
     System.out.println ("Fetching from " + sURL);
-    final ICommonsList <String> aIndex = StreamHelper.readStreamLines (new URLResource (sURL + "index.html"), StandardCharsets.UTF_8);
+    final ICommonsList <String> aIndex = StreamHelper.readStreamLines (new URLResource (sURL + "index.html"),
+                                                                       StandardCharsets.UTF_8);
     {
       // Remove doctype
       aIndex.remove (0);
@@ -84,7 +85,8 @@ public class MainFetchW3C_CSSTests
     for (final String sCSSFilename : aCSSFilenames)
     {
       System.out.println ("  " + (++i) + ".: " + sCSSFilename);
-      final String sContent = StreamHelper.getAllBytesAsString (new URLResource (sURL + sCSSFilename), StandardCharsets.UTF_8);
+      final String sContent = StreamHelper.getAllBytesAsString (new URLResource (sURL + sCSSFilename),
+                                                                StandardCharsets.UTF_8);
       SimpleFileIO.writeFile (new File (sDestDir, sCSSFilename), sContent, StandardCharsets.UTF_8);
     }
   }
