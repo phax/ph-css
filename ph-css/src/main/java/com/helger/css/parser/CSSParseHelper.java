@@ -84,9 +84,103 @@ public final class CSSParseHelper
     return sStr;
   }
 
+  /**
+   * A special char iterator based on
+   * https://www.w3.org/TR/css-syntax-3/#css-filter-code-points
+   *
+   * @author Philip Helger
+   */
+  private static final class CSSCharIterator
+  {
+    private final char [] m_aSrc;
+    private final int m_nSrcLen;
+    private int m_nIndex = 0;
+
+    public CSSCharIterator (@Nonnull final String sSrc)
+    {
+      m_aSrc = sSrc.toCharArray ();
+      m_nSrcLen = sSrc.length ();
+    }
+
+    public boolean hasNext ()
+    {
+      return m_nIndex < m_nSrcLen;
+    }
+
+    private char _current ()
+    {
+      return m_aSrc[m_nIndex];
+    }
+
+    private char _next ()
+    {
+      return m_aSrc[m_nIndex + 1];
+    }
+
+    /**
+     * @return Next character to come without modifying the index
+     */
+    public char lookahead ()
+    {
+      char ret = _current ();
+      switch (ret)
+      {
+        case 0:
+          ret = (char) 0xfffd;
+          break;
+        case '\f':
+          ret = '\n';
+          break;
+        case '\r':
+          // No matter if followed by \n or not
+          ret = '\n';
+          break;
+      }
+      return ret;
+    }
+
+    /**
+     * @return Next character and advancing the index (by 1 or 2)
+     */
+    public char next ()
+    {
+      // See
+      char ret = _current ();
+      int nAdvance = 1;
+      switch (ret)
+      {
+        case 0:
+          ret = (char) 0xfffd;
+          break;
+        case '\f':
+          ret = '\n';
+          break;
+        case '\r':
+        {
+          if (hasNext () && _next () == '\n')
+          {
+            // Handle \r\n as one \n
+            nAdvance = 2;
+          }
+          ret = '\n';
+          break;
+        }
+      }
+      // Move forward
+      m_nIndex += nAdvance;
+      return ret;
+    }
+  }
+
+  private static boolean _isNewLine (final char c)
+  {
+    // \r is NOT a new line char
+    return c == '\n';
+  }
+
   private static boolean _isWhitespace (final char c)
   {
-    return c == '\n' || c == '\t' || c == ' ';
+    return _isNewLine (c) || c == '\t' || c == ' ';
   }
 
   private static boolean _isHexChar (final char c)
@@ -113,26 +207,26 @@ public final class CSSParseHelper
       return sEscapedURL;
     }
 
-    // The source length is always longer
-    final int nSrcLen = sEscapedURL.length ();
-    final StringBuilder aSB = new StringBuilder (nSrcLen);
-    int nCharIndex = 0;
-    while (nCharIndex < nSrcLen)
+    // The source length is never shorter
+    final StringBuilder aSB = new StringBuilder (sEscapedURL.length ());
+
+    final CSSCharIterator aIter = new CSSCharIterator (sEscapedURL);
+    while (aIter.hasNext ())
     {
-      final char c = sEscapedURL.charAt (nCharIndex);
-      nCharIndex++;
+      final char c = aIter.next ();
 
       if (c == URL_ESCAPE_CHAR)
       {
         int nCodePoint = 0;
         int nHexCount = 0;
-        while (nHexCount <= 6 && nCharIndex < nSrcLen)
+
+        while (nHexCount <= 6 && aIter.hasNext ())
         {
-          final char cNext = sEscapedURL.charAt (nCharIndex);
+          final char cNext = aIter.lookahead ();
           if (_isHexChar (cNext))
           {
+            aIter.next ();
             nHexCount++;
-            nCharIndex++;
             nCodePoint = (nCodePoint * 16) + StringHelper.getHexValue (cNext);
           }
           else
@@ -142,11 +236,11 @@ public final class CSSParseHelper
         if (nHexCount > 0)
         {
           // Check for a trailing whitespace and evtl. skip it
-          if (nCharIndex < nSrcLen)
+          if (aIter.hasNext ())
           {
-            final char cNext = sEscapedURL.charAt (nCharIndex);
+            final char cNext = aIter.lookahead ();
             if (_isWhitespace (cNext))
-              nCharIndex++;
+              aIter.next ();
           }
 
           if (nCodePoint > '\uFFFF')
@@ -156,13 +250,27 @@ public final class CSSParseHelper
         }
         else
         {
-          // Append \ verbose
-          aSB.append (c);
+          // No hex char found - check for newline
+          // Goal is to make "\\nx" should become "x"
+          final char cNext = aIter.lookahead ();
+          if (_isNewLine (cNext))
+          {
+            // Consume newline char
+            aIter.next ();
+
+            // Take following char as it is
+            aSB.append (aIter.next ());
+          }
+          else
+          {
+            // Append \ verbose
+            aSB.append (c);
+          }
         }
       }
       else
       {
-        // Copy as is
+        // Copy char as is
         aSB.append (c);
       }
     }

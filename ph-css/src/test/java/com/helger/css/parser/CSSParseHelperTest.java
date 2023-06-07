@@ -56,12 +56,9 @@ public final class CSSParseHelperTest
   @Test
   public void testUnescapeCSSURL ()
   {
+    // Nothing to escape
     assertEquals ("bla.gif", CSSParseHelper.unescapeURL ("bla.gif"));
     assertEquals ("/foo/bla.gif", CSSParseHelper.unescapeURL ("/foo/bla.gif"));
-    if (false)
-      assertEquals ("/foo/bla().gif", CSSParseHelper.unescapeURL ("/foo/bla\\(\\).gif"));
-    if (false)
-      assertEquals ("\\\\server\\foo\\bla.gif", CSSParseHelper.unescapeURL ("\\\\\\\\server\\\\foo\\\\bla.gif"));
     assertEquals ("/home/data/image.png", CSSParseHelper.unescapeURL ("\\2f home\\2f data\\2f image.png"));
     assertEquals ("/home/data/image.png", CSSParseHelper.unescapeURL ("\\2fhome\\2f data\\2fimage.png"));
     assertEquals ("/home /data /image.png", CSSParseHelper.unescapeURL ("\\2fhome \\2f data \\2f image.png"));
@@ -79,5 +76,13 @@ public final class CSSParseHelperTest
     assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\00041 Z"));
     assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\000041Z"));
     assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\000041 Z"));
+    assertEquals ("a not so very long title", CSSParseHelper.unescapeURL ("a not so very long title"));
+    assertEquals ("a not so very long title", CSSParseHelper.unescapeURL ("a not s\\\no very long title"));
+    assertEquals ("a not so very long title", CSSParseHelper.unescapeURL ("a not s\\\r\no very long title"));
+    assertEquals ("a not so very long title", CSSParseHelper.unescapeURL ("a not s\\\fo very long title"));
+    assertEquals ("A\nZ", CSSParseHelper.unescapeURL ("\\041 \nZ"));
+    assertEquals ("A\nZ", CSSParseHelper.unescapeURL ("\\041 \r\nZ"));
+    assertEquals ("A\n", CSSParseHelper.unescapeURL ("\\041 \n"));
+    assertEquals ("A\n", CSSParseHelper.unescapeURL ("\\041 \r\n"));
   }
 }
