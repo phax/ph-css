@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014-2022 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2023 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,5 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@namespace "test" {}
-   t { background:lime }
+@namespace x u\00072l("test");
+   @import url("support/fail.css");
+   @namespace url("test2");
+   x|test { background:lime }
+   test { background:red }

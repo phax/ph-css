@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2022 Philip Helger (www.helger.com)
+    Copyright (C) 2014-2023 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>ph-css-parent-pom</artifactId>
-    <version>6.4.5-SNAPSHOT</version>
+    <version>7.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.helger.maven</groupId>
   <artifactId>ph-csscompress-maven-plugin</artifactId>
@@ -131,7 +131,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.6.4</version>
+        <version>3.8.2</version>
       </plugin>
     </plugins>
   </reporting>
