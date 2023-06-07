@@ -16,6 +16,8 @@
  */
 package com.helger.css.parser;
 
+import java.lang.Character;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +51,9 @@ public final class CSSParseHelper
   private static final String SPLIT_NUMBER_REGEX = "^([0-9]*\\.[0-9]+([eE][+-]?[0-9]+)?|[0-9]+([eE][+-]?[0-9]+)?).*$";
   private static final Pattern SPLIT_NUMBER_PATTERN = RegExCache.getPattern (SPLIT_NUMBER_REGEX);
 
+  private static final char[] HEXA_CHARS_UPPER = "0123456789ABCDEF".toCharArray();
+	private static final char[] HEXA_CHARS_LOWER = "0123456789abcdef".toCharArray();
+ 
   @PresentForCodeCoverage
   private static final CSSParseHelper INSTANCE = new CSSParseHelper ();
 
@@ -60,6 +65,24 @@ public final class CSSParseHelper
   {
     return s.toString ().substring (nLeftSkip, s.length () - nRightSkip);
   }
+
+  @Nonnull
+	private static int _parseIntFromReference(@Nonnull final String text, final int start, final int end, final int radix) {
+		int result = 0;
+		for (int i = start; i < end; i++) {
+			final char c = text.charAt(i);
+			int n = -1;
+			for (int j = 0; j < HEXA_CHARS_UPPER.length; j++) {
+				if (c == HEXA_CHARS_UPPER[j] || c == HEXA_CHARS_LOWER[j]) {
+					n = j;
+					break;
+				}
+			}
+			result = (radix * result) + n;
+		}
+		return result;
+	}
+
 
   /**
    * Remove surrounding quotes (single or double) of a string (if present). If
@@ -87,6 +110,7 @@ public final class CSSParseHelper
   /**
    * Unescape all escaped characters in a CSS URL. All characters masked with a
    * '\\' character replaced.
+   * Implementation taken from: https://github.com/unbescape/unbescape
    *
    * @param sEscapedURL
    *        The escaped URL. May not be <code>null</code>!
@@ -105,17 +129,113 @@ public final class CSSParseHelper
 
     final StringBuilder aSB = new StringBuilder (sEscapedURL.length ());
     int nPrevIndex = 0;
-    do
+    int nReferenceOffset = 0;
+    while (nIndex >= 0)
     {
+      int nCodePoint = -1;
+
+      final char c1 = sEscapedURL.charAt (nIndex + 1);
+      switch (c1) {
+        case '\n':
+				nCodePoint = -2;
+				nReferenceOffset = nIndex + 1;
+				break;
+			case ' ':
+			case '!':
+			case '"':
+			case '#':
+			case '$':
+			case '%':
+			case '&':
+			case '\'':
+			case '(':
+			case ')':
+			case '*':
+			case '+':
+			case ',':
+				// hyphen: will only be escaped when identifer starts with '--' or '-{digit}'
+			case '-':
+			case '.':
+			case '/':
+				// colon: will not be used for escaping: not recognized by IE < 8
+			case ':':
+			case ';':
+			case '<':
+			case '=':
+			case '>':
+			case '?':
+			case '@':
+			case '[':
+			case '\\':
+			case ']':
+			case '^':
+				// underscore: will only be escaped at the beginning of an identifier (in order to avoid issues in IE6)
+			case '_':
+			case '`':
+			case '{':
+			case '|':
+			case '}':
+			case '~':
+				nCodePoint = c1;
+				nReferenceOffset = nIndex + 1;
+				break;
+			default:
+				break;
+      }
+
+			if (nCodePoint == -1) {
+				if ((c1 >= '0' && c1 <= '9') || (c1 >= 'A' && c1 <= 'F') || (c1 >= 'a' && c1 <= 'f')) {
+					// This is a hexa escape
+
+					int f = nIndex + 2;
+					while (f < (nIndex + 7) && f < sEscapedURL.length()) {
+						final char cf = sEscapedURL.charAt (f);
+						if (!((cf >= '0' && cf <= '9') || (cf >= 'A' && cf <= 'F') || (cf >= 'a' && cf <= 'f'))) {
+							break;
+						}
+						f++;
+					}
+
+					nCodePoint = _parseIntFromReference(sEscapedURL, nIndex + 1, f, 16);
+
+					// Fast-forward to the first char after the parsed codepoint
+					nReferenceOffset = f - 1;
+
+					// If there is a whitespace after the escape, just ignore it.
+					if (f < sEscapedURL.length() && sEscapedURL.charAt (f) == ' ') {
+						nReferenceOffset++;
+					}
+
+					// Don't continue here, just let the unescape code below do its job
+				} else if (c1 == '\r' || c1 == '\f') {
+					// The only characters that cannot be escaped by means of a backslash are
+					// carriage return and form feed (besides hexadecimal digits).
+					nIndex = sEscapedURL.indexOf (URL_ESCAPE_CHAR, nIndex + 1);
+					continue;
+				} else {
+					// We weren't able to consume any valid escape chars, just consider it a normal char,
+					// which is allowed by the CSS escape syntax.
+					nCodePoint = c1;
+					nReferenceOffset = nIndex + 1;
+				}
+			}
+
       // Append everything before the first quote char
       aSB.append (sEscapedURL, nPrevIndex, nIndex);
-      // Append the quoted char itself
-      aSB.append (sEscapedURL, nIndex + 1, nIndex + 2);
-      // The new position to start searching
-      nPrevIndex = nIndex + 2;
+
+      nIndex = nReferenceOffset;
+      nPrevIndex = nIndex + 1;
+
+      // Append the unescaped char itself
+      if (nCodePoint > '\uFFFF') {
+        aSB.append (Character.toChars (nCodePoint));
+			} else if (nCodePoint != -2) {
+				aSB.append ((char) nCodePoint);
+			}
+ 
       // Search the next escaped char
       nIndex = sEscapedURL.indexOf (URL_ESCAPE_CHAR, nPrevIndex);
-    } while (nIndex >= 0);
+    }
     // Append the rest
     aSB.append (sEscapedURL.substring (nPrevIndex));
     return aSB.toString ();
