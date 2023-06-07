@@ -126,7 +126,7 @@ public final class CSSParseHelper
       {
         int nCodePoint = 0;
         int nHexCount = 0;
-        while (nHexCount <= 6)
+        while (nHexCount <= 6 && nCharIndex < nSrcLen)
         {
           final char cNext = sEscapedURL.charAt (nCharIndex);
           if (_isHexChar (cNext))
@@ -142,9 +142,12 @@ public final class CSSParseHelper
         if (nHexCount > 0)
         {
           // Check for a trailing whitespace and evtl. skip it
-          final char cNext = sEscapedURL.charAt (nCharIndex);
-          if (_isWhitespace (cNext))
-            nCharIndex++;
+          if (nCharIndex < nSrcLen)
+          {
+            final char cNext = sEscapedURL.charAt (nCharIndex);
+            if (_isWhitespace (cNext))
+              nCharIndex++;
+          }
 
           if (nCodePoint > '\uFFFF')
             aSB.append (Character.toChars (nCodePoint));

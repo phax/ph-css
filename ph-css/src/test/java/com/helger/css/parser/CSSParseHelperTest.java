@@ -66,5 +66,18 @@ public final class CSSParseHelperTest
     assertEquals ("/home/data/image.png", CSSParseHelper.unescapeURL ("\\2fhome\\2f data\\2fimage.png"));
     assertEquals ("/home /data /image.png", CSSParseHelper.unescapeURL ("\\2fhome \\2f data \\2f image.png"));
     assertEquals ("/home /data /image.png", CSSParseHelper.unescapeURL ("\\2fhome \\2f data \\2fimage.png"));
+    assertEquals ("A", CSSParseHelper.unescapeURL ("\\41"));
+    assertEquals ("A", CSSParseHelper.unescapeURL ("\\41 "));
+    assertEquals ("A ", CSSParseHelper.unescapeURL ("\\41  "));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\41Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\41 Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\041Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\041 Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\0041Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\0041 Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\00041Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\00041 Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\000041Z"));
+    assertEquals ("AZ", CSSParseHelper.unescapeURL ("\\000041 Z"));
   }
 }
