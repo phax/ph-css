@@ -84,6 +84,16 @@ public final class CSSParseHelper
     return sStr;
   }
 
+  private static boolean _isWhitespace (final char c)
+  {
+    return c == '\n' || c == '\t' || c == ' ';
+  }
+
+  private static boolean _isHexChar (final char c)
+  {
+    return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f');
+  }
+
   /**
    * Unescape all escaped characters in a CSS URL. All characters masked with a
    * '\\' character replaced.
@@ -96,28 +106,63 @@ public final class CSSParseHelper
   @Nonnull
   public static String unescapeURL (@Nonnull final String sEscapedURL)
   {
-    int nIndex = sEscapedURL.indexOf (URL_ESCAPE_CHAR);
+    final int nIndex = sEscapedURL.indexOf (URL_ESCAPE_CHAR);
     if (nIndex < 0)
     {
       // No escape sequence found
       return sEscapedURL;
     }
 
-    final StringBuilder aSB = new StringBuilder (sEscapedURL.length ());
-    int nPrevIndex = 0;
-    do
+    // The source length is always longer
+    final int nSrcLen = sEscapedURL.length ();
+    final StringBuilder aSB = new StringBuilder (nSrcLen);
+    int nCharIndex = 0;
+    while (nCharIndex < nSrcLen)
     {
-      // Append everything before the first quote char
-      aSB.append (sEscapedURL, nPrevIndex, nIndex);
-      // Append the quoted char itself
-      aSB.append (sEscapedURL, nIndex + 1, nIndex + 2);
-      // The new position to start searching
-      nPrevIndex = nIndex + 2;
-      // Search the next escaped char
-      nIndex = sEscapedURL.indexOf (URL_ESCAPE_CHAR, nPrevIndex);
-    } while (nIndex >= 0);
-    // Append the rest
-    aSB.append (sEscapedURL.substring (nPrevIndex));
+      final char c = sEscapedURL.charAt (nCharIndex);
+      nCharIndex++;
+
+      if (c == URL_ESCAPE_CHAR)
+      {
+        int nCodePoint = 0;
+        int nHexCount = 0;
+        while (nHexCount <= 6)
+        {
+          final char cNext = sEscapedURL.charAt (nCharIndex);
+          if (_isHexChar (cNext))
+          {
+            nHexCount++;
+            nCharIndex++;
+            nCodePoint = (nCodePoint * 16) + StringHelper.getHexValue (cNext);
+          }
+          else
+            break;
+        }
+
+        if (nHexCount > 0)
+        {
+          // Check for a trailing whitespace and evtl. skip it
+          final char cNext = sEscapedURL.charAt (nCharIndex);
+          if (_isWhitespace (cNext))
+            nCharIndex++;
+
+          if (nCodePoint > '\uFFFF')
+            aSB.append (Character.toChars (nCodePoint));
+          else
+            aSB.append ((char) nCodePoint);
+        }
+        else
+        {
+          // Append \ verbose
+          aSB.append (c);
+        }
+      }
+      else
+      {
+        // Copy as is
+        aSB.append (c);
+      }
+    }
     return aSB.toString ();
   }
 
@@ -134,7 +179,9 @@ public final class CSSParseHelper
   public static String trimUrl (@Nonnull final CharSequence s)
   {
     // Extract from "url(...)"
-    final String sTrimmed = _trimBy (s, CCSSValue.PREFIX_URL_OPEN.length (), CCSSValue.SUFFIX_URL_CLOSE.length ()).trim ();
+    final String sTrimmed = _trimBy (s,
+                                     CCSSValue.PREFIX_URL_OPEN.length (),
+                                     CCSSValue.SUFFIX_URL_CLOSE.length ()).trim ();
     // Remove the trailing quotes (if any)
     final String sUnquoted = extractStringValue (sTrimmed);
     // Unescape all escaped chars
@@ -181,7 +228,8 @@ public final class CSSParseHelper
     if (c1 == '-' || c1 == '$' || c1 == '*')
     {
       if (nLength > 1 && Character.isDigit (c2))
-        throw new IllegalArgumentException ("Identifier may not start with a hyphen/dollar/star and a digit: " + aPattern);
+        throw new IllegalArgumentException ("Identifier may not start with a hyphen/dollar/star and a digit: " +
+                                            aPattern);
     }
     else
     {
