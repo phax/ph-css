@@ -23,8 +23,14 @@ import java.util.Arrays;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.io.stream.NonBlockingPushbackReader;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.string.StringHelper;
+import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -40,9 +46,218 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @SuppressFBWarnings ("NM_METHOD_NAMING_CONVENTION")
 public final class CSSCharStream implements CharStream
 {
+  /**
+   * A special char iterator based on
+   * https://www.w3.org/TR/css-syntax-3/#css-filter-code-points
+   *
+   * @author Philip Helger
+   */
+  private static final class CSSFilterCodePointsReader implements AutoCloseable
+  {
+    private static final Logger LOGGER = LoggerFactory.getLogger (CSSCharStream.CSSFilterCodePointsReader.class);
+
+    private final NonBlockingPushbackReader m_aLocalReader;
+
+    public CSSFilterCodePointsReader (@Nonnull final Reader aSrcReader)
+    {
+      // 1 char look ahead is sufficient
+      m_aLocalReader = new NonBlockingPushbackReader (aSrcReader, 1);
+    }
+
+    public void close () throws IOException
+    {
+      m_aLocalReader.close ();
+    }
+
+    /**
+     * @return Next character to come including pushing it back
+     */
+    private int _lookaheadCodePoint () throws IOException
+    {
+      int ret = m_aLocalReader.read ();
+      m_aLocalReader.unread (ret);
+
+      switch (ret)
+      {
+        case 0:
+          ret = (char) 0xfffd;
+          break;
+        case '\f':
+          ret = '\n';
+          break;
+        case '\r':
+          // No matter if followed by \n or not
+          ret = '\n';
+          break;
+      }
+      return ret;
+    }
+
+    /**
+     * This is the method implementing
+     * https://www.w3.org/TR/css-syntax-3/#css-filter-code-points
+     *
+     * @return Next code point. May read 1 or 2 chars.
+     */
+    private int _readFilteredCodePoint () throws IOException
+    {
+      // See
+      int ret = m_aLocalReader.read ();
+      switch (ret)
+      {
+        case 0:
+          // 0 means "unsupported character"
+          ret = (char) 0xfffd;
+          break;
+        case '\f':
+          // Form feed becomes \n
+          ret = '\n';
+          break;
+        case '\r':
+        {
+          // Read next
+          final int next = m_aLocalReader.read ();
+          if (next == '\n')
+          {
+            // Handle \r\n as one \n
+          }
+          else
+            if (next != -1)
+            {
+              // Unread the char (except EOF)
+              m_aLocalReader.unread (next);
+            }
+          // \r and \r\n becomes \n
+          ret = '\n';
+          break;
+        }
+      }
+      if (LOGGER.isTraceEnabled ())
+      {
+        if (ret == -1)
+          LOGGER.trace ("Read EOF");
+        else
+          LOGGER.trace ("Read " + LoggingCSSParseErrorHandler.createLoggingStringIllegalCharacter ((char) ret));
+      }
+      return ret;
+    }
+
+    private static boolean _isNewLine (final int c)
+    {
+      return c == '\n';
+    }
+
+    private static boolean _isWhitespace (final int c)
+    {
+      return _isNewLine (c) || c == '\t' || c == ' ';
+    }
+
+    private static boolean _isHexChar (final int c)
+    {
+      return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f');
+    }
+
+    // Handle https://www.w3.org/TR/css-syntax-3/#escaping
+    private int _handleUnescape (final int cSrcFiltered) throws IOException
+    {
+      if (cSrcFiltered != '\\')
+      {
+        // Return as is
+        return cSrcFiltered;
+      }
+
+      // Check next char
+      int nCodePoint = 0;
+      int nHexCount = 0;
+      while (nHexCount < 6)
+      {
+        final int cNext = _lookaheadCodePoint ();
+        if (_isHexChar (cNext))
+        {
+          nHexCount++;
+          // Consume char
+          _readFilteredCodePoint ();
+          nCodePoint = (nCodePoint * 16) + StringHelper.getHexValue ((char) cNext);
+        }
+        else
+          break;
+      }
+
+      if (nHexCount == 0)
+      {
+        // Check if the next char is a newline
+        final int cNext = _lookaheadCodePoint ();
+        if (_isNewLine (cNext))
+        {
+          // Consume newline char
+          _readFilteredCodePoint ();
+          // Return the code point following the newline
+          return _readFilteredCodePoint ();
+        }
+
+        // Return the backslash as is
+        return cSrcFiltered;
+      }
+
+      // Hex chars found
+      // Check for a trailing whitespace and evtl. skip it
+      final int cNext = _lookaheadCodePoint ();
+      if (_isWhitespace (cNext))
+      {
+        // Consume char
+        _readFilteredCodePoint ();
+      }
+
+      return nCodePoint;
+    }
+
+    public int read (@Nonnull final char [] buf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+                                                                                                           throws IOException
+    {
+      ValueEnforcer.notNull (buf, "buf");
+      ValueEnforcer.isGE0 (nOfs, "Ofs");
+      ValueEnforcer.isGE0 (nLen, "Len");
+
+      if (LOGGER.isTraceEnabled ())
+        LOGGER.trace ("## read (" + nOfs + ", " + nLen + ")");
+
+      int nCharsRead = 0;
+      int nDstPos = nOfs;
+      for (int i = 0; i < nLen; ++i)
+      {
+        final int c = _readFilteredCodePoint ();
+        if (c == -1)
+        {
+          // EOF
+          break;
+        }
+
+        final int cCleanChar = _handleUnescape (c);
+
+        if (cCleanChar <= Character.MAX_VALUE)
+        {
+          buf[nDstPos] = (char) cCleanChar;
+          nCharsRead++;
+          nDstPos++;
+        }
+        else
+        {
+          // TODO handle code points cleanly
+          LOGGER.warn ("Unsupported code point found: " + cCleanChar);
+        }
+      }
+      if (LOGGER.isTraceEnabled ())
+        LOGGER.trace ("## read " + nCharsRead + " chars");
+
+      // -1 meaning EOF
+      return nCharsRead == 0 ? -1 : nCharsRead;
+    }
+  }
+
+  public static final int DEFAULT_TAB_SIZE = 8;
   private static final int DEFAULT_BUF_SIZE = 4096;
 
-  private final Reader m_aReader;
+  private final CSSFilterCodePointsReader m_aReader;
   private int m_nLine;
   private int m_nColumn;
   private int m_nAvailable;
@@ -62,7 +277,7 @@ public final class CSSCharStream implements CharStream
   /** Position in buffer. */
   private int m_nBufpos = -1;
 
-  private int m_nTabSize = 8;
+  private int m_nTabSize = DEFAULT_TAB_SIZE;
   private boolean m_bTrackLineColumn = true;
 
   public CSSCharStream (@Nonnull final Reader aReader)
@@ -75,11 +290,15 @@ public final class CSSCharStream implements CharStream
                          @Nonnegative final int nStartColumn,
                          @Nonnegative final int nBufferSize)
   {
+    ValueEnforcer.notNull (aReader, "Reader");
+    ValueEnforcer.isGE0 (nStartLine, "StartLine");
+    ValueEnforcer.isGE0 (nStartColumn, "StartColumn");
     ValueEnforcer.isGE0 (nBufferSize, "BufferSize");
+
     // Using a buffered reader gives a minimal speedup
-    m_aReader = StreamHelper.getBuffered (ValueEnforcer.notNull (aReader, "Reader"));
-    m_nLine = ValueEnforcer.isGE0 (nStartLine, "StartLine");
-    m_nColumn = ValueEnforcer.isGE0 (nStartColumn, "StartColumn") - 1;
+    m_aReader = new CSSFilterCodePointsReader (StreamHelper.getBuffered (aReader));
+    m_nLine = nStartLine;
+    m_nColumn = nStartColumn - 1;
 
     m_nAvailable = nBufferSize;
     m_nBufsize = nBufferSize;
@@ -355,10 +574,13 @@ public final class CSSCharStream implements CharStream
   /** @return token image as String */
   public String getImage ()
   {
+    final String sImage;
     if (m_nBufpos >= m_nTokenBegin)
-      return new String (m_aBuffer, m_nTokenBegin, m_nBufpos - m_nTokenBegin + 1);
-
-    return new String (m_aBuffer, m_nTokenBegin, m_nBufsize - m_nTokenBegin) + new String (m_aBuffer, 0, m_nBufpos + 1);
+      sImage = new String (m_aBuffer, m_nTokenBegin, m_nBufpos - m_nTokenBegin + 1);
+    else
+      sImage = new String (m_aBuffer, m_nTokenBegin, m_nBufsize - m_nTokenBegin) +
+               new String (m_aBuffer, 0, m_nBufpos + 1);
+    return sImage;
   }
 
   /** @return suffix */

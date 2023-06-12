@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
@@ -33,12 +35,17 @@ import com.helger.css.writer.CSSWriter;
  */
 public final class WikiCreateFontFaceRuleFuncTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (WikiCreateFontFaceRuleFuncTest.class);
+
   @Test
   public void testBasic ()
   {
-    final CascadingStyleSheet aCSS = WikiCreateFontFaceRule.createFontFace ("Your \"typeface\"", "local font name", "folder/", "myfont");
+    final CascadingStyleSheet aCSS = WikiCreateFontFaceRule.createFontFace ("Your \"typeface\"",
+                                                                            "local font name",
+                                                                            "folder/",
+                                                                            "myfont");
     final String sCSS = new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS);
-    System.out.println (sCSS);
+    LOGGER.info (sCSS);
 
     final CascadingStyleSheet aCSS2 = CSSReader.readFromString (sCSS, ECSSVersion.CSS30);
     assertNotNull (aCSS2);

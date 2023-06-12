@@ -85,10 +85,18 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     }
 
     final StringBuilder retval = new StringBuilder (1024);
-    retval.append ('[').append (aLastValidToken.next.beginLine).append (':').append (aLastValidToken.next.beginColumn).append (']');
+    retval.append ('[')
+          .append (aLastValidToken.next.beginLine)
+          .append (':')
+          .append (aLastValidToken.next.beginColumn)
+          .append (']');
     if (aLastSkippedToken != null)
     {
-      retval.append ("-[").append (aLastSkippedToken.endLine).append (':').append (aLastSkippedToken.endColumn).append (']');
+      retval.append ("-[")
+            .append (aLastSkippedToken.endLine)
+            .append (':')
+            .append (aLastSkippedToken.endColumn)
+            .append (']');
     }
     retval.append (" Encountered");
     Token aCurToken = aLastValidToken.next;
@@ -100,17 +108,22 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
         retval.append (aTokenImageVal[TOKEN_EOF]);
         break;
       }
-      retval.append ("text '").append (aCurToken.image).append ("' corresponding to token ").append (aTokenImageVal[aCurToken.kind]);
+      retval.append ("text '")
+            .append (aCurToken.image)
+            .append ("' corresponding to token ")
+            .append (aTokenImageVal[aCurToken.kind]);
       aCurToken = aCurToken.next;
     }
     retval.append (". ");
     if (aLastSkippedToken != null)
       retval.append ("Skipped until token ").append (aLastSkippedToken).append (". ");
-    retval.append (aExpectedTokenSequencesVal.length == 1 ? "Was expecting:" : "Was expecting one of:").append (aExpected);
+    retval.append (aExpectedTokenSequencesVal.length == 1 ? "Was expecting:" : "Was expecting one of:")
+          .append (aExpected);
     return retval.toString ();
   }
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
+                                                                                                                throws ParseException
   {
     if (aParseEx.expectedTokenSequences == null)
       LOGGER.warn (aParseEx.getMessage ());
@@ -140,7 +153,14 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                           @Nonnull @Nonempty final String sRule,
                                                           @Nonnull @Nonempty final String sMsg)
   {
-    return "[" + aCurrentToken.beginLine + ":" + aCurrentToken.beginColumn + "] Unexpected rule '" + sRule + "': " + sMsg;
+    return "[" +
+           aCurrentToken.beginLine +
+           ":" +
+           aCurrentToken.beginColumn +
+           "] Unexpected rule '" +
+           sRule +
+           "': " +
+           sMsg;
   }
 
   public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
@@ -165,7 +185,8 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
    */
   @Nonnull
   @Nonempty
-  public static String createLoggingStringDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  public static String createLoggingStringDeprecatedProperty (@Nonnull final Token aPrefixToken,
+                                                              @Nonnull final Token aIdentifierToken)
   {
     return "[" +
            aPrefixToken.beginLine +
@@ -217,7 +238,12 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonempty
   public static String createLoggingStringIllegalCharacter (final char cIllegalChar)
   {
-    return "Found illegal character: " + cIllegalChar + " (0x" + StringHelper.getHexStringLeadingZero (cIllegalChar, 4) + ")";
+    final String sCharHex = "0x" + StringHelper.getHexStringLeadingZero (cIllegalChar, 4);
+    final String sPrintableChar = cIllegalChar <= 32 || cIllegalChar > 255 ? sCharHex : cIllegalChar +
+                                                                                        " (" +
+                                                                                        sCharHex +
+                                                                                        ")";
+    return "Found illegal character: " + sPrintableChar;
   }
 
   @Override

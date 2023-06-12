@@ -39,7 +39,7 @@ public final class Issue91Test
   @Test
   public void testUnescape1 ()
   {
-    final String sCSS = "div { \73\72\63\3a\35 }";
+    final String sCSS = "div { \\73\\72\\63\\3a\\35 }";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
                                                                      new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
                                                                                              .setBrowserCompliantMode (true));
@@ -47,7 +47,7 @@ public final class Issue91Test
     assertEquals (1, aCSS.getStyleRuleCount ());
 
     final CSSStyleRule aSR = aCSS.getStyleRuleAtIndex (0);
-    assertEquals (2, aSR.getDeclarationCount ());
+    assertEquals (1, aSR.getDeclarationCount ());
 
     assertEquals ("div{src:5}",
                   new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
