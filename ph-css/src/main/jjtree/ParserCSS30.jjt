@@ -132,12 +132,7 @@ TOKEN :
 // nonascii  [^\0-\177] - everything except 0x00-0x7f
 | < #NONASCII: ["\u0080"-"\uffff"] >
 
-| < #ESCAPE_UNICODE: "\\" <HNUM> ( "\r\n"
-                                 | [" ","\t","\r","\n","\f"]
-                                 )? >
-| < #ESCAPE_OTHER: "\\" ~["\n","\r","\f","0"-"9","a"-"f"] >
-| < #ESCAPE: <ESCAPE_UNICODE>
-           | <ESCAPE_OTHER> >
+| < #ESCAPE: "\\" ~["\n","\r","\f","0"-"9","a"-"f"] >
 // nmstart      [_a-z]|{nonascii}|{escape}
 | < #NMSTART: ["_","a"-"z"]
             | <NONASCII>
