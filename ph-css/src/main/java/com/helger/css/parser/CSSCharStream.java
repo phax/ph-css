@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingPushbackReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -57,11 +58,22 @@ public final class CSSCharStream implements CharStream
     private static final Logger LOGGER = LoggerFactory.getLogger (CSSCharStream.CSSFilterCodePointsReader.class);
 
     private final NonBlockingPushbackReader m_aLocalReader;
+    private boolean m_bReadBytes = false;
+    private boolean m_bCSSUnescape = CSSReaderSettings.DEFAULT_CSS_UNESCAPE;
 
     public CSSFilterCodePointsReader (@Nonnull final Reader aSrcReader)
     {
       // 1 char look ahead is sufficient
       m_aLocalReader = new NonBlockingPushbackReader (aSrcReader, 1);
+    }
+
+    @Nonnull
+    public CSSFilterCodePointsReader setCSSUnescape (final boolean bCSSUnescape)
+    {
+      if (m_bReadBytes)
+        throw new IllegalStateException ("Cannot change the CSS unescape status after bytes have been processed");
+      m_bCSSUnescape = bCSSUnescape;
+      return this;
     }
 
     public void close () throws IOException
@@ -103,6 +115,8 @@ public final class CSSCharStream implements CharStream
     {
       // See
       int ret = m_aLocalReader.read ();
+      m_bReadBytes = true;
+
       switch (ret)
       {
         case 0:
@@ -142,32 +156,32 @@ public final class CSSCharStream implements CharStream
       return ret;
     }
 
-    private static boolean _isNewLine (final int c)
+    private static boolean _isNewLine (final int nCP)
     {
-      return c == '\n';
+      return nCP == '\n';
     }
 
-    private static boolean _isWhitespace (final int c)
+    private static boolean _isWhitespace (final int nCP)
     {
-      return _isNewLine (c) || c == '\t' || c == ' ';
+      return _isNewLine (nCP) || nCP == '\t' || nCP == ' ';
     }
 
-    private static boolean _isHexChar (final int c)
+    private static boolean _isHexChar (final int nCP)
     {
-      return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f');
+      return (nCP >= '0' && nCP <= '9') || (nCP >= 'A' && nCP <= 'F') || (nCP >= 'a' && nCP <= 'f');
     }
 
     // Handle https://www.w3.org/TR/css-syntax-3/#escaping
-    private int _handleUnescape (final int cSrcFiltered) throws IOException
+    private int _cssUnescapeCodePoint (final int nCPSrc) throws IOException
     {
-      if (cSrcFiltered != '\\')
+      if (nCPSrc != '\\')
       {
-        // Return as is
-        return cSrcFiltered;
+        // Return as-is
+        return nCPSrc;
       }
 
       // Check next char
-      int nCodePoint = 0;
+      int nCPRet = 0;
       int nHexCount = 0;
       while (nHexCount < 6)
       {
@@ -177,7 +191,7 @@ public final class CSSCharStream implements CharStream
           nHexCount++;
           // Consume char
           _readFilteredCodePoint ();
-          nCodePoint = (nCodePoint * 16) + StringHelper.getHexValue ((char) cNext);
+          nCPRet = (nCPRet * 16) + StringHelper.getHexValue ((char) cNext);
         }
         else
           break;
@@ -186,29 +200,35 @@ public final class CSSCharStream implements CharStream
       if (nHexCount == 0)
       {
         // Check if the next char is a newline
-        final int cNext = _lookaheadCodePoint ();
-        if (_isNewLine (cNext))
+        final int nCPNext = _lookaheadCodePoint ();
+        if (_isNewLine (nCPNext))
         {
           // Consume newline char
           _readFilteredCodePoint ();
           // Return the code point following the newline
-          return _readFilteredCodePoint ();
+          nCPRet = _readFilteredCodePoint ();
         }
-
-        // Return the backslash as is
-        return cSrcFiltered;
+        else
+        {
+          // Return the backslash as is
+          nCPRet = nCPSrc;
+        }
       }
-
-      // Hex chars found
-      // Check for a trailing whitespace and evtl. skip it
-      final int cNext = _lookaheadCodePoint ();
-      if (_isWhitespace (cNext))
+      else
       {
-        // Consume char
-        _readFilteredCodePoint ();
+        // Hex chars found
+        // Check for a trailing whitespace and evtl. skip it
+        final int nCPNext = _lookaheadCodePoint ();
+        if (_isWhitespace (nCPNext))
+        {
+          // Consume char
+          _readFilteredCodePoint ();
+        }
       }
 
-      return nCodePoint;
+      if (LOGGER.isTraceEnabled ())
+        LOGGER.trace ("Unescaped CSS item " + nCPSrc + " to " + nCPRet);
+      return nCPRet;
     }
 
     public int read (@Nonnull final char [] buf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
@@ -221,40 +241,40 @@ public final class CSSCharStream implements CharStream
       if (LOGGER.isTraceEnabled ())
         LOGGER.trace ("## read (" + nOfs + ", " + nLen + ")");
 
-      int nCharsRead = 0;
-      int nDstPos = nOfs;
+      int nCPRead = 0;
+      int nDstOfs = nOfs;
       for (int i = 0; i < nLen; ++i)
       {
-        final int c = _readFilteredCodePoint ();
-        if (c == -1)
+        final int nCP = _readFilteredCodePoint ();
+        if (nCP == -1)
         {
           // EOF
           break;
         }
 
-        final int cCleanChar = _handleUnescape (c);
+        // Perform the "\" unescaping (if needed)
+        final int nUnescapedCP = m_bCSSUnescape ? _cssUnescapeCodePoint (nCP) : nCP;
 
-        if (cCleanChar <= Character.MAX_VALUE)
+        if (nUnescapedCP <= Character.MAX_VALUE)
         {
-          buf[nDstPos] = (char) cCleanChar;
-          nCharsRead++;
-          nDstPos++;
+          buf[nDstOfs] = (char) nUnescapedCP;
+          nCPRead++;
+          nDstOfs++;
         }
         else
         {
           // TODO handle code points cleanly
-          LOGGER.warn ("Unsupported code point found: " + cCleanChar);
+          LOGGER.warn ("Unsupported CSS code point found: " + nUnescapedCP);
         }
       }
       if (LOGGER.isTraceEnabled ())
-        LOGGER.trace ("## read " + nCharsRead + " chars");
+        LOGGER.trace ("## read " + nCPRead + " code points");
 
       // -1 meaning EOF
-      return nCharsRead == 0 ? -1 : nCharsRead;
+      return nCPRead == 0 ? -1 : nCPRead;
     }
   }
 
-  public static final int DEFAULT_TAB_SIZE = 8;
   private static final int DEFAULT_BUF_SIZE = 4096;
 
   private final CSSFilterCodePointsReader m_aReader;
@@ -277,7 +297,7 @@ public final class CSSCharStream implements CharStream
   /** Position in buffer. */
   private int m_nBufpos = -1;
 
-  private int m_nTabSize = DEFAULT_TAB_SIZE;
+  private int m_nTabSize = CSSReaderSettings.DEFAULT_TAB_SIZE;
   private boolean m_bTrackLineColumn = true;
 
   public CSSCharStream (@Nonnull final Reader aReader)
@@ -306,6 +326,13 @@ public final class CSSCharStream implements CharStream
     m_aBufLine = new int [nBufferSize];
     m_aBufColumn = new int [nBufferSize];
     m_aNextCharBuf = new char [DEFAULT_BUF_SIZE];
+  }
+
+  @Nonnull
+  public CSSCharStream setCSSUnescape (final boolean bCSSUnescape)
+  {
+    m_aReader.setCSSUnescape (bCSSUnescape);
+    return this;
   }
 
   public int getTabSize ()
@@ -682,5 +709,14 @@ public final class CSSCharStream implements CharStream
   public void setTrackLineColumn (final boolean bTrackLineColumn)
   {
     m_bTrackLineColumn = bTrackLineColumn;
+  }
+
+  @Nonnull
+  public static CSSCharStream create (@Nonnull final Reader aReader, @Nonnull final CSSReaderSettings aSettings)
+  {
+    final CSSCharStream ret = new CSSCharStream (aReader);
+    ret.setTabSize (aSettings.getTabSize ());
+    ret.setCSSUnescape (aSettings.isCSSUnescape ());
+    return ret;
   }
 }

@@ -45,6 +45,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public static final boolean DEFAULT_BROWSER_COMPLIANT_MODE = false;
   public static final boolean DEFAULT_USE_SOURCE_LOCATION = true;
   public static final int DEFAULT_TAB_SIZE = 8;
+  public static final boolean DEFAULT_CSS_UNESCAPE = true;
 
   private ECSSVersion m_eCSSVersion = DEFAULT_VERSION;
   private Charset m_aFallbackCharset = DEFAULT_CHARSET;
@@ -54,6 +55,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   private boolean m_bUseSourceLocation = DEFAULT_USE_SOURCE_LOCATION;
   private int m_nTabSize = DEFAULT_TAB_SIZE;
   private ICSSInterpretErrorHandler m_aInterpretErrorHandler;
+  private boolean m_bCSSUnescape = DEFAULT_CSS_UNESCAPE;
 
   public CSSReaderSettings ()
   {}
@@ -69,6 +71,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     m_bUseSourceLocation = aOther.m_bUseSourceLocation;
     m_nTabSize = aOther.m_nTabSize;
     m_aInterpretErrorHandler = aOther.m_aInterpretErrorHandler;
+    m_bCSSUnescape = aOther.m_bCSSUnescape;
   }
 
   /**
@@ -289,6 +292,32 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     return this;
   }
 
+  /**
+   * @return <code>true</code> if the CSS unescaping while reading, according to
+   *         the CSS specifications, is enabled. <code>false</code> if not.
+   * @since 7.0.1
+   */
+  public boolean isCSSUnescape ()
+  {
+    return m_bCSSUnescape;
+  }
+
+  /**
+   * Change the CSS unescaping status
+   *
+   * @param bCSSUnescape
+   *        <code>true</code> to enable unescaping, <code>false</code> to
+   *        disable it.
+   * @return this for chaining
+   * @since 7.0.1
+   */
+  @Nonnull
+  public CSSReaderSettings setCSSUnescape (final boolean bCSSUnescape)
+  {
+    m_bCSSUnescape = bCSSUnescape;
+    return this;
+  }
+
   @Nonnull
   public CSSReaderSettings getClone ()
   {
@@ -306,6 +335,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
                                        .append ("UseSourceLocation", m_bUseSourceLocation)
                                        .append ("TabSize", m_nTabSize)
                                        .append ("InterpretErrorHandler", m_aInterpretErrorHandler)
+                                       .append ("CSSUnescape", m_bCSSUnescape)
                                        .getToString ();
   }
 }

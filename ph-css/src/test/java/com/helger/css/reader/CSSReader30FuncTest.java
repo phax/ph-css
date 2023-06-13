@@ -348,7 +348,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     final CSSReaderSettings aReaderSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
                                                                       .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                       .setBrowserCompliantMode (bBrowserCompliantMode);
-    final CSSWriterSettings aWriterSettings = new CSSWriterSettings ().setCSSVersion (ECSSVersion.CSS30).setOptimizedOutput (true);
+    final CSSWriterSettings aWriterSettings = new CSSWriterSettings ().setCSSVersion (ECSSVersion.CSS30)
+                                                                      .setOptimizedOutput (true);
 
     CascadingStyleSheet aCSS;
     CascadingStyleSheet aCSS2;
@@ -376,7 +377,9 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     assertEquals ("div{colör:räd}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS2));
     assertEquals (aCSS, aCSS2);
 
-    // With masking
+    // With masking for invalid char (&)
+    // Old mode, until v7.0.0
+    aReaderSettings.setCSSUnescape (false);
     sCSS = "#mask\\26{ color: red; }";
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
     assertNotNull (aCSS);
@@ -391,8 +394,65 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
     assertNotNull (aCSS);
     assertEquals ("#mask\\26 {color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    aReaderSettings.setCSSUnescape (true);
 
-    // With masking
+    // New mode since 7.0.1
+    sCSS = "#mask\\26{ color: red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    if (bBrowserCompliantMode)
+    {
+      assertNotNull (aCSS);
+      assertEquals ("#mask{}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    }
+    else
+    {
+      assertNull (aCSS);
+    }
+
+    sCSS = "#mask\\78{ color: red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("#maskx{color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    sCSS = "#mask\\078{ color: red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("#maskx{color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    sCSS = "#mask\\0078{ color: red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("#maskx{color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    sCSS = "#mask\\00078{ color: red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("#maskx{color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    sCSS = "#mask\\000078{ color: red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("#maskx{color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    sCSS = "#mask\\000078 { color: red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("#maskx{color:red}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    // Maximum 6 hex chars
+    sCSS = "#mask\\0000078 { color: red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    if (bBrowserCompliantMode)
+    {
+      assertNotNull (aCSS);
+      assertEquals ("#mask{}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    }
+    else
+    {
+      assertNull (aCSS);
+    }
+
+    // With invalid masking
     sCSS = "#mask\\x{ color: red; }";
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
     assertNotNull (aCSS);
@@ -483,6 +543,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     sCSS = ".x{left: calc(50% - (600px / 2 + var(--page-column-padding-x)));}";
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
     assertNotNull (aCSS);
-    assertEquals (".x{left:calc(50% - (600px/2 + var(--page-column-padding-x)))}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    assertEquals (".x{left:calc(50% - (600px/2 + var(--page-column-padding-x)))}",
+                  new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
   }
 }
