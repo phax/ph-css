@@ -209,19 +209,17 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                                 @Nonnull final Token aFromToken,
                                                                 @Nonnull final Token aToToken)
   {
-    String ret = "Browser compliant mode skipped CSS from [" +
-                 aFromToken.beginLine +
-                 ":" +
-                 aFromToken.beginColumn +
-                 "] starting at token '" +
-                 aFromToken.image +
-                 "' until [" +
-                 aToToken.endLine +
-                 ":" +
-                 aToToken.endColumn +
-                 "] to token '" +
-                 aToToken.image +
-                 "'";
+    String ret = "Browser compliant mode skipped CSS";
+    if (aFromToken != null)
+      ret += " from [" +
+             aFromToken.beginLine +
+             ":" +
+             aFromToken.beginColumn +
+             "] starting at token '" +
+             aFromToken.image +
+             "'";
+    if (aToToken != null)
+      ret += " until [" + aToToken.endLine + ":" + aToToken.endColumn + "] to token '" + aToToken.image + "'";
     if (ex != null)
       ret += " (based on " + ex.getClass ().getName () + ": " + ex.getMessage () + ")";
     return ret;
