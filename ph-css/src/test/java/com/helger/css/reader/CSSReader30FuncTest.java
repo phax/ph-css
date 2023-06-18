@@ -106,15 +106,31 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   }
 
   @Test
-  public void testReadSpecialGood ()
+  public void testReadSpecialGoodHacks2 ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/hacks2.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
+                                                             new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
+                                                                                     .setCSSVersion (ECSSVersion.CSS30));
     assertNotNull (aCSS);
 
-    final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
+    final String sCSS = new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30, false)).getCSSAsString (aCSS);
+    assertNotNull (sCSS);
+    if (false)
+      m_aLogger.info (sCSS);
+  }
+
+  @Test
+  public void testReadSpecialGoodTcomV11Screen ()
+  {
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/tcom-v11-screen.css");
+    assertTrue (aFile.exists ());
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
+                                                             new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
+                                                                                     .setCSSVersion (ECSSVersion.CSS30));
+    assertNotNull (aCSS);
+
+    final String sCSS = new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30, false)).getCSSAsString (aCSS);
     assertNotNull (sCSS);
     if (false)
       m_aLogger.info (sCSS);

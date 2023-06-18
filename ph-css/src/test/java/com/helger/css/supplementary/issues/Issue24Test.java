@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -38,6 +40,8 @@ import com.helger.css.writer.CSSWriter;
  */
 public final class Issue24Test
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (Issue24Test.class);
+
   @Test
   public void testIssue ()
   {
@@ -49,6 +53,6 @@ public final class Issue24Test
                                                                                        .setCustomErrorHandler (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aCSS);
     if (false)
-      System.out.println (new CSSWriter ().getCSSAsString (aCSS));
+      LOGGER.info (new CSSWriter ().getCSSAsString (aCSS));
   }
 }

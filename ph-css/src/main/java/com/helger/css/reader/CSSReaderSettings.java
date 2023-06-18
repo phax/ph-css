@@ -100,6 +100,18 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   }
 
   /**
+   * Use the latest CSS version for reading.
+   *
+   * @return this
+   * @since 7.0.1
+   */
+  @Nonnull
+  public CSSReaderSettings setCSSVersionLatest ()
+  {
+    return setCSSVersion (ECSSVersion.LATEST);
+  }
+
+  /**
    * @return The charset to be used for reading a CSS file in case neither a
    *         <code>@charset</code> rule nor a BOM is present. Never
    *         <code>null</code>. Defaults to {@link #DEFAULT_CHARSET}.

@@ -43,7 +43,8 @@ public final class Issue33Test
     final String css = "@media \\0screen\\,screen\\9 {.test {margin-left: 0px}}";
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
                                                                 .setBrowserCompliantMode (true)
-                                                                .setInterpretErrorHandler (new DoNothingCSSInterpretErrorHandler ());
+                                                                .setInterpretErrorHandler (new DoNothingCSSInterpretErrorHandler ())
+                                                                .setCSSUnescape (false);
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
     final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
     assertEquals ("@media \\0screen\\,screen\\9 {.test{margin-left:0}}", writer.getCSSAsString (cascadingStyleSheet));

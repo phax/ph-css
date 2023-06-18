@@ -53,22 +53,32 @@ public final class CSSCharStream implements CharStream
    *
    * @author Philip Helger
    */
-  private static final class CSSFilterCodePointsReader implements AutoCloseable
+  private static final class CSSFilterCodePointReader implements AutoCloseable
   {
-    private static final Logger LOGGER = LoggerFactory.getLogger (CSSCharStream.CSSFilterCodePointsReader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger (CSSCharStream.CSSFilterCodePointReader.class);
 
     private final NonBlockingPushbackReader m_aLocalReader;
-    private boolean m_bReadBytes = false;
+    private boolean m_bBrowserCompliantMode = CSSReaderSettings.DEFAULT_BROWSER_COMPLIANT_MODE;
     private boolean m_bCSSUnescape = CSSReaderSettings.DEFAULT_CSS_UNESCAPE;
+    private boolean m_bReadBytes = false;
 
-    public CSSFilterCodePointsReader (@Nonnull final Reader aSrcReader)
+    public CSSFilterCodePointReader (@Nonnull final Reader aSrcReader)
     {
       // 1 char look ahead is sufficient
       m_aLocalReader = new NonBlockingPushbackReader (aSrcReader, 1);
     }
 
     @Nonnull
-    public CSSFilterCodePointsReader setCSSUnescape (final boolean bCSSUnescape)
+    public CSSFilterCodePointReader setBrowserCompliantMode (final boolean bBrowserCompliantMode)
+    {
+      if (m_bReadBytes)
+        throw new IllegalStateException ("Cannot change the CSS browser compliant mode after bytes have been processed");
+      m_bBrowserCompliantMode = bBrowserCompliantMode;
+      return this;
+    }
+
+    @Nonnull
+    public CSSFilterCodePointReader setCSSUnescape (final boolean bCSSUnescape)
     {
       if (m_bReadBytes)
         throw new IllegalStateException ("Cannot change the CSS unescape status after bytes have been processed");
@@ -81,28 +91,29 @@ public final class CSSCharStream implements CharStream
       m_aLocalReader.close ();
     }
 
+    private static int _unifyCodePoint (final int nCP)
+    {
+      switch (nCP)
+      {
+        case 0:
+          return 0xfffd;
+        case '\f':
+        case '\r':
+          // No matter if followed by \n or not
+          return '\n';
+        default:
+          return nCP;
+      }
+    }
+
     /**
      * @return Next character to come including pushing it back
      */
     private int _lookaheadCodePoint () throws IOException
     {
-      int ret = m_aLocalReader.read ();
-      m_aLocalReader.unread (ret);
-
-      switch (ret)
-      {
-        case 0:
-          ret = (char) 0xfffd;
-          break;
-        case '\f':
-          ret = '\n';
-          break;
-        case '\r':
-          // No matter if followed by \n or not
-          ret = '\n';
-          break;
-      }
-      return ret;
+      final int nCP = m_aLocalReader.read ();
+      m_aLocalReader.unread (nCP);
+      return _unifyCodePoint (nCP);
     }
 
     /**
@@ -114,18 +125,18 @@ public final class CSSCharStream implements CharStream
     private int _readFilteredCodePoint () throws IOException
     {
       // See
-      int ret = m_aLocalReader.read ();
+      int nCP = m_aLocalReader.read ();
       m_bReadBytes = true;
 
-      switch (ret)
+      switch (nCP)
       {
         case 0:
           // 0 means "unsupported character"
-          ret = (char) 0xfffd;
+          nCP = 0xfffd;
           break;
         case '\f':
           // Form feed becomes \n
-          ret = '\n';
+          nCP = '\n';
           break;
         case '\r':
         {
@@ -142,18 +153,18 @@ public final class CSSCharStream implements CharStream
               m_aLocalReader.unread (next);
             }
           // \r and \r\n becomes \n
-          ret = '\n';
+          nCP = '\n';
           break;
         }
       }
       if (LOGGER.isTraceEnabled ())
       {
-        if (ret == -1)
+        if (nCP == -1)
           LOGGER.trace ("Read EOF");
         else
-          LOGGER.trace ("Read " + LoggingCSSParseErrorHandler.createLoggingStringIllegalCharacter ((char) ret));
+          LOGGER.trace ("Read " + LoggingCSSParseErrorHandler.createLoggingStringIllegalCharacter ((char) nCP));
       }
-      return ret;
+      return nCP;
     }
 
     private static boolean _isNewLine (final int nCP)
@@ -216,6 +227,14 @@ public final class CSSCharStream implements CharStream
       }
       else
       {
+        if (nHexCount == 1 && m_bBrowserCompliantMode)
+          if (nCPRet == 0 || nCPRet == 9)
+          {
+            // IE Hack fallback
+            m_aLocalReader.unread (nCPRet);
+            return nCPSrc;
+          }
+
         // Hex chars found
         // Check for a trailing whitespace and evtl. skip it
         final int nCPNext = _lookaheadCodePoint ();
@@ -228,7 +247,7 @@ public final class CSSCharStream implements CharStream
 
       if (LOGGER.isTraceEnabled ())
         LOGGER.trace ("Unescaped CSS item " + nCPSrc + " to " + nCPRet);
-      return nCPRet;
+      return _unifyCodePoint (nCPRet);
     }
 
     public int read (@Nonnull final char [] buf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
@@ -277,7 +296,7 @@ public final class CSSCharStream implements CharStream
 
   private static final int DEFAULT_BUF_SIZE = 4096;
 
-  private final CSSFilterCodePointsReader m_aReader;
+  private final CSSFilterCodePointReader m_aReader;
   private int m_nLine;
   private int m_nColumn;
   private int m_nAvailable;
@@ -316,7 +335,7 @@ public final class CSSCharStream implements CharStream
     ValueEnforcer.isGE0 (nBufferSize, "BufferSize");
 
     // Using a buffered reader gives a minimal speedup
-    m_aReader = new CSSFilterCodePointsReader (StreamHelper.getBuffered (aReader));
+    m_aReader = new CSSFilterCodePointReader (StreamHelper.getBuffered (aReader));
     m_nLine = nStartLine;
     m_nColumn = nStartColumn - 1;
 
@@ -326,6 +345,13 @@ public final class CSSCharStream implements CharStream
     m_aBufLine = new int [nBufferSize];
     m_aBufColumn = new int [nBufferSize];
     m_aNextCharBuf = new char [DEFAULT_BUF_SIZE];
+  }
+
+  @Nonnull
+  public CSSCharStream setBrowserCompliantMode (final boolean bBrowserCompliantMode)
+  {
+    m_aReader.setBrowserCompliantMode (bBrowserCompliantMode);
+    return this;
   }
 
   @Nonnull
@@ -715,8 +741,9 @@ public final class CSSCharStream implements CharStream
   public static CSSCharStream create (@Nonnull final Reader aReader, @Nonnull final CSSReaderSettings aSettings)
   {
     final CSSCharStream ret = new CSSCharStream (aReader);
-    ret.setTabSize (aSettings.getTabSize ());
+    ret.setBrowserCompliantMode (aSettings.isBrowserCompliantMode ());
     ret.setCSSUnescape (aSettings.isCSSUnescape ());
+    ret.setTabSize (aSettings.getTabSize ());
     return ret;
   }
 }

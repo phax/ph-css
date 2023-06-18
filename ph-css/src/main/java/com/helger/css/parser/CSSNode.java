@@ -189,16 +189,14 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
   @Nullable
   public CSSSourceLocation getSourceLocation ()
   {
-    final CSSSourceArea aFirstTokenArea = m_aFirstToken == null ? null
-                                                                : new CSSSourceArea (m_aFirstToken.beginLine,
-                                                                                     m_aFirstToken.beginColumn,
-                                                                                     m_aFirstToken.endLine,
-                                                                                     m_aFirstToken.endColumn);
-    final CSSSourceArea aLastTokenArea = m_aLastToken == null ? null
-                                                              : new CSSSourceArea (m_aLastToken.beginLine,
-                                                                                   m_aLastToken.beginColumn,
-                                                                                   m_aLastToken.endLine,
-                                                                                   m_aLastToken.endColumn);
+    final CSSSourceArea aFirstTokenArea = m_aFirstToken == null ? null : new CSSSourceArea (m_aFirstToken.beginLine,
+                                                                                            m_aFirstToken.beginColumn,
+                                                                                            m_aFirstToken.endLine,
+                                                                                            m_aFirstToken.endColumn);
+    final CSSSourceArea aLastTokenArea = m_aLastToken == null ? null : new CSSSourceArea (m_aLastToken.beginLine,
+                                                                                          m_aLastToken.beginColumn,
+                                                                                          m_aLastToken.endLine,
+                                                                                          m_aLastToken.endColumn);
     if (aFirstTokenArea == null && aLastTokenArea == null)
       return null;
     return new CSSSourceLocation (aFirstTokenArea, aLastTokenArea);
@@ -216,13 +214,14 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("type", m_nType)
-                                       .appendIfNotNull ("parentType", m_aParent == null ? null : Integer.valueOf (m_aParent.m_nType))
-                                       .appendIfNotNull ("value", m_aValue)
-                                       .appendIfNotNull ("text", m_sText)
-                                       .append ("children#", m_aChildren == null ? 0 : m_aChildren.length)
-                                       .appendIfNotNull ("firstToken", m_aFirstToken)
-                                       .appendIfNotNull ("lastToken", m_aLastToken)
+    return new ToStringGenerator (this).append ("Type", m_nType)
+                                       .appendIfNotNull ("ParentType",
+                                                         m_aParent == null ? null : Integer.valueOf (m_aParent.m_nType))
+                                       .appendIfNotNull ("Value", m_aValue)
+                                       .appendIfNotNull ("Text", m_sText)
+                                       .append ("Children#", m_aChildren == null ? 0 : m_aChildren.length)
+                                       .appendIfNotNull ("FirstToken", m_aFirstToken)
+                                       .appendIfNotNull ("LastToken", m_aLastToken)
                                        .getToString ();
   }
 }

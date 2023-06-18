@@ -236,13 +236,17 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
 
   @Nonnull
   @Nonempty
-  public static String createLoggingStringIllegalCharacter (final char cIllegalChar)
+  public static String createPrintableCharacter (final char cIllegalChar)
   {
     final String sCharHex = "0x" + StringHelper.getHexStringLeadingZero (cIllegalChar, 4);
-    final String sPrintableChar = cIllegalChar <= 32 || cIllegalChar > 255 ? sCharHex : cIllegalChar +
-                                                                                        " (" +
-                                                                                        sCharHex +
-                                                                                        ")";
+    return cIllegalChar <= 32 || cIllegalChar > 255 ? sCharHex : cIllegalChar + " (" + sCharHex + ")";
+  }
+
+  @Nonnull
+  @Nonempty
+  public static String createLoggingStringIllegalCharacter (final char cIllegalChar)
+  {
+    final String sPrintableChar = createPrintableCharacter (cIllegalChar);
     return "Found illegal character: " + sPrintableChar;
   }
 
