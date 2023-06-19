@@ -206,8 +206,8 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   @Nonnull
   @Nonempty
   public static String createLoggingStringBrowserCompliantSkip (@Nullable final ParseException ex,
-                                                                @Nonnull final Token aFromToken,
-                                                                @Nonnull final Token aToToken)
+                                                                @Nullable final Token aFromToken,
+                                                                @Nullable final Token aToToken)
   {
     String ret = "Browser compliant mode skipped CSS";
     if (aFromToken != null)
