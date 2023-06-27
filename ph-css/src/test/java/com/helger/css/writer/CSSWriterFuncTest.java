@@ -44,7 +44,7 @@ public final class CSSWriterFuncTest
 
   private void _testMe (@Nonnull final File aFile, @Nonnull final ECSSVersion eVersion)
   {
-    if (false)
+    if (true)
       LOGGER.info (aFile.getAbsolutePath ());
 
     // read and interpret
@@ -54,13 +54,15 @@ public final class CSSWriterFuncTest
     // Both normal and optimized!
     for (int i = 0; i < 2; ++i)
     {
+      final String sMode = i == 0 ? " unoptimized" : " optimized";
+
       // write to buffer
       final String sCSS = new CSSWriter (eVersion, i == 1).getCSSAsString (aCSS);
-      if (false)
-        System.out.println ("--" + i + "--\n" + sCSS);
+      if (true)
+        LOGGER.info ("--" + sMode + " --\n" + sCSS);
 
       // read again from buffer
-      assertEquals (aFile.getAbsolutePath () + (i == 0 ? " unoptimized" : " optimized"), aCSS, CSSReader.readFromString (sCSS, eVersion));
+      assertEquals (aFile.getAbsolutePath () + sMode, aCSS, CSSReader.readFromString (sCSS, eVersion));
     }
   }
 
@@ -102,7 +104,9 @@ public final class CSSWriterFuncTest
         fail (sKey + " should have thrown an exception but got: " + aSW.getAsString ());
       }
       catch (final IllegalStateException ex)
-      {}
+      {
+        // Expected
+      }
     }
   }
 
