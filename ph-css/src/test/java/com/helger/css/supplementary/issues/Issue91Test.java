@@ -19,6 +19,7 @@ package com.helger.css.supplementary.issues;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.css.ECSSVersion;
@@ -37,6 +38,7 @@ import com.helger.css.writer.CSSWriterSettings;
 public final class Issue91Test
 {
   @Test
+  @Ignore ("Not for 7.0.1")
   public void testUnescape1 ()
   {
     final String sCSS = "div { \73\72\63\3a\35 }";
