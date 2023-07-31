@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2022 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2023 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,7 @@ package com.helger.css.parser;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -49,12 +50,13 @@ public final class CSSCharStream implements CharStream
   private char [] m_aBuffer;
   private int [] m_aBufLine;
   private int [] m_aBufColumn;
-  private char [] m_aNextCharBuf;
+  // Fixed size buf
+  private final char [] m_aNextCharBuf;
 
   private boolean m_bPrevCharIsCR = false;
   private boolean m_bPrevCharIsLF = false;
   private int m_nTokenBegin = 0;
-  private int m_nInBuf = 0;
+  private int m_nInPrefetchBuf = 0;
   private int m_nMaxNextCharInd = 0;
   private int m_nNextCharInd = -1;
   /** Position in buffer. */
@@ -87,21 +89,23 @@ public final class CSSCharStream implements CharStream
     m_aNextCharBuf = new char [DEFAULT_BUF_SIZE];
   }
 
-  public void setTabSize (final int i)
-  {
-    m_nTabSize = i;
-  }
-
   public int getTabSize ()
   {
     return m_nTabSize;
   }
 
+  public void setTabSize (final int nTabSize)
+  {
+    m_nTabSize = nTabSize;
+  }
+
   private void _expandBuff (final boolean bWrapAround)
   {
-    final char [] aNewBuffer = new char [m_nBufsize + 2048];
-    final int [] aNewBufLine = new int [m_nBufsize + 2048];
-    final int [] newbufcolumn = new int [m_nBufsize + 2048];
+    // Currently fixed - shall we expand to 50%?
+    final int nDeltaToExpand = 2048;
+    final char [] aNewBuffer = new char [m_nBufsize + nDeltaToExpand];
+    final int [] aNewBufLine = new int [m_nBufsize + nDeltaToExpand];
+    final int [] aNewBufColumn = new int [m_nBufsize + nDeltaToExpand];
 
     try
     {
@@ -115,9 +119,9 @@ public final class CSSCharStream implements CharStream
         System.arraycopy (m_aBufLine, 0, aNewBufLine, m_nBufsize - m_nTokenBegin, m_nBufpos);
         m_aBufLine = aNewBufLine;
 
-        System.arraycopy (m_aBufColumn, m_nTokenBegin, newbufcolumn, 0, m_nBufsize - m_nTokenBegin);
-        System.arraycopy (m_aBufColumn, 0, newbufcolumn, m_nBufsize - m_nTokenBegin, m_nBufpos);
-        m_aBufColumn = newbufcolumn;
+        System.arraycopy (m_aBufColumn, m_nTokenBegin, aNewBufColumn, 0, m_nBufsize - m_nTokenBegin);
+        System.arraycopy (m_aBufColumn, 0, aNewBufColumn, m_nBufsize - m_nTokenBegin, m_nBufpos);
+        m_aBufColumn = aNewBufColumn;
 
         m_nBufpos += (m_nBufsize - m_nTokenBegin);
       }
@@ -129,8 +133,8 @@ public final class CSSCharStream implements CharStream
         System.arraycopy (m_aBufLine, m_nTokenBegin, aNewBufLine, 0, m_nBufsize - m_nTokenBegin);
         m_aBufLine = aNewBufLine;
 
-        System.arraycopy (m_aBufColumn, m_nTokenBegin, newbufcolumn, 0, m_nBufsize - m_nTokenBegin);
-        m_aBufColumn = newbufcolumn;
+        System.arraycopy (m_aBufColumn, m_nTokenBegin, aNewBufColumn, 0, m_nBufsize - m_nTokenBegin);
+        m_aBufColumn = aNewBufColumn;
 
         m_nBufpos -= m_nTokenBegin;
       }
@@ -140,7 +144,7 @@ public final class CSSCharStream implements CharStream
       throw new Error ("Something went wrong", ex);
     }
 
-    m_nBufsize += 2048;
+    m_nBufsize += nDeltaToExpand;
     m_nAvailable = m_nBufsize;
     m_nTokenBegin = 0;
   }
@@ -195,9 +199,10 @@ public final class CSSCharStream implements CharStream
    */
   public char beginToken () throws IOException
   {
-    if (m_nInBuf > 0)
+    if (m_nInPrefetchBuf > 0)
     {
-      --m_nInBuf;
+      // Do we something in the local buffer?
+      --m_nInPrefetchBuf;
 
       if (++m_nBufpos == m_nBufsize)
         m_nBufpos = 0;
@@ -216,8 +221,9 @@ public final class CSSCharStream implements CharStream
   {
     if (m_nAvailable == m_nBufsize)
     {
-      if (m_nTokenBegin > 2048)
+      if (m_nTokenBegin > m_nBufsize / 2)
       {
+        // Over 50%?
         m_nBufpos = 0;
         m_nAvailable = m_nTokenBegin;
       }
@@ -228,8 +234,11 @@ public final class CSSCharStream implements CharStream
       if (m_nAvailable > m_nTokenBegin)
         m_nAvailable = m_nBufsize;
       else
-        if ((m_nTokenBegin - m_nAvailable) < 2048)
+        if ((m_nTokenBegin - m_nAvailable) < m_nBufsize / 2)
+        {
+          // Less then 50% available<
           _expandBuff (true);
+        }
         else
           m_nAvailable = m_nTokenBegin;
   }
@@ -240,6 +249,7 @@ public final class CSSCharStream implements CharStream
 
     if (m_bPrevCharIsLF)
     {
+      // Char following \n
       m_bPrevCharIsLF = false;
       m_nColumn = 1;
       m_nLine++;
@@ -247,6 +257,7 @@ public final class CSSCharStream implements CharStream
     else
       if (m_bPrevCharIsCR)
       {
+        // Char following \r
         m_bPrevCharIsCR = false;
         if (c == '\n')
           m_bPrevCharIsLF = true;
@@ -286,9 +297,11 @@ public final class CSSCharStream implements CharStream
    */
   public char readChar () throws IOException
   {
-    if (m_nInBuf > 0)
+    if (m_nInPrefetchBuf > 0)
     {
-      --m_nInBuf;
+      // Do we something in the local buffer?
+      --m_nInPrefetchBuf;
+
       if (++m_nBufpos == m_nBufsize)
         m_nBufpos = 0;
       return m_aBuffer[m_nBufpos];
@@ -333,7 +346,7 @@ public final class CSSCharStream implements CharStream
   /** Retreat. */
   public void backup (final int nAmount)
   {
-    m_nInBuf += nAmount;
+    m_nInPrefetchBuf += nAmount;
     m_nBufpos -= nAmount;
     if (m_nBufpos < 0)
       m_nBufpos += m_nBufsize;
@@ -367,7 +380,7 @@ public final class CSSCharStream implements CharStream
   /** Set buffers back to null when finished. */
   public void done ()
   {
-    m_aNextCharBuf = null;
+    Arrays.fill (m_aNextCharBuf, '\u0000');
     m_aBuffer = null;
     m_aBufLine = null;
     m_aBufColumn = null;
@@ -381,57 +394,57 @@ public final class CSSCharStream implements CharStream
    * @param newCol
    *        column index
    */
-  public void adjustBeginLineColumn (final int nNewLine, final int newCol)
+  public void adjustBeginLineColumn (final int nNewLine, final int nNewCol)
   {
-    int start = m_nTokenBegin;
-    int newLine = nNewLine;
-    int len;
+    int nStart = m_nTokenBegin;
+    int nRealNewLine = nNewLine;
+    final int nLen;
 
     if (m_nBufpos >= m_nTokenBegin)
-    {
-      len = m_nBufpos - m_nTokenBegin + m_nInBuf + 1;
-    }
+      nLen = m_nBufpos - m_nTokenBegin + m_nInPrefetchBuf + 1;
     else
-    {
-      len = m_nBufsize - m_nTokenBegin + m_nBufpos + 1 + m_nInBuf;
-    }
+      nLen = m_nBufsize - m_nTokenBegin + m_nBufpos + 1 + m_nInPrefetchBuf;
 
     int nIdx = 0;
     int j = 0;
-    int nextColDiff = 0;
-    int columnDiff = 0;
+    int nNextColDiff = 0;
+    int nColumnDiff = 0;
 
     while (true)
     {
-      if (nIdx >= len)
+      if (nIdx >= nLen)
         break;
-      j = start % m_nBufsize;
-      ++start;
-      final int k = start % m_nBufsize;
+
+      j = nStart % m_nBufsize;
+      ++nStart;
+      final int k = nStart % m_nBufsize;
       if (m_aBufLine[j] != m_aBufLine[k])
         break;
 
-      m_aBufLine[j] = newLine;
-      nextColDiff = columnDiff + m_aBufColumn[k] - m_aBufColumn[j];
-      m_aBufColumn[j] = newCol + columnDiff;
-      columnDiff = nextColDiff;
+      m_aBufLine[j] = nRealNewLine;
+      nNextColDiff = nColumnDiff + m_aBufColumn[k] - m_aBufColumn[j];
+      m_aBufColumn[j] = nNewCol + nColumnDiff;
+      nColumnDiff = nNextColDiff;
       nIdx++;
     }
 
-    if (nIdx < len)
+    if (nIdx < nLen)
     {
-      m_aBufLine[j] = newLine++;
-      m_aBufColumn[j] = newCol + columnDiff;
+      m_aBufLine[j] = nRealNewLine++;
+      m_aBufColumn[j] = nNewCol + nColumnDiff;
 
-      while (nIdx++ < len)
+      while (nIdx++ < nLen)
       {
-        j = start % m_nBufsize;
-        ++start;
-        final int k = start % m_nBufsize;
+        j = nStart % m_nBufsize;
+        ++nStart;
+        final int k = nStart % m_nBufsize;
         if (m_aBufLine[j] != m_aBufLine[k])
-          m_aBufLine[j] = newLine++;
+        {
+          m_aBufLine[j] = nRealNewLine;
+          nRealNewLine++;
+        }
         else
-          m_aBufLine[j] = newLine;
+          m_aBufLine[j] = nRealNewLine;
       }
     }
 
@@ -444,8 +457,8 @@ public final class CSSCharStream implements CharStream
     return m_bTrackLineColumn;
   }
 
-  public void setTrackLineColumn (final boolean tlc)
+  public void setTrackLineColumn (final boolean bTrackLineColumn)
   {
-    m_bTrackLineColumn = tlc;
+    m_bTrackLineColumn = bTrackLineColumn;
   }
 }

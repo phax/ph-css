@@ -307,6 +307,11 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v7.0.1 - 2023-07-31
+    * Updated to ph-commons 11.1
+* v7.0.0 - 2023-02-01
+    * Using Java 11 as the baseline
+    * Updated to ph-commons 11
 * v6.5.0 - 2022-01-28
     * Re-added explicit support for deprecated property names starting with `$` or `*` but only inside style declarations. See [issue #84](https://github.com/phax/ph-css/issues/84) and [PR #85](https://github.com/phax/ph-css/pull/85) - thanks @shagkur
     * Therefore `ICSSParseErrorHandler.onCSSDeprecatedProperty` was added
@@ -417,5 +422,4 @@ Configuration items are:
 ---
 
 My personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodingStyleguide.md) |
-On Twitter: <a href="https://twitter.com/philiphelger">@philiphelger</a> |
-Kindly supported by [YourKit Java Profiler](https://www.yourkit.com)
+It is appreciated if you star the GitHub project if you like it.
