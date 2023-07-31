@@ -307,6 +307,8 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v7.0.1 - 2023-07-31
+    * Updated to ph-commons 11.1
 * v7.0.0 - 2023-02-01
     * Using Java 11 as the baseline
     * Updated to ph-commons 11
