@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* Source: http://www.bricodepot.fr/docroot/css/web.css?v=4.6.0 */
 .tablet,.mobile{display:none!important}.tablet.web,.mobile.web{display:block!important}
 :-ms-input-placeholder{color:#fff}.subNavBox dt i,.subNavBox dd i,.workHours i{display:none}
 .home2 i{width:18px;background-position:-40px -50px}.community .home{background-image:url("../images/hp/menu-sprite.png");background-position:0 -22px;height:11px;width:12px;display:inline-block}
