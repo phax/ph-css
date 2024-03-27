@@ -211,8 +211,9 @@ public final class CSSCharStream implements CharStream
       return nCodePoint;
     }
 
-    public int read (@Nonnull final char [] buf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
-                                                                                                           throws IOException
+    public int read (@Nonnull final char [] buf,
+                     @Nonnegative final int nOfs,
+                     @Nonnegative final int nLen) throws IOException
     {
       ValueEnforcer.notNull (buf, "buf");
       ValueEnforcer.isGE0 (nOfs, "Ofs");
@@ -613,7 +614,7 @@ public final class CSSCharStream implements CharStream
    *
    * @param nNewLine
    *        line index
-   * @param newCol
+   * @param nNewCol
    *        column index
    */
   public void adjustBeginLineColumn (final int nNewLine, final int nNewCol)

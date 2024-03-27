@@ -122,8 +122,8 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return retval.toString ();
   }
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
-                                                                                                                throws ParseException
+  public void onCSSParseError (@Nonnull final ParseException aParseEx,
+                               @Nullable final Token aLastSkippedToken) throws ParseException
   {
     if (aParseEx.expectedTokenSequences == null)
       LOGGER.warn (aParseEx.getMessage ());
@@ -178,8 +178,6 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
    *        The prefix token found (like '$' or '*'). Never <code>null</code>.
    * @param aIdentifierToken
    *        The identifier token found. Never <code>null</code>.
-   * @throws ParseException
-   *         In case the error is fatal and should be propagated.
    * @return The concatenated string with source location, etc. May neither be
    *         <code>null</code> nor empty.
    */
@@ -239,10 +237,8 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   public static String createLoggingStringIllegalCharacter (final char cIllegalChar)
   {
     final String sCharHex = "0x" + StringHelper.getHexStringLeadingZero (cIllegalChar, 4);
-    final String sPrintableChar = cIllegalChar <= 32 || cIllegalChar > 255 ? sCharHex : cIllegalChar +
-                                                                                        " (" +
-                                                                                        sCharHex +
-                                                                                        ")";
+    final String sPrintableChar = cIllegalChar <= 32 || cIllegalChar > 255 ? sCharHex
+                                                                           : cIllegalChar + " (" + sCharHex + ")";
     return "Found illegal character: " + sPrintableChar;
   }
 

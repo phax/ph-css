@@ -30,7 +30,7 @@ import com.helger.css.writer.CSSWriterSettings;
 
 /**
  * Example how to extract all selectors from a certain CSS file using a
- * {@link DefaultCSSUrlVisitor}.
+ * {@link DefaultCSSVisitor}.
  *
  * @author Philip Helger
  */
