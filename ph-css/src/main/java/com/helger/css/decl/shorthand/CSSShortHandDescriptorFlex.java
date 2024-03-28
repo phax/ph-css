@@ -53,7 +53,7 @@ public class CSSShortHandDescriptorFlex extends CSSShortHandDescriptor
       // assumed to be 0.
       // * one of the keywords: none, auto, or initial.
 
-      final ICSSExpressionMember aMember = aExpressionMembers.getFirst ();
+      final ICSSExpressionMember aMember = aExpressionMembers.getFirstOrNull ();
       final String sCSS = aMember.getAsCSSString ();
       if (CCSSValue.INITIAL.equals (sCSS))
       {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+    Copyright (C) 2014-2024 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,14 +35,14 @@
   <licenses>
     <license>
       <name>Apache 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
 
   <organization>
     <name>Philip Helger</name>
-    <url>http://www.helger.com</url>
+    <url>https://www.helger.com</url>
   </organization>
 
   <developers>
@@ -50,31 +50,26 @@
       <id>philip</id>
       <name>Philip Helger</name>
       <email>ph(at)helger.com</email>
-      <url>http://www.helger.com</url>
+      <url>https://www.helger.com</url>
     </developer>
   </developers>
 
   <properties>
-    <maven.version>3.1.0</maven.version>
+    <maven.core.version>3.8.3</maven.core.version>
+    <maven.annot.version>3.8.2</maven.annot.version>
   </properties>
   
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>${maven.version}</version>
+      <version>${maven.core.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
-      <version>${maven.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-compat</artifactId>
-      <version>${maven.version}</version>
+      <version>${maven.core.version}</version>
       <scope>provided</scope>
     </dependency>
     
@@ -135,7 +130,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.9.0</version>
+        <version>3.11.0</version>
       </plugin>
     </plugins>
   </reporting>
