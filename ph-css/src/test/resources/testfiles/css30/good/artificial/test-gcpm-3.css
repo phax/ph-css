@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/* Source: https://www.w3.org/TR/css-gcpm-3/ */
-
 h1::before { content: 'Chapter ' counter(chapter); }
 h1 { string-set: header content(before) ':' content(text); }
 h1::after { content: '.'; }
