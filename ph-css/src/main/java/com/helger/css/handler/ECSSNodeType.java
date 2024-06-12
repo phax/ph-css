@@ -61,6 +61,8 @@ public enum ECSSNodeType
   HOSTCONTEXT (ParserCSS30TreeConstants.JJTHOSTCONTEXT),
   SLOTTED (ParserCSS30TreeConstants.JJTSLOTTED),
   NEGATION (ParserCSS30TreeConstants.JJTNEGATION),
+  WHERE (ParserCSS30TreeConstants.JJTWHERE),
+  IS (ParserCSS30TreeConstants.JJTIS),
   ATTRIB (ParserCSS30TreeConstants.JJTATTRIB),
   ATTRIBOPERATOR (ParserCSS30TreeConstants.JJTATTRIBOPERATOR),
   ATTRIBVALUE (ParserCSS30TreeConstants.JJTATTRIBVALUE),
