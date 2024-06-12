@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,7 +53,7 @@ public class CSSShortHandDescriptorFlex extends CSSShortHandDescriptor
       // assumed to be 0.
       // * one of the keywords: none, auto, or initial.
 
-      final ICSSExpressionMember aMember = aExpressionMembers.getFirst ();
+      final ICSSExpressionMember aMember = aExpressionMembers.getFirstOrNull ();
       final String sCSS = aMember.getAsCSSString ();
       if (CCSSValue.INITIAL.equals (sCSS))
       {

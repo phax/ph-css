@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+    Copyright (C) 2014-2024 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +22,10 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>2.0.3</version>
+    <version>2.0.5</version>
   </parent>
   <artifactId>ph-css-parent-pom</artifactId>
-  <version>7.0.1-SNAPSHOT</version>
+  <version>7.0.3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ph-css-parent-pom</name>
   <description>Base POM to build the ph-css projects</description>
@@ -35,21 +35,21 @@
   <licenses>
     <license>
       <name>Apache 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
   
   <scm>
-    <connection>scm:git:git@github.com:phax/ph-css.git</connection>
-    <developerConnection>scm:git:git@github.com:phax/ph-css.git</developerConnection>
-    <url>http://github.com/phax/ph-css</url>
+    <connection>scm:git:https://github.com/phax/ph-css.git</connection>
+    <developerConnection>scm:git:https://github.com/phax/ph-css.git</developerConnection>
+    <url>https://github.com/phax/ph-css</url>
     <tag>HEAD</tag>
   </scm>
 
   <organization>
     <name>Philip Helger</name>
-    <url>http://www.helger.com</url>
+    <url>https://www.helger.com</url>
   </organization>
 
   <developers>
@@ -57,7 +57,7 @@
       <id>philip</id>
       <name>Philip Helger</name>
       <email>ph(at)helger.com</email>
-      <url>http://www.helger.com</url>
+      <url>https://www.helger.com</url>
     </developer>
   </developers>
   
@@ -66,7 +66,7 @@
       <dependency>
         <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons-parent-pom</artifactId>
-        <version>11.0.4</version>
+        <version>11.1.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

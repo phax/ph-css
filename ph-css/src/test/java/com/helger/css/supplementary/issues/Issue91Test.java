@@ -16,15 +16,14 @@
  */
 package com.helger.css.supplementary.issues;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.nio.charset.StandardCharsets;
-
+import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.css.ECSSVersion;
+import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -32,21 +31,28 @@ import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
 
 /**
- * Test for issue 35: https://github.com/phax/ph-css/issues/35
+ * Test for https://github.com/phax/ph-css/issues/91
  *
  * @author Philip Helger
  */
-public final class Issue35Test
+public final class Issue91Test
 {
   @Test
-  public void testIssue ()
+  @Ignore ("Not for 7.0.1")
+  public void testUnescape1 ()
   {
-    final String css = StreamHelper.getAllBytesAsString (new FileSystemResource ("src/test/resources/testfiles/css30/good/issue35.css"),
-                                                         StandardCharsets.UTF_8);
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (false);
-    final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
-    assertNotNull (cascadingStyleSheet);
-    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
-    assertNotNull (writer.getCSSAsString (cascadingStyleSheet));
+    final String sCSS = "div { \73\72\63\3a\35 }";
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
+                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
+                                                                                             .setBrowserCompliantMode (true));
+    assertNotNull (aCSS);
+    assertEquals (1, aCSS.getStyleRuleCount ());
+
+    final CSSStyleRule aSR = aCSS.getStyleRuleAtIndex (0);
+    assertEquals (2, aSR.getDeclarationCount ());
+
+    assertEquals ("div{src:5}",
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                    .getCSSAsString (aCSS));
   }
 }

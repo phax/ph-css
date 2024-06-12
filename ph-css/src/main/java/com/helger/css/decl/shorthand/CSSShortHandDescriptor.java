@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -98,7 +98,11 @@ public class CSSShortHandDescriptor
 
     // Check that declaration matches this property
     if (!aDeclaration.hasProperty (m_eProperty))
-      throw new IllegalArgumentException ("Cannot split a '" + aDeclaration.getProperty () + "' as a '" + m_eProperty.getName () + "'");
+      throw new IllegalArgumentException ("Cannot split a '" +
+                                          aDeclaration.getProperty () +
+                                          "' as a '" +
+                                          m_eProperty.getName () +
+                                          "'");
 
     // global
     final int nSubProperties = m_aSubProperties.size ();
@@ -174,6 +178,8 @@ public class CSSShortHandDescriptor
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("property", m_eProperty).append ("subProperties", m_aSubProperties).getToString ();
+    return new ToStringGenerator (this).append ("property", m_eProperty)
+                                       .append ("subProperties", m_aSubProperties)
+                                       .getToString ();
   }
 }

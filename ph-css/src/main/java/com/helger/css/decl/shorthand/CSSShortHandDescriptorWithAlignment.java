@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,7 +46,7 @@ public class CSSShortHandDescriptorWithAlignment extends CSSShortHandDescriptor
     if (nSize == 1)
     {
       // 4px -> 4px 4px 4px 4px
-      final ICSSExpressionMember aMember = aExpressionMembers.getFirst ();
+      final ICSSExpressionMember aMember = aExpressionMembers.getFirstOrNull ();
       for (int i = 0; i < 3; ++i)
         aExpressionMembers.add (aMember.getClone ());
     }

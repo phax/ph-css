@@ -1,7 +1,8 @@
 # ph-css
 
-[![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger/ph-css/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger/ph-css) 
+[![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
+[![CodeCov](https://codecov.io/gh/phax/ph-css/branch/master/graph/badge.svg)](https://codecov.io/gh/phax/ph-css)
 
 Java CSS 2 and CSS 3 parser and builder. This version supersedes phloc-css.
 The Maven plugin to compress CSS files at build time is located in sub-project ph-csscompress-maven-plugin and described further down.
@@ -307,6 +308,11 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v7.0.2 - 2024-03-28
+    * Updated to ph-commons 11.1.5
+    * Created Java 21 compatibility
+* v7.0.1 - 2023-07-31
+    * Updated to ph-commons 11.1
 * v7.0.0 - 2023-02-01
     * Using Java 11 as the baseline
     * Updated to ph-commons 11

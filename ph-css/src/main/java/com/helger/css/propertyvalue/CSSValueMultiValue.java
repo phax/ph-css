@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +47,9 @@ public class CSSValueMultiValue implements ICSSMultiValue
 {
   private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList <> ();
 
-  public CSSValueMultiValue (@Nonnull final ICSSProperty aProperty, @Nonnull @Nonempty final String [] aValues, final boolean bIsImportant)
+  public CSSValueMultiValue (@Nonnull final ICSSProperty aProperty,
+                             @Nonnull @Nonempty final String [] aValues,
+                             final boolean bIsImportant)
   {
     ValueEnforcer.notNull (aProperty, "Property");
     ValueEnforcer.notEmptyNoNullValue (aValues, "Values");
@@ -66,7 +68,7 @@ public class CSSValueMultiValue implements ICSSMultiValue
   @Nonnull
   public ECSSProperty getProp ()
   {
-    return m_aValues.getFirst ().getProp ();
+    return m_aValues.getFirstOrNull ().getProp ();
   }
 
   @Nonnull

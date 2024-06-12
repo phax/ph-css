@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2023 Philip Helger (www.helger.com)
+    Copyright (C) 2014-2024 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>ph-css-parent-pom</artifactId>
-    <version>7.0.1-SNAPSHOT</version>
+    <version>7.0.3-SNAPSHOT</version>
   </parent>
   <artifactId>ph-css</artifactId>
   <packaging>bundle</packaging>
@@ -34,14 +34,14 @@
   <licenses>
     <license>
       <name>Apache 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
   
   <organization>
     <name>Philip Helger</name>
-    <url>http://www.helger.com</url>
+    <url>https://www.helger.com</url>
   </organization>
   
   <developers>
@@ -49,7 +49,7 @@
       <id>philip</id>
       <name>Philip Helger</name>
       <email>ph(at)helger.com</email>
-      <url>http://www.helger.com</url>
+      <url>https://www.helger.com</url>
     </developer>
   </developers>
   
@@ -62,6 +62,13 @@
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-commons</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+      <scope>compile</scope>
+      <optional>true</optional>
     </dependency>
     
     <dependency>
