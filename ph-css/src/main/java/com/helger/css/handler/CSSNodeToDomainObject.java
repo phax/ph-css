@@ -244,6 +244,40 @@ final class CSSNodeToDomainObject
       return ret;
     }
 
+    if (ECSSNodeType.WHERE.isNode (aNode, m_eVersion))
+    {
+      // Note: no children don't make sense but are syntactically allowed!
+      final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
+      for (int i = 0; i < nChildCount; ++i)
+      {
+        final CSSNode aChildNode = aNode.jjtGetChild (i);
+        final CSSSelector aSelector = _createSelector (aChildNode);
+        aNestedSelectors.add (aSelector);
+      }
+
+      final CSSSelectorMemberWhere ret = new CSSSelectorMemberWhere (aNestedSelectors);
+      if (m_bUseSourceLocation)
+        ret.setSourceLocation (aNode.getSourceLocation ());
+      return ret;
+    }
+
+    if (ECSSNodeType.IS.isNode (aNode, m_eVersion))
+    {
+      // Note: no children don't make sense but are syntactically allowed!
+      final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
+      for (int i = 0; i < nChildCount; ++i)
+      {
+        final CSSNode aChildNode = aNode.jjtGetChild (i);
+        final CSSSelector aSelector = _createSelector (aChildNode);
+        aNestedSelectors.add (aSelector);
+      }
+
+      final CSSSelectorMemberIs ret = new CSSSelectorMemberIs (aNestedSelectors);
+      if (m_bUseSourceLocation)
+        ret.setSourceLocation (aNode.getSourceLocation ());
+      return ret;
+    }
+
     if (ECSSNodeType.PSEUDO.isNode (aNode, m_eVersion))
     {
       if (nChildCount == 0)

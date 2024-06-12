@@ -301,6 +301,8 @@ TOKEN :
 | < FUNCTION_CALC: "calc("
                  | "-" <IDENT> "-calc(" >
 | < FUNCTION_NOT: ":not(" >
+| < FUNCTION_WHERE: ":where(" >
+| < FUNCTION_IS: ":is(" >
 | < FUNCTION_HOST: "host(" >
 | < FUNCTION_HOSTCONTEXT: "host-context(" >
 | < FUNCTION_SLOTTED: "slotted(" >
@@ -1099,6 +1101,36 @@ void negation() : {}
   <RROUND>
 }
 
+void where() : {}
+{
+  <FUNCTION_WHERE> { jjtThis.setText (":where("); }
+  ( <S> )*
+  ( selector ()
+    ( <S> )*
+    ( <COMMA>
+      ( <S> )*
+      selector()
+      ( <S> )*
+    )*
+  )?
+  <RROUND>
+}
+
+void is() : {}
+{
+  <FUNCTION_IS> { jjtThis.setText (":is("); }
+  ( <S> )*
+  ( selector ()
+    ( <S> )*
+    ( <COMMA>
+      ( <S> )*
+      selector()
+      ( <S> )*
+    )*
+  )?
+  <RROUND>
+}
+
 void simpleSelectorSequence() #void : {}
 {
   LOOKAHEAD(2)
@@ -1107,6 +1139,8 @@ void simpleSelectorSequence() #void : {}
     | _class()
     | attrib()
     | pseudo()
+    | where()
+    | is()
     | negation()
     )*
   )
@@ -1114,6 +1148,8 @@ void simpleSelectorSequence() #void : {}
     | _class()
     | attrib()
     | pseudo()
+    | where()
+    | is()
     | negation()
     )+
 // Extension for CSS animations (e.g. 50%)
