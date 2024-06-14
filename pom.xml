@@ -24,6 +24,7 @@
     <artifactId>parent-pom</artifactId>
     <version>2.0.5</version>
   </parent>
+  <groupId>unblu.patched.com.helger</groupId>
   <artifactId>ph-css-parent-pom</artifactId>
   <version>7.0.3-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -72,12 +73,12 @@
       </dependency>
 
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>unblu.patched.com.helger</groupId>
         <artifactId>ph-css</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>unblu.patched.com.helger</groupId>
         <artifactId>ph-csscompress-maven-plugin</artifactId>
         <version>${project.version}</version>
       </dependency>
