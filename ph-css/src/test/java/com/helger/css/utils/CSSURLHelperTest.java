@@ -39,8 +39,8 @@ public final class CSSURLHelperTest
     assertEquals ("a.gif", CSSURLHelper.getURLValue ("url('a.gif')"));
     assertEquals ("a.gif", CSSURLHelper.getURLValue ("url(\"a.gif\")"));
     assertEquals ("a.gif?x=y", CSSURLHelper.getURLValue ("url(\"a.gif?x=y\")"));
-    // Test quote 'a' character
-    assertEquals ("a.gif", CSSURLHelper.getURLValue ("url(\"\\a.gif\")"));
+    // Test quoted & escaped 'a' character
+    assertEquals ("\n.gif", CSSURLHelper.getURLValue ("url(\"\\a.gif\")"));
     // different quote types
     assertEquals ("\"a.gif?x=y'", CSSURLHelper.getURLValue ("url(\"a.gif?x=y')"));
     // missing trailing ")"
