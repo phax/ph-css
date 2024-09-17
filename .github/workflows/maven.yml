@@ -48,9 +48,14 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
- 
-    - name: Build and deploy with Maven
+
+    - name: Publish to the Maven Central Repository
       run: mvn --batch-mode --update-snapshots deploy
+      if: matrix.Java == 11
       env:
         MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+
+    - name: Maven Build
+      run: mvn --batch-mode --update-snapshots install
+      if: matrix.Java != 11
