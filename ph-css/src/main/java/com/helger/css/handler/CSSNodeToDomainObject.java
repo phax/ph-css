@@ -316,6 +316,42 @@ final class CSSNodeToDomainObject
           return ret;
         }
 
+        if (ECSSNodeType.PSEUDO_HAS.isNode (aChildNode, m_eVersion))
+        {
+          final CSSSelector aSelector = new CSSSelector ();
+          final int nChildChildCount = aChildNode.jjtGetNumChildren ();
+          for (int j = 0; j < nChildChildCount; ++j)
+            aSelector.addMember (_createSelectorMember (aChildNode.jjtGetChild (j)));
+          final CSSSelectorMemberPseudoHas ret = new CSSSelectorMemberPseudoHas (aSelector);
+          if (m_bUseSourceLocation)
+            ret.setSourceLocation (aNode.getSourceLocation ());
+          return ret;
+        }
+
+        if (ECSSNodeType.PSEUDO_WHERE.isNode (aChildNode, m_eVersion))
+        {
+          final CSSSelector aSelector = new CSSSelector ();
+          final int nChildChildCount = aChildNode.jjtGetNumChildren ();
+          for (int j = 0; j < nChildChildCount; ++j)
+            aSelector.addMember (_createSelectorMember (aChildNode.jjtGetChild (j)));
+          final CSSSelectorMemberPseudoWhere ret = new CSSSelectorMemberPseudoWhere (aSelector);
+          if (m_bUseSourceLocation)
+            ret.setSourceLocation (aNode.getSourceLocation ());
+          return ret;
+        }
+
+        if (ECSSNodeType.PSEUDO_IS.isNode (aChildNode, m_eVersion))
+        {
+          final CSSSelector aSelector = new CSSSelector ();
+          final int nChildChildCount = aChildNode.jjtGetNumChildren ();
+          for (int j = 0; j < nChildChildCount; ++j)
+            aSelector.addMember (_createSelectorMember (aChildNode.jjtGetChild (j)));
+          final CSSSelectorMemberPseudoIs ret = new CSSSelectorMemberPseudoIs (aSelector);
+          if (m_bUseSourceLocation)
+            ret.setSourceLocation (aNode.getSourceLocation ());
+          return ret;
+        }
+
         // It's a function (e.g. ":lang(fr)")
         final CSSExpression aExpr = _createExpression (aChildNode);
         final CSSSelectorMemberFunctionLike ret = new CSSSelectorMemberFunctionLike (aNode.getText (), aExpr);
@@ -328,6 +364,11 @@ final class CSSNodeToDomainObject
                                                nChildCount +
                                                " args: " +
                                                aNode.toString ());
+    }
+
+    if (ECSSNodeType.SELECTOR.isNode (aNode, m_eVersion))
+    {
+      return _createSelector (aNode);
     }
 
     m_aErrorHandler.onCSSInterpretationError ("Unsupported selector child: " +

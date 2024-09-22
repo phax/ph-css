@@ -1061,7 +1061,7 @@ void pseudoSlotted () #slotted : {}
   )*
 }
 
-void relativeSelector() : {}
+void relativeSelector() #void : {}
 {
   ( selectorCombinator()
     ( <S> )*
@@ -1162,10 +1162,10 @@ void simpleSelectorSequence() #void : {}
     | pseudoClassSelector()
     | funcNot()
     )*
-//    ( LOOKAHEAD(2)
-//      pseudoElementSelector()
-//      ( pseudoClassSelector() )*
-//    )*
+    ( LOOKAHEAD(2)
+      pseudoElementSelector()
+      ( pseudoClassSelector() )*
+    )*
   )
   | ( idSelector()
     | classSelector()
@@ -1173,14 +1173,14 @@ void simpleSelectorSequence() #void : {}
     | pseudoClassSelector()
     | funcNot()
     )+
-//    ( LOOKAHEAD(2)
-//      pseudoElementSelector()
-//      ( pseudoClassSelector() )*
-//    )*
-//  | LOOKAHEAD(2)
-//    ( pseudoElementSelector()
-//      ( pseudoClassSelector() )*
-//    )+ 
+    ( LOOKAHEAD(2)
+      pseudoElementSelector()
+      ( pseudoClassSelector() )*
+    )*
+  | LOOKAHEAD(2)
+    ( pseudoElementSelector()
+      ( pseudoClassSelector() )*
+    )+ 
 // Extension for CSS animations (e.g. 50%)
   | <PERCENTAGE>
 }

@@ -391,7 +391,7 @@ public final class CSSReader30SpecialFuncTest
     final File aFile = new File ("src/test/resources/testfiles/css30/good/issue101.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
     assertNotNull (aCSS);
-    assertEquals (2, aCSS.getRuleCount ());
-    assertEquals (2, aCSS.getStyleRuleCount ());
+    assertEquals (17, aCSS.getRuleCount ());
+    assertEquals (17, aCSS.getStyleRuleCount ());
   }
 }

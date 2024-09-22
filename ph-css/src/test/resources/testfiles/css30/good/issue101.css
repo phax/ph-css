@@ -31,9 +31,13 @@ h1:has(+ h2) {
 *|*:is(*:hover, *:focus) {}
 */
 
-*:not(FOO) {}
+*:not(FOO) {
+  color:red;
+}
 
-html|*:not(:link):not(:visited) {}
+html|*:not(:link):not(:visited) {
+  color:red;
+}
 
 
 a:not(:hover) {
@@ -54,13 +58,21 @@ nav a {
   text-decoration: underline;
 }
 
-a:has(> img) {}
+a:has(> img) {
+  color:red;
+}
 
-dt:has(+ dt) {}
+dt:has(+ dt) {
+  color:red;
+}
 
-section:not(:has(h1, h2, h3, h4, h5, h6)) {}
+section:not(:has(h1, h2, h3, h4, h5, h6)) {
+  color:red;
+}
 
-section:has(:not(h1, h2, h3, h4, h5, h6)) {}
+section:has(:not(h1, h2, h3, h4, h5, h6)) {
+  color:red;
+}
 
 foo|h1 { color: blue }  /* first rule */
 foo|* { color: yellow } /* second rule */
