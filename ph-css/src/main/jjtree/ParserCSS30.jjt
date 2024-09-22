@@ -301,7 +301,10 @@ TOKEN :
 | < FUNCTION_CALC: "calc("
                  | "-" <IDENT> "-calc(" >
 | < FUNCTION_NOT: ":not(" >
+| < FUNCTION_IS: "is(" >
+| < FUNCTION_HAS: "has(" >
 | < FUNCTION_HOST: "host(" >
+| < FUNCTION_WHERE: "where(" >
 | < FUNCTION_HOSTCONTEXT: "host-context(" >
 | < FUNCTION_SLOTTED: "slotted(" >
 | < FUNCTION_NTH: "nth-child("
@@ -961,12 +964,12 @@ void typeSelector() #void : {}
   elementName()
 }
 
-void hash() : {}
+void idSelector() : {}
 {
   <HASH> { jjtThis.setText (token.image); }
 }
 
-void _class() #Class :
+void classSelector() #Class :
 { String sIdentifier; }
 {
   <DOT>
@@ -992,7 +995,7 @@ void attribValue() :
   )
 }
 
-void attrib() : {}
+void attributeSelector() : {}
 {
   <LSQUARE>
   ( <S> )*
@@ -1058,11 +1061,52 @@ void pseudoSlotted () #slotted : {}
   )*
 }
 
-void pseudo() : {}
+void relativeSelector() : {}
+{
+  ( selectorCombinator()
+    ( <S> )*
+  )?  
+  selector ()
+  ( <S> )*
+  ( <COMMA>
+    ( <S> )*
+    selector()
+    ( <S> )*
+  )*
+}
+
+void relativeSelectorList() #void : {}
+{
+  ( relativeSelector() )*
+}
+
+void pseudoHas() #has : {}
+{
+  ( <S> )*
+  relativeSelectorList()
+}
+
+void pseudoIs() #is : {}
+{
+  ( <S> )*
+  selector()
+}
+
+void pseudoWhere() #where : {}
+{
+  ( <S> )*
+  selector()
+}
+
+void pseudoElementSelector() : {}
 {
   <COLON> { jjtThis.setText (":"); }
-  /* Extension for "::-moz-selection */
-  ( <COLON> { jjtThis.appendText (":"); } )?
+  pseudoClassSelector()
+}
+
+void pseudoClassSelector() : {}
+{
+  <COLON> { jjtThis.setText (":"); }
   ( <FUNCTION_NTH> { jjtThis.appendText (token.image); }
     pseudoNth()
     <RROUND>  // do not append because of expression!
@@ -1075,6 +1119,15 @@ void pseudo() : {}
   | <FUNCTION_SLOTTED> { jjtThis.appendText (token.image); }
     pseudoSlotted()
     <RROUND> // do not append because of expression!
+  | <FUNCTION_HAS> { jjtThis.setText (token.image); }
+    pseudoHas()
+    <RROUND> // do not append because of expression!
+  | <FUNCTION_IS> { jjtThis.setText (token.image); }
+    pseudoIs()
+    <RROUND> // do not append because of expression!
+  | <FUNCTION_WHERE> { jjtThis.setText (token.image); }
+    pseudoWhere()
+    <RROUND> // do not append because of expression!
   | LOOKAHEAD( <FUNCTION> )
     <FUNCTION> { jjtThis.appendText (token.image); }
     ( <S> )*
@@ -1084,7 +1137,7 @@ void pseudo() : {}
   )
 }
 
-void negation() : {}
+void funcNot() : {}
 {
   <FUNCTION_NOT> { jjtThis.setText (":not("); }
   ( <S> )*
@@ -1103,19 +1156,31 @@ void simpleSelectorSequence() #void : {}
 {
   LOOKAHEAD(2)
   ( typeSelector()
-    ( hash()
-    | _class()
-    | attrib()
-    | pseudo()
-    | negation()
+    ( idSelector()
+    | classSelector()
+    | attributeSelector()
+    | pseudoClassSelector()
+    | funcNot()
     )*
+//    ( LOOKAHEAD(2)
+//      pseudoElementSelector()
+//      ( pseudoClassSelector() )*
+//    )*
   )
-  | ( hash()
-    | _class()
-    | attrib()
-    | pseudo()
-    | negation()
+  | ( idSelector()
+    | classSelector()
+    | attributeSelector()
+    | pseudoClassSelector()
+    | funcNot()
     )+
+//    ( LOOKAHEAD(2)
+//      pseudoElementSelector()
+//      ( pseudoClassSelector() )*
+//    )*
+//  | LOOKAHEAD(2)
+//    ( pseudoElementSelector()
+//      ( pseudoClassSelector() )*
+//    )+ 
 // Extension for CSS animations (e.g. 50%)
   | <PERCENTAGE>
 }
@@ -1157,7 +1222,7 @@ void property() :
     <IDENT>                   { errorDeprecatedProperty (aPrefixToken); }
     /* leaving jjtThis.text null is handled inside the code */
     ( <S> )*
-  )  
+  )
 }
 
 void important() : {}

@@ -113,7 +113,8 @@ final class CSSNodeToDomainObject
       }
       else
         if (!ECSSNodeType.MEDIALIST.isNode (aURINode, m_eVersion))
-          throw new IllegalStateException ("Expected an URI or MEDIALIST node but got " + ECSSNodeType.getNodeName (aURINode, m_eVersion));
+          throw new IllegalStateException ("Expected an URI or MEDIALIST node but got " +
+                                           ECSSNodeType.getNodeName (aURINode, m_eVersion));
     }
 
     if (aImportURI == null)
@@ -177,7 +178,11 @@ final class CSSNodeToDomainObject
     {
       final int nExpectedChildCount = nOperatorIndex + 2;
       if (nChildren != nExpectedChildCount)
-        _throwUnexpectedChildrenCount (aNode, "Illegal number of children present (" + nChildren + ") - expected " + nExpectedChildCount);
+        _throwUnexpectedChildrenCount (aNode,
+                                       "Illegal number of children present (" +
+                                              nChildren +
+                                              ") - expected " +
+                                              nExpectedChildCount);
 
       // With operator...
       final CSSNode aOperator = aNode.jjtGetChild (nOperatorIndex);
@@ -267,7 +272,9 @@ final class CSSNodeToDomainObject
         if (ECSSNodeType.NTH.isNode (aChildNode, m_eVersion))
         {
           // Handle nth. E.g. ":nth-child(even)" or ":nth-child(3n+1)"
-          final CSSSelectorSimpleMember ret = new CSSSelectorSimpleMember (aNode.getText () + aChildNode.getText () + ")");
+          final CSSSelectorSimpleMember ret = new CSSSelectorSimpleMember (aNode.getText () +
+                                                                           aChildNode.getText () +
+                                                                           ")");
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;
@@ -323,7 +330,8 @@ final class CSSNodeToDomainObject
                                                aNode.toString ());
     }
 
-    m_aErrorHandler.onCSSInterpretationError ("Unsupported selector child: " + ECSSNodeType.getNodeName (aNode, m_eVersion));
+    m_aErrorHandler.onCSSInterpretationError ("Unsupported selector child: " +
+                                              ECSSNodeType.getNodeName (aNode, m_eVersion));
     return null;
   }
 
@@ -381,7 +389,8 @@ final class CSSNodeToDomainObject
             {
               // Must be even child count
               if ((nChildCount % 2) == 0)
-                _throwUnexpectedChildrenCount (aChildNode, "CSS math unit expected odd child count and got " + nChildCount);
+                _throwUnexpectedChildrenCount (aChildNode,
+                                               "CSS math unit expected odd child count and got " + nChildCount);
 
               final CSSExpressionMemberMathProduct aNestedProduct = new CSSExpressionMemberMathProduct ();
               for (int i = 0; i < nChildCount; ++i)
@@ -588,7 +597,8 @@ final class CSSNodeToDomainObject
             return _createExpressionLineNamesTerm (aChildNode);
           }
           else
-            throw new IllegalStateException ("Expected an expression term but got " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+            throw new IllegalStateException ("Expected an expression term but got " +
+                                             ECSSNodeType.getNodeName (aChildNode, m_eVersion));
   }
 
   @Nonnull
@@ -671,7 +681,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  private void _readStyleDeclarationList (@Nonnull final CSSNode aNode, @Nonnull final Consumer <CSSDeclaration> aConsumer)
+  private void _readStyleDeclarationList (@Nonnull final CSSNode aNode,
+                                          @Nonnull final Consumer <CSSDeclaration> aConsumer)
   {
     _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLIST);
     // Read all contained declarations
@@ -823,7 +834,8 @@ final class CSSNodeToDomainObject
       }
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-          m_aErrorHandler.onCSSInterpretationError ("Unsupported page rule child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported page rule child: " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -963,7 +975,8 @@ final class CSSNodeToDomainObject
         ret.addMediaExpression (_createMediaExpr (aChildNode));
       else
         if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-          m_aErrorHandler.onCSSInterpretationError ("Unsupported media query child: " + ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported media query child: " +
+                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -978,7 +991,8 @@ final class CSSNodeToDomainObject
 
     final CSSNode aFeatureNode = aNode.jjtGetChild (0);
     if (!ECSSNodeType.MEDIAFEATURE.isNode (aFeatureNode, m_eVersion))
-      throw new IllegalStateException ("Expected a media feature but got " + ECSSNodeType.getNodeName (aFeatureNode, m_eVersion));
+      throw new IllegalStateException ("Expected a media feature but got " +
+                                       ECSSNodeType.getNodeName (aFeatureNode, m_eVersion));
     final String sFeature = aFeatureNode.getText ();
     if (ECSSMediaExpressionFeature.getFromNameOrNull (sFeature) == null)
       m_aErrorHandler.onCSSInterpretationWarning ("Media expression uses unknown feature '" + sFeature + "'");
@@ -1118,7 +1132,8 @@ final class CSSNodeToDomainObject
     _expectNodeType (aNode, ECSSNodeType.NAMESPACERULE);
     final int nChildCount = aNode.jjtGetNumChildren ();
     if (nChildCount < 1 || nChildCount > 2)
-      _throwUnexpectedChildrenCount (aNode, "Expected at least 1 child and at last 2 children but got " + nChildCount + "!");
+      _throwUnexpectedChildrenCount (aNode,
+                                     "Expected at least 1 child and at last 2 children but got " + nChildCount + "!");
 
     String sPrefix = null;
     int nURLIndex = 0;
@@ -1204,7 +1219,8 @@ final class CSSNodeToDomainObject
     }
 
     if (!ECSSNodeType.isErrorNode (aNode, m_eVersion))
-      m_aErrorHandler.onCSSInterpretationError ("Unsupported supports-condition child: " + ECSSNodeType.getNodeName (aNode, m_eVersion));
+      m_aErrorHandler.onCSSInterpretationError ("Unsupported supports-condition child: " +
+                                                ECSSNodeType.getNodeName (aNode, m_eVersion));
 
     return null;
   }
@@ -1286,7 +1302,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  private void _recursiveFillCascadingStyleSheetFromNode (@Nonnull final CSSNode aNode, @Nonnull final CascadingStyleSheet ret)
+  private void _recursiveFillCascadingStyleSheetFromNode (@Nonnull final CSSNode aNode,
+                                                          @Nonnull final CascadingStyleSheet ret)
   {
     _expectNodeType (aNode, ECSSNodeType.ROOT);
     if (m_bUseSourceLocation)
@@ -1354,7 +1371,8 @@ final class CSSNodeToDomainObject
                               m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
                                                                         ECSSNodeType.getNodeName (aNode, m_eVersion) +
                                                                         ": " +
-                                                                        ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+                                                                        ECSSNodeType.getNodeName (aChildNode,
+                                                                                                  m_eVersion));
     }
   }
 
