@@ -308,6 +308,8 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v7.0.3 - 2024-09-23
+    * Added support for the `:is`, `:has` and `:where` pseudo functions, fixing [#88](https://github.com/phax/ph-css/issues/88) (thx @brbog), [#97](https://github.com/phax/ph-css/issues/97) (thx @nafg) and [#101](https://github.com/phax/ph-css/issues/101) (thx @subbudvk) 
 * v7.0.2 - 2024-03-28
     * Updated to ph-commons 11.1.5
     * Created Java 21 compatibility
