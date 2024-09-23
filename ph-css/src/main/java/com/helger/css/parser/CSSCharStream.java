@@ -391,7 +391,7 @@ public final class CSSCharStream implements CharStream
    *
    * @param nNewLine
    *        line index
-   * @param newCol
+   * @param nNewCol
    *        column index
    */
   public void adjustBeginLineColumn (final int nNewLine, final int nNewCol)
