@@ -1098,15 +1098,11 @@ void pseudoWhere() #where : {}
   selector()
 }
 
-void pseudoElementSelector() : {}
-{
-  <COLON> { jjtThis.setText (":"); }
-  pseudoClassSelector()
-}
-
 void pseudoClassSelector() : {}
 {
   <COLON> { jjtThis.setText (":"); }
+  // For pseudo elements
+  ( <COLON> { jjtThis.appendText (":"); } )?
   ( <FUNCTION_NTH> { jjtThis.appendText (token.image); }
     pseudoNth()
     <RROUND>  // do not append because of expression!
@@ -1154,17 +1150,13 @@ void funcNot() : {}
 
 void simpleSelectorSequence() #void : {}
 {
-  LOOKAHEAD(2)
+  LOOKAHEAD(4)
   ( typeSelector()
     ( idSelector()
     | classSelector()
     | attributeSelector()
     | pseudoClassSelector()
     | funcNot()
-    )*
-    ( LOOKAHEAD(2)
-      pseudoElementSelector()
-      ( pseudoClassSelector() )*
     )*
   )
   | ( idSelector()
@@ -1173,14 +1165,6 @@ void simpleSelectorSequence() #void : {}
     | pseudoClassSelector()
     | funcNot()
     )+
-    ( LOOKAHEAD(2)
-      pseudoElementSelector()
-      ( pseudoClassSelector() )*
-    )*
-  | LOOKAHEAD(2)
-    ( pseudoElementSelector()
-      ( pseudoClassSelector() )*
-    )+ 
 // Extension for CSS animations (e.g. 50%)
   | <PERCENTAGE>
 }

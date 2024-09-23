@@ -23,7 +23,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
@@ -33,7 +38,7 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single, simple CSS selector as used for the ":has()" CSS pseudo
- * element.<br>
+ * element.
  *
  * @author Philip Helger
  * @since 7.0.3
@@ -41,19 +46,125 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final CSSSelector m_aSelector;
+  private final ECSSSelectorCombinator m_eCombinator;
+  private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberPseudoHas (@Nonnull final CSSSelector aSelector)
+  public CSSSelectorMemberPseudoHas (@Nullable final ECSSSelectorCombinator eCombinator,
+                                     @Nonnull final CSSSelector aNestedSelector)
   {
-    ValueEnforcer.notNull (aSelector, "Selector");
-    m_aSelector = aSelector;
+    ValueEnforcer.notNull (aNestedSelector, "NestedSelector");
+    m_eCombinator = eCombinator;
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelector);
+  }
+
+  public CSSSelectorMemberPseudoHas (@Nullable final ECSSSelectorCombinator eCombinator,
+                                     @Nonnull final CSSSelector... aNestedSelectors)
+  {
+    ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
+    m_eCombinator = eCombinator;
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
+  }
+
+  public CSSSelectorMemberPseudoHas (@Nullable final ECSSSelectorCombinator eCombinator,
+                                     @Nonnull final Iterable <CSSSelector> aNestedSelectors)
+  {
+    ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
+    m_eCombinator = eCombinator;
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
+  }
+
+  @Nullable
+  public ECSSSelectorCombinator getCombinator ()
+  {
+    return m_eCombinator;
+  }
+
+  public boolean hasSelectors ()
+  {
+    return m_aNestedSelectors.isNotEmpty ();
+  }
+
+  @Nonnegative
+  public int getSelectorCount ()
+  {
+    return m_aNestedSelectors.size ();
   }
 
   @Nonnull
-  public final CSSSelector getSelector ()
+  public CSSSelectorMemberPseudoHas addSelector (@Nonnull final ICSSSelectorMember aSingleSelectorMember)
   {
-    return m_aSelector;
+    ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
+
+    return addSelector (new CSSSelector ().addMember (aSingleSelectorMember));
+  }
+
+  @Nonnull
+  public CSSSelectorMemberPseudoHas addSelector (@Nonnull final CSSSelector aSelector)
+  {
+    ValueEnforcer.notNull (aSelector, "Selector");
+
+    m_aNestedSelectors.add (aSelector);
+    return this;
+  }
+
+  @Nonnull
+  public CSSSelectorMemberPseudoHas addSelector (@Nonnegative final int nIndex,
+                                                 @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  {
+    ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
+
+    return addSelector (nIndex, new CSSSelector ().addMember (aSingleSelectorMember));
+  }
+
+  @Nonnull
+  public CSSSelectorMemberPseudoHas addSelector (@Nonnegative final int nIndex, @Nonnull final CSSSelector aSelector)
+  {
+    ValueEnforcer.isGE0 (nIndex, "Index");
+    ValueEnforcer.notNull (aSelector, "Selector");
+
+    if (nIndex >= getSelectorCount ())
+      m_aNestedSelectors.add (aSelector);
+    else
+      m_aNestedSelectors.add (nIndex, aSelector);
+    return this;
+  }
+
+  @Nonnull
+  public EChange removeSelector (@Nonnull final CSSSelector aSelector)
+  {
+    return m_aNestedSelectors.removeObject (aSelector);
+  }
+
+  @Nonnull
+  public EChange removeSelector (@Nonnegative final int nSelectorIndex)
+  {
+    return m_aNestedSelectors.removeAtIndex (nSelectorIndex);
+  }
+
+  /**
+   * Remove all selectors.
+   *
+   * @return {@link EChange#CHANGED} if any selector was removed,
+   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   */
+  @Nonnull
+  public EChange removeAllSelectors ()
+  {
+    return m_aNestedSelectors.removeAll ();
+  }
+
+  @Nullable
+  public CSSSelector getSelectorAtIndex (@Nonnegative final int nSelectorIndex)
+  {
+    return m_aNestedSelectors.getAtIndex (nSelectorIndex);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <CSSSelector> getAllSelectors ()
+  {
+    return m_aNestedSelectors.getClone ();
   }
 
   @Nonnull
@@ -62,8 +173,23 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersi
   {
     aSettings.checkVersionRequirements (this);
 
+    aSettings.checkVersionRequirements (this);
+
+    final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder (":has(");
-    aSB.append (m_aSelector.getAsCSSString (aSettings, 0));
+
+    if (m_eCombinator != null)
+      aSB.append (m_eCombinator.getAsCSSString (aSettings));
+
+    boolean bFirst = true;
+    for (final CSSSelector aNestedSelector : m_aNestedSelectors)
+    {
+      if (bFirst)
+        bFirst = false;
+      else
+        aSB.append (bOptimizedOutput ? "," : ", ");
+      aSB.append (aNestedSelector.getAsCSSString (aSettings, 0));
+    }
     return aSB.append (')').toString ();
   }
 
@@ -92,19 +218,20 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersi
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSelectorMemberPseudoHas rhs = (CSSSelectorMemberPseudoHas) o;
-    return m_aSelector.equals (rhs.m_aSelector);
+    return EqualsHelper.equals (m_eCombinator, rhs.m_eCombinator) && m_aNestedSelectors.equals (rhs.m_aNestedSelectors);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aSelector).getHashCode ();
+    return new HashCodeGenerator (this).append (m_eCombinator).append (m_aNestedSelectors).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Selector", m_aSelector)
+    return new ToStringGenerator (null).append ("Combinator", m_eCombinator)
+                                       .append ("NestedSelectors", m_aNestedSelectors)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

@@ -71,7 +71,7 @@ section:not(:has(h1, h2, h3, h4, h5, h6)) {
 }
 
 section:has(:not(h1, h2, h3, h4, h5, h6)) {
-  color:red;
+  color:blue;
 }
 
 foo|h1 { color: blue }  /* first rule */

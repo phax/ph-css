@@ -203,6 +203,15 @@ final class CSSNodeToDomainObject
   }
 
   @Nullable
+  private ECSSSelectorCombinator _createSelectorCombinator (final String sText)
+  {
+    final ECSSSelectorCombinator eCombinator = ECSSSelectorCombinator.getFromNameOrNull (sText);
+    if (eCombinator == null)
+      m_aErrorHandler.onCSSInterpretationError ("Failed to parse CSS selector combinator '" + sText + "'");
+    return eCombinator;
+  }
+
+  @Nullable
   private ICSSSelectorMember _createSelectorMember (final CSSNode aNode)
   {
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -224,13 +233,7 @@ final class CSSNodeToDomainObject
       return _createSelectorAttribute (aNode);
 
     if (ECSSNodeType.SELECTORCOMBINATOR.isNode (aNode, m_eVersion))
-    {
-      final String sText = aNode.getText ();
-      final ECSSSelectorCombinator eCombinator = ECSSSelectorCombinator.getFromNameOrNull (sText);
-      if (eCombinator == null)
-        m_aErrorHandler.onCSSInterpretationError ("Failed to parse CSS selector combinator '" + sText + "'");
-      return eCombinator;
-    }
+      return _createSelectorCombinator (aNode.getText ());
 
     if (ECSSNodeType.NEGATION.isNode (aNode, m_eVersion))
     {
@@ -318,11 +321,30 @@ final class CSSNodeToDomainObject
 
         if (ECSSNodeType.PSEUDO_HAS.isNode (aChildNode, m_eVersion))
         {
-          final CSSSelector aSelector = new CSSSelector ();
+          ECSSSelectorCombinator eSelectorCombinator = null;
+
           final int nChildChildCount = aChildNode.jjtGetNumChildren ();
-          for (int j = 0; j < nChildChildCount; ++j)
-            aSelector.addMember (_createSelectorMember (aChildNode.jjtGetChild (j)));
-          final CSSSelectorMemberPseudoHas ret = new CSSSelectorMemberPseudoHas (aSelector);
+          int i = 0;
+          CSSNode aChildChildNode = aChildNode.jjtGetChild (i);
+          if (ECSSNodeType.SELECTORCOMBINATOR.isNode (aChildChildNode, m_eVersion))
+          {
+            eSelectorCombinator = _createSelectorCombinator (aChildChildNode.getText ());
+            if (eSelectorCombinator != null)
+            {
+              // Skip the first elements as selector
+              i++;
+            }
+          }
+
+          final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
+          for (; i < nChildChildCount; ++i)
+          {
+            aChildChildNode = aChildNode.jjtGetChild (i);
+            final CSSSelector aSelector = _createSelector (aChildChildNode);
+            aNestedSelectors.add (aSelector);
+          }
+
+          final CSSSelectorMemberPseudoHas ret = new CSSSelectorMemberPseudoHas (eSelectorCombinator, aNestedSelectors);
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;
@@ -380,6 +402,7 @@ final class CSSNodeToDomainObject
   private CSSSelector _createSelector (@Nonnull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.SELECTOR);
+
     final CSSSelector ret = new CSSSelector ();
     if (m_bUseSourceLocation)
       ret.setSourceLocation (aNode.getSourceLocation ());
