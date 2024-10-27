@@ -308,6 +308,8 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v7.0.4 - work in progress
+    * Added additional media query features. See [#104}(https://github.com/phax/ph-css/pull/104) - thx @nhubbard
 * v7.0.3 - 2024-09-23
     * Added support for the `:is`, `:has` and `:where` pseudo functions, fixing [#88](https://github.com/phax/ph-css/issues/88) (thx @brbog), [#97](https://github.com/phax/ph-css/issues/97) (thx @nafg) and [#101](https://github.com/phax/ph-css/issues/101) (thx @subbudvk) 
 * v7.0.2 - 2024-03-28
