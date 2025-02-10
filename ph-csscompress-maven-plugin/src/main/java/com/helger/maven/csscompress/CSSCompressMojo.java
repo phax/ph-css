@@ -54,10 +54,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @SuppressFBWarnings (value = { "UWF_UNWRITTEN_FIELD", "NP_UNWRITTEN_FIELD" }, justification = "set via maven property")
 public final class CSSCompressMojo extends AbstractMojo
 {
-  private static final String [] EXTENSIONS_CSS_COMPRESSED = new String [] { CCSS.FILE_EXTENSION_MIN_CSS,
-                                                                             "-min.css",
-                                                                             ".minified.css",
-                                                                             "-minified.css" };
+  private static final String [] EXTENSIONS_CSS_COMPRESSED = { CCSS.FILE_EXTENSION_MIN_CSS,
+                                                               "-min.css",
+                                                               ".minified.css",
+                                                               "-minified.css" };
 
   /**
    * The Maven Project.
@@ -180,15 +180,24 @@ public final class CSSCompressMojo extends AbstractMojo
    * @parameter property="browserCompliantMode" default-value="false"
    * @since 1.4.0
    */
-  private boolean browserCompliantMode = false;
+  private boolean browserCompliantMode = CSSReaderSettings.DEFAULT_BROWSER_COMPLIANT_MODE;
+
+  /**
+   * If true the deprecated properties should be kept when reading, otherwise
+   * they are discarded.
+   *
+   * @parameter property="keepDeprecatedProperties" default-value="false"
+   * @since 7.0.4
+   */
+  private boolean keepDeprecatedProperties = CSSReaderSettings.DEFAULT_KEEP_DEPRECATED_PROPERTIES;
 
   /**
    * The encoding of the source CSS files to be used for reading the CSS file in
    * case neither a @charset rule nor a BOM is present.
    *
-   * @parameter property="sourceEncoding" default-value="UTF-8"
+   * @parameter property="sourceEncoding" default-value="ISO-8859-1"
    */
-  private String sourceEncoding = StandardCharsets.UTF_8.name ();
+  private String sourceEncoding = CSSReaderSettings.DEFAULT_CHARSET.name ();
 
   /**
    * The filename extension that should be used for the minified/compressed CSS
@@ -298,6 +307,11 @@ public final class CSSCompressMojo extends AbstractMojo
     browserCompliantMode = bBrowserCompliantMode;
   }
 
+  public void setKeepDeprecatedProperties (final boolean bKeepDeprecatedProperties)
+  {
+    keepDeprecatedProperties = bKeepDeprecatedProperties;
+  }
+
   public void setSourceEncoding (final String sSourceEncoding)
   {
     // Throws an exception on an illegal charset
@@ -358,7 +372,8 @@ public final class CSSCompressMojo extends AbstractMojo
   {
     // Compress the file only if the compressed file is older than the original
     // file. Note: lastModified on a non-existing file returns 0L
-    final File aCompressed = new File (FilenameHelper.getWithoutExtension (aChild.getAbsolutePath ()) + targetFileExtension);
+    final File aCompressed = new File (FilenameHelper.getWithoutExtension (aChild.getAbsolutePath ()) +
+                                       targetFileExtension);
     if (aCompressed.lastModified () < aChild.lastModified () || forceCompress)
     {
       if (verbose)
@@ -372,7 +387,8 @@ public final class CSSCompressMojo extends AbstractMojo
       final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
                                                                   .setFallbackCharset (aFallbackCharset)
                                                                   .setCustomExceptionHandler (aExHdl)
-                                                                  .setBrowserCompliantMode (browserCompliantMode);
+                                                                  .setBrowserCompliantMode (browserCompliantMode)
+                                                                  .setKeepDeprecatedProperties (keepDeprecatedProperties);
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aChild, aSettings);
       if (aCSS != null)
       {
@@ -423,7 +439,9 @@ public final class CSSCompressMojo extends AbstractMojo
           _scanDirectory (aChild);
       }
       else
-        if (aChild.isFile () && CSSFilenameHelper.isCSSFilename (aChild.getName ()) && !_isAlreadyCompressed (aChild.getName ()))
+        if (aChild.isFile () &&
+            CSSFilenameHelper.isCSSFilename (aChild.getName ()) &&
+            !_isAlreadyCompressed (aChild.getName ()))
         {
           // We're ready to rumble!
           _compressCSSFile (aChild);
