@@ -291,14 +291,17 @@ Configuration items are:
    Should the CSS files be compressed, even if the timestamp of the compressed file is newer than the timestamp of the original CSS file? 
    Defaults to `false`
 * `boolean` **verbose**  
-   If true some more output is emitted. 
+   If `true` some more output is emitted. 
    Defaults to `false`
 * `boolean` **browserCompliantMode** (since 1.4.0)
-   If true the "browser compliant mode" for parsing is selected.
+   If `true` the "browser compliant mode" for parsing is selected.
+   Defaults to `false`.   
+* `boolean` **keepDeprecatedProperties** (since 7.0.4)
+   If `true`, deprecated properties like `*zoom` are kept when reading. If `false` they are discarded.
    Defaults to `false`.   
 * `String` **sourceEncoding**  
-   The encoding of the source CSS files to be used for reading the CSS file in case neither a @charset rule nor a BOM is present.
-   Defaults to `UTF-8`
+   The encoding of the source CSS files to be used for reading the CSS file in case neither a `@charset` rule nor a BOM is present.
+   Defaults to `ISO-8859-1` (was `UTF-8` before 7.0.4)
 * `String` **targetFileExtension**  
    The filename extension that should be used for the minified/compressed CSS file. 
    Defaults to `.min.css`
@@ -311,6 +314,8 @@ Configuration items are:
 * v7.0.4 - work in progress
     * Added additional media query features. See [#104}(https://github.com/phax/ph-css/pull/104) - thx @nhubbard
     * Added new setting `CSSReaderSettings.setKeepDeprecatedProperties(boolean)` to customize if they should be read or discarded. See [#107}(https://github.com/phax/ph-css/issues/107) - thx @hrozhkov1
+    * Added the property `keepDeprecatedProperties` to the Maven plugin
+    * Changed the default reading charset of the Maven plugin from `UTF-8` to `ISO-8859-1` to comply to the API based reading
 * v7.0.3 - 2024-09-23
     * Added support for the `:is`, `:has` and `:where` pseudo functions, fixing [#88](https://github.com/phax/ph-css/issues/88) (thx @brbog), [#97](https://github.com/phax/ph-css/issues/97) (thx @nafg) and [#101](https://github.com/phax/ph-css/issues/101) (thx @subbudvk) 
 * v7.0.2 - 2024-03-28
