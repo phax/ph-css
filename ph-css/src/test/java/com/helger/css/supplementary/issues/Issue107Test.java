@@ -46,7 +46,39 @@ public final class Issue107Test
                         "}";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
                                                                      new CSSReaderSettings ().setBrowserCompliantMode (true)
-                                                                                             .setUseSourceLocation (true));
+                                                                                             .setUseSourceLocation (true)
+                                                                                             .setKeepDeprecatedProperties (true));
+    assertNotNull (aCSS);
+
+    assertEquals (2, aCSS.getAllStyleRules ().size ());
+
+    final CSSStyleRule aRule2 = aCSS.getAllStyleRules ().get (1);
+    assertNotNull (aRule2);
+
+    // Check selector
+    assertEquals (".box", aRule2.getSelectorsAsCSSString (new CSSWriterSettings (), 0));
+
+    // Check declarations
+    // *zoom is a deprecated property
+    assertEquals (2, aRule2.getDeclarationCount ());
+    assertEquals ("*zoom", aRule2.getDeclarationAtIndex (0).getProperty ());
+    assertEquals ("background-image", aRule2.getDeclarationAtIndex (1).getProperty ());
+  }
+
+  @Test
+  public void testIssue2 ()
+  {
+    final String sCSS = "a:focus {\r\n" +
+                        "  background-color: red;\r\n" +
+                        "}\r\n" +
+                        ".box {\r\n" +
+                        "  *zoom: 1; /* Applied only in IE7 and below */\r\n" +
+                        "  background-image: url(\"https://www.example.com/image3.png\");\r\n" +
+                        "}";
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true)
+                                                                                             .setUseSourceLocation (true)
+                                                                                             .setKeepDeprecatedProperties (false));
     assertNotNull (aCSS);
 
     assertEquals (2, aCSS.getAllStyleRules ().size ());

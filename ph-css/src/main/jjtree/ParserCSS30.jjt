@@ -54,7 +54,6 @@ TOKEN_MGR_DECLS :
   private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger (ParserCSS30TokenManager.class);
 
   protected com.helger.css.reader.errorhandler.ICSSParseErrorHandler m_aCustomErrorHandler;
-  protected boolean m_bBrowserCompliantMode = false;
 
   /**
    * Set a custom error handler to use.
@@ -1203,8 +1202,11 @@ void property() :
     ( <S> )*
   | LOOKAHEAD(2, ( <ASTERISK> | <DOLLAR> ) <IDENT> )
     ( <ASTERISK> | <DOLLAR> ) { aPrefixToken = token; }
-    <IDENT>                   { errorDeprecatedProperty (aPrefixToken); }
-    /* leaving jjtThis.text null is handled inside the code */
+    <IDENT>                   { if (m_bKeepDeprecatedProperties)
+                                  jjtThis.setText (aPrefixToken.image + token.image);
+                                else                                  
+                                  errorDeprecatedProperty (aPrefixToken);
+                              }
     ( <S> )*
   )
 }
