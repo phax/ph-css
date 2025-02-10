@@ -252,8 +252,11 @@ Replace `x.y.z` with the version you want to use.
 Configuration items are:
 
 * `File` **sourceDirectory**  
-   The directory where the CSS files reside. It must be an existing directory.  
+   The directory where the source CSS files reside. It must be an existing directory.  
    Defaults to `${basedir}/src/main/resources`
+* `File` **targetDirectory**  
+   The directory where the taget CSS files reside. If the directory is not existig, it is created.  
+   Defaults to the source directory
 * `boolean` **recursive**  
    Should all directories be scanned recursively for CSS files to compress? 
    Defaults to `true`
@@ -313,9 +316,10 @@ Configuration items are:
 
 * v7.0.4 - work in progress
     * Added additional media query features. See [#104}(https://github.com/phax/ph-css/pull/104) - thx @nhubbard
-    * Added new setting `CSSReaderSettings.setKeepDeprecatedProperties(boolean)` to customize if they should be read or discarded. See [#107}(https://github.com/phax/ph-css/issues/107) - thx @hrozhkov1
+    * Added new setting `CSSReaderSettings.setKeepDeprecatedProperties(boolean)` to customize if they should be read or discarded. See [#107](https://github.com/phax/ph-css/issues/107) - thx @hrozhkov1
     * Added the property `keepDeprecatedProperties` to the Maven plugin
     * Changed the default reading charset of the Maven plugin from `UTF-8` to `ISO-8859-1` to comply to the API based reading
+    * Added the `targetDirectory` property to the Maven plugin. See [#106](https://github.com/phax/ph-css/issues/106) - thx @isochronous
 * v7.0.3 - 2024-09-23
     * Added support for the `:is`, `:has` and `:where` pseudo functions, fixing [#88](https://github.com/phax/ph-css/issues/88) (thx @brbog), [#97](https://github.com/phax/ph-css/issues/97) (thx @nafg) and [#101](https://github.com/phax/ph-css/issues/101) (thx @subbudvk) 
 * v7.0.2 - 2024-03-28
