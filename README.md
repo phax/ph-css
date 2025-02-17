@@ -221,7 +221,7 @@ The following list gives an overview of known shortcomings in ph-css
 
 A Maven plugin to compress CSS files at build time using ph-css.
 
-It requires Java 8 and Maven 3 to run.
+It requires Java 11 and Maven 3 to run.
 
 ## Maven configuration
 
@@ -314,7 +314,7 @@ Configuration items are:
 
 ## News and noteworthy
 
-* v7.0.4 - work in progress
+* v7.0.4 - 2025-02-17
     * Added additional media query features. See [#104}(https://github.com/phax/ph-css/pull/104) - thx @nhubbard
     * Added new setting `CSSReaderSettings.setKeepDeprecatedProperties(boolean)` to customize if they should be read or discarded. See [#107](https://github.com/phax/ph-css/issues/107) - thx @hrozhkov1
     * Added the property `keepDeprecatedProperties` to the Maven plugin
