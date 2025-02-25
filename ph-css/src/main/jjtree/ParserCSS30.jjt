@@ -1088,13 +1088,13 @@ void pseudoHas() #has : {}
 void pseudoIs() #is : {}
 {
   ( <S> )*
-  selector()
+  relativeSelectorList()
 }
 
 void pseudoWhere() #where : {}
 {
   ( <S> )*
-  selector()
+  relativeSelectorList()
 }
 
 void pseudoClassSelector() : {}
