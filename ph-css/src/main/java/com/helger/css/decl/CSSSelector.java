@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 
 /**
@@ -43,7 +42,7 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
+public class CSSSelector implements ICSSSelectorMember, ICSSSourceLocationAware
 {
   private final ICommonsList <ICSSSelectorMember> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
@@ -158,6 +157,8 @@ public class CSSSelector implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (this).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

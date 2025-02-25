@@ -54,7 +54,6 @@ TOKEN_MGR_DECLS :
   private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger (ParserCSS30TokenManager.class);
 
   protected com.helger.css.reader.errorhandler.ICSSParseErrorHandler m_aCustomErrorHandler;
-  protected boolean m_bBrowserCompliantMode = false;
 
   /**
    * Set a custom error handler to use.
@@ -301,9 +300,10 @@ TOKEN :
 | < FUNCTION_CALC: "calc("
                  | "-" <IDENT> "-calc(" >
 | < FUNCTION_NOT: ":not(" >
-| < FUNCTION_WHERE: ":where(" >
-| < FUNCTION_IS: ":is(" >
+| < FUNCTION_IS: "is(" >
+| < FUNCTION_HAS: "has(" >
 | < FUNCTION_HOST: "host(" >
+| < FUNCTION_WHERE: "where(" >
 | < FUNCTION_HOSTCONTEXT: "host-context(" >
 | < FUNCTION_SLOTTED: "slotted(" >
 | < FUNCTION_NTH: "nth-child("
@@ -963,12 +963,12 @@ void typeSelector() #void : {}
   elementName()
 }
 
-void hash() : {}
+void idSelector() : {}
 {
   <HASH> { jjtThis.setText (token.image); }
 }
 
-void _class() #Class :
+void classSelector() #Class :
 { String sIdentifier; }
 {
   <DOT>
@@ -994,7 +994,7 @@ void attribValue() :
   )
 }
 
-void attrib() : {}
+void attributeSelector() : {}
 {
   <LSQUARE>
   ( <S> )*
@@ -1060,10 +1060,47 @@ void pseudoSlotted () #slotted : {}
   )*
 }
 
-void pseudo() : {}
+void relativeSelector() #void : {}
+{
+  ( selectorCombinator()
+    ( <S> )*
+  )?  
+  selector ()
+  ( <S> )*
+  ( <COMMA>
+    ( <S> )*
+    selector()
+    ( <S> )*
+  )*
+}
+
+void relativeSelectorList() #void : {}
+{
+  ( relativeSelector() )*
+}
+
+void pseudoHas() #has : {}
+{
+  ( <S> )*
+  relativeSelectorList()
+}
+
+void pseudoIs() #is : {}
+{
+  ( <S> )*
+  selector()
+}
+
+void pseudoWhere() #where : {}
+{
+  ( <S> )*
+  selector()
+}
+
+void pseudoClassSelector() : {}
 {
   <COLON> { jjtThis.setText (":"); }
-  /* Extension for "::-moz-selection */
+  // For pseudo elements
   ( <COLON> { jjtThis.appendText (":"); } )?
   ( <FUNCTION_NTH> { jjtThis.appendText (token.image); }
     pseudoNth()
@@ -1077,6 +1114,15 @@ void pseudo() : {}
   | <FUNCTION_SLOTTED> { jjtThis.appendText (token.image); }
     pseudoSlotted()
     <RROUND> // do not append because of expression!
+  | <FUNCTION_HAS> { jjtThis.setText (token.image); }
+    pseudoHas()
+    <RROUND> // do not append because of expression!
+  | <FUNCTION_IS> { jjtThis.setText (token.image); }
+    pseudoIs()
+    <RROUND> // do not append because of expression!
+  | <FUNCTION_WHERE> { jjtThis.setText (token.image); }
+    pseudoWhere()
+    <RROUND> // do not append because of expression!
   | LOOKAHEAD( <FUNCTION> )
     <FUNCTION> { jjtThis.appendText (token.image); }
     ( <S> )*
@@ -1086,7 +1132,7 @@ void pseudo() : {}
   )
 }
 
-void negation() : {}
+void funcNot() : {}
 {
   <FUNCTION_NOT> { jjtThis.setText (":not("); }
   ( <S> )*
@@ -1101,56 +1147,22 @@ void negation() : {}
   <RROUND>
 }
 
-void where() : {}
-{
-  <FUNCTION_WHERE> { jjtThis.setText (":where("); }
-  ( <S> )*
-  ( selector ()
-    ( <S> )*
-    ( <COMMA>
-      ( <S> )*
-      selector()
-      ( <S> )*
-    )*
-  )?
-  <RROUND>
-}
-
-void is() : {}
-{
-  <FUNCTION_IS> { jjtThis.setText (":is("); }
-  ( <S> )*
-  ( selector ()
-    ( <S> )*
-    ( <COMMA>
-      ( <S> )*
-      selector()
-      ( <S> )*
-    )*
-  )?
-  <RROUND>
-}
-
 void simpleSelectorSequence() #void : {}
 {
-  LOOKAHEAD(2)
+  LOOKAHEAD(4)
   ( typeSelector()
-    ( hash()
-    | _class()
-    | attrib()
-    | pseudo()
-    | where()
-    | is()
-    | negation()
+    ( idSelector()
+    | classSelector()
+    | attributeSelector()
+    | pseudoClassSelector()
+    | funcNot()
     )*
   )
-  | ( hash()
-    | _class()
-    | attrib()
-    | pseudo()
-    | where()
-    | is()
-    | negation()
+  | ( idSelector()
+    | classSelector()
+    | attributeSelector()
+    | pseudoClassSelector()
+    | funcNot()
     )+
 // Extension for CSS animations (e.g. 50%)
   | <PERCENTAGE>
@@ -1190,10 +1202,13 @@ void property() :
     ( <S> )*
   | LOOKAHEAD(2, ( <ASTERISK> | <DOLLAR> ) <IDENT> )
     ( <ASTERISK> | <DOLLAR> ) { aPrefixToken = token; }
-    <IDENT>                   { errorDeprecatedProperty (aPrefixToken); }
-    /* leaving jjtThis.text null is handled inside the code */
+    <IDENT>                   { if (m_bKeepDeprecatedProperties)
+                                  jjtThis.setText (aPrefixToken.image + token.image);
+                                else                                  
+                                  errorDeprecatedProperty (aPrefixToken);
+                              }
     ( <S> )*
-  )  
+  )
 }
 
 void important() : {}

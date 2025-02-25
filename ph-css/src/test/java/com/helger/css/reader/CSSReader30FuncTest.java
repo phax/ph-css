@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -348,7 +348,8 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     final CSSReaderSettings aReaderSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
                                                                       .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                       .setBrowserCompliantMode (bBrowserCompliantMode);
-    final CSSWriterSettings aWriterSettings = new CSSWriterSettings ().setCSSVersion (ECSSVersion.CSS30).setOptimizedOutput (true);
+    final CSSWriterSettings aWriterSettings = new CSSWriterSettings ().setCSSVersion (ECSSVersion.CSS30)
+                                                                      .setOptimizedOutput (true);
 
     CascadingStyleSheet aCSS;
     CascadingStyleSheet aCSS2;
@@ -483,6 +484,14 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     sCSS = ".x{left: calc(50% - (600px / 2 + var(--page-column-padding-x)));}";
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
     assertNotNull (aCSS);
-    assertEquals (".x{left:calc(50% - (600px/2 + var(--page-column-padding-x)))}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    assertEquals (".x{left:calc(50% - (600px/2 + var(--page-column-padding-x)))}",
+                  new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    // Issue 101
+    sCSS = "section:not(:has(h1, h2, h3, h4, h5, h6)) { color:red; }";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("section:not(:has(h1,h2,h3,h4,h5,h6)){color:red}",
+                  new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
   }
 }

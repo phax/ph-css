@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,7 +60,9 @@ public final class CSSWriterFuncTest
         System.out.println ("--" + i + "--\n" + sCSS);
 
       // read again from buffer
-      assertEquals (aFile.getAbsolutePath () + (i == 0 ? " unoptimized" : " optimized"), aCSS, CSSReader.readFromString (sCSS, eVersion));
+      assertEquals (aFile.getAbsolutePath () + (i == 0 ? " unoptimized" : " optimized"),
+                    aCSS,
+                    CSSReader.readFromString (sCSS, eVersion));
     }
   }
 

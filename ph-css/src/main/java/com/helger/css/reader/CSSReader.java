@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -187,6 +187,9 @@ public final class CSSReader
    * @param bBrowserCompliantMode
    *        <code>true</code> for browser compliant parsing, <code>false</code>
    *        for default parsing.
+   * @param bKeepDeprecatedProperties
+   *        <code>true</code> to keep deprecated properties (e.g.
+   *        <code>*zoom</code>) or <code>false</code> to ignore them.
    * @return <code>null</code> if parsing failed with an unrecoverable error
    *         (and no throwing exception handler is used), or <code>null</code>
    *         if a recoverable error occurred and no
@@ -198,7 +201,8 @@ public final class CSSReader
                                           @Nonnull final ECSSVersion eVersion,
                                           @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                           @Nonnull final ICSSParseExceptionCallback aCustomExceptionHandler,
-                                          final boolean bBrowserCompliantMode)
+                                          final boolean bBrowserCompliantMode,
+                                          final boolean bKeepDeprecatedProperties)
   {
     try
     {
@@ -212,6 +216,7 @@ public final class CSSReader
           final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
           aParser.setCustomErrorHandler (aCustomErrorHandler);
           aParser.setBrowserCompliantMode (bBrowserCompliantMode);
+          aParser.setKeepDeprecatedProperties (bKeepDeprecatedProperties);
           // Main parsing
           return aParser.styleSheet ();
         }
@@ -248,7 +253,9 @@ public final class CSSReader
    * @return <code>true</code> if the file can be parsed without error,
    *         <code>false</code> if not
    */
-  public static boolean isValidCSS (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset, @Nonnull final ECSSVersion eVersion)
+  public static boolean isValidCSS (@Nonnull final File aFile,
+                                    @Nonnull final Charset aFallbackCharset,
+                                    @Nonnull final ECSSVersion eVersion)
   {
     return isValidCSS (new FileSystemResource (aFile), aFallbackCharset, eVersion);
   }
@@ -356,11 +363,16 @@ public final class CSSReader
     try
     {
       final CSSCharStream aCharStream = new CSSCharStream (aReader);
+
+      final boolean bBrowserCompliantMode = false;
+      final boolean bKeepDeprecatedProperties = false;
+
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
                                              getDefaultParseErrorHandler (),
                                              new DoNothingCSSParseExceptionCallback (),
-                                             false);
+                                             bBrowserCompliantMode,
+                                             bKeepDeprecatedProperties);
       return aNode != null;
     }
     finally
@@ -388,7 +400,9 @@ public final class CSSReader
                                                     @Nonnull final Charset aFallbackCharset,
                                                     @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStringStream (sCSS, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
+    return readFromStringStream (sCSS,
+                                 new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
+                                                         .setCSSVersion (eVersion));
   }
 
   /**
@@ -498,7 +512,8 @@ public final class CSSReader
    * @since 3.8.2
    */
   @Nullable
-  public static CascadingStyleSheet readFromStringStream (@Nonnull final String sCSS, @Nonnull final CSSReaderSettings aSettings)
+  public static CascadingStyleSheet readFromStringStream (@Nonnull final String sCSS,
+                                                          @Nonnull final CSSReaderSettings aSettings)
   {
     return readFromStream (new StringInputStreamProvider (sCSS, aSettings.getFallbackCharset ()), aSettings);
   }
@@ -543,7 +558,9 @@ public final class CSSReader
                                                     @Nonnull final ECSSVersion eVersion,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
-    return readFromStringReader (sCSS, new CSSReaderSettings ().setCSSVersion (eVersion).setCustomErrorHandler (aCustomErrorHandler));
+    return readFromStringReader (sCSS,
+                                 new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                         .setCustomErrorHandler (aCustomErrorHandler));
   }
 
   /**
@@ -568,7 +585,8 @@ public final class CSSReader
                                                     @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromStringReader (sCSS,
-                                 new CSSReaderSettings ().setCSSVersion (eVersion).setCustomExceptionHandler (aCustomExceptionHandler));
+                                 new CSSReaderSettings ().setCSSVersion (eVersion)
+                                                         .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
   /**
@@ -617,7 +635,8 @@ public final class CSSReader
    * @since 3.8.2
    */
   @Nullable
-  public static CascadingStyleSheet readFromStringReader (@Nonnull final String sCSS, @Nonnull final CSSReaderSettings aSettings)
+  public static CascadingStyleSheet readFromStringReader (@Nonnull final String sCSS,
+                                                          @Nonnull final CSSReaderSettings aSettings)
   {
     return readFromReader (new StringReaderProvider (sCSS), aSettings);
   }
@@ -641,7 +660,8 @@ public final class CSSReader
                                                   @Nonnull final Charset aFallbackCharset,
                                                   @Nonnull final ECSSVersion eVersion)
   {
-    return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
+    return readFromFile (aFile,
+                         new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
   }
 
   /**
@@ -778,7 +798,8 @@ public final class CSSReader
                                                     @Nonnull final Charset aFallbackCharset,
                                                     @Nonnull final ECSSVersion eVersion)
   {
-    return readFromStream (aISP, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
+    return readFromStream (aISP,
+                           new CSSReaderSettings ().setFallbackCharset (aFallbackCharset).setCSSVersion (eVersion));
   }
 
   /**
@@ -987,7 +1008,8 @@ public final class CSSReader
    * @since 3.8.2
    */
   @Nullable
-  public static CascadingStyleSheet readFromStream (@Nonnull final IHasInputStream aISP, @Nonnull final CSSReaderSettings aSettings)
+  public static CascadingStyleSheet readFromStream (@Nonnull final IHasInputStream aISP,
+                                                    @Nonnull final CSSReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -1045,12 +1067,14 @@ public final class CSSReader
         aRealParseExceptionHandler = getDefaultParseExceptionHandler ();
 
       final boolean bBrowserCompliantMode = aSettings.isBrowserCompliantMode ();
+      final boolean bKeepDeprecatedProperties = aSettings.isKeepDeprecatedProperties ();
 
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
                                              aRealParseErrorHandler,
                                              aRealParseExceptionHandler,
-                                             bBrowserCompliantMode);
+                                             bBrowserCompliantMode,
+                                             bKeepDeprecatedProperties);
 
       // Failed to parse content as CSS?
       if (aNode == null)
@@ -1064,7 +1088,10 @@ public final class CSSReader
       final boolean bUseSourceLocation = aSettings.isUseSourceLocation ();
 
       // Convert the AST to a domain object
-      return CSSHandler.readCascadingStyleSheetFromNode (eVersion, aRealInterpretErrorHandler, bUseSourceLocation, aNode);
+      return CSSHandler.readCascadingStyleSheetFromNode (eVersion,
+                                                         aRealInterpretErrorHandler,
+                                                         bUseSourceLocation,
+                                                         aNode);
     }
     finally
     {
@@ -1121,7 +1148,8 @@ public final class CSSReader
    * @since 3.8.2
    */
   @Nullable
-  public static CascadingStyleSheet readFromReader (@Nonnull final IHasReader aRP, @Nonnull final CSSReaderSettings aSettings)
+  public static CascadingStyleSheet readFromReader (@Nonnull final IHasReader aRP,
+                                                    @Nonnull final CSSReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aRP, "ReaderProvider");
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -1153,12 +1181,14 @@ public final class CSSReader
         aRealParseExceptionHandler = getDefaultParseExceptionHandler ();
 
       final boolean bBrowserCompliantMode = aSettings.isBrowserCompliantMode ();
+      final boolean bKeepDeprecatedProperties = aSettings.isKeepDeprecatedProperties ();
 
       final CSSNode aNode = _readStyleSheet (aCharStream,
                                              eVersion,
                                              aRealParseErrorHandler,
                                              aRealParseExceptionHandler,
-                                             bBrowserCompliantMode);
+                                             bBrowserCompliantMode,
+                                             bKeepDeprecatedProperties);
 
       // Failed to parse content as CSS?
       if (aNode == null)
@@ -1172,7 +1202,10 @@ public final class CSSReader
       final boolean bUseSourceLocation = aSettings.isUseSourceLocation ();
 
       // Convert the AST to a domain object
-      return CSSHandler.readCascadingStyleSheetFromNode (eVersion, aRealInterpretErrorHandler, bUseSourceLocation, aNode);
+      return CSSHandler.readCascadingStyleSheetFromNode (eVersion,
+                                                         aRealInterpretErrorHandler,
+                                                         bUseSourceLocation,
+                                                         aNode);
     }
     finally
     {

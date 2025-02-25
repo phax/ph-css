@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,6 +43,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public static final ECSSVersion DEFAULT_VERSION = ECSSVersion.CSS30;
   public static final Charset DEFAULT_CHARSET = StandardCharsets.ISO_8859_1;
   public static final boolean DEFAULT_BROWSER_COMPLIANT_MODE = false;
+  public static final boolean DEFAULT_KEEP_DEPRECATED_PROPERTIES = false;
   public static final boolean DEFAULT_USE_SOURCE_LOCATION = true;
   public static final int DEFAULT_TAB_SIZE = 8;
 
@@ -51,6 +52,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   private ICSSParseErrorHandler m_aCustomErrorHandler;
   private ICSSParseExceptionCallback m_aCustomExceptionHandler;
   private boolean m_bBrowserCompliantMode = DEFAULT_BROWSER_COMPLIANT_MODE;
+  private boolean m_bKeepDeprecatedProperties = DEFAULT_KEEP_DEPRECATED_PROPERTIES;
   private boolean m_bUseSourceLocation = DEFAULT_USE_SOURCE_LOCATION;
   private int m_nTabSize = DEFAULT_TAB_SIZE;
   private ICSSInterpretErrorHandler m_aInterpretErrorHandler;
@@ -66,6 +68,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
     m_aCustomErrorHandler = aOther.m_aCustomErrorHandler;
     m_aCustomExceptionHandler = aOther.m_aCustomExceptionHandler;
     m_bBrowserCompliantMode = aOther.m_bBrowserCompliantMode;
+    m_bKeepDeprecatedProperties = aOther.m_bKeepDeprecatedProperties;
     m_bUseSourceLocation = aOther.m_bUseSourceLocation;
     m_nTabSize = aOther.m_nTabSize;
     m_aInterpretErrorHandler = aOther.m_aInterpretErrorHandler;
@@ -202,6 +205,35 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public CSSReaderSettings setBrowserCompliantMode (final boolean bBrowserCompliantMode)
   {
     m_bBrowserCompliantMode = bBrowserCompliantMode;
+    return this;
+  }
+
+  /**
+   * @return <code>true</code> if deprecated properties (e.g.
+   *         <code>*zoom</code>) should be kept while reading,
+   *         <code>false</code> if they should be discarded. The default is
+   *         {@link #DEFAULT_KEEP_DEPRECATED_PROPERTIES}.
+   * @since 7.0.4
+   */
+  public boolean isKeepDeprecatedProperties ()
+  {
+    return m_bKeepDeprecatedProperties;
+  }
+
+  /**
+   * Define, whether deprecated properties (e.g. <code>*zoom</code>) should be
+   * kept or not.
+   *
+   * @param bKeepDeprecatedProperties
+   *        <code>true</code> to keep them, <code>false</code> to discard them
+   *        on reading.
+   * @return this
+   * @since 7.0.4
+   */
+  @Nonnull
+  public CSSReaderSettings setKeepDeprecatedProperties (final boolean bKeepDeprecatedProperties)
+  {
+    m_bKeepDeprecatedProperties = bKeepDeprecatedProperties;
     return this;
   }
 

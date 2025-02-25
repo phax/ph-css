@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -67,10 +67,12 @@ public final class CSSReader30SpecialFuncTest
     assertNotNull (aCSS);
 
     assertEquals ("--a", aCSS.getStyleRuleAtIndex (0).getDeclarationAtIndex (0).getProperty ());
-    assertEquals ("background-color:var(--A)", aCSS.getStyleRuleAtIndex (0).getDeclarationAtIndex (1).getAsCSSString ());
+    assertEquals ("background-color:var(--A)",
+                  aCSS.getStyleRuleAtIndex (0).getDeclarationAtIndex (1).getAsCSSString ());
 
     assertEquals ("--A", aCSS.getStyleRuleAtIndex (1).getDeclarationAtIndex (0).getProperty ());
-    assertEquals ("background-color:var(--A)", aCSS.getStyleRuleAtIndex (1).getDeclarationAtIndex (1).getAsCSSString ());
+    assertEquals ("background-color:var(--A)",
+                  aCSS.getStyleRuleAtIndex (1).getDeclarationAtIndex (1).getAsCSSString ());
 
     final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
     assertNotNull (sCSS);
@@ -306,7 +308,10 @@ public final class CSSReader30SpecialFuncTest
     final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/bad_but_recoverable_and_browsercompliant/test-string.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion, aErrors.and (new LoggingCSSParseErrorHandler ()));
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
+                                                             aCharset,
+                                                             eVersion,
+                                                             aErrors.and (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aFile.getAbsolutePath (), aCSS);
   }
 
@@ -325,7 +330,8 @@ public final class CSSReader30SpecialFuncTest
                                                                    ECSSVersion.CSS30,
                                                                    new DoNothingCSSParseErrorHandler ());
         assertNotNull ("Failed to read with BOM " + eBOM, aCSS);
-        assertEquals (".class{color:red}.class{color:blue}", new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
+        assertEquals (".class{color:red}.class{color:blue}",
+                      new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
       }
     }
   }
@@ -375,5 +381,17 @@ public final class CSSReader30SpecialFuncTest
     final CSSPageMarginBlock footnoteBlock = (CSSPageMarginBlock) ((CSSPageRule) aCSS.getRuleAtIndex (1)).getMemberAtIndex (0);
     assertEquals ("@footnote", footnoteBlock.getPageMarginSymbol ());
     assertEquals (1, footnoteBlock.getDeclarationCount ());
+  }
+
+  @Test
+  public void testIssue101 ()
+  {
+    final ECSSVersion eVersion = ECSSVersion.CSS30;
+    final Charset aCharset = StandardCharsets.UTF_8;
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/issue101.css");
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    assertNotNull (aCSS);
+    assertEquals (17, aCSS.getRuleCount ());
+    assertEquals (17, aCSS.getStyleRuleCount ());
   }
 }

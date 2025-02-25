@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,7 +50,9 @@ public abstract class AbstractFuncTestCSSReader
   private final CSSReaderSettings m_aReaderSettings;
   private final CSSWriterSettings m_aWriterSettings;
 
-  protected AbstractFuncTestCSSReader (@Nonnull final Charset aCharset, final boolean bDebug, final boolean bBrowserCompliantMode)
+  protected AbstractFuncTestCSSReader (@Nonnull final Charset aCharset,
+                                       final boolean bDebug,
+                                       final boolean bBrowserCompliantMode)
   {
     m_bDebug = bDebug;
     m_aReaderSettings = new CSSReaderSettings ().setFallbackCharset (aCharset)
@@ -76,13 +78,13 @@ public abstract class AbstractFuncTestCSSReader
 
     for (final File aFile : new FileSystemRecursiveIterator (aBaseDir).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
-      final String sKey = aFile.getAbsolutePath ();
+      final String sFilename = aFile.getAbsolutePath ();
       if (m_bDebug)
-        m_aLogger.info ("Filename: " + sKey);
+        m_aLogger.info ("Filename: " + sFilename);
       final CollectingCSSParseErrorHandler aErrorHdl = new CollectingCSSParseErrorHandler ();
       m_aReaderSettings.setCustomErrorHandler (aErrorHdl.and (new LoggingCSSParseErrorHandler ()));
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, m_aReaderSettings);
-      assertNotNull (sKey, aCSS);
+      assertNotNull (sFilename, aCSS);
 
       // May have errors or not
       if (m_bDebug)
@@ -90,26 +92,27 @@ public abstract class AbstractFuncTestCSSReader
 
       // Write optimized version and compare it
       String sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (true)).getCSSAsString (aCSS);
-      assertNotNull (sKey, sCSS);
+      assertNotNull (sFilename, sCSS);
       if (m_bDebug)
         m_aLogger.info ("Created CSS: " + sCSS);
 
       final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
-      assertNotNull ("Failed to parse " + sKey + ":\n" + sCSS, aCSSReRead);
-      assertEquals (sKey + "\n" + sCSS, aCSS, aCSSReRead);
+      assertNotNull ("Failed to parse " + sFilename + ":\n" + sCSS, aCSSReRead);
+      assertEquals ("Differences in " + sFilename + "\n" + sCSS + "\n" + aCSS + "\n" + aCSSReRead, aCSS, aCSSReRead);
 
       // Write non-optimized version and compare it
       sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)).getCSSAsString (aCSS);
-      assertNotNull (sKey, sCSS);
+      assertNotNull (sFilename, sCSS);
       if (m_bDebug)
         m_aLogger.info ("Read and re-created CSS: " + sCSS);
-      assertEquals (sKey, aCSS, CSSReader.readFromStringReader (sCSS, m_aReaderSettings));
+      assertEquals (sFilename, aCSS, CSSReader.readFromStringReader (sCSS, m_aReaderSettings));
 
       // Write non-optimized and code-removed version and ensure it is not
       // null
-      sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false).setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
-      assertNotNull (sKey, sCSS);
-      assertNotNull (sKey, CSSReader.readFromStringReader (sCSS, m_aReaderSettings));
+      sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)
+                                             .setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
+      assertNotNull (sFilename, sCSS);
+      assertNotNull (sFilename, CSSReader.readFromStringReader (sCSS, m_aReaderSettings));
 
       // Restore value :)
       m_aWriterSettings.setRemoveUnnecessaryCode (false);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,7 @@
  */
 package com.helger.css.parser;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -61,7 +62,31 @@ public final class ParserCSS30Test extends AbstractCSS30TestCase
                                                                                  aNode);
     assertNotNull (aCSS);
 
+    // Remove all font-face rules
     for (final ICSSTopLevelRule aTopLevelRule : aCSS.getAllFontFaceRules ())
       assertTrue (aCSS.removeRule (aTopLevelRule).isChanged ());
+  }
+
+  @Test
+  public void testBasic3 () throws ParseException
+  {
+    final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (new CSSCharStream (new NonBlockingStringReader ("@import url(\"anything\"); bla foo;")));
+    aTokenHdl.setCustomErrorHandler (CSSReader.getDefaultParseErrorHandler ());
+
+    final ParserCSS30 aParser = new ParserCSS30 (aTokenHdl);
+    aParser.disable_tracing ();
+    aParser.setBrowserCompliantMode (true);
+    aParser.setCustomErrorHandler (CSSReader.getDefaultParseErrorHandler ());
+    final CSSNode aNode = aParser.styleSheet ();
+    assertNotNull (aNode);
+
+    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (ECSSVersion.CSS30,
+                                                                                 CSSReader.getDefaultInterpretErrorHandler (),
+                                                                                 false,
+                                                                                 aNode);
+    assertNotNull (aCSS);
+
+    assertEquals (1, aCSS.getAllImportRules ().size ());
+    assertEquals (0, aCSS.getAllRules ().size ());
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,18 +54,20 @@ public enum ECSSNodeType
   // style rule -- selector
   NAMESPACEPREFIX (ParserCSS30TreeConstants.JJTNAMESPACEPREFIX),
   ELEMENTNAME (ParserCSS30TreeConstants.JJTELEMENTNAME),
-  HASH (ParserCSS30TreeConstants.JJTHASH),
+  HASH (ParserCSS30TreeConstants.JJTIDSELECTOR),
   CLASS (ParserCSS30TreeConstants.JJTCLASS),
-  PSEUDO (ParserCSS30TreeConstants.JJTPSEUDO),
+  PSEUDO (ParserCSS30TreeConstants.JJTPSEUDOCLASSSELECTOR),
   HOST (ParserCSS30TreeConstants.JJTHOST),
   HOSTCONTEXT (ParserCSS30TreeConstants.JJTHOSTCONTEXT),
   SLOTTED (ParserCSS30TreeConstants.JJTSLOTTED),
-  NEGATION (ParserCSS30TreeConstants.JJTNEGATION),
-  WHERE (ParserCSS30TreeConstants.JJTWHERE),
-  IS (ParserCSS30TreeConstants.JJTIS),
-  ATTRIB (ParserCSS30TreeConstants.JJTATTRIB),
+  NEGATION (ParserCSS30TreeConstants.JJTFUNCNOT),
+  PSEUDO_HAS (ParserCSS30TreeConstants.JJTHAS),
+  PSEUDO_IS (ParserCSS30TreeConstants.JJTIS),
+  PSEUDO_WHERE (ParserCSS30TreeConstants.JJTWHERE),
+  ATTRIB (ParserCSS30TreeConstants.JJTATTRIBUTESELECTOR),
   ATTRIBOPERATOR (ParserCSS30TreeConstants.JJTATTRIBOPERATOR),
   ATTRIBVALUE (ParserCSS30TreeConstants.JJTATTRIBVALUE),
+  // RELATIVE_SELECTOR (ParserCSS30TreeConstants.JJTRELATIVESELECTOR),
   SELECTORCOMBINATOR (ParserCSS30TreeConstants.JJTSELECTORCOMBINATOR),
   NTH (ParserCSS30TreeConstants.JJTNTH),
   // style rule -- declaration

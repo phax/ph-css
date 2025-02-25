@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
@@ -30,15 +32,16 @@ import org.apache.maven.project.MavenProject;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.system.ENewLineMode;
+import com.helger.commons.system.EOperatingSystem;
 import com.helger.css.CCSS;
 import com.helger.css.CSSFilenameHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.ICSSParseExceptionCallback;
-import com.helger.css.parser.ParseException;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.writer.CSSWriter;
@@ -54,10 +57,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @SuppressFBWarnings (value = { "UWF_UNWRITTEN_FIELD", "NP_UNWRITTEN_FIELD" }, justification = "set via maven property")
 public final class CSSCompressMojo extends AbstractMojo
 {
-  private static final String [] EXTENSIONS_CSS_COMPRESSED = new String [] { CCSS.FILE_EXTENSION_MIN_CSS,
-                                                                             "-min.css",
-                                                                             ".minified.css",
-                                                                             "-minified.css" };
+  private static final String [] EXTENSIONS_CSS_COMPRESSED = { CCSS.FILE_EXTENSION_MIN_CSS,
+                                                               "-min.css",
+                                                               ".minified.css",
+                                                               "-minified.css" };
 
   /**
    * The Maven Project.
@@ -69,13 +72,23 @@ public final class CSSCompressMojo extends AbstractMojo
   private MavenProject project;
 
   /**
-   * The directory where the CSS files reside. It must be an existing directory.
+   * The directory where the source CSS files reside. It must be an existing
+   * directory.
    *
    * @required
    * @parameter property="sourceDirectory"
    *            default-value="${basedir}/src/main/resources"
    */
   private File sourceDirectory;
+
+  /**
+   * The directory where the target CSS files reside. If the directory is not
+   * existing, it is created. If no target directory is provided, the source
+   * directory will be used.
+   *
+   * @parameter property="targetDirectory"
+   */
+  private File targetDirectory;
 
   /**
    * Should all directories be scanned recursively for CSS files to compress?
@@ -180,15 +193,24 @@ public final class CSSCompressMojo extends AbstractMojo
    * @parameter property="browserCompliantMode" default-value="false"
    * @since 1.4.0
    */
-  private boolean browserCompliantMode = false;
+  private boolean browserCompliantMode = CSSReaderSettings.DEFAULT_BROWSER_COMPLIANT_MODE;
+
+  /**
+   * If true the deprecated properties should be kept when reading, otherwise
+   * they are discarded.
+   *
+   * @parameter property="keepDeprecatedProperties" default-value="false"
+   * @since 7.0.4
+   */
+  private boolean keepDeprecatedProperties = CSSReaderSettings.DEFAULT_KEEP_DEPRECATED_PROPERTIES;
 
   /**
    * The encoding of the source CSS files to be used for reading the CSS file in
    * case neither a @charset rule nor a BOM is present.
    *
-   * @parameter property="sourceEncoding" default-value="UTF-8"
+   * @parameter property="sourceEncoding" default-value="ISO-8859-1"
    */
-  private String sourceEncoding = StandardCharsets.UTF_8.name ();
+  private String sourceEncoding = CSSReaderSettings.DEFAULT_CHARSET.name ();
 
   /**
    * The filename extension that should be used for the minified/compressed CSS
@@ -219,13 +241,21 @@ public final class CSSCompressMojo extends AbstractMojo
   private ENewLineMode newLineMode = CSSWriterSettings.DEFAULT_NEW_LINE_MODE;
 
   @SuppressFBWarnings ({ "NP_UNWRITTEN_FIELD", "UWF_UNWRITTEN_FIELD" })
-  public void setSourceDirectory (final File aDir)
+  public void setSourceDirectory (final File aDir) throws IOException
   {
     sourceDirectory = aDir;
     if (!sourceDirectory.isAbsolute ())
-      sourceDirectory = new File (project.getBasedir (), aDir.getPath ());
+      sourceDirectory = new File (project.getBasedir (), aDir.getPath ()).getCanonicalFile ();
     if (!sourceDirectory.exists ())
       getLog ().error ("CSS source directory '" + sourceDirectory + "' does not exist!");
+  }
+
+  public void setTargetDirectory (final File aDir) throws IOException
+  {
+    targetDirectory = aDir;
+    if (!targetDirectory.isAbsolute ())
+      targetDirectory = new File (project.getBasedir (), aDir.getPath ()).getCanonicalFile ();
+    // The creation happens below, if the prerequisites are fulfilled
   }
 
   public void setRecursive (final boolean bRecursive)
@@ -298,6 +328,11 @@ public final class CSSCompressMojo extends AbstractMojo
     browserCompliantMode = bBrowserCompliantMode;
   }
 
+  public void setKeepDeprecatedProperties (final boolean bKeepDeprecatedProperties)
+  {
+    keepDeprecatedProperties = bKeepDeprecatedProperties;
+  }
+
   public void setSourceEncoding (final String sSourceEncoding)
   {
     // Throws an exception on an illegal charset
@@ -349,35 +384,57 @@ public final class CSSCompressMojo extends AbstractMojo
   }
 
   @Nonnull
-  private String _getRelativePath (@Nonnull final File aFile)
+  private String _getSourceRelativePath (@Nonnull final File aFile)
   {
     return aFile.getAbsolutePath ().substring (sourceDirectory.getAbsolutePath ().length () + 1);
   }
 
-  private void _compressCSSFile (@Nonnull final File aChild)
+  private void _compressCSSFile (@Nonnull final File aSourceFile)
   {
+    final String sSourceRelativePath = _getSourceRelativePath (aSourceFile);
+
     // Compress the file only if the compressed file is older than the original
     // file. Note: lastModified on a non-existing file returns 0L
-    final File aCompressed = new File (FilenameHelper.getWithoutExtension (aChild.getAbsolutePath ()) + targetFileExtension);
-    if (aCompressed.lastModified () < aChild.lastModified () || forceCompress)
+    final boolean bTargetDirEqualsSourceDir = targetDirectory == null ||
+                                              targetDirectory.getAbsolutePath ()
+                                                             .equals (sourceDirectory.getAbsolutePath ());
+    final File aCompressedFile;
+    {
+      if (bTargetDirEqualsSourceDir)
+      {
+        // Use the custom extension
+        aCompressedFile = new File (FilenameHelper.getWithoutExtension (aSourceFile.getAbsolutePath ()) +
+                                    targetFileExtension);
+      }
+      else
+      {
+        // Source and target are different
+        aCompressedFile = new File (targetDirectory,
+                                    FilenameHelper.getWithoutExtension (sSourceRelativePath) + targetFileExtension);
+      }
+    }
+
+    if (aCompressedFile.lastModified () < aSourceFile.lastModified () || forceCompress)
     {
       if (verbose)
-        getLog ().info ("Start compressing CSS file " + _getRelativePath (aChild));
+        getLog ().info ("Start compressing CSS file " + sSourceRelativePath);
       else
-        getLog ().debug ("Start compressing CSS file " + _getRelativePath (aChild));
-      final ICSSParseExceptionCallback aExHdl = (@Nonnull final ParseException ex) -> getLog ().error ("Failed to parse CSS file " +
-                                                                                                       _getRelativePath (aChild),
-                                                                                                       ex);
+        getLog ().debug ("Start compressing CSS file " + sSourceRelativePath);
+
+      final ICSSParseExceptionCallback aExHdl = ex -> getLog ().error ("Failed to parse CSS file " +
+                                                                       sSourceRelativePath,
+                                                                       ex);
       final Charset aFallbackCharset = CharsetHelper.getCharsetFromName (sourceEncoding);
       final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
                                                                   .setFallbackCharset (aFallbackCharset)
                                                                   .setCustomExceptionHandler (aExHdl)
-                                                                  .setBrowserCompliantMode (browserCompliantMode);
-      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aChild, aSettings);
+                                                                  .setBrowserCompliantMode (browserCompliantMode)
+                                                                  .setKeepDeprecatedProperties (keepDeprecatedProperties);
+      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aSourceFile, aSettings);
       if (aCSS != null)
       {
         // We read it!
-        final FileSystemResource aDestFile = new FileSystemResource (aCompressed);
+        final FileSystemResource aDestFile = new FileSystemResource (aCompressedFile);
         try
         {
           final CSSWriterSettings aWriterSettings = new CSSWriterSettings (ECSSVersion.CSS30);
@@ -399,16 +456,16 @@ public final class CSSCompressMojo extends AbstractMojo
         }
         catch (final IOException ex)
         {
-          getLog ().error ("Failed to write compressed CSS file '" + aCompressed.toString () + "' to disk", ex);
+          getLog ().error ("Failed to write compressed CSS file '" + aCompressedFile.toString () + "' to disk", ex);
         }
       }
     }
     else
     {
       if (verbose)
-        getLog ().info ("Ignoring already compressed CSS file " + _getRelativePath (aChild));
+        getLog ().info ("Ignoring already compressed CSS file " + sSourceRelativePath);
       else
-        getLog ().debug ("Ignoring already compressed CSS file " + _getRelativePath (aChild));
+        getLog ().debug ("Ignoring already compressed CSS file " + sSourceRelativePath);
     }
   }
 
@@ -423,7 +480,9 @@ public final class CSSCompressMojo extends AbstractMojo
           _scanDirectory (aChild);
       }
       else
-        if (aChild.isFile () && CSSFilenameHelper.isCSSFilename (aChild.getName ()) && !_isAlreadyCompressed (aChild.getName ()))
+        if (aChild.isFile () &&
+            CSSFilenameHelper.isCSSFilename (aChild.getName ()) &&
+            !_isAlreadyCompressed (aChild.getName ()))
         {
           // We're ready to rumble!
           _compressCSSFile (aChild);
@@ -435,6 +494,28 @@ public final class CSSCompressMojo extends AbstractMojo
   {
     if (verbose)
       getLog ().info ("Start compressing CSS files in directory " + sourceDirectory.getPath ());
+
+    // Consistency check
+    if (targetDirectory != null)
+    {
+      // Case insensitive comparison on Windows
+      final boolean bCaseInsensitiveOS = EOperatingSystem.getCurrentOS ().isWindowsBased ();
+      final Function <File, String> fGetPath = bCaseInsensitiveOS ? f -> f.getAbsolutePath ().toLowerCase (Locale.ROOT)
+                                                                  : File::getAbsolutePath;
+
+      if (recursive && fGetPath.apply (targetDirectory).startsWith (fGetPath.apply (sourceDirectory)))
+      {
+        throw new IllegalStateException ("Target directory MUST NOT be a child of the source directory in recursive mode");
+      }
+
+      // Make sure, target directory exists
+      if (!targetDirectory.exists ())
+      {
+        getLog ().info ("CSS target directory '" + targetDirectory + "' does not exist and will be created!");
+        FileOperationManager.INSTANCE.createDirRecursive (targetDirectory);
+      }
+    }
+
     _scanDirectory (sourceDirectory);
   }
 }

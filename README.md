@@ -221,7 +221,7 @@ The following list gives an overview of known shortcomings in ph-css
 
 A Maven plugin to compress CSS files at build time using ph-css.
 
-It requires Java 8 and Maven 3 to run.
+It requires Java 11 and Maven 3 to run.
 
 ## Maven configuration
 
@@ -252,8 +252,11 @@ Replace `x.y.z` with the version you want to use.
 Configuration items are:
 
 * `File` **sourceDirectory**  
-   The directory where the CSS files reside. It must be an existing directory.  
+   The directory where the source CSS files reside. It must be an existing directory.  
    Defaults to `${basedir}/src/main/resources`
+* `File` **targetDirectory**  
+   The directory where the taget CSS files reside. If the directory is not existig, it is created.  
+   Defaults to the source directory
 * `boolean` **recursive**  
    Should all directories be scanned recursively for CSS files to compress? 
    Defaults to `true`
@@ -291,14 +294,17 @@ Configuration items are:
    Should the CSS files be compressed, even if the timestamp of the compressed file is newer than the timestamp of the original CSS file? 
    Defaults to `false`
 * `boolean` **verbose**  
-   If true some more output is emitted. 
+   If `true` some more output is emitted. 
    Defaults to `false`
 * `boolean` **browserCompliantMode** (since 1.4.0)
-   If true the "browser compliant mode" for parsing is selected.
+   If `true` the "browser compliant mode" for parsing is selected.
+   Defaults to `false`.   
+* `boolean` **keepDeprecatedProperties** (since 7.0.4)
+   If `true`, deprecated properties like `*zoom` are kept when reading. If `false` they are discarded.
    Defaults to `false`.   
 * `String` **sourceEncoding**  
-   The encoding of the source CSS files to be used for reading the CSS file in case neither a @charset rule nor a BOM is present.
-   Defaults to `UTF-8`
+   The encoding of the source CSS files to be used for reading the CSS file in case neither a `@charset` rule nor a BOM is present.
+   Defaults to `ISO-8859-1` (was `UTF-8` before 7.0.4)
 * `String` **targetFileExtension**  
    The filename extension that should be used for the minified/compressed CSS file. 
    Defaults to `.min.css`
@@ -308,6 +314,14 @@ Configuration items are:
 
 ## News and noteworthy
 
+* v7.0.4 - 2025-02-17
+    * Added additional media query features. See [#104}(https://github.com/phax/ph-css/pull/104) - thx @nhubbard
+    * Added new setting `CSSReaderSettings.setKeepDeprecatedProperties(boolean)` to customize if they should be read or discarded. See [#107](https://github.com/phax/ph-css/issues/107) - thx @hrozhkov1
+    * Added the property `keepDeprecatedProperties` to the Maven plugin
+    * Changed the default reading charset of the Maven plugin from `UTF-8` to `ISO-8859-1` to comply to the API based reading
+    * Added the `targetDirectory` property to the Maven plugin. See [#106](https://github.com/phax/ph-css/issues/106) - thx @isochronous
+* v7.0.3 - 2024-09-23
+    * Added support for the `:is`, `:has` and `:where` pseudo functions, fixing [#88](https://github.com/phax/ph-css/issues/88) (thx @brbog), [#97](https://github.com/phax/ph-css/issues/97) (thx @nafg) and [#101](https://github.com/phax/ph-css/issues/101) (thx @subbudvk) 
 * v7.0.2 - 2024-03-28
     * Updated to ph-commons 11.1.5
     * Created Java 21 compatibility

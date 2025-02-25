@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 
 /**
@@ -35,7 +36,18 @@ public abstract class AbstractParserCSS
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractParserCSS.class);
 
   protected ICSSParseErrorHandler m_aCustomErrorHandler;
-  protected boolean m_bBrowserCompliantMode = false;
+  protected boolean m_bBrowserCompliantMode = CSSReaderSettings.DEFAULT_BROWSER_COMPLIANT_MODE;
+  protected boolean m_bKeepDeprecatedProperties = CSSReaderSettings.DEFAULT_KEEP_DEPRECATED_PROPERTIES;
+
+  /**
+   * @return The custom error handler to be used for this parser. May be
+   *         <code>null</code>.
+   */
+  @Nullable
+  public final ICSSParseErrorHandler getCustomErrorHandler ()
+  {
+    return m_aCustomErrorHandler;
+  }
 
   /**
    * Set a custom error handler to use.
@@ -49,13 +61,13 @@ public abstract class AbstractParserCSS
   }
 
   /**
-   * @return The custom error handler to be used for this parser. May be
-   *         <code>null</code>.
+   * @return <code>true</code> if browser compliant mode is active,
+   *         <code>false</code> if not. By default browser compliant mode is
+   *         disabled.
    */
-  @Nullable
-  public final ICSSParseErrorHandler getCustomErrorHandler ()
+  public final boolean isBrowserCompliantMode ()
   {
-    return m_aCustomErrorHandler;
+    return m_bBrowserCompliantMode;
   }
 
   /**
@@ -71,13 +83,29 @@ public abstract class AbstractParserCSS
   }
 
   /**
-   * @return <code>true</code> if browser compliant mode is active,
-   *         <code>false</code> if not. By default browser compliant mode is
-   *         disabled.
+   * @return <code>true</code> if deprecated properties (e.g.
+   *         <code>*zoom</code>) should be kept while reading,
+   *         <code>false</code> if they should be discarded. The default is
+   *         {@link #DEFAULT_KEEP_DEPRECATED_PROPERTIES}.
+   * @since 7.0.4
    */
-  public final boolean isBrowserCompliantMode ()
+  public final boolean isKeepDeprecatedProperties ()
   {
-    return m_bBrowserCompliantMode;
+    return m_bKeepDeprecatedProperties;
+  }
+
+  /**
+   * Define, whether deprecated properties (e.g. <code>*zoom</code>) should be
+   * kept or not.
+   *
+   * @param bKeepDeprecatedProperties
+   *        <code>true</code> to keep them, <code>false</code> to discard them
+   *        on reading.
+   * @since 7.0.4
+   */
+  public final void setKeepDeprecatedProperties (final boolean bKeepDeprecatedProperties)
+  {
+    m_bKeepDeprecatedProperties = bKeepDeprecatedProperties;
   }
 
   // Used when NODE_SCOPE_HOOK is true - for debugging only

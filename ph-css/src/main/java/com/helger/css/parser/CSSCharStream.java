@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger (www.helger.com)
+ * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -391,7 +391,7 @@ public final class CSSCharStream implements CharStream
    *
    * @param nNewLine
    *        line index
-   * @param newCol
+   * @param nNewCol
    *        column index
    */
   public void adjustBeginLineColumn (final int nNewLine, final int nNewCol)
