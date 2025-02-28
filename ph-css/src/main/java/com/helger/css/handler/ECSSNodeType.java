@@ -49,6 +49,7 @@ public enum ECSSNodeType
   FONTFACERULE (ParserCSS30TreeConstants.JJTFONTFACERULE),
   // top level -- style rule
   SELECTOR (ParserCSS30TreeConstants.JJTSELECTOR),
+  RELATIVESELECTOR (ParserCSS30TreeConstants.JJTRELATIVESELECTOR),
   STYLEDECLARATIONLIST (ParserCSS30TreeConstants.JJTSTYLEDECLARATIONLIST),
   STYLEDECLARATION (ParserCSS30TreeConstants.JJTSTYLEDECLARATION),
   // style rule -- selector

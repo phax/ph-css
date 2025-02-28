@@ -321,30 +321,12 @@ final class CSSNodeToDomainObject
 
         if (ECSSNodeType.PSEUDO_HAS.isNode (aChildNode, m_eVersion))
         {
-          ECSSSelectorCombinator eSelectorCombinator = null;
-
           final int nChildChildCount = aChildNode.jjtGetNumChildren ();
-          int i = 0;
-          CSSNode aChildChildNode = aChildNode.jjtGetChild (i);
-          if (ECSSNodeType.SELECTORCOMBINATOR.isNode (aChildChildNode, m_eVersion))
-          {
-            eSelectorCombinator = _createSelectorCombinator (aChildChildNode.getText ());
-            if (eSelectorCombinator != null)
-            {
-              // Skip the first elements as selector
-              i++;
-            }
-          }
-
           final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
-          for (; i < nChildChildCount; ++i)
-          {
-            aChildChildNode = aChildNode.jjtGetChild (i);
-            final CSSSelector aSelector = _createSelector (aChildChildNode);
-            aNestedSelectors.add (aSelector);
-          }
+          for (int j = 0; j < nChildChildCount; ++j)
+            aNestedSelectors.add (_createRelativeSelector(aChildNode.jjtGetChild (j)));
 
-          final CSSSelectorMemberPseudoHas ret = new CSSSelectorMemberPseudoHas (eSelectorCombinator, aNestedSelectors);
+          final CSSSelectorMemberPseudoHas ret = new CSSSelectorMemberPseudoHas (aNestedSelectors);
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;
@@ -355,11 +337,7 @@ final class CSSNodeToDomainObject
           final int nChildChildCount = aChildNode.jjtGetNumChildren ();
           final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
           for (int j = 0; j < nChildChildCount; ++j)
-          {
-            final CSSSelector aSelector = _createSelector (aChildNode.jjtGetChild (j));
-            aNestedSelectors.add (aSelector);
-          }
-
+            aNestedSelectors.add (_createSelector (aChildNode.jjtGetChild (j)));
           final CSSSelectorMemberPseudoWhere ret = new CSSSelectorMemberPseudoWhere (aNestedSelectors);
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
@@ -371,11 +349,7 @@ final class CSSNodeToDomainObject
           final int nChildChildCount = aChildNode.jjtGetNumChildren ();
           final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
           for (int j = 0; j < nChildChildCount; ++j)
-          {
-            final CSSSelector aSelector = _createSelector (aChildNode.jjtGetChild (j));
-            aNestedSelectors.add (aSelector);
-          }
-
+            aNestedSelectors.add (_createSelector (aChildNode.jjtGetChild (j)));
           final CSSSelectorMemberPseudoIs ret = new CSSSelectorMemberPseudoIs (aNestedSelectors);
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
@@ -410,6 +384,23 @@ final class CSSNodeToDomainObject
   private CSSSelector _createSelector (@Nonnull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.SELECTOR);
+
+    final CSSSelector ret = new CSSSelector ();
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
+    for (final CSSNode aChildNode : aNode)
+    {
+      final ICSSSelectorMember aMember = _createSelectorMember (aChildNode);
+      if (aMember != null)
+        ret.addMember (aMember);
+    }
+    return ret;
+  }
+
+  @Nonnull
+  private CSSSelector _createRelativeSelector (@Nonnull final CSSNode aNode)
+  {
+    _expectNodeType (aNode, ECSSNodeType.RELATIVESELECTOR);
 
     final CSSSelector ret = new CSSSelector ();
     if (m_bUseSourceLocation)
