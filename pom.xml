@@ -62,7 +62,7 @@
   </developers>
   
   <properties>
-    <spotbugs-annotations.version>4.9.0</spotbugs-annotations.version>
+    <spotbugs-annotations.version>4.9.2</spotbugs-annotations.version>
   </properties>
   
   <dependencyManagement>
