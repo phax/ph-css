@@ -1083,8 +1083,7 @@ void relativeSelectorList() #void : {}
 
 void pseudoHas() #has : {}
 {
-  ( <S> )*
-  relativeSelectorList()
+  ( relativeSelectorList() )*
 }
 
 void simpleSelectorList() #void : {}
@@ -1099,14 +1098,15 @@ void simpleSelectorList() #void : {}
     )*
   )
 }
+
 void pseudoIs() #is : {}
 {
-  simpleSelectorList ()
+  ( simpleSelectorList () )*
 }
 
 void pseudoWhere() #where : {}
 {
-  simpleSelectorList ()
+  ( simpleSelectorList () )*
 }
 
 void pseudoClassSelector() : {}
