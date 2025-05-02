@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>2.0.8</version>
+    <version>2.1.1</version>
   </parent>
   <artifactId>ph-css-parent-pom</artifactId>
   <version>7.0.5-SNAPSHOT</version>
@@ -62,7 +62,7 @@
   </developers>
   
   <properties>
-    <spotbugs-annotations.version>4.9.2</spotbugs-annotations.version>
+    <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version>
   </properties>
   
   <dependencyManagement>
