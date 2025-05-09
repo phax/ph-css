@@ -1060,41 +1060,53 @@ void pseudoSlotted () #slotted : {}
   )*
 }
 
-void relativeSelector() #void : {}
+void relativeSelector() : {}
 {
   ( selectorCombinator()
     ( <S> )*
   )?  
   selector ()
-  ( <S> )*
-  ( <COMMA>
-    ( <S> )*
-    selector()
-    ( <S> )*
-  )*
 }
 
 void relativeSelectorList() #void : {}
 {
-  ( relativeSelector() )*
+  ( <S> )*
+  ( relativeSelector() 
+    ( <S> )*
+    ( <COMMA> 
+      ( <S> )*
+      relativeSelector ()
+      ( <S> )*
+    )*
+  )
 }
 
 void pseudoHas() #has : {}
 {
+  ( relativeSelectorList() )*
+}
+
+void simpleSelectorList() #void : {}
+{
   ( <S> )*
-  relativeSelectorList()
+  ( selector () 
+    ( <S> )*
+    ( <COMMA> 
+      ( <S> )*
+      selector ()
+      ( <S> )*
+    )*
+  )
 }
 
 void pseudoIs() #is : {}
 {
-  ( <S> )*
-  selector()
+  ( simpleSelectorList () )*
 }
 
 void pseudoWhere() #where : {}
 {
-  ( <S> )*
-  selector()
+  ( simpleSelectorList () )*
 }
 
 void pseudoClassSelector() : {}
