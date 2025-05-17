@@ -23,7 +23,11 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
@@ -41,19 +45,112 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final CSSSelector m_aSelector;
+  private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberPseudoWhere (@Nonnull final CSSSelector aSelector)
+  public CSSSelectorMemberPseudoWhere (@Nonnull final CSSSelector aNestedSelector)
   {
-    ValueEnforcer.notNull (aSelector, "Selector");
-    m_aSelector = aSelector;
+    ValueEnforcer.notNull (aNestedSelector, "NestedSelector");
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelector);
+  }
+
+  public CSSSelectorMemberPseudoWhere (@Nonnull final CSSSelector... aNestedSelectors)
+  {
+    ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
+  }
+
+  public CSSSelectorMemberPseudoWhere (@Nonnull final Iterable <CSSSelector> aNestedSelectors)
+  {
+    ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
+    m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
+  }
+
+  public boolean hasSelectors ()
+  {
+    return m_aNestedSelectors.isNotEmpty ();
+  }
+
+  @Nonnegative
+  public int getSelectorCount ()
+  {
+    return m_aNestedSelectors.size ();
   }
 
   @Nonnull
-  public final CSSSelector getSelector ()
+  public CSSSelectorMemberPseudoWhere addSelector (@Nonnull final ICSSSelectorMember aSingleSelectorMember)
   {
-    return m_aSelector;
+    ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
+
+    return addSelector (new CSSSelector ().addMember (aSingleSelectorMember));
+  }
+
+  @Nonnull
+  public CSSSelectorMemberPseudoWhere addSelector (@Nonnull final CSSSelector aSelector)
+  {
+    ValueEnforcer.notNull (aSelector, "Selector");
+
+    m_aNestedSelectors.add (aSelector);
+    return this;
+  }
+
+  @Nonnull
+  public CSSSelectorMemberPseudoWhere addSelector (@Nonnegative final int nIndex,
+                                                 @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  {
+    ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
+
+    return addSelector (nIndex, new CSSSelector ().addMember (aSingleSelectorMember));
+  }
+
+  @Nonnull
+  public CSSSelectorMemberPseudoWhere addSelector (@Nonnegative final int nIndex, @Nonnull final CSSSelector aSelector)
+  {
+    ValueEnforcer.isGE0 (nIndex, "Index");
+    ValueEnforcer.notNull (aSelector, "Selector");
+
+    if (nIndex >= getSelectorCount ())
+      m_aNestedSelectors.add (aSelector);
+    else
+      m_aNestedSelectors.add (nIndex, aSelector);
+    return this;
+  }
+
+  @Nonnull
+  public EChange removeSelector (@Nonnull final CSSSelector aSelector)
+  {
+    return m_aNestedSelectors.removeObject (aSelector);
+  }
+
+  @Nonnull
+  public EChange removeSelector (@Nonnegative final int nSelectorIndex)
+  {
+    return m_aNestedSelectors.removeAtIndex (nSelectorIndex);
+  }
+
+  /**
+   * Remove all selectors.
+   *
+   * @return {@link EChange#CHANGED} if any selector was removed,
+   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   */
+  @Nonnull
+  public EChange removeAllSelectors ()
+  {
+    return m_aNestedSelectors.removeAll ();
+  }
+
+  @Nullable
+  public CSSSelector getSelectorAtIndex (@Nonnegative final int nSelectorIndex)
+  {
+    return m_aNestedSelectors.getAtIndex (nSelectorIndex);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <CSSSelector> getAllSelectors ()
+  {
+    return m_aNestedSelectors.getClone ();
   }
 
   @Nonnull
@@ -62,8 +159,20 @@ public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSVer
   {
     aSettings.checkVersionRequirements (this);
 
+    aSettings.checkVersionRequirements (this);
+
+    final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder (":where(");
-    aSB.append (m_aSelector.getAsCSSString (aSettings, 0));
+
+    boolean bFirst = true;
+    for (final CSSSelector aNestedSelector : m_aNestedSelectors)
+    {
+      if (bFirst)
+        bFirst = false;
+      else
+        aSB.append (bOptimizedOutput ? "," : ", ");
+      aSB.append (aNestedSelector.getAsCSSString (aSettings, 0));
+    }
     return aSB.append (')').toString ();
   }
 
@@ -92,19 +201,19 @@ public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSVer
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSelectorMemberPseudoWhere rhs = (CSSSelectorMemberPseudoWhere) o;
-    return m_aSelector.equals (rhs.m_aSelector);
+    return m_aNestedSelectors.equals (rhs.m_aNestedSelectors);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aSelector).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aNestedSelectors).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Selector", m_aSelector)
+    return new ToStringGenerator (null).append ("NestedSelectors", m_aNestedSelectors)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
