@@ -167,6 +167,22 @@
           <doclint>none</doclint>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <strictCheck>true</strictCheck>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <licenseSets>
+            <licenseSet>
+              <header>src/etc/license-template.txt</header>
+              <excludes>
+                <exclude>src/test/resources/**/*utf16*.css</exclude>
+              </excludes>
+            </licenseSet>
+          </licenseSets>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
