@@ -23,6 +23,7 @@ import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.CSSKeyframesBlock;
 import com.helger.css.decl.CSSKeyframesRule;
+import com.helger.css.decl.CSSLayerRule;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CSSPageMarginBlock;
@@ -244,6 +245,22 @@ public interface ICSSVisitor
    *        The supports rule. Never <code>null</code>.
    */
   void onEndSupportsRule (@Nonnull CSSSupportsRule aSupportsRule);
+
+  /**
+   * Called when a layer rule start.
+   *
+   * @param aLayerRule
+   *        The layer rule. Never <code>null</code>.
+   */
+  void onBeginLayerRule (@Nonnull CSSLayerRule aLayerRule);
+
+  /**
+   * Called when a layer rule ends.
+   *
+   * @param aLayerRule
+   *        The layer rule. Never <code>null</code>.
+   */
+  void onEndLayerRule (@Nonnull CSSLayerRule aLayerRule);
 
   // unknown rules
   /**

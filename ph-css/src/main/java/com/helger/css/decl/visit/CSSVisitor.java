@@ -26,6 +26,7 @@ import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.CSSKeyframesBlock;
 import com.helger.css.decl.CSSKeyframesRule;
+import com.helger.css.decl.CSSLayerRule;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CSSPageMarginBlock;
@@ -288,6 +289,29 @@ public final class CSSVisitor
   }
 
   /**
+   * Visit all elements of a single layer rule.
+   *
+   * @param aLayerRule
+   *        The layer rule to visit. May not be <code>null</code>.
+   * @param aVisitor
+   *        The visitor to use. May not be <code>null</code>.
+   */
+  public static void visitLayerRule (@Nonnull final CSSLayerRule aLayerRule, @Nonnull final ICSSVisitor aVisitor)
+  {
+    aVisitor.onBeginLayerRule (aLayerRule);
+    try
+    {
+      // for all nested rules
+      for (final ICSSTopLevelRule aRule : aLayerRule.getAllRules ())
+        visitTopLevelRule (aRule, aVisitor);
+    }
+    finally
+    {
+      aVisitor.onEndLayerRule (aLayerRule);
+    }
+  }
+
+  /**
    * Visit all elements of a single unknown @ rule.
    *
    * @param aUnknownRule
@@ -346,12 +370,17 @@ public final class CSSVisitor
                   visitSupportsRule ((CSSSupportsRule) aTopLevelRule, aVisitor);
                 }
                 else
-                  if (aTopLevelRule instanceof CSSUnknownRule)
+                  if (aTopLevelRule instanceof CSSLayerRule)
                   {
-                    visitUnknownRule ((CSSUnknownRule) aTopLevelRule, aVisitor);
+                    visitLayerRule ((CSSLayerRule) aTopLevelRule, aVisitor);
                   }
                   else
-                    throw new IllegalStateException ("Top level rule " + aTopLevelRule + " is unsupported!");
+                    if (aTopLevelRule instanceof CSSUnknownRule)
+                    {
+                      visitUnknownRule ((CSSUnknownRule) aTopLevelRule, aVisitor);
+                    }
+                    else
+                      throw new IllegalStateException ("Top level rule " + aTopLevelRule + " is unsupported!");
   }
 
   /**
