@@ -25,6 +25,7 @@ import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.CSSKeyframesBlock;
 import com.helger.css.decl.CSSKeyframesRule;
+import com.helger.css.decl.CSSLayerRule;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CSSPageMarginBlock;
@@ -139,6 +140,14 @@ public class DefaultCSSVisitor implements ICSSVisitor
   public void onEndSupportsRule (@Nonnull final CSSSupportsRule aSupportsRule)
   {}
 
+  @OverrideOnDemand
+  public void onBeginLayerRule (@Nonnull final CSSLayerRule aLayerRule)
+  {}
+
+  @OverrideOnDemand
+  public void onEndLayerRule (@Nonnull final CSSLayerRule aLayerRule)
+  {}
+  
   @OverrideOnDemand
   public void onUnknownRule (@Nonnull final CSSUnknownRule aUnknownRule)
   {}

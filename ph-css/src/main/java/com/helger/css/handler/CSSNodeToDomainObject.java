@@ -36,6 +36,7 @@ import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -946,17 +947,20 @@ final class CSSNodeToDomainObject
                     if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode, m_eVersion))
                       ret.addRule (_createSupportsRule (aChildNode));
                     else
-                      if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode, m_eVersion))
-                      {
-                        // Unknown rule indicates either
-                        // 1. a parsing error
-                        // 2. a non-standard rule
-                        ret.addRule (_createUnknownRule (aChildNode));
-                      }
+                      if (ECSSNodeType.LAYERRULE.isNode (aChildNode, m_eVersion))
+                        ret.addRule (_createLayerRule (aChildNode));
                       else
-                        if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-                          m_aErrorHandler.onCSSInterpretationError ("Unsupported media-rule child: " +
-                                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+                        if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode, m_eVersion))
+                        {
+                          // Unknown rule indicates either
+                          // 1. a parsing error
+                          // 2. a non-standard rule
+                          ret.addRule (_createUnknownRule (aChildNode));
+                        }
+                        else
+                          if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
+                            m_aErrorHandler.onCSSInterpretationError ("Unsupported media-rule child: " +
+                                                                      ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -1098,6 +1102,76 @@ final class CSSNodeToDomainObject
           m_aErrorHandler.onCSSInterpretationError ("Unsupported font-face rule child: " +
                                                     ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
+    return ret;
+  }
+
+  @NonNull
+  private CSSLayerRule _createLayerRule (@Nonnull final CSSNode aNode)
+  {
+    _expectNodeType (aNode, ECSSNodeType.LAYERRULE);
+    final int nChildCount = aNode.jjtGetNumChildren ();
+    if (nChildCount < 1 || nChildCount > 2)
+      _throwUnexpectedChildrenCount (aNode,
+                                     "Expected at least 1 child and at last 2 children but got " + nChildCount + "!");
+
+    final CSSLayerRule ret;
+    final ICommonsList <String> aLayerSelectors = new CommonsArrayList <> ();
+    if (ECSSNodeType.LAYERSELECTORLIST.isNode(aNode.jjtGetChild(0), m_eVersion))
+    {
+      for (CSSNode aSelectorChild : aNode.jjtGetChild (0))
+      {
+        _expectNodeType (aSelectorChild, ECSSNodeType.LAYERSELECTOR);
+        aLayerSelectors.add (aSelectorChild.getText ());
+      }
+      
+      ret = new CSSLayerRule (aLayerSelectors);
+    }
+    else
+    {
+      if (ECSSNodeType.LAYERSELECTOR.isNode(aNode.jjtGetChild (0), m_eVersion))
+      {
+        aLayerSelectors.add (aNode.jjtGetChild (0).getText ());
+      }
+
+      ret = new CSSLayerRule (aLayerSelectors);
+
+      final CSSNode aBodyNode = aNode.jjtGetChild (nChildCount - 1);
+      _expectNodeType (aBodyNode, ECSSNodeType.LAYERRULEBLOCK);
+
+      final int nBodyChildren = aBodyNode.jjtGetNumChildren ();
+      for (int nIndex = 0; nIndex < nBodyChildren; ++nIndex)
+      {
+        final CSSNode aBodyChildNode = aBodyNode.jjtGetChild (nIndex);
+        if (ECSSNodeType.STYLERULE.isNode (aBodyChildNode, m_eVersion))
+        {
+          final CSSStyleRule aStyleRule = _createStyleRule (aBodyChildNode);
+          if (aStyleRule != null)
+            ret.addRule (aStyleRule);
+        }
+        else
+          if (ECSSNodeType.LAYERRULE.isNode (aBodyChildNode, m_eVersion))
+            ret.addRule (_createLayerRule (aBodyChildNode));
+          else
+            if (ECSSNodeType.MEDIARULE.isNode (aBodyChildNode, m_eVersion))
+              ret.addRule (_createMediaRule (aBodyChildNode));
+            else
+              if (ECSSNodeType.SUPPORTSRULE.isNode (aBodyChildNode, m_eVersion))
+                ret.addRule (_createSupportsRule (aBodyChildNode));
+              else
+                if (ECSSNodeType.KEYFRAMESRULE.isNode (aBodyChildNode, m_eVersion))
+                  ret.addRule (_createKeyframesRule (aBodyChildNode));
+                else
+                  if (ECSSNodeType.FONTFACERULE.isNode (aBodyChildNode, m_eVersion))
+                    ret.addRule (_createFontFaceRule (aBodyChildNode));
+                  else
+                    if (!ECSSNodeType.isErrorNode (aBodyChildNode, m_eVersion))
+                      m_aErrorHandler.onCSSInterpretationError ("Unsupported layer-rule child: " +
+                                                                ECSSNodeType.getNodeName (aBodyChildNode, m_eVersion));
+      }
+    }
+
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation());
     return ret;
   }
 
@@ -1332,9 +1406,12 @@ final class CSSNodeToDomainObject
                     if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode, m_eVersion))
                       ret.addRule (_createSupportsRule (aChildNode));
                     else
-                      if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
-                        m_aErrorHandler.onCSSInterpretationError ("Unsupported supports-rule child: " +
-                                                                  ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+                      if (ECSSNodeType.LAYERRULE.isNode (aChildNode, m_eVersion))
+                        ret.addRule (_createLayerRule (aChildNode));
+                      else
+                        if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
+                          m_aErrorHandler.onCSSInterpretationError ("Unsupported supports-rule child: " +
+                                                                    ECSSNodeType.getNodeName (aChildNode, m_eVersion));
     }
     return ret;
   }
@@ -1400,42 +1477,45 @@ final class CSSNodeToDomainObject
                   if (ECSSNodeType.FONTFACERULE.isNode (aChildNode, m_eVersion))
                     ret.addRule (_createFontFaceRule (aChildNode));
                   else
-                    if (ECSSNodeType.KEYFRAMESRULE.isNode (aChildNode, m_eVersion))
-                      ret.addRule (_createKeyframesRule (aChildNode));
+                    if (ECSSNodeType.LAYERRULE.isNode(aChildNode, m_eVersion))
+                      ret.addRule (_createLayerRule(aChildNode));
                     else
-                      if (ECSSNodeType.VIEWPORTRULE.isNode (aChildNode, m_eVersion))
-                        ret.addRule (_createViewportRule (aChildNode));
+                      if (ECSSNodeType.KEYFRAMESRULE.isNode (aChildNode, m_eVersion))
+                        ret.addRule (_createKeyframesRule (aChildNode));
                       else
-                        if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode, m_eVersion))
-                          ret.addRule (_createSupportsRule (aChildNode));
+                        if (ECSSNodeType.VIEWPORTRULE.isNode (aChildNode, m_eVersion))
+                          ret.addRule (_createViewportRule (aChildNode));
                         else
-                          if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode, m_eVersion))
-                          {
-                            // Unknown rule indicates either
-                            // 1. a parsing error
-                            // 2. a non-standard rule
-                            ret.addRule (_createUnknownRule (aChildNode));
-                          }
+                          if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode, m_eVersion))
+                            ret.addRule (_createSupportsRule (aChildNode));
                           else
-                            if (ECSSNodeType.ROOT.isNode (aChildNode, m_eVersion))
+                            if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode, m_eVersion))
                             {
-                              /*
-                               * In case a parsing error occurs (as e.g.
-                               * happening in issue #41) and browser compliant
-                               * mode is enabled, some CSS code is skipped and a
-                               * retry happens. This retry will be a recursive
-                               * stylesheet object that is a child of the
-                               * previous stylesheet but "flattened" for the
-                               * result object.
-                               */
-                              _recursiveFillCascadingStyleSheetFromNode (aChildNode, ret);
+                              // Unknown rule indicates either
+                              // 1. a parsing error
+                              // 2. a non-standard rule
+                              ret.addRule (_createUnknownRule (aChildNode));
                             }
                             else
-                              m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
-                                                                        ECSSNodeType.getNodeName (aNode, m_eVersion) +
-                                                                        ": " +
-                                                                        ECSSNodeType.getNodeName (aChildNode,
-                                                                                                  m_eVersion));
+                              if (ECSSNodeType.ROOT.isNode (aChildNode, m_eVersion))
+                              {
+                                /*
+                                 * In case a parsing error occurs (as e.g.
+                                 * happening in issue #41) and browser compliant
+                                 * mode is enabled, some CSS code is skipped and a
+                                 * retry happens. This retry will be a recursive
+                                 * stylesheet object that is a child of the
+                                 * previous stylesheet but "flattened" for the
+                                 * result object.
+                                 */
+                                _recursiveFillCascadingStyleSheetFromNode (aChildNode, ret);
+                              }
+                              else
+                                m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                                          ECSSNodeType.getNodeName (aNode, m_eVersion) +
+                                                                          ": " +
+                                                                          ECSSNodeType.getNodeName (aChildNode,
+                                                                                                    m_eVersion));
     }
   }
 
