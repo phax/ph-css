@@ -34,14 +34,18 @@ import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 @NotThreadSafe
-public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSLayerRule extends AbstractHasTopLevelRules implements
+                          ICSSTopLevelRule,
+                          ICSSVersionAware,
+                          ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aSelectors;
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSLayerRule (@Nullable final String sLayerSelector)
   {
-    m_aSelectors = StringHelper.hasText (sLayerSelector) ? new CommonsArrayList <> (sLayerSelector) : new CommonsArrayList <> ();
+    m_aSelectors = StringHelper.isNotEmpty (sLayerSelector) ? new CommonsArrayList <> (sLayerSelector)
+                                                            : new CommonsArrayList <> ();
   }
 
   public CSSLayerRule (@Nonnull final Iterable <String> aSelectors)
@@ -80,7 +84,7 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
     final int nRuleCount = m_aRules.size ();
     if (nRuleCount == 0)
     {
-      aSB.append(";");
+      aSB.append (';');
     }
     else
     {
@@ -90,7 +94,7 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
       for (final ICSSTopLevelRule aRule : m_aRules)
       {
         final String sRuleCSS = aRule.getAsCSSString (aSettings, nIndentLevel + 1);
-        if (StringHelper.hasText (sRuleCSS))
+        if (StringHelper.isNotEmpty (sRuleCSS))
         {
           if (bFirst)
             bFirst = false;
@@ -150,7 +154,6 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("SourceLocation", m_aSourceLocation)
-                                       .getToString ();
+    return new ToStringGenerator (this).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
   }
 }

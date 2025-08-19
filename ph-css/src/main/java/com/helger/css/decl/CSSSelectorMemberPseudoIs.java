@@ -26,7 +26,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -37,8 +36,7 @@ import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single, simple CSS selector as used for the ":is()" CSS pseudo
- * element.<br>
+ * Represents a single, simple CSS selector as used for the ":is()" CSS pseudo element.<br>
  *
  * @author Philip Helger
  * @since 7.0.3
@@ -97,7 +95,7 @@ public class CSSSelectorMemberPseudoIs implements ICSSSelectorMember, ICSSVersio
 
   @Nonnull
   public CSSSelectorMemberPseudoIs addSelector (@Nonnegative final int nIndex,
-                                                 @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+                                                @Nonnull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
@@ -132,8 +130,8 @@ public class CSSSelectorMemberPseudoIs implements ICSSSelectorMember, ICSSVersio
   /**
    * Remove all selectors.
    *
-   * @return {@link EChange#CHANGED} if any selector was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any selector was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    */
   @Nonnull
   public EChange removeAllSelectors ()
