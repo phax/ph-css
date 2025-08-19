@@ -394,4 +394,18 @@ public final class CSSReader30SpecialFuncTest
     assertEquals (17, aCSS.getRuleCount ());
     assertEquals (17, aCSS.getStyleRuleCount ());
   }
+
+  @Test
+  public void testIssue112 ()
+  {
+    final ECSSVersion eVersion = ECSSVersion.CSS30;
+    final Charset aCharset = StandardCharsets.UTF_8;
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/issue112.css");
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    assertNotNull (aCSS);
+    assertEquals (1, aCSS.getRuleCount ());
+    assertEquals (1, aCSS.getStyleRuleCount ());
+    assertEquals (".tableView tr:has(>.error){position:relative}",
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).getCSSAsString (aCSS));
+  }
 }

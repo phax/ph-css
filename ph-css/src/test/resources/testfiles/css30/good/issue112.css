@@ -1,0 +1,4 @@
+.tableView tr:has(> .error) {
+    position: relative;
+}
+
