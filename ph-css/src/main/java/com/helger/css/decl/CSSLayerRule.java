@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -55,6 +56,7 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   public ICommonsList <String> getAllSelectors ()
   {
     return m_aSelectors.getClone ();
