@@ -235,6 +235,16 @@ public class CSSVisitorForUrl implements ICSSVisitor
     m_aTopLevelRule.pop ();
   }
 
+  public void onBeginLayerRule (@Nonnull final CSSLayerRule aLayerRule)
+  {
+    m_aTopLevelRule.push(aLayerRule);
+  }
+
+  public void onEndLayerRule (@Nonnull final CSSLayerRule aLayerRule)
+  {
+    m_aTopLevelRule.pop();
+  }
+
   public void onUnknownRule (@Nonnull final CSSUnknownRule aUnknownRule)
   {
     // no action
