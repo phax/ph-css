@@ -1,0 +1,4 @@
+:is(#new_comment_field, button)
+{
+    position: relative;
+}

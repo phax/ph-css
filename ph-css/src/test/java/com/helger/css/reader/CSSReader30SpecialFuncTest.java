@@ -24,6 +24,7 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -393,6 +394,21 @@ public final class CSSReader30SpecialFuncTest
     assertNotNull (aCSS);
     assertEquals (17, aCSS.getRuleCount ());
     assertEquals (17, aCSS.getStyleRuleCount ());
+  }
+
+  @Test
+  @Ignore ("Not working atm")
+  public void testIssue110 ()
+  {
+    final ECSSVersion eVersion = ECSSVersion.CSS30;
+    final Charset aCharset = StandardCharsets.UTF_8;
+    final File aFile = new File ("src/test/resources/testfiles/css30/good/issue110.css");
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    assertNotNull (aCSS);
+    assertEquals (1, aCSS.getRuleCount ());
+    assertEquals (1, aCSS.getStyleRuleCount ());
+    assertEquals (".tableView tr:has(>.error){position:relative}",
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).getCSSAsString (aCSS));
   }
 
   @Test
