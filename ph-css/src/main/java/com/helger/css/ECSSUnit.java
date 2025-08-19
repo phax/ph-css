@@ -35,63 +35,125 @@ import com.helger.commons.name.IHasName;
  */
 public enum ECSSUnit implements IHasName, ICSSVersionAware
 {
+  /** Represents the "cap height" (nominal height of capital letters) of the element's font. */
+  CAP ("cap", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /** width of the "0" glyph in the element's font */
+  CH ("ch", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** font size of the element */
   EM ("em", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS10),
   /** x-height of the element's font */
   EX ("ex", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS10),
-  /** pixels; 1px is equal to 1/96th of 1in */
-  PX ("px", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
-  /** width of the "0" glyph in the element's font */
-  CH ("ch", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
-  /** font size of the root element */
-  REM ("rem", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /**
+   * Equal to the used advance measure of the "水" glyph (CJK water ideograph, U+6C34), found in the
+   * font used to render it.
+   */
+  IC ("ic", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS10),
+  /**
+   * Equal to the computed value of the line-height property of the element on which it is used,
+   * converted to an absolute length.
+   */
+  LH ("lh", ECSSMetaUnit.FONT_RELATIVE_LENGTH, ECSSVersion.CSS30),
+
+  /** Equal to the "cap height" (nominal height of capital letters) of the root element's font. */
+  RCAP ("rcap", ECSSMetaUnit.FONT_RELATIVE_LENGTH_ROOT_BASED, ECSSVersion.CSS30),
+  /**
+   * Equal to the width or the advance measure of the glyph 0 (zero, the Unicode character U+0030)
+   * in the root element's font.
+   */
+  RCH ("rch", ECSSMetaUnit.FONT_RELATIVE_LENGTH_ROOT_BASED, ECSSVersion.CSS30),
+  /** font size of the root element (typically &lt;html&gt;) */
+  REM ("rem", ECSSMetaUnit.FONT_RELATIVE_LENGTH_ROOT_BASED, ECSSVersion.CSS30),
+  /** Represents the x-height of the root element's font. */
+  REX ("rex", ECSSMetaUnit.FONT_RELATIVE_LENGTH_ROOT_BASED, ECSSVersion.CSS10),
+  /** Equal to the value of ic unit on the root element's font. */
+  RIC ("ric", ECSSMetaUnit.FONT_RELATIVE_LENGTH_ROOT_BASED, ECSSVersion.CSS10),
+  /** Equal to the value of lh unit on the root element's font. */
+  RLH ("rlh", ECSSMetaUnit.FONT_RELATIVE_LENGTH_ROOT_BASED, ECSSVersion.CSS30),
+
   /** Equal to 1% of the width of the initial containing block. */
   VW ("vw", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** Equal to 1% of the height of the initial containing block. */
   VH ("vh", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /**
+   * Represents the percentage of the size of the initial containing block, in the direction of the
+   * root element's block axis.
+   */
+  VB ("vb", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /**
+   * Represents a percentage of the size of the initial containing block, in the direction of the
+   * root element's inline axis.
+   */
+  VI ("vi", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** Equal to the smaller of 'vw' or 'vh'. */
   VMIN ("vmin", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
   /** Equal to the larger of 'vw' or 'vh'. */
   VMAX ("vmax", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH, ECSSVersion.CSS30),
-  /** inches; 1in is equal to 2.54cm */
-  LENGTH_IN ("in", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
+
+  /** Represents a percentage of the width of the query container. */
+  CQW ("cqw", ECSSMetaUnit.CONTAINER_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /** Represents a percentage of the height of the query container. */
+  CQH ("cqh", ECSSMetaUnit.CONTAINER_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /** Represents a percentage of the inline size of the query container. */
+  CQI ("cqi", ECSSMetaUnit.CONTAINER_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /** Represents a percentage of the block size of the query container. */
+  CQB ("cqb", ECSSMetaUnit.CONTAINER_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /**
+   * Represents a percentage of the smaller value of either the query container's inline size or
+   * block size.
+   */
+  CQMIN ("cqmin", ECSSMetaUnit.CONTAINER_RELATIVE_LENGTH, ECSSVersion.CSS30),
+  /**
+   * Represents a percentage of the larger value of either the query container's inline size or
+   * block size.
+   */
+  CQMAX ("cqmax", ECSSMetaUnit.CONTAINER_RELATIVE_LENGTH, ECSSVersion.CSS30),
+
+  /** pixels; 1px is equal to 1/96th of 1in */
+  PX ("px", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
   /** centimeters */
   LENGTH_CM ("cm", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
   /** millimeters; 10 millimeters = 1 centimeter */
   LENGTH_MM ("mm", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
   /** quarter millimeters; 40 quarter-millimeters = 1 centimeter */
   LENGTH_Q ("q", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS30),
-  /** points; 1pt is equal to 1/72nd of 1in */
-  LENGTH_PT ("pt", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
+  /** inches; 1in is equal to 2.54cm */
+  LENGTH_IN ("in", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
   /** picas; 1pc is equal to 12pt */
   LENGTH_PC ("pc", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
+  /** points; 1pt is equal to 1/72nd of 1in */
+  LENGTH_PT ("pt", ECSSMetaUnit.ABSOLUTE_LENGTH, ECSSVersion.CSS10),
+
   /** percentage */
   PERCENTAGE ("%", ECSSMetaUnit.PERCENTAGE, ECSSVersion.CSS10),
+
   /** Degrees. There are 360 degrees in a full circle. */
   ANGLE_DEG ("deg", ECSSMetaUnit.ANGLE, ECSSVersion.CSS21),
   /** Radians. There are 2*pi radians in a full circle. */
   ANGLE_RAD ("rad", ECSSMetaUnit.ANGLE, ECSSVersion.CSS21),
   /**
-   * Gradians, also known as "gons" or "grades". There are 400 gradians in a
-   * full circle.
+   * Gradians, also known as "gons" or "grades". There are 400 gradians in a full circle.
    */
   ANGLE_GRAD ("grad", ECSSMetaUnit.ANGLE, ECSSVersion.CSS21),
   /** Turns. There is 1 turn in a full circle. */
   ANGLE_TURN ("turn", ECSSMetaUnit.ANGLE, ECSSVersion.CSS30),
+
   /** Milliseconds. There are 1000 milliseconds in a second. */
   TIME_MS ("ms", ECSSMetaUnit.TIME, ECSSVersion.CSS21),
   /** Seconds. */
   TIME_S ("s", ECSSMetaUnit.TIME, ECSSVersion.CSS21),
+
   /** Hertz. It represents the number of occurrences per second. */
   FREQ_HZ ("hz", ECSSMetaUnit.FREQUENZY, ECSSVersion.CSS21),
   /** Kilohertz. A kiloHertz is 1000 Hertz. */
   FREQ_KHZ ("khz", ECSSMetaUnit.FREQUENZY, ECSSVersion.CSS21),
+
   /** Dots per CSS inch */
   DPI ("dpi", ECSSMetaUnit.RESOLUTION, ECSSVersion.CSS30),
   /** Dots per CSS centimeter */
   DPCM ("dpcm", ECSSMetaUnit.RESOLUTION, ECSSVersion.CSS30),
   /** Dots per pixel centimeter */
   DPPX ("dppx", ECSSMetaUnit.RESOLUTION, ECSSVersion.CSS30),
+
   /** Flexible length or flex */
   FR ("fr", ECSSMetaUnit.FLEX, ECSSVersion.CSS30);
 
@@ -166,8 +228,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   }
 
   /**
-   * Get the passed value formatted with this unit. Always '.' is used as the
-   * separator.
+   * Get the passed value formatted with this unit. Always '.' is used as the separator.
    *
    * @param dValue
    *        Value to format
@@ -185,8 +246,7 @@ public enum ECSSUnit implements IHasName, ICSSVersionAware
   }
 
   /**
-   * Get the passed value formatted with this unit. Always '.' is used as the
-   * separator.
+   * Get the passed value formatted with this unit. Always '.' is used as the separator.
    *
    * @param aValue
    *        Value to format. May not be <code>null</code>.
