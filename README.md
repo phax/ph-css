@@ -314,6 +314,9 @@ Configuration items are:
 
 ## News and noteworthy
 
+v7.1.0 - 2025-08-20
+* Improved the selector list handling in the grammar and added `@layer` support. See[#111](https://github.com/phax/ph-css/pull/111) - thx @shagkur and @jmini 
+
 v7.0.5 - 2025-08-19
 * Extended the enum `ECSSUnit` with additional new units
 * Changed the parser to accept any kind of dimension. See [#114](https://github.com/phax/ph-css/issues/114) - thx @shapiroronny
