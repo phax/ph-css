@@ -18,6 +18,7 @@ package com.helger.css;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ChangeNextMajorRelease;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.version.IHasVersion;
 import com.helger.commons.version.Version;
@@ -27,6 +28,7 @@ import com.helger.commons.version.Version;
  *
  * @author Philip Helger
  */
+@ChangeNextMajorRelease ("Remove this enum - there is no clean versioning anymore and everything is basically considered 3.something")
 public enum ECSSVersion implements IHasVersion
 {
   // Sort fields according to the version!

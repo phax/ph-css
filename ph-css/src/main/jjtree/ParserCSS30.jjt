@@ -232,6 +232,7 @@ TOKEN :
 | < RIGHTBOTTOM_SYM:        "@right-bottom" >
 | < FOOTNOTE_SYM:           "@footnote" >
 | < MEDIA_SYM: "@media" >
+| < LAYER_SYM: "@layer" >
 | < FONTFACE_SYM: "@-" <IDENT> "-font-face"
                 | "@font-face" >
 | < KEYFRAMES_SYM: "@-" <IDENT> "-keyframes"
@@ -567,6 +568,7 @@ try{
   ( ( styleRule()
     | mediaRule()
     | pageRule()
+    | layerRule()
     | fontfaceRule()
     | keyframesRule()
     | viewportRule()
@@ -1006,41 +1008,53 @@ void pseudoSlotted () #slotted : {}
   )*
 }
 
-void relativeSelector() #void : {}
+void relativeSelector() : {}
 {
   ( selectorCombinator()
     ( <S> )*
   )?  
   selector ()
-  ( <S> )*
-  ( <COMMA>
-    ( <S> )*
-    selector()
-    ( <S> )*
-  )*
 }
 
 void relativeSelectorList() #void : {}
 {
-  ( relativeSelector() )*
+  ( <S> )*
+  ( relativeSelector() 
+    ( <S> )*
+    ( <COMMA> 
+      ( <S> )*
+      relativeSelector ()
+      ( <S> )*
+    )*
+  )
 }
 
 void pseudoHas() #has : {}
 {
+  ( relativeSelectorList() )*
+}
+
+void simpleSelectorList() #void : {}
+{
   ( <S> )*
-  relativeSelectorList()
+  ( selector () 
+    ( <S> )*
+    ( <COMMA> 
+      ( <S> )*
+      selector ()
+      ( <S> )*
+    )*
+  )
 }
 
 void pseudoIs() #is : {}
 {
-  ( <S> )*
-  selector()
+  ( simpleSelectorList () )*
 }
 
 void pseudoWhere() #where : {}
 {
-  ( <S> )*
-  selector()
+  ( simpleSelectorList () )*
 }
 
 void pseudoClassSelector() : {}
@@ -1195,6 +1209,7 @@ void styleDeclarationOrRule() #void : {}
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a rule-set is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a rule-set is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a rule-set is not allowed!"); }
+    | layerRule()     { errorUnexpectedRule ("@layer", "layer rule in the middle of a rule-set is not allowed!"); }
     )
     ( <S> | <CDO> | <CDC> )*
   )
@@ -1325,6 +1340,7 @@ void mediaRuleList() #void : {}
     | keyframesRule()
     | viewportRule()
     | supportsRule()
+    | layerRule()
     | unknownRule()
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @media rule is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @media rule is not allowed!"); }
@@ -1447,6 +1463,67 @@ void pageRule() : {}
     ( <S> )*
   )?
   pageRuleBlock()
+}
+
+void layerSelector() : {}
+{
+  <IDENT> { jjtThis.setText (token.image); }
+}
+
+void layerSelectorList() : {}
+{
+  layerSelector()
+  ( <S> )*
+  ( <COMMA>
+    ( <S> )*
+    layerSelector()
+    ( <S> )*
+  )*
+}
+
+void layerBody() #void : {}
+{
+  ( ( styleRule()
+    | layerRule()
+    | mediaRule()
+    | supportsRule()
+    | keyframesRule()
+    | fontfaceRule()
+    | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @layer rule is not allowed!"); }
+    | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @layer rule is not allowed!"); }
+    | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @layer rule is not allowed!"); }
+    )
+    ( <S> )*
+  )+
+}
+
+void layerRuleBlock() : {}
+{
+  <LBRACE>
+try{
+  ( <S> )*
+  layerBody()
+  <RBRACE>
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipInRule (ex);
+  else
+    errorSkipTo (ex, RBRACE);
+}
+}
+
+void layerRule() : {}
+{
+  <LAYER_SYM>
+  ( <S> )*
+  ( LOOKAHEAD(10, <IDENT> ( <S> )* <COMMA> | <IDENT> ( <S> )* <SEMICOLON>)
+    layerSelectorList()
+    ( <S> )*
+    <SEMICOLON>
+  | ( layerSelector() )?
+    ( <S> )*
+    layerRuleBlock()
+  )
 }
 
 //
@@ -1577,6 +1654,7 @@ void supportsRuleBodyRule() #void : {}
   | fontfaceRule()
   | keyframesRule()
   | supportsRule()
+  | layerRule()
   | unknownRule()
   | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @supports rule is not allowed!"); }
   | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @supports rule is not allowed!"); }

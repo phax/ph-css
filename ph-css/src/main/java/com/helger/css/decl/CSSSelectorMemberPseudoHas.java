@@ -26,7 +26,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -46,38 +45,25 @@ import com.helger.css.ICSSWriterSettings;
 @NotThreadSafe
 public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
 {
-  private final ECSSSelectorCombinator m_eCombinator;
   private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberPseudoHas (@Nullable final ECSSSelectorCombinator eCombinator,
-                                     @Nonnull final CSSSelector aNestedSelector)
+  public CSSSelectorMemberPseudoHas (@Nonnull final CSSSelector aNestedSelector)
   {
     ValueEnforcer.notNull (aNestedSelector, "NestedSelector");
-    m_eCombinator = eCombinator;
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelector);
   }
 
-  public CSSSelectorMemberPseudoHas (@Nullable final ECSSSelectorCombinator eCombinator,
-                                     @Nonnull final CSSSelector... aNestedSelectors)
+  public CSSSelectorMemberPseudoHas (@Nonnull final CSSSelector... aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
-    m_eCombinator = eCombinator;
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
   }
 
-  public CSSSelectorMemberPseudoHas (@Nullable final ECSSSelectorCombinator eCombinator,
-                                     @Nonnull final Iterable <CSSSelector> aNestedSelectors)
+  public CSSSelectorMemberPseudoHas (@Nonnull final Iterable <CSSSelector> aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
-    m_eCombinator = eCombinator;
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
-  }
-
-  @Nullable
-  public ECSSSelectorCombinator getCombinator ()
-  {
-    return m_eCombinator;
   }
 
   public boolean hasSelectors ()
@@ -177,10 +163,6 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersi
 
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder (":has(");
-
-    if (m_eCombinator != null)
-      aSB.append (m_eCombinator.getAsCSSString (aSettings));
-
     boolean bFirst = true;
     for (final CSSSelector aNestedSelector : m_aNestedSelectors)
     {
@@ -218,20 +200,19 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersi
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSelectorMemberPseudoHas rhs = (CSSSelectorMemberPseudoHas) o;
-    return EqualsHelper.equals (m_eCombinator, rhs.m_eCombinator) && m_aNestedSelectors.equals (rhs.m_aNestedSelectors);
+    return m_aNestedSelectors.equals (rhs.m_aNestedSelectors);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_eCombinator).append (m_aNestedSelectors).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aNestedSelectors).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Combinator", m_eCombinator)
-                                       .append ("NestedSelectors", m_aNestedSelectors)
+    return new ToStringGenerator (null).append ("NestedSelectors", m_aNestedSelectors)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

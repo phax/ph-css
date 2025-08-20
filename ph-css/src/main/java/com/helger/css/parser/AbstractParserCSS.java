@@ -40,8 +40,7 @@ public abstract class AbstractParserCSS
   protected boolean m_bKeepDeprecatedProperties = CSSReaderSettings.DEFAULT_KEEP_DEPRECATED_PROPERTIES;
 
   /**
-   * @return The custom error handler to be used for this parser. May be
-   *         <code>null</code>.
+   * @return The custom error handler to be used for this parser. May be <code>null</code>.
    */
   @Nullable
   public final ICSSParseErrorHandler getCustomErrorHandler ()
@@ -61,9 +60,8 @@ public abstract class AbstractParserCSS
   }
 
   /**
-   * @return <code>true</code> if browser compliant mode is active,
-   *         <code>false</code> if not. By default browser compliant mode is
-   *         disabled.
+   * @return <code>true</code> if browser compliant mode is active, <code>false</code> if not. By
+   *         default browser compliant mode is disabled.
    */
   public final boolean isBrowserCompliantMode ()
   {
@@ -74,8 +72,7 @@ public abstract class AbstractParserCSS
    * Enable or disable browser compliant mode.
    *
    * @param bBrowserCompliantMode
-   *        <code>true</code> to enable browser compliant mode,
-   *        <code>false</code> to disable it.
+   *        <code>true</code> to enable browser compliant mode, <code>false</code> to disable it.
    */
   public final void setBrowserCompliantMode (final boolean bBrowserCompliantMode)
   {
@@ -83,10 +80,9 @@ public abstract class AbstractParserCSS
   }
 
   /**
-   * @return <code>true</code> if deprecated properties (e.g.
-   *         <code>*zoom</code>) should be kept while reading,
-   *         <code>false</code> if they should be discarded. The default is
-   *         {@link #DEFAULT_KEEP_DEPRECATED_PROPERTIES}.
+   * @return <code>true</code> if deprecated properties (e.g. <code>*zoom</code>) should be kept
+   *         while reading, <code>false</code> if they should be discarded. The default is
+   *         {@link CSSReaderSettings#DEFAULT_KEEP_DEPRECATED_PROPERTIES}.
    * @since 7.0.4
    */
   public final boolean isKeepDeprecatedProperties ()
@@ -95,12 +91,10 @@ public abstract class AbstractParserCSS
   }
 
   /**
-   * Define, whether deprecated properties (e.g. <code>*zoom</code>) should be
-   * kept or not.
+   * Define, whether deprecated properties (e.g. <code>*zoom</code>) should be kept or not.
    *
    * @param bKeepDeprecatedProperties
-   *        <code>true</code> to keep them, <code>false</code> to discard them
-   *        on reading.
+   *        <code>true</code> to keep them, <code>false</code> to discard them on reading.
    * @since 7.0.4
    */
   public final void setKeepDeprecatedProperties (final boolean bKeepDeprecatedProperties)
