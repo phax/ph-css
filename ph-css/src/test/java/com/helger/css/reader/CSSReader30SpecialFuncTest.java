@@ -24,7 +24,6 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -397,7 +396,6 @@ public final class CSSReader30SpecialFuncTest
   }
 
   @Test
-  @Ignore ("Not working atm")
   public void testIssue110 ()
   {
     final ECSSVersion eVersion = ECSSVersion.CSS30;
@@ -407,7 +405,7 @@ public final class CSSReader30SpecialFuncTest
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getRuleCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
-    assertEquals (".tableView tr:has(>.error){position:relative}",
+    assertEquals (":is(#new_comment_field,button){position:relative}",
                   new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).getCSSAsString (aCSS));
   }
 
