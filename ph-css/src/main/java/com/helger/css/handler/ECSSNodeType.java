@@ -16,17 +16,17 @@
  */
 package com.helger.css.handler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.base.CGlobal;
 import com.helger.css.ECSSVersion;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.ParserCSS30TreeConstants;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Maps the different parser tokens. This enum is only used internally. It was

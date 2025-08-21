@@ -16,22 +16,22 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.utils.CSSURLHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a single namespace rule on top level.<br>
@@ -62,8 +62,8 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
    * Constructor
    *
    * @param sNamespacePrefix
-   *        The namespace prefix to use. May be <code>null</code> or empty for
-   *        the default namespace.
+   *        The namespace prefix to use. May be <code>null</code> or empty for the default
+   *        namespace.
    * @param sURL
    *        The namespace URL to use. May not be <code>null</code>.
    */
@@ -114,9 +114,9 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
 
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ("@namespace ");
-    if (StringHelper.hasText (m_sPrefix))
+    if (StringHelper.isNotEmpty (m_sPrefix))
       aSB.append (m_sPrefix).append (' ');
-    if (StringHelper.hasText (m_sURL))
+    if (StringHelper.isNotEmpty (m_sURL))
       aSB.append (CSSURLHelper.getAsCSSURL (m_sURL, false));
     else
       aSB.append ("\"\"");

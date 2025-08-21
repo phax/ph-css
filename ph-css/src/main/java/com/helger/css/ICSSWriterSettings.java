@@ -16,11 +16,11 @@
  */
 package com.helger.css;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.system.ENewLineMode;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.system.ENewLineMode;
+import jakarta.annotation.Nonnull;
 
 /**
  * Settings for customizing the serialization of CSS properties etc.

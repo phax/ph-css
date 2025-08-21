@@ -18,10 +18,9 @@ package com.helger.css.property;
 
 import static com.helger.css.propertyvalue.CCSSValue.*;
 
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.array.ArrayHelper;
 import com.helger.css.ECSSUnit;
 import com.helger.css.property.customizer.CSSPropertyCustomizerBorderBottomLeftRadius;
 import com.helger.css.property.customizer.CSSPropertyCustomizerBorderBottomRightRadius;

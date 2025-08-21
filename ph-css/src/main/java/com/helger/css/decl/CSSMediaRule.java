@@ -16,27 +16,27 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Represents a single <code>@media</code> rule: a list of style rules only
- * valid for certain media.<br>
+ * Represents a single <code>@media</code> rule: a list of style rules only valid for certain
+ * media.<br>
  * Example:<br>
  * <code>@media print {
   div#footer {
@@ -56,8 +56,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
   {}
 
   /**
-   * @return <code>true</code> if at least one media query is present,
-   *         <code>false</code> if no media query is present.
+   * @return <code>true</code> if at least one media query is present, <code>false</code> if no
+   *         media query is present.
    */
   public boolean hasMediaQueries ()
   {
@@ -93,9 +93,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    * Add a media query at the specified index.
    *
    * @param nIndex
-   *        The index to use. Must be &ge; 0. If the index is &ge;
-   *        {@link #getMediaQueryCount()} than the media query is appended like
-   *        in {@link #addMediaQuery(CSSMediaQuery)}.
+   *        The index to use. Must be &ge; 0. If the index is &ge; {@link #getMediaQueryCount()}
+   *        than the media query is appended like in {@link #addMediaQuery(CSSMediaQuery)}.
    * @param aMediaQuery
    *        The media query to be added. May not be <code>null</code>.
    * @return this for chaining
@@ -142,8 +141,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
   /**
    * Remove all media queries.
    *
-   * @return {@link EChange#CHANGED} if any media query was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any media query was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
   @Nonnull
@@ -166,8 +165,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
   }
 
   /**
-   * @return A copy of all contained media queries. Never <code>null</code>.
-   *         Maybe empty.
+   * @return A copy of all contained media queries. Never <code>null</code>. Maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -213,7 +211,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
       for (final ICSSTopLevelRule aRule : m_aRules)
       {
         final String sRuleCSS = aRule.getAsCSSString (aSettings, nIndentLevel + 1);
-        if (StringHelper.hasText (sRuleCSS))
+        if (StringHelper.isNotEmpty (sRuleCSS))
         {
           if (bFirst)
             bFirst = false;

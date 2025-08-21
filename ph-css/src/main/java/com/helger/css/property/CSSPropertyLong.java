@@ -16,18 +16,17 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.string.StringParser;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.string.StringParser;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * CSS property that is either an enumeration or a long value without a unit
- * (e.g. flex-grow)
+ * CSS property that is either an enumeration or a long value without a unit (e.g. flex-grow)
  *
  * @author Philip Helger
  * @since 6.4.0

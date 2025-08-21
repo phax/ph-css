@@ -16,25 +16,26 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * Represents a list of {@link CSSDeclaration} objects. This class emits all
- * declarations in a row, without any surrounding block elements.
+ * Represents a list of {@link CSSDeclaration} objects. This class emits all declarations in a row,
+ * without any surrounding block elements.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> implements IHasCSSDeclarations <CSSDeclarationList>
+public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> implements
+                                IHasCSSDeclarations <CSSDeclarationList>
 {
   public CSSDeclarationList ()
   {}
@@ -47,7 +48,8 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   }
 
   @Nonnull
-  public CSSDeclarationList addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSDeclarationList addDeclaration (@Nonnegative final int nIndex,
+                                            @Nonnull final CSSDeclaration aNewDeclaration)
   {
     add (nIndex, aNewDeclaration);
     return this;
@@ -68,8 +70,8 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   /**
    * Remove all declarations.
    *
-   * @return {@link EChange#CHANGED} if any declaration was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any declaration was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
   @Nonnull
@@ -92,7 +94,8 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   }
 
   @Nonnull
-  public CSSDeclarationList setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSDeclarationList setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                   @Nonnull final CSSDeclaration aNewDeclaration)
   {
     set (nIndex, aNewDeclaration);
     return this;
@@ -112,7 +115,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   @Nullable
   public CSSDeclaration getDeclarationOfPropertyName (@Nullable final String sPropertyName)
   {
-    if (StringHelper.hasNoText (sPropertyName))
+    if (StringHelper.isEmpty (sPropertyName))
       return null;
 
     return findFirst (aDecl -> aDecl.hasProperty (sPropertyName));
@@ -123,7 +126,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
     final ICommonsList <CSSDeclaration> ret = new CommonsArrayList <> ();
-    if (StringHelper.hasText (sPropertyName))
+    if (StringHelper.isNotEmpty (sPropertyName))
       findAll (aDecl -> aDecl.hasProperty (sPropertyName), ret::add);
     return ret;
   }

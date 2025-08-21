@@ -16,13 +16,13 @@
  */
 package com.helger.css.decl.shorthand;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.ICSSExpressionMember;
 import com.helger.css.property.ECSSProperty;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link CSSShortHandDescriptor} implementation for margin and

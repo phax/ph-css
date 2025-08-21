@@ -16,7 +16,7 @@
  */
 package com.helger.css;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * Interface for objects that have a source location.

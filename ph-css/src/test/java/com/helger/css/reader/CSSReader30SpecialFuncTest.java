@@ -28,9 +28,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.charset.EUnicodeBOM;
+import com.helger.base.io.streamprovider.ByteArrayInputStreamProvider;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberFunction;

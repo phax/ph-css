@@ -16,10 +16,10 @@
  */
 package com.helger.css.supplementary.parser;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
+import com.helger.text.codepoint.Codepoint;
 
-import com.helger.commons.text.codepoint.Codepoint;
+import jakarta.annotation.Nonnull;
 
 public final class CSSCodepoint extends Codepoint
 {

@@ -16,16 +16,13 @@
  */
 package com.helger.css.tools;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.CSSMediaQuery;
@@ -35,10 +32,13 @@ import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.reader.CSSReader;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * A small utility class to wrap an existing {@link CascadingStyleSheet} within
- * a specific media, if possible. {@link CascadingStyleSheet} can only be
- * wrapped, if they don't contain a media rule themselves.
+ * A small utility class to wrap an existing {@link CascadingStyleSheet} within a specific media, if
+ * possible. {@link CascadingStyleSheet} can only be wrapped, if they don't contain a media rule
+ * themselves.
  *
  * @author Philip Helger
  */
@@ -52,20 +52,21 @@ public final class MediaQueryTools
   {}
 
   /**
-   * Utility method to convert a media query string to a structured list of
-   * {@link CSSMediaQuery} objects.
+   * Utility method to convert a media query string to a structured list of {@link CSSMediaQuery}
+   * objects.
    *
    * @param sMediaQuery
    *        The media query string to parse. May be <code>null</code>.
    * @param eVersion
    *        The CSS version to use. May not be <code>null</code>.
-   * @return <code>null</code> if the passed media query is <code>null</code> or
-   *         empty or not parsable.
+   * @return <code>null</code> if the passed media query is <code>null</code> or empty or not
+   *         parsable.
    */
   @Nullable
-  public static ICommonsList <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery, @Nonnull final ECSSVersion eVersion)
+  public static ICommonsList <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery,
+                                                                @Nonnull final ECSSVersion eVersion)
   {
-    if (StringHelper.hasNoText (sMediaQuery))
+    if (StringHelper.isEmpty (sMediaQuery))
       return null;
 
     final String sCSS = "@media " + sMediaQuery + " {}";
@@ -83,12 +84,12 @@ public final class MediaQueryTools
    * @param aCSS
    *        The CSS to be checked for wrapping. May be <code>null</code>.
    * @param bAllowNestedMediaQueries
-   *        if <code>true</code> nested media queries are allowed,
-   *        <code>false</code> if they are prohibited.
-   * @return <code>true</code> if the CSS can be wrapped, <code>false</code> if
-   *         it can't be wrapped.
+   *        if <code>true</code> nested media queries are allowed, <code>false</code> if they are
+   *        prohibited.
+   * @return <code>true</code> if the CSS can be wrapped, <code>false</code> if it can't be wrapped.
    */
-  public static boolean canWrapInMediaQuery (@Nullable final CascadingStyleSheet aCSS, final boolean bAllowNestedMediaQueries)
+  public static boolean canWrapInMediaQuery (@Nullable final CascadingStyleSheet aCSS,
+                                             final boolean bAllowNestedMediaQueries)
   {
     if (aCSS == null)
       return false;
@@ -100,16 +101,16 @@ public final class MediaQueryTools
   }
 
   /**
-   * Get the CSS wrapped in the specified media query. Note: all existing rule
-   * objects are reused, so modifying them also modifies the original CSS!
+   * Get the CSS wrapped in the specified media query. Note: all existing rule objects are reused,
+   * so modifying them also modifies the original CSS!
    *
    * @param aCSS
    *        The CSS to be wrapped. May not be <code>null</code>.
    * @param aMediaQuery
    *        The media query to use.
    * @param bAllowNestedMediaQueries
-   *        if <code>true</code> nested media queries are allowed,
-   *        <code>false</code> if they are prohibited.
+   *        if <code>true</code> nested media queries are allowed, <code>false</code> if they are
+   *        prohibited.
    * @return <code>null</code> if out CSS cannot be wrapped, the newly created
    *         {@link CascadingStyleSheet} object otherwise.
    */
@@ -122,17 +123,17 @@ public final class MediaQueryTools
   }
 
   /**
-   * Get the CSS wrapped in the specified media query. Note: all existing rule
-   * objects are reused, so modifying them also modifies the original CSS!
+   * Get the CSS wrapped in the specified media query. Note: all existing rule objects are reused,
+   * so modifying them also modifies the original CSS!
    *
    * @param aCSS
    *        The CSS to be wrapped. May not be <code>null</code>.
    * @param aMediaQueries
-   *        The media queries to use. May neither be <code>null</code> nor empty
-   *        nor may it contain <code>null</code> elements.
+   *        The media queries to use. May neither be <code>null</code> nor empty nor may it contain
+   *        <code>null</code> elements.
    * @param bAllowNestedMediaQueries
-   *        if <code>true</code> nested media queries are allowed,
-   *        <code>false</code> if they are prohibited.
+   *        if <code>true</code> nested media queries are allowed, <code>false</code> if they are
+   *        prohibited.
    * @return <code>null</code> if out CSS cannot be wrapped, the newly created
    *         {@link CascadingStyleSheet} object otherwise.
    */

@@ -16,8 +16,6 @@
  */
 package com.helger.css.decl.visit;
 
-import javax.annotation.Nonnull;
-
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CSSImportRule;
@@ -33,6 +31,8 @@ import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CSSSupportsRule;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for visiting different elements of a CSS domain object.

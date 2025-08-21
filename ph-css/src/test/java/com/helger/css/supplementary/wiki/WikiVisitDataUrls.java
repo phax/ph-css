@@ -16,9 +16,6 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
@@ -30,6 +27,9 @@ import com.helger.css.decl.visit.CSSVisitor;
 import com.helger.css.decl.visit.DefaultCSSUrlVisitor;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.utils.CSSDataURL;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Example how to extract all URLs from a certain CSS file using a

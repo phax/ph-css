@@ -16,10 +16,9 @@
  */
 package com.helger.css.property.customizer;
 
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * Abstract base class for property customizer.

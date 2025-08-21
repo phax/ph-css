@@ -19,10 +19,12 @@ package com.helger.css.utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+
 import org.junit.Test;
 
-import com.helger.commons.collection.attr.StringMap;
-import com.helger.commons.url.SimpleURL;
 import com.helger.css.parser.CSSParseHelper;
 
 /**
@@ -50,7 +52,7 @@ public final class CSSURLHelperTest
   }
 
   @Test
-  public void testGetAsCSSURL ()
+  public void testGetAsCSSURL () throws MalformedURLException
   {
     for (final String sURL : new String [] { "a.gif",
                                              "\"a.gif\"",
@@ -90,14 +92,15 @@ public final class CSSURLHelperTest
     // Escaped brackets
     assertEquals ("url('a().gif')", CSSURLHelper.getAsCSSURL ("a().gif", false));
 
-    final SimpleURL aURL = new SimpleURL ("a.gif", new StringMap ("x", "y"));
-    assertEquals ("url(a.gif?x=y)", CSSURLHelper.getAsCSSURL (aURL, false));
-    assertEquals ("url('a.gif?x=y')", CSSURLHelper.getAsCSSURL (aURL, true));
-    assertEquals ("url()", CSSURLHelper.getAsCSSURL (new SimpleURL (), false));
-    assertEquals ("url('')", CSSURLHelper.getAsCSSURL (new SimpleURL (), true));
+    final URL aURL = new URL ("https://x.com/a.gif?x=y");
+    assertEquals ("url(https://x.com/a.gif?x=y)", CSSURLHelper.getAsCSSURL (aURL, false));
+    assertEquals ("url('https://x.com/a.gif?x=y')", CSSURLHelper.getAsCSSURL (aURL, true));
 
     // SimpleURL -> CSS URL -> String -> SimpleURL
-    assertEquals (aURL, new SimpleURL (CSSURLHelper.getURLValue (CSSURLHelper.getAsCSSURL (aURL, true))));
+    assertEquals (aURL.toExternalForm (),
+                  URI.create (CSSURLHelper.getURLValue (CSSURLHelper.getAsCSSURL (aURL, true)))
+                     .toURL ()
+                     .toExternalForm ());
 
     // empty URL!
     assertEquals ("url()", CSSURLHelper.getAsCSSURL ("", false));

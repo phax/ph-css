@@ -16,16 +16,16 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.ICSSValue;
 import com.helger.css.utils.ICSSNamedColor;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single CSS property.

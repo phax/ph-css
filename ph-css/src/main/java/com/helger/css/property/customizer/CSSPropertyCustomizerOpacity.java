@@ -16,18 +16,18 @@
  */
 package com.helger.css.property.customizer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.StringParser;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.string.StringParser;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.CSSPropertyFree;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
 import com.helger.css.propertyvalue.CSSValueList;
 import com.helger.css.propertyvalue.ICSSValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special customizer for the "opacity" property.
@@ -47,7 +47,8 @@ public class CSSPropertyCustomizerOpacity extends AbstractCSSPropertyCustomizer
     {
       final int nPerc = (int) (dValue * 100);
       return new CSSValueList (ECSSProperty.OPACITY,
-                               new ICSSProperty [] { new CSSPropertyFree (ECSSProperty.FILTER, ECSSVendorPrefix.MICROSOFT),
+                               new ICSSProperty [] { new CSSPropertyFree (ECSSProperty.FILTER,
+                                                                          ECSSVendorPrefix.MICROSOFT),
                                                      new CSSPropertyFree (ECSSProperty.FILTER),
                                                      aProperty.getClone (ECSSVendorPrefix.MOZILLA),
                                                      aProperty.getClone (ECSSVendorPrefix.WEBKIT),

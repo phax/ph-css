@@ -16,25 +16,25 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringReplace;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Represents a single expression consisting of several expression members
@@ -229,13 +229,12 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   }
 
   /**
-   * Get a quoted string value. Every double quote (") is replaced to a
-   * backslash and a double quote (\").
+   * Get a quoted string value. Every double quote (") is replaced to a backslash and a double quote
+   * (\").
    *
    * @param sValue
    *        The source value. May not be <code>null</code>.
-   * @return An opening double quote + the quoted string + a closing double
-   *         quote
+   * @return An opening double quote + the quoted string + a closing double quote
    * @since 6.1.2
    */
   @Nonnull
@@ -245,7 +244,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
     ValueEnforcer.notNull (sValue, "Value");
     if (sValue.length () == 0)
       return "\"\"";
-    return CCSS.DOUBLE_QUOTE + StringHelper.replaceAll (sValue, "\"", "\\\"") + CCSS.DOUBLE_QUOTE;
+    return CCSS.DOUBLE_QUOTE + StringReplace.replaceAll (sValue, "\"", "\\\"") + CCSS.DOUBLE_QUOTE;
   }
 
   /**
@@ -333,8 +332,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * Remove all members.
    *
-   * @return {@link EChange#CHANGED} if any member was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
   @Nonnull
@@ -344,8 +343,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   }
 
   /**
-   * @return A copy of all contained expression members. Never <code>null</code>
-   *         .
+   * @return A copy of all contained expression members. Never <code>null</code> .
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -436,7 +434,9 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (null).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 
   /**

@@ -18,24 +18,24 @@ package com.helger.css.parser;
 
 import java.util.Iterator;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.traits.IGetterDirectTrait;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsIterable;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceArea;
 import com.helger.css.CSSSourceLocation;
+import com.helger.typeconvert.trait.IGetterDirectTrait;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * This class represents a simple node in the tree built by jjtree. It's a
- * customized version of the default JJTree Node.
+ * This class represents a simple node in the tree built by jjtree. It's a customized version of the
+ * default JJTree Node.
  *
  * @author Philip Helger
  */
@@ -183,22 +183,20 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
   }
 
   /**
-   * @return The source location of this node. May be <code>null</code> if
-   *         neither begin token nor end token is present.
+   * @return The source location of this node. May be <code>null</code> if neither begin token nor
+   *         end token is present.
    */
   @Nullable
   public CSSSourceLocation getSourceLocation ()
   {
-    final CSSSourceArea aFirstTokenArea = m_aFirstToken == null ? null
-                                                                : new CSSSourceArea (m_aFirstToken.beginLine,
-                                                                                     m_aFirstToken.beginColumn,
-                                                                                     m_aFirstToken.endLine,
-                                                                                     m_aFirstToken.endColumn);
-    final CSSSourceArea aLastTokenArea = m_aLastToken == null ? null
-                                                              : new CSSSourceArea (m_aLastToken.beginLine,
-                                                                                   m_aLastToken.beginColumn,
-                                                                                   m_aLastToken.endLine,
-                                                                                   m_aLastToken.endColumn);
+    final CSSSourceArea aFirstTokenArea = m_aFirstToken == null ? null : new CSSSourceArea (m_aFirstToken.beginLine,
+                                                                                            m_aFirstToken.beginColumn,
+                                                                                            m_aFirstToken.endLine,
+                                                                                            m_aFirstToken.endColumn);
+    final CSSSourceArea aLastTokenArea = m_aLastToken == null ? null : new CSSSourceArea (m_aLastToken.beginLine,
+                                                                                          m_aLastToken.beginColumn,
+                                                                                          m_aLastToken.endLine,
+                                                                                          m_aLastToken.endColumn);
     if (aFirstTokenArea == null && aLastTokenArea == null)
       return null;
     return new CSSSourceLocation (aFirstTokenArea, aLastTokenArea);
@@ -217,7 +215,8 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
   public String toString ()
   {
     return new ToStringGenerator (this).append ("type", m_nType)
-                                       .appendIfNotNull ("parentType", m_aParent == null ? null : Integer.valueOf (m_aParent.m_nType))
+                                       .appendIfNotNull ("parentType",
+                                                         m_aParent == null ? null : Integer.valueOf (m_aParent.m_nType))
                                        .appendIfNotNull ("value", m_aValue)
                                        .appendIfNotNull ("text", m_sText)
                                        .append ("children#", m_aChildren == null ? 0 : m_aChildren.length)

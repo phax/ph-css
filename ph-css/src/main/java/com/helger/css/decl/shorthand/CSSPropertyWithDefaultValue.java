@@ -16,11 +16,11 @@
  */
 package com.helger.css.decl.shorthand;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.property.ICSSProperty;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A descriptor for a property and a default value

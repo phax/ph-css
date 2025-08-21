@@ -16,20 +16,20 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A single CSS selector attribute.
@@ -48,7 +48,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
 
   private static boolean _isValidNamespacePrefix (@Nullable final String sNamespacePrefix)
   {
-    return StringHelper.hasNoText (sNamespacePrefix) || sNamespacePrefix.endsWith ("|");
+    return StringHelper.isEmpty (sNamespacePrefix) || sNamespacePrefix.endsWith ("|");
   }
 
   public CSSSelectorAttribute (@Nullable final String sNamespacePrefix, @Nonnull @Nonempty final String sAttrName)
@@ -111,7 +111,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
   {
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ('[');
-    if (StringHelper.hasText (m_sNamespacePrefix))
+    if (StringHelper.isNotEmpty (m_sNamespacePrefix))
       aSB.append (m_sNamespacePrefix);
     aSB.append (m_sAttrName);
     if (m_eOperator != null)

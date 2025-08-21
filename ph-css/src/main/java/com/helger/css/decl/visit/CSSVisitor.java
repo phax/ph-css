@@ -16,11 +16,9 @@
  */
 package com.helger.css.decl.visit;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CSSImportRule;
@@ -40,6 +38,8 @@ import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSPageRuleMember;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.decl.IHasCSSDeclarations;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class is used to walk a CSS domain object and call the respective

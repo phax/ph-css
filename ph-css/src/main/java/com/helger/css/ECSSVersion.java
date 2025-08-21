@@ -16,12 +16,12 @@
  */
 package com.helger.css;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.misc.ChangeNextMajorRelease;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.base.version.IHasVersion;
+import com.helger.base.version.Version;
 
-import com.helger.commons.annotation.ChangeNextMajorRelease;
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.version.IHasVersion;
-import com.helger.commons.version.Version;
+import jakarta.annotation.Nonnull;
 
 /**
  * Contains the different CSS versions that may be of relevance.

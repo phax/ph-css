@@ -16,7 +16,7 @@
  */
 package com.helger.css;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for objects indicating that they are supported by a minimum CSS

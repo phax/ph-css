@@ -16,11 +16,11 @@
  */
 package com.helger.css.propertyvalue;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.property.ECSSProperty;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents a single CSS value that is used in a CSS declaration.

@@ -16,10 +16,8 @@
  */
 package com.helger.css.decl.visit;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CSSImportRule;
@@ -35,6 +33,8 @@ import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CSSSupportsRule;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of the {@link ICSSVisitor} interface. Use as base

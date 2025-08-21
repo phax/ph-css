@@ -16,12 +16,12 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.ICSSWriterSettings;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Represents a common container of {@link CSSDeclaration} objects. In contrary

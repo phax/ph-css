@@ -21,12 +21,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-
+import com.helger.annotation.Nonnegative;
+import com.helger.base.io.nonblocking.NonBlockingPushbackReader;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.ring.RingBufferLifo;
-import com.helger.commons.io.stream.NonBlockingPushbackReader;
-import com.helger.commons.string.ToStringGenerator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * A special CSS Codepoint reader that converts chars to Codepoints and keeps

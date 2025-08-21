@@ -16,30 +16,29 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * Represents a single <code>@supports</code> rule: a list of style rules only
- * valid when a certain declaration is available. See
- * {@link com.helger.css.ECSSSpecification#CSS3_CONDITIONAL}<br>
+ * Represents a single <code>@supports</code> rule: a list of style rules only valid when a certain
+ * declaration is available. See {@link com.helger.css.ECSSSpecification#CSS3_CONDITIONAL}<br>
  * Example:<br>
  * <code>@supports (transition-property: color) {
   div { color:red; }
@@ -48,7 +47,10 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware, ICSSVersionAware
+public class CSSSupportsRule extends AbstractHasTopLevelRules implements
+                             ICSSTopLevelRule,
+                             ICSSSourceLocationAware,
+                             ICSSVersionAware
 {
   private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
@@ -77,7 +79,8 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
   }
 
   @Nonnull
-  public CSSSupportsRule addSupportConditionMember (@Nonnegative final int nIndex, @Nonnull final ICSSSupportsConditionMember aMember)
+  public CSSSupportsRule addSupportConditionMember (@Nonnegative final int nIndex,
+                                                    @Nonnull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
@@ -166,7 +169,7 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
       for (final ICSSTopLevelRule aRule : m_aRules)
       {
         final String sRuleCSS = aRule.getAsCSSString (aSettings, nIndentLevel + 1);
-        if (StringHelper.hasText (sRuleCSS))
+        if (StringHelper.isNotEmpty (sRuleCSS))
         {
           if (bFirst)
             bFirst = false;

@@ -20,14 +20,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriterSettings;
+import com.helger.unittest.support.TestHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link CSSImportRule}.
@@ -51,8 +51,7 @@ public final class CSSImportRuleTest
   @Test
   public void testRead ()
   {
-    CSSImportRule aIR;
-    aIR = _parse ("@import url(a.gif);\n");
+    CSSImportRule aIR = _parse ("@import url(a.gif);\n");
     assertEquals (0, aIR.getMediaQueryCount ());
     assertTrue (aIR.getAllMediaQueries ().isEmpty ());
     assertEquals ("a.gif", aIR.getLocationString ());
@@ -71,7 +70,7 @@ public final class CSSImportRuleTest
     // Create the same rule by application
     final CSSImportRule aCreated = new CSSImportRule ("a.gif");
     aCreated.addMediaQuery (new CSSMediaQuery ("print")).addMediaQuery (new CSSMediaQuery ("screen"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aIR, aCreated);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aIR, aCreated);
   }
 
   @Test

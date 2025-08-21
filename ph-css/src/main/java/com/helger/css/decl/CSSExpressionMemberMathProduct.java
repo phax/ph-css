@@ -16,24 +16,24 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringImplode;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Part of a CSS calc element
@@ -59,7 +59,8 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   }
 
   @Nonnull
-  public CSSExpressionMemberMathProduct addMember (@Nonnegative final int nIndex, @Nonnull final ICSSExpressionMathMember aMember)
+  public CSSExpressionMemberMathProduct addMember (@Nonnegative final int nIndex,
+                                                   @Nonnull final ICSSExpressionMathMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "ExpressionMathMember");
@@ -86,8 +87,8 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   /**
    * Remove all members.
    *
-   * @return {@link EChange#CHANGED} if any member was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
   @Nonnull
@@ -114,7 +115,7 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     aSettings.checkVersionRequirements (this);
-    return StringHelper.getImplodedMapped (m_aMembers, x -> x.getAsCSSString (aSettings, nIndentLevel));
+    return StringImplode.getImplodedMapped (m_aMembers, x -> x.getAsCSSString (aSettings, nIndentLevel));
   }
 
   @Nonnull
@@ -154,6 +155,8 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (this).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

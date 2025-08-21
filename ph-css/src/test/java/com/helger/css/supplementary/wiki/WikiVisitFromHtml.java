@@ -16,8 +16,6 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import javax.annotation.Nonnull;
-
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
@@ -26,6 +24,8 @@ import com.helger.css.decl.visit.DefaultCSSVisitor;
 import com.helger.css.decl.visit.ICSSVisitor;
 import com.helger.css.reader.CSSReaderDeclarationList;
 import com.helger.css.writer.CSSWriterSettings;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Example how to read the content of a CSS style attribute, and visit all

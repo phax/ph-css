@@ -16,19 +16,19 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHex;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A logging implementation of {@link ICSSParseErrorHandler}. So in case a recoverable error occurs,
@@ -207,18 +207,18 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                                 @Nonnull final Token aFromToken,
                                                                 @Nonnull final Token aToToken)
   {
-    StringBuilder ret = new StringBuilder ("Browser compliant mode skipped CSS from [").append (aFromToken.beginLine)
-                                                                                       .append (":")
-                                                                                       .append (aFromToken.beginColumn)
-                                                                                       .append ("] starting at token '")
-                                                                                       .append (aFromToken.image)
-                                                                                       .append ("' until [")
-                                                                                       .append (aToToken.endLine)
-                                                                                       .append (":")
-                                                                                       .append (aToToken.endColumn)
-                                                                                       .append ("] to token '")
-                                                                                       .append (aToToken.image)
-                                                                                       .append ("'");
+    final StringBuilder ret = new StringBuilder ("Browser compliant mode skipped CSS from [").append (aFromToken.beginLine)
+                                                                                             .append (":")
+                                                                                             .append (aFromToken.beginColumn)
+                                                                                             .append ("] starting at token '")
+                                                                                             .append (aFromToken.image)
+                                                                                             .append ("' until [")
+                                                                                             .append (aToToken.endLine)
+                                                                                             .append (":")
+                                                                                             .append (aToToken.endColumn)
+                                                                                             .append ("] to token '")
+                                                                                             .append (aToToken.image)
+                                                                                             .append ("'");
     if (ex != null)
       ret.append (" (based on ")
          .append (ex.getClass ().getName ())
@@ -242,7 +242,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return "Found illegal character: " +
            cIllegalChar +
            " (0x" +
-           StringHelper.getHexStringLeadingZero (cIllegalChar, 4) +
+           StringHex.getHexStringLeadingZero (cIllegalChar, 4) +
            ")";
   }
 

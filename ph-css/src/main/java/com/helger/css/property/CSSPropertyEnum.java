@@ -18,21 +18,21 @@ package com.helger.css.property;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * CSS property with a predefined list of possible values (e.g. "cursor")
@@ -72,7 +72,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
     m_aEnumValues = new CommonsHashSet <> (aEnumValues.length);
     for (final String sPotentialValue : aEnumValues)
     {
-      if (StringHelper.hasNoText (sPotentialValue))
+      if (StringHelper.isEmpty (sPotentialValue))
         throw new IllegalArgumentException ("At least one enumeration value is empty");
       m_aEnumValues.add (sPotentialValue);
     }
@@ -100,7 +100,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
     m_aEnumValues = new CommonsHashSet <> ();
     for (final String sPotentialValue : aEnumValues)
     {
-      if (StringHelper.hasNoText (sPotentialValue))
+      if (StringHelper.isEmpty (sPotentialValue))
         throw new IllegalArgumentException ("At least one enumeration value is empty");
       m_aEnumValues.add (sPotentialValue);
     }
@@ -128,8 +128,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   }
 
   /**
-   * @return The Set with the enum values - only used for derived classes. Never
-   *         <code>null</code>.
+   * @return The Set with the enum values - only used for derived classes. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableObject ("Design")

@@ -20,24 +20,19 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Arrays;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.stream.StreamHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
 
 /**
- * This class is only used internally as the source for the generated parsers.
- * <br>
- * An implementation of interface {@link CharStream}, where the stream is
- * assumed to contain only ASCII characters (with java-like unicode escape
- * processing).
+ * This class is only used internally as the source for the generated parsers. <br>
+ * An implementation of interface {@link CharStream}, where the stream is assumed to contain only
+ * ASCII characters (with java-like unicode escape processing).
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("NM_METHOD_NAMING_CONVENTION")
 public final class CSSCharStream implements CharStream
 {
   private static final int DEFAULT_BUF_SIZE = 4096;

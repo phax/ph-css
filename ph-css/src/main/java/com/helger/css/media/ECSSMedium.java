@@ -16,15 +16,15 @@
  */
 package com.helger.css.media;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.annotation.DeprecatedInCSS21;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Defines all default CSS media types.

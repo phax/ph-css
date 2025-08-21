@@ -22,28 +22,23 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.IHasReader;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.io.streamprovider.StringInputStreamProvider;
-import com.helger.commons.io.streamprovider.StringReaderProvider;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.charset.CharsetHelper.InputStreamAndCharset;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.iface.IHasInputStream;
+import com.helger.base.io.iface.IHasReader;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.io.streamprovider.StringInputStreamProvider;
+import com.helger.base.io.streamprovider.StringReaderProvider;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.CSSHandler;
@@ -63,6 +58,11 @@ import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
+import com.helger.io.resource.FileSystemResource;
+import com.helger.io.resource.IReadableResource;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is the central user class for reading and parsing CSS from different

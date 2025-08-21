@@ -21,32 +21,30 @@ import static com.helger.css.ECSSSpecification.*;
 import java.util.EnumSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.css.ECSSSpecification;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.annotation.DeprecatedInCSS30;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
  * Contains a list of most CSS property names.<br>
  * Source of Webkit property names:
- * http://trac.webkit.org/export/0/trunk/Source/WebCore/css/CSSPropertyNames.in
- * <br>
+ * http://trac.webkit.org/export/0/trunk/Source/WebCore/css/CSSPropertyNames.in <br>
  * <br>
  * MS specific property names:
  * http://msdn.microsoft.com/en-us/library/ie/hh772373%28v=vs.85%29.aspx<br>
- * http://blogs.msdn.com/b/ie/archive/2008/09/08/microsoft-css-vendor-extensions
- * .aspx<br>
+ * http://blogs.msdn.com/b/ie/archive/2008/09/08/microsoft-css-vendor-extensions .aspx<br>
  * <br>
  * Mozilla specific property names:
  * https://developer.mozilla.org/en/CSS_Reference/Mozilla_Extensions<br>
@@ -654,12 +652,11 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
       }
     m_eVendorPrefix = eUsedVendorPrefix;
     m_eVersion = eVersion;
-    m_aSpecifications = CollectionHelper.newEnumSet (ECSSSpecification.class, aSpecifications);
+    m_aSpecifications = CollectionHelperExt.createEnumSet (ECSSSpecification.class, aSpecifications);
   }
 
   /**
-   * @return The name of this property. E.g. <code>color</code> or
-   *         <code>-webkit-writing-mode</code>
+   * @return The name of this property. E.g. <code>color</code> or <code>-webkit-writing-mode</code>
    */
   @Nonnull
   @Nonempty
@@ -669,8 +666,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   }
 
   /**
-   * @return The name of the property without an eventually present vendor
-   *         prefix.
+   * @return The name of the property without an eventually present vendor prefix.
    * @since 3.9.0
    */
   @Nonnull
@@ -690,14 +686,14 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   }
 
   /**
-   * @return A copy with all specifications, where the property is defined.
-   *         Never <code>null</code> but maybe empty.
+   * @return A copy with all specifications, where the property is defined. Never <code>null</code>
+   *         but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
   public Set <ECSSSpecification> getAllSpecifications ()
   {
-    return CollectionHelper.newEnumSet (ECSSSpecification.class, m_aSpecifications);
+    return CollectionHelperExt.createEnumSet (ECSSSpecification.class, m_aSpecifications);
   }
 
   /**
@@ -705,8 +701,8 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
    *
    * @param eVendorPrefix
    *        The vendor prefix to check. May not be <code>null</code>.
-   * @return <code>true</code> if this property is specific to this vendor,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this property is specific to this vendor, <code>false</code>
+   *         otherwise.
    * @since 3.9.0
    */
   public boolean isVendorSpecific (@Nonnull final ECSSVendorPrefix eVendorPrefix)
@@ -725,8 +721,8 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   }
 
   /**
-   * @return The vendor prefix used by this property or <code>null</code> if
-   *         this property is vendor independent.
+   * @return The vendor prefix used by this property or <code>null</code> if this property is vendor
+   *         independent.
    * @since 3.9.0
    */
   @Nullable
@@ -742,19 +738,19 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   }
 
   /**
-   * Get the real name of the property without hacking prefixes. This method
-   * strips the first leading '*', '_' or '$' from the name.
+   * Get the real name of the property without hacking prefixes. This method strips the first
+   * leading '*', '_' or '$' from the name.
    *
    * @param sName
    *        The source name. May be <code>null</code>.
-   * @return <code>null</code> if the source was <code>null</code> or the string
-   *         without the leading hack indicator.
+   * @return <code>null</code> if the source was <code>null</code> or the string without the leading
+   *         hack indicator.
    */
   @Nullable
   public static String getPropertyNameHandlingHacks (@Nullable final String sName)
   {
     String sRealName = sName;
-    if (StringHelper.hasText (sRealName))
+    if (StringHelper.isNotEmpty (sRealName))
     {
       // IE hacks
       final char cFirst = sRealName.charAt (0);
@@ -765,14 +761,12 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   }
 
   /**
-   * Get the CSS property with the specified name, but without hacking prefixes.
-   * This method strips the first leading '*', '_' or '$' from the name before
-   * it searches.
+   * Get the CSS property with the specified name, but without hacking prefixes. This method strips
+   * the first leading '*', '_' or '$' from the name before it searches.
    *
    * @param sName
    *        The source name. May be <code>null</code>.
-   * @return <code>null</code> if the source was <code>null</code> or if no such
-   *         property is known.
+   * @return <code>null</code> if the source was <code>null</code> or if no such property is known.
    * @see #getPropertyNameHandlingHacks(String)
    */
   @Nullable

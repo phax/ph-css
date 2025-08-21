@@ -19,19 +19,19 @@ package com.helger.css.utils;
 import java.math.BigDecimal;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.compare.IComparator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringParser;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.css.ECSSUnit;
 import com.helger.css.propertyvalue.CSSSimpleValueWithUnit;
+import com.helger.text.compare.ComparatorHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Provides number handling sanity methods.
@@ -51,7 +51,7 @@ public final class CSSNumberHelper
       aNameToUnitMap.put (eUnit.getName (), eUnit);
     // Now sort, so that the longest matches are upfront so that they are
     // determined first
-    s_aNameToUnitMap = aNameToUnitMap.getSortedByKey (IComparator.getComparatorStringLongestFirst ());
+    s_aNameToUnitMap = aNameToUnitMap.getSortedByKey (ComparatorHelper.getComparatorStringLongestFirst ());
   }
 
   @PresentForCodeCoverage
@@ -61,15 +61,13 @@ public final class CSSNumberHelper
   {}
 
   /**
-   * Try to find the unit that is used in the specified values. This check is
-   * done using "endsWith" so you have to make sure, that no trailing spaces are
-   * contained in the passed value. This check includes a check for percentage
-   * values (e.g. <code>10%</code>)
+   * Try to find the unit that is used in the specified values. This check is done using "endsWith"
+   * so you have to make sure, that no trailing spaces are contained in the passed value. This check
+   * includes a check for percentage values (e.g. <code>10%</code>)
    *
    * @param sCSSValue
    *        The value to check. May not be <code>null</code>.
-   * @return <code>null</code> if no matching unit from {@link ECSSUnit} was
-   *         found.
+   * @return <code>null</code> if no matching unit from {@link ECSSUnit} was found.
    * @see #getMatchingUnitExclPercentage(String)
    */
   @Nullable
@@ -85,15 +83,13 @@ public final class CSSNumberHelper
   }
 
   /**
-   * Try to find the unit that is used in the specified values. This check is
-   * done using "endsWith" so you have to make sure, that no trailing spaces are
-   * contained in the passed value. This check excludes a check for percentage
-   * values (e.g. <code>10%</code>)
+   * Try to find the unit that is used in the specified values. This check is done using "endsWith"
+   * so you have to make sure, that no trailing spaces are contained in the passed value. This check
+   * excludes a check for percentage values (e.g. <code>10%</code>)
    *
    * @param sCSSValue
    *        The value to check. May not be <code>null</code>.
-   * @return <code>null</code> if no matching unit from {@link ECSSUnit} was
-   *         found.
+   * @return <code>null</code> if no matching unit from {@link ECSSUnit} was found.
    * @see #getMatchingUnitInclPercentage(String)
    */
   @Nullable
@@ -107,26 +103,24 @@ public final class CSSNumberHelper
    * Check if the passed value is a pure numeric value without a unit.
    *
    * @param sCSSValue
-   *        The value to be checked. May be <code>null</code> and is
-   *        automatically trimmed inside.
-   * @return <code>true</code> if the passed value is a pure decimal numeric
-   *         value after trimming, <code>false</code> otherwise.
+   *        The value to be checked. May be <code>null</code> and is automatically trimmed inside.
+   * @return <code>true</code> if the passed value is a pure decimal numeric value after trimming,
+   *         <code>false</code> otherwise.
    */
   public static boolean isNumberValue (@Nullable final String sCSSValue)
   {
     final String sRealValue = StringHelper.trim (sCSSValue);
-    return StringHelper.hasText (sRealValue) && StringParser.isDouble (sRealValue);
+    return StringHelper.isNotEmpty (sRealValue) && StringParser.isDouble (sRealValue);
   }
 
   /**
-   * Check if the passed string value consists of a numeric value and a unit as
-   * in <code>5px</code>. This method includes the percentage unit.
+   * Check if the passed string value consists of a numeric value and a unit as in <code>5px</code>.
+   * This method includes the percentage unit.
    *
    * @param sCSSValue
-   *        The value to be parsed. May be <code>null</code> and is trimmed
-   *        inside this method.
-   * @return <code>true</code> if the passed value consist of a number and a
-   *         unit, <code>false</code> otherwise.
+   *        The value to be parsed. May be <code>null</code> and is trimmed inside this method.
+   * @return <code>true</code> if the passed value consist of a number and a unit,
+   *         <code>false</code> otherwise.
    * @see #getValueWithUnit(String)
    * @see #isValueWithUnit(String, boolean)
    */
@@ -136,17 +130,15 @@ public final class CSSNumberHelper
   }
 
   /**
-   * Check if the passed string value consists of a numeric value and a unit as
-   * in <code>5px</code>.
+   * Check if the passed string value consists of a numeric value and a unit as in <code>5px</code>.
    *
    * @param sCSSValue
-   *        The value to be parsed. May be <code>null</code> and is trimmed
-   *        inside this method.
+   *        The value to be parsed. May be <code>null</code> and is trimmed inside this method.
    * @param bWithPerc
-   *        <code>true</code> to include the percentage unit, <code>false</code>
-   *        to exclude the percentage unit.
-   * @return <code>true</code> if the passed value consist of a number and a
-   *         unit, <code>false</code> otherwise.
+   *        <code>true</code> to include the percentage unit, <code>false</code> to exclude the
+   *        percentage unit.
+   * @return <code>true</code> if the passed value consist of a number and a unit,
+   *         <code>false</code> otherwise.
    * @see #getValueWithUnit(String, boolean)
    */
   public static boolean isValueWithUnit (@Nullable final String sCSSValue, final boolean bWithPerc)
@@ -155,17 +147,14 @@ public final class CSSNumberHelper
   }
 
   /**
-   * Convert the passed string value with unit into a structured
-   * {@link CSSSimpleValueWithUnit}. Example: parsing <code>5px</code> will
-   * result in the numeric value <code>5</code> and the unit
-   * <code>ECSSUnit.PX</code>. The special value "0" is returned with the unit
-   * "px". This method includes the percentage unit.
+   * Convert the passed string value with unit into a structured {@link CSSSimpleValueWithUnit}.
+   * Example: parsing <code>5px</code> will result in the numeric value <code>5</code> and the unit
+   * <code>ECSSUnit.PX</code>. The special value "0" is returned with the unit "px". This method
+   * includes the percentage unit.
    *
    * @param sCSSValue
-   *        The value to be parsed. May be <code>null</code> and is trimmed
-   *        inside this method.
-   * @return <code>null</code> if the passed value could not be converted to
-   *         value and unit.
+   *        The value to be parsed. May be <code>null</code> and is trimmed inside this method.
+   * @return <code>null</code> if the passed value could not be converted to value and unit.
    */
   @Nullable
   public static CSSSimpleValueWithUnit getValueWithUnit (@Nullable final String sCSSValue)
@@ -174,32 +163,29 @@ public final class CSSNumberHelper
   }
 
   /**
-   * Convert the passed string value with unit into a structured
-   * {@link CSSSimpleValueWithUnit}. Example: parsing <code>5px</code> will
-   * result in the numeric value <code>5</code> and the unit
-   * <code>ECSSUnit.PX</code>. The special value "0" is returned with the unit
-   * "px".
+   * Convert the passed string value with unit into a structured {@link CSSSimpleValueWithUnit}.
+   * Example: parsing <code>5px</code> will result in the numeric value <code>5</code> and the unit
+   * <code>ECSSUnit.PX</code>. The special value "0" is returned with the unit "px".
    *
    * @param sCSSValue
-   *        The value to be parsed. May be <code>null</code> and is trimmed
-   *        inside this method.
+   *        The value to be parsed. May be <code>null</code> and is trimmed inside this method.
    * @param bWithPerc
-   *        <code>true</code> to include the percentage unit, <code>false</code>
-   *        to exclude the percentage unit.
-   * @return <code>null</code> if the passed value could not be converted to
-   *         value and unit.
+   *        <code>true</code> to include the percentage unit, <code>false</code> to exclude the
+   *        percentage unit.
+   * @return <code>null</code> if the passed value could not be converted to value and unit.
    */
   @Nullable
   public static CSSSimpleValueWithUnit getValueWithUnit (@Nullable final String sCSSValue, final boolean bWithPerc)
   {
     String sRealValue = StringHelper.trim (sCSSValue);
-    if (StringHelper.hasText (sRealValue))
+    if (StringHelper.isNotEmpty (sRealValue))
     {
       // Special case for 0!
       if (sRealValue.equals ("0"))
         return new CSSSimpleValueWithUnit (BigDecimal.ZERO, ECSSUnit.PX);
 
-      final ECSSUnit eUnit = bWithPerc ? getMatchingUnitInclPercentage (sRealValue) : getMatchingUnitExclPercentage (sRealValue);
+      final ECSSUnit eUnit = bWithPerc ? getMatchingUnitInclPercentage (sRealValue) : getMatchingUnitExclPercentage (
+                                                                                                                     sRealValue);
       if (eUnit != null)
       {
         // Cut the unit off

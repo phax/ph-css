@@ -16,10 +16,10 @@
  */
 package com.helger.css.handler;
 
-import javax.annotation.Nonnull;
-
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.parser.CSSNode;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Runtime exception that is thrown if interpreting the CSS fails. Only thrown

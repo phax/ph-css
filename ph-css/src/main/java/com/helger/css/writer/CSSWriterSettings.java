@@ -16,22 +16,22 @@
  */
 package com.helger.css.writer;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.system.ENewLineMode;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.system.ENewLineMode;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.utils.CSSURLHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class represents the options required for writing

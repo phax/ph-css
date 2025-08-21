@@ -16,9 +16,9 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
-import com.helger.commons.annotation.Nonempty;
+import jakarta.annotation.Nonnull;
 
 /**
  * Special CSS error handler that is invoked during interpretation of a parsed

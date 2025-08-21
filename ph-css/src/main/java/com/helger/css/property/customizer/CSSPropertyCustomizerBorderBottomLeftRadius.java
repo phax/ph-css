@@ -16,16 +16,16 @@
  */
 package com.helger.css.property.customizer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
 import com.helger.css.propertyvalue.CSSValueMultiProperty;
 import com.helger.css.propertyvalue.ICSSValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Special customizer for the "border-bottom-left-radius" property.

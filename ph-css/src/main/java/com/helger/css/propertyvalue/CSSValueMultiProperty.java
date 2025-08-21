@@ -16,27 +16,26 @@
  */
 package com.helger.css.propertyvalue;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringImplode;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
 
+import jakarta.annotation.Nonnull;
+
 /**
- * Represents a CSS value that has several property names, but only one value.
- * This is e.g. if the property <code>border-radius</code> is used, as in this
- * case also <code>-moz-border-radius</code> should be emitted (with the same
- * value).<br>
+ * Represents a CSS value that has several property names, but only one value. This is e.g. if the
+ * property <code>border-radius</code> is used, as in this case also <code>-moz-border-radius</code>
+ * should be emitted (with the same value).<br>
  * For consistency issues,
  *
  * @author Philip Helger
@@ -64,7 +63,9 @@ public class CSSValueMultiProperty implements ICSSMultiValue
         break;
       }
     if (!bFound)
-      throw new IllegalArgumentException ("The property " + eProperty + " is not contained in an ICSSProperty instance!");
+      throw new IllegalArgumentException ("The property " +
+                                          eProperty +
+                                          " is not contained in an ICSSProperty instance!");
 
     m_eProperty = eProperty;
     for (final ICSSProperty aProperty : aProperties)
@@ -87,7 +88,7 @@ public class CSSValueMultiProperty implements ICSSMultiValue
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    return StringHelper.getImplodedMapped (m_aValues, x -> x.getAsCSSString (aSettings, nIndentLevel));
+    return StringImplode.imploder ().source (m_aValues, x -> x.getAsCSSString (aSettings, nIndentLevel)).build ();
   }
 
   @Override

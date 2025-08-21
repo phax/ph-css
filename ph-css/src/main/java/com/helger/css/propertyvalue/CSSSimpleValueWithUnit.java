@@ -19,18 +19,18 @@ package com.helger.css.propertyvalue;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.CheckReturnValue;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.numeric.BigHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.ECSSUnit;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class encapsulates a single numeric value and a unit ({@link ECSSUnit}).
@@ -118,8 +118,7 @@ public class CSSSimpleValueWithUnit
   }
 
   /**
-   * @return The numeric value as an int value - no check for validity is
-   *         performed
+   * @return The numeric value as an int value - no check for validity is performed
    */
   public int getAsIntValue ()
   {
@@ -127,8 +126,7 @@ public class CSSSimpleValueWithUnit
   }
 
   /**
-   * @return The numeric value as a long value - no check for validity is
-   *         performed
+   * @return The numeric value as a long value - no check for validity is performed
    */
   public long getAsLongValue ()
   {
@@ -160,8 +158,7 @@ public class CSSSimpleValueWithUnit
   }
 
   /**
-   * @return The formatted string value of this item. Neither <code>null</code>
-   *         nor empty.
+   * @return The formatted string value of this item. Neither <code>null</code> nor empty.
    * @since 3.7.3
    */
   @Nonnull
@@ -233,8 +230,7 @@ public class CSSSimpleValueWithUnit
    * Get a new object with the same unit but a multiplied value.
    *
    * @param aValue
-   *        The value to be multiply with this value. May not be
-   *        <code>null</code>.
+   *        The value to be multiply with this value. May not be <code>null</code>.
    * @return A new object. Never <code>null</code>.
    * @since 3.7.3
    */
@@ -282,8 +278,8 @@ public class CSSSimpleValueWithUnit
 
   /**
    * Get a new object with the same unit but an divided value. By default
-   * {@link CCSS#CSS_MAXIMUM_FRACTION_DIGITS} is used as scale and
-   * {@link RoundingMode#HALF_UP} is used as rounding mode.
+   * {@link CCSS#CSS_MAXIMUM_FRACTION_DIGITS} is used as scale and {@link RoundingMode#HALF_UP} is
+   * used as rounding mode.
    *
    * @param aDivisor
    *        The divisor to use. May not be <code>null</code>.
@@ -319,7 +315,7 @@ public class CSSSimpleValueWithUnit
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSimpleValueWithUnit rhs = (CSSSimpleValueWithUnit) o;
-    return EqualsHelper.equals (m_aValue, rhs.m_aValue) && m_eUnit.equals (rhs.m_eUnit);
+    return BigHelper.equalValues (m_aValue, rhs.m_aValue) && m_eUnit.equals (rhs.m_eUnit);
   }
 
   @Override
@@ -331,6 +327,6 @@ public class CSSSimpleValueWithUnit
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_aValue).append ("unit", m_eUnit).getToString ();
+    return new ToStringGenerator (this).append ("Value", m_aValue).append ("Unit", m_eUnit).getToString ();
   }
 }

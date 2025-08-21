@@ -20,23 +20,23 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.WillNotClose;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.codec.base64.Base64;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.mime.CMimeType;
+import com.helger.mime.IMimeType;
+import com.helger.mime.MimeType;
+import com.helger.mime.MimeTypeHelper;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.base64.Base64;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.mime.IMimeType;
-import com.helger.commons.mime.MimeType;
-import com.helger.commons.mime.MimeTypeHelper;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single CSS data URL (RFC 2397).
@@ -53,8 +53,8 @@ public class CSSDataURL
   private String m_sContent;
 
   /**
-   * Determine the charset from the passed MIME type. If no charset was found,
-   * return the default charset.
+   * Determine the charset from the passed MIME type. If no charset was found, return the default
+   * charset.
    *
    * @param aMimeType
    *        The MIME type to investigate.
@@ -79,15 +79,13 @@ public class CSSDataURL
    * Constructor
    *
    * @param aMimeType
-   *        The MIME type to be used. If it contains a charset, this charset
-   *        will be used otherwise the default charset will be used.
+   *        The MIME type to be used. If it contains a charset, this charset will be used otherwise
+   *        the default charset will be used.
    * @param bBase64Encoded
-   *        <code>true</code> if the content of this data should be Base64
-   *        encoded. It is recommended to set this to <code>true</code> if you
-   *        have binary data like images.
+   *        <code>true</code> if the content of this data should be Base64 encoded. It is
+   *        recommended to set this to <code>true</code> if you have binary data like images.
    * @param aContent
-   *        The content of the data URL as a byte array. May not be
-   *        <code>null</code>.
+   *        The content of the data URL as a byte array. May not be <code>null</code>.
    */
   public CSSDataURL (@Nonnull final IMimeType aMimeType, final boolean bBase64Encoded, @Nonnull final byte [] aContent)
   {
@@ -98,26 +96,22 @@ public class CSSDataURL
    * Full constructor
    *
    * @param aMimeType
-   *        The MIME type to be used. May not be <code>null</code>. If you don't
-   *        know provide the default MIME type from
-   *        {@link CSSDataURLHelper#DEFAULT_MIME_TYPE}.
+   *        The MIME type to be used. May not be <code>null</code>. If you don't know provide the
+   *        default MIME type from {@link CSSDataURLHelper#DEFAULT_MIME_TYPE}.
    * @param bBase64Encoded
-   *        <code>true</code> if the data URL String representation should be
-   *        Base64 encoded, <code>false</code> if not. It is recommended to set
-   *        this to <code>true</code> if you have binary data like images.
+   *        <code>true</code> if the data URL String representation should be Base64 encoded,
+   *        <code>false</code> if not. It is recommended to set this to <code>true</code> if you
+   *        have binary data like images.
    * @param aContent
-   *        The content of the data URL as a byte array. May not be
-   *        <code>null</code> but may be empty. This content may not be Base64
-   *        encoded!
+   *        The content of the data URL as a byte array. May not be <code>null</code> but may be
+   *        empty. This content may not be Base64 encoded!
    * @param aCharset
-   *        The charset to be used to encode the String. May not be
-   *        <code>null</code>. The default is
-   *        {@link CSSDataURLHelper#DEFAULT_CHARSET}.
+   *        The charset to be used to encode the String. May not be <code>null</code>. The default
+   *        is {@link CSSDataURLHelper#DEFAULT_CHARSET}.
    * @param sContent
-   *        The String representation of the content. It must match the byte
-   *        array in the specified charset. If this parameter is
-   *        <code>null</code> than the String content representation is lazily
-   *        created in {@link #getContentAsString()}.
+   *        The String representation of the content. It must match the byte array in the specified
+   *        charset. If this parameter is <code>null</code> than the String content representation
+   *        is lazily created in {@link #getContentAsString()}.
    */
   public CSSDataURL (@Nonnull final IMimeType aMimeType,
                      final boolean bBase64Encoded,
@@ -138,7 +132,8 @@ public class CSSDataURL
       if (!aCharset.equals (CSSDataURLHelper.DEFAULT_CHARSET))
       {
         // append charset only if it is not the default charset
-        m_aMimeType = ((MimeType) aMimeType.getClone ()).addParameter (CMimeType.PARAMETER_NAME_CHARSET, aCharset.name ());
+        m_aMimeType = ((MimeType) aMimeType.getClone ()).addParameter (CMimeType.PARAMETER_NAME_CHARSET,
+                                                                       aCharset.name ());
       }
       else
       {
@@ -164,9 +159,8 @@ public class CSSDataURL
   }
 
   /**
-   * @return The MIME type of the data URL. If none was specified, than the
-   *         default MIME Type {@link CSSDataURLHelper#DEFAULT_MIME_TYPE} must
-   *         be used.
+   * @return The MIME type of the data URL. If none was specified, than the default MIME Type
+   *         {@link CSSDataURLHelper#DEFAULT_MIME_TYPE} must be used.
    */
   @Nonnull
   public IMimeType getMimeType ()
@@ -175,8 +169,8 @@ public class CSSDataURL
   }
 
   /**
-   * @return <code>true</code> if the parsed data URL was Base64 encoded or if
-   *         this data URL should be Base64 encoded.
+   * @return <code>true</code> if the parsed data URL was Base64 encoded or if this data URL should
+   *         be Base64 encoded.
    */
   public boolean isBase64Encoded ()
   {
@@ -193,11 +187,9 @@ public class CSSDataURL
   }
 
   /**
-   * Get a copy of all content bytes. No Base64 encoding is performed in this
-   * method.
+   * Get a copy of all content bytes. No Base64 encoding is performed in this method.
    *
-   * @return A copy of the binary data of the data URL. Neither
-   *         <code>null</code> but maybe empty.
+   * @return A copy of the binary data of the data URL. Neither <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -207,8 +199,8 @@ public class CSSDataURL
   }
 
   /**
-   * Write all the binary content to the passed output stream. No Base64
-   * encoding is performed in this method.
+   * Write all the binary content to the passed output stream. No Base64 encoding is performed in
+   * this method.
    *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>.
@@ -221,9 +213,8 @@ public class CSSDataURL
   }
 
   /**
-   * @return The charset to be used for String encoding. May not be
-   *         <code>null</code>. The default is
-   *         {@link CSSDataURLHelper#DEFAULT_CHARSET}.
+   * @return The charset to be used for String encoding. May not be <code>null</code>. The default
+   *         is {@link CSSDataURLHelper#DEFAULT_CHARSET}.
    */
   @Nonnull
   public Charset getCharset ()
@@ -232,15 +223,13 @@ public class CSSDataURL
   }
 
   /**
-   * Get the data content of this Data URL as String. If no String
-   * representation was provided in the constructor, than it is lazily created
-   * inside this method in which case instances of this class are not
-   * thread-safe. If a non-<code>null</code> String was provided in the
-   * constructor, this object is immutable. No Base64 encoding is performed in
-   * this method.
+   * Get the data content of this Data URL as String. If no String representation was provided in
+   * the constructor, than it is lazily created inside this method in which case instances of this
+   * class are not thread-safe. If a non-<code>null</code> String was provided in the constructor,
+   * this object is immutable. No Base64 encoding is performed in this method.
    *
-   * @return The content in a String representation using the charset of this
-   *         object. Never <code>null</code>.
+   * @return The content in a String representation using the charset of this object. Never
+   *         <code>null</code>.
    */
   @Nonnull
   public String getContentAsString ()
@@ -251,9 +240,9 @@ public class CSSDataURL
   }
 
   /**
-   * Get the content as a Base64 encoded {@link String} in the {@link Charset}
-   * specified by {@link #getCharset()}. The encoding is applied independent of
-   * the {@link #isBase64Encoded()} state.
+   * Get the content as a Base64 encoded {@link String} in the {@link Charset} specified by
+   * {@link #getCharset()}. The encoding is applied independent of the {@link #isBase64Encoded()}
+   * state.
    *
    * @return Never <code>null</code>.
    */
@@ -267,13 +256,13 @@ public class CSSDataURL
   }
 
   /**
-   * Get the data content of this Data URL as String in the specified charset.
-   * No Base64 encoding is performed in this method.
+   * Get the data content of this Data URL as String in the specified charset. No Base64 encoding is
+   * performed in this method.
    *
    * @param aCharset
    *        The charset to be used. May not be <code>null</code>.
-   * @return The content in a String representation using the provided charset.
-   *         Never <code>null</code>.
+   * @return The content in a String representation using the provided charset. Never
+   *         <code>null</code>.
    */
   @Nonnull
   public String getContentAsString (@Nonnull final Charset aCharset)
@@ -287,9 +276,8 @@ public class CSSDataURL
   }
 
   /**
-   * @return The complete representation of the data URL, starting with "data:".
-   *         All data is emitted, even if it is the default value. Base64
-   *         encoding is performed in this method.
+   * @return The complete representation of the data URL, starting with "data:". All data is
+   *         emitted, even if it is the default value. Base64 encoding is performed in this method.
    */
   @Nonnull
   public String getAsString ()
@@ -301,8 +289,8 @@ public class CSSDataURL
   /**
    * @param bOptimizedVersion
    *        <code>true</code> to create optimized version
-   * @return The complete representation of the data URL, starting with "data:".
-   *         All data is emitted, even if it is the default value.
+   * @return The complete representation of the data URL, starting with "data:". All data is
+   *         emitted, even if it is the default value.
    */
   @Nonnull
   public String getAsString (final boolean bOptimizedVersion)
@@ -313,7 +301,8 @@ public class CSSDataURL
     {
       // Do not emit the default, if it is the optimized version
       if (!m_aMimeType.equals (CSSDataURLHelper.DEFAULT_MIME_TYPE))
-        if (m_aMimeType.getAsStringWithoutParameters ().equals (CSSDataURLHelper.DEFAULT_MIME_TYPE.getAsStringWithoutParameters ()))
+        if (m_aMimeType.getAsStringWithoutParameters ()
+                       .equals (CSSDataURLHelper.DEFAULT_MIME_TYPE.getAsStringWithoutParameters ()))
         {
           // Emit only the parameters
           aSB.append (m_aMimeType.getParametersAsString (CSSDataURLHelper.MIME_QUOTING));

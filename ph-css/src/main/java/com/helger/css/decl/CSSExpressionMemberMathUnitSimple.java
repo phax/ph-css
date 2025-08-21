@@ -16,21 +16,21 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSUnit;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.utils.CSSNumberHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Part of a CSS calc element
@@ -46,7 +46,7 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
 
   public CSSExpressionMemberMathUnitSimple (@Nonnull @Nonempty final String sText)
   {
-    if (StringHelper.hasNoTextAfterTrim (sText))
+    if (StringHelper.isEmptyAfterTrim (sText))
       throw new IllegalArgumentException ("text may not be empty after trimming");
     m_sText = sText.trim ();
     m_eUnit = CSSNumberHelper.getMatchingUnitExclPercentage (m_sText);
@@ -62,8 +62,7 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   }
 
   /**
-   * @return The applicable CSS unit. May be <code>null</code> if no unit is
-   *         present.
+   * @return The applicable CSS unit. May be <code>null</code> if no unit is present.
    */
   @Nullable
   public final ECSSUnit getUnit ()

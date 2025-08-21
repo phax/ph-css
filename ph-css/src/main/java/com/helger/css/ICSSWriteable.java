@@ -16,10 +16,10 @@
  */
 package com.helger.css;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-
+import com.helger.annotation.Nonnegative;
 import com.helger.css.writer.CSSWriterSettings;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Interface for objects that can be written to CSS.

@@ -16,14 +16,14 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.string.StringHelper;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * CSS property without any value constraints, except that it may not be empty.
@@ -57,7 +57,7 @@ public class CSSPropertyFree extends AbstractCSSProperty
 
   public static boolean isValidPropertyValue (@Nullable final String sValue)
   {
-    return AbstractCSSProperty.isValidPropertyValue (sValue) || StringHelper.hasText (sValue);
+    return AbstractCSSProperty.isValidPropertyValue (sValue) || StringHelper.isNotEmpty (sValue);
   }
 
   @Override

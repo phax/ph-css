@@ -18,14 +18,11 @@ package com.helger.css.handler;
 
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.*;
@@ -36,12 +33,11 @@ import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
- * This class converts the jjtree node to a domain object. This is where the
- * hard work happens.
+ * This class converts the jjtree node to a domain object. This is where the hard work happens.
  *
  * @author Philip Helger
  */
@@ -60,9 +56,8 @@ final class CSSNodeToDomainObject
    * @param aErrorHandler
    *        Error handler to use. May not be <code>null</code>.
    * @param bUseSourceLocation
-   *        <code>true</code> to keep the source location, <code>false</code> to
-   *        ignore the source location. Disabling the source location may be a
-   *        performance improvement.
+   *        <code>true</code> to keep the source location, <code>false</code> to ignore the source
+   *        location. Disabling the source location may be a performance improvement.
    */
   public CSSNodeToDomainObject (@Nonnull final ECSSVersion eVersion,
                                 @Nonnull final ICSSInterpretErrorHandler aErrorHandler,
@@ -325,7 +320,7 @@ final class CSSNodeToDomainObject
           final int nChildChildCount = aChildNode.jjtGetNumChildren ();
           final ICommonsList <CSSSelector> aNestedSelectors = new CommonsArrayList <> ();
           for (int j = 0; j < nChildChildCount; ++j)
-            aNestedSelectors.add (_createRelativeSelector(aChildNode.jjtGetChild (j)));
+            aNestedSelectors.add (_createRelativeSelector (aChildNode.jjtGetChild (j)));
 
           final CSSSelectorMemberPseudoHas ret = new CSSSelectorMemberPseudoHas (aNestedSelectors);
           if (m_bUseSourceLocation)
@@ -810,7 +805,6 @@ final class CSSNodeToDomainObject
   }
 
   @Nonnull
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   private CSSPageRule _createPageRule (@Nonnull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.PAGERULE);
@@ -960,13 +954,13 @@ final class CSSNodeToDomainObject
                         else
                           if (!ECSSNodeType.isErrorNode (aChildNode, m_eVersion))
                             m_aErrorHandler.onCSSInterpretationError ("Unsupported media-rule child: " +
-                                                                      ECSSNodeType.getNodeName (aChildNode, m_eVersion));
+                                                                      ECSSNodeType.getNodeName (aChildNode,
+                                                                                                m_eVersion));
     }
     return ret;
   }
 
   @Nonnull
-  @SuppressFBWarnings ("IL_INFINITE_LOOP")
   private CSSMediaQuery _createMediaQuery (@Nonnull final CSSNode aNode)
   {
     if (ECSSNodeType.MEDIUM.isNode (aNode, m_eVersion))
@@ -1105,7 +1099,7 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @NonNull
+  @Nonnull
   private CSSLayerRule _createLayerRule (@Nonnull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.LAYERRULE);
@@ -1116,19 +1110,19 @@ final class CSSNodeToDomainObject
 
     final CSSLayerRule ret;
     final ICommonsList <String> aLayerSelectors = new CommonsArrayList <> ();
-    if (ECSSNodeType.LAYERSELECTORLIST.isNode(aNode.jjtGetChild(0), m_eVersion))
+    if (ECSSNodeType.LAYERSELECTORLIST.isNode (aNode.jjtGetChild (0), m_eVersion))
     {
-      for (CSSNode aSelectorChild : aNode.jjtGetChild (0))
+      for (final CSSNode aSelectorChild : aNode.jjtGetChild (0))
       {
         _expectNodeType (aSelectorChild, ECSSNodeType.LAYERSELECTOR);
         aLayerSelectors.add (aSelectorChild.getText ());
       }
-      
+
       ret = new CSSLayerRule (aLayerSelectors);
     }
     else
     {
-      if (ECSSNodeType.LAYERSELECTOR.isNode(aNode.jjtGetChild (0), m_eVersion))
+      if (ECSSNodeType.LAYERSELECTOR.isNode (aNode.jjtGetChild (0), m_eVersion))
       {
         aLayerSelectors.add (aNode.jjtGetChild (0).getText ());
       }
@@ -1171,7 +1165,7 @@ final class CSSNodeToDomainObject
     }
 
     if (m_bUseSourceLocation)
-      ret.setSourceLocation (aNode.getSourceLocation());
+      ret.setSourceLocation (aNode.getSourceLocation ());
     return ret;
   }
 
@@ -1477,8 +1471,8 @@ final class CSSNodeToDomainObject
                   if (ECSSNodeType.FONTFACERULE.isNode (aChildNode, m_eVersion))
                     ret.addRule (_createFontFaceRule (aChildNode));
                   else
-                    if (ECSSNodeType.LAYERRULE.isNode(aChildNode, m_eVersion))
-                      ret.addRule (_createLayerRule(aChildNode));
+                    if (ECSSNodeType.LAYERRULE.isNode (aChildNode, m_eVersion))
+                      ret.addRule (_createLayerRule (aChildNode));
                     else
                       if (ECSSNodeType.KEYFRAMESRULE.isNode (aChildNode, m_eVersion))
                         ret.addRule (_createKeyframesRule (aChildNode));
@@ -1500,13 +1494,11 @@ final class CSSNodeToDomainObject
                               if (ECSSNodeType.ROOT.isNode (aChildNode, m_eVersion))
                               {
                                 /*
-                                 * In case a parsing error occurs (as e.g.
-                                 * happening in issue #41) and browser compliant
-                                 * mode is enabled, some CSS code is skipped and a
-                                 * retry happens. This retry will be a recursive
-                                 * stylesheet object that is a child of the
-                                 * previous stylesheet but "flattened" for the
-                                 * result object.
+                                 * In case a parsing error occurs (as e.g. happening in issue #41)
+                                 * and browser compliant mode is enabled, some CSS code is skipped
+                                 * and a retry happens. This retry will be a recursive stylesheet
+                                 * object that is a child of the previous stylesheet but "flattened"
+                                 * for the result object.
                                  */
                                 _recursiveFillCascadingStyleSheetFromNode (aChildNode, ret);
                               }

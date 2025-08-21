@@ -29,14 +29,10 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.io.EAppend;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FileOperationManager;
-import com.helger.commons.io.file.FilenameHelper;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.system.ENewLineMode;
-import com.helger.commons.system.EOperatingSystem;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.io.EAppend;
+import com.helger.base.system.ENewLineMode;
+import com.helger.base.system.EOperatingSystem;
 import com.helger.css.CCSS;
 import com.helger.css.CSSFilenameHelper;
 import com.helger.css.ECSSVersion;
@@ -46,15 +42,16 @@ import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.FileOperationManager;
+import com.helger.io.file.FilenameHelper;
+import com.helger.io.resource.FileSystemResource;
 
 /**
  * @goal csscompress
  * @phase generate-resources
  * @description Compress existing CSS file using ph-css compressor.
  */
-@SuppressFBWarnings (value = { "UWF_UNWRITTEN_FIELD", "NP_UNWRITTEN_FIELD" }, justification = "set via maven property")
 public final class CSSCompressMojo extends AbstractMojo
 {
   private static final String [] EXTENSIONS_CSS_COMPRESSED = { CCSS.FILE_EXTENSION_MIN_CSS,
@@ -72,19 +69,16 @@ public final class CSSCompressMojo extends AbstractMojo
   private MavenProject project;
 
   /**
-   * The directory where the source CSS files reside. It must be an existing
-   * directory.
+   * The directory where the source CSS files reside. It must be an existing directory.
    *
    * @required
-   * @parameter property="sourceDirectory"
-   *            default-value="${basedir}/src/main/resources"
+   * @parameter property="sourceDirectory" default-value="${basedir}/src/main/resources"
    */
   private File sourceDirectory;
 
   /**
-   * The directory where the target CSS files reside. If the directory is not
-   * existing, it is created. If no target directory is provided, the source
-   * directory will be used.
+   * The directory where the target CSS files reside. If the directory is not existing, it is
+   * created. If no target directory is provided, the source directory will be used.
    *
    * @parameter property="targetDirectory"
    */
@@ -105,8 +99,7 @@ public final class CSSCompressMojo extends AbstractMojo
   private boolean removeUnnecessaryCode = false;
 
   /**
-   * Should URLs always be quoted? If false they are only quoted when absolutely
-   * necessary.
+   * Should URLs always be quoted? If false they are only quoted when absolutely necessary.
    *
    * @parameter property="quoteURLs" default-value="false"
    */
@@ -173,8 +166,8 @@ public final class CSSCompressMojo extends AbstractMojo
   private boolean writeUnknownRules = true;
 
   /**
-   * Should the CSS files be compressed, even if the timestamp of the compressed
-   * file is newer than the timestamp of the original CSS file?
+   * Should the CSS files be compressed, even if the timestamp of the compressed file is newer than
+   * the timestamp of the original CSS file?
    *
    * @parameter property="forceCompress" default-value="false"
    */
@@ -196,8 +189,7 @@ public final class CSSCompressMojo extends AbstractMojo
   private boolean browserCompliantMode = CSSReaderSettings.DEFAULT_BROWSER_COMPLIANT_MODE;
 
   /**
-   * If true the deprecated properties should be kept when reading, otherwise
-   * they are discarded.
+   * If true the deprecated properties should be kept when reading, otherwise they are discarded.
    *
    * @parameter property="keepDeprecatedProperties" default-value="false"
    * @since 7.0.4
@@ -205,16 +197,15 @@ public final class CSSCompressMojo extends AbstractMojo
   private boolean keepDeprecatedProperties = CSSReaderSettings.DEFAULT_KEEP_DEPRECATED_PROPERTIES;
 
   /**
-   * The encoding of the source CSS files to be used for reading the CSS file in
-   * case neither a @charset rule nor a BOM is present.
+   * The encoding of the source CSS files to be used for reading the CSS file in case neither
+   * a @charset rule nor a BOM is present.
    *
    * @parameter property="sourceEncoding" default-value="ISO-8859-1"
    */
   private String sourceEncoding = CSSReaderSettings.DEFAULT_CHARSET.name ();
 
   /**
-   * The filename extension that should be used for the minified/compressed CSS
-   * file.
+   * The filename extension that should be used for the minified/compressed CSS file.
    *
    * @parameter property="targetFileExtension" default-value=".min.css"
    */
@@ -229,18 +220,16 @@ public final class CSSCompressMojo extends AbstractMojo
   private String targetEncoding = StandardCharsets.UTF_8.name ();
 
   /**
-   * The new line mode to be used for writing the files. Valid values are
-   * <code>win</code> to use "\r\n", <code>unix</code> to use "\n",
-   * <code>mac</code> to use "\r" or <code>system</code> to use the system
-   * default line ending. By default the Unix new line mode is used for
-   * backwards compatibility.
+   * The new line mode to be used for writing the files. Valid values are <code>win</code> to use
+   * "\r\n", <code>unix</code> to use "\n", <code>mac</code> to use "\r" or <code>system</code> to
+   * use the system default line ending. By default the Unix new line mode is used for backwards
+   * compatibility.
    *
    * @parameter property="newLineMode"
    * @since 1.5.1
    */
   private ENewLineMode newLineMode = CSSWriterSettings.DEFAULT_NEW_LINE_MODE;
 
-  @SuppressFBWarnings ({ "NP_UNWRITTEN_FIELD", "UWF_UNWRITTEN_FIELD" })
   public void setSourceDirectory (final File aDir) throws IOException
   {
     sourceDirectory = aDir;
@@ -368,8 +357,8 @@ public final class CSSCompressMojo extends AbstractMojo
   }
 
   /**
-   * Check if the passed file is already compressed. The check is only done
-   * using the file extension of the file name.
+   * Check if the passed file is already compressed. The check is only done using the file extension
+   * of the file name.
    *
    * @param sFilename
    *        The filename to be checked.

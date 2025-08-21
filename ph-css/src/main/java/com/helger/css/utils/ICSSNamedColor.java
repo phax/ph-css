@@ -16,7 +16,7 @@
  */
 package com.helger.css.utils;
 
-import com.helger.commons.name.IHasName;
+import com.helger.base.name.IHasName;
 
 /**
  * Base interface for predefined CSS color names

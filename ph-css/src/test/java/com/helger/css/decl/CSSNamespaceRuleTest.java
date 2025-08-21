@@ -21,12 +21,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
 import com.helger.css.ECSSVersion;
 import com.helger.css.reader.CSSReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for {@link CSSNamespaceRule}.

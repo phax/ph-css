@@ -16,14 +16,14 @@
  */
 package com.helger.css.handler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.css.parser.ParseException;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link ICSSParseExceptionCallback} that logs all

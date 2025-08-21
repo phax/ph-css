@@ -361,7 +361,7 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
       // Encountered EOF while skipping - throw the original exception!
       throw ex;
     }
-  } while (!com.helger.commons.collection.ArrayHelper.contains (aKinds, tok.kind));
+  } while (!com.helger.base.array.ArrayHelper.contains (aKinds, tok.kind));
 
   if (LOGGER.isDebugEnabled ())
     LOGGER.debug ("Skipped until token " + tok.toString ());
@@ -397,8 +397,8 @@ private String javaSkipToClosingParantheses() throws ParseException #void {
         if (tok.kind == EOF)
           throw new ParseEOFException ("EOF while searching for matching closing ')'.");
         // Sometimes token images contain parenthesis
-        nNesting += com.helger.commons.string.StringHelper.getCharCount (tok.image, '(');
-        nNesting -= com.helger.commons.string.StringHelper.getCharCount (tok.image, ')');
+        nNesting += com.helger.base.string.StringCount.getCharCount (tok.image, '(');
+        nNesting -= com.helger.base.string.StringCount.getCharCount (tok.image, ')');
       }
   }
   return aSB.toString ();

@@ -16,20 +16,20 @@
  */
 package com.helger.css.media;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringImplode;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.collection.commons.ICommonsOrderedSet;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Manages an ordered set of {@link ECSSMedium} objects.
@@ -65,8 +65,8 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
    * Constructor with an array of media.
    *
    * @param aMedia
-   *        The array of media to be added. The array may be <code>null</code>
-   *        but it may not contain <code>null</code> elements.
+   *        The array of media to be added. The array may be <code>null</code> but it may not
+   *        contain <code>null</code> elements.
    */
   public CSSMediaList (@Nullable final ECSSMedium... aMedia)
   {
@@ -79,8 +79,8 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
    * Constructor with a collection of media.
    *
    * @param aMedia
-   *        The collection of media to be added. The collection may be
-   *        <code>null</code> but it may not contain <code>null</code> elements.
+   *        The collection of media to be added. The collection may be <code>null</code> but it may
+   *        not contain <code>null</code> elements.
    */
   public CSSMediaList (@Nullable final Iterable <ECSSMedium> aMedia)
   {
@@ -186,8 +186,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
    *
    * @param eMedium
    *        The medium to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the medium was removed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the medium was removed, {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
   public EChange removeMedium (@Nullable final ECSSMedium eMedium)
@@ -198,8 +197,8 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   /**
    * Remove all media.
    *
-   * @return {@link EChange#CHANGED} if any medium was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any medium was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
   @Nonnull
@@ -239,7 +238,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
     if (m_aMedia.isEmpty ())
       return "";
 
-    return StringHelper.getImplodedMapped (sSeparator, m_aMedia, ECSSMedium::getName);
+    return StringImplode.getImplodedMapped (sSeparator, m_aMedia, ECSSMedium::getName);
   }
 
   @Nonnull

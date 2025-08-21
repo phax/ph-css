@@ -23,14 +23,14 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
-import javax.annotation.WillNotClose;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.WillNotClose;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.io.file.FileHelper;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.stream.StreamHelper;
+import jakarta.annotation.Nonnull;
 
 public class CSSTokenizer
 {

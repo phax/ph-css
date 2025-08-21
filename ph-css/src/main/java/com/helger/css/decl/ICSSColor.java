@@ -16,7 +16,7 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for a CSS color definition

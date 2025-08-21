@@ -16,10 +16,10 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.base.tostring.ToStringGenerator;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link ICSSInterpretErrorHandler} that does nothing.

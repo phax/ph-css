@@ -16,17 +16,17 @@
  */
 package com.helger.css.handler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class is the entry point for converting AST nodes from the parser to

@@ -16,12 +16,12 @@
  */
 package com.helger.css.utils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
 import com.helger.css.annotation.DeprecatedInCSS30;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Contains a list of predefined color values in CSS 2.1.<br>

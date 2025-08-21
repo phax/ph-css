@@ -16,10 +16,10 @@
  */
 package com.helger.css.handler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.css.parser.ParseException;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link ICSSParseExceptionCallback} that silently ignores

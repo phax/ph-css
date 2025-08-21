@@ -16,7 +16,7 @@
  */
 package com.helger.css.handler;
 
-import com.helger.commons.callback.exception.IExceptionCallback;
+import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.css.parser.ParseException;
 
 /**

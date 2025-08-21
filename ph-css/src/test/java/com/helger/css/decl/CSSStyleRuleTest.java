@@ -20,13 +20,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.reader.CSSReader;
+import com.helger.unittest.support.TestHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for {@link CSSStyleRule}.
@@ -50,8 +50,7 @@ public final class CSSStyleRuleTest
   @Test
   public void testRead1 ()
   {
-    CSSStyleRule aSR;
-    aSR = _parse ("div { color: red; }");
+    CSSStyleRule aSR = _parse ("div { color: red; }");
     assertEquals (1, aSR.getSelectorCount ());
     assertEquals (1, aSR.getSelectorAtIndex (0).getMemberCount ());
     assertTrue (aSR.getSelectorAtIndex (0).getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
@@ -59,21 +58,24 @@ public final class CSSStyleRuleTest
     assertEquals (1, aSR.getDeclarationCount ());
     assertEquals ("color", aSR.getDeclarationAtIndex (0).getProperty ());
     assertEquals (1, aSR.getDeclarationAtIndex (0).getExpression ().getMemberCount ());
-    assertTrue (aSR.getDeclarationAtIndex (0).getExpression ().getMemberAtIndex (0) instanceof CSSExpressionMemberTermSimple);
-    assertEquals ("red", ((CSSExpressionMemberTermSimple) aSR.getDeclarationAtIndex (0).getExpression ().getMemberAtIndex (0)).getValue ());
+    assertTrue (aSR.getDeclarationAtIndex (0)
+                   .getExpression ()
+                   .getMemberAtIndex (0) instanceof CSSExpressionMemberTermSimple);
+    assertEquals ("red",
+                  ((CSSExpressionMemberTermSimple) aSR.getDeclarationAtIndex (0).getExpression ().getMemberAtIndex (0))
+                                                                                                                       .getValue ());
 
     // Create the same rule by application
     final CSSStyleRule aCreated = new CSSStyleRule ();
     aCreated.addSelector (new CSSSelectorSimpleMember ("div"));
     aCreated.addDeclaration ("color", CSSExpression.createSimple ("red"), false);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 
   @Test
   public void testRead2 ()
   {
-    CSSStyleRule aSR;
-    aSR = _parse ("div, .colored, #my-red, #menu > .active, a[href^=red] { }");
+    CSSStyleRule aSR = _parse ("div, .colored, #my-red, #menu > .active, a[href^=red] { }");
     assertEquals (5, aSR.getSelectorCount ());
 
     assertEquals (1, aSR.getSelectorAtIndex (0).getMemberCount ());
@@ -103,7 +105,10 @@ public final class CSSStyleRuleTest
                                             .addMember (ECSSSelectorCombinator.GREATER)
                                             .addMember (new CSSSelectorSimpleMember (".active")));
     aCreated.addSelector (new CSSSelector ().addMember (new CSSSelectorSimpleMember ("a"))
-                                            .addMember (new CSSSelectorAttribute (null, "href", ECSSAttributeOperator.BEGINMATCH, "red")));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+                                            .addMember (new CSSSelectorAttribute (null,
+                                                                                  "href",
+                                                                                  ECSSAttributeOperator.BEGINMATCH,
+                                                                                  "red")));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 }

@@ -19,11 +19,11 @@ package com.helger.css.supplementary.parser;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.annotation.Nonnull;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingPushbackInputStream;
+import com.helger.base.io.stream.StreamHelper;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.stream.NonBlockingPushbackInputStream;
-import com.helger.commons.io.stream.StreamHelper;
+import jakarta.annotation.Nonnull;
 
 public final class CSSInputStream extends NonBlockingPushbackInputStream
 {

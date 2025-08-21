@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link ECSSColorName}.
@@ -35,7 +35,7 @@ public final class ECSSColorNameTest
   {
     for (final ECSSColorName eColor : ECSSColorName.values ())
     {
-      assertTrue (StringHelper.hasText (eColor.getName ()));
+      assertTrue (StringHelper.isNotEmpty (eColor.getName ()));
       assertTrue (CSSColorHelper.isColorValue (eColor.getName ()));
 
       assertSame (eColor, ECSSColorName.getFromNameCaseInsensitiveOrNull (eColor.getName ()));

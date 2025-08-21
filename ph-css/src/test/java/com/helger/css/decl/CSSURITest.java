@@ -24,10 +24,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.utils.CSSDataURL;
 import com.helger.css.writer.CSSWriterSettings;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CSSURI}.
@@ -48,8 +48,8 @@ public final class CSSURITest
     assertFalse (aURI.isDataURL ());
     assertNull (aURI.getAsDataURL ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aURI, new CSSURI ("a.gif"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aURI, new CSSURI ("b.gif"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aURI, new CSSURI ("a.gif"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aURI, new CSSURI ("b.gif"));
   }
 
   @Test

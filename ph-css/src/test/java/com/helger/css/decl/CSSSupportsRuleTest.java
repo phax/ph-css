@@ -22,13 +22,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.css.ECSSVersion;
 import com.helger.css.reader.CSSReader;
+import com.helger.unittest.support.TestHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for {@link CSSSupportsRule}.
@@ -52,8 +52,7 @@ public final class CSSSupportsRuleTest
   @Test
   public void testRead1 ()
   {
-    CSSSupportsRule aSR;
-    aSR = _parse ("@supports(column-count: 1) {}");
+    CSSSupportsRule aSR = _parse ("@supports(column-count: 1) {}");
     assertTrue (aSR.hasSupportConditionMembers ());
     assertEquals (1, aSR.getSupportsConditionMemberCount ());
     assertNotNull (aSR.getSupportsConditionMemberAtIndex (0));
@@ -72,15 +71,15 @@ public final class CSSSupportsRuleTest
 
     // Create the same rule by application
     final CSSSupportsRule aCreated = new CSSSupportsRule ();
-    aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count", CSSExpression.createNumber (1)));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+    aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count",
+                                                                             CSSExpression.createNumber (1)));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 
   @Test
   public void testRead2 ()
   {
-    CSSSupportsRule aSR;
-    aSR = _parse ("@supports (column-count: 1) and (not (color: blue)) { div { color:red; }}");
+    CSSSupportsRule aSR = _parse ("@supports (column-count: 1) and (not (color: blue)) { div { color:red; }}");
     assertTrue (aSR.hasSupportConditionMembers ());
     assertEquals (3, aSR.getSupportsConditionMemberCount ());
     assertNotNull (aSR.getSupportsConditionMemberAtIndex (0));
@@ -122,12 +121,13 @@ public final class CSSSupportsRuleTest
 
     // Create the same rule by application
     final CSSSupportsRule aCreated = new CSSSupportsRule ();
-    aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count", CSSExpression.createNumber (1)));
+    aCreated.addSupportConditionMember (new CSSSupportsConditionDeclaration ("column-count",
+                                                                             CSSExpression.createNumber (1)));
     aCreated.addSupportConditionMember (ECSSSupportsConditionOperator.AND);
     aCreated.addSupportConditionMember (new CSSSupportsConditionNested ().addMember (new CSSSupportsConditionNegation (new CSSSupportsConditionDeclaration ("color",
                                                                                                                                                             CSSExpression.createSimple ("blue")))));
     aCreated.addRule (new CSSStyleRule ().addSelector (new CSSSelectorSimpleMember ("div"))
                                          .addDeclaration ("color", CSSExpression.createSimple ("red"), false));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 }
