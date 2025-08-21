@@ -32,7 +32,6 @@ import com.helger.css.ECSSSpecification;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSVersionAware;
-import com.helger.css.annotation.DeprecatedInCSS30;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -59,8 +58,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   ALIGN_CONTENT ("align-content", ECSSVersion.CSS30, CSS_FLEXBOX_1, CSS_ALIGN_3),
   ALIGN_ITEMS ("align-items", ECSSVersion.CSS30, CSS_FLEXBOX_1, CSS_ALIGN_3),
   ALIGN_SELF ("align-self", ECSSVersion.CSS30, CSS_FLEXBOX_1, CSS_ALIGN_3),
-  @Deprecated
-  ALIGNMENT_ADJUST ("alignment-adjust", ECSSVersion.CSS30, CSS_INLINE_3),
   ALIGNMENT_BASELINE ("alignment-baseline", ECSSVersion.CSS30, CSS_INLINE_3),
   ALL ("all", ECSSVersion.CSS30, CSS_CASCADE_3),
   ANIMATION ("animation", ECSSVersion.CSS30, CSS3_ANIMATIONS),
@@ -85,13 +82,9 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   BACKGROUND_REPEAT ("background-repeat", ECSSVersion.CSS10, CSS1, CSS2, CSS3_BACKGROUND),
   BACKGROUND_SIZE ("background-size", ECSSVersion.CSS30, CSS3_BACKGROUND),
   BASELINE_SHIFT ("baseline-shift", ECSSVersion.CSS30, CSS_INLINE_3),
-  @Deprecated
-  BLEED ("bleed", ECSSVersion.CSS30, CSS_GCPM_3),
   BOOKMARK_LABEL ("bookmark-label", ECSSVersion.CSS30, CSS_GCPM_3),
   BOOKMARK_LEVEL ("bookmark-level", ECSSVersion.CSS30, CSS_GCPM_3),
   BOOKMARK_STATE ("bookmark-state", ECSSVersion.CSS30, CSS_GCPM_3),
-  @Deprecated
-  BOOKMARK_TARGET ("bookmark-target", ECSSVersion.CSS30, CSS_GCPM_3),
   BORDER ("border", ECSSVersion.CSS10, CSS1, CSS2, CSS3_BACKGROUND),
   BORDER_BOTTOM ("border-bottom", ECSSVersion.CSS10, CSS1, CSS2, CSS3_BACKGROUND),
   BORDER_BOTTOM_COLOR ("border-bottom-color", ECSSVersion.CSS21, CSS2, CSS3_BACKGROUND),
@@ -177,8 +170,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   DROP_INITIAL_VALUE ("drop-initial-value", ECSSVersion.CSS30, CSS_INLINE_3),
   ELEVATION ("elevation", ECSSVersion.CSS21, CSS2),
   EMPTY_CELLS ("empty-cells", ECSSVersion.CSS21, CSS2),
-  @Deprecated
-  ENABLE_BACKGROUND ("enable-background", ECSSVersion.CSS30, FILTER_EFFECTS_1),
   FILTER ("filter", ECSSVersion.CSS30, FILTER_EFFECTS_1),
   FLEX ("flex", ECSSVersion.CSS30, CSS_FLEXBOX_1),
   FLEX_BASIS ("flex-basis", ECSSVersion.CSS30, CSS_FLEXBOX_1),
@@ -188,8 +179,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   FLEX_SHRINK ("flex-shrink", ECSSVersion.CSS30, CSS_FLEXBOX_1),
   FLEX_WRAP ("flex-wrap", ECSSVersion.CSS30, CSS_FLEXBOX_1),
   FLOAT ("float", ECSSVersion.CSS10, CSS1, CSS2),
-  @Deprecated
-  FLOAT_OFFSET ("float-offset", ECSSVersion.CSS30, CSS_GCPM_3),
   FLOOD_COLOR ("flood-color", ECSSVersion.CSS30, FILTER_EFFECTS_1),
   FLOOD_OPACITY ("flood-opactiy", ECSSVersion.CSS30, FILTER_EFFECTS_1),
   FLOW_FROM ("flow-from", ECSSVersion.CSS30, CSS_REGIONS_1),
@@ -219,19 +208,13 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   GRID_AREA ("grid-area", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_AUTO_COLUMNS ("grid-auto-columns", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_AUTO_FLOW ("grid-auto-flow", ECSSVersion.CSS30, CSS_GRID_1),
-  @Deprecated
-  GRID_AUTO_POSITION ("grid-auto-position", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_AUTO_ROWS ("grid-auto-rows", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_COLUMN ("grid-column", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_COLUMN_END ("grid-column-end", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_COLUMN_START ("grid-column-start", ECSSVersion.CSS30, CSS_GRID_1),
-  @Deprecated
-  GRID_COLUMNS ("grid-columns", ECSSVersion.CSS30, CSS3_GRID),
   GRID_ROW ("grid-row", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_ROW_END ("grid-row-end", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_ROW_START ("grid-row-start", ECSSVersion.CSS30, CSS_GRID_1),
-  @Deprecated
-  GRID_ROWS ("grid-rows", ECSSVersion.CSS30, CSS3_GRID),
   GRID_TEMPLATE ("grid-template", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_TEMPLATE_AREAS ("grid-template-areas", ECSSVersion.CSS30, CSS_GRID_1),
   GRID_TEMPLATE_COLUMNS ("grid-template-columns", ECSSVersion.CSS30, CSS_GRID_1),
@@ -269,16 +252,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   MARGIN_RIGHT ("margin-right", ECSSVersion.CSS10, CSS1, CSS2),
   MARGIN_TOP ("margin-top", ECSSVersion.CSS10, CSS1, CSS2),
   MARKER_SIDE ("marker-side", ECSSVersion.CSS30, CSS_LISTS_3),
-  @Deprecated
-  MARKS ("marks", ECSSVersion.CSS30, CSS_GCPM_3),
-  @Deprecated
-  MARQUEE_DIRECTION ("marquee-direction", ECSSVersion.CSS30, CSS3_MARQUEE),
-  @Deprecated
-  MARQUEE_PLAY_COUNT ("marquee-play-count", ECSSVersion.CSS30, CSS3_MARQUEE),
-  @Deprecated
-  MARQUEE_SPEED ("marquee-speed", ECSSVersion.CSS30, CSS3_MARQUEE),
-  @Deprecated
-  MARQUEE_STYLE ("marquee-style", ECSSVersion.CSS30, CSS3_MARQUEE),
   MASK ("mask", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_BORDER ("mask-border", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_BORDER_MODE ("mask-border-mode", ECSSVersion.CSS30, CSS_MASKING_1),
@@ -286,18 +259,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   MASK_BORDER_SLICE ("mask-border-slice", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_BORDER_SOURCE ("mask-border-source", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_BORDER_WIDTH ("mask-border-width", ECSSVersion.CSS30, CSS_MASKING_1),
-  @Deprecated
-  MASK_BOX_IMAGE ("mask-box-image", ECSSVersion.CSS30, CSS_MASKING_1),
-  @Deprecated
-  MASK_BOX_IMAGE_OUTSET ("mask-box-image-outset", ECSSVersion.CSS30, CSS_MASKING_1),
-  @Deprecated
-  MASK_BOX_IMAGE_REPEAT ("mask-box-image-repeat", ECSSVersion.CSS30, CSS_MASKING_1),
-  @Deprecated
-  MASK_BOX_IMAGE_SLICE ("mask-box-image-slice", ECSSVersion.CSS30, CSS_MASKING_1),
-  @Deprecated
-  MASK_BOX_IMAGE_SOURCE ("mask-box-image-source", ECSSVersion.CSS30, CSS_MASKING_1),
-  @Deprecated
-  MASK_BOX_IMAGE_WIDTH ("mask-box-image-width", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_CLIP ("mask-clip", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_COMPOSITE ("mask-composite", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_IMAGE ("mask-image", ECSSVersion.CSS30, CSS_MASKING_1),
@@ -306,8 +267,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   MASK_POSITION ("mask-position", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_REPEAT ("mask-repeat", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_SIZE ("mask-size", ECSSVersion.CSS30, CSS_MASKING_1),
-  @Deprecated
-  MASK_SOURCE_TYPE ("mask-source-type", ECSSVersion.CSS30, CSS_MASKING_1),
   MASK_TYPE ("mask-type", ECSSVersion.CSS30, CSS_MASKING_1),
   MAX_HEIGHT ("max-height", ECSSVersion.CSS21, CSS2, CSS_DEVICE_ADAPT_1),
   MAX_LINES ("max-lines", ECSSVersion.CSS30, CSS_OVERFLOW_3),
@@ -334,8 +293,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   OUTLINE_STYLE ("outline-style", ECSSVersion.CSS21, CSS2, CSS_UI_3),
   OUTLINE_WIDTH ("outline-width", ECSSVersion.CSS21, CSS2, CSS_UI_3),
   OVERFLOW ("overflow", ECSSVersion.CSS21, CSS2, CSS_OVERFLOW_3),
-  @Deprecated
-  OVERFLOW_STYLE ("overflow-style", ECSSVersion.CSS30, CSS3_MARQUEE),
   OVERFLOW_WRAP ("overflow-wrap", ECSSVersion.CSS30, CSS_TEXT_3),
   OVERFLOW_X ("overflow-x", ECSSVersion.CSS30, CSS_OVERFLOW_3),
   OVERFLOW_Y ("overflow-y", ECSSVersion.CSS30, CSS_OVERFLOW_3),
@@ -367,11 +324,7 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   RIGHT ("right", ECSSVersion.CSS21, CSS2, CSS_POSITION_3),
   RUBY_ALIGN ("ruby-align", ECSSVersion.CSS30, CSS_RUBY_1),
   RUBY_MERGE ("ruby-merge", ECSSVersion.CSS30, CSS_RUBY_1),
-  @Deprecated
-  RUBY_OVERHANG ("ruby-overhang", ECSSVersion.CSS30, CSS_RUBY_1),
   RUBY_POSITION ("ruby-position", ECSSVersion.CSS30, CSS_RUBY_1),
-  @Deprecated
-  RUBY_SPAN ("ruby-span", ECSSVersion.CSS30, CSS_RUBY_1),
   RUNNING ("running", ECSSVersion.CSS30, CSS_GCPM_3),
   SCROLL_BEHAVIOR ("scroll-behavior", ECSSVersion.CSS30, CSSOM_VIEW_1),
   SHAPE_OUTSIDE ("shape-outside", ECSSVersion.CSS30, CSS_SHAPES_1),
@@ -389,18 +342,8 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   STRING_SET ("string-set", ECSSVersion.CSS30, CSS_GCPM_3),
   TABLE_LAYOUT ("table-layout", ECSSVersion.CSS21, CSS2),
   TAB_SIZE ("tab-size", ECSSVersion.CSS30, CSS_TEXT_3),
-  @Deprecated
-  TARGET ("target", ECSSVersion.CSS30, CSS3_HYPERLINKS),
-  @Deprecated
-  TARGET_NAME ("target-name", ECSSVersion.CSS30, CSS3_HYPERLINKS),
-  @Deprecated
-  TARGET_NEW ("target-new", ECSSVersion.CSS30, CSS3_HYPERLINKS),
-  @Deprecated
-  TARGET_POSITION ("target-position", ECSSVersion.CSS30, CSS3_HYPERLINKS),
   TEXT_ALIGN ("text-align", ECSSVersion.CSS10, CSS1, CSS2, CSS_TEXT_3),
   TEXT_ALIGN_LAST ("text-align-last", ECSSVersion.CSS30, CSS_TEXT_3),
-  @Deprecated
-  TEXT_COMBINE_HORIZONTAL ("text-combine-horizontal", ECSSVersion.CSS30, CSS_WRITING_MODES_3),
   TEXT_COMBINE_UPRIGHT ("text-combine-upright", ECSSVersion.CSS30, CSS_WRITING_MODES_3),
   TEXT_DECORATION ("text-decoration", ECSSVersion.CSS10, CSS1, CSS2, CSS_TEXT_DECOR_3),
   TEXT_DECORATION_COLOR ("text-decoration-color", ECSSVersion.CSS30, CSS_TEXT_DECOR_3),
@@ -457,24 +400,6 @@ public enum ECSSProperty implements IHasName, ICSSVersionAware
   WRITING_MODE ("writing-mode", ECSSVersion.CSS30, CSS_WRITING_MODES_3),
   ZOOM ("zoom", ECSSVersion.CSS30, CSS_DEVICE_ADAPT_1),
   Z_INDEX ("z-index", ECSSVersion.CSS21, CSS2, CSS_POSITION_3),
-
-  // Old and deprecated elements
-  @DeprecatedInCSS30
-  _SCROLLBAR_3DLIGHT_COLOR ("scrollbar-3dlight-color"),
-  @DeprecatedInCSS30
-  _SCROLLBAR_ARROW_COLOR ("scrollbar-arrow-color"),
-  @DeprecatedInCSS30
-  _SCROLLBAR_BASE_COLOR ("scrollbar-base-color"),
-  @DeprecatedInCSS30
-  _SCROLLBAR_DARKSHADOW_COLOR ("scrollbar-darkshadow-color"),
-  @DeprecatedInCSS30
-  _SCROLLBAR_FACE_COLOR ("scrollbar-face-color"),
-  @DeprecatedInCSS30
-  _SCROLLBAR_HIGHLIGHT_COLOR ("scrollbar-highlight-color"),
-  @DeprecatedInCSS30
-  _SCROLLBAR_SHADOW_COLOR ("scrollbar-shadow-color"),
-  @DeprecatedInCSS30
-  _SCROLLBAR_TRACK_COLOR ("scrollbar-track-color"),
 
   // Do not use the following manually:
   _MOZ_BACKGROUND_INLINE_POLICY ("-moz-background-inline-policy"),

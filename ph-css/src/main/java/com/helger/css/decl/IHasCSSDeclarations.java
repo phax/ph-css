@@ -34,7 +34,9 @@ import jakarta.annotation.Nullable;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>> extends ICSSWriteable, IGenericImplTrait <IMPLTYPE>
+public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPLTYPE>> extends
+                                     ICSSWriteable,
+                                     IGenericImplTrait <IMPLTYPE>
 {
   /**
    * Add a new declaration.
@@ -50,8 +52,7 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    * Add a new declaration.
    *
    * @param sProperty
-   *        The name of the property. E.g. "color". May neither be
-   *        <code>null</code> nor empty.
+   *        The name of the property. E.g. "color". May neither be <code>null</code> nor empty.
    * @param aExpression
    *        The value of the property. May not be <code>null</code>.
    * @param bImportant
@@ -95,8 +96,8 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *
    * @param nDeclarationIndex
    *        The index of the declaration to be removed. Must be &ge; 0.
-   * @return {@link EChange#CHANGED} if the declaration was successfully
-   *         removed, {@link EChange#UNCHANGED} if the index was invalid.
+   * @return {@link EChange#CHANGED} if the declaration was successfully removed,
+   *         {@link EChange#UNCHANGED} if the index was invalid.
    */
   @Nonnull
   EChange removeDeclaration (@Nonnegative int nDeclarationIndex);
@@ -104,16 +105,15 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
   /**
    * Remove all declarations.
    *
-   * @return {@link EChange#CHANGED} if any declaration was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any declaration was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
   @Nonnull
   EChange removeAllDeclarations ();
 
   /**
-   * @return A mutable, non-<code>null</code> copy of all contained
-   *         declarations.
+   * @return A mutable, non-<code>null</code> copy of all contained declarations.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -122,15 +122,14 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
   /**
    * @param nIndex
    *        The index to retrieve
-   * @return The declaration at the specified index or <code>null</code> if the
-   *         index is invalid
+   * @return The declaration at the specified index or <code>null</code> if the index is invalid
    */
   @Nullable
   CSSDeclaration getDeclarationAtIndex (@Nonnegative int nIndex);
 
   /**
-   * Set the declaration at the specified index with a new one. If an existing
-   * declaration is present at that index, it is overwritten.
+   * Set the declaration at the specified index with a new one. If an existing declaration is
+   * present at that index, it is overwritten.
    *
    * @param nIndex
    *        The index to retrieve. Must be &ge; 0. If the index is &ge; than
@@ -144,8 +143,8 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
   IMPLTYPE setDeclarationAtIndex (@Nonnegative int nIndex, @Nonnull CSSDeclaration aNewDeclaration);
 
   /**
-   * @return <code>true</code> if at least one declaration is present,
-   *         <code>false</code> if no declaration is present.
+   * @return <code>true</code> if at least one declaration is present, <code>false</code> if no
+   *         declaration is present.
    */
   boolean hasDeclarations ();
 
@@ -156,15 +155,14 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
   int getDeclarationCount ();
 
   /**
-   * Get the first declaration with the specified property name. If no such
-   * property name is present, <code>null</code> is returned. If more than one
-   * declaration ith the specified property name is present, always the first in
-   * the list will be returned. The comparison happens <b>case insensitive</b>
-   * (since v6.0.0).
+   * Get the first declaration with the specified property name. If no such property name is
+   * present, <code>null</code> is returned. If more than one declaration ith the specified property
+   * name is present, always the first in the list will be returned. The comparison happens <b>case
+   * insensitive</b> (since v6.0.0).
    *
    * @param sPropertyName
-   *        The property name of the declaration to search (e.g.
-   *        <code>color</code>). May be <code>null</code>.
+   *        The property name of the declaration to search (e.g. <code>color</code>). May be
+   *        <code>null</code>.
    * @return <code>null</code> if no such property name was found.
    * @since 3.7.4
    */
@@ -172,57 +170,16 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
   CSSDeclaration getDeclarationOfPropertyName (@Nullable String sPropertyName);
 
   /**
-   * Get the first declaration with the specified property name. If no such
-   * property name is present, <code>null</code> is returned. If more than one
-   * declaration ith the specified property name is present, always the first in
-   * the list will be returned. The comparison happens <b>case insensitive</b>.
+   * Get all declarations within this list that have the specified property name. The comparison
+   * happens <b>case insensitive</b> (since v6.0.0).
    *
    * @param sPropertyName
-   *        The property name of the declaration to search (e.g.
-   *        <code>color</code>). May be <code>null</code>.
-   * @return <code>null</code> if no such property name was found.
-   * @since 3.7.4
-   * @deprecated Since 6.0.0 - use {@link #getDeclarationOfPropertyName(String)}
-   *             instead.
-   */
-  @Nullable
-  @Deprecated
-  default CSSDeclaration getDeclarationOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
-  {
-    return getDeclarationOfPropertyName (sPropertyName);
-  }
-
-  /**
-   * Get all declarations within this list that have the specified property
-   * name. The comparison happens <b>case insensitive</b> (since v6.0.0).
-   *
-   * @param sPropertyName
-   *        The property name of the declaration to search (e.g.
-   *        <code>color</code>). May be <code>null</code>.
+   *        The property name of the declaration to search (e.g. <code>color</code>). May be
+   *        <code>null</code>.
    * @return Never <code>null</code> but maybe an empty list.
    * @since 3.7.4
    */
   @Nonnull
   @ReturnsMutableCopy
   ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable String sPropertyName);
-
-  /**
-   * Get all declarations within this list that have the specified property
-   * name. The comparison happens <b>case insensitive</b>.
-   *
-   * @param sPropertyName
-   *        The property name of the declaration to search (e.g.
-   *        <code>color</code>). May be <code>null</code>.
-   * @return Never <code>null</code> but maybe an empty list.
-   * @since 3.7.4
-   * @deprecated Since 6.0.0 - use
-   *             {@link #getAllDeclarationsOfPropertyName(String)} instead.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated
-  default ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyNameCaseInsensitive (@Nullable final String sPropertyName)
-  {
-    return getAllDeclarationsOfPropertyName (sPropertyName);
-  }
 }

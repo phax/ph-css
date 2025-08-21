@@ -304,47 +304,47 @@ public enum ECSSSpecification implements IHasID <String>
    */
 
   /** CSS Level 1 - Abandoned */
-  @Deprecated
-  CSS1 ("CSS1", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2008/REC-CSS1-20080411"),
+  @Deprecated (forRemoval = false)
+  CSS1("CSS1", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2008/REC-CSS1-20080411"),
   /** CSS Print Profile - Abandoned */
-  @Deprecated
-  CSS_PRINT ("css-print", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2013/NOTE-css-print-20130314/"),
+  @Deprecated (forRemoval = false)
+  CSS_PRINT("css-print", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2013/NOTE-css-print-20130314/"),
   /** CSS Mobile Profile 2.0 - Abandoned */
-  @Deprecated
-  CSS_MOBILE ("css-mobile", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2014/NOTE-css-mobile-20141014/"),
+  @Deprecated (forRemoval = false)
+  CSS_MOBILE("css-mobile", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2014/NOTE-css-mobile-20141014/"),
   /** Non-element Selectors Module Level 1 - Abandoned */
-  @Deprecated
-  SELECTORS_NONELEMENT_1 ("selectors-nonelement-1",
-                          ECSSSpecificationStatus.ABANDONED,
-                          "https://www.w3.org/TR/2019/NOTE-selectors-nonelement-1-20190402/"),
+  @Deprecated (forRemoval = false)
+  SELECTORS_NONELEMENT_1("selectors-nonelement-1",
+                         ECSSSpecificationStatus.ABANDONED,
+                         "https://www.w3.org/TR/2019/NOTE-selectors-nonelement-1-20190402/"),
   /** The CSS 'Reader' Media Type - Abandoned */
-  @Deprecated
-  CSS3_READER ("css3-reader", ECSSSpecificationStatus.ABANDONED),
+  @Deprecated (forRemoval = false)
+  CSS3_READER("css3-reader", ECSSSpecificationStatus.ABANDONED),
   /** CSS Presentation Levels - Abandoned */
-  @Deprecated
-  CSS3_PRESLEV ("css3-preslev", ECSSSpecificationStatus.ABANDONED),
+  @Deprecated (forRemoval = false)
+  CSS3_PRESLEV("css3-preslev", ECSSSpecificationStatus.ABANDONED),
   /** CSS TV Profile 1.0 - Abandoned */
-  @Deprecated
-  CSS_TV ("css-tv", ECSSSpecificationStatus.ABANDONED),
+  @Deprecated (forRemoval = false)
+  CSS_TV("css-tv", ECSSSpecificationStatus.ABANDONED),
   /** CSS Marquee - Abandoned */
-  @Deprecated
-  CSS3_MARQUEE ("css3-marquee",
-                ECSSSpecificationStatus.ABANDONED,
-                "http://www.w3.org/TR/2014/NOTE-css3-marquee-20141014/"),
+  @Deprecated (forRemoval = false)
+  CSS3_MARQUEE("css3-marquee",
+               ECSSSpecificationStatus.ABANDONED,
+               "http://www.w3.org/TR/2014/NOTE-css3-marquee-20141014/"),
   /** Behavioral Extensions to CSS - Abandoned */
-  @Deprecated
-  BECSS ("becss", ECSSSpecificationStatus.ABANDONED),
+  @Deprecated (forRemoval = false)
+  BECSS("becss", ECSSSpecificationStatus.ABANDONED),
   /** CSS Hyperlink Presentation - Abandoned */
-  @Deprecated
-  CSS3_HYPERLINKS ("css3-hyperlinks",
-                   ECSSSpecificationStatus.ABANDONED,
-                   "http://www.w3.org/TR/2004/WD-css3-hyperlinks-20040224/"),
+  @Deprecated (forRemoval = false)
+  CSS3_HYPERLINKS("css3-hyperlinks",
+                  ECSSSpecificationStatus.ABANDONED,
+                  "http://www.w3.org/TR/2004/WD-css3-hyperlinks-20040224/"),
   /** CSS Grid Positioning - Abandoned */
-  @Deprecated
-  CSS3_GRID ("css3-grid", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2007/WD-css3-grid-20070905/"),
+  @Deprecated (forRemoval = false)
+  CSS3_GRID("css3-grid", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2007/WD-css3-grid-20070905/"),
   /** Fullscreen - Abandoned */
-  @Deprecated
-  FULLSCREEN ("fullscreen", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2014/NOTE-fullscreen-20141118/"),
+  @Deprecated (forRemoval = false)
+  FULLSCREEN("fullscreen", ECSSSpecificationStatus.ABANDONED, "http://www.w3.org/TR/2014/NOTE-fullscreen-20141118/"),
 
   /** Dummy specification that means outside of CSS specified */
   OUTSIDE_CSS ("$outside$", ECSSSpecificationStatus.OUTSIDE_CSS);

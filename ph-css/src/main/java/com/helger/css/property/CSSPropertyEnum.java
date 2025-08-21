@@ -44,12 +44,6 @@ public class CSSPropertyEnum extends AbstractCSSProperty
 {
   private final ICommonsSet <String> m_aEnumValues;
 
-  @Deprecated
-  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp)
-  {
-    this (eProp, (ICSSPropertyCustomizer) null, (String []) null);
-  }
-
   public CSSPropertyEnum (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, aEnumValues);
