@@ -27,9 +27,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
@@ -42,7 +40,7 @@ import jakarta.annotation.Nullable;
  * @since 5.0.4
  */
 @NotThreadSafe
-public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
@@ -91,8 +89,8 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSV
   /**
    * Remove all members.
    *
-   * @return {@link EChange#CHANGED} if any member was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    */
   @Nonnull
   public EChange removeAllMembers ()
@@ -123,7 +121,6 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSV
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     final StringBuilder aSB = new StringBuilder ().append ('[');
     boolean bFirst = true;
     for (final String sMember : m_aMembers)
@@ -135,12 +132,6 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSV
       aSB.append (sMember);
     }
     return aSB.append (']').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -174,6 +165,8 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSV
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (null).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

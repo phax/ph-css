@@ -17,7 +17,6 @@
 package com.helger.css;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -40,7 +39,6 @@ public final class ECSSUnitTest
     for (final ECSSUnit e : ECSSUnit.values ())
     {
       assertTrue (StringHelper.isNotEmpty (e.getName ()));
-      assertNotNull (e.getMinimumCSSVersion ());
       assertSame (e, ECSSUnit.getFromNameOrNull (e.getName ()));
       assertTrue (StringHelper.isNotEmpty (e.format (4711)));
       assertTrue (StringHelper.isNotEmpty (e.format (47.11)));

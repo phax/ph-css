@@ -23,24 +23,21 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a single, simple CSS selector as used for the "::slotted()" CSS
- * pseudo element.<br>
+ * Represents a single, simple CSS selector as used for the "::slotted()" CSS pseudo element.<br>
  *
  * @author Mike Wiedenauer
  * @author Philip Helger
  * @since 6.4.1
  */
 @NotThreadSafe
-public class CSSSelectorMemberSlotted implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSSelectorMemberSlotted implements ICSSSelectorMember, ICSSSourceLocationAware
 {
   private final CSSSelector m_aSelector;
   private CSSSourceLocation m_aSourceLocation;
@@ -61,17 +58,9 @@ public class CSSSelectorMemberSlotted implements ICSSSelectorMember, ICSSVersion
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     final StringBuilder aSB = new StringBuilder ("::slotted(");
     aSB.append (m_aSelector.getAsCSSString (aSettings, 0));
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

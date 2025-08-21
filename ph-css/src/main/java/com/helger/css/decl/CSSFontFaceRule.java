@@ -27,9 +27,7 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
@@ -47,7 +45,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSFontFaceRule>, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSFontFaceRule>, ICSSSourceLocationAware
 {
   private final String m_sDeclaration;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -70,9 +68,8 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
   }
 
   /**
-   * @return The rule declaration string used in the CSS. Neither
-   *         <code>null</code> nor empty. Always starting with <code>@</code>
-   *         and ending with <code>font-face</code>.
+   * @return The rule declaration string used in the CSS. Neither <code>null</code> nor empty.
+   *         Always starting with <code>@</code> and ending with <code>font-face</code>.
    */
   @Nonnull
   @Nonempty
@@ -127,7 +124,8 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
   }
 
   @Nonnull
-  public CSSFontFaceRule setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSFontFaceRule setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -161,8 +159,6 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     // Always ignore font-face rules?
     if (!aSettings.isWriteFontFaceRules ())
       return "";
@@ -175,12 +171,6 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
     if (!aSettings.isOptimizedOutput ())
       aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -208,7 +198,10 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDeclaration).append (m_aDeclarations).append (m_aDeclarations).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDeclaration)
+                                       .append (m_aDeclarations)
+                                       .append (m_aDeclarations)
+                                       .getHashCode ();
   }
 
   @Override

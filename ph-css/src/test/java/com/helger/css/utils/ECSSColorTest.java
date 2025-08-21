@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.base.string.StringHelper;
-import com.helger.css.ECSSVersion;
 import com.helger.css.writer.CSSWriter;
 
 /**
@@ -37,7 +36,7 @@ public final class ECSSColorTest
   @Test
   public void testAll ()
   {
-    final CSSWriter aWriter = new CSSWriter (ECSSVersion.CSS30);
+    final CSSWriter aWriter = new CSSWriter ();
     for (final ECSSColor eColor : ECSSColor.values ())
     {
       assertTrue (StringHelper.isNotEmpty (eColor.getName ()));

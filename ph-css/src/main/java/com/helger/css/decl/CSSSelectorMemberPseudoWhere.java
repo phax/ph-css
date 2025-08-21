@@ -27,23 +27,20 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a single, simple CSS selector as used for the ":has()" CSS pseudo
- * element.<br>
+ * Represents a single, simple CSS selector as used for the ":has()" CSS pseudo element.<br>
  *
  * @author Philip Helger
  * @since 7.0.3
  */
 @NotThreadSafe
-public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSSourceLocationAware
 {
   private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
@@ -96,7 +93,7 @@ public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSVer
 
   @Nonnull
   public CSSSelectorMemberPseudoWhere addSelector (@Nonnegative final int nIndex,
-                                                 @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+                                                   @Nonnull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
@@ -131,8 +128,8 @@ public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSVer
   /**
    * Remove all selectors.
    *
-   * @return {@link EChange#CHANGED} if any selector was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any selector was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    */
   @Nonnull
   public EChange removeAllSelectors ()
@@ -157,10 +154,6 @@ public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSVer
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
-    aSettings.checkVersionRequirements (this);
-
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder (":where(");
 
@@ -174,12 +167,6 @@ public class CSSSelectorMemberPseudoWhere implements ICSSSelectorMember, ICSSVer
       aSB.append (aNestedSelector.getAsCSSString (aSettings, 0));
     }
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

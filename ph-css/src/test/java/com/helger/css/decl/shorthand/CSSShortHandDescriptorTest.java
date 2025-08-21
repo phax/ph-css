@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsList;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.reader.CSSReaderDeclarationList;
@@ -37,7 +36,7 @@ import com.helger.css.writer.CSSWriterSettings;
  */
 public final class CSSShortHandDescriptorTest
 {
-  private static final CSSWriterSettings CWS = new CSSWriterSettings (ECSSVersion.CSS30, false);
+  private static final CSSWriterSettings CWS = new CSSWriterSettings (false);
 
   @Test
   public void testBasic ()
@@ -52,7 +51,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -69,7 +68,8 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed")
+                                                         .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -86,7 +86,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:dashed 1px red", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:dashed 1px red")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -104,7 +104,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:red 1px dashed", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:red 1px dashed")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -122,7 +122,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.MARGIN);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -141,7 +141,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.MARGIN);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px 3px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px 3px").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -160,7 +160,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.MARGIN);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px 3px 5px", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px 3px 5px")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -180,7 +180,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.MARGIN);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px 3px 5px 7px", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:1px 3px 5px 7px")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -200,7 +200,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.PADDING);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -219,7 +219,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.PADDING);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px 3px", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px 3px").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -238,7 +238,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.PADDING);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px 3px 5px", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px 3px 5px")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -258,7 +258,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.PADDING);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px 3px 5px 7px", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:1px 3px 5px 7px")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -278,8 +278,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BACKGROUND);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("background: #ff0000 url('grafik.png') left top / 180px 100px no-repeat",
-                                                                          ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("background: #ff0000 url('grafik.png') left top / 180px 100px no-repeat")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -303,7 +302,8 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_COLOR);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color: red", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color: red")
+                                                         .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -321,7 +321,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_COLOR);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color: red blue", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color: red blue")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -340,7 +340,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_WIDTH);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width: thick", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width: thick")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -359,7 +359,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_WIDTH);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width: 1px 3rem", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width: 1px 3rem")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -378,7 +378,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_WIDTH);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width: 1px 3rem 4px", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width: 1px 3rem 4px")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -397,7 +397,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER_WIDTH);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width: 1px 3rem 4px thick", ECSSVersion.CSS30)
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width: 1px 3rem 4px thick")
                                                          .getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
@@ -416,7 +416,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:initial", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:initial").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -433,7 +433,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:auto", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:auto").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -450,7 +450,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:none", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:none").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -467,7 +467,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -484,7 +484,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 2", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 2").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -501,7 +501,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 2em", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 2em").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);
@@ -518,7 +518,7 @@ public final class CSSShortHandDescriptorTest
     final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FLEX);
     assertNotNull (aSHD);
 
-    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 3 4em", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("flex:2 3 4em").getDeclarationAtIndex (0);
     assertNotNull (aDecl);
 
     final ICommonsList <CSSDeclaration> aSplittedDecls = aSHD.getSplitIntoPieces (aDecl);

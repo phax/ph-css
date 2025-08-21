@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.CGlobal;
-import com.helger.css.ECSSVersion;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.ParserCSS30TreeConstants;
 
@@ -29,8 +28,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Maps the different parser tokens. This enum is only used internally. It was
- * previously used to map between the 2.1 and the 3.0 parser constants.
+ * Maps the different parser tokens. This enum is only used internally. It was previously used to
+ * map between the 2.1 and the 3.0 parser constants.
  *
  * @author Philip Helger
  */
@@ -132,8 +131,8 @@ public enum ECSSNodeType
    * Constructor
    *
    * @param nParserType30
-   *        The ID of the node in the 3.0 parser or {@link CGlobal#ILLEGAL_UINT}
-   *        if this node is not present in CSS 3.0.
+   *        The ID of the node in the 3.0 parser or {@link CGlobal#ILLEGAL_UINT} if this node is not
+   *        present in CSS 3.0.
    */
   ECSSNodeType (final int nParserType30)
   {
@@ -143,21 +142,12 @@ public enum ECSSNodeType
   /**
    * Get the internal node type for the specified CSS version
    *
-   * @param eVersion
-   *        CSS version to use
-   * @return The internal node type for this node type or
-   *         {@link CGlobal#ILLEGAL_UINT} if this node type is not supported by
-   *         the passed version
+   * @return The internal node type for this node type or {@link CGlobal#ILLEGAL_UINT} if this node
+   *         type is not supported by the passed version
    */
-  int getParserNodeType (@Nonnull final ECSSVersion eVersion)
+  int getParserNodeType ()
   {
-    switch (eVersion)
-    {
-      case CSS30:
-        return m_nParserType30;
-      default:
-        throw new IllegalStateException ("Illegal version provided: " + eVersion);
-    }
+    return m_nParserType30;
   }
 
   /**
@@ -165,71 +155,62 @@ public enum ECSSNodeType
    *
    * @param aParserNode
    *        The parser node to be checked.
-   * @param eVersion
-   *        The desired version.
-   * @return <code>true</code> if <code>this</code> is the type of the passed
-   *         parser node in the given version
+   * @return <code>true</code> if <code>this</code> is the type of the passed parser node in the
+   *         given version
    */
-  public boolean isNode (@Nonnull final CSSNode aParserNode, @Nonnull final ECSSVersion eVersion)
+  public boolean isNode (@Nonnull final CSSNode aParserNode)
   {
-    return aParserNode.getNodeType () == getParserNodeType (eVersion);
+    return aParserNode.getNodeType () == getParserNodeType ();
   }
 
   @Nonnull
-  String getNodeName (@Nonnull final ECSSVersion eVersion)
+  String getNodeName ()
   {
-    switch (eVersion)
-    {
-      case CSS30:
-        return ParserCSS30TreeConstants.jjtNodeName[m_nParserType30];
-      default:
-        throw new IllegalStateException ("Illegal version provided: " + eVersion);
-    }
+    return ParserCSS30TreeConstants.jjtNodeName[m_nParserType30];
   }
 
   @Nullable
-  static ECSSNodeType getNodeType (@Nonnull final CSSNode aParserNode, @Nonnull final ECSSVersion eVersion)
+  static ECSSNodeType getNodeType (@Nonnull final CSSNode aParserNode)
   {
     for (final ECSSNodeType eNodeType : values ())
-      if (eNodeType.isNode (aParserNode, eVersion))
+      if (eNodeType.isNode (aParserNode))
         return eNodeType;
     return null;
   }
 
   @Nullable
-  static String getNodeName (@Nonnull final CSSNode aParserNode, @Nonnull final ECSSVersion eVersion)
+  static String getNodeName (@Nonnull final CSSNode aParserNode)
   {
-    final ECSSNodeType eNodeType = getNodeType (aParserNode, eVersion);
+    final ECSSNodeType eNodeType = getNodeType (aParserNode);
     if (eNodeType != null)
-      return eNodeType.getNodeName (eVersion);
-    LOGGER.warn ("Unsupported node type " + aParserNode.getNodeType () + " in version " + eVersion);
+      return eNodeType.getNodeName ();
+    LOGGER.warn ("Unsupported node type " + aParserNode.getNodeType ());
     return null;
   }
 
   private static void _dumpRecursive (@Nonnull final CSSNode aParserNode,
-                                      @Nonnull final ECSSVersion eVersion,
                                       @Nonnull final StringBuilder aSB,
                                       @Nonnull final String sPrefix)
   {
-    aSB.append (sPrefix).append (getNodeName (aParserNode, eVersion));
+    aSB.append (sPrefix).append (getNodeName (aParserNode));
     if (aParserNode.hasText ())
       aSB.append ('[').append (aParserNode.getText ()).append (']');
     aSB.append ('\n');
     for (final CSSNode aChildNode : aParserNode)
-      _dumpRecursive (aChildNode, eVersion, aSB, sPrefix + "  ");
+      _dumpRecursive (aChildNode, aSB, sPrefix + "  ");
   }
 
   @Nonnull
   @Nonempty
-  public static String getDump (@Nonnull final CSSNode aParserNode, @Nonnull final ECSSVersion eVersion)
+  public static String getDump (@Nonnull final CSSNode aParserNode)
   {
     final StringBuilder aSB = new StringBuilder ();
-    _dumpRecursive (aParserNode, eVersion, aSB, "");
+    _dumpRecursive (aParserNode, aSB, "");
     return aSB.toString ();
   }
 
-  public static boolean isErrorNode (@Nonnull final CSSNode aParserNode, @Nonnull final ECSSVersion eVersion)
+  public static boolean isErrorNode (@Nonnull final CSSNode aParserNode)
   {
-    return ERROR_SKIPTO.isNode (aParserNode, eVersion);
+    return ERROR_SKIPTO.isNode (aParserNode);
   }
 }

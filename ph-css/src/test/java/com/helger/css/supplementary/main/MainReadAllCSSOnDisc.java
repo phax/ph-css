@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.ICSSParseExceptionCallback;
 import com.helger.css.parser.ParseException;
@@ -55,7 +54,7 @@ public final class MainReadAllCSSOnDisc
       if (false)
         LOGGER.info (aFile.getAbsolutePath ());
       aCurrentFile.set (aFile);
-      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, ECSSVersion.CSS30, aHdl);
+      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, aHdl);
       if (aCSS == null)
       {
         nFilesError++;

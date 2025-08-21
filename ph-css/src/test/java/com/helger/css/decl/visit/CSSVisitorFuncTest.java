@@ -26,8 +26,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.css.AbstractCSS30TestCase;
-import com.helger.css.ECSSVersion;
+import com.helger.css.AbstractCSSTestCase;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -40,9 +39,9 @@ import com.helger.io.file.IFileFilter;
  *
  * @author Philip Helger
  */
-public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
+public final class CSSVisitorFuncTest extends AbstractCSSTestCase
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (CSSVisitor30FuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSVisitorFuncTest.class);
 
   @Test
   public void testVisitContent30 ()
@@ -54,7 +53,6 @@ public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
         LOGGER.info (sKey);
       final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
                                                                new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
-                                                                                       .setCSSVersion (ECSSVersion.CSS30)
                                                                                        .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                                        .setBrowserCompliantMode (true));
       assertNotNull (sKey, aCSS);
@@ -66,42 +64,42 @@ public final class CSSVisitor30FuncTest extends AbstractCSS30TestCase
   public void testVisitConstantCSS ()
   {
     // CSS 1
-    CascadingStyleSheet aCSS = CSSReader.readFromString (CSS1, ECSSVersion.CSS30);
+    CascadingStyleSheet aCSS = CSSReader.readFromString (CSS1);
     assertNotNull (aCSS);
     MockCountingUrlVisitor aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
     assertEquals (4, aVisitor.getCount ());
 
     // CSS 2
-    aCSS = CSSReader.readFromString (CSS2, ECSSVersion.CSS30);
+    aCSS = CSSReader.readFromString (CSS2);
     assertNotNull (aCSS);
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
     assertEquals (18, aVisitor.getCount ());
 
     // CSS 3
-    aCSS = CSSReader.readFromString (CSS3, ECSSVersion.CSS30);
+    aCSS = CSSReader.readFromString (CSS3);
     assertNotNull (aCSS);
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
     assertEquals (1, aVisitor.getCount ());
 
     // CSS 4
-    aCSS = CSSReader.readFromString (CSS4, ECSSVersion.CSS30);
+    aCSS = CSSReader.readFromString (CSS4);
     assertNotNull (aCSS);
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
     assertEquals (1, aVisitor.getCount ());
 
     // CSS 5
-    aCSS = CSSReader.readFromString (CSS5, ECSSVersion.CSS30);
+    aCSS = CSSReader.readFromString (CSS5);
     assertNotNull (aCSS);
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
     assertEquals (0, aVisitor.getCount ());
 
     // CSS 6
-    aCSS = CSSReader.readFromString (CSS6, ECSSVersion.CSS30);
+    aCSS = CSSReader.readFromString (CSS6);
     assertNotNull (aCSS);
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);

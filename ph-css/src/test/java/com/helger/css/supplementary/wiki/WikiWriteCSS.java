@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.state.ESuccess;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
@@ -52,7 +51,7 @@ public final class WikiWriteCSS
   {
     // 1.param: version to write
     // 2.param: false== non-optimized output
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
     try
     {
       final CSSWriter aWriter = new CSSWriter (aSettings);

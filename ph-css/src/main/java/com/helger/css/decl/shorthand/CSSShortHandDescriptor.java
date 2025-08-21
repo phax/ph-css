@@ -23,7 +23,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpression;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
@@ -113,7 +112,7 @@ public class CSSShortHandDescriptor
     modifyExpressionMembers (aExpressionMembers);
 
     final int nExpressionMembers = aExpressionMembers.size ();
-    final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aCWS = new CSSWriterSettings (false);
     final boolean [] aHandledSubProperties = new boolean [nSubProperties];
 
     // For all expression members

@@ -23,8 +23,6 @@ import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -38,7 +36,7 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, ICloneable <CSSHSL>
+public class CSSHSL implements ICSSWriteable, ICSSColor, ICloneable <CSSHSL>
 {
   private String m_sHue;
   private String m_sSaturation;
@@ -160,8 +158,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    *
    * @param fOpacity
    *        Opacity part. Is fitted to a value between 0 and 1.
-   * @return This value as HSLA value with the passed opacity. Never
-   *         <code>null</code>.
+   * @return This value as HSLA value with the passed opacity. Never <code>null</code>.
    * @since 3.8.3
    */
   @Nonnull
@@ -175,8 +172,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    *
    * @param sOpacity
    *        Opacity part. May neither be <code>null</code> nor empty.
-   * @return This value as HSLA value with the passed opacity. Never
-   *         <code>null</code>.
+   * @return This value as HSLA value with the passed opacity. Never <code>null</code>.
    * @since 3.8.3
    */
   @Nonnull
@@ -201,14 +197,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return getAsString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   /**
@@ -230,7 +219,9 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSHSL rhs = (CSSHSL) o;
-    return m_sHue.equals (rhs.m_sHue) && m_sSaturation.equals (rhs.m_sSaturation) && m_sLightness.equals (rhs.m_sLightness);
+    return m_sHue.equals (rhs.m_sHue) &&
+           m_sSaturation.equals (rhs.m_sSaturation) &&
+           m_sLightness.equals (rhs.m_sLightness);
   }
 
   @Override

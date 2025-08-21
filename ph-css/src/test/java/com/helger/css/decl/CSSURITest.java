@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.utils.CSSDataURL;
 import com.helger.css.writer.CSSWriterSettings;
 import com.helger.unittest.support.TestHelper;
@@ -41,7 +40,7 @@ public final class CSSURITest
   {
     final CSSURI aURI = new CSSURI ("a.gif");
     assertEquals ("a.gif", aURI.getURI ());
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
     assertEquals ("url(a.gif)", aURI.getAsCSSString (aSettings));
     aSettings.setQuoteURLs (true);
     assertEquals ("url('a.gif')", aURI.getAsCSSString (aSettings));

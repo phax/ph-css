@@ -20,8 +20,6 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 
@@ -29,27 +27,24 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Enumeration with selector attribute operations as in
- * <code>[foo<b>^=</b>"bar"]</code>
+ * Enumeration with selector attribute operations as in <code>[foo<b>^=</b>"bar"]</code>
  *
  * @author Philip Helger
  */
-public enum ECSSAttributeOperator implements ICSSVersionAware, ICSSWriteable, IHasName
+public enum ECSSAttributeOperator implements ICSSWriteable, IHasName
 {
-  EQUALS ("=", ECSSVersion.CSS21),
-  INCLUDES ("~=", ECSSVersion.CSS21),
-  DASHMATCH ("|=", ECSSVersion.CSS21),
-  BEGINMATCH ("^=", ECSSVersion.CSS30),
-  ENDMATCH ("$=", ECSSVersion.CSS30),
-  CONTAINSMATCH ("*=", ECSSVersion.CSS21);
+  EQUALS ("="),
+  INCLUDES ("~="),
+  DASHMATCH ("|="),
+  BEGINMATCH ("^="),
+  ENDMATCH ("$="),
+  CONTAINSMATCH ("*=");
 
   private final String m_sName;
-  private final ECSSVersion m_eVersion;
 
-  ECSSAttributeOperator (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
+  ECSSAttributeOperator (@Nonnull @Nonempty final String sName)
   {
     m_sName = sName;
-    m_eVersion = eVersion;
   }
 
   @Nonnull
@@ -60,16 +55,9 @@ public enum ECSSAttributeOperator implements ICSSVersionAware, ICSSWriteable, IH
   }
 
   @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return m_eVersion;
-  }
-
-  @Nonnull
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return m_sName;
   }
 

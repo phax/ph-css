@@ -31,7 +31,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.helger.collection.commons.CommonsArrayList;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberFunction;
 import com.helger.css.decl.CSSExpressionMemberMath;
@@ -50,7 +49,7 @@ import com.helger.css.writer.CSSWriterSettings;
  * @author Philip Helger
  */
 @RunWith (Parameterized.class)
-public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
+public final class CSSReaderFuncTest extends AbstractFuncTestCSSReader
 {
   @Parameters (name = "{index}: browserCompliant={0}")
   public static Iterable <Object []> data ()
@@ -58,7 +57,7 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
     return new CommonsArrayList <> (new Object [] { Boolean.TRUE }, new Object [] { Boolean.FALSE });
   }
 
-  public CSSReader30FuncTest (final boolean bBrowserCompliant)
+  public CSSReaderFuncTest (final boolean bBrowserCompliant)
   {
     super (StandardCharsets.UTF_8, false, bBrowserCompliant);
   }
@@ -108,13 +107,12 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   @Test
   public void testReadSpecialGood ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/hacks2.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
 
-    final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
+    final String sCSS = new CSSWriter (false).getCSSAsString (aCSS);
     assertNotNull (sCSS);
     if (false)
       m_aLogger.info (sCSS);
@@ -123,11 +121,10 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   @Test
   public void testReadExpressions ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final CSSWriterSettings aCSSWS = new CSSWriterSettings (eVersion, false);
+    final CSSWriterSettings aCSSWS = new CSSWriterSettings (false);
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-expression.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getRuleCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
@@ -345,11 +342,9 @@ public final class CSSReader30FuncTest extends AbstractFuncTestCSSReader
   public void testSpecialCasesAsString ()
   {
     final boolean bBrowserCompliantMode = isBrowserCompliantMode ();
-    final CSSReaderSettings aReaderSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
-                                                                      .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
+    final CSSReaderSettings aReaderSettings = new CSSReaderSettings ().setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                       .setBrowserCompliantMode (bBrowserCompliantMode);
-    final CSSWriterSettings aWriterSettings = new CSSWriterSettings ().setCSSVersion (ECSSVersion.CSS30)
-                                                                      .setOptimizedOutput (true);
+    final CSSWriterSettings aWriterSettings = new CSSWriterSettings ().setOptimizedOutput (true);
 
     CascadingStyleSheet aCSS;
     CascadingStyleSheet aCSS2;

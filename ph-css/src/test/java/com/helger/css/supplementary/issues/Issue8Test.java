@@ -24,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
@@ -46,7 +45,7 @@ public final class Issue8Test
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                StandardCharsets.UTF_8,
-                                                               ECSSVersion.CSS30,
+                                                               
                                                                new LoggingCSSParseErrorHandler ());
     assertNotNull (aCSS);
 

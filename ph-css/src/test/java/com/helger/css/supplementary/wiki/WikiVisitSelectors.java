@@ -18,7 +18,6 @@ package com.helger.css.supplementary.wiki;
 
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.visit.CSSVisitor;
@@ -49,14 +48,14 @@ public final class WikiVisitSelectors
                           "a:hover { text-decoration:none; }\r\n" +
                           "\r\n" +
                           "img { border:none; }";
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle);
     final ICommonsList <String> aAllSelectors = new CommonsArrayList <> ();
     CSSVisitor.visitCSS (aCSS, new DefaultCSSVisitor ()
     {
       @Override
       public void onStyleRuleSelector (@Nonnull final CSSSelector aSelector)
       {
-        aAllSelectors.add (aSelector.getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)));
+        aAllSelectors.add (aSelector.getAsCSSString (new CSSWriterSettings ()));
       }
     });
     System.out.println (aAllSelectors);

@@ -23,7 +23,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.CSSMediaQuery;
 import com.helger.css.decl.CSSMediaRule;
@@ -57,20 +56,17 @@ public final class MediaQueryTools
    *
    * @param sMediaQuery
    *        The media query string to parse. May be <code>null</code>.
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
    * @return <code>null</code> if the passed media query is <code>null</code> or empty or not
    *         parsable.
    */
   @Nullable
-  public static ICommonsList <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery,
-                                                                @Nonnull final ECSSVersion eVersion)
+  public static ICommonsList <CSSMediaQuery> parseToMediaQuery (@Nullable final String sMediaQuery)
   {
     if (StringHelper.isEmpty (sMediaQuery))
       return null;
 
     final String sCSS = "@media " + sMediaQuery + " {}";
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
     if (aCSS == null)
       return null;
 

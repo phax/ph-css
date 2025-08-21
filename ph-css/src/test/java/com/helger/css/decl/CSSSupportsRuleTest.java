@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.reader.CSSReader;
 import com.helger.unittest.support.TestHelper;
 
@@ -40,7 +39,7 @@ public final class CSSSupportsRuleTest
   @Nonnull
   private static CSSSupportsRule _parse (@Nonnull final String sCSS)
   {
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
     assertNotNull (sCSS, aCSS);
     assertTrue (aCSS.hasSupportsRules ());
     assertEquals (1, aCSS.getSupportsRuleCount ());

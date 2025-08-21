@@ -30,13 +30,6 @@ import jakarta.annotation.Nonnull;
 public interface ICSSWriterSettings
 {
   /**
-   * @return The CSS version to be used. May not be <code>null</code>.
-   * @since v6.2.0
-   */
-  @Nonnull
-  ECSSVersion getCSSVersion ();
-
-  /**
    * @return <code>true</code> if all unnecessary whitespaces should be ignored when writing.
    */
   boolean isOptimizedOutput ();
@@ -118,15 +111,4 @@ public interface ICSSWriterSettings
    * @return <code>true</code> if unknown @ rules should be written, <code>false</code> if not
    */
   boolean isWriteUnknownRules ();
-
-  /**
-   * Check if the passed object matches the version requirements defined be this settings.
-   *
-   * @param aCSSObject
-   *        The object to be checked.
-   * @throws IllegalStateException
-   *         In case the version does not match
-   * @see #getVersion()
-   */
-  void checkVersionRequirements (@Nonnull ICSSVersionAware aCSSObject) throws IllegalStateException;
 }

@@ -23,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -46,10 +45,9 @@ public final class IssueGC18Test
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
-                                                                                       .setCSSVersion (ECSSVersion.CSS30)
                                                                                        .setCustomErrorHandler (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aCSS);
     if (false)
-      System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
+      System.out.println (new CSSWriter ().getCSSAsString (aCSS));
   }
 }

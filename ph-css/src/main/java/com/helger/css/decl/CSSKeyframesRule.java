@@ -28,9 +28,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
@@ -47,7 +45,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
   private final String m_sDeclaration;
   private final String m_sAnimationName;
@@ -159,8 +157,6 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     // Always ignore keyframes rules?
     if (!aSettings.isWriteKeyframesRules ())
       return "";
@@ -194,12 +190,6 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     if (!bOptimizedOutput)
       aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

@@ -26,14 +26,12 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
-public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware, IHasCSSDeclarations <CSSPageMarginBlock>
+public class CSSPageMarginBlock implements ICSSPageRuleMember, IHasCSSDeclarations <CSSPageMarginBlock>
 {
   private String m_sPageMarginSymbol;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -55,7 +53,8 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
   public final CSSPageMarginBlock setPageMarginSymbol (@Nonnull @Nonempty final String sPargeMarginSymbol)
   {
     ValueEnforcer.notEmpty (sPargeMarginSymbol, "PargeMarginSymbol");
-    ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'), "Page margin symbol does not start with '@'!");
+    ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'),
+                          "Page margin symbol does not start with '@'!");
     m_sPageMarginSymbol = sPargeMarginSymbol;
     return this;
   }
@@ -68,7 +67,8 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
   }
 
   @Nonnull
-  public CSSPageMarginBlock addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSPageMarginBlock addDeclaration (@Nonnegative final int nIndex,
+                                            @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
@@ -106,7 +106,8 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
   }
 
   @Nonnull
-  public CSSPageMarginBlock setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSPageMarginBlock setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                   @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -140,8 +141,6 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
@@ -149,12 +148,6 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
     aSB.append (m_sPageMarginSymbol);
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

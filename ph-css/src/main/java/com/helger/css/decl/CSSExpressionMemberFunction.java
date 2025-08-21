@@ -24,7 +24,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -37,7 +36,10 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSourceLocationAware, ICSSExpressionMathMember
+public class CSSExpressionMemberFunction implements
+                                         ICSSExpressionMember,
+                                         ICSSSourceLocationAware,
+                                         ICSSExpressionMathMember
 {
   private final String m_sFunctionName;
   private final CSSExpression m_aExpression;
@@ -71,7 +73,8 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
    * @param aExpression
    *        Optional parameter expression. May be <code>null</code>.
    */
-  public CSSExpressionMemberFunction (@Nonnull @Nonempty final String sFunctionName, @Nullable final CSSExpression aExpression)
+  public CSSExpressionMemberFunction (@Nonnull @Nonempty final String sFunctionName,
+                                      @Nullable final CSSExpression aExpression)
   {
     ValueEnforcer.notEmpty (sFunctionName, "FunctionName");
     // expression may be null
@@ -91,9 +94,9 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
   }
 
   /**
-   * @return <code>true</code> if this is a special IE "expression" function.
-   *         This makes a difference, because in case of IE expression
-   *         functions, no parameter splitting takes place!
+   * @return <code>true</code> if this is a special IE "expression" function. This makes a
+   *         difference, because in case of IE expression functions, no parameter splitting takes
+   *         place!
    */
   public boolean isExpressionFunction ()
   {
@@ -110,8 +113,7 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
   }
 
   /**
-   * @return <code>true</code> of an expression parameter is present,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> of an expression parameter is present, <code>false</code> otherwise.
    * @since 5.0.0
    */
   public final boolean hasExpression ()
@@ -140,12 +142,6 @@ public class CSSExpressionMemberFunction implements ICSSExpressionMember, ICSSSo
       return m_sFunctionName + "()";
     }
     return m_sFunctionName + "(" + m_aExpression.getAsCSSString (aSettings, nIndentLevel) + ")";
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

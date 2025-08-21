@@ -24,7 +24,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSUnit;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.utils.CSSNumberHelper;
@@ -74,14 +73,7 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return m_sText;
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

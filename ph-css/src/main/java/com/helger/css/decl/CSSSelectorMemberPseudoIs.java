@@ -27,9 +27,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
@@ -42,7 +40,7 @@ import jakarta.annotation.Nullable;
  * @since 7.0.3
  */
 @NotThreadSafe
-public class CSSSelectorMemberPseudoIs implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSSelectorMemberPseudoIs implements ICSSSelectorMember, ICSSSourceLocationAware
 {
   private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
@@ -156,10 +154,6 @@ public class CSSSelectorMemberPseudoIs implements ICSSSelectorMember, ICSSVersio
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
-    aSettings.checkVersionRequirements (this);
-
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder (":is(");
 
@@ -173,12 +167,6 @@ public class CSSSelectorMemberPseudoIs implements ICSSSelectorMember, ICSSVersio
       aSB.append (aNestedSelector.getAsCSSString (aSettings, 0));
     }
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

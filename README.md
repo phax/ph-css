@@ -318,6 +318,7 @@ v8.0.0 - work in progress
 * Requires Java 17 as the minimum version
 * Updated to ph-commons 12.0.0
 * Removed all deprecated methods marked for removal
+* Removed class `ECSSVersion` and interface `ICSSVersionAware` because they have no real role anymore
 
 v7.1.0 - 2025-08-20
 * Improved the selector list handling in the grammar and added `@layer` support. See [#111](https://github.com/phax/ph-css/pull/111) - thx @shagkur and @jmini

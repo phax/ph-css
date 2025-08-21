@@ -27,7 +27,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -69,7 +68,8 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   }
 
   @Nonnull
-  public CSSSupportsConditionNested addMember (@Nonnegative final int nIndex, @Nonnull final ICSSSupportsConditionMember aMember)
+  public CSSSupportsConditionNested addMember (@Nonnegative final int nIndex,
+                                               @Nonnull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
@@ -96,8 +96,8 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   /**
    * Remove all members.
    *
-   * @return {@link EChange#CHANGED} if any member was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
   @Nonnull
@@ -123,7 +123,6 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     final StringBuilder aSB = new StringBuilder ("(");
     boolean bFirst = true;
     for (final ICSSSupportsConditionMember aMember : m_aMembers)
@@ -135,12 +134,6 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
       aSB.append (aMember.getAsCSSString (aSettings, nIndentLevel));
     }
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -174,6 +167,8 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (this).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

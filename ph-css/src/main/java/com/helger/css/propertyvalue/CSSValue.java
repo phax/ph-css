@@ -213,7 +213,6 @@ public class CSSValue implements ICSSValue
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (m_aProperty);
     return m_aProperty.getPropertyName () +
            CCSS.SEPARATOR_PROPERTY_VALUE +
            m_sValue +

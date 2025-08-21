@@ -23,7 +23,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -59,14 +58,7 @@ public class CSSSupportsConditionNegation implements ICSSSupportsConditionMember
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return "not " + m_aSupportsMember.getAsCSSString (aSettings, nIndentLevel);
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

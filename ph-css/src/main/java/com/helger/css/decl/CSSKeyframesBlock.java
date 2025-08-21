@@ -27,9 +27,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
@@ -41,7 +39,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock>, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock>, ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aKeyframesSelectors;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -112,7 +110,8 @@ public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock
   }
 
   @Nonnull
-  public CSSKeyframesBlock setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  public CSSKeyframesBlock setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                  @Nonnull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -146,8 +145,6 @@ public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
@@ -165,12 +162,6 @@ public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock
 
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

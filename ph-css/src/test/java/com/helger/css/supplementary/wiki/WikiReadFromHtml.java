@@ -16,7 +16,6 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.reader.CSSReaderDeclarationList;
 
@@ -30,7 +29,7 @@ public final class WikiReadFromHtml
   public static CSSDeclarationList readFromStyleAttribute ()
   {
     final String sStyle = "color:red; background:fixed !important";
-    final CSSDeclarationList aDeclList = CSSReaderDeclarationList.readFromString (sStyle, ECSSVersion.CSS30);
+    final CSSDeclarationList aDeclList = CSSReaderDeclarationList.readFromString (sStyle);
     if (aDeclList == null)
       throw new IllegalStateException ("Failed to parse CSS: " + sStyle);
     return aDeclList;

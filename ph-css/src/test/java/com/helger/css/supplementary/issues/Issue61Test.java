@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsList;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.reader.CSSReader;
@@ -41,8 +40,7 @@ public final class Issue61Test
     final String css = ".class10 { bla:foo } .20 { bla2:foo2} .class30 { bla3:foo3 }";
 
     final ICommonsList <ICSSTopLevelRule> aTLR = CSSReader.readFromStringReader (css,
-                                                                                 new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                                         .setBrowserCompliantMode (true))
+                                                                                 new CSSReaderSettings ().setBrowserCompliantMode (true))
                                                           .getAllRules ();
     assertEquals (2, aTLR.size ());
     assertTrue (aTLR.get (0) instanceof CSSStyleRule);

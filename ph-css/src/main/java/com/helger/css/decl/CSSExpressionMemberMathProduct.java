@@ -28,7 +28,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -114,14 +113,7 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return StringImplode.getImplodedMapped (m_aMembers, x -> x.getAsCSSString (aSettings, nIndentLevel));
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

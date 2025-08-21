@@ -16,7 +16,6 @@
  */
 package com.helger.css.decl;
 
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriteable;
 
 /**
@@ -24,7 +23,7 @@ import com.helger.css.ICSSWriteable;
  *
  * @author Philip Helger
  */
-public interface ICSSExpressionMathMember extends ICSSWriteable, ICSSVersionAware
+public interface ICSSExpressionMathMember extends ICSSWriteable
 {
   /* empty */
 }

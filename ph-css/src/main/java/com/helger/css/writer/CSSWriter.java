@@ -27,7 +27,6 @@ import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.CSSNamespaceRule;
@@ -64,28 +63,15 @@ public class CSSWriter
   }
 
   /**
-   * Constructor for creating non-optimized output.
-   *
-   * @param eVersion
-   *        The CSS version to emit the code for. May not be <code>null</code> .
-   */
-  public CSSWriter (@Nonnull final ECSSVersion eVersion)
-  {
-    this (eVersion, DEFAULT_OPTIMIZED_OUTPUT);
-  }
-
-  /**
    * Constructor.
    *
-   * @param eVersion
-   *        The CSS version to emit the code for. May not be <code>null</code> .
    * @param bOptimizedOutput
    *        If <code>true</code> the number of bytes emitted by this writer is minimized. Also style
    *        rules having no declarations are omitted.
    */
-  public CSSWriter (@Nonnull final ECSSVersion eVersion, final boolean bOptimizedOutput)
+  public CSSWriter (final boolean bOptimizedOutput)
   {
-    this (new CSSWriterSettings (eVersion, bOptimizedOutput));
+    this (new CSSWriterSettings (bOptimizedOutput));
   }
 
   /**

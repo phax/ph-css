@@ -27,23 +27,20 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a single, simple CSS selector as used for the ":has()" CSS pseudo
- * element.
+ * Represents a single, simple CSS selector as used for the ":has()" CSS pseudo element.
  *
  * @author Philip Helger
  * @since 7.0.3
  */
 @NotThreadSafe
-public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSSourceLocationAware
 {
   private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
@@ -131,8 +128,8 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersi
   /**
    * Remove all selectors.
    *
-   * @return {@link EChange#CHANGED} if any selector was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any selector was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    */
   @Nonnull
   public EChange removeAllSelectors ()
@@ -157,10 +154,6 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersi
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
-    aSettings.checkVersionRequirements (this);
-
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder (":has(");
     boolean bFirst = true;
@@ -173,12 +166,6 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSVersi
       aSB.append (aNestedSelector.getAsCSSString (aSettings, 0));
     }
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

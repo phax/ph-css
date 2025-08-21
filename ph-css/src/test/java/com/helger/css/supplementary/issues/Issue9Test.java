@@ -23,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
@@ -45,7 +44,7 @@ public final class Issue9Test
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                StandardCharsets.UTF_8,
-                                                               ECSSVersion.CSS30,
+                                                               
                                                                new LoggingCSSParseErrorHandler ());
     assertNull (aCSS);
   }
@@ -58,7 +57,7 @@ public final class Issue9Test
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                StandardCharsets.UTF_8,
-                                                               ECSSVersion.CSS30,
+                                                               
                                                                new LoggingCSSParseErrorHandler ());
     assertNull (aCSS);
   }

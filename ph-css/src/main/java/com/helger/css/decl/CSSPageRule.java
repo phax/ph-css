@@ -27,9 +27,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
@@ -46,7 +44,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aSelectors;
   private final CSSWritableList <ICSSPageRuleMember> m_aMembers = new CSSWritableList <> ();
@@ -136,8 +134,6 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     // Always ignore page rules?
     if (!aSettings.isWritePageRules ())
       return "";
@@ -192,14 +188,6 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
       aSB.append (aSettings.getNewLineString ());
 
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    if (m_aMembers.containsAny (CSSPageMarginBlock.class::isInstance))
-      return ECSSVersion.CSS30;
-    return ECSSVersion.CSS21;
   }
 
   @Nullable

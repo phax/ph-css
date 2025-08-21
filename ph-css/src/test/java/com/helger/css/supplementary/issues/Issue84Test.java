@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
@@ -41,8 +40,7 @@ public final class Issue84Test
   {
     final String sCSS = "div {\n" + "a: 100px;\n" + "*b: 1;\n" + "c:d;\n" + "}";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (true));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getStyleRuleCount ());
 
@@ -50,7 +48,8 @@ public final class Issue84Test
     assertEquals (2, aSR.getDeclarationCount ());
 
     assertEquals ("div{a:100px;c:d}",
-                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false).getCSSAsString (aCSS));
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                    .getCSSAsString (aCSS));
   }
 
   @Test
@@ -58,8 +57,7 @@ public final class Issue84Test
   {
     final String sCSS = "div {\n" + "a: 100px;\n" + "*b: 1;\n" + "c:d;\n" + "}";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (false));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (false));
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getStyleRuleCount ());
 
@@ -67,6 +65,7 @@ public final class Issue84Test
     assertEquals (1, aSR.getDeclarationCount ());
 
     assertEquals ("div{a:100px}",
-                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false).getCSSAsString (aCSS));
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                    .getCSSAsString (aCSS));
   }
 }

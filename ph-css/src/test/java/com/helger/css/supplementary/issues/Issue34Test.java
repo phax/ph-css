@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.LoggingCSSParseExceptionCallback;
 import com.helger.css.reader.CSSReader;
@@ -46,13 +45,12 @@ public final class Issue34Test
   public void testIssue ()
   {
     final String css = ".pen {background-color:red} {* some incorrect block *} .pen {background-color: blue}";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true)
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setBrowserCompliantMode (true)
                                                                 .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                 .setCustomExceptionHandler (new LoggingCSSParseExceptionCallback ());
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
     assertNotNull (cascadingStyleSheet);
-    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
+    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (true));
     LOGGER.info (writer.getCSSAsString (cascadingStyleSheet));
   }
 }

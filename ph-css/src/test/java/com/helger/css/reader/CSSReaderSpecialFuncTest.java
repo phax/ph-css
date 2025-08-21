@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.charset.EUnicodeBOM;
 import com.helger.base.io.streamprovider.ByteArrayInputStreamProvider;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberFunction;
 import com.helger.css.decl.CSSExpressionMemberMath;
@@ -53,17 +52,16 @@ import com.helger.css.writer.CSSWriterSettings;
  *
  * @author Philip Helger
  */
-public final class CSSReader30SpecialFuncTest
+public final class CSSReaderSpecialFuncTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (CSSReader30SpecialFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CSSReaderSpecialFuncTest.class);
 
   @Test
   public void testReadSpecialGood ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/issue63.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
 
     assertEquals ("--a", aCSS.getStyleRuleAtIndex (0).getDeclarationAtIndex (0).getProperty ());
@@ -74,7 +72,7 @@ public final class CSSReader30SpecialFuncTest
     assertEquals ("background-color:var(--A)",
                   aCSS.getStyleRuleAtIndex (1).getDeclarationAtIndex (1).getAsCSSString ());
 
-    final String sCSS = new CSSWriter (eVersion, false).getCSSAsString (aCSS);
+    final String sCSS = new CSSWriter (false).getCSSAsString (aCSS);
     assertNotNull (sCSS);
     if (false)
       LOGGER.info (sCSS);
@@ -83,11 +81,10 @@ public final class CSSReader30SpecialFuncTest
   @Test
   public void testReadExpressions ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
-    final CSSWriterSettings aCSSWS = new CSSWriterSettings (eVersion, false);
+    final CSSWriterSettings aCSSWS = new CSSWriterSettings (false);
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-expression.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getRuleCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
@@ -305,12 +302,10 @@ public final class CSSReader30SpecialFuncTest
   public void testReadSpecialBadButRecoverable ()
   {
     final CollectingCSSParseErrorHandler aErrors = new CollectingCSSParseErrorHandler ();
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/bad_but_recoverable_and_browsercompliant/test-string.css");
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
                                                              aCharset,
-                                                             eVersion,
                                                              aErrors.and (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aFile.getAbsolutePath (), aCSS);
   }
@@ -327,11 +322,9 @@ public final class CSSReader30SpecialFuncTest
         final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ByteArrayInputStreamProvider (ArrayHelper.getConcatenated (eBOM.getAllBytes (),
                                                                                                                                   sCSSBase.getBytes (aDeterminedCharset))),
                                                                    aDeterminedCharset,
-                                                                   ECSSVersion.CSS30,
                                                                    new DoNothingCSSParseErrorHandler ());
         assertNotNull ("Failed to read with BOM " + eBOM, aCSS);
-        assertEquals (".class{color:red}.class{color:blue}",
-                      new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
+        assertEquals (".class{color:red}.class{color:blue}", new CSSWriter (true).getCSSAsString (aCSS));
       }
     }
   }
@@ -339,37 +332,38 @@ public final class CSSReader30SpecialFuncTest
   @Test
   public void testReadSingleLineComments ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-singleline-comments.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
-    assertEquals (13, aCSS.getRuleCount ());
-    assertEquals (13, aCSS.getStyleRuleCount ());
+    assertEquals (24, aCSS.getRuleCount ());
+    assertEquals (24, aCSS.getStyleRuleCount ());
+
+    // 11 rules were added when merging CSS 2.1 and 3.0 test cases :)
+    final int nOfs = 11;
 
     // #any1 - #any5
-    assertEquals (2, aCSS.getStyleRuleAtIndex (1).getDeclarationCount ());
-    assertEquals (1, aCSS.getStyleRuleAtIndex (2).getDeclarationCount ());
-    assertEquals (1, aCSS.getStyleRuleAtIndex (3).getDeclarationCount ());
-    assertEquals (0, aCSS.getStyleRuleAtIndex (4).getDeclarationCount ());
-    assertEquals (0, aCSS.getStyleRuleAtIndex (5).getDeclarationCount ());
+    assertEquals (2, aCSS.getStyleRuleAtIndex (nOfs + 1).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (nOfs + 2).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (nOfs + 3).getDeclarationCount ());
+    assertEquals (0, aCSS.getStyleRuleAtIndex (nOfs + 4).getDeclarationCount ());
+    assertEquals (0, aCSS.getStyleRuleAtIndex (nOfs + 5).getDeclarationCount ());
     // .test1 - .test7
-    assertEquals (2, aCSS.getStyleRuleAtIndex (6).getDeclarationCount ());
-    assertEquals (3, aCSS.getStyleRuleAtIndex (7).getDeclarationCount ());
-    assertEquals (1, aCSS.getStyleRuleAtIndex (8).getDeclarationCount ());
-    assertEquals (1, aCSS.getStyleRuleAtIndex (9).getDeclarationCount ());
-    assertEquals (2, aCSS.getStyleRuleAtIndex (10).getDeclarationCount ());
-    assertEquals (2, aCSS.getStyleRuleAtIndex (11).getDeclarationCount ());
-    assertEquals (1, aCSS.getStyleRuleAtIndex (12).getDeclarationCount ());
+    assertEquals (2, aCSS.getStyleRuleAtIndex (nOfs + 6).getDeclarationCount ());
+    assertEquals (3, aCSS.getStyleRuleAtIndex (nOfs + 7).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (nOfs + 8).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (nOfs + 9).getDeclarationCount ());
+    assertEquals (2, aCSS.getStyleRuleAtIndex (nOfs + 10).getDeclarationCount ());
+    assertEquals (2, aCSS.getStyleRuleAtIndex (nOfs + 11).getDeclarationCount ());
+    assertEquals (1, aCSS.getStyleRuleAtIndex (nOfs + 12).getDeclarationCount ());
   }
 
   @Test
   public void testReadFootnote ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-footnotes.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
     assertEquals (5, aCSS.getRuleCount ());
     assertEquals (3, aCSS.getStyleRuleCount ());
@@ -386,10 +380,9 @@ public final class CSSReader30SpecialFuncTest
   @Test
   public void testIssue101 ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/issue101.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
     assertEquals (17, aCSS.getRuleCount ());
     assertEquals (17, aCSS.getStyleRuleCount ());
@@ -398,10 +391,9 @@ public final class CSSReader30SpecialFuncTest
   @Test
   public void testIssue110 ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/issue110.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getRuleCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
@@ -412,10 +404,9 @@ public final class CSSReader30SpecialFuncTest
   @Test
   public void testIssue112 ()
   {
-    final ECSSVersion eVersion = ECSSVersion.CSS30;
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/issue112.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getRuleCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());

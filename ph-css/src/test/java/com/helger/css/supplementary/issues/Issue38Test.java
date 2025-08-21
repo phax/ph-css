@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -38,9 +37,9 @@ public final class Issue38Test
   public void testIssue ()
   {
     final String css = "h1:lang(or) { line-height: 1.2em; }";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (true);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setBrowserCompliantMode (true);
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
-    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
+    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (true));
     assertEquals ("h1:lang(or){line-height:1.2em}", writer.getCSSAsString (cascadingStyleSheet));
   }
 }

@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
@@ -46,7 +45,7 @@ public final class Issue67Test
                         "}\r\n" +
                         "\r\n" +
                         "@-moz-anything {}";
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS, ECSSVersion.LATEST);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
     assertNotNull (aCSS);
     assertEquals (2, aCSS.getRuleCount ());
     assertEquals (1, aCSS.getMediaRuleCount ());

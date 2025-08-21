@@ -25,9 +25,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.media.ECSSMediaExpressionFeature;
@@ -39,7 +37,7 @@ import jakarta.annotation.Nullable;
  * Represents a single media expression
  */
 @NotThreadSafe
-public class CSSMediaExpression implements ICSSWriteable, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAware
 {
   private final String m_sFeature;
   private final CSSExpression m_aValue;
@@ -84,19 +82,11 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSVersionAware, ICSS
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ('(').append (m_sFeature);
     if (m_aValue != null)
       aSB.append (CCSS.SEPARATOR_PROPERTY_VALUE).append (m_aValue.getAsCSSString (aSettings, nIndentLevel));
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

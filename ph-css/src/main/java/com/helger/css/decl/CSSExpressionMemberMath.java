@@ -27,7 +27,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -62,7 +61,8 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   }
 
   @Nonnull
-  public CSSExpressionMemberMath addMember (@Nonnegative final int nIndex, @Nonnull final ICSSExpressionMathMember aMember)
+  public CSSExpressionMemberMath addMember (@Nonnegative final int nIndex,
+                                            @Nonnull final ICSSExpressionMathMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "Member");
@@ -89,8 +89,8 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   /**
    * Remove all members.
    *
-   * @return {@link EChange#CHANGED} if any member was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
   @Nonnull
@@ -122,17 +122,10 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     final StringBuilder aSB = new StringBuilder ("calc(");
     for (final ICSSExpressionMathMember aMember : m_aMembers)
       aSB.append (aMember.getAsCSSString (aSettings, nIndentLevel));
     return aSB.append (")").toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -166,6 +159,8 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (null).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

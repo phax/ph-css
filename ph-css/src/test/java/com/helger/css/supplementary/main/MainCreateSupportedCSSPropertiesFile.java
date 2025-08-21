@@ -25,11 +25,9 @@ import java.util.Locale;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.name.IHasName;
 import com.helger.base.string.StringHelper;
-import com.helger.base.version.Version;
 import com.helger.collection.helper.CollectionSort;
 import com.helger.css.ECSSSpecification;
 import com.helger.css.ECSSVendorPrefix;
-import com.helger.css.ECSSVersion;
 import com.helger.css.property.ECSSProperty;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.io.file.SimpleFileIO;
@@ -96,9 +94,6 @@ public class MainCreateSupportedCSSPropertiesFile
     IMicroElement thead = table.addElement ("thead");
     IMicroElement tr = thead.addElement ("tr");
     tr.addElement ("th").addText ("Name");
-    tr.addElement ("th").addText ("CSS 1.0");
-    tr.addElement ("th").addText ("CSS 2.1");
-    tr.addElement ("th").addText ("CSS 3.0");
     tr.addElement ("th").addText ("Links");
 
     IMicroElement tbody = table.addElement ("tbody");
@@ -107,18 +102,10 @@ public class MainCreateSupportedCSSPropertiesFile
                                                                   IHasName.getComparatorName ()))
       if (!eProperty.isVendorSpecific ())
       {
-        final Version eMinVersion = eProperty.getMinimumCSSVersion ().getVersion ();
-        final boolean bCSS10 = eMinVersion.isLE (ECSSVersion.CSS10.getVersion ());
-        final boolean bCSS21 = eMinVersion.isLE (ECSSVersion.CSS21.getVersion ());
-        final boolean bCSS30 = eMinVersion.isLE (ECSSVersion.CSS30.getVersion ());
-
         tr = tbody.addElement ("tr");
         if ((nIndex & 1) == 1)
           tr.setAttribute ("class", "odd");
         tr.addElement ("td").setAttribute ("class", "nowrap").addText (eProperty.getName ());
-        _boolean (tr.addElement ("td"), bCSS10, null);
-        _boolean (tr.addElement ("td"), bCSS21, null);
-        _boolean (tr.addElement ("td"), bCSS30, null);
 
         final IMicroElement td = tr.addElement ("td");
         for (final ECSSSpecification eSpecs : eProperty.getAllSpecifications ())

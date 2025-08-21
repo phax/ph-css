@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
@@ -49,15 +48,14 @@ public final class Issue3Test
     if (true)
       LOGGER.info ("[Parsing] " + sCSS);
     return CSSReader.readFromStringReader (sCSS,
-                                           new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
-                                                                   .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
+                                           new CSSReaderSettings ().setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                    .setBrowserCompliantMode (bBrowserCompliantMode));
   }
 
   private static void _print (@Nonnull final CascadingStyleSheet aCSS)
   {
-    LOGGER.info (new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).setWriteHeaderText (false)
-                                                                                                    .getCSSAsString (aCSS));
+    LOGGER.info (new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                   .getCSSAsString (aCSS));
   }
 
   @Test

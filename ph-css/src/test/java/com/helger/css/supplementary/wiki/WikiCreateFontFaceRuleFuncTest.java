@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriter;
@@ -36,11 +35,14 @@ public final class WikiCreateFontFaceRuleFuncTest
   @Test
   public void testBasic ()
   {
-    final CascadingStyleSheet aCSS = WikiCreateFontFaceRule.createFontFace ("Your \"typeface\"", "local font name", "folder/", "myfont");
-    final String sCSS = new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS);
+    final CascadingStyleSheet aCSS = WikiCreateFontFaceRule.createFontFace ("Your \"typeface\"",
+                                                                            "local font name",
+                                                                            "folder/",
+                                                                            "myfont");
+    final String sCSS = new CSSWriter ().getCSSAsString (aCSS);
     System.out.println (sCSS);
 
-    final CascadingStyleSheet aCSS2 = CSSReader.readFromString (sCSS, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS2 = CSSReader.readFromString (sCSS);
     assertNotNull (aCSS2);
     assertEquals (aCSS, aCSS2);
   }

@@ -14,6 +14,87 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+// Test comment
+
+#any1
+{
+  width: 230px;
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+  position: absolute;
+}
+// Test comment
+
+// Test comment
+#any2
+{
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+  position: absolute;
+}
+
+// Test comment
+// Test comment
+#any3
+{
+  width: 230px;
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+}
+
+// Test comment
+#any4
+{
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+}
+
+// Test comment
+#any5
+{
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+
+  //background: url(/personal/download/image/white-transparent-pixel.png) repeat 0 0 #fff;
+}
+
+.test1 {
+color:red;
+// color:blue; color: green;
+}
+.test2 {
+color:red;
+// color:blue
+color: green;
+color: cyan;
+}
+.test3 {
+color:red;
+// color:blue;
+}
+.test4 {
+color:red
+// color:blue;
+}
+.test5 {
+color:red
+// color:blue;;
+color:green
+}
+.test6 {
+;;;;;;
+color:red
+// color:blue;;;;;;;
+;;;;;;color:green;;;;;;
+}
+
+// Test comment
+
 E ~ F {}
 
 // Test comment

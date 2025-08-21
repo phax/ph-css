@@ -16,7 +16,6 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.visit.CSSVisitor;
@@ -28,8 +27,8 @@ import com.helger.css.writer.CSSWriterSettings;
 import jakarta.annotation.Nonnull;
 
 /**
- * Example how to read the content of a CSS style attribute, and visit all
- * contained declarations - with the API and with a visitor.
+ * Example how to read the content of a CSS style attribute, and visit all contained declarations -
+ * with the API and with a visitor.
  *
  * @author Philip Helger
  */
@@ -38,21 +37,21 @@ public final class WikiVisitFromHtml
   public static void readFromStyleAttributeWithAPI ()
   {
     final String sStyle = "color:red; background:fixed !important";
-    final CSSDeclarationList aDeclList = CSSReaderDeclarationList.readFromString (sStyle, ECSSVersion.CSS30);
+    final CSSDeclarationList aDeclList = CSSReaderDeclarationList.readFromString (sStyle);
     if (aDeclList == null)
       throw new IllegalStateException ("Failed to parse CSS: " + sStyle);
     // For all contained declarations
     for (final CSSDeclaration aDeclaration : aDeclList.getAllDeclarations ())
       System.out.println (aDeclaration.getProperty () +
                           ": " +
-                          aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)) +
+                          aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings ()) +
                           (aDeclaration.isImportant () ? " (important)" : " (not important)"));
   }
 
   public static void readFromStyleAttributeWithVisitor ()
   {
     final String sStyle = "color:red; background:fixed !important";
-    final CSSDeclarationList aDeclList = CSSReaderDeclarationList.readFromString (sStyle, ECSSVersion.CSS30);
+    final CSSDeclarationList aDeclList = CSSReaderDeclarationList.readFromString (sStyle);
     if (aDeclList == null)
       throw new IllegalStateException ("Failed to parse CSS: " + sStyle);
     // Create a custom visitor
@@ -63,7 +62,7 @@ public final class WikiVisitFromHtml
       {
         System.out.println (aDeclaration.getProperty () +
                             ": " +
-                            aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)) +
+                            aDeclaration.getExpression ().getAsCSSString (new CSSWriterSettings ()) +
                             (aDeclaration.isImportant () ? " (important)" : " (not important)"));
       }
     };

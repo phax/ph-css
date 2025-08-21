@@ -25,7 +25,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ECSSVendorPrefix;
-import com.helger.css.ECSSVersion;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.propertyvalue.CSSValue;
@@ -68,12 +67,6 @@ public abstract class AbstractCSSProperty implements ICSSProperty
                                        eVendorPrefix +
                                        " on the already vendor specific property " +
                                        eProp);
-  }
-
-  @Nonnull
-  public final ECSSVersion getMinimumCSSVersion ()
-  {
-    return m_eProp.getMinimumCSSVersion ();
   }
 
   @Nonnull

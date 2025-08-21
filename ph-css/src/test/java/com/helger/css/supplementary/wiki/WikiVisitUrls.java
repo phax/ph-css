@@ -17,7 +17,6 @@
 package com.helger.css.supplementary.wiki;
 
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
@@ -56,7 +55,7 @@ public final class WikiVisitUrls
     final String sStyle = "@import 'foobar.css';\n" +
                           "div{background:fixed url(a.gif) !important;}\n" +
                           "span { background-image:url('/my/folder/b.gif');}";
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle);
     CSSVisitor.visitCSSUrl (aCSS, new DefaultCSSUrlVisitor ()
     {
       // Called for each import

@@ -20,7 +20,6 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
@@ -54,14 +53,7 @@ public enum ECSSSupportsConditionOperator implements ICSSSupportsConditionMember
   @Nonnull
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return m_sName;
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

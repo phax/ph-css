@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 
@@ -45,7 +44,7 @@ public final class WikiReadCSS
   public static CascadingStyleSheet readCSS30 (final File aFile)
   {
     // UTF-8 is the fallback if neither a BOM nor @charset rule is present
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8);
     if (aCSS == null)
     {
       // Most probably a syntax error

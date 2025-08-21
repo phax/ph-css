@@ -23,7 +23,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -31,8 +30,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a single supports condition with a declaration. E.g.
- * "(column-count: 1)"
+ * Represents a single supports condition with a declaration. E.g. "(column-count: 1)"
  *
  * @author Philip Helger
  */
@@ -42,7 +40,8 @@ public class CSSSupportsConditionDeclaration implements ICSSSupportsConditionMem
   private final CSSDeclaration m_aDeclaration;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSupportsConditionDeclaration (@Nonnull @Nonempty final String sProperty, @Nonnull final CSSExpression aExpression)
+  public CSSSupportsConditionDeclaration (@Nonnull @Nonempty final String sProperty,
+                                          @Nonnull final CSSExpression aExpression)
   {
     this (new CSSDeclaration (sProperty, aExpression));
   }
@@ -65,14 +64,7 @@ public class CSSSupportsConditionDeclaration implements ICSSSupportsConditionMem
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return "(" + m_aDeclaration.getAsCSSString (aSettings, nIndentLevel) + ")";
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

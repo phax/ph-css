@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.reader.CSSReader;
 
 import jakarta.annotation.Nonnull;
@@ -37,7 +36,7 @@ public final class CSSSelectorTest
   @Nonnull
   private static CSSSelector _parse (@Nonnull final String sCSS)
   {
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
     assertNotNull (sCSS, aCSS);
     assertTrue (aCSS.hasStyleRules ());
     assertEquals (1, aCSS.getStyleRuleCount ());

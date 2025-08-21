@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -39,8 +38,7 @@ public final class Issue88Test
   public void testIssue ()
   {
     final String sCSS = ":where(.some-tile:not(.preserve-color))>*{color:#161616}";
-    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST));
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS, new CSSReaderSettings ());
     assertNotNull (aCSS);
     assertEquals (":where(.some-tile:not(.preserve-color))>*{color:#161616}",
                   new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)

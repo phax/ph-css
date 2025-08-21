@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriterSettings;
 import com.helger.unittest.support.TestHelper;
@@ -39,7 +38,7 @@ public final class CSSImportRuleTest
   @Nonnull
   private static CSSImportRule _parse (@Nonnull final String sCSS)
   {
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
     assertNotNull (sCSS, aCSS);
     assertTrue (aCSS.hasImportRules ());
     assertEquals (1, aCSS.getImportRuleCount ());
@@ -77,7 +76,7 @@ public final class CSSImportRuleTest
   public void testCreate ()
   {
     final CSSImportRule aImportRule = new CSSImportRule ("a.gif");
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
     assertEquals ("@import url(a.gif);\n", aImportRule.getAsCSSString (aSettings));
     aSettings.setQuoteURLs (true);
     assertEquals ("@import url('a.gif');\n", aImportRule.getAsCSSString (aSettings));

@@ -23,8 +23,6 @@ import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -38,7 +36,7 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, ICloneable <CSSHSLA>
+public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
 {
   private String m_sHue;
   private String m_sSaturation;
@@ -212,8 +210,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
   }
 
   /**
-   * @return This value as HSL value without the opacity. Never
-   *         <code>null</code>.
+   * @return This value as HSL value without the opacity. Never <code>null</code>.
    * @since 3.8.3
    */
   @Nonnull
@@ -231,21 +228,22 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
   @Nonempty
   public String getAsString ()
   {
-    return CCSSValue.PREFIX_HSLA_OPEN + m_sHue + ',' + m_sSaturation + ',' + m_sLightness + ',' + m_sOpacity + CCSSValue.SUFFIX_HSLA_CLOSE;
+    return CCSSValue.PREFIX_HSLA_OPEN +
+           m_sHue +
+           ',' +
+           m_sSaturation +
+           ',' +
+           m_sLightness +
+           ',' +
+           m_sOpacity +
+           CCSSValue.SUFFIX_HSLA_CLOSE;
   }
 
   @Nonnull
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return getAsString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   /**
@@ -276,7 +274,11 @@ public class CSSHSLA implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClo
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sHue).append (m_sSaturation).append (m_sLightness).append (m_sOpacity).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sHue)
+                                       .append (m_sSaturation)
+                                       .append (m_sLightness)
+                                       .append (m_sOpacity)
+                                       .getHashCode ();
   }
 
   @Override

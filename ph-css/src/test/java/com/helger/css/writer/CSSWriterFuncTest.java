@@ -18,18 +18,14 @@ package com.helger.css.writer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.base.io.nonblocking.NonBlockingStringWriter;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.io.file.FileSystemRecursiveIterator;
@@ -42,36 +38,27 @@ public final class CSSWriterFuncTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CSSWriterFuncTest.class);
 
-  private void _testMe (@Nonnull final File aFile, @Nonnull final ECSSVersion eVersion)
+  private void _testMe (@Nonnull final File aFile)
   {
     if (false)
       LOGGER.info (aFile.getAbsolutePath ());
 
     // read and interpret
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, eVersion);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8);
     assertNotNull (aFile.getAbsolutePath (), aCSS);
 
     // Both normal and optimized!
     for (int i = 0; i < 2; ++i)
     {
       // write to buffer
-      final String sCSS = new CSSWriter (eVersion, i == 1).getCSSAsString (aCSS);
+      final String sCSS = new CSSWriter (i == 1).getCSSAsString (aCSS);
       if (false)
         System.out.println ("--" + i + "--\n" + sCSS);
 
       // read again from buffer
       assertEquals (aFile.getAbsolutePath () + (i == 0 ? " unoptimized" : " optimized"),
                     aCSS,
-                    CSSReader.readFromString (sCSS, eVersion));
-    }
-  }
-
-  @Test
-  public void testScanTestResourcesHandler21 ()
-  {
-    for (final File aFile : new FileSystemRecursiveIterator (new File ("src/test/resources/testfiles/css21/good/artificial")).withFilter (IFileFilter.filenameEndsWith (".css")))
-    {
-      _testMe (aFile, ECSSVersion.CSS30);
+                    CSSReader.readFromString (sCSS));
     }
   }
 
@@ -80,44 +67,19 @@ public final class CSSWriterFuncTest
   {
     for (final File aFile : new FileSystemRecursiveIterator (new File ("src/test/resources/testfiles/css30/good/artificial")).withFilter (IFileFilter.filenameEndsWith (".css")))
     {
-      _testMe (aFile, ECSSVersion.CSS30);
-    }
-  }
-
-  @Test
-  public void testRead30Write21 () throws IOException
-  {
-    for (final File aFile : new FileSystemRecursiveIterator (new File ("src/test/resources/testfiles/css30/good/artificial")).withFilter (IFileFilter.filenameEndsWith (".css")))
-    {
-      final String sKey = aFile.getAbsolutePath ();
-      try
-      {
-        // read and interpret CSS 3.0
-        final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, ECSSVersion.CSS30);
-        assertNotNull (sKey, aCSS);
-
-        // write to CSS 2.1
-        final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-        new CSSWriter (ECSSVersion.CSS21).writeCSS (aCSS, aSW);
-
-        // This should throw an error
-        fail (sKey + " should have thrown an exception but got: " + aSW.getAsString ());
-      }
-      catch (final IllegalStateException ex)
-      {}
+      _testMe (aFile);
     }
   }
 
   @Test
   public void testCompressCSS_Size ()
   {
-    final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ClassPathResource ("/testfiles/css21/good/phloc/test/content.css"),
-                                                               StandardCharsets.UTF_8,
-                                                               ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ClassPathResource ("/testfiles/css30/good/phloc/test/content.css"),
+                                                               StandardCharsets.UTF_8);
     assertNotNull (aCSS);
 
     // Only whitespace optimization
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS21, true);
+    final CSSWriterSettings aSettings = new CSSWriterSettings (true);
     String sContent = new CSSWriter (aSettings).getCSSAsString (aCSS);
     assertEquals (2846, sContent.length ());
 

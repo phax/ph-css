@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -41,11 +40,10 @@ public final class Issue33Test
     // No log message may be issued in this test!
 
     final String css = "@media \\0screen\\,screen\\9 {.test {margin-left: 0px}}";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true)
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setBrowserCompliantMode (true)
                                                                 .setInterpretErrorHandler (new DoNothingCSSInterpretErrorHandler ());
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
-    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
+    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (true));
     assertEquals ("@media \\0screen\\,screen\\9 {.test{margin-left:0}}", writer.getCSSAsString (cascadingStyleSheet));
   }
 }

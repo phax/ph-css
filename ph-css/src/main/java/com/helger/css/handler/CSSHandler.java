@@ -19,7 +19,6 @@ package com.helger.css.handler;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.parser.CSSNode;
@@ -47,8 +46,6 @@ public final class CSSHandler
   /**
    * Create a {@link CascadingStyleSheet} object from a parsed object.
    *
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
    * @param aErrorHandler
    *        The error handler to be used. May not be <code>null</code>.
    * @param bUseSourceLocation
@@ -60,26 +57,21 @@ public final class CSSHandler
    * @since 6.1.3
    */
   @Nonnull
-  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ECSSVersion eVersion,
-                                                                     @Nonnull final ICSSInterpretErrorHandler aErrorHandler,
+  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ICSSInterpretErrorHandler aErrorHandler,
                                                                      final boolean bUseSourceLocation,
                                                                      @Nonnull final CSSNode aNode)
   {
-    ValueEnforcer.notNull (eVersion, "Version");
     ValueEnforcer.notNull (aNode, "Node");
-    if (!ECSSNodeType.ROOT.isNode (aNode, eVersion))
+    if (!ECSSNodeType.ROOT.isNode (aNode))
       throw new CSSHandlingException (aNode, "Passed node is not a root node!");
     ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
 
-    return new CSSNodeToDomainObject (eVersion, aErrorHandler, bUseSourceLocation).createCascadingStyleSheetFromNode (
-                                                                                                                      aNode);
+    return new CSSNodeToDomainObject (aErrorHandler, bUseSourceLocation).createCascadingStyleSheetFromNode (aNode);
   }
 
   /**
    * Create a {@link CSSDeclarationList} object from a parsed object.
    *
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
    * @param aErrorHandler
    *        The error handler to be used. May not be <code>null</code>.
    * @param bUseSourceLocation
@@ -91,18 +83,15 @@ public final class CSSHandler
    * @since 6.1.3
    */
   @Nonnull
-  public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ECSSVersion eVersion,
-                                                                @Nonnull final ICSSInterpretErrorHandler aErrorHandler,
+  public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ICSSInterpretErrorHandler aErrorHandler,
                                                                 final boolean bUseSourceLocation,
                                                                 @Nonnull final CSSNode aNode)
   {
-    ValueEnforcer.notNull (eVersion, "Version");
     ValueEnforcer.notNull (aNode, "Node");
-    if (!ECSSNodeType.STYLEDECLARATIONLIST.isNode (aNode, eVersion))
+    if (!ECSSNodeType.STYLEDECLARATIONLIST.isNode (aNode))
       throw new CSSHandlingException (aNode, "Passed node is not a style declaration node!");
     ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
 
-    return new CSSNodeToDomainObject (eVersion, aErrorHandler, bUseSourceLocation).createDeclarationListFromNode (
-                                                                                                                  aNode);
+    return new CSSNodeToDomainObject (aErrorHandler, bUseSourceLocation).createDeclarationListFromNode (aNode);
   }
 }

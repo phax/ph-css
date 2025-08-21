@@ -23,24 +23,22 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Represents a single, simple CSS selector as used for the ":host-context()"
- * CSS pseudo class function.
+ * Represents a single, simple CSS selector as used for the ":host-context()" CSS pseudo class
+ * function.
  *
  * @author Mike Wiedenauer
  * @author Philip Helger
  * @since 6.4.4
  */
 @NotThreadSafe
-public class CSSSelectorMemberHostContext implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSSelectorMemberHostContext implements ICSSSelectorMember, ICSSSourceLocationAware
 {
   private final CSSSelector m_aSelector;
   private CSSSourceLocation m_aSourceLocation;
@@ -61,17 +59,9 @@ public class CSSSelectorMemberHostContext implements ICSSSelectorMember, ICSSVer
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     final StringBuilder aSB = new StringBuilder (":host-context(");
     aSB.append (m_aSelector.getAsCSSString (aSettings, 0));
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

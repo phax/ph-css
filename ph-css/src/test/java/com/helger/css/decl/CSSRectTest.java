@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.writer.CSSWriterSettings;
 import com.helger.unittest.support.TestHelper;
 
@@ -39,7 +38,7 @@ public final class CSSRectTest
     assertEquals ("2", aRect.getRight ());
     assertEquals ("3", aRect.getBottom ());
     assertEquals ("4", aRect.getLeft ());
-    assertEquals ("rect(1,2,3,4)", aRect.getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)));
+    assertEquals ("rect(1,2,3,4)", aRect.getAsCSSString (new CSSWriterSettings ()));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (aRect, new CSSRect (aRect));
     TestHelper.testDefaultImplementationWithEqualContentObject (aRect, new CSSRect ("1", "2", "3", "4"));
@@ -53,7 +52,7 @@ public final class CSSRectTest
     assertEquals ("2", aRect.getRight ());
     assertEquals ("3", aRect.getBottom ());
     assertEquals ("4", aRect.getLeft ());
-    assertEquals ("rect(5,2,3,4)", aRect.getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)));
+    assertEquals ("rect(5,2,3,4)", aRect.getAsCSSString (new CSSWriterSettings ()));
 
     aRect.setRight ("6");
     aRect.setBottom ("7");
@@ -62,6 +61,6 @@ public final class CSSRectTest
     assertEquals ("6", aRect.getRight ());
     assertEquals ("7", aRect.getBottom ());
     assertEquals ("8", aRect.getLeft ());
-    assertEquals ("rect(5,6,7,8)", aRect.getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)));
+    assertEquals ("rect(5,6,7,8)", aRect.getAsCSSString (new CSSWriterSettings ()));
   }
 }

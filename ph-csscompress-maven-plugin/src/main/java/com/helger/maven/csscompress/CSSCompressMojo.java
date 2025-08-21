@@ -35,7 +35,6 @@ import com.helger.base.system.ENewLineMode;
 import com.helger.base.system.EOperatingSystem;
 import com.helger.css.CCSS;
 import com.helger.css.CSSFilenameHelper;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.ICSSParseExceptionCallback;
 import com.helger.css.reader.CSSReader;
@@ -414,8 +413,7 @@ public final class CSSCompressMojo extends AbstractMojo
                                                                        sSourceRelativePath,
                                                                        ex);
       final Charset aFallbackCharset = CharsetHelper.getCharsetFromName (sourceEncoding);
-      final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
-                                                                  .setFallbackCharset (aFallbackCharset)
+      final CSSReaderSettings aSettings = new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
                                                                   .setCustomExceptionHandler (aExHdl)
                                                                   .setBrowserCompliantMode (browserCompliantMode)
                                                                   .setKeepDeprecatedProperties (keepDeprecatedProperties);
@@ -426,7 +424,7 @@ public final class CSSCompressMojo extends AbstractMojo
         final FileSystemResource aDestFile = new FileSystemResource (aCompressedFile);
         try
         {
-          final CSSWriterSettings aWriterSettings = new CSSWriterSettings (ECSSVersion.CSS30);
+          final CSSWriterSettings aWriterSettings = new CSSWriterSettings ();
           aWriterSettings.setOptimizedOutput (true);
           aWriterSettings.setRemoveUnnecessaryCode (removeUnnecessaryCode);
           aWriterSettings.setNewLineMode (newLineMode);

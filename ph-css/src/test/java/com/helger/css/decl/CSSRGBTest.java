@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.writer.CSSWriterSettings;
 import com.helger.unittest.support.TestHelper;
 
@@ -34,7 +33,7 @@ public final class CSSRGBTest
   @Test
   public void testBasic ()
   {
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
     final CSSRGB aColor = new CSSRGB (1, 2, 3);
     assertEquals ("rgb(1,2,3)", aColor.getAsCSSString (aSettings));
 

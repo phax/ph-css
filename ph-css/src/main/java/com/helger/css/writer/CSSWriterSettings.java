@@ -26,8 +26,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.system.ENewLineMode;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.utils.CSSURLHelper;
 
@@ -71,14 +69,13 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   public static final boolean DEFAULT_WRITE_UNKNOWN_RULES = true;
 
   /**
-   * Default CSS writer settings to be used for simplified APIs. Must be the
-   * last constant - order matters.
+   * Default CSS writer settings to be used for simplified APIs. Must be the last constant - order
+   * matters.
    *
    * @since 6.0.0
    */
   public static final ICSSWriterSettings DEFAULT_SETTINGS = new CSSWriterSettings ();
 
-  private ECSSVersion m_eCSSVersion;
   private boolean m_bOptimizedOutput;
   private boolean m_bRemoveUnnecessaryCode = DEFAULT_REMOVE_UNNECESSARY_CODE;
   private ENewLineMode m_eNewLineMode = DEFAULT_NEW_LINE_MODE;
@@ -98,28 +95,17 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
    */
   public CSSWriterSettings ()
   {
-    this (ECSSVersion.LATEST, DEFAULT_OPTIMIZED_OUTPUT);
-  }
-
-  /**
-   * @param eCSSVersion
-   *        CSS version to emit
-   */
-  public CSSWriterSettings (@Nonnull final ECSSVersion eCSSVersion)
-  {
-    this (eCSSVersion, DEFAULT_OPTIMIZED_OUTPUT);
+    this (DEFAULT_OPTIMIZED_OUTPUT);
   }
 
   /**
    * @param eCSSVersion
    *        CSS version to emit
    * @param bOptimizedOutput
-   *        if <code>true</code> the output will be optimized for space, else
-   *        for readability
+   *        if <code>true</code> the output will be optimized for space, else for readability
    */
-  public CSSWriterSettings (@Nonnull final ECSSVersion eCSSVersion, final boolean bOptimizedOutput)
+  public CSSWriterSettings (final boolean bOptimizedOutput)
   {
-    setCSSVersion (eCSSVersion);
     setOptimizedOutput (bOptimizedOutput);
   }
 
@@ -133,7 +119,6 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   {
     ValueEnforcer.notNull (aBase, "Base");
 
-    setCSSVersion (aBase.getCSSVersion ());
     setOptimizedOutput (aBase.isOptimizedOutput ());
     setRemoveUnnecessaryCode (aBase.isRemoveUnnecessaryCode ());
     setNewLineMode (aBase.getNewLineMode ());
@@ -147,20 +132,6 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     setWriteViewportRules (aBase.isWriteViewportRules ());
     setWriteSupportsRules (aBase.isWriteSupportsRules ());
     setWriteUnknownRules (aBase.isWriteUnknownRules ());
-  }
-
-  @Nonnull
-  public final ECSSVersion getCSSVersion ()
-  {
-    return m_eCSSVersion;
-  }
-
-  @Nonnull
-  public final CSSWriterSettings setCSSVersion (@Nonnull final ECSSVersion eCSSVersion)
-  {
-    ValueEnforcer.notNull (eCSSVersion, "CSSVersion");
-    m_eCSSVersion = eCSSVersion;
-    return this;
   }
 
   public final boolean isOptimizedOutput ()
@@ -330,16 +301,6 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return this;
   }
 
-  public void checkVersionRequirements (@Nonnull final ICSSVersionAware aCSSObject)
-  {
-    final ECSSVersion eMinCSSVersion = aCSSObject.getMinimumCSSVersion ();
-    if (m_eCSSVersion.compareTo (eMinCSSVersion) < 0)
-      throw new IllegalStateException ("This object cannot be serialized to CSS version " +
-                                       m_eCSSVersion.getVersion ().getAsString () +
-                                       " but requires at least " +
-                                       eMinCSSVersion.getVersion ().getAsString ());
-  }
-
   @Nonnull
   @ReturnsMutableCopy
   public CSSWriterSettings getClone ()
@@ -355,8 +316,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSWriterSettings rhs = (CSSWriterSettings) o;
-    return m_eCSSVersion.equals (rhs.m_eCSSVersion) &&
-           m_bOptimizedOutput == rhs.m_bOptimizedOutput &&
+    return m_bOptimizedOutput == rhs.m_bOptimizedOutput &&
            m_bRemoveUnnecessaryCode == rhs.m_bRemoveUnnecessaryCode &&
            m_eNewLineMode.equals (rhs.m_eNewLineMode) &&
            m_sIndent.equals (rhs.m_sIndent) &&
@@ -374,8 +334,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_eCSSVersion)
-                                       .append (m_bOptimizedOutput)
+    return new HashCodeGenerator (this).append (m_bOptimizedOutput)
                                        .append (m_bRemoveUnnecessaryCode)
                                        .append (m_eNewLineMode)
                                        .append (m_sIndent)
@@ -394,20 +353,19 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("version", m_eCSSVersion)
-                                       .append ("optimizedOutput", m_bOptimizedOutput)
-                                       .append ("removeUnnecessaryCode", m_bRemoveUnnecessaryCode)
-                                       .append ("newLineMode", m_eNewLineMode)
-                                       .append ("indent", m_sIndent)
-                                       .append ("quoteURLs", m_bQuoteURLs)
-                                       .append ("writeNamespaceRules", m_bWriteNamespaceRules)
-                                       .append ("writeFontFaceRules", m_bWriteFontFaceRules)
-                                       .append ("writeKeyframesRules", m_bWriteKeyframesRules)
-                                       .append ("writeMediaRules", m_bWriteMediaRules)
-                                       .append ("writePageRules", m_bWritePageRules)
-                                       .append ("writeViewportRules", m_bWriteViewportRules)
-                                       .append ("writeSupportsRules", m_bWriteSupportsRules)
-                                       .append ("writeUnknownRules", m_bWriteUnknownRules)
+    return new ToStringGenerator (this).append ("OptimizedOutput", m_bOptimizedOutput)
+                                       .append ("RemoveUnnecessaryCode", m_bRemoveUnnecessaryCode)
+                                       .append ("NewLineMode", m_eNewLineMode)
+                                       .append ("Indent", m_sIndent)
+                                       .append ("QuoteURLs", m_bQuoteURLs)
+                                       .append ("WriteNamespaceRules", m_bWriteNamespaceRules)
+                                       .append ("WriteFontFaceRules", m_bWriteFontFaceRules)
+                                       .append ("WriteKeyframesRules", m_bWriteKeyframesRules)
+                                       .append ("WriteMediaRules", m_bWriteMediaRules)
+                                       .append ("WritePageRules", m_bWritePageRules)
+                                       .append ("WriteViewportRules", m_bWriteViewportRules)
+                                       .append ("WriteSupportsRules", m_bWriteSupportsRules)
+                                       .append ("WriteUnknownRules", m_bWriteUnknownRules)
                                        .getToString ();
   }
 }
