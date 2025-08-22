@@ -478,6 +478,8 @@ public final class CSSReader
    * @since 3.7.3
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromString (@Nonnull final String sCSS,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
@@ -497,6 +499,8 @@ public final class CSSReader
    * @since 3.7.3
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromString (@Nonnull final String sCSS,
                                                     @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
@@ -519,6 +523,8 @@ public final class CSSReader
    * @since 3.7.3
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromString (@Nonnull final String sCSS,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                     @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
@@ -557,6 +563,8 @@ public final class CSSReader
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromFile (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
   {
     return readFromFile (aFile, new CSSReaderSettings ().setFallbackCharset (aFallbackCharset));
@@ -576,13 +584,14 @@ public final class CSSReader
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromFile (@Nonnull final File aFile,
                                                   @Nonnull final Charset aFallbackCharset,
                                                   @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromFile (aFile,
                          new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-
                                                  .setCustomErrorHandler (aCustomErrorHandler));
   }
 
@@ -600,13 +609,14 @@ public final class CSSReader
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromFile (@Nonnull final File aFile,
                                                   @Nonnull final Charset aFallbackCharset,
                                                   @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromFile (aFile,
                          new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-
                                                  .setCustomExceptionHandler (aCustomExceptionHandler));
   }
 
@@ -627,6 +637,8 @@ public final class CSSReader
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromFile (@Nonnull final File aFile,
                                                   @Nonnull final Charset aFallbackCharset,
                                                   @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
@@ -634,7 +646,6 @@ public final class CSSReader
   {
     return readFromFile (aFile,
                          new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-
                                                  .setCustomErrorHandler (aCustomErrorHandler)
                                                  .setCustomExceptionHandler (aCustomExceptionHandler));
   }
@@ -669,6 +680,8 @@ public final class CSSReader
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromStream (@Nonnull final IHasInputStream aISP,
                                                     @Nonnull final Charset aFallbackCharset)
   {
@@ -692,13 +705,14 @@ public final class CSSReader
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromStream (@Nonnull final IHasInputStream aISP,
                                                     @Nonnull final Charset aFallbackCharset,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromStream (aISP,
                            new CSSReaderSettings ().setFallbackCharset (aFallbackCharset)
-
                                                    .setCustomErrorHandler (aCustomErrorHandler));
   }
 
