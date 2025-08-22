@@ -335,6 +335,21 @@ public final class CSSReader
   }
 
   /**
+   * Read the CSS from the passed String using a character stream. An eventually contained
+   * <code>@charset</code> rule is ignored.
+   *
+   * @param sCSS
+   *        The source string containing the CSS to be parsed. May not be <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations otherwise.
+   * @since 3.7.3
+   */
+  @Nullable
+  public static CascadingStyleSheet readFromString (@Nonnull final String sCSS)
+  {
+    return readFromStringReader (sCSS, new CSSReaderSettings ());
+  }
+
+  /**
    * Read the CSS from the passed String using a byte stream.
    *
    * @param sCSS
@@ -456,13 +471,16 @@ public final class CSSReader
    *
    * @param sCSS
    *        The source string containing the CSS to be parsed. May not be <code>null</code>.
+   * @param aSettings
+   *        The settings to be used for reading the CSS. May not be <code>null</code>.
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
-   * @since 3.7.3
+   * @since 3.8.2
    */
   @Nullable
-  public static CascadingStyleSheet readFromString (@Nonnull final String sCSS)
+  public static CascadingStyleSheet readFromStringReader (@Nonnull final String sCSS,
+                                                          @Nonnull final CSSReaderSettings aSettings)
   {
-    return readFromStringReader (sCSS, new CSSReaderSettings ());
+    return readFromReader (new StringReaderProvider (sCSS), aSettings);
   }
 
   /**
@@ -535,21 +553,16 @@ public final class CSSReader
   }
 
   /**
-   * Read the CSS from the passed String using a character stream. An eventually contained
-   * <code>@charset</code> rule is ignored.
+   * Read the CSS from the passed File.
    *
-   * @param sCSS
-   *        The source string containing the CSS to be parsed. May not be <code>null</code>.
-   * @param aSettings
-   *        The settings to be used for reading the CSS. May not be <code>null</code>.
+   * @param aFile
+   *        The file containing the CSS to be parsed. May not be <code>null</code>.
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
-   * @since 3.8.2
    */
   @Nullable
-  public static CascadingStyleSheet readFromStringReader (@Nonnull final String sCSS,
-                                                          @Nonnull final CSSReaderSettings aSettings)
+  public static CascadingStyleSheet readFromFile (@Nonnull final File aFile)
   {
-    return readFromReader (new StringReaderProvider (sCSS), aSettings);
+    return readFromFile (aFile, new CSSReaderSettings ());
   }
 
   /**
@@ -664,6 +677,22 @@ public final class CSSReader
   public static CascadingStyleSheet readFromFile (@Nonnull final File aFile, @Nonnull final CSSReaderSettings aSettings)
   {
     return readFromStream (new FileSystemResource (aFile), aSettings);
+  }
+
+  /**
+   * Read the CSS from the passed {@link IHasInputStream}. If the CSS contains an explicit charset,
+   * the whole CSS is parsed again, with the charset found inside the file, so the passed
+   * {@link IHasInputStream} must be able to create a new input stream on second invocation!
+   *
+   * @param aISP
+   *        The input stream provider to use. Must be able to create new input streams on every
+   *        invocation, in case an explicit charset node was found. May not be <code>null</code>.
+   * @return <code>null</code> if reading failed, the CSS declarations otherwise.
+   */
+  @Nullable
+  public static CascadingStyleSheet readFromStream (@Nonnull final IHasInputStream aISP)
+  {
+    return readFromStream (aISP, new CSSReaderSettings ());
   }
 
   /**
@@ -815,6 +844,8 @@ public final class CSSReader
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromStream (@Nonnull final IHasInputStream aISP,
                                                     @Nonnull final Charset aFallbackCharset,
                                                     @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
@@ -844,6 +875,8 @@ public final class CSSReader
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromStream (@Nonnull final IHasInputStream aISP,
                                                     @Nonnull final Charset aFallbackCharset,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
@@ -973,6 +1006,8 @@ public final class CSSReader
    * @since 3.7.3
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "8.0.0")
+  @DevelopersNote ("Use the version with CSSReaderSettings instead")
   public static CascadingStyleSheet readFromReader (@Nonnull final IHasReader aRP,
                                                     @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                     @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)

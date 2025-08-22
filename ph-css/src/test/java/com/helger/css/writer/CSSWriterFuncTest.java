@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -44,7 +43,7 @@ public final class CSSWriterFuncTest
       LOGGER.info (aFile.getAbsolutePath ());
 
     // read and interpret
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile);
     assertNotNull (aFile.getAbsolutePath (), aCSS);
 
     // Both normal and optimized!
@@ -74,8 +73,7 @@ public final class CSSWriterFuncTest
   @Test
   public void testCompressCSS_Size ()
   {
-    final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ClassPathResource ("/testfiles/css30/good/phloc/test/content.css"),
-                                                               StandardCharsets.UTF_8);
+    final CascadingStyleSheet aCSS = CSSReader.readFromStream (new ClassPathResource ("/testfiles/css30/good/phloc/test/content.css"));
     assertNotNull (aCSS);
 
     // Only whitespace optimization

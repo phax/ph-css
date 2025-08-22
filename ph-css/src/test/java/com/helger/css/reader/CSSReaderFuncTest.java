@@ -109,7 +109,8 @@ public final class CSSReaderFuncTest extends AbstractFuncTestCSSReader
   {
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/hacks2.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
+                                                             new CSSReaderSettings ().setFallbackCharset (aCharset));
     assertNotNull (aCSS);
 
     final String sCSS = new CSSWriter (false).getCSSAsString (aCSS);
@@ -124,7 +125,8 @@ public final class CSSReaderFuncTest extends AbstractFuncTestCSSReader
     final CSSWriterSettings aCSSWS = new CSSWriterSettings (false);
     final Charset aCharset = StandardCharsets.UTF_8;
     final File aFile = new File ("src/test/resources/testfiles/css30/good/artificial/test-expression.css");
-    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, aCharset);
+    final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
+                                                             new CSSReaderSettings ().setFallbackCharset (aCharset));
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getRuleCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());

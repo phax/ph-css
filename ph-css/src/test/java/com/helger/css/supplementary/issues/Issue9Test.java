@@ -19,12 +19,11 @@ package com.helger.css.supplementary.issues;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.nio.charset.StandardCharsets;
-
 import org.junit.Test;
 
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
@@ -43,9 +42,7 @@ public final class Issue9Test
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad/issue9.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
-                                                               StandardCharsets.UTF_8,
-                                                               
-                                                               new LoggingCSSParseErrorHandler ());
+                                                               new CSSReaderSettings ().setCustomErrorHandler (new LoggingCSSParseErrorHandler ()));
     assertNull (aCSS);
   }
 
@@ -56,9 +53,7 @@ public final class Issue9Test
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/bad/issue9b.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
-                                                               StandardCharsets.UTF_8,
-                                                               
-                                                               new LoggingCSSParseErrorHandler ());
+                                                               new CSSReaderSettings ().setCustomErrorHandler (new LoggingCSSParseErrorHandler ()));
     assertNull (aCSS);
   }
 }
