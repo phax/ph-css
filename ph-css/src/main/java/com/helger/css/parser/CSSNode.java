@@ -161,7 +161,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
     return m_sText;
   }
 
-  public boolean hasText ()
+  public boolean isNotEmpty ()
   {
     return m_sText != null;
   }

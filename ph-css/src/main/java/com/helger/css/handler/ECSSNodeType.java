@@ -193,7 +193,7 @@ public enum ECSSNodeType
                                       @Nonnull final String sPrefix)
   {
     aSB.append (sPrefix).append (getNodeName (aParserNode));
-    if (aParserNode.hasText ())
+    if (aParserNode.isNotEmpty ())
       aSB.append ('[').append (aParserNode.getText ()).append (']');
     aSB.append ('\n');
     for (final CSSNode aChildNode : aParserNode)
