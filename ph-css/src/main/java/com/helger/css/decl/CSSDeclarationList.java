@@ -109,7 +109,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   @Nonnegative
   public int getDeclarationCount ()
   {
-    return getCount ();
+    return size ();
   }
 
   @Nullable

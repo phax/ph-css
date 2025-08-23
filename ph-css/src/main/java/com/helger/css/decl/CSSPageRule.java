@@ -128,7 +128,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @Nonnegative
   public int getMemberCount ()
   {
-    return m_aMembers.getCount ();
+    return m_aMembers.size ();
   }
 
   @Nonnull
@@ -159,7 +159,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
       }
     }
 
-    final int nDeclCount = m_aMembers.getCount ();
+    final int nDeclCount = m_aMembers.size ();
     if (nDeclCount == 0)
     {
       aSB.append (bOptimizedOutput ? "{}" : " {}");

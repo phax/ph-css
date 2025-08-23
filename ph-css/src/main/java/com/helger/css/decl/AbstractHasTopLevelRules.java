@@ -227,7 +227,7 @@ public abstract class AbstractHasTopLevelRules
   @Nonnegative
   public int getStyleRuleCount ()
   {
-    return m_aRules.getCount (CSSStyleRule.class::isInstance);
+    return m_aRules.size (CSSStyleRule.class::isInstance);
   }
 
   /**
@@ -275,7 +275,7 @@ public abstract class AbstractHasTopLevelRules
   @Nonnegative
   public int getPageRuleCount ()
   {
-    return m_aRules.getCount (CSSPageRule.class::isInstance);
+    return m_aRules.size (CSSPageRule.class::isInstance);
   }
 
   /**
@@ -324,7 +324,7 @@ public abstract class AbstractHasTopLevelRules
   @Nonnegative
   public int getMediaRuleCount ()
   {
-    return m_aRules.getCount (CSSMediaRule.class::isInstance);
+    return m_aRules.size (CSSMediaRule.class::isInstance);
   }
 
   /**
@@ -374,7 +374,7 @@ public abstract class AbstractHasTopLevelRules
   @Nonnegative
   public int getFontFaceRuleCount ()
   {
-    return m_aRules.getCount (CSSFontFaceRule.class::isInstance);
+    return m_aRules.size (CSSFontFaceRule.class::isInstance);
   }
 
   /**
@@ -425,7 +425,7 @@ public abstract class AbstractHasTopLevelRules
   @Nonnegative
   public int getKeyframesRuleCount ()
   {
-    return m_aRules.getCount (CSSKeyframesRule.class::isInstance);
+    return m_aRules.size (CSSKeyframesRule.class::isInstance);
   }
 
   /**
@@ -476,7 +476,7 @@ public abstract class AbstractHasTopLevelRules
   @Nonnegative
   public int getViewportRuleCount ()
   {
-    return m_aRules.getCount (CSSViewportRule.class::isInstance);
+    return m_aRules.size (CSSViewportRule.class::isInstance);
   }
 
   /**
@@ -527,7 +527,7 @@ public abstract class AbstractHasTopLevelRules
   @Nonnegative
   public int getSupportsRuleCount ()
   {
-    return m_aRules.getCount (CSSSupportsRule.class::isInstance);
+    return m_aRules.size (CSSSupportsRule.class::isInstance);
   }
 
   /**
@@ -577,7 +577,7 @@ public abstract class AbstractHasTopLevelRules
   @Nonnegative
   public int getUnknownRuleCount ()
   {
-    return m_aRules.getCount (CSSUnknownRule.class::isInstance);
+    return m_aRules.size (CSSUnknownRule.class::isInstance);
   }
 
   /**
