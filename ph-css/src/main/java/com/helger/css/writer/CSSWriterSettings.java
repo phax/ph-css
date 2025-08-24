@@ -99,8 +99,6 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   }
 
   /**
-   * @param eCSSVersion
-   *        CSS version to emit
    * @param bOptimizedOutput
    *        if <code>true</code> the output will be optimized for space, else for readability
    */
