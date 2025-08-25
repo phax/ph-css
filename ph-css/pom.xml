@@ -168,13 +168,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <doclint>none</doclint>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
@@ -190,6 +183,16 @@
           </licenseSets>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <source>17</source>
+          <sourcepath>
+            ${project.build.sourceDirectory}:${project.build.directory}/generated-sources/jjtree:${project.build.directory}/generated-sources/javacc
+          </sourcepath>
+        </configuration>
+      </plugin> 
     </plugins>
   </build>
 </project>

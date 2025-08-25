@@ -4,14 +4,14 @@
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
 [![CodeCov](https://codecov.io/gh/phax/ph-css/branch/master/graph/badge.svg)](https://codecov.io/gh/phax/ph-css)
 
-Java CSS 2 and CSS 3 parser and builder. This version supersedes phloc-css.
-The Maven plugin to compress CSS files at build time is located in sub-project ph-csscompress-maven-plugin and described further down.
+Java-based CSS 3 parser and builder.
+The Maven plugin to compress CSS files at build time is located in sub-module `ph-csscompress-maven-plugin` and described further down.
 
-ph-css has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use.
+`ph-css` has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use.
 
-ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 license**.
+`ph-css` and `ph-csscompress-maven-plugin` are both licensed under the **Apache 2.0 license**.
 
-ph-css is used as a part of [Apache JMeter 3](https://github.com/apache/jmeter) :)
+`ph-css` is used as a part of [Apache JMeter 3](https://github.com/apache/jmeter) :)
 
 # Maven usage
 
@@ -25,7 +25,7 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
 </dependency>
 ```
 
-To build ph-css from source, Maven 3.0.4 is required. Any Maven version below does **NOT** work! 
+To build `ph-css` from source, Maven 3.x is required. Any Maven version below does **NOT** work! 
 
 # Documentation
 
@@ -39,16 +39,17 @@ Please look at my personal [Coding Styleguide](https://github.com/phax/meta/blob
 
 A complete stylesheet is represented as an instance of `com.helger.css.decl.CascadingStyleSheet`. There is no difference between CSS 2.1 and CSS 3.0 instances. The class `com.helger.css.decl.CascadingStyleSheet` contains all top-level rules that may be present in a CSS:
 
-  * Import rules (`@import`) - `com.helger.css.decl.CSSImportRule`
-  * Namespace rules (`@namespace`) - `com.helger.css.decl.CSSNamespaceRule`
-  * Style rules (e.g. `div{color:red;}`) - `com.helger.css.decl.CSSStyleRule`
-  * Page rules (`@page`) - `com.helger.css.decl.CSSPageRule`
-  * Media rules (`@media`) - `com.helger.css.decl.CSSMediaRule`
-  * Font face rules (`@font-face`) - `com.helger.css.decl.CSSFontFaceRule`
-  * Keyframes rules (`@keyframes`) - `com.helger.css.decl.CSSKeyframesRule`
-  * Viewport rules (`@viewport`) - `com.helger.css.decl.CSSViewportRule`
-  * Supports rules (`@supports`) - `com.helger.css.decl.CSSSupportsRule`
-  * Any other unknown rules (`@foo`) - `com.helger.css.decl.CSSUnknownRule`
+* Import rules (`@import`) - `com.helger.css.decl.CSSImportRule`
+* Namespace rules (`@namespace`) - `com.helger.css.decl.CSSNamespaceRule`
+* Style rules (e.g. `div{color:red;}`) - `com.helger.css.decl.CSSStyleRule`
+* Page rules (`@page`) - `com.helger.css.decl.CSSPageRule`
+* Media rules (`@media`) - `com.helger.css.decl.CSSMediaRule`
+* Font face rules (`@font-face`) - `com.helger.css.decl.CSSFontFaceRule`
+* Keyframes rules (`@keyframes`) - `com.helger.css.decl.CSSKeyframesRule`
+* Viewport rules (`@viewport`) - `com.helger.css.decl.CSSViewportRule`
+* Supports rules (`@supports`) - `com.helger.css.decl.CSSSupportsRule`
+* Layer rules (`@layer`) - `com.helger.css.decl.CSSLayerRule`
+* Any other unknown rules (`@foo`) - `com.helger.css.decl.CSSUnknownRule`
 
 ## CSS reading
 
@@ -66,10 +67,10 @@ Since v3.8.2 the class `com.helger.css.reader.CSSReaderSettings` is present and 
 ### Recoverable Errors
 ph-css differentiates between recoverable errors and unrecoverable errors. An example for a recoverable error is e.g. an `@import` rule in the wrong place or a missing closing bracket within a style declaration. For recoverable errors a special handler interface `com.helger.css.reader.errorhandler.ICSSParseErrorHandler` is present. You can pass an implementation of this error handler to the CSS reader (see above). The following implementations are present by default (all residing in package `com.helger.css.reader.errorhandler`):
 
-  * `DoNothingCSSParseErrorHandler` - silently ignoring all recoverable errors
-  * `LoggingCSSParseErrorHandler` - logging all recoverable errors to an SLF4J logger
-  * `ThrowingCSSParseErrorHandler` - throws a `com.helger.css.parser.ParseException` in case of a recoverable error which is afterwards handled by the unrecoverable error handler (see below). This can be used to enforce handling only 100% valid CSS files. This is the default setting, if no error handler is specified during reading.
-  * `CollectingCSSParseErrorHandler` - collects all recoverable errors into a list of `com.helger.css.reader.errorhandler.CSSParseError` instances for later evaluation. 
+* `DoNothingCSSParseErrorHandler` - silently ignoring all recoverable errors
+* `LoggingCSSParseErrorHandler` - logging all recoverable errors to an SLF4J logger
+* `ThrowingCSSParseErrorHandler` - throws a `com.helger.css.parser.ParseException` in case of a recoverable error which is afterwards handled by the unrecoverable error handler (see below). This can be used to enforce handling only 100% valid CSS files. This is the default setting, if no error handler is specified during reading.
+* `CollectingCSSParseErrorHandler` - collects all recoverable errors into a list of `com.helger.css.reader.errorhandler.CSSParseError` instances for later evaluation. 
 
 Some error handlers can be nested so that a combination of a logging handler and a collecting handler can easily be achieved like:
 
@@ -85,8 +86,8 @@ Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a
 
 In case of an unrecoverable error, the underlying parser engine of JavaCC throws a `com.helger.css.parser.ParseException`. This exception contains all the necessary information on where the error occurred. In case of such an unrecoverable error, the result of the reading will always be `null` and the exception is not automatically propagated to the caller. To explicitly get notified when such a parse error occurs, the handler interface `com.helger.css.handler.ICSSParseExceptionCallback` is available. The available implementations are (all residing in package `com.helger.css.handler`):
 
-  * `DoNothingCSSParseExceptionHandler` - silently ignore all unrecoverable errors
-  * `LoggingCSSParseExceptionHandler` - log all unrecoverable errors to an SLF4J logger 
+* `DoNothingCSSParseExceptionHandler` - silently ignore all unrecoverable errors
+* `LoggingCSSParseExceptionHandler` - log all unrecoverable errors to an SLF4J logger 
 
 As there is at most one unrecoverable error per parse there is no collecting implementation of an `ICSSParseExceptionCallback` available. If it is desired to propagate the Exception to the caller you need to implement your own `ICSSParseExceptionCallback` subclass that throws an unchecked exception (one derived from `RuntimeException`). Example:
 
@@ -146,7 +147,7 @@ All of these shorthand properties are registered in class `CSSShortHandRegistry`
 
 ```java
   // Parse a dummy declaration
-  final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+  final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed").getDeclarationAtIndex (0);
 
   // Get the Shorthand descriptor for "border"    
   final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
@@ -157,21 +158,21 @@ All of these shorthand properties are registered in class `CSSShortHandRegistry`
 
 In the above example, `aSplittedDecls` will contain 3 elements with the following content:
 
-  * `border-width:1px`
-  * `border-style:dashed`
-  * `border-color:black` 
+* `border-width:1px`
+* `border-style:dashed`
+* `border-color:black` 
 
 Even though no color value was provided, the default value `black` is returned. For all "sub-declarations", sensible default values are defined.
 
 ## CSS utilities
 
 ph-css contains a multitude of small utility class covering different aspects of CSS
-  * `com.helger.css.utils.CSSColorHelper` contains methods to read and write the different types of CSS color values (rgb, rgba, hsl, hsla and hex value)
-  * `com.helger.css.utils.ECSSColor` contains the basic CSS colors as an enumeration
-  * `com.helger.css.ECSSUnit` contains all the default CSS units (like. `px` or `em`)
-  * `com.helger.css.utils.CSSNumberHelper` contains methods for handling the combination of numeric values and units.
-  * `com.helger.css.utils.CSSRectHelper` contains methods for handling CSS `rect` values.
-  * `com.helger.css.tools.MediaQueryTools` provides shortcut methods for wrapping a complete `CascadingStyleSheet` in one or more media queries
+* `com.helger.css.utils.CSSColorHelper` contains methods to read and write the different types of CSS color values (rgb, rgba, hsl, hsla and hex value)
+* `com.helger.css.utils.ECSSColor` contains the basic CSS colors as an enumeration
+* `com.helger.css.ECSSUnit` contains all the default CSS units (like. `px` or `em`)
+* `com.helger.css.utils.CSSNumberHelper` contains methods for handling the combination of numeric values and units.
+* `com.helger.css.utils.CSSRectHelper` contains methods for handling CSS `rect` values.
+* `com.helger.css.tools.MediaQueryTools` provides shortcut methods for wrapping a complete `CascadingStyleSheet` in one or more media queries
 
 # Code Examples
 
@@ -221,7 +222,7 @@ The following list gives an overview of known shortcomings in ph-css
 
 A Maven plugin to compress CSS files at build time using ph-css.
 
-It requires Java 11 and Maven 3 to run.
+It requires Java 17 and Maven 3.x to run.
 
 ## Maven configuration
 
@@ -314,10 +315,11 @@ Configuration items are:
 
 ## News and noteworthy
 
-v8.0.0 - work in progress
+v8.0.0 - 2025-08-25
 * Requires Java 17 as the minimum version
 * Updated to ph-commons 12.0.0
 * Removed all deprecated methods marked for removal
+* Removed the separation between CSS2 and CSS3 - all one now
 * Removed class `ECSSVersion` and interface `ICSSVersionAware` because they have no real role anymore
 
 v7.1.0 - 2025-08-20
