@@ -606,7 +606,7 @@ public enum ECSSProperty implements IHasName
   @ReturnsMutableCopy
   public Set <ECSSSpecification> getAllSpecifications ()
   {
-    return CollectionHelperExt.createEnumSet (ECSSSpecification.class, m_aSpecifications);
+    return EnumSet.copyOf (m_aSpecifications);
   }
 
   /**
