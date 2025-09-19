@@ -23,8 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -45,6 +43,8 @@ import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileOperationManager;
 import com.helger.io.file.FilenameHelper;
 import com.helger.io.resource.FileSystemResource;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * @goal csscompress

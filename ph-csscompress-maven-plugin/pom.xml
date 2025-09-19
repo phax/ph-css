@@ -55,7 +55,7 @@
   </developers>
 
   <properties>
-    <maven.core.version>3.8.3</maven.core.version>
+    <maven.core.version>3.9.11</maven.core.version>
     <maven.annot.version>3.8.2</maven.annot.version>
   </properties>
   
