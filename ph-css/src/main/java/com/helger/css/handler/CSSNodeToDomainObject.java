@@ -166,13 +166,17 @@ final class CSSNodeToDomainObject
     }
     else
     {
-      final int nExpectedChildCount = nOperatorIndex + 2;
-      if (nChildren != nExpectedChildCount)
+      // With operator and value
+      int nMin = nOperatorIndex + 2;
+      // With operator, value and case sensitivity flag
+      int nMax = nOperatorIndex + 3;
+      
+      if (nChildren < nMin || nChildren > nMax)
         _throwUnexpectedChildrenCount (aNode,
                                        "Illegal number of children present (" +
                                               nChildren +
-                                              ") - expected " +
-                                              nExpectedChildCount);
+                                              ") - expected it to be more than " +
+                                              nMin + " and less than " + nMax);
 
       // With operator...
       final CSSNode aOperator = aNode.jjtGetChild (nOperatorIndex);
@@ -182,10 +186,20 @@ final class CSSNodeToDomainObject
       final CSSNode aAttrValue = aNode.jjtGetChild (nOperatorIndex + 1);
       _expectNodeType (aAttrValue, ECSSNodeType.ATTRIBVALUE);
 
+      ECSSAttributeCase eCaseFlag = null;
+      // Optional case sensitivity flag
+      if (nChildren == nMax)
+      {
+        final CSSNode aFlag = aNode.jjtGetChild (nOperatorIndex + 2);
+        _expectNodeType (aFlag, ECSSNodeType.ATTRIBCASE);
+        eCaseFlag = ECSSAttributeCase.getFromNameOrNull (aFlag.getText ());
+      }
+
       ret = new CSSSelectorAttribute (sNamespacePrefix,
                                       sAttrName,
                                       ECSSAttributeOperator.getFromNameOrNull (aOperator.getText ()),
-                                      aAttrValue.getText ());
+                                      aAttrValue.getText (),
+                                      eCaseFlag);
     }
     if (m_bUseSourceLocation)
       ret.setSourceLocation (aNode.getSourceLocation ());
