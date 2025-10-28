@@ -27,36 +27,43 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Enumeration with case sensitivity flags as in
- * <code>[foo="bar" i]</code> or <code>[foo="bar" s]</code>
+ * Enumeration with case sensitivity flags as in <code>[foo="bar" i]</code> or
+ * <code>[foo="bar" s]</code>. See
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors#s for the spec.
  *
  * @author Aditi Singh
+ * @since 8.0.1
  */
-
-public enum ECSSAttributeCase implements ICSSWriteable, IHasName {
-  CASE_SENSITIVE("s"),
-  CASE_INSENSITIVE("i");
+public enum ECSSAttributeCase implements ICSSWriteable, IHasName
+{
+  CASE_SENSITIVE ("s"),
+  CASE_INSENSITIVE ("i");
 
   private final String m_sName;
 
-  ECSSAttributeCase(@Nonnull @Nonempty final String sName) {
+  ECSSAttributeCase (@Nonnull @Nonempty final String sName)
+  {
     m_sName = sName;
   }
 
   @Nonnull
   @Nonempty
-  public String getName() {
+  public String getName ()
+  {
     return m_sName;
   }
 
   @Nonnull
   @Nonempty
-  public String getAsCSSString(@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel) {
+  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  {
     return m_sName;
   }
 
   @Nullable
-  public static ECSSAttributeCase getFromNameOrNull(@Nullable final String sName) {
-    return EnumHelper.getFromNameOrNull(ECSSAttributeCase.class, sName);
+  public static ECSSAttributeCase getFromNameOrNull (@Nullable final String sName)
+  {
+    // The check in the grammar is also case-insensitive
+    return EnumHelper.getFromNameCaseInsensitiveOrNull (ECSSAttributeCase.class, sName);
   }
 }

@@ -944,15 +944,13 @@ void attribValue() :
 
 void attribCase() : {}
 {
-  ( <S> )*
   ( <IDENT>
     {
       final String v = token.image;
-      if ("i".equalsIgnoreCase(v) || "s".equalsIgnoreCase(v))
-        jjtThis.setText(v.toLowerCase(java.util.Locale.ROOT));
+      if ("i".equalsIgnoreCase (v) || "s".equalsIgnoreCase (v))
+        jjtThis.setText (v.toLowerCase (java.util.Locale.ROOT));
       else
-        throw new ParseException("Invalid case-sensitivity flag '" + v +
-                                  "'. Only 'i' or 's' are allowed.");
+        throw new ParseException ("Invalid case-sensitivity flag '" + v + "'. Only 'i' or 's' are allowed.");
     }
   )?
 }

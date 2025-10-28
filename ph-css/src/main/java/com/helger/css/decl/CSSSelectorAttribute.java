@@ -50,13 +50,15 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
 
   private static boolean _isValidNamespacePrefix (@Nullable final String sNamespacePrefix)
   {
+    // A namespace prefix may indeed be only the pipe char. Valid values are e.g. "|", "prefix|" or
+    // "*|"
     return StringHelper.isEmpty (sNamespacePrefix) || sNamespacePrefix.endsWith ("|");
   }
 
   public CSSSelectorAttribute (@Nullable final String sNamespacePrefix, @Nonnull @Nonempty final String sAttrName)
   {
     if (!_isValidNamespacePrefix (sNamespacePrefix))
-      throw new IllegalArgumentException ("namespacePrefix is illegal!");
+      throw new IllegalArgumentException ("NamespacePrefix is illegal!");
     ValueEnforcer.notEmpty (sAttrName, "AttrName");
 
     m_sNamespacePrefix = sNamespacePrefix;
@@ -66,6 +68,20 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     m_eAttrCase = null;
   }
 
+  /**
+   * Constructor
+   *
+   * @param sNamespacePrefix
+   *        CSS namespace prefix. May be <code>null</code>.
+   * @param sAttrName
+   *        The attribute name. May neither be <code>null</code> nor empty
+   * @param eOperator
+   *        The operator to use. May not be <code>null</code>.
+   * @param sAttrValue
+   *        The attribute value to select. May not be <code>null</code> but maybe empty.
+   * @deprecated Use the constructor with the additional {@link ECSSAttributeCase} instead.
+   */
+  @Deprecated (forRemoval = true, since = "8.0.1")
   public CSSSelectorAttribute (@Nullable final String sNamespacePrefix,
                                @Nonnull @Nonempty final String sAttrName,
                                @Nonnull final ECSSAttributeOperator eOperator,
@@ -74,14 +90,28 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     this (sNamespacePrefix, sAttrName, eOperator, sAttrValue, null);
   }
 
+  /**
+   * Constructor
+   *
+   * @param sNamespacePrefix
+   *        CSS namespace prefix. May be <code>null</code>.
+   * @param sAttrName
+   *        The attribute name. May neither be <code>null</code> nor empty
+   * @param eOperator
+   *        The operator to use. May not be <code>null</code>.
+   * @param sAttrValue
+   *        The attribute value to select. May not be <code>null</code> but maybe empty.
+   * @param eCaseFlag
+   *        The case flag to be used specifically for the matching operators.
+   */
   public CSSSelectorAttribute (@Nullable final String sNamespacePrefix,
                                @Nonnull @Nonempty final String sAttrName,
-                               @Nullable final ECSSAttributeOperator eOperator,
-                               @Nullable final String sAttrValue,
+                               @Nonnull final ECSSAttributeOperator eOperator,
+                               @Nonnull final String sAttrValue,
                                @Nullable final ECSSAttributeCase eCaseFlag)
   {
     if (!_isValidNamespacePrefix (sNamespacePrefix))
-      throw new IllegalArgumentException ("namespacePrefix is illegal!");
+      throw new IllegalArgumentException ("NamespacePrefix is illegal!");
     ValueEnforcer.notEmpty (sAttrName, "AttrName");
     ValueEnforcer.notNull (eOperator, "Operator");
     ValueEnforcer.notNull (sAttrValue, "AttrValue");

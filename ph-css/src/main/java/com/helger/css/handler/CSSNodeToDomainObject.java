@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringImplode;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
@@ -148,7 +149,7 @@ final class CSSNodeToDomainObject
     _expectNodeType (aNode, ECSSNodeType.ATTRIB);
     final int nChildren = aNode.jjtGetNumChildren ();
 
-    // Check if a namespace prefix is present
+    // Check if an optional namespace prefix is present
     String sNamespacePrefix = null;
     int nOperatorIndex = 0;
     if (nChildren > 0 && ECSSNodeType.NAMESPACEPREFIX.isNode (aNode.jjtGetChild (0)))
@@ -166,17 +167,14 @@ final class CSSNodeToDomainObject
     }
     else
     {
-      // With operator and value
-      int nMin = nOperatorIndex + 2;
       // With operator, value and case sensitivity flag
-      int nMax = nOperatorIndex + 3;
-      
-      if (nChildren < nMin || nChildren > nMax)
+      final int nExpectedChildCount = nOperatorIndex + 3;
+      if (nChildren != nExpectedChildCount)
         _throwUnexpectedChildrenCount (aNode,
                                        "Illegal number of children present (" +
                                               nChildren +
-                                              ") - expected it to be more than " +
-                                              nMin + " and less than " + nMax);
+                                              ") - expected " +
+                                              nExpectedChildCount);
 
       // With operator...
       final CSSNode aOperator = aNode.jjtGetChild (nOperatorIndex);
@@ -186,13 +184,24 @@ final class CSSNodeToDomainObject
       final CSSNode aAttrValue = aNode.jjtGetChild (nOperatorIndex + 1);
       _expectNodeType (aAttrValue, ECSSNodeType.ATTRIBVALUE);
 
+      // Case sensitivity flag
+      // The node is always present, but the text may be null
       ECSSAttributeCase eCaseFlag = null;
-      // Optional case sensitivity flag
-      if (nChildren == nMax)
+      final CSSNode aFlag = aNode.jjtGetChild (nOperatorIndex + 2);
+      _expectNodeType (aFlag, ECSSNodeType.ATTRIBCASE);
+      if (aFlag.getText () != null)
       {
-        final CSSNode aFlag = aNode.jjtGetChild (nOperatorIndex + 2);
-        _expectNodeType (aFlag, ECSSNodeType.ATTRIBCASE);
         eCaseFlag = ECSSAttributeCase.getFromNameOrNull (aFlag.getText ());
+        if (eCaseFlag == null)
+          throw new CSSHandlingException (aNode,
+                                          "The attribute selector uses the unknown flag '" +
+                                                 aFlag.getText () +
+                                                 "'. Allowed values are only: " +
+                                                 StringImplode.imploder ()
+                                                              .source (ECSSAttributeCase.values (),
+                                                                       x -> '"' + x.getName () + '"')
+                                                              .separator (", ")
+                                                              .build ());
       }
 
       ret = new CSSSelectorAttribute (sNamespacePrefix,

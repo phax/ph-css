@@ -315,6 +315,9 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.0.1 - 2025-10-28
+* Add support for case sensitivity in attribute selector. See [#116](https://github.com/phax/ph-css/pull/116) - thx @Aditi-1400
+
 v8.0.0 - 2025-08-25
 * Requires Java 17 as the minimum version
 * Updated to ph-commons 12.0.0
