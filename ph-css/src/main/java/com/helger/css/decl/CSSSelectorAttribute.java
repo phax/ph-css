@@ -35,6 +35,7 @@ import jakarta.annotation.Nullable;
  * A single CSS selector attribute.
  *
  * @see ECSSAttributeOperator
+ * @see ECSSAttributeCase
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -44,6 +45,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
   private final String m_sAttrName;
   private final ECSSAttributeOperator m_eOperator;
   private final String m_sAttrValue;
+  private final ECSSAttributeCase m_eAttrCase;
   private CSSSourceLocation m_aSourceLocation;
 
   private static boolean _isValidNamespacePrefix (@Nullable final String sNamespacePrefix)
@@ -61,12 +63,22 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     m_sAttrName = sAttrName;
     m_eOperator = null;
     m_sAttrValue = null;
+    m_eAttrCase = null;
   }
 
   public CSSSelectorAttribute (@Nullable final String sNamespacePrefix,
                                @Nonnull @Nonempty final String sAttrName,
                                @Nonnull final ECSSAttributeOperator eOperator,
                                @Nonnull final String sAttrValue)
+  {
+    this (sNamespacePrefix, sAttrName, eOperator, sAttrValue, null);
+  }
+
+  public CSSSelectorAttribute (@Nullable final String sNamespacePrefix,
+                               @Nonnull @Nonempty final String sAttrName,
+                               @Nullable final ECSSAttributeOperator eOperator,
+                               @Nullable final String sAttrValue,
+                               @Nullable final ECSSAttributeCase eCaseFlag)
   {
     if (!_isValidNamespacePrefix (sNamespacePrefix))
       throw new IllegalArgumentException ("namespacePrefix is illegal!");
@@ -78,6 +90,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     m_sAttrName = sAttrName;
     m_eOperator = eOperator;
     m_sAttrValue = sAttrValue;
+    m_eAttrCase = eCaseFlag;
   }
 
   @Nullable
@@ -105,6 +118,12 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     return m_sAttrValue;
   }
 
+  @Nullable
+  public ECSSAttributeCase getCaseSensitivityFlag ()
+  {
+    return m_eAttrCase;
+  }
+
   @Nonnull
   @Nonempty
   public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
@@ -115,7 +134,11 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
       aSB.append (m_sNamespacePrefix);
     aSB.append (m_sAttrName);
     if (m_eOperator != null)
+    {
       aSB.append (m_eOperator.getAsCSSString (aSettings, nIndentLevel)).append (m_sAttrValue);
+      if (m_eAttrCase != null)
+        aSB.append (' ').append (m_eAttrCase.getName ());
+    }
     return aSB.append (']').toString ();
   }
 
@@ -141,7 +164,8 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     return EqualsHelper.equals (m_sNamespacePrefix, rhs.m_sNamespacePrefix) &&
            m_sAttrName.equals (rhs.m_sAttrName) &&
            EqualsHelper.equals (m_eOperator, rhs.m_eOperator) &&
-           EqualsHelper.equals (m_sAttrValue, rhs.m_sAttrValue);
+           EqualsHelper.equals (m_sAttrValue, rhs.m_sAttrValue) &&
+           EqualsHelper.equals (m_eAttrCase, rhs.m_eAttrCase);
   }
 
   @Override
@@ -151,6 +175,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
                                        .append (m_sAttrName)
                                        .append (m_eOperator)
                                        .append (m_sAttrValue)
+                                       .append (m_eAttrCase)
                                        .getHashCode ();
   }
 
@@ -161,6 +186,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
                                        .append ("attrName", m_sAttrName)
                                        .appendIfNotNull ("operator", m_eOperator)
                                        .appendIfNotNull ("attrValue", m_sAttrValue)
+                                       .appendIfNotNull ("caseFlag", m_eAttrCase)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

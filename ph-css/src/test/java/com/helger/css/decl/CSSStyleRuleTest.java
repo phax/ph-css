@@ -74,7 +74,7 @@ public final class CSSStyleRuleTest
   @Test
   public void testRead2 ()
   {
-    CSSStyleRule aSR = _parse ("div, .colored, #my-red, #menu > .active, a[href^=red] { }");
+    CSSStyleRule aSR = _parse ("div, .colored, #my-red, #menu > .active, a[href^=red i] { }");
     assertEquals (5, aSR.getSelectorCount ());
 
     assertEquals (1, aSR.getSelectorAtIndex (0).getMemberCount ());
@@ -94,6 +94,7 @@ public final class CSSStyleRuleTest
     assertEquals (2, aSR.getSelectorAtIndex (4).getMemberCount ());
     assertTrue (aSR.getSelectorAtIndex (4).getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
     assertTrue (aSR.getSelectorAtIndex (4).getMemberAtIndex (1) instanceof CSSSelectorAttribute);
+    assertEquals (ECSSAttributeCase.CASE_INSENSITIVE, ((CSSSelectorAttribute) aSR.getSelectorAtIndex (4).getMemberAtIndex (1)).getCaseSensitivityFlag ());
 
     // Create the same rule by application
     final CSSStyleRule aCreated = new CSSStyleRule ();
@@ -107,7 +108,8 @@ public final class CSSStyleRuleTest
                                             .addMember (new CSSSelectorAttribute (null,
                                                                                   "href",
                                                                                   ECSSAttributeOperator.BEGINMATCH,
-                                                                                  "red")));
+                                                                                  "red",
+                                                                                  ECSSAttributeCase.CASE_INSENSITIVE)));
     TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
 }
