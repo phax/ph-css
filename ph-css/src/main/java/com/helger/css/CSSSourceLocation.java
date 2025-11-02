@@ -16,6 +16,9 @@
  */
 package com.helger.css;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
@@ -25,9 +28,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Defines the source location of an object when reading CSS from a stream. It
@@ -197,7 +197,7 @@ public class CSSSourceLocation
     return m_aLastTokenArea == null ? null : m_aLastTokenArea.getTokenLocationAsString ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getLocationAsString ()
   {

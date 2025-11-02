@@ -16,13 +16,13 @@
  */
 package com.helger.css;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Enumeration containing all W3C CSS specifications.<br>
@@ -353,13 +353,13 @@ public enum ECSSSpecification implements IHasID <String>
   private final ECSSSpecificationStatus m_eStatus;
   private final String m_sHandledURL;
 
-  ECSSSpecification (@Nonnull @Nonempty final String sID, @Nonnull final ECSSSpecificationStatus eStatus)
+  ECSSSpecification (@NonNull @Nonempty final String sID, @NonNull final ECSSSpecificationStatus eStatus)
   {
     this (sID, eStatus, null);
   }
 
-  ECSSSpecification (@Nonnull @Nonempty final String sID,
-                     @Nonnull final ECSSSpecificationStatus eStatus,
+  ECSSSpecification (@NonNull @Nonempty final String sID,
+                     @NonNull final ECSSSpecificationStatus eStatus,
                      @Nullable final String sHandledURL)
   {
     m_sID = sID;
@@ -367,14 +367,14 @@ public enum ECSSSpecification implements IHasID <String>
     m_sHandledURL = sHandledURL;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   public ECSSSpecificationStatus getStatus ()
   {
     return m_eStatus;

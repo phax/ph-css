@@ -16,13 +16,13 @@
  */
 package com.helger.css;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Defines the source location of a single token when reading CSS from a stream.
@@ -107,7 +107,7 @@ public class CSSSourceArea
    *         end are identical, only one line/column value is printed:
    *         <code>(1:2)</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getTokenLocationAsString ()
   {

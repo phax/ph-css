@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -27,9 +30,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the main object for a parsed CSS declaration. It has special handling
@@ -90,8 +90,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *        The import rule to add. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CascadingStyleSheet addImportRule (@Nonnull final CSSImportRule aImportRule)
+  @NonNull
+  public CascadingStyleSheet addImportRule (@NonNull final CSSImportRule aImportRule)
   {
     ValueEnforcer.notNull (aImportRule, "ImportRule");
 
@@ -111,8 +111,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * @throws ArrayIndexOutOfBoundsException
    *         if the index is invalid
    */
-  @Nonnull
-  public CascadingStyleSheet addImportRule (@Nonnegative final int nIndex, @Nonnull final CSSImportRule aImportRule)
+  @NonNull
+  public CascadingStyleSheet addImportRule (@Nonnegative final int nIndex, @NonNull final CSSImportRule aImportRule)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aImportRule, "ImportRule");
@@ -132,7 +132,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * @return {@link EChange#CHANGED} if removal was successful,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeImportRule (@Nullable final CSSImportRule aImportRule)
   {
     return m_aImportRules.removeObject (aImportRule);
@@ -146,7 +146,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * @return {@link EChange#CHANGED} if removal was successful,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeImportRule (@Nonnegative final int nImportRuleIndex)
   {
     return m_aImportRules.removeAtIndex (nImportRuleIndex);
@@ -159,7 +159,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllImportRules ()
   {
     return m_aImportRules.removeAll ();
@@ -169,7 +169,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * @return A copy of all contained <code>@import</code> rules. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSImportRule> getAllImportRules ()
   {
@@ -218,8 +218,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *        The namespace rule to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CascadingStyleSheet addNamespaceRule (@Nonnull final CSSNamespaceRule aNamespaceRule)
+  @NonNull
+  public CascadingStyleSheet addNamespaceRule (@NonNull final CSSNamespaceRule aNamespaceRule)
   {
     ValueEnforcer.notNull (aNamespaceRule, "NamespaceRule");
 
@@ -237,8 +237,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *        The namespace rule to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CascadingStyleSheet addNamespaceRule (@Nonnegative final int nIndex, @Nonnull final CSSNamespaceRule aNamespaceRule)
+  @NonNull
+  public CascadingStyleSheet addNamespaceRule (@Nonnegative final int nIndex, @NonNull final CSSNamespaceRule aNamespaceRule)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aNamespaceRule, "NamespaceRule");
@@ -259,7 +259,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *         removed, {@link EChange#UNCHANGED} otherwise. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeNamespaceRule (@Nullable final CSSNamespaceRule aNamespaceRule)
   {
     return m_aNamespaceRules.removeObject (aNamespaceRule);
@@ -274,7 +274,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *         removed, {@link EChange#UNCHANGED} otherwise. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeNamespaceRule (@Nonnegative final int nNamespaceRuleIndex)
   {
     return m_aNamespaceRules.removeAtIndex (nNamespaceRuleIndex);
@@ -287,7 +287,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllNamespaceRules ()
   {
     return m_aNamespaceRules.removeAll ();
@@ -297,7 +297,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * @return A copy of all <code>@namespace</code> rules. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSNamespaceRule> getAllNamespaceRules ()
   {

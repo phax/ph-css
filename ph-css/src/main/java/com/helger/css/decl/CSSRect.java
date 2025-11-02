@@ -16,6 +16,8 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -25,8 +27,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.propertyvalue.CCSSValue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a single CSS rectangle
@@ -47,7 +47,7 @@ public class CSSRect implements ICSSWriteable
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
-  public CSSRect (@Nonnull final CSSRect aOther)
+  public CSSRect (@NonNull final CSSRect aOther)
   {
     this (aOther.getTop (), aOther.getRight (), aOther.getBottom (), aOther.getLeft ());
   }
@@ -64,10 +64,10 @@ public class CSSRect implements ICSSWriteable
    * @param sLeft
    *        Left coordinate. May neither be <code>null</code> nor empty.
    */
-  public CSSRect (@Nonnull @Nonempty final String sTop,
-                  @Nonnull @Nonempty final String sRight,
-                  @Nonnull @Nonempty final String sBottom,
-                  @Nonnull @Nonempty final String sLeft)
+  public CSSRect (@NonNull @Nonempty final String sTop,
+                  @NonNull @Nonempty final String sRight,
+                  @NonNull @Nonempty final String sBottom,
+                  @NonNull @Nonempty final String sLeft)
   {
     setTop (sTop);
     setRight (sRight);
@@ -78,7 +78,7 @@ public class CSSRect implements ICSSWriteable
   /**
    * @return top part. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getTop ()
   {
@@ -92,8 +92,8 @@ public class CSSRect implements ICSSWriteable
    *        May neither be <code>null</code> nor empty.
    * @return this
    */
-  @Nonnull
-  public final CSSRect setTop (@Nonnull @Nonempty final String sTop)
+  @NonNull
+  public final CSSRect setTop (@NonNull @Nonempty final String sTop)
   {
     ValueEnforcer.notEmpty (sTop, "Top");
 
@@ -104,7 +104,7 @@ public class CSSRect implements ICSSWriteable
   /**
    * @return right part. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getRight ()
   {
@@ -118,8 +118,8 @@ public class CSSRect implements ICSSWriteable
    *        May neither be <code>null</code> nor empty.
    * @return this
    */
-  @Nonnull
-  public final CSSRect setRight (@Nonnull @Nonempty final String sRight)
+  @NonNull
+  public final CSSRect setRight (@NonNull @Nonempty final String sRight)
   {
     ValueEnforcer.notEmpty (sRight, "Right");
 
@@ -130,7 +130,7 @@ public class CSSRect implements ICSSWriteable
   /**
    * @return bottom part. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getBottom ()
   {
@@ -144,8 +144,8 @@ public class CSSRect implements ICSSWriteable
    *        May neither be <code>null</code> nor empty.
    * @return this
    */
-  @Nonnull
-  public final CSSRect setBottom (@Nonnull @Nonempty final String sBottom)
+  @NonNull
+  public final CSSRect setBottom (@NonNull @Nonempty final String sBottom)
   {
     ValueEnforcer.notEmpty (sBottom, "Bottom");
 
@@ -156,7 +156,7 @@ public class CSSRect implements ICSSWriteable
   /**
    * @return left part. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getLeft ()
   {
@@ -170,8 +170,8 @@ public class CSSRect implements ICSSWriteable
    *        May neither be <code>null</code> nor empty.
    * @return this
    */
-  @Nonnull
-  public final CSSRect setLeft (@Nonnull @Nonempty final String sLeft)
+  @NonNull
+  public final CSSRect setLeft (@NonNull @Nonempty final String sLeft)
   {
     ValueEnforcer.notEmpty (sLeft, "Left");
 
@@ -179,9 +179,9 @@ public class CSSRect implements ICSSWriteable
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return CCSSValue.PREFIX_RECT_OPEN + m_sTop + ',' + m_sRight + ',' + m_sBottom + ',' + m_sLeft + CCSSValue.SUFFIX_RECT_CLOSE;
   }

@@ -16,6 +16,8 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -27,8 +29,6 @@ import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.utils.CSSColorHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a single RGB color value (red, green, blue)
@@ -48,7 +48,7 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
-  public CSSRGB (@Nonnull final CSSRGB aOther)
+  public CSSRGB (@NonNull final CSSRGB aOther)
   {
     this (aOther.getRed (), aOther.getGreen (), aOther.getBlue ());
   }
@@ -80,7 +80,7 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    * @param sBlue
    *        Blue part.
    */
-  public CSSRGB (@Nonnull @Nonempty final String sRed, @Nonnull @Nonempty final String sGreen, @Nonnull @Nonempty final String sBlue)
+  public CSSRGB (@NonNull @Nonempty final String sRed, @NonNull @Nonempty final String sGreen, @NonNull @Nonempty final String sBlue)
   {
     setRed (sRed);
     setGreen (sGreen);
@@ -90,15 +90,15 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
   /**
    * @return red part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getRed ()
   {
     return m_sRed;
   }
 
-  @Nonnull
-  public final CSSRGB setRed (@Nonnull @Nonempty final String sRed)
+  @NonNull
+  public final CSSRGB setRed (@NonNull @Nonempty final String sRed)
   {
     ValueEnforcer.notEmpty (sRed, "Red");
 
@@ -109,15 +109,15 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
   /**
    * @return green part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getGreen ()
   {
     return m_sGreen;
   }
 
-  @Nonnull
-  public final CSSRGB setGreen (@Nonnull @Nonempty final String sGreen)
+  @NonNull
+  public final CSSRGB setGreen (@NonNull @Nonempty final String sGreen)
   {
     ValueEnforcer.notEmpty (sGreen, "Green");
 
@@ -128,15 +128,15 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
   /**
    * @return blue part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getBlue ()
   {
     return m_sBlue;
   }
 
-  @Nonnull
-  public final CSSRGB setBlue (@Nonnull @Nonempty final String sBlue)
+  @NonNull
+  public final CSSRGB setBlue (@NonNull @Nonempty final String sBlue)
   {
     ValueEnforcer.notEmpty (sBlue, "Blue");
 
@@ -153,7 +153,7 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    *         <code>null</code>.
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   public CSSRGBA getAsRGBA (final float fOpacity)
   {
     return new CSSRGBA (this, fOpacity);
@@ -168,8 +168,8 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    *         <code>null</code>.
    * @since 3.8.3
    */
-  @Nonnull
-  public CSSRGBA getAsRGBA (@Nonnull @Nonempty final String sOpacity)
+  @NonNull
+  public CSSRGBA getAsRGBA (@NonNull @Nonempty final String sOpacity)
   {
     return new CSSRGBA (this, sOpacity);
   }
@@ -179,16 +179,16 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    *
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsString ()
   {
     return CCSSValue.PREFIX_RGB_OPEN + m_sRed + ',' + m_sGreen + ',' + m_sBlue + CCSSValue.SUFFIX_RGB_CLOSE;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return getAsString ();
   }
@@ -198,7 +198,7 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    *
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   public CSSRGB getClone ()
   {
     return new CSSRGB (this);

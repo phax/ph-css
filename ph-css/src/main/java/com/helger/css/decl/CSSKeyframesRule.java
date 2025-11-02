@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -30,9 +33,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single @keyframes rule.<br>
@@ -52,12 +52,12 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
   private final ICommonsList <CSSKeyframesBlock> m_aBlocks = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public static boolean isValidDeclaration (@Nonnull @Nonempty final String sDeclaration)
+  public static boolean isValidDeclaration (@NonNull @Nonempty final String sDeclaration)
   {
     return StringHelper.startsWith (sDeclaration, '@') && StringHelper.endsWithIgnoreCase (sDeclaration, "keyframes");
   }
 
-  public CSSKeyframesRule (@Nonnull @Nonempty final String sDeclaration, @Nonnull @Nonempty final String sAnimationName)
+  public CSSKeyframesRule (@NonNull @Nonempty final String sDeclaration, @NonNull @Nonempty final String sAnimationName)
   {
     ValueEnforcer.isTrue (isValidDeclaration (sDeclaration), "Declaration is invalid");
     m_sDeclaration = sDeclaration;
@@ -68,14 +68,14 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
    * @return The rule declaration string used in the CSS. Neither <code>null</code> nor empty.
    *         Always starting with <code>@</code> and ending with <code>keyframes</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getDeclaration ()
   {
     return m_sDeclaration;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getAnimationName ()
   {
@@ -93,8 +93,8 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
     return m_aBlocks.size ();
   }
 
-  @Nonnull
-  public CSSKeyframesRule addBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  @NonNull
+  public CSSKeyframesRule addBlock (@NonNull final CSSKeyframesBlock aKeyframesBlock)
   {
     ValueEnforcer.notNull (aKeyframesBlock, "KeyframesBlock");
 
@@ -102,8 +102,8 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
     return this;
   }
 
-  @Nonnull
-  public CSSKeyframesRule addBlock (@Nonnegative final int nIndex, @Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  @NonNull
+  public CSSKeyframesRule addBlock (@Nonnegative final int nIndex, @NonNull final CSSKeyframesBlock aKeyframesBlock)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aKeyframesBlock, "KeyframesBlock");
@@ -115,13 +115,13 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
     return this;
   }
 
-  @Nonnull
-  public EChange removeBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  @NonNull
+  public EChange removeBlock (@NonNull final CSSKeyframesBlock aKeyframesBlock)
   {
     return m_aBlocks.removeObject (aKeyframesBlock);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeBlock (@Nonnegative final int nBlockIndex)
   {
     return m_aBlocks.removeAtIndex (nBlockIndex);
@@ -134,7 +134,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
    *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllBlocks ()
   {
     return m_aBlocks.removeAll ();
@@ -146,16 +146,16 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
     return m_aBlocks.getAtIndex (nBlockIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSKeyframesBlock> getAllBlocks ()
   {
     return m_aBlocks.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     // Always ignore keyframes rules?
     if (!aSettings.isWriteKeyframesRules ())

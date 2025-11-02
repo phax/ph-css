@@ -16,15 +16,15 @@
  */
 package com.helger.css.decl.visit;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.ICSSTopLevelRule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link ICSSUrlVisitor} interface which does
@@ -39,12 +39,12 @@ public class DefaultCSSUrlVisitor implements ICSSUrlVisitor
   {}
 
   @OverrideOnDemand
-  public void onImport (@Nonnull final CSSImportRule aImportRule)
+  public void onImport (@NonNull final CSSImportRule aImportRule)
   {}
 
   @OverrideOnDemand
   public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                @Nonnull final CSSDeclaration aDeclaration,
-                                @Nonnull final CSSExpressionMemberTermURI aURITerm)
+                                @NonNull final CSSDeclaration aDeclaration,
+                                @NonNull final CSSExpressionMemberTermURI aURITerm)
   {}
 }

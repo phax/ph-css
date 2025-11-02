@@ -16,6 +16,9 @@
  */
 package com.helger.css.utils;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
@@ -29,9 +32,6 @@ import com.helger.css.decl.CSSHSLA;
 import com.helger.css.decl.CSSRGB;
 import com.helger.css.decl.CSSRGBA;
 import com.helger.css.propertyvalue.CCSSValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Provides color handling sanity methods.
@@ -353,7 +353,7 @@ public final class CSSColorHelper
    *        Blue - is scaled to 0-255
    * @return The CSS string to use
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getRGBColorValue (final int nRed, final int nGreen, final int nBlue)
   {
@@ -380,7 +380,7 @@ public final class CSSColorHelper
    *        Opacity to use - is scaled to 0-1.
    * @return The CSS string to use
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getRGBAColorValue (final int nRed, final int nGreen, final int nBlue, final float fOpacity)
   {
@@ -463,7 +463,7 @@ public final class CSSColorHelper
    *        Lightness - is scaled to 0-100
    * @return The CSS string to use
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getHSLColorValue (final int nHue, final int nSaturation, final int nLightness)
   {
@@ -489,7 +489,7 @@ public final class CSSColorHelper
    *        Lightness - is scaled to 0-100
    * @return The CSS string to use
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getHSLColorValue (final float fHue, final float fSaturation, final float fLightness)
   {
@@ -517,7 +517,7 @@ public final class CSSColorHelper
    *        Opacity - is scaled to 0-1
    * @return The CSS string to use
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getHSLAColorValue (final int nHue,
                                           final int nSaturation,
@@ -549,7 +549,7 @@ public final class CSSColorHelper
    *        Opacity - is scaled to 0-1
    * @return The CSS string to use
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getHSLAColorValue (final float fHue,
                                           final float fSaturation,
@@ -568,14 +568,14 @@ public final class CSSColorHelper
                                  .toString ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   private static String _getRGBPartAsHexString (final int nRGBPart)
   {
     return StringHex.getHexStringLeadingZero (getRGBValue (nRGBPart), 2);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getHexColorValue (final int nRed, final int nGreen, final int nBlue)
   {
@@ -600,7 +600,7 @@ public final class CSSColorHelper
    *         first value is in the range 0-359, and the remaining two values are in the range 0-100
    *         (percentage).
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static float [] getRGBAsHSLValue (final int nRed, final int nGreen, final int nBlue)
   {
@@ -655,7 +655,7 @@ public final class CSSColorHelper
    * @return An array of 3 ints, containing red, green and blue (in this order). All values are in
    *         the range 0-255.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static int [] getHSLAsRGBValue (final float fHue, final float fSaturation, final float fLightness)
   {

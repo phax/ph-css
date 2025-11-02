@@ -16,15 +16,15 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Enumeration with selector attribute operations as in <code>[foo<b>^=</b>"bar"]</code>
@@ -42,21 +42,21 @@ public enum ECSSAttributeOperator implements ICSSWriteable, IHasName
 
   private final String m_sName;
 
-  ECSSAttributeOperator (@Nonnull @Nonempty final String sName)
+  ECSSAttributeOperator (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return m_sName;
   }

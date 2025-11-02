@@ -16,12 +16,12 @@
  */
 package com.helger.css;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.name.IHasDisplayName;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Enumeration containing all known CSS vendor prefixes
@@ -57,7 +57,7 @@ public enum ECSSVendorPrefix implements IHasDisplayName
   private final String m_sPrefix;
   private final String m_sDisplayName;
 
-  ECSSVendorPrefix (@Nonnull @Nonempty final String sPrefix, @Nonnull @Nonempty final String sDisplayName)
+  ECSSVendorPrefix (@NonNull @Nonempty final String sPrefix, @NonNull @Nonempty final String sDisplayName)
   {
     m_sPrefix = sPrefix;
     m_sDisplayName = sDisplayName;
@@ -66,14 +66,14 @@ public enum ECSSVendorPrefix implements IHasDisplayName
   /**
    * @return The prefix used by this CSS vendor. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getPrefix ()
   {
     return m_sPrefix;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {

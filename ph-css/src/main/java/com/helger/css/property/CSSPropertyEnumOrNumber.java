@@ -16,6 +16,9 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -24,9 +27,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * CSS property that is either an enumeration or a numeric value (e.g.
@@ -39,51 +39,51 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
 {
   private final boolean m_bWithPercentage;
 
-  public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumber (@NonNull final ECSSProperty eProp,
                                   final boolean bWithPercentage,
-                                  @Nonnull @Nonempty final String... aEnumValues)
+                                  @NonNull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, aEnumValues);
   }
 
-  public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumber (@NonNull final ECSSProperty eProp,
                                   @Nullable final ICSSPropertyCustomizer aCustomizer,
                                   final boolean bWithPercentage,
-                                  @Nonnull @Nonempty final String... aEnumValues)
+                                  @NonNull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, aEnumValues);
   }
 
-  public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumber (@NonNull final ECSSProperty eProp,
                                   @Nullable final ECSSVendorPrefix eVendorPrefix,
                                   @Nullable final ICSSPropertyCustomizer aCustomizer,
                                   final boolean bWithPercentage,
-                                  @Nonnull @Nonempty final String... aEnumValues)
+                                  @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     m_bWithPercentage = bWithPercentage;
   }
 
-  public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumber (@NonNull final ECSSProperty eProp,
                                   final boolean bWithPercentage,
-                                  @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                  @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, aEnumValues);
   }
 
-  public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumber (@NonNull final ECSSProperty eProp,
                                   @Nullable final ICSSPropertyCustomizer aCustomizer,
                                   final boolean bWithPercentage,
-                                  @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                  @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, aEnumValues);
   }
 
-  public CSSPropertyEnumOrNumber (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumber (@NonNull final ECSSProperty eProp,
                                   @Nullable final ECSSVendorPrefix eVendorPrefix,
                                   @Nullable final ICSSPropertyCustomizer aCustomizer,
                                   final boolean bWithPercentage,
-                                  @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                  @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     m_bWithPercentage = bWithPercentage;
@@ -97,14 +97,14 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
   }
 
   @Override
-  @Nonnull
-  public CSSPropertyEnumOrNumber getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyEnumOrNumber getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyEnumOrNumber (eProp, getVendorPrefix (), getCustomizer (), m_bWithPercentage, directGetEnumValues ());
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public CSSPropertyEnumOrNumber getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyEnumOrNumber (getProp (), eVendorPrefix, getCustomizer (), m_bWithPercentage, directGetEnumValues ());

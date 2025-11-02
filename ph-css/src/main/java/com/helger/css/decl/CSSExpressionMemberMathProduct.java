@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -31,9 +34,6 @@ import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Part of a CSS calc element
  *
@@ -48,8 +48,8 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
   public CSSExpressionMemberMathProduct ()
   {}
 
-  @Nonnull
-  public CSSExpressionMemberMathProduct addMember (@Nonnull final ICSSExpressionMathMember aMember)
+  @NonNull
+  public CSSExpressionMemberMathProduct addMember (@NonNull final ICSSExpressionMathMember aMember)
   {
     ValueEnforcer.notNull (aMember, "ExpressionMathMember");
 
@@ -57,9 +57,9 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSExpressionMemberMathProduct addMember (@Nonnegative final int nIndex,
-                                                   @Nonnull final ICSSExpressionMathMember aMember)
+                                                   @NonNull final ICSSExpressionMathMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "ExpressionMathMember");
@@ -71,13 +71,13 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
     return this;
   }
 
-  @Nonnull
-  public EChange removeMember (@Nonnull final ICSSExpressionMathMember aMember)
+  @NonNull
+  public EChange removeMember (@NonNull final ICSSExpressionMathMember aMember)
   {
     return m_aMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nMemberIndex)
   {
     return m_aMembers.removeAtIndex (nMemberIndex);
@@ -90,13 +90,13 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
    *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSExpressionMathMember> getAllMembers ()
   {
@@ -109,9 +109,9 @@ public class CSSExpressionMemberMathProduct implements ICSSExpressionMathMember,
     return m_aMembers.size ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return StringImplode.getImplodedMapped (m_aMembers, x -> x.getAsCSSString (aSettings, nIndentLevel));
   }

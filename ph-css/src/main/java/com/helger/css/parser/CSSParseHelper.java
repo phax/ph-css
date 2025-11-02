@@ -19,6 +19,9 @@ package com.helger.css.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -26,9 +29,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.cache.regex.RegExCache;
 import com.helger.css.CCSS;
 import com.helger.css.propertyvalue.CCSSValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class is used by the generated parsers to do some common stuff.
@@ -58,14 +58,14 @@ public final class CSSParseHelper
   private CSSParseHelper ()
   {}
 
-  @Nonnull
-  private static String _trimBy (@Nonnull final CharSequence s, final int nLeftSkip, final int nRightSkip)
+  @NonNull
+  private static String _trimBy (@NonNull final CharSequence s, final int nLeftSkip, final int nRightSkip)
   {
     return s.toString ().substring (nLeftSkip, s.length () - nRightSkip);
   }
 
-  @Nonnull
-  private static int _parseIntFromReference (@Nonnull final String text,
+  @NonNull
+  private static int _parseIntFromReference (@NonNull final String text,
                                              final int start,
                                              final int end,
                                              final int radix)
@@ -119,8 +119,8 @@ public final class CSSParseHelper
    *        The escaped URL. May not be <code>null</code>!
    * @return The unescaped URL or the original string, if not a single escape sequence is found.
    */
-  @Nonnull
-  public static String unescapeURL (@Nonnull final String sEscapedURL)
+  @NonNull
+  public static String unescapeURL (@NonNull final String sEscapedURL)
   {
     int nIndex = sEscapedURL.indexOf (URL_ESCAPE_CHAR);
     if (nIndex < 0)
@@ -269,8 +269,8 @@ public final class CSSParseHelper
    *        The value to remove the string from.
    * @return The trimmed value. Never <code>null</code>.
    */
-  @Nonnull
-  public static String trimUrl (@Nonnull final CharSequence s)
+  @NonNull
+  public static String trimUrl (@NonNull final CharSequence s)
   {
     // Extract from "url(...)"
     final String sTrimmed = _trimBy (s, CCSSValue.PREFIX_URL_OPEN.length (), CCSSValue.SUFFIX_URL_CLOSE.length ())
@@ -281,8 +281,8 @@ public final class CSSParseHelper
     return unescapeURL (sUnquoted);
   }
 
-  @Nonnull
-  public static String splitNumber (@Nonnull final StringBuilder aPattern)
+  @NonNull
+  public static String splitNumber (@NonNull final StringBuilder aPattern)
   {
     // Find the longest matching number within the pattern
     final Matcher m = SPLIT_NUMBER_PATTERN.matcher (aPattern);
@@ -308,8 +308,8 @@ public final class CSSParseHelper
    *        pattern to check
    * @return The input string
    */
-  @Nonnull
-  public static String validateIdentifier (@Nonnull final StringBuilder aPattern)
+  @NonNull
+  public static String validateIdentifier (@NonNull final StringBuilder aPattern)
   {
     final int nLength = aPattern.length ();
     final char c1 = aPattern.charAt (0);
@@ -345,7 +345,7 @@ public final class CSSParseHelper
    *        Source string
    * @return Unmasked string
    */
-  @Nonnull
+  @NonNull
   public static String unescapeUnicode (final StringBuilder aImage)
   {
     // FIXME
@@ -359,7 +359,7 @@ public final class CSSParseHelper
    *        Source string
    * @return Unmasked string
    */
-  @Nonnull
+  @NonNull
   public static String unescapeOther (final StringBuilder aImage)
   {
     // FIXME

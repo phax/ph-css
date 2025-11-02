@@ -16,6 +16,8 @@
  */
 package com.helger.css.reader.errorhandler;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +28,6 @@ import com.helger.base.string.StringHex;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A logging implementation of {@link ICSSParseErrorHandler}. So in case a recoverable error occurs,
@@ -48,9 +47,9 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   public LoggingCSSParseErrorHandler ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringParseError (@Nonnull final ParseException ex)
+  public static String createLoggingStringParseError (@NonNull final ParseException ex)
   {
     if (ex.currentToken == null)
     {
@@ -60,11 +59,11 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return createLoggingStringParseError (ex.currentToken, ex.expectedTokenSequences, ex.tokenImage, null);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringParseError (@Nonnull final Token aLastValidToken,
-                                                      @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                                                      @Nonnull final String [] aTokenImageVal,
+  public static String createLoggingStringParseError (@NonNull final Token aLastValidToken,
+                                                      @NonNull final int [] [] aExpectedTokenSequencesVal,
+                                                      @NonNull final String [] aTokenImageVal,
                                                       @Nullable final Token aLastSkippedToken)
   {
     ValueEnforcer.notNull (aLastValidToken, "LastValidToken");
@@ -122,7 +121,7 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return retval.toString ();
   }
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
+  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
                                                                                                                 throws ParseException
   {
     if (aParseEx.expectedTokenSequences == null)
@@ -147,11 +146,11 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
    * @return The concatenated string with source location, rule and message. May neither be
    *         <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                                          @Nonnull @Nonempty final String sRule,
-                                                          @Nonnull @Nonempty final String sMsg)
+  public static String createLoggingStringUnexpectedRule (@NonNull final Token aCurrentToken,
+                                                          @NonNull @Nonempty final String sRule,
+                                                          @NonNull @Nonempty final String sMsg)
   {
     return "[" +
            aCurrentToken.beginLine +
@@ -163,9 +162,9 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
            sMsg;
   }
 
-  public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                   @Nonnull @Nonempty final String sRule,
-                                   @Nonnull @Nonempty final String sMsg) throws ParseException
+  public void onCSSUnexpectedRule (@NonNull final Token aCurrentToken,
+                                   @NonNull @Nonempty final String sRule,
+                                   @NonNull @Nonempty final String sMsg) throws ParseException
   {
     LOGGER.warn (createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
@@ -181,10 +180,10 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
    * @return The concatenated string with source location, etc. May neither be <code>null</code> nor
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringDeprecatedProperty (@Nonnull final Token aPrefixToken,
-                                                              @Nonnull final Token aIdentifierToken)
+  public static String createLoggingStringDeprecatedProperty (@NonNull final Token aPrefixToken,
+                                                              @NonNull final Token aIdentifierToken)
   {
     return "[" +
            aPrefixToken.beginLine +
@@ -196,16 +195,16 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
            "'";
   }
 
-  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
   {
     LOGGER.warn (createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String createLoggingStringBrowserCompliantSkip (@Nullable final ParseException ex,
-                                                                @Nonnull final Token aFromToken,
-                                                                @Nonnull final Token aToToken)
+                                                                @NonNull final Token aFromToken,
+                                                                @NonNull final Token aToToken)
   {
     final StringBuilder ret = new StringBuilder ("Browser compliant mode skipped CSS from [").append (aFromToken.beginLine)
                                                                                              .append (":")
@@ -229,13 +228,13 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
-                                         @Nonnull final Token aFromToken,
-                                         @Nonnull final Token aToToken) throws ParseException
+                                         @NonNull final Token aFromToken,
+                                         @NonNull final Token aToToken) throws ParseException
   {
     LOGGER.warn (createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String createLoggingStringIllegalCharacter (final char cIllegalChar)
   {

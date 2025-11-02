@@ -21,6 +21,9 @@ import static com.helger.css.ECSSSpecification.*;
 import java.util.EnumSet;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -30,9 +33,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.css.ECSSSpecification;
 import com.helger.css.ECSSVendorPrefix;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains a list of most CSS property names.<br>
@@ -554,13 +554,13 @@ public enum ECSSProperty implements IHasName
   private final ECSSVendorPrefix m_eVendorPrefix;
   private final EnumSet <ECSSSpecification> m_aSpecifications;
 
-  ECSSProperty (@Nonnull @Nonempty final String sName)
+  ECSSProperty (@NonNull @Nonempty final String sName)
   {
     // Custom properties are always there
     this (sName, (ECSSSpecification []) null);
   }
 
-  ECSSProperty (@Nonnull @Nonempty final String sName, @Nullable final ECSSSpecification... aSpecifications)
+  ECSSProperty (@NonNull @Nonempty final String sName, @Nullable final ECSSSpecification... aSpecifications)
   {
     m_sName = sName;
     ECSSVendorPrefix eUsedVendorPrefix = null;
@@ -577,7 +577,7 @@ public enum ECSSProperty implements IHasName
   /**
    * @return The name of this property. E.g. <code>color</code> or <code>-webkit-writing-mode</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
@@ -588,7 +588,7 @@ public enum ECSSProperty implements IHasName
    * @return The name of the property without an eventually present vendor prefix.
    * @since 3.9.0
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getVendorIndependentName ()
   {
@@ -602,7 +602,7 @@ public enum ECSSProperty implements IHasName
    * @return A copy with all specifications, where the property is defined. Never <code>null</code>
    *         but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Set <ECSSSpecification> getAllSpecifications ()
   {
@@ -618,7 +618,7 @@ public enum ECSSProperty implements IHasName
    *         otherwise.
    * @since 3.9.0
    */
-  public boolean isVendorSpecific (@Nonnull final ECSSVendorPrefix eVendorPrefix)
+  public boolean isVendorSpecific (@NonNull final ECSSVendorPrefix eVendorPrefix)
   {
     ValueEnforcer.notNull (eVendorPrefix, "VendorPrefix");
     return eVendorPrefix.equals (m_eVendorPrefix);

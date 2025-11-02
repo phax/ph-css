@@ -16,14 +16,14 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a color value
@@ -33,17 +33,17 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class CSSPropertyColor extends AbstractCSSProperty
 {
-  public CSSPropertyColor (@Nonnull final ECSSProperty eProp)
+  public CSSPropertyColor (@NonNull final ECSSProperty eProp)
   {
     this (eProp, (ICSSPropertyCustomizer) null);
   }
 
-  public CSSPropertyColor (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
+  public CSSPropertyColor (@NonNull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer);
   }
 
-  public CSSPropertyColor (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyColor (@NonNull final ECSSProperty eProp,
                            @Nullable final ECSSVendorPrefix eVendorPrefix,
                            @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
@@ -62,13 +62,13 @@ public class CSSPropertyColor extends AbstractCSSProperty
     return isValidPropertyValue (sValue);
   }
 
-  @Nonnull
-  public CSSPropertyColor getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyColor getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyColor (eProp, getVendorPrefix (), getCustomizer ());
   }
 
-  @Nonnull
+  @NonNull
   public CSSPropertyColor getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyColor (getProp (), eVendorPrefix, getCustomizer ());

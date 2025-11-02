@@ -16,6 +16,9 @@
  */
 package com.helger.css.reader.errorhandler;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
@@ -27,9 +30,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A collecting implementation of {@link ICSSParseErrorHandler}. So in case a
@@ -48,7 +48,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   public CollectingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
   {
     m_aRWLock.writeLocked ( () -> {
       if (aParseEx.expectedTokenSequences == null)
@@ -58,21 +58,21 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
     });
   }
 
-  public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                   @Nonnull @Nonempty final String sRule,
-                                   @Nonnull @Nonempty final String sMsg) throws ParseException
+  public void onCSSUnexpectedRule (@NonNull final Token aCurrentToken,
+                                   @NonNull @Nonempty final String sRule,
+                                   @NonNull @Nonempty final String sMsg) throws ParseException
   {
     m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
   }
 
-  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
   {
     m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createDeprecatedProperty (aPrefixToken, aIdentifierToken)));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
-                                         @Nonnull final Token aFromToken,
-                                         @Nonnull final Token aToToken) throws ParseException
+                                         @NonNull final Token aFromToken,
+                                         @NonNull final Token aToToken) throws ParseException
   {
     m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
   }
@@ -108,7 +108,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
    * @see #getParseErrorCount()
    * @see #hasParseErrors()
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSParseError> getAllParseErrors ()
   {

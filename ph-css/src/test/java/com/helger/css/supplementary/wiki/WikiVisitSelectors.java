@@ -16,6 +16,8 @@
  */
 package com.helger.css.supplementary.wiki;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.CSSSelector;
@@ -24,8 +26,6 @@ import com.helger.css.decl.visit.CSSVisitor;
 import com.helger.css.decl.visit.DefaultCSSVisitor;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Example how to extract all selectors from a certain CSS file using a {@link DefaultCSSVisitor}.
@@ -53,7 +53,7 @@ public final class WikiVisitSelectors
     CSSVisitor.visitCSS (aCSS, new DefaultCSSVisitor ()
     {
       @Override
-      public void onStyleRuleSelector (@Nonnull final CSSSelector aSelector)
+      public void onStyleRuleSelector (@NonNull final CSSSelector aSelector)
       {
         aAllSelectors.add (aSelector.getAsCSSString (new CSSWriterSettings ()));
       }

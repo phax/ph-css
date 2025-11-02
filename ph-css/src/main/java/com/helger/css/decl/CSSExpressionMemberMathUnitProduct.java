@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -25,9 +28,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Part of a CSS calc element
@@ -39,20 +39,20 @@ public class CSSExpressionMemberMathUnitProduct implements ICSSExpressionMathMem
 {
   private final CSSExpressionMemberMathProduct m_aProduct;
 
-  public CSSExpressionMemberMathUnitProduct (@Nonnull @Nonempty final CSSExpressionMemberMathProduct aProduct)
+  public CSSExpressionMemberMathUnitProduct (@NonNull @Nonempty final CSSExpressionMemberMathProduct aProduct)
   {
     m_aProduct = ValueEnforcer.notNull (aProduct, "Product");
   }
 
-  @Nonnull
+  @NonNull
   public final CSSExpressionMemberMathProduct getProduct ()
   {
     return m_aProduct;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return "(" + m_aProduct.getAsCSSString (aSettings, nIndentLevel) + ")";
   }

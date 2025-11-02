@@ -16,14 +16,14 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSURLHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * CSS property that needs to be an URL
@@ -33,17 +33,17 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class CSSPropertyURL extends AbstractCSSProperty
 {
-  public CSSPropertyURL (@Nonnull final ECSSProperty eProp)
+  public CSSPropertyURL (@NonNull final ECSSProperty eProp)
   {
     this (eProp, (ICSSPropertyCustomizer) null);
   }
 
-  public CSSPropertyURL (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
+  public CSSPropertyURL (@NonNull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer);
   }
 
-  public CSSPropertyURL (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyURL (@NonNull final ECSSProperty eProp,
                          @Nullable final ECSSVendorPrefix eVendorPrefix,
                          @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
@@ -62,13 +62,13 @@ public class CSSPropertyURL extends AbstractCSSProperty
     return isValidPropertyValue (sValue);
   }
 
-  @Nonnull
-  public CSSPropertyURL getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyURL getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyURL (eProp, getVendorPrefix (), getCustomizer ());
   }
 
-  @Nonnull
+  @NonNull
   public CSSPropertyURL getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyURL (getProp (), eVendorPrefix, getCustomizer ());

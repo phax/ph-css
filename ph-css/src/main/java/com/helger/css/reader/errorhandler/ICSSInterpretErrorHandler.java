@@ -16,9 +16,9 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
 /**
  * Special CSS error handler that is invoked during interpretation of a parsed
@@ -35,7 +35,7 @@ public interface ICSSInterpretErrorHandler
    * @param sMessage
    *        The message text of the error.
    */
-  void onCSSInterpretationWarning (@Nonnull @Nonempty String sMessage);
+  void onCSSInterpretationWarning (@NonNull @Nonempty String sMessage);
 
   /**
    * Called when an interpretation error occurs.
@@ -43,5 +43,5 @@ public interface ICSSInterpretErrorHandler
    * @param sMessage
    *        The message text of the error.
    */
-  void onCSSInterpretationError (@Nonnull @Nonempty String sMessage);
+  void onCSSInterpretationError (@NonNull @Nonempty String sMessage);
 }

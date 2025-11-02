@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 
 import com.helger.css.decl.CSSDeclaration;
@@ -29,9 +31,6 @@ import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.reader.CSSReaderDeclarationList;
 import com.helger.css.writer.CSSWriter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link CSSVisitor}.
@@ -89,15 +88,15 @@ public final class CSSVisitorDeclarationListFuncTest
     CSSVisitor.visitAllDeclarationUrls (aCSS, new DefaultCSSUrlVisitor ()
     {
       @Override
-      public void onImport (@Nonnull final CSSImportRule aImportRule)
+      public void onImport (@NonNull final CSSImportRule aImportRule)
       {
         assertTrue (aImportRule.getLocationString ().endsWith (".modified"));
       }
 
       @Override
       public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                    @Nonnull final CSSDeclaration aDeclaration,
-                                    @Nonnull final CSSExpressionMemberTermURI aURITerm)
+                                    @NonNull final CSSDeclaration aDeclaration,
+                                    @NonNull final CSSExpressionMemberTermURI aURITerm)
       {
         assertTrue (aURITerm.getURIString ().endsWith (".modified"));
       }

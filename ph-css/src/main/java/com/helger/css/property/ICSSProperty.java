@@ -16,15 +16,15 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.ICSSValue;
 import com.helger.css.utils.ICSSNamedColor;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single CSS property.
@@ -37,7 +37,7 @@ public interface ICSSProperty
   /**
    * @return The underlying base property. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ECSSProperty getProp ();
 
   /**
@@ -52,7 +52,7 @@ public interface ICSSProperty
    *         <code>null</code> nor empty.
    * @since 3.9.0
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getPropertyName ();
 
@@ -94,8 +94,8 @@ public interface ICSSProperty
    *        <code>true</code> if it is an important value, <code>false</code> if not
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  ICSSValue newValue (@Nonnull @Nonempty String sValue, boolean bImportant);
+  @NonNull
+  ICSSValue newValue (@NonNull @Nonempty String sValue, boolean bImportant);
 
   /**
    * Create a new CSS value with this property and the specified value. This is a shortcut for
@@ -105,8 +105,8 @@ public interface ICSSProperty
    *        The CSS String value. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  default ICSSValue newValue (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  default ICSSValue newValue (@NonNull @Nonempty final String sValue)
   {
     return newValue (sValue, false);
   }
@@ -119,8 +119,8 @@ public interface ICSSProperty
    *        The CSS String value. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  default ICSSValue newImportantValue (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  default ICSSValue newImportantValue (@NonNull @Nonempty final String sValue)
   {
     return newValue (sValue, true);
   }
@@ -134,8 +134,8 @@ public interface ICSSProperty
    *        <code>true</code> if it is an important value, <code>false</code> if not
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  default ICSSValue newValue (@Nonnull final ICSSNamedColor aColor, final boolean bImportant)
+  @NonNull
+  default ICSSValue newValue (@NonNull final ICSSNamedColor aColor, final boolean bImportant)
   {
     return newValue (aColor.getName (), bImportant);
   }
@@ -148,8 +148,8 @@ public interface ICSSProperty
    *        The CSS color value
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  default ICSSValue newValue (@Nonnull final ICSSNamedColor aColor)
+  @NonNull
+  default ICSSValue newValue (@NonNull final ICSSNamedColor aColor)
   {
     return newValue (aColor.getName ());
   }
@@ -162,8 +162,8 @@ public interface ICSSProperty
    *        The CSS color value
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  default ICSSValue newImportantValue (@Nonnull final ICSSNamedColor aColor)
+  @NonNull
+  default ICSSValue newImportantValue (@NonNull final ICSSNamedColor aColor)
   {
     return newImportantValue (aColor.getName ());
   }
@@ -175,8 +175,8 @@ public interface ICSSProperty
    *        The base property to use. May not be <code>null</code>.
    * @return Never <code>null</code>
    */
-  @Nonnull
-  ICSSProperty getClone (@Nonnull ECSSProperty eProp);
+  @NonNull
+  ICSSProperty getClone (@NonNull ECSSProperty eProp);
 
   /**
    * Get a clone of this property with the same base property but a different vendor prefix.
@@ -186,6 +186,6 @@ public interface ICSSProperty
    * @return Never <code>null</code>
    * @since 3.9.0
    */
-  @Nonnull
+  @NonNull
   ICSSProperty getClone (@Nullable ECSSVendorPrefix eVendorPrefix);
 }

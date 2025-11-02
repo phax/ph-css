@@ -16,6 +16,8 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -27,8 +29,6 @@ import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.utils.CSSColorHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a single HSLA color value (hue, saturation, lightness, opacity).
@@ -49,7 +49,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
-  public CSSHSLA (@Nonnull final CSSHSLA aOther)
+  public CSSHSLA (@NonNull final CSSHSLA aOther)
   {
     this (aOther.getHue (), aOther.getSaturation (), aOther.getLightness (), aOther.getOpacity ());
   }
@@ -63,7 +63,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
    *        Opacity part. Is fitted to a value between 0 and 1.
    * @since 3.8.3
    */
-  public CSSHSLA (@Nonnull final CSSHSL aOther, final float fOpacity)
+  public CSSHSLA (@NonNull final CSSHSL aOther, final float fOpacity)
   {
     this (aOther, Float.toString (CSSColorHelper.getOpacityToUse (fOpacity)));
   }
@@ -77,7 +77,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
    *        Opacity part. May neither be <code>null</code> nor empty.
    * @since 3.8.3
    */
-  public CSSHSLA (@Nonnull final CSSHSL aOther, @Nonnull @Nonempty final String sOpacity)
+  public CSSHSLA (@NonNull final CSSHSL aOther, @NonNull @Nonempty final String sOpacity)
   {
     this (aOther.getHue (), aOther.getSaturation (), aOther.getLightness (), sOpacity);
   }
@@ -122,10 +122,10 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
           Float.toString (CSSColorHelper.getOpacityToUse (fOpacity)));
   }
 
-  public CSSHSLA (@Nonnull @Nonempty final String sHue,
-                  @Nonnull @Nonempty final String sSaturation,
-                  @Nonnull @Nonempty final String sLightness,
-                  @Nonnull @Nonempty final String sOpacity)
+  public CSSHSLA (@NonNull @Nonempty final String sHue,
+                  @NonNull @Nonempty final String sSaturation,
+                  @NonNull @Nonempty final String sLightness,
+                  @NonNull @Nonempty final String sOpacity)
   {
     setHue (sHue);
     setSaturation (sSaturation);
@@ -136,15 +136,15 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
   /**
    * @return hue part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getHue ()
   {
     return m_sHue;
   }
 
-  @Nonnull
-  public final CSSHSLA setHue (@Nonnull @Nonempty final String sHue)
+  @NonNull
+  public final CSSHSLA setHue (@NonNull @Nonempty final String sHue)
   {
     ValueEnforcer.notEmpty (sHue, "Hue");
 
@@ -155,15 +155,15 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
   /**
    * @return saturation part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getSaturation ()
   {
     return m_sSaturation;
   }
 
-  @Nonnull
-  public final CSSHSLA setSaturation (@Nonnull @Nonempty final String sSaturation)
+  @NonNull
+  public final CSSHSLA setSaturation (@NonNull @Nonempty final String sSaturation)
   {
     ValueEnforcer.notEmpty (sSaturation, "Saturation");
 
@@ -174,15 +174,15 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
   /**
    * @return lightness part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getLightness ()
   {
     return m_sLightness;
   }
 
-  @Nonnull
-  public final CSSHSLA setLightness (@Nonnull @Nonempty final String sLightness)
+  @NonNull
+  public final CSSHSLA setLightness (@NonNull @Nonempty final String sLightness)
   {
     ValueEnforcer.notEmpty (sLightness, "Lightness");
 
@@ -193,15 +193,15 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
   /**
    * @return opacity part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getOpacity ()
   {
     return m_sOpacity;
   }
 
-  @Nonnull
-  public final CSSHSLA setOpacity (@Nonnull @Nonempty final String sOpacity)
+  @NonNull
+  public final CSSHSLA setOpacity (@NonNull @Nonempty final String sOpacity)
   {
     ValueEnforcer.notEmpty (sOpacity, "Opacity");
 
@@ -213,7 +213,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
    * @return This value as HSL value without the opacity. Never <code>null</code>.
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   public CSSHSL getAsHSL ()
   {
     return new CSSHSL (m_sHue, m_sSaturation, m_sLightness);
@@ -224,7 +224,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
    *
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsString ()
   {
@@ -239,9 +239,9 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
            CCSSValue.SUFFIX_HSLA_CLOSE;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return getAsString ();
   }
@@ -251,7 +251,7 @@ public class CSSHSLA implements ICSSWriteable, ICSSColor, ICloneable <CSSHSLA>
    *
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   public CSSHSLA getClone ()
   {
     return new CSSHSLA (this);

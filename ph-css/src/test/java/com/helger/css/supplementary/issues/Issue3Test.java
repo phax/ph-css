@@ -19,6 +19,7 @@ package com.helger.css.supplementary.issues;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +32,6 @@ import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test for issue 3: https://github.com/phax/ph-css/issues/3
  *
@@ -42,8 +41,8 @@ public final class Issue3Test
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (Issue3Test.class);
 
-  @Nonnull
-  private static CascadingStyleSheet _parse (@Nonnull final String sCSS, final boolean bBrowserCompliantMode)
+  @NonNull
+  private static CascadingStyleSheet _parse (@NonNull final String sCSS, final boolean bBrowserCompliantMode)
   {
     if (true)
       LOGGER.info ("[Parsing] " + sCSS);
@@ -52,7 +51,7 @@ public final class Issue3Test
                                                                    .setBrowserCompliantMode (bBrowserCompliantMode));
   }
 
-  private static void _print (@Nonnull final CascadingStyleSheet aCSS)
+  private static void _print (@NonNull final CascadingStyleSheet aCSS)
   {
     LOGGER.info (new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
                                                                                    .getCSSAsString (aCSS));

@@ -16,6 +16,8 @@
  */
 package com.helger.css.writer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -28,8 +30,6 @@ import com.helger.base.system.ENewLineMode;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.utils.CSSURLHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents the options required for writing
@@ -113,7 +113,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
    * @param aBase
    *        The base settings to copy everything from.
    */
-  public CSSWriterSettings (@Nonnull final ICSSWriterSettings aBase)
+  public CSSWriterSettings (@NonNull final ICSSWriterSettings aBase)
   {
     ValueEnforcer.notNull (aBase, "Base");
 
@@ -137,7 +137,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bOptimizedOutput;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setOptimizedOutput (final boolean bOptimizedOutput)
   {
     m_bOptimizedOutput = bOptimizedOutput;
@@ -149,41 +149,41 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bRemoveUnnecessaryCode;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setRemoveUnnecessaryCode (final boolean bRemoveUnnecessaryCode)
   {
     m_bRemoveUnnecessaryCode = bRemoveUnnecessaryCode;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final ENewLineMode getNewLineMode ()
   {
     return m_eNewLineMode;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getNewLineString ()
   {
     return m_eNewLineMode.getText ();
   }
 
-  @Nonnull
-  public final CSSWriterSettings setNewLineMode (@Nonnull final ENewLineMode eNewLineMode)
+  @NonNull
+  public final CSSWriterSettings setNewLineMode (@NonNull final ENewLineMode eNewLineMode)
   {
     m_eNewLineMode = ValueEnforcer.notNull (eNewLineMode, "NewLineMode");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final String getIndent (@Nonnegative final int nCount)
   {
     return StringHelper.getRepeated (m_sIndent, nCount);
   }
 
-  @Nonnull
-  public final CSSWriterSettings setIndent (@Nonnull final String sIndent)
+  @NonNull
+  public final CSSWriterSettings setIndent (@NonNull final String sIndent)
   {
     ValueEnforcer.notNull (sIndent, "Indent");
 
@@ -196,7 +196,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bQuoteURLs;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setQuoteURLs (final boolean bQuoteURLs)
   {
     m_bQuoteURLs = bQuoteURLs;
@@ -208,7 +208,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bWriteNamespaceRules;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setWriteNamespaceRules (final boolean bWriteNamespaceRules)
   {
     m_bWriteNamespaceRules = bWriteNamespaceRules;
@@ -220,7 +220,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bWriteFontFaceRules;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setWriteFontFaceRules (final boolean bWriteFontFaceRules)
   {
     m_bWriteFontFaceRules = bWriteFontFaceRules;
@@ -232,7 +232,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bWriteKeyframesRules;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setWriteKeyframesRules (final boolean bWriteKeyframesRules)
   {
     m_bWriteKeyframesRules = bWriteKeyframesRules;
@@ -244,7 +244,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bWriteMediaRules;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setWriteMediaRules (final boolean bWriteMediaRules)
   {
     m_bWriteMediaRules = bWriteMediaRules;
@@ -256,7 +256,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bWritePageRules;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setWritePageRules (final boolean bWritePageRules)
   {
     m_bWritePageRules = bWritePageRules;
@@ -268,7 +268,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bWriteViewportRules;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setWriteViewportRules (final boolean bWriteViewportRules)
   {
     m_bWriteViewportRules = bWriteViewportRules;
@@ -280,7 +280,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bWriteSupportsRules;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setWriteSupportsRules (final boolean bWriteSupportsRules)
   {
     m_bWriteSupportsRules = bWriteSupportsRules;
@@ -292,14 +292,14 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return m_bWriteUnknownRules;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSWriterSettings setWriteUnknownRules (final boolean bWriteUnknownRules)
   {
     m_bWriteUnknownRules = bWriteUnknownRules;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CSSWriterSettings getClone ()
   {

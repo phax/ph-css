@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -30,9 +33,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single <code>@media</code> rule: a list of style rules only valid for certain
@@ -80,8 +80,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    *        The media query to be added. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public CSSMediaRule addMediaQuery (@Nonnull @Nonempty final CSSMediaQuery aMediaQuery)
+  @NonNull
+  public CSSMediaRule addMediaQuery (@NonNull @Nonempty final CSSMediaQuery aMediaQuery)
   {
     ValueEnforcer.notNull (aMediaQuery, "MediaQuery");
 
@@ -99,8 +99,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    *        The media query to be added. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public CSSMediaRule addMediaQuery (@Nonnegative final int nIndex, @Nonnull @Nonempty final CSSMediaQuery aMediaQuery)
+  @NonNull
+  public CSSMediaRule addMediaQuery (@Nonnegative final int nIndex, @NonNull @Nonempty final CSSMediaQuery aMediaQuery)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMediaQuery, "MediaQuery");
@@ -119,7 +119,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    *        The media query to be removed. May be <code>null</code>.
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public EChange removeMediaQuery (@Nullable final CSSMediaQuery aMediaQuery)
   {
     return m_aMediaQueries.removeObject (aMediaQuery);
@@ -132,7 +132,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    *        The index to be removed. Should be &ge; 0.
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public EChange removeMediaQuery (@Nonnegative final int nMediumIndex)
   {
     return m_aMediaQueries.removeAtIndex (nMediumIndex);
@@ -145,7 +145,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    *         otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMediaQueries ()
   {
     return m_aMediaQueries.removeAll ();
@@ -167,16 +167,16 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
   /**
    * @return A copy of all contained media queries. Never <code>null</code>. Maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaQuery> getAllMediaQueries ()
   {
     return m_aMediaQueries.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     // Always ignore media rules?
     if (!aSettings.isWriteMediaRules ())

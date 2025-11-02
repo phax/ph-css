@@ -16,14 +16,14 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.string.StringParser;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * CSS property that is either an enumeration or a long value without a unit (e.g. flex-grow)
@@ -34,17 +34,17 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class CSSPropertyLong extends AbstractCSSProperty
 {
-  public CSSPropertyLong (@Nonnull final ECSSProperty eProp)
+  public CSSPropertyLong (@NonNull final ECSSProperty eProp)
   {
     this (eProp, (ICSSPropertyCustomizer) null);
   }
 
-  public CSSPropertyLong (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
+  public CSSPropertyLong (@NonNull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
     super (eProp, (ECSSVendorPrefix) null, aCustomizer);
   }
 
-  public CSSPropertyLong (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyLong (@NonNull final ECSSProperty eProp,
                           @Nullable final ECSSVendorPrefix eVendorPrefix,
                           @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
@@ -63,13 +63,13 @@ public class CSSPropertyLong extends AbstractCSSProperty
     return isValidPropertyValue (sValue);
   }
 
-  @Nonnull
-  public CSSPropertyLong getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyLong getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyLong (eProp, getVendorPrefix (), getCustomizer ());
   }
 
-  @Nonnull
+  @NonNull
   public CSSPropertyLong getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyLong (getProp (), eVendorPrefix, getCustomizer ());

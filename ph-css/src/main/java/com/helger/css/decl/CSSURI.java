@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -30,9 +33,6 @@ import com.helger.css.utils.CSSDataURL;
 import com.helger.css.utils.CSSDataURLHelper;
 import com.helger.css.utils.CSSURLHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Represents a single CSS URI. The contained URI might be modified using
  * {@link #setURI(String)}.
@@ -45,7 +45,7 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   private String m_sURI;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSURI (@Nonnull final String sURI)
+  public CSSURI (@NonNull final String sURI)
   {
     setURI (sURI);
   }
@@ -53,7 +53,7 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * @return The URI string (without the leading "url(" and the closing ")")
    */
-  @Nonnull
+  @NonNull
   public final String getURI ()
   {
     return m_sURI;
@@ -69,8 +69,8 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
    *        (even though an empty URL usually does not make sense).
    * @return this
    */
-  @Nonnull
-  public final CSSURI setURI (@Nonnull final String sURI)
+  @NonNull
+  public final CSSURI setURI (@NonNull final String sURI)
   {
     ValueEnforcer.notNull (sURI, "URI");
     if (CSSURLHelper.isURLValue (sURI))
@@ -103,9 +103,9 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
     return CSSDataURLHelper.parseDataURL (m_sURI);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return CSSURLHelper.getAsCSSURL (m_sURI, aSettings.isQuoteURLs ());
   }

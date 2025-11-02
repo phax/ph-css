@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +35,6 @@ import com.helger.mime.IMimeType;
 import com.helger.mime.MimeType;
 import com.helger.mime.MimeTypeHelper;
 import com.helger.mime.parse.MimeTypeParser;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Provides data URL handling sanity methods (RFC 2397).

@@ -18,6 +18,9 @@ package com.helger.css.handler;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
@@ -32,9 +35,6 @@ import com.helger.css.media.ECSSMedium;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class converts the jjtree node to a domain object. This is where the hard work happens.
@@ -56,14 +56,14 @@ final class CSSNodeToDomainObject
    *        <code>true</code> to keep the source location, <code>false</code> to ignore the source
    *        location. Disabling the source location may be a performance improvement.
    */
-  public CSSNodeToDomainObject (@Nonnull final ICSSInterpretErrorHandler aErrorHandler,
+  public CSSNodeToDomainObject (@NonNull final ICSSInterpretErrorHandler aErrorHandler,
                                 final boolean bUseSourceLocation)
   {
     m_aErrorHandler = ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
     m_bUseSourceLocation = bUseSourceLocation;
   }
 
-  private void _expectNodeType (@Nonnull final CSSNode aNode, @Nonnull final ECSSNodeType eExpected)
+  private void _expectNodeType (@NonNull final CSSNode aNode, @NonNull final ECSSNodeType eExpected)
   {
     if (!eExpected.isNode (aNode))
       throw new CSSHandlingException (aNode,
@@ -74,7 +74,7 @@ final class CSSNodeToDomainObject
                                              "'");
   }
 
-  private void _throwUnexpectedChildrenCount (@Nonnull final CSSNode aNode, @Nonnull @Nonempty final String sMsg)
+  private void _throwUnexpectedChildrenCount (@NonNull final CSSNode aNode, @NonNull @Nonempty final String sMsg)
   {
     m_aErrorHandler.onCSSInterpretationError (sMsg);
     for (int i = 0; i < aNode.jjtGetNumChildren (); ++i)
@@ -82,8 +82,8 @@ final class CSSNodeToDomainObject
     throw new CSSHandlingException (aNode, sMsg);
   }
 
-  @Nonnull
-  private CSSImportRule _createImportRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSImportRule _createImportRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.IMPORTRULE);
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -143,8 +143,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSSelectorAttribute _createSelectorAttribute (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSSelectorAttribute _createSelectorAttribute (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.ATTRIB);
     final int nChildren = aNode.jjtGetNumChildren ();
@@ -392,8 +392,8 @@ final class CSSNodeToDomainObject
     return null;
   }
 
-  @Nonnull
-  private CSSSelector _createSelector (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSSelector _createSelector (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.SELECTOR);
 
@@ -409,8 +409,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSSelector _createRelativeSelector (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSSelector _createRelativeSelector (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.RELATIVESELECTOR);
 
@@ -426,8 +426,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSExpressionMemberMathProduct _createExpressionCalcProduct (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSExpressionMemberMathProduct _createExpressionCalcProduct (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.CALCPRODUCT);
 
@@ -519,8 +519,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSExpressionMemberTermURI _createExpressionURL (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSExpressionMemberTermURI _createExpressionURL (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.URL);
 
@@ -539,8 +539,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSExpressionMemberFunction _createExpressionFunction (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSExpressionMemberFunction _createExpressionFunction (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.FUNCTION);
 
@@ -567,8 +567,8 @@ final class CSSNodeToDomainObject
     return aFunc;
   }
 
-  @Nonnull
-  private CSSExpressionMemberMath _createExpressionCalc (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSExpressionMemberMath _createExpressionCalc (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.CALC);
 
@@ -603,8 +603,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSExpressionMemberLineNames _createExpressionLineNamesTerm (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSExpressionMemberLineNames _createExpressionLineNamesTerm (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.LINE_NAMES);
 
@@ -629,8 +629,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private ICSSExpressionMember _createExpressionTerm (@Nonnull final CSSNode aNode)
+  @NonNull
+  private ICSSExpressionMember _createExpressionTerm (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.EXPRTERM);
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -676,8 +676,8 @@ final class CSSNodeToDomainObject
                                              ECSSNodeType.getNodeName (aChildNode));
   }
 
-  @Nonnull
-  private CSSExpression _createExpression (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSExpression _createExpression (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.EXPR);
     final CSSExpression ret = new CSSExpression ();
@@ -709,7 +709,7 @@ final class CSSNodeToDomainObject
   }
 
   @Nullable
-  private CSSDeclaration _createDeclaration (@Nonnull final CSSNode aNode)
+  private CSSDeclaration _createDeclaration (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATION);
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -756,8 +756,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  private void _readStyleDeclarationList (@Nonnull final CSSNode aNode,
-                                          @Nonnull final Consumer <CSSDeclaration> aConsumer)
+  private void _readStyleDeclarationList (@NonNull final CSSNode aNode,
+                                          @NonNull final Consumer <CSSDeclaration> aConsumer)
   {
     _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLIST);
     // Read all contained declarations
@@ -777,7 +777,7 @@ final class CSSNodeToDomainObject
   }
 
   @Nullable
-  private CSSStyleRule _createStyleRule (@Nonnull final CSSNode aNode)
+  private CSSStyleRule _createStyleRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.STYLERULE);
     final CSSStyleRule ret = new CSSStyleRule ();
@@ -820,8 +820,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSPageRule _createPageRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSPageRule _createPageRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.PAGERULE);
 
@@ -880,8 +880,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSMediaRule _createMediaRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSMediaRule _createMediaRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.MEDIARULE);
     final CSSMediaRule ret = new CSSMediaRule ();
@@ -941,8 +941,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSMediaQuery _createMediaQuery (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSMediaQuery _createMediaQuery (@NonNull final CSSNode aNode)
   {
     if (ECSSNodeType.MEDIUM.isNode (aNode))
     {
@@ -1015,8 +1015,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSMediaExpression _createMediaExpr (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSMediaExpression _createMediaExpr (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.MEDIAEXPR);
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -1047,8 +1047,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSFontFaceRule _createFontFaceRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSFontFaceRule _createFontFaceRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.FONTFACERULE);
 
@@ -1071,8 +1071,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSLayerRule _createLayerRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSLayerRule _createLayerRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.LAYERRULE);
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -1141,8 +1141,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSKeyframesRule _createKeyframesRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSKeyframesRule _createKeyframesRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.KEYFRAMESRULE);
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -1202,8 +1202,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSViewportRule _createViewportRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSViewportRule _createViewportRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.VIEWPORTRULE);
 
@@ -1229,8 +1229,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSNamespaceRule _createNamespaceRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSNamespaceRule _createNamespaceRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.NAMESPACERULE);
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -1257,7 +1257,7 @@ final class CSSNodeToDomainObject
   }
 
   @Nullable
-  private ICSSSupportsConditionMember _createSupportsConditionMemberRecursive (@Nonnull final CSSNode aNode)
+  private ICSSSupportsConditionMember _createSupportsConditionMemberRecursive (@NonNull final CSSNode aNode)
   {
     final int nChildCount = aNode.jjtGetNumChildren ();
 
@@ -1328,8 +1328,8 @@ final class CSSNodeToDomainObject
     return null;
   }
 
-  @Nonnull
-  private CSSSupportsRule _createSupportsRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSSupportsRule _createSupportsRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.SUPPORTSRULE);
     final CSSSupportsRule ret = new CSSSupportsRule ();
@@ -1382,8 +1382,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  @Nonnull
-  private CSSUnknownRule _createUnknownRule (@Nonnull final CSSNode aNode)
+  @NonNull
+  private CSSUnknownRule _createUnknownRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.UNKNOWNRULE);
 
@@ -1408,8 +1408,8 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
-  private void _recursiveFillCascadingStyleSheetFromNode (@Nonnull final CSSNode aNode,
-                                                          @Nonnull final CascadingStyleSheet ret)
+  private void _recursiveFillCascadingStyleSheetFromNode (@NonNull final CSSNode aNode,
+                                                          @NonNull final CascadingStyleSheet ret)
   {
     _expectNodeType (aNode, ECSSNodeType.ROOT);
     if (m_bUseSourceLocation)
@@ -1482,16 +1482,16 @@ final class CSSNodeToDomainObject
     }
   }
 
-  @Nonnull
-  public CascadingStyleSheet createCascadingStyleSheetFromNode (@Nonnull final CSSNode aNode)
+  @NonNull
+  public CascadingStyleSheet createCascadingStyleSheetFromNode (@NonNull final CSSNode aNode)
   {
     final CascadingStyleSheet ret = new CascadingStyleSheet ();
     _recursiveFillCascadingStyleSheetFromNode (aNode, ret);
     return ret;
   }
 
-  @Nonnull
-  public CSSDeclarationList createDeclarationListFromNode (@Nonnull final CSSNode aNode)
+  @NonNull
+  public CSSDeclarationList createDeclarationListFromNode (@NonNull final CSSNode aNode)
   {
     final CSSDeclarationList ret = new CSSDeclarationList ();
     if (m_bUseSourceLocation)

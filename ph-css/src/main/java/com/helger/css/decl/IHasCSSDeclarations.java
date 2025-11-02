@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -23,9 +26,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.trait.IGenericImplTrait;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ICSSWriteable;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Sanity interface for all objects having CSS declarations.
@@ -45,8 +45,8 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *        The declaration to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  IMPLTYPE addDeclaration (@Nonnull CSSDeclaration aDeclaration);
+  @NonNull
+  IMPLTYPE addDeclaration (@NonNull CSSDeclaration aDeclaration);
 
   /**
    * Add a new declaration.
@@ -59,9 +59,9 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *        <code>true</code> if it is important, <code>false</code> if not.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE addDeclaration (@Nonnull @Nonempty final String sProperty,
-                                   @Nonnull final CSSExpression aExpression,
+  @NonNull
+  default IMPLTYPE addDeclaration (@NonNull @Nonempty final String sProperty,
+                                   @NonNull final CSSExpression aExpression,
                                    final boolean bImportant)
   {
     return addDeclaration (new CSSDeclaration (sProperty, aExpression, bImportant));
@@ -78,8 +78,8 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *        The declaration to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  IMPLTYPE addDeclaration (@Nonnegative int nIndex, @Nonnull CSSDeclaration aDeclaration);
+  @NonNull
+  IMPLTYPE addDeclaration (@Nonnegative int nIndex, @NonNull CSSDeclaration aDeclaration);
 
   /**
    * Remove the given declaration
@@ -88,8 +88,8 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *        The declaration to be removed. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the declaration was successfully removed
    */
-  @Nonnull
-  EChange removeDeclaration (@Nonnull CSSDeclaration aDeclaration);
+  @NonNull
+  EChange removeDeclaration (@NonNull CSSDeclaration aDeclaration);
 
   /**
    * Remove the declaration at the specified index
@@ -99,7 +99,7 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    * @return {@link EChange#CHANGED} if the declaration was successfully removed,
    *         {@link EChange#UNCHANGED} if the index was invalid.
    */
-  @Nonnull
+  @NonNull
   EChange removeDeclaration (@Nonnegative int nDeclarationIndex);
 
   /**
@@ -109,13 +109,13 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *         otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   EChange removeAllDeclarations ();
 
   /**
    * @return A mutable, non-<code>null</code> copy of all contained declarations.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <CSSDeclaration> getAllDeclarations ();
 
@@ -139,8 +139,8 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    *        The new declaration to be set.
    * @return this
    */
-  @Nonnull
-  IMPLTYPE setDeclarationAtIndex (@Nonnegative int nIndex, @Nonnull CSSDeclaration aNewDeclaration);
+  @NonNull
+  IMPLTYPE setDeclarationAtIndex (@Nonnegative int nIndex, @NonNull CSSDeclaration aNewDeclaration);
 
   /**
    * @return <code>true</code> if at least one declaration is present, <code>false</code> if no
@@ -179,7 +179,7 @@ public interface IHasCSSDeclarations <IMPLTYPE extends IHasCSSDeclarations <IMPL
    * @return Never <code>null</code> but maybe an empty list.
    * @since 3.7.4
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable String sPropertyName);
 }

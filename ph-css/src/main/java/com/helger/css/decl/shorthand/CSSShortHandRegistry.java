@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl.shorthand;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -29,9 +32,6 @@ import com.helger.css.property.CCSSProperties;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.utils.ECSSColor;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A static registry for all CSS short hand declarations (like
@@ -179,7 +179,7 @@ public final class CSSShortHandRegistry
   private CSSShortHandRegistry ()
   {}
 
-  public static void registerShortHandDescriptor (@Nonnull final CSSShortHandDescriptor aDescriptor)
+  public static void registerShortHandDescriptor (@NonNull final CSSShortHandDescriptor aDescriptor)
   {
     ValueEnforcer.notNull (aDescriptor, "Descriptor");
 
@@ -191,7 +191,7 @@ public final class CSSShortHandRegistry
     });
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <ECSSProperty> getAllShortHandProperties ()
   {

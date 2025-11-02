@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -31,9 +34,6 @@ import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single media query
@@ -58,12 +58,12 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
 
     private final String m_sText;
 
-    EModifier (@Nonnull final String sText)
+    EModifier (@NonNull final String sText)
     {
       m_sText = sText;
     }
 
-    @Nonnull
+    @NonNull
     public String getCSSText ()
     {
       return m_sText;
@@ -95,7 +95,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @param sMedium
    *        The medium to use. May be <code>null</code>.
    */
-  public CSSMediaQuery (@Nonnull final EModifier eModifier, @Nullable final String sMedium)
+  public CSSMediaQuery (@NonNull final EModifier eModifier, @Nullable final String sMedium)
   {
     ValueEnforcer.notNull (eModifier, "Modifier");
     m_eModifier = eModifier;
@@ -105,7 +105,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * @return The media query modifier that was used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final EModifier getModifier ()
   {
     return m_eModifier;
@@ -162,8 +162,8 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    *        The media expression to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSMediaQuery addMediaExpression (@Nonnull final CSSMediaExpression aMediaExpression)
+  @NonNull
+  public CSSMediaQuery addMediaExpression (@NonNull final CSSMediaExpression aMediaExpression)
   {
     ValueEnforcer.notNull (aMediaExpression, "MediaExpression");
 
@@ -181,8 +181,8 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    *        The media expression to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSMediaQuery addMediaExpression (@Nonnegative final int nIndex, @Nonnull final CSSMediaExpression aMediaExpression)
+  @NonNull
+  public CSSMediaQuery addMediaExpression (@Nonnegative final int nIndex, @NonNull final CSSMediaExpression aMediaExpression)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMediaExpression, "MediaExpression");
@@ -202,7 +202,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @return {@link EChange#CHANGED} if removal succeeded,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
+  @NonNull
   public EChange removeMediaExpression (@Nullable final CSSMediaExpression aMediaExpression)
   {
     return m_aMediaExpressions.removeObject (aMediaExpression);
@@ -216,7 +216,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @return {@link EChange#CHANGED} if removal succeeded,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
+  @NonNull
   public EChange removeMediaExpression (final int nExpressionIndex)
   {
     return m_aMediaExpressions.removeAtIndex (nExpressionIndex);
@@ -229,7 +229,7 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMediaExpressions ()
   {
     return m_aMediaExpressions.removeAll ();
@@ -252,16 +252,16 @@ public class CSSMediaQuery implements ICSSWriteable, ICSSSourceLocationAware
    * @return A copy of all media expression. Never <code>null</code> but maybe
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaExpression> getAllMediaExpressions ()
   {
     return m_aMediaExpressions.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final StringBuilder aSB = new StringBuilder ();
 

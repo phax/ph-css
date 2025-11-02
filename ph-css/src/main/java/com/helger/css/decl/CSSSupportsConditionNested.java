@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single negation supports condition
@@ -58,8 +58,8 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return m_aMembers.size ();
   }
 
-  @Nonnull
-  public CSSSupportsConditionNested addMember (@Nonnull final ICSSSupportsConditionMember aMember)
+  @NonNull
+  public CSSSupportsConditionNested addMember (@NonNull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
 
@@ -67,9 +67,9 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSSupportsConditionNested addMember (@Nonnegative final int nIndex,
-                                               @Nonnull final ICSSSupportsConditionMember aMember)
+                                               @NonNull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
@@ -81,13 +81,13 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return this;
   }
 
-  @Nonnull
-  public EChange removeMember (@Nonnull final ICSSSupportsConditionMember aMember)
+  @NonNull
+  public EChange removeMember (@NonNull final ICSSSupportsConditionMember aMember)
   {
     return m_aMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nIndex)
   {
     return m_aMembers.removeAtIndex (nIndex);
@@ -100,7 +100,7 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
    *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
@@ -112,16 +112,16 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return m_aMembers.getAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSSupportsConditionMember> getAllMembers ()
   {
     return m_aMembers.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final StringBuilder aSB = new StringBuilder ("(");
     boolean bFirst = true;

@@ -21,11 +21,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.css.reader.CSSReader;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for {@link CSSNamespaceRule}.
@@ -34,8 +33,8 @@ import jakarta.annotation.Nonnull;
  */
 public final class CSSNamespaceRuleTest
 {
-  @Nonnull
-  private static CSSNamespaceRule _parse (@Nonnull final String sCSS)
+  @NonNull
+  private static CSSNamespaceRule _parse (@NonNull final String sCSS)
   {
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
     assertNotNull (sCSS, aCSS);

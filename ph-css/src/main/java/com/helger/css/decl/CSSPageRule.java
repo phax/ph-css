@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single <code>@page</code> rule.<br>
@@ -56,51 +56,51 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
                                                          : new CommonsArrayList <> ();
   }
 
-  public CSSPageRule (@Nonnull final Iterable <String> aSelectors)
+  public CSSPageRule (@NonNull final Iterable <String> aSelectors)
   {
     ValueEnforcer.notNullNoNullValue (aSelectors, "Selectors");
     m_aSelectors = new CommonsArrayList <> (aSelectors);
   }
 
-  @Nonnull
+  @NonNull
   public ICommonsList <String> getAllSelectors ()
   {
     return m_aSelectors.getClone ();
   }
 
-  @Nonnull
-  public CSSPageRule addMember (@Nonnull final ICSSPageRuleMember aMember)
+  @NonNull
+  public CSSPageRule addMember (@NonNull final ICSSPageRuleMember aMember)
   {
     m_aMembers.add (aMember);
     return this;
   }
 
-  @Nonnull
-  public CSSPageRule addMember (@Nonnegative final int nIndex, @Nonnull final ICSSPageRuleMember aMember)
+  @NonNull
+  public CSSPageRule addMember (@Nonnegative final int nIndex, @NonNull final ICSSPageRuleMember aMember)
   {
     m_aMembers.add (nIndex, aMember);
     return this;
   }
 
-  @Nonnull
-  public EChange removeMember (@Nonnull final ICSSPageRuleMember aMember)
+  @NonNull
+  public EChange removeMember (@NonNull final ICSSPageRuleMember aMember)
   {
     return m_aMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nIndex)
   {
     return m_aMembers.removeAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSPageRuleMember> getAllMembers ()
   {
@@ -113,8 +113,8 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return m_aMembers.getAtIndex (nIndex);
   }
 
-  @Nonnull
-  public CSSPageRule setMemberAtIndex (@Nonnegative final int nIndex, @Nonnull final ICSSPageRuleMember aNewDeclaration)
+  @NonNull
+  public CSSPageRule setMemberAtIndex (@Nonnegative final int nIndex, @NonNull final ICSSPageRuleMember aNewDeclaration)
   {
     m_aMembers.set (nIndex, aNewDeclaration);
     return this;
@@ -131,8 +131,8 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return m_aMembers.size ();
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     // Always ignore page rules?
     if (!aSettings.isWritePageRules ())

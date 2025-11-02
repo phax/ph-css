@@ -18,6 +18,9 @@ package com.helger.css.decl;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -30,9 +33,6 @@ import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single element in a CSS style rule. (eg. <code>color:red;</code>
@@ -61,7 +61,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @param aExpression
    *        The value of the property. May not be <code>null</code>.
    */
-  public CSSDeclaration (@Nonnull @Nonempty final String sProperty, @Nonnull final CSSExpression aExpression)
+  public CSSDeclaration (@NonNull @Nonempty final String sProperty, @NonNull final CSSExpression aExpression)
   {
     this (sProperty, aExpression, DEFAULT_IMPORTANT);
   }
@@ -78,7 +78,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @param bIsImportant
    *        <code>true</code> if it is important, <code>false</code> if not.
    */
-  public CSSDeclaration (@Nonnull @Nonempty final String sProperty, @Nonnull final CSSExpression aExpression, final boolean bIsImportant)
+  public CSSDeclaration (@NonNull @Nonempty final String sProperty, @NonNull final CSSExpression aExpression, final boolean bIsImportant)
   {
     setProperty (sProperty);
     setExpression (aExpression);
@@ -89,15 +89,15 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @return The property of this declaration (e.g. "color" or "margin-top").
    *         The string is always lowercase. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getProperty ()
   {
     return m_sProperty;
   }
 
-  @Nonnull
-  private static String _unifyProperty (@Nonnull final String sProperty)
+  @NonNull
+  private static String _unifyProperty (@NonNull final String sProperty)
   {
     // CSS variables are case sensitive (see issue 63)
     if (sProperty.startsWith ("--"))
@@ -115,7 +115,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @see #hasProperty(ECSSProperty)
    * @since 6.0.0
    */
-  public final boolean hasProperty (@Nonnull final String sProperty)
+  public final boolean hasProperty (@NonNull final String sProperty)
   {
     ValueEnforcer.notNull (sProperty, "Property");
     return m_sProperty.equals (_unifyProperty (sProperty));
@@ -131,7 +131,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @see #hasProperty(String)
    * @since 6.0.0
    */
-  public final boolean hasProperty (@Nonnull final ECSSProperty eProperty)
+  public final boolean hasProperty (@NonNull final ECSSProperty eProperty)
   {
     ValueEnforcer.notNull (eProperty, "Property");
     return hasProperty (eProperty.getName ());
@@ -146,8 +146,8 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @return this
    * @since 3.7.4
    */
-  @Nonnull
-  public final CSSDeclaration setProperty (@Nonnull @Nonempty final String sProperty)
+  @NonNull
+  public final CSSDeclaration setProperty (@NonNull @Nonempty final String sProperty)
   {
     ValueEnforcer.notEmpty (sProperty, "Property");
     m_sProperty = _unifyProperty (sProperty);
@@ -162,8 +162,8 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @return this
    * @since 3.7.4
    */
-  @Nonnull
-  public final CSSDeclaration setProperty (@Nonnull final ECSSProperty eProperty)
+  @NonNull
+  public final CSSDeclaration setProperty (@NonNull final ECSSProperty eProperty)
   {
     ValueEnforcer.notNull (eProperty, "Property");
     return setProperty (eProperty.getName ());
@@ -173,7 +173,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @return The expression of this declaration (e.g. "red" or "25px" or "25px
    *         10px 25px 9px") as a structured value. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final CSSExpression getExpression ()
   {
@@ -185,7 +185,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    *
    * @return The CSS expression as a parsable String. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final String getExpressionAsCSSString ()
   {
     return m_aExpression.getAsCSSString ();
@@ -199,8 +199,8 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @return this
    * @since 3.7.4
    */
-  @Nonnull
-  public final CSSDeclaration setExpression (@Nonnull final CSSExpression aExpression)
+  @NonNull
+  public final CSSDeclaration setExpression (@NonNull final CSSExpression aExpression)
   {
     m_aExpression = ValueEnforcer.notNull (aExpression, "Expression");
     return this;
@@ -224,16 +224,16 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
    * @return this
    * @since 3.7.4
    */
-  @Nonnull
+  @NonNull
   public final CSSDeclaration setImportant (final boolean bIsImportant)
   {
     m_bIsImportant = bIsImportant;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return m_sProperty +
            CCSS.SEPARATOR_PROPERTY_VALUE +

@@ -16,11 +16,11 @@
  */
 package com.helger.css.decl.shorthand;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.property.ICSSProperty;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A descriptor for a property and a default value
@@ -33,7 +33,7 @@ public final class CSSPropertyWithDefaultValue
   private final ICSSProperty m_aProperty;
   private final String m_sDefaultValue;
 
-  public CSSPropertyWithDefaultValue (@Nonnull final ICSSProperty aProperty, @Nonnull final String sDefaultValue)
+  public CSSPropertyWithDefaultValue (@NonNull final ICSSProperty aProperty, @NonNull final String sDefaultValue)
   {
     m_aProperty = ValueEnforcer.notNull (aProperty, "Property");
     m_sDefaultValue = ValueEnforcer.notNull (sDefaultValue, "DefaultValue");
@@ -43,13 +43,13 @@ public final class CSSPropertyWithDefaultValue
       throw new IllegalArgumentException ("Default value '" + sDefaultValue + "' does not match property " + aProperty);
   }
 
-  @Nonnull
+  @NonNull
   public ICSSProperty getProperty ()
   {
     return m_aProperty;
   }
 
-  @Nonnull
+  @NonNull
   public String getDefaultValue ()
   {
     return m_sDefaultValue;

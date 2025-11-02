@@ -20,12 +20,12 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Enumeration containing all predefined CSS units.<br>
@@ -164,7 +164,7 @@ public enum ECSSUnit implements IHasName
   private final String m_sName;
   private final ECSSMetaUnit m_eMetaUnit;
 
-  ECSSUnit (@Nonnull @Nonempty final String sName, @Nonnull final ECSSMetaUnit eMetaUnit)
+  ECSSUnit (@NonNull @Nonempty final String sName, @NonNull final ECSSMetaUnit eMetaUnit)
   {
     m_sName = sName;
     m_eMetaUnit = eMetaUnit;
@@ -173,7 +173,7 @@ public enum ECSSUnit implements IHasName
   /**
    * @return The name of the unit as it should be used in CSS. E.g. "px"
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
@@ -183,7 +183,7 @@ public enum ECSSUnit implements IHasName
   /**
    * @return The underlying meta unit. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ECSSMetaUnit getMetaUnit ()
   {
     return m_eMetaUnit;
@@ -196,7 +196,7 @@ public enum ECSSUnit implements IHasName
    *        Value to format
    * @return <code>value + getName()</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String format (final int nValue)
   {
@@ -210,7 +210,7 @@ public enum ECSSUnit implements IHasName
    *        Value to format
    * @return <code>value + getName()</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String format (final long nValue)
   {
@@ -224,7 +224,7 @@ public enum ECSSUnit implements IHasName
    *        Value to format
    * @return <code>value + getName()</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String format (final double dValue)
   {
@@ -243,9 +243,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + getName()</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String format (@Nonnull final BigDecimal aValue)
+  public String format (@NonNull final BigDecimal aValue)
   {
     // Always format with English locale ('.' as decimal separator)
     final NumberFormat aNF = NumberFormat.getNumberInstance (Locale.US);
@@ -273,7 +273,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "em"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String em (final int nValue)
   {
@@ -285,7 +285,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "em"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String em (final double dValue)
   {
@@ -298,9 +298,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "em"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String em (@Nonnull final BigDecimal aValue)
+  public static String em (@NonNull final BigDecimal aValue)
   {
     return EM.format (aValue);
   }
@@ -310,7 +310,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "ex"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String ex (final int nValue)
   {
@@ -322,7 +322,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "ex"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String ex (final double dValue)
   {
@@ -335,9 +335,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "ex"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String ex (@Nonnull final BigDecimal aValue)
+  public static String ex (@NonNull final BigDecimal aValue)
   {
     return EX.format (aValue);
   }
@@ -347,7 +347,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "px"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String px (final int nValue)
   {
@@ -359,7 +359,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "px"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String px (final double dValue)
   {
@@ -372,9 +372,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "px"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String px (@Nonnull final BigDecimal aValue)
+  public static String px (@NonNull final BigDecimal aValue)
   {
     return PX.format (aValue);
   }
@@ -384,7 +384,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "rem"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String rem (final int nValue)
   {
@@ -396,7 +396,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "rem"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String rem (final double dValue)
   {
@@ -409,9 +409,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "rem"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String rem (@Nonnull final BigDecimal aValue)
+  public static String rem (@NonNull final BigDecimal aValue)
   {
     return REM.format (aValue);
   }
@@ -421,7 +421,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "vw"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String vw (final int nValue)
   {
@@ -433,7 +433,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "vw"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String vw (final double dValue)
   {
@@ -446,9 +446,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "vw"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String vw (@Nonnull final BigDecimal aValue)
+  public static String vw (@NonNull final BigDecimal aValue)
   {
     return VW.format (aValue);
   }
@@ -458,7 +458,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "vh"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String vh (final int nValue)
   {
@@ -470,7 +470,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "vh"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String vh (final double dValue)
   {
@@ -483,9 +483,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "vh"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String vh (@Nonnull final BigDecimal aValue)
+  public static String vh (@NonNull final BigDecimal aValue)
   {
     return VH.format (aValue);
   }
@@ -495,7 +495,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "vmin"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String vmin (final int nValue)
   {
@@ -507,7 +507,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "vmin"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String vmin (final double dValue)
   {
@@ -520,9 +520,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "vmin"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String vmin (@Nonnull final BigDecimal aValue)
+  public static String vmin (@NonNull final BigDecimal aValue)
   {
     return VMIN.format (aValue);
   }
@@ -533,7 +533,7 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "vmax"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String vmax (final int nValue)
   {
@@ -546,7 +546,7 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "vmax"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String vmax (final double dValue)
   {
@@ -559,9 +559,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "vmax"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String vmax (@Nonnull final BigDecimal aValue)
+  public static String vmax (@NonNull final BigDecimal aValue)
   {
     return VMAX.format (aValue);
   }
@@ -571,7 +571,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "ch"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String ch (final int nValue)
   {
@@ -583,7 +583,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "ch"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String ch (final double dValue)
   {
@@ -596,9 +596,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "ch"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String ch (@Nonnull final BigDecimal aValue)
+  public static String ch (@NonNull final BigDecimal aValue)
   {
     return CH.format (aValue);
   }
@@ -608,7 +608,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "in"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String in (final int nValue)
   {
@@ -620,7 +620,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "in"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String in (final double dValue)
   {
@@ -633,9 +633,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "in"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String in (@Nonnull final BigDecimal aValue)
+  public static String in (@NonNull final BigDecimal aValue)
   {
     return LENGTH_IN.format (aValue);
   }
@@ -645,7 +645,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "cm"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String cm (final int nValue)
   {
@@ -657,7 +657,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "cm"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String cm (final double dValue)
   {
@@ -670,9 +670,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "cm"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String cm (@Nonnull final BigDecimal aValue)
+  public static String cm (@NonNull final BigDecimal aValue)
   {
     return LENGTH_CM.format (aValue);
   }
@@ -682,7 +682,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "mm"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String mm (final int nValue)
   {
@@ -694,7 +694,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "mm"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String mm (final double dValue)
   {
@@ -707,9 +707,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "mm"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String mm (@Nonnull final BigDecimal aValue)
+  public static String mm (@NonNull final BigDecimal aValue)
   {
     return LENGTH_MM.format (aValue);
   }
@@ -720,7 +720,7 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "q"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String q (final int nValue)
   {
@@ -733,7 +733,7 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "q"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String q (final double dValue)
   {
@@ -746,9 +746,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "q"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String q (@Nonnull final BigDecimal aValue)
+  public static String q (@NonNull final BigDecimal aValue)
   {
     return LENGTH_Q.format (aValue);
   }
@@ -758,7 +758,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "pt"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String pt (final int nValue)
   {
@@ -770,7 +770,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "pt"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String pt (final double dValue)
   {
@@ -783,9 +783,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "pt"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String pt (@Nonnull final BigDecimal aValue)
+  public static String pt (@NonNull final BigDecimal aValue)
   {
     return LENGTH_PT.format (aValue);
   }
@@ -795,7 +795,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "pc"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String pc (final int nValue)
   {
@@ -807,7 +807,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "pc"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String pc (final double dValue)
   {
@@ -820,9 +820,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "pc"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String pc (@Nonnull final BigDecimal aValue)
+  public static String pc (@NonNull final BigDecimal aValue)
   {
     return LENGTH_PC.format (aValue);
   }
@@ -832,7 +832,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "%"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String perc (final int nValue)
   {
@@ -844,7 +844,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "%"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String perc (final double dValue)
   {
@@ -857,9 +857,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "%"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String perc (@Nonnull final BigDecimal aValue)
+  public static String perc (@NonNull final BigDecimal aValue)
   {
     return PERCENTAGE.format (aValue);
   }
@@ -869,7 +869,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "deg"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String deg (final int nValue)
   {
@@ -881,7 +881,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "deg"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String deg (final double dValue)
   {
@@ -894,9 +894,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "deg"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String deg (@Nonnull final BigDecimal aValue)
+  public static String deg (@NonNull final BigDecimal aValue)
   {
     return ANGLE_DEG.format (aValue);
   }
@@ -906,7 +906,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "rad"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String rad (final int nValue)
   {
@@ -918,7 +918,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "rad"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String rad (final double dValue)
   {
@@ -931,9 +931,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "rad"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String rad (@Nonnull final BigDecimal aValue)
+  public static String rad (@NonNull final BigDecimal aValue)
   {
     return ANGLE_RAD.format (aValue);
   }
@@ -943,7 +943,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "grad"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String grad (final int nValue)
   {
@@ -955,7 +955,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "grad"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String grad (final double dValue)
   {
@@ -968,9 +968,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "grad"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String grad (@Nonnull final BigDecimal aValue)
+  public static String grad (@NonNull final BigDecimal aValue)
   {
     return ANGLE_GRAD.format (aValue);
   }
@@ -980,7 +980,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "turn"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String turn (final int nValue)
   {
@@ -992,7 +992,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "turn"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String turn (final double dValue)
   {
@@ -1005,9 +1005,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "turn"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String turn (@Nonnull final BigDecimal aValue)
+  public static String turn (@NonNull final BigDecimal aValue)
   {
     return ANGLE_TURN.format (aValue);
   }
@@ -1017,7 +1017,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "ms"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String ms (final int nValue)
   {
@@ -1029,7 +1029,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "ms"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String ms (final double dValue)
   {
@@ -1042,9 +1042,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "ms"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String ms (@Nonnull final BigDecimal aValue)
+  public static String ms (@NonNull final BigDecimal aValue)
   {
     return TIME_MS.format (aValue);
   }
@@ -1054,7 +1054,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "s"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String s (final int nValue)
   {
@@ -1066,7 +1066,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "s"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String s (final double dValue)
   {
@@ -1079,9 +1079,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "s"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String s (@Nonnull final BigDecimal aValue)
+  public static String s (@NonNull final BigDecimal aValue)
   {
     return TIME_S.format (aValue);
   }
@@ -1091,7 +1091,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "hz"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String hz (final int nValue)
   {
@@ -1103,7 +1103,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "hz"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String hz (final double dValue)
   {
@@ -1116,9 +1116,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "hz"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String hz (@Nonnull final BigDecimal aValue)
+  public static String hz (@NonNull final BigDecimal aValue)
   {
     return FREQ_HZ.format (aValue);
   }
@@ -1128,7 +1128,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "khz"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String khz (final int nValue)
   {
@@ -1140,7 +1140,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "khz"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String khz (final double dValue)
   {
@@ -1153,9 +1153,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "khz"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String khz (@Nonnull final BigDecimal aValue)
+  public static String khz (@NonNull final BigDecimal aValue)
   {
     return FREQ_KHZ.format (aValue);
   }
@@ -1165,7 +1165,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "dpi"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String dpi (final int nValue)
   {
@@ -1177,7 +1177,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "dpi"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String dpi (final double dValue)
   {
@@ -1190,9 +1190,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "dpi"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String dpi (@Nonnull final BigDecimal aValue)
+  public static String dpi (@NonNull final BigDecimal aValue)
   {
     return DPI.format (aValue);
   }
@@ -1202,7 +1202,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "dpcm"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String dpcm (final int nValue)
   {
@@ -1214,7 +1214,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "dpcm"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String dpcm (final double dValue)
   {
@@ -1227,9 +1227,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "dpcm"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String dpcm (@Nonnull final BigDecimal aValue)
+  public static String dpcm (@NonNull final BigDecimal aValue)
   {
     return DPCM.format (aValue);
   }
@@ -1239,7 +1239,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "dppx"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String dppx (final int nValue)
   {
@@ -1251,7 +1251,7 @@ public enum ECSSUnit implements IHasName
    *        value to format
    * @return <code>value + "dppx"</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String dppx (final double dValue)
   {
@@ -1264,9 +1264,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "dppx"</code>
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String dppx (@Nonnull final BigDecimal aValue)
+  public static String dppx (@NonNull final BigDecimal aValue)
   {
     return DPPX.format (aValue);
   }
@@ -1277,7 +1277,7 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "fr"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String fr (final int nValue)
   {
@@ -1290,7 +1290,7 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "fr"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String fr (final double dValue)
   {
@@ -1303,9 +1303,9 @@ public enum ECSSUnit implements IHasName
    * @return <code>value + "fr"</code>
    * @since 5.0.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String fr (@Nonnull final BigDecimal aValue)
+  public static String fr (@NonNull final BigDecimal aValue)
   {
     return FR.format (aValue);
   }
@@ -1313,7 +1313,7 @@ public enum ECSSUnit implements IHasName
   /**
    * @return "0" without a unit
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String zero ()
   {

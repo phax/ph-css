@@ -16,11 +16,11 @@
  */
 package com.helger.css;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.system.ENewLineMode;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Settings for customizing the serialization of CSS properties etc.
@@ -44,14 +44,14 @@ public interface ICSSWriterSettings
    * @return The new line mode to be used for emitting the file. By default the Unix new line mode
    *         ("\n") is used.
    */
-  @Nonnull
+  @NonNull
   ENewLineMode getNewLineMode ();
 
   /**
    * @return The string underlying the new line mode
    * @see #getNewLineMode()
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getNewLineString ();
 
@@ -63,7 +63,7 @@ public interface ICSSWriterSettings
    *        The number of indentations desired. Always &ge; 0.
    * @return The string to be used for indentation. May not be <code>null</code> but may be empty.
    */
-  @Nonnull
+  @NonNull
   String getIndent (@Nonnegative int nCount);
 
   /**

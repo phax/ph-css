@@ -16,14 +16,14 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.string.StringHelper;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * CSS property without any value constraints, except that it may not be empty.
@@ -33,22 +33,22 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class CSSPropertyFree extends AbstractCSSProperty
 {
-  public CSSPropertyFree (@Nonnull final ECSSProperty eProp)
+  public CSSPropertyFree (@NonNull final ECSSProperty eProp)
   {
     this (eProp, (ICSSPropertyCustomizer) null);
   }
 
-  public CSSPropertyFree (@Nonnull final ECSSProperty eProp, @Nullable final ECSSVendorPrefix eVendorPrefix)
+  public CSSPropertyFree (@NonNull final ECSSProperty eProp, @Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     this (eProp, eVendorPrefix, (ICSSPropertyCustomizer) null);
   }
 
-  public CSSPropertyFree (@Nonnull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
+  public CSSPropertyFree (@NonNull final ECSSProperty eProp, @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer);
   }
 
-  public CSSPropertyFree (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyFree (@NonNull final ECSSProperty eProp,
                           @Nullable final ECSSVendorPrefix eVendorPrefix,
                           @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
@@ -67,13 +67,13 @@ public class CSSPropertyFree extends AbstractCSSProperty
     return isValidPropertyValue (sValue);
   }
 
-  @Nonnull
-  public CSSPropertyFree getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyFree getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyFree (eProp, getVendorPrefix (), getCustomizer ());
   }
 
-  @Nonnull
+  @NonNull
   public CSSPropertyFree getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyFree (getProp (), eVendorPrefix, getCustomizer ());

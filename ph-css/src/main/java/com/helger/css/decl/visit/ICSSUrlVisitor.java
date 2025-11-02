@@ -16,13 +16,13 @@
  */
 package com.helger.css.decl.visit;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.ICSSTopLevelRule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for visiting all URLs in a CSS document.
@@ -48,7 +48,7 @@ public interface ICSSUrlVisitor
    * @param aImportRule
    *        Other imported CSS. Never <code>null</code>.
    */
-  void onImport (@Nonnull CSSImportRule aImportRule);
+  void onImport (@NonNull CSSImportRule aImportRule);
 
   /**
    * Called on a CSS declaration value that contains an URL.<br>
@@ -64,8 +64,8 @@ public interface ICSSUrlVisitor
    *        The URI term from the current expression. Never <code>null</code>.
    */
   void onUrlDeclaration (@Nullable ICSSTopLevelRule aTopLevelRule,
-                         @Nonnull CSSDeclaration aDeclaration,
-                         @Nonnull CSSExpressionMemberTermURI aURITerm);
+                         @NonNull CSSDeclaration aDeclaration,
+                         @NonNull CSSExpressionMemberTermURI aURITerm);
 
   /**
    * After visiting is done.

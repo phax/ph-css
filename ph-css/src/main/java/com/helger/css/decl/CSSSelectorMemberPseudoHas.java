@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -30,9 +33,6 @@ import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Represents a single, simple CSS selector as used for the ":has()" CSS pseudo element.
  *
@@ -45,19 +45,19 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSSourc
   private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberPseudoHas (@Nonnull final CSSSelector aNestedSelector)
+  public CSSSelectorMemberPseudoHas (@NonNull final CSSSelector aNestedSelector)
   {
     ValueEnforcer.notNull (aNestedSelector, "NestedSelector");
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelector);
   }
 
-  public CSSSelectorMemberPseudoHas (@Nonnull final CSSSelector... aNestedSelectors)
+  public CSSSelectorMemberPseudoHas (@NonNull final CSSSelector... aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
   }
 
-  public CSSSelectorMemberPseudoHas (@Nonnull final Iterable <CSSSelector> aNestedSelectors)
+  public CSSSelectorMemberPseudoHas (@NonNull final Iterable <CSSSelector> aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
@@ -74,16 +74,16 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSSourc
     return m_aNestedSelectors.size ();
   }
 
-  @Nonnull
-  public CSSSelectorMemberPseudoHas addSelector (@Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  @NonNull
+  public CSSSelectorMemberPseudoHas addSelector (@NonNull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
     return addSelector (new CSSSelector ().addMember (aSingleSelectorMember));
   }
 
-  @Nonnull
-  public CSSSelectorMemberPseudoHas addSelector (@Nonnull final CSSSelector aSelector)
+  @NonNull
+  public CSSSelectorMemberPseudoHas addSelector (@NonNull final CSSSelector aSelector)
   {
     ValueEnforcer.notNull (aSelector, "Selector");
 
@@ -91,17 +91,17 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSSourc
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSSelectorMemberPseudoHas addSelector (@Nonnegative final int nIndex,
-                                                 @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+                                                 @NonNull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
     return addSelector (nIndex, new CSSSelector ().addMember (aSingleSelectorMember));
   }
 
-  @Nonnull
-  public CSSSelectorMemberPseudoHas addSelector (@Nonnegative final int nIndex, @Nonnull final CSSSelector aSelector)
+  @NonNull
+  public CSSSelectorMemberPseudoHas addSelector (@Nonnegative final int nIndex, @NonNull final CSSSelector aSelector)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aSelector, "Selector");
@@ -113,13 +113,13 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSSourc
     return this;
   }
 
-  @Nonnull
-  public EChange removeSelector (@Nonnull final CSSSelector aSelector)
+  @NonNull
+  public EChange removeSelector (@NonNull final CSSSelector aSelector)
   {
     return m_aNestedSelectors.removeObject (aSelector);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeSelector (@Nonnegative final int nSelectorIndex)
   {
     return m_aNestedSelectors.removeAtIndex (nSelectorIndex);
@@ -131,7 +131,7 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSSourc
    * @return {@link EChange#CHANGED} if any selector was removed, {@link EChange#UNCHANGED}
    *         otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllSelectors ()
   {
     return m_aNestedSelectors.removeAll ();
@@ -143,16 +143,16 @@ public class CSSSelectorMemberPseudoHas implements ICSSSelectorMember, ICSSSourc
     return m_aNestedSelectors.getAtIndex (nSelectorIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSSelector> getAllSelectors ()
   {
     return m_aNestedSelectors.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder (":has(");

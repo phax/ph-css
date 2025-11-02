@@ -16,6 +16,7 @@
  */
 package com.helger.css.propertyvalue;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,6 @@ import com.helger.css.CCSS;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents the combination of a single CSS property ({@link ICSSProperty}) and it's according
@@ -91,7 +90,7 @@ public class CSSValue implements ICSSValue
    * @param bIsImportant
    *        <code>true</code> if the value should be important, <code>false</code> otherwise
    */
-  public CSSValue (@Nonnull final ICSSProperty aProperty, @Nonnull final String sValue, final boolean bIsImportant)
+  public CSSValue (@NonNull final ICSSProperty aProperty, @NonNull final String sValue, final boolean bIsImportant)
   {
     setProperty (aProperty);
     setValue (sValue);
@@ -101,7 +100,7 @@ public class CSSValue implements ICSSValue
   /**
    * @return The CSS property used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ICSSProperty getProperty ()
   {
     return m_aProperty;
@@ -110,7 +109,7 @@ public class CSSValue implements ICSSValue
   /**
    * @return The CSS base property used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ECSSProperty getProp ()
   {
     return m_aProperty.getProp ();
@@ -121,7 +120,7 @@ public class CSSValue implements ICSSValue
    *         <code>null</code> nor empty.
    * @since 3.9.0
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getPropertyName ()
   {
@@ -136,8 +135,8 @@ public class CSSValue implements ICSSValue
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
-  public CSSValue setProperty (@Nonnull final ICSSProperty aProperty)
+  @NonNull
+  public CSSValue setProperty (@NonNull final ICSSProperty aProperty)
   {
     m_aProperty = ValueEnforcer.notNull (aProperty, "Property");
     return this;
@@ -146,7 +145,7 @@ public class CSSValue implements ICSSValue
   /**
    * @return The CSS value used. May not be <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   public String getValue ()
   {
     return m_sValue;
@@ -163,8 +162,8 @@ public class CSSValue implements ICSSValue
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
-  public CSSValue setValue (@Nonnull final String sValue)
+  @NonNull
+  public CSSValue setValue (@NonNull final String sValue)
   {
     ValueEnforcer.notNull (sValue, "Value");
 
@@ -203,15 +202,15 @@ public class CSSValue implements ICSSValue
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public CSSValue setImportant (final boolean bIsImportant)
   {
     m_bIsImportant = bIsImportant;
     return this;
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return m_aProperty.getPropertyName () +
            CCSS.SEPARATOR_PROPERTY_VALUE +

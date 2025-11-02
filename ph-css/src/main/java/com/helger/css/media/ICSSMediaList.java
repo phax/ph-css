@@ -16,12 +16,12 @@
  */
 package com.helger.css.media;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsOrderedSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A read only version of a CSS media list
@@ -101,7 +101,7 @@ public interface ICSSMediaList
    * @return A copy of all specified media in the order they were specified.
    *         Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <ECSSMedium> getAllMedia ();
 
@@ -111,7 +111,7 @@ public interface ICSSMediaList
    *         {@link CSSMediaList#DEFAULT_MEDIA_STRING_SEPARATOR}
    * @see #getMediaString(String)
    */
-  @Nonnull
+  @NonNull
   default String getMediaString ()
   {
     return getMediaString (CSSMediaList.DEFAULT_MEDIA_STRING_SEPARATOR);
@@ -124,6 +124,6 @@ public interface ICSSMediaList
    *         the order they where inserted and separated by the specified
    *         separator
    */
-  @Nonnull
-  String getMediaString (@Nonnull String sSeparator);
+  @NonNull
+  String getMediaString (@NonNull String sSeparator);
 }

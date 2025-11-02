@@ -16,12 +16,12 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a common container of {@link CSSDeclaration} objects. In contrary
@@ -37,9 +37,9 @@ public class CSSDeclarationContainer extends CSSDeclarationList
   {}
 
   @Override
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 

@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -23,9 +26,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a list of {@link CSSDeclaration} objects. This class emits all declarations in a row,
@@ -40,28 +40,28 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
   public CSSDeclarationList ()
   {}
 
-  @Nonnull
-  public final CSSDeclarationList addDeclaration (@Nonnull final CSSDeclaration aNewDeclaration)
+  @NonNull
+  public final CSSDeclarationList addDeclaration (@NonNull final CSSDeclaration aNewDeclaration)
   {
     add (aNewDeclaration);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSDeclarationList addDeclaration (@Nonnegative final int nIndex,
-                                            @Nonnull final CSSDeclaration aNewDeclaration)
+                                            @NonNull final CSSDeclaration aNewDeclaration)
   {
     add (nIndex, aNewDeclaration);
     return this;
   }
 
-  @Nonnull
-  public final EChange removeDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public final EChange removeDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     return removeObject (aDeclaration);
   }
 
-  @Nonnull
+  @NonNull
   public final EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
   {
     return removeAtIndex (nDeclarationIndex);
@@ -74,13 +74,13 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
    *         otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllDeclarations ()
   {
     return removeAll ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
@@ -93,9 +93,9 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
     return getAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   public CSSDeclarationList setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                   @Nonnull final CSSDeclaration aNewDeclaration)
+                                                   @NonNull final CSSDeclaration aNewDeclaration)
   {
     set (nIndex, aNewDeclaration);
     return this;
@@ -121,7 +121,7 @@ public class CSSDeclarationList extends CSSWritableList <CSSDeclaration> impleme
     return findFirst (aDecl -> aDecl.hasProperty (sPropertyName));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {

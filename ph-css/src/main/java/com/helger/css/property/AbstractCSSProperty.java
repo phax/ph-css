@@ -16,6 +16,9 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
@@ -29,9 +32,6 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.propertyvalue.CSSValue;
 import com.helger.css.propertyvalue.ICSSValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for implementing {@link ICSSProperty}
@@ -55,7 +55,7 @@ public abstract class AbstractCSSProperty implements ICSSProperty
    * @param aCustomizer
    *        The customizer to be used. May be <code>null</code>.
    */
-  protected AbstractCSSProperty (@Nonnull final ECSSProperty eProp,
+  protected AbstractCSSProperty (@NonNull final ECSSProperty eProp,
                                  @Nullable final ECSSVendorPrefix eVendorPrefix,
                                  @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
@@ -69,7 +69,7 @@ public abstract class AbstractCSSProperty implements ICSSProperty
                                        eProp);
   }
 
-  @Nonnull
+  @NonNull
   public final ECSSProperty getProp ()
   {
     return m_eProp;
@@ -81,7 +81,7 @@ public abstract class AbstractCSSProperty implements ICSSProperty
     return m_eVendorPrefix;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getPropertyName ()
   {
@@ -126,8 +126,8 @@ public abstract class AbstractCSSProperty implements ICSSProperty
     return isValidPropertyValue (sValue);
   }
 
-  @Nonnull
-  public ICSSValue newValue (@Nonnull @Nonempty final String sValue, final boolean bIsImportant)
+  @NonNull
+  public ICSSValue newValue (@NonNull @Nonempty final String sValue, final boolean bIsImportant)
   {
     ValueEnforcer.notEmpty (sValue, "Value");
 

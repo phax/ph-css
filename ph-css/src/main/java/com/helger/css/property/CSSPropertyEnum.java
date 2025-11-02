@@ -18,6 +18,9 @@ package com.helger.css.property;
 
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -31,9 +34,6 @@ import com.helger.collection.commons.ICommonsSet;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * CSS property with a predefined list of possible values (e.g. "cursor")
  *
@@ -44,22 +44,22 @@ public class CSSPropertyEnum extends AbstractCSSProperty
 {
   private final ICommonsSet <String> m_aEnumValues;
 
-  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final String... aEnumValues)
+  public CSSPropertyEnum (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, aEnumValues);
   }
 
-  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnum (@NonNull final ECSSProperty eProp,
                           @Nullable final ICSSPropertyCustomizer aCustomizer,
-                          @Nonnull @Nonempty final String... aEnumValues)
+                          @NonNull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnum (@NonNull final ECSSProperty eProp,
                           @Nullable final ECSSVendorPrefix eVendorPrefix,
                           @Nullable final ICSSPropertyCustomizer aCustomizer,
-                          @Nonnull @Nonempty final String... aEnumValues)
+                          @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.notEmptyNoNullValue (aEnumValues, "EnumValues");
@@ -72,22 +72,22 @@ public class CSSPropertyEnum extends AbstractCSSProperty
     }
   }
 
-  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnum (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, aEnumValues);
   }
 
-  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnum (@NonNull final ECSSProperty eProp,
                           @Nullable final ICSSPropertyCustomizer aCustomizer,
-                          @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                          @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnum (@NonNull final ECSSProperty eProp,
                           @Nullable final ECSSVendorPrefix eVendorPrefix,
                           @Nullable final ICSSPropertyCustomizer aCustomizer,
-                          @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                          @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer);
     ValueEnforcer.notEmptyNoNullValue (aEnumValues, "EnumValues");
@@ -112,10 +112,10 @@ public class CSSPropertyEnum extends AbstractCSSProperty
    * @param aEnumValues
    *        Enum values to use. May neither be <code>null</code> nor empty.
    */
-  private CSSPropertyEnum (@Nonnull final ECSSProperty eProp,
+  private CSSPropertyEnum (@NonNull final ECSSProperty eProp,
                            @Nullable final ECSSVendorPrefix eVendorPrefix,
                            @Nullable final ICSSPropertyCustomizer aCustomizer,
-                           @Nonnull @Nonempty final Set <String> aEnumValues)
+                           @NonNull @Nonempty final Set <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer);
     m_aEnumValues = new CommonsHashSet <> (aEnumValues);
@@ -124,7 +124,7 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   /**
    * @return The Set with the enum values - only used for derived classes. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("Design")
   protected final ICommonsSet <String> directGetEnumValues ()
   {
@@ -138,13 +138,13 @@ public class CSSPropertyEnum extends AbstractCSSProperty
     return super.isValidValue (sValue) || m_aEnumValues.contains (sValue);
   }
 
-  @Nonnull
-  public CSSPropertyEnum getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyEnum getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyEnum (eProp, getVendorPrefix (), getCustomizer (), m_aEnumValues);
   }
 
-  @Nonnull
+  @NonNull
   public CSSPropertyEnum getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyEnum (getProp (), eVendorPrefix, getCustomizer (), m_aEnumValues);

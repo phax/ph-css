@@ -19,6 +19,9 @@ package com.helger.css.writer;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -32,9 +35,6 @@ import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSTopLevelRule;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Convert CSS domain objects back to a text representation.
@@ -80,7 +80,7 @@ public class CSSWriter
    * @param aSettings
    *        The settings to be used. May not be <code>null</code>.
    */
-  public CSSWriter (@Nonnull final CSSWriterSettings aSettings)
+  public CSSWriter (@NonNull final CSSWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aSettings, "Settings");
     m_aSettings = aSettings;
@@ -108,7 +108,7 @@ public class CSSWriter
    *        will not be written.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setWriteHeaderText (final boolean bWriteHeaderText)
   {
     m_bWriteHeaderText = bWriteHeaderText;
@@ -132,7 +132,7 @@ public class CSSWriter
    *        The header text to be emitted. May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setHeaderText (@Nullable final String sHeaderText)
   {
     m_sHeaderText = sHeaderText;
@@ -159,7 +159,7 @@ public class CSSWriter
    *        will not be written.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setWriteFooterText (final boolean bWriteFooterText)
   {
     m_bWriteFooterText = bWriteFooterText;
@@ -183,7 +183,7 @@ public class CSSWriter
    *        The footer text to be emitted. May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setFooterText (@Nullable final String sFooterText)
   {
     m_sFooterText = sFooterText;
@@ -211,7 +211,7 @@ public class CSSWriter
    *        charset name should be emitted into the CSS.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setContentCharset (@Nullable final String sContentCharset)
   {
     m_sContentCharset = sContentCharset;
@@ -222,7 +222,7 @@ public class CSSWriter
    * @return The CSS writer settings that are used to generate the different element code. This is
    *         the same object as passed into/created by the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("Design")
   public CSSWriterSettings getSettings ()
   {
@@ -243,7 +243,7 @@ public class CSSWriter
    *         In case some elements cannot be written in the version supplied in the constructor.
    * @see #getCSSAsString(CascadingStyleSheet)
    */
-  public void writeCSS (@Nonnull final CascadingStyleSheet aCSS, @Nonnull @WillClose final Writer aWriter)
+  public void writeCSS (@NonNull final CascadingStyleSheet aCSS, @NonNull @WillClose final Writer aWriter)
                                                                                                            throws IOException
   {
     ValueEnforcer.notNull (aCSS, "CSS");
@@ -337,8 +337,8 @@ public class CSSWriter
    * @return The text representation of the CSS.
    * @see #writeCSS(CascadingStyleSheet, Writer)
    */
-  @Nonnull
-  public String getCSSAsString (@Nonnull final CascadingStyleSheet aCSS)
+  @NonNull
+  public String getCSSAsString (@NonNull final CascadingStyleSheet aCSS)
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try
@@ -368,7 +368,7 @@ public class CSSWriter
    *         In case some elements cannot be written in the version supplied in the constructor.
    * @see #getCSSAsString(ICSSWriteable)
    */
-  public void writeCSS (@Nonnull final ICSSWriteable aCSS, @Nonnull @WillClose final Writer aWriter) throws IOException
+  public void writeCSS (@NonNull final ICSSWriteable aCSS, @NonNull @WillClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aCSS, "CSS");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -392,8 +392,8 @@ public class CSSWriter
    * @return The text representation of the CSS.
    * @see #writeCSS(ICSSWriteable, Writer)
    */
-  @Nonnull
-  public String getCSSAsString (@Nonnull final ICSSWriteable aCSS)
+  @NonNull
+  public String getCSSAsString (@NonNull final ICSSWriteable aCSS)
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try

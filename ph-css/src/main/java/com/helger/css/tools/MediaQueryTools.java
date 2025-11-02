@@ -16,6 +16,9 @@
  */
 package com.helger.css.tools;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -30,9 +33,6 @@ import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.reader.CSSReader;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A small utility class to wrap an existing {@link CascadingStyleSheet} within a specific media, if
@@ -111,8 +111,8 @@ public final class MediaQueryTools
    *         {@link CascadingStyleSheet} object otherwise.
    */
   @Nullable
-  public static CascadingStyleSheet getWrappedInMediaQuery (@Nonnull final CascadingStyleSheet aCSS,
-                                                            @Nonnull final CSSMediaQuery aMediaQuery,
+  public static CascadingStyleSheet getWrappedInMediaQuery (@NonNull final CascadingStyleSheet aCSS,
+                                                            @NonNull final CSSMediaQuery aMediaQuery,
                                                             final boolean bAllowNestedMediaQueries)
   {
     return getWrappedInMediaQuery (aCSS, new CommonsArrayList <> (aMediaQuery), bAllowNestedMediaQueries);
@@ -134,8 +134,8 @@ public final class MediaQueryTools
    *         {@link CascadingStyleSheet} object otherwise.
    */
   @Nullable
-  public static CascadingStyleSheet getWrappedInMediaQuery (@Nonnull final CascadingStyleSheet aCSS,
-                                                            @Nonnull @Nonempty final Iterable <? extends CSSMediaQuery> aMediaQueries,
+  public static CascadingStyleSheet getWrappedInMediaQuery (@NonNull final CascadingStyleSheet aCSS,
+                                                            @NonNull @Nonempty final Iterable <? extends CSSMediaQuery> aMediaQueries,
                                                             final boolean bAllowNestedMediaQueries)
   {
     ValueEnforcer.notNull (aCSS, "CSS");

@@ -16,12 +16,12 @@
  */
 package com.helger.css.property.customizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.css.property.ICSSProperty;
 import com.helger.css.propertyvalue.ICSSValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special customizer that can be assigned to CSS properties to modify their
@@ -48,5 +48,5 @@ public interface ICSSPropertyCustomizer
    *         created.
    */
   @Nullable
-  ICSSValue createSpecialValue (@Nonnull ICSSProperty aProperty, @Nonnull @Nonempty String sValue, boolean bIsImportant);
+  ICSSValue createSpecialValue (@NonNull ICSSProperty aProperty, @NonNull @Nonempty String sValue, boolean bIsImportant);
 }

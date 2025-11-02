@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single selector as the aggregation of selector members. An example for a selector is
@@ -60,8 +60,8 @@ public class CSSSelector implements ICSSSelectorMember, ICSSSourceLocationAware
     return m_aMembers.size ();
   }
 
-  @Nonnull
-  public CSSSelector addMember (@Nonnull final ICSSSelectorMember aMember)
+  @NonNull
+  public CSSSelector addMember (@NonNull final ICSSSelectorMember aMember)
   {
     ValueEnforcer.notNull (aMember, "Member");
 
@@ -69,8 +69,8 @@ public class CSSSelector implements ICSSSelectorMember, ICSSSourceLocationAware
     return this;
   }
 
-  @Nonnull
-  public CSSSelector addMember (@Nonnegative final int nIndex, @Nonnull final ICSSSelectorMember aMember)
+  @NonNull
+  public CSSSelector addMember (@Nonnegative final int nIndex, @NonNull final ICSSSelectorMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "Member");
@@ -82,13 +82,13 @@ public class CSSSelector implements ICSSSelectorMember, ICSSSourceLocationAware
     return this;
   }
 
-  @Nonnull
-  public EChange removeMember (@Nonnull final ICSSSelectorMember aMember)
+  @NonNull
+  public EChange removeMember (@NonNull final ICSSSelectorMember aMember)
   {
     return m_aMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nMemberIndex)
   {
     return m_aMembers.removeAtIndex (nMemberIndex);
@@ -100,7 +100,7 @@ public class CSSSelector implements ICSSSelectorMember, ICSSSourceLocationAware
    * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
@@ -112,15 +112,15 @@ public class CSSSelector implements ICSSSelectorMember, ICSSSourceLocationAware
     return m_aMembers.getAtIndex (nMemberIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSSelectorMember> getAllMembers ()
   {
     return m_aMembers.getClone ();
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return StringImplode.getImplodedMapped (m_aMembers, x -> x.getAsCSSString (aSettings, nIndentLevel));
   }

@@ -16,6 +16,8 @@
  */
 package com.helger.css.decl.visit;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.css.decl.CSSDeclaration;
@@ -34,8 +36,6 @@ import com.helger.css.decl.CSSSupportsRule;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Default implementation of the {@link ICSSVisitor} interface. Use as base
  * class for your own implementations since this class does nothing on its own.
@@ -53,103 +53,103 @@ public class DefaultCSSVisitor implements ICSSVisitor
   {}
 
   @OverrideOnDemand
-  public void onImport (@Nonnull final CSSImportRule aImportRule)
+  public void onImport (@NonNull final CSSImportRule aImportRule)
   {}
 
   @OverrideOnDemand
-  public void onNamespace (@Nonnull final CSSNamespaceRule aNamespaceRule)
+  public void onNamespace (@NonNull final CSSNamespaceRule aNamespaceRule)
   {}
 
   @OverrideOnDemand
-  public void onDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  public void onDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {}
 
   @OverrideOnDemand
-  public void onBeginStyleRule (@Nonnull final CSSStyleRule aStyleRule)
+  public void onBeginStyleRule (@NonNull final CSSStyleRule aStyleRule)
   {}
 
   @OverrideOnDemand
-  public void onStyleRuleSelector (@Nonnull final CSSSelector aSelector)
+  public void onStyleRuleSelector (@NonNull final CSSSelector aSelector)
   {}
 
   @OverrideOnDemand
-  public void onEndStyleRule (@Nonnull final CSSStyleRule aStyleRule)
+  public void onEndStyleRule (@NonNull final CSSStyleRule aStyleRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginPageRule (@Nonnull final CSSPageRule aPageRule)
+  public void onBeginPageRule (@NonNull final CSSPageRule aPageRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginPageMarginBlock (@Nonnull final CSSPageMarginBlock aPageMarginBlock)
+  public void onBeginPageMarginBlock (@NonNull final CSSPageMarginBlock aPageMarginBlock)
   {}
 
   @OverrideOnDemand
-  public void onEndPageMarginBlock (@Nonnull final CSSPageMarginBlock aPageMarginBlock)
+  public void onEndPageMarginBlock (@NonNull final CSSPageMarginBlock aPageMarginBlock)
   {}
 
   @OverrideOnDemand
-  public void onEndPageRule (@Nonnull final CSSPageRule aPageRule)
+  public void onEndPageRule (@NonNull final CSSPageRule aPageRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginFontFaceRule (@Nonnull final CSSFontFaceRule aFontFaceRule)
+  public void onBeginFontFaceRule (@NonNull final CSSFontFaceRule aFontFaceRule)
   {}
 
   @OverrideOnDemand
-  public void onEndFontFaceRule (@Nonnull final CSSFontFaceRule aFontFaceRule)
+  public void onEndFontFaceRule (@NonNull final CSSFontFaceRule aFontFaceRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginMediaRule (@Nonnull final CSSMediaRule aMediaRule)
+  public void onBeginMediaRule (@NonNull final CSSMediaRule aMediaRule)
   {}
 
   @OverrideOnDemand
-  public void onEndMediaRule (@Nonnull final CSSMediaRule aMediaRule)
+  public void onEndMediaRule (@NonNull final CSSMediaRule aMediaRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginKeyframesRule (@Nonnull final CSSKeyframesRule aKeyframesRule)
+  public void onBeginKeyframesRule (@NonNull final CSSKeyframesRule aKeyframesRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginKeyframesBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  public void onBeginKeyframesBlock (@NonNull final CSSKeyframesBlock aKeyframesBlock)
   {}
 
   @OverrideOnDemand
-  public void onEndKeyframesBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  public void onEndKeyframesBlock (@NonNull final CSSKeyframesBlock aKeyframesBlock)
   {}
 
   @OverrideOnDemand
-  public void onEndKeyframesRule (@Nonnull final CSSKeyframesRule aKeyframesRule)
+  public void onEndKeyframesRule (@NonNull final CSSKeyframesRule aKeyframesRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginViewportRule (@Nonnull final CSSViewportRule aViewportRule)
+  public void onBeginViewportRule (@NonNull final CSSViewportRule aViewportRule)
   {}
 
   @OverrideOnDemand
-  public void onEndViewportRule (@Nonnull final CSSViewportRule aViewportRule)
+  public void onEndViewportRule (@NonNull final CSSViewportRule aViewportRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginSupportsRule (@Nonnull final CSSSupportsRule aSupportsRule)
+  public void onBeginSupportsRule (@NonNull final CSSSupportsRule aSupportsRule)
   {}
 
   @OverrideOnDemand
-  public void onEndSupportsRule (@Nonnull final CSSSupportsRule aSupportsRule)
+  public void onEndSupportsRule (@NonNull final CSSSupportsRule aSupportsRule)
   {}
 
   @OverrideOnDemand
-  public void onBeginLayerRule (@Nonnull final CSSLayerRule aLayerRule)
+  public void onBeginLayerRule (@NonNull final CSSLayerRule aLayerRule)
   {}
 
   @OverrideOnDemand
-  public void onEndLayerRule (@Nonnull final CSSLayerRule aLayerRule)
+  public void onEndLayerRule (@NonNull final CSSLayerRule aLayerRule)
   {}
   
   @OverrideOnDemand
-  public void onUnknownRule (@Nonnull final CSSUnknownRule aUnknownRule)
+  public void onUnknownRule (@NonNull final CSSUnknownRule aUnknownRule)
   {}
 
   @OverrideOnDemand

@@ -16,13 +16,13 @@
  */
 package com.helger.css.decl.visit;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.stack.NonBlockingStack;
 import com.helger.css.decl.*;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link ICSSVisitor} that is used to extract URLs from the available
@@ -44,7 +44,7 @@ public class CSSVisitorForUrl implements ICSSVisitor
    * @param aVisitor
    *        The URL visitor to be used. May not be <code>null</code>.
    */
-  public CSSVisitorForUrl (@Nonnull final ICSSUrlVisitor aVisitor)
+  public CSSVisitorForUrl (@NonNull final ICSSUrlVisitor aVisitor)
   {
     m_aVisitor = ValueEnforcer.notNull (aVisitor, "Visitor");
   }
@@ -52,7 +52,7 @@ public class CSSVisitorForUrl implements ICSSVisitor
   /**
    * @return The URL visitor passed in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ICSSUrlVisitor getVisitor ()
   {
     return m_aVisitor;
@@ -63,19 +63,19 @@ public class CSSVisitorForUrl implements ICSSVisitor
     m_aVisitor.begin ();
   }
 
-  public void onImport (@Nonnull final CSSImportRule aImportRule)
+  public void onImport (@NonNull final CSSImportRule aImportRule)
   {
     m_aVisitor.onImport (aImportRule);
   }
 
-  public void onNamespace (@Nonnull final CSSNamespaceRule aNamespaceRule)
+  public void onNamespace (@NonNull final CSSNamespaceRule aNamespaceRule)
   {
     // No action
   }
 
   private void _recursiveCheckMathMember (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                          @Nonnull final CSSDeclaration aDeclaration,
-                                          @Nonnull final ICSSExpressionMathMember aMathMember)
+                                          @NonNull final CSSDeclaration aDeclaration,
+                                          @NonNull final ICSSExpressionMathMember aMathMember)
   {
     if (aMathMember instanceof CSSExpressionMemberFunction)
     {
@@ -105,7 +105,7 @@ public class CSSVisitorForUrl implements ICSSVisitor
   }
 
   private void _recursiveCheckExpression (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                          @Nonnull final CSSDeclaration aDeclaration,
+                                          @NonNull final CSSDeclaration aDeclaration,
                                           @Nullable final CSSExpression aExpr)
   {
     if (aExpr != null)
@@ -134,118 +134,118 @@ public class CSSVisitorForUrl implements ICSSVisitor
       }
   }
 
-  public void onDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  public void onDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     final ICSSTopLevelRule aTopLevelRule = m_aTopLevelRule.isEmpty () ? null : m_aTopLevelRule.peek ();
     _recursiveCheckExpression (aTopLevelRule, aDeclaration, aDeclaration.getExpression ());
   }
 
-  public void onBeginStyleRule (@Nonnull final CSSStyleRule aStyleRule)
+  public void onBeginStyleRule (@NonNull final CSSStyleRule aStyleRule)
   {
     m_aTopLevelRule.push (aStyleRule);
   }
 
-  public void onStyleRuleSelector (@Nonnull final CSSSelector aSelector)
+  public void onStyleRuleSelector (@NonNull final CSSSelector aSelector)
   {
     // no action
   }
 
-  public void onEndStyleRule (@Nonnull final CSSStyleRule aStyleRule)
+  public void onEndStyleRule (@NonNull final CSSStyleRule aStyleRule)
   {
     m_aTopLevelRule.pop ();
   }
 
-  public void onBeginPageRule (@Nonnull final CSSPageRule aPageRule)
+  public void onBeginPageRule (@NonNull final CSSPageRule aPageRule)
   {
     m_aTopLevelRule.push (aPageRule);
   }
 
-  public void onBeginPageMarginBlock (@Nonnull final CSSPageMarginBlock aPageMarginBlock)
+  public void onBeginPageMarginBlock (@NonNull final CSSPageMarginBlock aPageMarginBlock)
   {
     // no action
   }
 
-  public void onEndPageMarginBlock (@Nonnull final CSSPageMarginBlock aPageMarginBlock)
+  public void onEndPageMarginBlock (@NonNull final CSSPageMarginBlock aPageMarginBlock)
   {
     // no action
   }
 
-  public void onEndPageRule (@Nonnull final CSSPageRule aPageRule)
+  public void onEndPageRule (@NonNull final CSSPageRule aPageRule)
   {
     m_aTopLevelRule.pop ();
   }
 
-  public void onBeginFontFaceRule (@Nonnull final CSSFontFaceRule aFontFaceRule)
+  public void onBeginFontFaceRule (@NonNull final CSSFontFaceRule aFontFaceRule)
   {
     m_aTopLevelRule.push (aFontFaceRule);
   }
 
-  public void onEndFontFaceRule (@Nonnull final CSSFontFaceRule aFontFaceRule)
+  public void onEndFontFaceRule (@NonNull final CSSFontFaceRule aFontFaceRule)
   {
     m_aTopLevelRule.pop ();
   }
 
-  public void onBeginMediaRule (@Nonnull final CSSMediaRule aMediaRule)
+  public void onBeginMediaRule (@NonNull final CSSMediaRule aMediaRule)
   {
     m_aTopLevelRule.push (aMediaRule);
   }
 
-  public void onEndMediaRule (@Nonnull final CSSMediaRule aMediaRule)
+  public void onEndMediaRule (@NonNull final CSSMediaRule aMediaRule)
   {
     m_aTopLevelRule.pop ();
   }
 
-  public void onBeginKeyframesRule (@Nonnull final CSSKeyframesRule aKeyframesRule)
+  public void onBeginKeyframesRule (@NonNull final CSSKeyframesRule aKeyframesRule)
   {
     m_aTopLevelRule.push (aKeyframesRule);
   }
 
-  public void onBeginKeyframesBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  public void onBeginKeyframesBlock (@NonNull final CSSKeyframesBlock aKeyframesBlock)
   {
     // no action
   }
 
-  public void onEndKeyframesBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  public void onEndKeyframesBlock (@NonNull final CSSKeyframesBlock aKeyframesBlock)
   {
     // no action
   }
 
-  public void onEndKeyframesRule (@Nonnull final CSSKeyframesRule aKeyframesRule)
+  public void onEndKeyframesRule (@NonNull final CSSKeyframesRule aKeyframesRule)
   {
     m_aTopLevelRule.pop ();
   }
 
-  public void onBeginViewportRule (@Nonnull final CSSViewportRule aViewportRule)
+  public void onBeginViewportRule (@NonNull final CSSViewportRule aViewportRule)
   {
     m_aTopLevelRule.push (aViewportRule);
   }
 
-  public void onEndViewportRule (@Nonnull final CSSViewportRule aViewportRule)
+  public void onEndViewportRule (@NonNull final CSSViewportRule aViewportRule)
   {
     m_aTopLevelRule.pop ();
   }
 
-  public void onBeginSupportsRule (@Nonnull final CSSSupportsRule aSupportsRule)
+  public void onBeginSupportsRule (@NonNull final CSSSupportsRule aSupportsRule)
   {
     m_aTopLevelRule.push (aSupportsRule);
   }
 
-  public void onEndSupportsRule (@Nonnull final CSSSupportsRule aSupportsRule)
+  public void onEndSupportsRule (@NonNull final CSSSupportsRule aSupportsRule)
   {
     m_aTopLevelRule.pop ();
   }
 
-  public void onBeginLayerRule (@Nonnull final CSSLayerRule aLayerRule)
+  public void onBeginLayerRule (@NonNull final CSSLayerRule aLayerRule)
   {
     m_aTopLevelRule.push(aLayerRule);
   }
 
-  public void onEndLayerRule (@Nonnull final CSSLayerRule aLayerRule)
+  public void onEndLayerRule (@NonNull final CSSLayerRule aLayerRule)
   {
     m_aTopLevelRule.pop();
   }
 
-  public void onUnknownRule (@Nonnull final CSSUnknownRule aUnknownRule)
+  public void onUnknownRule (@NonNull final CSSUnknownRule aUnknownRule)
   {
     // no action
   }

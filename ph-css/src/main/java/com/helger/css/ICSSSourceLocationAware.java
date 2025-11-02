@@ -16,7 +16,7 @@
  */
 package com.helger.css;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface for objects that have a source location.

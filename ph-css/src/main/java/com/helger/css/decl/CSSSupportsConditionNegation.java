@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -25,9 +28,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single negation supports condition. E.g. "not (color: blue)"
@@ -40,7 +40,7 @@ public class CSSSupportsConditionNegation implements ICSSSupportsConditionMember
   private final ICSSSupportsConditionMember m_aSupportsMember;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSupportsConditionNegation (@Nonnull final ICSSSupportsConditionMember aSupportsMember)
+  public CSSSupportsConditionNegation (@NonNull final ICSSSupportsConditionMember aSupportsMember)
   {
     m_aSupportsMember = ValueEnforcer.notNull (aSupportsMember, "SupportsMember");
   }
@@ -48,15 +48,15 @@ public class CSSSupportsConditionNegation implements ICSSSupportsConditionMember
   /**
    * @return The contained supports condition member. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ICSSSupportsConditionMember getSupportsMember ()
   {
     return m_aSupportsMember;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return "not " + m_aSupportsMember.getAsCSSString (aSettings, nIndentLevel);
   }

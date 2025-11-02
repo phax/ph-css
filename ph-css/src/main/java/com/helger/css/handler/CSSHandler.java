@@ -16,6 +16,8 @@
  */
 package com.helger.css.handler;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,8 +25,6 @@ import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class is the entry point for converting AST nodes from the parser to domain objects. This
@@ -56,10 +56,10 @@ public final class CSSHandler
    * @return Never <code>null</code>.
    * @since 6.1.3
    */
-  @Nonnull
-  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ICSSInterpretErrorHandler aErrorHandler,
+  @NonNull
+  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@NonNull final ICSSInterpretErrorHandler aErrorHandler,
                                                                      final boolean bUseSourceLocation,
-                                                                     @Nonnull final CSSNode aNode)
+                                                                     @NonNull final CSSNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
     if (!ECSSNodeType.ROOT.isNode (aNode))
@@ -82,10 +82,10 @@ public final class CSSHandler
    * @return Never <code>null</code>.
    * @since 6.1.3
    */
-  @Nonnull
-  public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ICSSInterpretErrorHandler aErrorHandler,
+  @NonNull
+  public static CSSDeclarationList readDeclarationListFromNode (@NonNull final ICSSInterpretErrorHandler aErrorHandler,
                                                                 final boolean bUseSourceLocation,
-                                                                @Nonnull final CSSNode aNode)
+                                                                @NonNull final CSSNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
     if (!ECSSNodeType.STYLEDECLARATIONLIST.isNode (aNode))

@@ -18,6 +18,8 @@ package com.helger.css.parser;
 
 import java.util.Iterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +31,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceArea;
 import com.helger.css.CSSSourceLocation;
 import com.helger.typeconvert.trait.IGetterDirectTrait;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a simple node in the tree built by jjtree. It's a customized version of the
@@ -115,7 +114,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
     return m_aFirstToken;
   }
 
-  public void jjtSetFirstToken (@Nonnull final Token aFirstToken)
+  public void jjtSetFirstToken (@NonNull final Token aFirstToken)
   {
     m_aFirstToken = aFirstToken;
   }
@@ -126,7 +125,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
     return m_aLastToken;
   }
 
-  public void jjtSetLastToken (@Nonnull final Token aLastToken)
+  public void jjtSetLastToken (@NonNull final Token aLastToken)
   {
     m_aLastToken = aLastToken;
   }
@@ -147,7 +146,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
     m_sText = sText;
   }
 
-  public void appendText (@Nonnull final String sText)
+  public void appendText (@NonNull final String sText)
   {
     if (m_sText == null)
       m_sText = sText;
@@ -171,7 +170,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
     return getId ();
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <CSSNode> iterator ()
   {
     final ICommonsList <CSSNode> aChildren = new CommonsArrayList <> (jjtGetNumChildren ());
@@ -202,7 +201,7 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
     return new CSSSourceLocation (aFirstTokenArea, aLastTokenArea);
   }
 
-  public void dump (@Nonnull final String sPrefix)
+  public void dump (@NonNull final String sPrefix)
   {
     LOGGER.info (sPrefix + toString ());
     if (m_aChildren != null)

@@ -16,14 +16,14 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This enum contains all the selector combinators. E.g. used in <code>div <b>&gt;</b> span</code>
@@ -39,20 +39,20 @@ public enum ECSSSelectorCombinator implements ICSSSelectorMember, IHasName
 
   private final String m_sName;
 
-  ECSSSelectorCombinator (@Nonnull @Nonempty final String sName)
+  ECSSSelectorCombinator (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return m_sName;
   }

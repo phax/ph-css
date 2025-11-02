@@ -16,6 +16,9 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.hashcode.HashCodeGenerator;
@@ -23,9 +26,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * CSS property that is a number (e.g. line-height)
@@ -37,19 +37,19 @@ public class CSSPropertyNumber extends AbstractCSSProperty
 {
   private final boolean m_bWithPercentage;
 
-  public CSSPropertyNumber (@Nonnull final ECSSProperty eProp, final boolean bWithPercentage)
+  public CSSPropertyNumber (@NonNull final ECSSProperty eProp, final boolean bWithPercentage)
   {
     this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage);
   }
 
-  public CSSPropertyNumber (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyNumber (@NonNull final ECSSProperty eProp,
                             @Nullable final ICSSPropertyCustomizer aCustomizer,
                             final boolean bWithPercentage)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage);
   }
 
-  public CSSPropertyNumber (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyNumber (@NonNull final ECSSProperty eProp,
                             @Nullable final ECSSVendorPrefix eVendorPrefix,
                             @Nullable final ICSSPropertyCustomizer aCustomizer,
                             final boolean bWithPercentage)
@@ -65,13 +65,13 @@ public class CSSPropertyNumber extends AbstractCSSProperty
     return super.isValidValue (sValue) || CSSNumberHelper.isValueWithUnit (sValue, m_bWithPercentage);
   }
 
-  @Nonnull
-  public CSSPropertyNumber getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyNumber getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyNumber (eProp, getVendorPrefix (), getCustomizer (), m_bWithPercentage);
   }
 
-  @Nonnull
+  @NonNull
   public CSSPropertyNumber getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyNumber (getProp (), eVendorPrefix, getCustomizer (), m_bWithPercentage);

@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class is only used internally as the source for the generated parsers. <br>
@@ -60,12 +60,12 @@ public final class CSSCharStream implements CharStream
   private int m_nTabSize = 8;
   private boolean m_bTrackLineColumn = true;
 
-  public CSSCharStream (@Nonnull final Reader aReader)
+  public CSSCharStream (@NonNull final Reader aReader)
   {
     this (aReader, 1, 1, DEFAULT_BUF_SIZE);
   }
 
-  private CSSCharStream (@Nonnull final Reader aReader,
+  private CSSCharStream (@NonNull final Reader aReader,
                          @Nonnegative final int nStartLine,
                          @Nonnegative final int nStartColumn,
                          @Nonnegative final int nBufferSize)

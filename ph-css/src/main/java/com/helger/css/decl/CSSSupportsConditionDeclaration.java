@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -25,9 +28,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single supports condition with a declaration. E.g. "(column-count: 1)"
@@ -40,13 +40,13 @@ public class CSSSupportsConditionDeclaration implements ICSSSupportsConditionMem
   private final CSSDeclaration m_aDeclaration;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSupportsConditionDeclaration (@Nonnull @Nonempty final String sProperty,
-                                          @Nonnull final CSSExpression aExpression)
+  public CSSSupportsConditionDeclaration (@NonNull @Nonempty final String sProperty,
+                                          @NonNull final CSSExpression aExpression)
   {
     this (new CSSDeclaration (sProperty, aExpression));
   }
 
-  public CSSSupportsConditionDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  public CSSSupportsConditionDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     m_aDeclaration = ValueEnforcer.notNull (aDeclaration, "Declaration");
   }
@@ -54,15 +54,15 @@ public class CSSSupportsConditionDeclaration implements ICSSSupportsConditionMem
   /**
    * @return The contained declaration. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public CSSDeclaration getDeclaration ()
   {
     return m_aDeclaration;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return "(" + m_aDeclaration.getAsCSSString (aSettings, nIndentLevel) + ")";
   }

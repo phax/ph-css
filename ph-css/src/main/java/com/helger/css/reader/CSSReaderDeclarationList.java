@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,9 +53,6 @@ import com.helger.css.reader.errorhandler.LoggingCSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ThrowingCSSParseErrorHandler;
 import com.helger.io.resource.FileSystemResource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the central user class for reading and parsing partial CSS from different sources. This
@@ -115,7 +114,7 @@ public final class CSSReaderDeclarationList
    *         {@link LoggingCSSParseExceptionCallback}.
    * @since 3.7.4
    */
-  @Nonnull
+  @NonNull
   public static ICSSParseExceptionCallback getDefaultParseExceptionHandler ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aDefaultParseExceptionHandler);
@@ -128,7 +127,7 @@ public final class CSSReaderDeclarationList
    *        The new default exception handler to be used. May not be <code>null</code>.
    * @since 3.7.4
    */
-  public static void setDefaultParseExceptionHandler (@Nonnull final ICSSParseExceptionCallback aDefaultParseExceptionHandler)
+  public static void setDefaultParseExceptionHandler (@NonNull final ICSSParseExceptionCallback aDefaultParseExceptionHandler)
   {
     ValueEnforcer.notNull (aDefaultParseExceptionHandler, "DefaultParseExceptionHandler");
 
@@ -140,7 +139,7 @@ public final class CSSReaderDeclarationList
    *         parsed CSS. Never <code>null</code>.
    * @since 5.0.2
    */
-  @Nonnull
+  @NonNull
   public static ICSSInterpretErrorHandler getDefaultInterpretErrorHandler ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aDefaultInterpretErrorHandler);
@@ -154,7 +153,7 @@ public final class CSSReaderDeclarationList
    *        The default error handler to be used. May not be <code>null</code>.
    * @since 5.0.2
    */
-  public static void setDefaultInterpretErrorHandler (@Nonnull final ICSSInterpretErrorHandler aDefaultErrorHandler)
+  public static void setDefaultInterpretErrorHandler (@NonNull final ICSSInterpretErrorHandler aDefaultErrorHandler)
   {
     ValueEnforcer.notNull (aDefaultErrorHandler, "DefaultErrorHandler");
 
@@ -176,9 +175,9 @@ public final class CSSReaderDeclarationList
    *         non-<code>null</code> if parsing succeeded.
    */
   @Nullable
-  private static CSSNode _readStyleDeclaration (@Nonnull final CharStream aCharStream,
+  private static CSSNode _readStyleDeclaration (@NonNull final CharStream aCharStream,
                                                 @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
-                                                @Nonnull final ICSSParseExceptionCallback aCustomExceptionHandler)
+                                                @NonNull final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     final ParserCSS30TokenManager aTokenHdl = new ParserCSS30TokenManager (aCharStream);
     aTokenHdl.setCustomErrorHandler (aCustomErrorHandler);
@@ -206,7 +205,7 @@ public final class CSSReaderDeclarationList
    *        The charset to be used for reading the CSS file. May not be <code>null</code>.
    * @return <code>true</code> if the file can be parsed without error, <code>false</code> if not
    */
-  public static boolean isValidCSS (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static boolean isValidCSS (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     return isValidCSS (new FileSystemResource (aFile), aCharset);
   }
@@ -220,7 +219,7 @@ public final class CSSReaderDeclarationList
    *        The charset to be used for reading the CSS file. May not be <code>null</code>.
    * @return <code>true</code> if the file can be parsed without error, <code>false</code> if not
    */
-  public static boolean isValidCSS (@Nonnull final IReadableResource aRes, @Nonnull final Charset aCharset)
+  public static boolean isValidCSS (@NonNull final IReadableResource aRes, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aRes, "Resource");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -247,7 +246,7 @@ public final class CSSReaderDeclarationList
    * @return <code>true</code> if the CSS is valid according to the version, <code>false</code> if
    *         not
    */
-  public static boolean isValidCSS (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aCharset)
+  public static boolean isValidCSS (@NonNull @WillClose final InputStream aIS, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -265,7 +264,7 @@ public final class CSSReaderDeclarationList
    * @return <code>true</code> if the CSS is valid according to the version, <code>false</code> if
    *         not
    */
-  public static boolean isValidCSS (@Nonnull final String sCSS)
+  public static boolean isValidCSS (@NonNull final String sCSS)
   {
     ValueEnforcer.notNull (sCSS, "CSS");
 
@@ -283,7 +282,7 @@ public final class CSSReaderDeclarationList
    * @return <code>true</code> if the CSS is valid according to the version, <code>false</code> if
    *         not
    */
-  public static boolean isValidCSS (@Nonnull @WillClose final Reader aReader)
+  public static boolean isValidCSS (@NonNull @WillClose final Reader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
 
@@ -309,7 +308,7 @@ public final class CSSReaderDeclarationList
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
-  public static CSSDeclarationList readFromString (@Nonnull final String sCSS)
+  public static CSSDeclarationList readFromString (@NonNull final String sCSS)
   {
     return readFromReader (new NonBlockingStringReader (sCSS), new CSSReaderSettings ());
   }
@@ -327,7 +326,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromString (@Nonnull final String sCSS,
+  public static CSSDeclarationList readFromString (@NonNull final String sCSS,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromString (sCSS, new CSSReaderSettings ().setCustomErrorHandler (aCustomErrorHandler));
@@ -346,7 +345,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromString (@Nonnull final String sCSS,
+  public static CSSDeclarationList readFromString (@NonNull final String sCSS,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromString (sCSS, new CSSReaderSettings ().setCustomExceptionHandler (aCustomExceptionHandler));
@@ -368,7 +367,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromString (@Nonnull final String sCSS,
+  public static CSSDeclarationList readFromString (@NonNull final String sCSS,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
@@ -388,8 +387,8 @@ public final class CSSReaderDeclarationList
    * @since 6.4.3
    */
   @Nullable
-  public static CSSDeclarationList readFromString (@Nonnull final String sCSS,
-                                                   @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromString (@NonNull final String sCSS,
+                                                   @NonNull final CSSReaderSettings aSettings)
   {
     return readFromReader (new NonBlockingStringReader (sCSS), aSettings);
   }
@@ -397,7 +396,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromFile (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static CSSDeclarationList readFromFile (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     return readFromFile (aFile, aCharset, new CSSReaderSettings ());
   }
@@ -405,8 +404,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromFile (@Nonnull final File aFile,
-                                                 @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromFile (@NonNull final File aFile,
+                                                 @NonNull final Charset aCharset,
                                                  @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromFile (aFile, aCharset, new CSSReaderSettings ().setCustomErrorHandler (aCustomErrorHandler));
@@ -415,8 +414,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromFile (@Nonnull final File aFile,
-                                                 @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromFile (@NonNull final File aFile,
+                                                 @NonNull final Charset aCharset,
                                                  @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromFile (aFile, aCharset, new CSSReaderSettings ().setCustomExceptionHandler (aCustomExceptionHandler));
@@ -425,8 +424,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromFile (@Nonnull final File aFile,
-                                                 @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromFile (@NonNull final File aFile,
+                                                 @NonNull final Charset aCharset,
                                                  @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                  @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
@@ -451,9 +450,9 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromFile (@Nonnull final File aFile,
-                                                 @Nonnull final Charset aCharset,
-                                                 @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromFile (@NonNull final File aFile,
+                                                 @NonNull final Charset aCharset,
+                                                 @NonNull final CSSReaderSettings aSettings)
   {
     return readFromReader (new FileSystemResource (aFile).getReader (aCharset), aSettings);
   }
@@ -469,7 +468,7 @@ public final class CSSReaderDeclarationList
    * @since 8.0.0
    */
   @Nullable
-  public static CSSDeclarationList readFromFile (@Nonnull final File aFile, @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromFile (@NonNull final File aFile, @NonNull final CSSReaderSettings aSettings)
   {
     return readFromReader (new FileSystemResource (aFile).getReader (aSettings.getFallbackCharset ()), aSettings);
   }
@@ -486,7 +485,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull final IHasInputStream aISP, @Nonnull final Charset aCharset)
+  public static CSSDeclarationList readFromStream (@NonNull final IHasInputStream aISP, @NonNull final Charset aCharset)
   {
     return readFromStream (aISP, aCharset, new CSSReaderSettings ());
   }
@@ -506,8 +505,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull final IHasInputStream aISP,
-                                                   @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromStream (@NonNull final IHasInputStream aISP,
+                                                   @NonNull final Charset aCharset,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromStream (aISP, aCharset, new CSSReaderSettings ().setCustomErrorHandler (aCustomErrorHandler));
@@ -528,8 +527,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull final IHasInputStream aISP,
-                                                   @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromStream (@NonNull final IHasInputStream aISP,
+                                                   @NonNull final Charset aCharset,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromStream (aISP,
@@ -555,8 +554,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull final IHasInputStream aISP,
-                                                   @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromStream (@NonNull final IHasInputStream aISP,
+                                                   @NonNull final Charset aCharset,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
@@ -581,9 +580,9 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull final IHasInputStream aISP,
-                                                   @Nonnull final Charset aCharset,
-                                                   @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromStream (@NonNull final IHasInputStream aISP,
+                                                   @NonNull final Charset aCharset,
+                                                   @NonNull final CSSReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -604,8 +603,8 @@ public final class CSSReaderDeclarationList
    * @since 8.0.0
    */
   @Nullable
-  public static CSSDeclarationList readFromStream (@Nonnull final IHasInputStream aISP,
-                                                   @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromStream (@NonNull final IHasInputStream aISP,
+                                                   @NonNull final CSSReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -629,8 +628,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull @WillClose final InputStream aIS,
-                                                   @Nonnull final Charset aCharset)
+  public static CSSDeclarationList readFromStream (@NonNull @WillClose final InputStream aIS,
+                                                   @NonNull final Charset aCharset)
   {
     return readFromStream (aIS, aCharset, new CSSReaderSettings ());
   }
@@ -652,8 +651,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull @WillClose final InputStream aIS,
-                                                   @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromStream (@NonNull @WillClose final InputStream aIS,
+                                                   @NonNull final Charset aCharset,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromStream (aIS, aCharset, new CSSReaderSettings ().setCustomErrorHandler (aCustomErrorHandler));
@@ -676,8 +675,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull @WillClose final InputStream aIS,
-                                                   @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromStream (@NonNull @WillClose final InputStream aIS,
+                                                   @NonNull final Charset aCharset,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromStream (aIS, aCharset, new CSSReaderSettings ().setCustomExceptionHandler (aCustomExceptionHandler));
@@ -703,8 +702,8 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull @WillClose final InputStream aIS,
-                                                   @Nonnull final Charset aCharset,
+  public static CSSDeclarationList readFromStream (@NonNull @WillClose final InputStream aIS,
+                                                   @NonNull final Charset aCharset,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
@@ -732,9 +731,9 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromStream (@Nonnull @WillClose final InputStream aIS,
-                                                   @Nonnull final Charset aCharset,
-                                                   @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromStream (@NonNull @WillClose final InputStream aIS,
+                                                   @NonNull final Charset aCharset,
+                                                   @NonNull final CSSReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -753,8 +752,8 @@ public final class CSSReaderDeclarationList
    * @since 8.0.0
    */
   @Nullable
-  public static CSSDeclarationList readFromStream (@Nonnull @WillClose final InputStream aIS,
-                                                   @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromStream (@NonNull @WillClose final InputStream aIS,
+                                                   @NonNull final CSSReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -770,7 +769,7 @@ public final class CSSReaderDeclarationList
    * @return <code>null</code> if reading failed, the CSS declarations otherwise.
    */
   @Nullable
-  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader)
+  public static CSSDeclarationList readFromReader (@NonNull @WillClose final Reader aReader)
   {
     return readFromReader (aReader, new CSSReaderSettings ());
   }
@@ -789,7 +788,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader,
+  public static CSSDeclarationList readFromReader (@NonNull @WillClose final Reader aReader,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     return readFromReader (aReader, new CSSReaderSettings ().setCustomErrorHandler (aCustomErrorHandler));
@@ -809,7 +808,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader,
+  public static CSSDeclarationList readFromReader (@NonNull @WillClose final Reader aReader,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromReader (aReader, new CSSReaderSettings ().setCustomExceptionHandler (aCustomExceptionHandler));
@@ -832,7 +831,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   @Deprecated (forRemoval = true, since = "8.0.0")
   @DevelopersNote ("Use the version with CSSReaderSettings instead")
-  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader,
+  public static CSSDeclarationList readFromReader (@NonNull @WillClose final Reader aReader,
                                                    @Nullable final ICSSParseErrorHandler aCustomErrorHandler,
                                                    @Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
@@ -853,8 +852,8 @@ public final class CSSReaderDeclarationList
    * @since 3.8.2
    */
   @Nullable
-  public static CSSDeclarationList readFromReader (@Nonnull @WillClose final Reader aReader,
-                                                   @Nonnull final CSSReaderSettings aSettings)
+  public static CSSDeclarationList readFromReader (@NonNull @WillClose final Reader aReader,
+                                                   @NonNull final CSSReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aSettings, "Settings");

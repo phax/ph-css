@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -30,9 +33,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single <code>@supports</code> rule: a list of style rules only valid when a certain
@@ -64,8 +64,8 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
     return m_aConditionMembers.size ();
   }
 
-  @Nonnull
-  public CSSSupportsRule addSupportConditionMember (@Nonnull final ICSSSupportsConditionMember aMember)
+  @NonNull
+  public CSSSupportsRule addSupportConditionMember (@NonNull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
 
@@ -73,9 +73,9 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSSupportsRule addSupportConditionMember (@Nonnegative final int nIndex,
-                                                    @Nonnull final ICSSSupportsConditionMember aMember)
+                                                    @NonNull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
@@ -87,13 +87,13 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
     return this;
   }
 
-  @Nonnull
-  public EChange removeSupportsConditionMember (@Nonnull final ICSSSupportsConditionMember aMember)
+  @NonNull
+  public EChange removeSupportsConditionMember (@NonNull final ICSSSupportsConditionMember aMember)
   {
     return m_aConditionMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeSupportsConditionMember (@Nonnegative final int nIndex)
   {
     return m_aConditionMembers.removeAtIndex (nIndex);
@@ -106,7 +106,7 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllSupportsConditionMembers ()
   {
     return m_aConditionMembers.removeAll ();
@@ -118,16 +118,16 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
     return m_aConditionMembers.getAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSSupportsConditionMember> getAllSupportConditionMembers ()
   {
     return m_aConditionMembers.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     // Always ignore SupportsCondition rules?
     if (!aSettings.isWriteSupportsRules ())

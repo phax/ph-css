@@ -16,13 +16,13 @@
  */
 package com.helger.css.decl.shorthand;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.ICSSExpressionMember;
 import com.helger.css.property.ECSSProperty;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link CSSShortHandDescriptor} implementation for margin and
@@ -32,15 +32,15 @@ import jakarta.annotation.Nonnull;
  */
 public class CSSShortHandDescriptorWithAlignment extends CSSShortHandDescriptor
 {
-  public CSSShortHandDescriptorWithAlignment (@Nonnull final ECSSProperty eProperty,
-                                              @Nonnull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
+  public CSSShortHandDescriptorWithAlignment (@NonNull final ECSSProperty eProperty,
+                                              @NonNull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
   {
     super (eProperty, aSubProperties);
   }
 
   @Override
   @OverrideOnDemand
-  protected void modifyExpressionMembers (@Nonnull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
+  protected void modifyExpressionMembers (@NonNull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
   {
     final int nSize = aExpressionMembers.size ();
     if (nSize == 1)

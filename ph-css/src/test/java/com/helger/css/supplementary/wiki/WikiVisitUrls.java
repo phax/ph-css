@@ -16,6 +16,9 @@
  */
 package com.helger.css.supplementary.wiki;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
@@ -26,9 +29,6 @@ import com.helger.css.decl.visit.CSSVisitor;
 import com.helger.css.decl.visit.DefaultCSSUrlVisitor;
 import com.helger.css.reader.CSSReader;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Example how to extract all URLs from a certain CSS file using a
  * {@link DefaultCSSUrlVisitor}.
@@ -37,7 +37,7 @@ import jakarta.annotation.Nullable;
  */
 public final class WikiVisitUrls
 {
-  public static String getSourceLocationString (@Nonnull final CSSSourceLocation aSourceLoc)
+  public static String getSourceLocationString (@NonNull final CSSSourceLocation aSourceLoc)
   {
     return "source location reaches from [" +
            aSourceLoc.getFirstTokenBeginLineNumber () +
@@ -60,7 +60,7 @@ public final class WikiVisitUrls
     {
       // Called for each import
       @Override
-      public void onImport (@Nonnull final CSSImportRule aImportRule)
+      public void onImport (@NonNull final CSSImportRule aImportRule)
       {
         System.out.println ("Import: " +
                             aImportRule.getLocationString () +
@@ -71,8 +71,8 @@ public final class WikiVisitUrls
       // Call for URLs outside of URLs
       @Override
       public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                    @Nonnull final CSSDeclaration aDeclaration,
-                                    @Nonnull final CSSExpressionMemberTermURI aURITerm)
+                                    @NonNull final CSSDeclaration aDeclaration,
+                                    @NonNull final CSSExpressionMemberTermURI aURITerm)
       {
         System.out.println (aDeclaration.getProperty () +
                             " - references: " +

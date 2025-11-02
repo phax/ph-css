@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,13 +32,11 @@ import com.helger.io.file.FileSystemRecursiveIterator;
 import com.helger.io.file.IFileFilter;
 import com.helger.io.resource.ClassPathResource;
 
-import jakarta.annotation.Nonnull;
-
 public final class CSSWriterFuncTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CSSWriterFuncTest.class);
 
-  private void _testMe (@Nonnull final File aFile)
+  private void _testMe (@NonNull final File aFile)
   {
     if (false)
       LOGGER.info (aFile.getAbsolutePath ());

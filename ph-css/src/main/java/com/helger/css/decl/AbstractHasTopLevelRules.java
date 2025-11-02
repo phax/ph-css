@@ -18,6 +18,9 @@ package com.helger.css.decl;
 
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for all classes having top-level rules.
@@ -89,8 +89,8 @@ public abstract class AbstractHasTopLevelRules
    *        The rule to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public AbstractHasTopLevelRules addRule (@Nonnull final ICSSTopLevelRule aRule)
+  @NonNull
+  public AbstractHasTopLevelRules addRule (@NonNull final ICSSTopLevelRule aRule)
   {
     ValueEnforcer.notNull (aRule, "Rule");
 
@@ -108,8 +108,8 @@ public abstract class AbstractHasTopLevelRules
    *        The rule to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public AbstractHasTopLevelRules addRule (@Nonnegative final int nIndex, @Nonnull final ICSSTopLevelRule aRule)
+  @NonNull
+  public AbstractHasTopLevelRules addRule (@Nonnegative final int nIndex, @NonNull final ICSSTopLevelRule aRule)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aRule, "Rule");
@@ -130,7 +130,7 @@ public abstract class AbstractHasTopLevelRules
    * @return {@link EChange#CHANGED} if the rule was successfully removed, {@link EChange#UNCHANGED}
    *         otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeRule (@Nullable final ICSSTopLevelRule aRule)
   {
     return m_aRules.removeObject (aRule);
@@ -145,7 +145,7 @@ public abstract class AbstractHasTopLevelRules
    * @return {@link EChange#CHANGED} if the rule at the specified index was successfully removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeRule (@Nonnegative final int nRuleIndex)
   {
     return m_aRules.removeAtIndex (nRuleIndex);
@@ -160,8 +160,8 @@ public abstract class AbstractHasTopLevelRules
    *         otherwise.
    * @since 5.0.0
    */
-  @Nonnull
-  public EChange removeRules (@Nonnull final Predicate <? super ICSSTopLevelRule> aFilter)
+  @NonNull
+  public EChange removeRules (@NonNull final Predicate <? super ICSSTopLevelRule> aFilter)
   {
     return EChange.valueOf (m_aRules.removeIf (aFilter));
   }
@@ -173,7 +173,7 @@ public abstract class AbstractHasTopLevelRules
    *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllRules ()
   {
     return m_aRules.removeAll ();
@@ -185,7 +185,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained top-level rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSTopLevelRule> getAllRules ()
   {
@@ -200,9 +200,9 @@ public abstract class AbstractHasTopLevelRules
    *        The predicate to be applied
    * @return A copy of all contained top-level rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <ICSSTopLevelRule> getAllRules (@Nonnull final Predicate <? super ICSSTopLevelRule> aFilter)
+  public ICommonsList <ICSSTopLevelRule> getAllRules (@NonNull final Predicate <? super ICSSTopLevelRule> aFilter)
   {
     return m_aRules.getAll (aFilter);
   }
@@ -249,7 +249,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained style rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSStyleRule> getAllStyleRules ()
   {
@@ -297,7 +297,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained <code>@page</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSPageRule> getAllPageRules ()
   {
@@ -346,7 +346,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained <code>@media</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaRule> getAllMediaRules ()
   {
@@ -397,7 +397,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained <code>@font-face</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSFontFaceRule> getAllFontFaceRules ()
   {
@@ -448,7 +448,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained <code>@keyframes</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSKeyframesRule> getAllKeyframesRules ()
   {
@@ -499,7 +499,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained <code>@viewport</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSViewportRule> getAllViewportRules ()
   {
@@ -550,7 +550,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained <code>@supports</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSSupportsRule> getAllSupportsRules ()
   {
@@ -599,7 +599,7 @@ public abstract class AbstractHasTopLevelRules
    *
    * @return A copy of all contained unknown <code>@</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSUnknownRule> getAllUnknownRules ()
   {

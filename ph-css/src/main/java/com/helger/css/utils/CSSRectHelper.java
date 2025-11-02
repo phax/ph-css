@@ -16,6 +16,8 @@
  */
 package com.helger.css.utils;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -23,8 +25,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.cache.regex.RegExHelper;
 import com.helger.css.decl.CSSRect;
 import com.helger.css.propertyvalue.CCSSValue;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Provides rectangle handling sanity methods.

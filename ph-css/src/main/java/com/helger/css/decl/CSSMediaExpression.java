@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -30,9 +33,6 @@ import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.media.ECSSMediaExpressionFeature;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Represents a single media expression
  */
@@ -43,29 +43,29 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAwar
   private final CSSExpression m_aValue;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSMediaExpression (@Nonnull final ECSSMediaExpressionFeature eFeature)
+  public CSSMediaExpression (@NonNull final ECSSMediaExpressionFeature eFeature)
   {
     this (eFeature.getName ());
   }
 
-  public CSSMediaExpression (@Nonnull @Nonempty final String sFeature)
+  public CSSMediaExpression (@NonNull @Nonempty final String sFeature)
   {
     this (sFeature, null);
   }
 
-  public CSSMediaExpression (@Nonnull final ECSSMediaExpressionFeature eFeature, @Nullable final CSSExpression aValue)
+  public CSSMediaExpression (@NonNull final ECSSMediaExpressionFeature eFeature, @Nullable final CSSExpression aValue)
   {
     this (eFeature.getName (), aValue);
   }
 
-  public CSSMediaExpression (@Nonnull @Nonempty final String sFeature, @Nullable final CSSExpression aValue)
+  public CSSMediaExpression (@NonNull @Nonempty final String sFeature, @Nullable final CSSExpression aValue)
   {
     ValueEnforcer.notEmpty (sFeature, "Feature");
     m_sFeature = sFeature;
     m_aValue = aValue;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getFeature ()
   {
@@ -78,9 +78,9 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAwar
     return m_aValue;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ('(').append (m_sFeature);

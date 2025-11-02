@@ -16,10 +16,10 @@
  */
 package com.helger.css.handler;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.parser.CSSNode;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Runtime exception that is thrown if interpreting the CSS fails. Only thrown
@@ -31,8 +31,8 @@ public class CSSHandlingException extends RuntimeException
 {
   private final CSSNode m_aNode;
 
-  @Nonnull
-  private static String _getSourceLocation (@Nonnull final CSSNode aNode)
+  @NonNull
+  private static String _getSourceLocation (@NonNull final CSSNode aNode)
   {
     final StringBuilder aRet = new StringBuilder ();
     final CSSSourceLocation aSL = aNode.getSourceLocation ();
@@ -60,7 +60,7 @@ public class CSSHandlingException extends RuntimeException
     return aRet.toString ();
   }
 
-  public CSSHandlingException (@Nonnull final CSSNode aNode, @Nonnull final String sMessage)
+  public CSSHandlingException (@NonNull final CSSNode aNode, @NonNull final String sMessage)
   {
     super (_getSourceLocation (aNode) + sMessage);
     m_aNode = aNode;
@@ -69,7 +69,7 @@ public class CSSHandlingException extends RuntimeException
   /**
    * @return The source node where the error occurred. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public CSSNode getNode ()
   {
     return m_aNode;

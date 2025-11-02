@@ -16,6 +16,9 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -26,9 +29,6 @@ import com.helger.cache.regex.RegExHelper;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * CSS property that is a list of color values (e.g. border-color)
@@ -41,14 +41,14 @@ public class CSSPropertyColors extends AbstractCSSProperty
   private final int m_nMinArgCount;
   private final int m_nMaxArgCount;
 
-  public CSSPropertyColors (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyColors (@NonNull final ECSSProperty eProp,
                             @Nonnegative final int nMinArgCount,
                             @Nonnegative final int nMaxArgCount)
   {
     this (eProp, (ICSSPropertyCustomizer) null, nMinArgCount, nMaxArgCount);
   }
 
-  public CSSPropertyColors (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyColors (@NonNull final ECSSProperty eProp,
                             @Nullable final ICSSPropertyCustomizer aCustomizer,
                             @Nonnegative final int nMinArgCount,
                             @Nonnegative final int nMaxArgCount)
@@ -56,7 +56,7 @@ public class CSSPropertyColors extends AbstractCSSProperty
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, nMinArgCount, nMaxArgCount);
   }
 
-  public CSSPropertyColors (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyColors (@NonNull final ECSSProperty eProp,
                             @Nullable final ECSSVendorPrefix eVendorPrefix,
                             @Nullable final ICSSPropertyCustomizer aCustomizer,
                             @Nonnegative final int nMinArgCount,
@@ -108,8 +108,8 @@ public class CSSPropertyColors extends AbstractCSSProperty
   }
 
   @Override
-  @Nonnull
-  public CSSPropertyColors getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyColors getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyColors (eProp,
                                   getVendorPrefix (),
@@ -119,7 +119,7 @@ public class CSSPropertyColors extends AbstractCSSProperty
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public CSSPropertyColors getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyColors (getProp (),

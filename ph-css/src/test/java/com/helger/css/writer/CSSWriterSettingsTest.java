@@ -21,12 +21,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.css.AbstractCSSTestCase;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link CSSWriterSettings}.
@@ -35,7 +34,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class CSSWriterSettingsTest extends AbstractCSSTestCase
 {
-  private static void _checkDefault (@Nonnull final ICSSWriterSettings aSettings)
+  private static void _checkDefault (@NonNull final ICSSWriterSettings aSettings)
   {
     assertTrue (CSSWriterSettings.DEFAULT_OPTIMIZED_OUTPUT == aSettings.isOptimizedOutput ());
     assertTrue (CSSWriterSettings.DEFAULT_REMOVE_UNNECESSARY_CODE == aSettings.isRemoveUnnecessaryCode ());

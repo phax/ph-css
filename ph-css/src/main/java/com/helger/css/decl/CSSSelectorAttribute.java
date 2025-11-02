@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -27,9 +30,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A single CSS selector attribute.
@@ -55,7 +55,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     return StringHelper.isEmpty (sNamespacePrefix) || sNamespacePrefix.endsWith ("|");
   }
 
-  public CSSSelectorAttribute (@Nullable final String sNamespacePrefix, @Nonnull @Nonempty final String sAttrName)
+  public CSSSelectorAttribute (@Nullable final String sNamespacePrefix, @NonNull @Nonempty final String sAttrName)
   {
     if (!_isValidNamespacePrefix (sNamespacePrefix))
       throw new IllegalArgumentException ("NamespacePrefix is illegal!");
@@ -83,9 +83,9 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
    */
   @Deprecated (forRemoval = true, since = "8.0.1")
   public CSSSelectorAttribute (@Nullable final String sNamespacePrefix,
-                               @Nonnull @Nonempty final String sAttrName,
-                               @Nonnull final ECSSAttributeOperator eOperator,
-                               @Nonnull final String sAttrValue)
+                               @NonNull @Nonempty final String sAttrName,
+                               @NonNull final ECSSAttributeOperator eOperator,
+                               @NonNull final String sAttrValue)
   {
     this (sNamespacePrefix, sAttrName, eOperator, sAttrValue, null);
   }
@@ -105,9 +105,9 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
    *        The case flag to be used specifically for the matching operators.
    */
   public CSSSelectorAttribute (@Nullable final String sNamespacePrefix,
-                               @Nonnull @Nonempty final String sAttrName,
-                               @Nonnull final ECSSAttributeOperator eOperator,
-                               @Nonnull final String sAttrValue,
+                               @NonNull @Nonempty final String sAttrName,
+                               @NonNull final ECSSAttributeOperator eOperator,
+                               @NonNull final String sAttrValue,
                                @Nullable final ECSSAttributeCase eCaseFlag)
   {
     if (!_isValidNamespacePrefix (sNamespacePrefix))
@@ -129,7 +129,7 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     return m_sNamespacePrefix;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAttrName ()
   {
@@ -154,9 +154,9 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
     return m_eAttrCase;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ('[');

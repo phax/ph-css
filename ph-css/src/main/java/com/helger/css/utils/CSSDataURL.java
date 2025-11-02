@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -34,9 +37,6 @@ import com.helger.mime.CMimeType;
 import com.helger.mime.IMimeType;
 import com.helger.mime.MimeType;
 import com.helger.mime.MimeTypeHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single CSS data URL (RFC 2397).
@@ -60,7 +60,7 @@ public class CSSDataURL
    *        The MIME type to investigate.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static Charset getCharsetFromMimeTypeOrDefault (@Nullable final IMimeType aMimeType)
   {
     final Charset ret = MimeTypeHelper.getCharsetFromMimeType (aMimeType);
@@ -87,7 +87,7 @@ public class CSSDataURL
    * @param aContent
    *        The content of the data URL as a byte array. May not be <code>null</code>.
    */
-  public CSSDataURL (@Nonnull final IMimeType aMimeType, final boolean bBase64Encoded, @Nonnull final byte [] aContent)
+  public CSSDataURL (@NonNull final IMimeType aMimeType, final boolean bBase64Encoded, @NonNull final byte [] aContent)
   {
     this (aMimeType, bBase64Encoded, aContent, getCharsetFromMimeTypeOrDefault (aMimeType), null);
   }
@@ -113,10 +113,10 @@ public class CSSDataURL
    *        charset. If this parameter is <code>null</code> than the String content representation
    *        is lazily created in {@link #getContentAsString()}.
    */
-  public CSSDataURL (@Nonnull final IMimeType aMimeType,
+  public CSSDataURL (@NonNull final IMimeType aMimeType,
                      final boolean bBase64Encoded,
-                     @Nonnull final byte [] aContent,
-                     @Nonnull final Charset aCharset,
+                     @NonNull final byte [] aContent,
+                     @NonNull final Charset aCharset,
                      @Nullable final String sContent)
   {
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -162,7 +162,7 @@ public class CSSDataURL
    * @return The MIME type of the data URL. If none was specified, than the default MIME Type
    *         {@link CSSDataURLHelper#DEFAULT_MIME_TYPE} must be used.
    */
-  @Nonnull
+  @NonNull
   public IMimeType getMimeType ()
   {
     return m_aMimeType;
@@ -191,7 +191,7 @@ public class CSSDataURL
    *
    * @return A copy of the binary data of the data URL. Neither <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public byte [] getContentBytes ()
   {
@@ -207,7 +207,7 @@ public class CSSDataURL
    * @throws IOException
    *         from OutputStream
    */
-  public void writeContentBytes (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
+  public void writeContentBytes (@NonNull @WillNotClose final OutputStream aOS) throws IOException
   {
     aOS.write (m_aContent, 0, m_aContent.length);
   }
@@ -216,7 +216,7 @@ public class CSSDataURL
    * @return The charset to be used for String encoding. May not be <code>null</code>. The default
    *         is {@link CSSDataURLHelper#DEFAULT_CHARSET}.
    */
-  @Nonnull
+  @NonNull
   public Charset getCharset ()
   {
     return m_aCharset;
@@ -231,7 +231,7 @@ public class CSSDataURL
    * @return The content in a String representation using the charset of this object. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public String getContentAsString ()
   {
     if (m_sContent == null)
@@ -246,7 +246,7 @@ public class CSSDataURL
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public String getContentAsBase64EncodedString ()
   {
     // Add Base64 encoded String
@@ -264,8 +264,8 @@ public class CSSDataURL
    * @return The content in a String representation using the provided charset. Never
    *         <code>null</code>.
    */
-  @Nonnull
-  public String getContentAsString (@Nonnull final Charset aCharset)
+  @NonNull
+  public String getContentAsString (@NonNull final Charset aCharset)
   {
     if (m_aCharset.equals (aCharset))
     {
@@ -279,7 +279,7 @@ public class CSSDataURL
    * @return The complete representation of the data URL, starting with "data:". All data is
    *         emitted, even if it is the default value. Base64 encoding is performed in this method.
    */
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     // Return the non-optimized version
@@ -292,7 +292,7 @@ public class CSSDataURL
    * @return The complete representation of the data URL, starting with "data:". All data is
    *         emitted, even if it is the default value.
    */
-  @Nonnull
+  @NonNull
   public String getAsString (final boolean bOptimizedVersion)
   {
     final StringBuilder aSB = new StringBuilder (CSSDataURLHelper.PREFIX_DATA_URL);

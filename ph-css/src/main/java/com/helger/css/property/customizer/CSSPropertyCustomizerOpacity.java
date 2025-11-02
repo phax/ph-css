@@ -16,6 +16,9 @@
  */
 package com.helger.css.property.customizer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.string.StringParser;
@@ -26,9 +29,6 @@ import com.helger.css.property.ICSSProperty;
 import com.helger.css.propertyvalue.CSSValueList;
 import com.helger.css.propertyvalue.ICSSValue;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Special customizer for the "opacity" property.
  *
@@ -38,8 +38,8 @@ import jakarta.annotation.Nullable;
 public class CSSPropertyCustomizerOpacity extends AbstractCSSPropertyCustomizer
 {
   @Nullable
-  public ICSSValue createSpecialValue (@Nonnull final ICSSProperty aProperty,
-                                       @Nonnull @Nonempty final String sValue,
+  public ICSSValue createSpecialValue (@NonNull final ICSSProperty aProperty,
+                                       @NonNull @Nonempty final String sValue,
                                        final boolean bIsImportant)
   {
     final double dValue = StringParser.parseDouble (sValue, Double.NaN);

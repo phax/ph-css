@@ -16,6 +16,8 @@
  */
 package com.helger.css.decl.shorthand;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -32,8 +34,6 @@ import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
 import com.helger.css.writer.CSSWriterSettings;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * A single descriptor for a short hand property (like font or border)
  *
@@ -45,8 +45,8 @@ public class CSSShortHandDescriptor
   private final ECSSProperty m_eProperty;
   private final ICommonsList <CSSPropertyWithDefaultValue> m_aSubProperties;
 
-  public CSSShortHandDescriptor (@Nonnull final ECSSProperty eProperty,
-                                 @Nonnull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
+  public CSSShortHandDescriptor (@NonNull final ECSSProperty eProperty,
+                                 @NonNull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
   {
     ValueEnforcer.notNull (eProperty, "Property");
     ValueEnforcer.notEmptyNoNullValue (aSubProperties, "SubProperties");
@@ -66,13 +66,13 @@ public class CSSShortHandDescriptor
     }
   }
 
-  @Nonnull
+  @NonNull
   public ECSSProperty getProperty ()
   {
     return m_eProperty;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSPropertyWithDefaultValue> getAllSubProperties ()
   {
@@ -86,12 +86,12 @@ public class CSSShortHandDescriptor
    *        The list to be modified. Never <code>null</code> but maybe empty.
    */
   @OverrideOnDemand
-  protected void modifyExpressionMembers (@Nonnull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
+  protected void modifyExpressionMembers (@NonNull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <CSSDeclaration> getSplitIntoPieces (@Nonnull final CSSDeclaration aDeclaration)
+  public ICommonsList <CSSDeclaration> getSplitIntoPieces (@NonNull final CSSDeclaration aDeclaration)
   {
     ValueEnforcer.notNull (aDeclaration, "Declaration");
 

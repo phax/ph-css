@@ -16,6 +16,9 @@
  */
 package com.helger.css.property;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -24,9 +27,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * CSS properties with a dynamic number of entries.
@@ -39,12 +39,12 @@ public abstract class AbstractCSSPropertyEnums extends CSSPropertyEnum
   private final int m_nMinArgCount;
   private final int m_nMaxArgCount;
 
-  public AbstractCSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+  public AbstractCSSPropertyEnums (@NonNull final ECSSProperty eProp,
                                    @Nullable final ECSSVendorPrefix eVendorPrefix,
                                    @Nullable final ICSSPropertyCustomizer aCustomizer,
                                    @Nonnegative final int nMinArgCount,
                                    @Nonnegative final int nMaxArgCount,
-                                   @Nonnull @Nonempty final String... aEnumValues)
+                                   @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     ValueEnforcer.isGT0 (nMinArgCount, "MinArgCount");
@@ -55,12 +55,12 @@ public abstract class AbstractCSSPropertyEnums extends CSSPropertyEnum
     m_nMaxArgCount = nMaxArgCount;
   }
 
-  public AbstractCSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+  public AbstractCSSPropertyEnums (@NonNull final ECSSProperty eProp,
                                    @Nullable final ECSSVendorPrefix eVendorPrefix,
                                    @Nullable final ICSSPropertyCustomizer aCustomizer,
                                    @Nonnegative final int nMinArgCount,
                                    @Nonnegative final int nMaxArgCount,
-                                   @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                   @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     ValueEnforcer.isGT0 (nMinArgCount, "MinArgCount");

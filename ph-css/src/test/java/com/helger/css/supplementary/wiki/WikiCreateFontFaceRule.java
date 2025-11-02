@@ -16,6 +16,9 @@
  */
 package com.helger.css.supplementary.wiki;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.string.StringHelper;
 import com.helger.css.decl.CSSExpression;
@@ -24,9 +27,6 @@ import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ECSSExpressionOperator;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * This is example code to create a font-face rule from scratch
  *
@@ -34,8 +34,8 @@ import jakarta.annotation.Nullable;
  */
 public final class WikiCreateFontFaceRule
 {
-  @Nonnull
-  private static CSSExpressionMemberFunction _createFormatFct (@Nonnull @Nonempty final String sFormatName)
+  @NonNull
+  private static CSSExpressionMemberFunction _createFormatFct (@NonNull @Nonempty final String sFormatName)
   {
     return new CSSExpressionMemberFunction ("format", CSSExpression.createString (sFormatName));
   }
@@ -65,11 +65,11 @@ public final class WikiCreateFontFaceRule
    *        nor empty
    * @return The created {@link CascadingStyleSheet}.
    */
-  @Nonnull
-  public static CascadingStyleSheet createFontFace (@Nonnull @Nonempty final String sTypefaceName,
+  @NonNull
+  public static CascadingStyleSheet createFontFace (@NonNull @Nonempty final String sTypefaceName,
                                                     @Nullable final String sLocalName,
-                                                    @Nonnull final String sPath,
-                                                    @Nonnull final String sBasename)
+                                                    @NonNull final String sPath,
+                                                    @NonNull final String sBasename)
   {
     final CascadingStyleSheet aCSS = new CascadingStyleSheet ();
     final CSSFontFaceRule aFFR = new CSSFontFaceRule ();

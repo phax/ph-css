@@ -16,11 +16,11 @@
  */
 package com.helger.css.propertyvalue;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.property.ECSSProperty;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a single CSS value that is used in a CSS declaration.
@@ -33,6 +33,6 @@ public interface ICSSValue extends ICSSWriteable
   /**
    * @return The underlying CSS property from an enum. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ECSSProperty getProp ();
 }

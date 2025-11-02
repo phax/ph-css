@@ -16,14 +16,13 @@
  */
 package com.helger.css.handler;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.css.parser.ParseException;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link ICSSParseExceptionCallback} that logs all
@@ -40,7 +39,7 @@ public class LoggingCSSParseExceptionCallback implements ICSSParseExceptionCallb
   public LoggingCSSParseExceptionCallback ()
   {}
 
-  public void onException (@Nonnull final ParseException ex)
+  public void onException (@NonNull final ParseException ex)
   {
     LOGGER.error ("Failed to parse CSS: " + LoggingCSSParseErrorHandler.createLoggingStringParseError (ex));
   }

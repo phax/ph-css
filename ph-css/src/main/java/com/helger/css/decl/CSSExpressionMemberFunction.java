@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -26,9 +29,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a CSS function element
@@ -45,8 +45,8 @@ public class CSSExpressionMemberFunction implements
   private final CSSExpression m_aExpression;
   private CSSSourceLocation m_aSourceLocation;
 
-  @Nonnull
-  private static String _skipBracketsAtEnd (@Nonnull final String sName)
+  @NonNull
+  private static String _skipBracketsAtEnd (@NonNull final String sName)
   {
     final String sRealName = sName.trim ();
     if (sRealName.length () > 2 && sRealName.endsWith ("()"))
@@ -60,7 +60,7 @@ public class CSSExpressionMemberFunction implements
    * @param sFunctionName
    *        Function name. May neither be <code>null</code> nor empty.
    */
-  public CSSExpressionMemberFunction (@Nonnull @Nonempty final String sFunctionName)
+  public CSSExpressionMemberFunction (@NonNull @Nonempty final String sFunctionName)
   {
     this (sFunctionName, null);
   }
@@ -73,7 +73,7 @@ public class CSSExpressionMemberFunction implements
    * @param aExpression
    *        Optional parameter expression. May be <code>null</code>.
    */
-  public CSSExpressionMemberFunction (@Nonnull @Nonempty final String sFunctionName,
+  public CSSExpressionMemberFunction (@NonNull @Nonempty final String sFunctionName,
                                       @Nullable final CSSExpression aExpression)
   {
     ValueEnforcer.notEmpty (sFunctionName, "FunctionName");
@@ -86,7 +86,7 @@ public class CSSExpressionMemberFunction implements
   /**
    * @return The passed function name. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getFunctionName ()
   {
@@ -121,15 +121,15 @@ public class CSSExpressionMemberFunction implements
     return m_aExpression != null;
   }
 
-  @Nonnull
+  @NonNull
   public CSSExpressionMemberFunction getClone ()
   {
     return new CSSExpressionMemberFunction (m_sFunctionName, m_aExpression);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     if (m_aExpression == null)
     {

@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a CSS line-names element as used in css-grid.
@@ -48,21 +48,21 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSS
   public CSSExpressionMemberLineNames ()
   {}
 
-  public CSSExpressionMemberLineNames (@Nonnull final Iterable <? extends String> aMembers)
+  public CSSExpressionMemberLineNames (@NonNull final Iterable <? extends String> aMembers)
   {
     m_aMembers.addAll (aMembers);
   }
 
-  @Nonnull
-  public CSSExpressionMemberLineNames addMember (@Nonnull @Nonempty final String sMember)
+  @NonNull
+  public CSSExpressionMemberLineNames addMember (@NonNull @Nonempty final String sMember)
   {
     ValueEnforcer.notEmpty (sMember, "Member");
     m_aMembers.add (sMember);
     return this;
   }
 
-  @Nonnull
-  public CSSExpressionMemberLineNames addMember (@Nonnegative final int nIndex, @Nonnull @Nonempty final String aMember)
+  @NonNull
+  public CSSExpressionMemberLineNames addMember (@Nonnegative final int nIndex, @NonNull @Nonempty final String aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "Member");
@@ -74,13 +74,13 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSS
     return this;
   }
 
-  @Nonnull
-  public EChange removeMember (@Nonnull final String aMember)
+  @NonNull
+  public EChange removeMember (@NonNull final String aMember)
   {
     return m_aMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nMemberIndex)
   {
     return m_aMembers.removeAtIndex (nMemberIndex);
@@ -92,13 +92,13 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSS
    * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllMembers ()
   {
@@ -111,15 +111,15 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSS
     return m_aMembers.size ();
   }
 
-  @Nonnull
+  @NonNull
   public CSSExpressionMemberLineNames getClone ()
   {
     return new CSSExpressionMemberLineNames (m_aMembers);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final StringBuilder aSB = new StringBuilder ().append ('[');
     boolean bFirst = true;

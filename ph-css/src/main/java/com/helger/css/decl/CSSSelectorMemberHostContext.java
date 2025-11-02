@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -25,9 +28,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single, simple CSS selector as used for the ":host-context()" CSS pseudo class
@@ -43,21 +43,21 @@ public class CSSSelectorMemberHostContext implements ICSSSelectorMember, ICSSSou
   private final CSSSelector m_aSelector;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberHostContext (@Nonnull final CSSSelector aSimpleSelector)
+  public CSSSelectorMemberHostContext (@NonNull final CSSSelector aSimpleSelector)
   {
     ValueEnforcer.notNull (aSimpleSelector, "SimpleSelector");
     m_aSelector = aSimpleSelector;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSSelector getSelector ()
   {
     return m_aSelector;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final StringBuilder aSB = new StringBuilder (":host-context(");
     aSB.append (m_aSelector.getAsCSSString (aSettings, 0));

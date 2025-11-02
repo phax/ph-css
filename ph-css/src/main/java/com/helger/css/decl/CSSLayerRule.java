@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -29,9 +32,6 @@ import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 @NotThreadSafe
 public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
@@ -44,21 +44,21 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
                                                             : new CommonsArrayList <> ();
   }
 
-  public CSSLayerRule (@Nonnull final Iterable <String> aSelectors)
+  public CSSLayerRule (@NonNull final Iterable <String> aSelectors)
   {
     ValueEnforcer.notNullNoNullValue (aSelectors, "Selectors");
     m_aSelectors = new CommonsArrayList <> (aSelectors);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllSelectors ()
   {
     return m_aSelectors.getClone ();
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 

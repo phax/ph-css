@@ -16,6 +16,8 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -23,8 +25,6 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.css.ECSSUnit;
 import com.helger.css.propertyvalue.CCSSValue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class is responsible for expression term optimization
@@ -49,9 +49,9 @@ public final class CSSExpressionTermOptimizer
   private CSSExpressionTermOptimizer ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getOptimizedValue (@Nonnull @Nonempty final String sValue)
+  public static String getOptimizedValue (@NonNull @Nonempty final String sValue)
   {
     // Replace e.g. "0px" with "0"
     if (UNIT_VALUES_0.contains (sValue))

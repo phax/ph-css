@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -27,9 +30,6 @@ import com.helger.css.ECSSUnit;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.utils.CSSNumberHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Part of a CSS calc element
@@ -43,7 +43,7 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   private final ECSSUnit m_eUnit;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSExpressionMemberMathUnitSimple (@Nonnull @Nonempty final String sText)
+  public CSSExpressionMemberMathUnitSimple (@NonNull @Nonempty final String sText)
   {
     if (StringHelper.isEmptyAfterTrim (sText))
       throw new IllegalArgumentException ("text may not be empty after trimming");
@@ -54,7 +54,7 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   /**
    * @return The text including the unit. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final String getText ()
   {
     return m_sText;
@@ -69,9 +69,9 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
     return m_eUnit;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return m_sText;
   }

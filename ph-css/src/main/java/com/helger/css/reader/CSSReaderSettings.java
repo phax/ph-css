@@ -19,6 +19,9 @@ package com.helger.css.reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.clone.ICloneable;
@@ -27,9 +30,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.handler.ICSSParseExceptionCallback;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A settings class for usage with {@link CSSReader}.
@@ -57,7 +57,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
   public CSSReaderSettings ()
   {}
 
-  public CSSReaderSettings (@Nonnull final CSSReaderSettings aOther)
+  public CSSReaderSettings (@NonNull final CSSReaderSettings aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     m_aFallbackCharset = aOther.m_aFallbackCharset;
@@ -75,7 +75,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    *         rule nor a BOM is present. Never <code>null</code>. Defaults to
    *         {@link #DEFAULT_CHARSET}. This is also used if the source is a byte stream (like File)
    */
-  @Nonnull
+  @NonNull
   public Charset getFallbackCharset ()
   {
     return m_aFallbackCharset;
@@ -86,7 +86,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    *         <code>@charset</code> rule nor a BOM is present. Never <code>null</code>. Defaults to
    *         the name of {@link #DEFAULT_CHARSET} .
    */
-  @Nonnull
+  @NonNull
   public String getFallbackCharsetName ()
   {
     return m_aFallbackCharset.name ();
@@ -98,8 +98,8 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    *        rule nor a BOM is present. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSReaderSettings setFallbackCharset (@Nonnull @Nonempty final Charset aFallbackCharset)
+  @NonNull
+  public CSSReaderSettings setFallbackCharset (@NonNull @Nonempty final Charset aFallbackCharset)
   {
     ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
     m_aFallbackCharset = aFallbackCharset;
@@ -122,7 +122,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    *        be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSReaderSettings setCustomErrorHandler (@Nullable final ICSSParseErrorHandler aCustomErrorHandler)
   {
     m_aCustomErrorHandler = aCustomErrorHandler;
@@ -145,7 +145,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    *        May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSReaderSettings setCustomExceptionHandler (@Nullable final ICSSParseExceptionCallback aCustomExceptionHandler)
   {
     m_aCustomExceptionHandler = aCustomExceptionHandler;
@@ -169,7 +169,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    *        it.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSReaderSettings setBrowserCompliantMode (final boolean bBrowserCompliantMode)
   {
     m_bBrowserCompliantMode = bBrowserCompliantMode;
@@ -195,7 +195,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    * @return this
    * @since 7.0.4
    */
-  @Nonnull
+  @NonNull
   public CSSReaderSettings setKeepDeprecatedProperties (final boolean bKeepDeprecatedProperties)
   {
     m_bKeepDeprecatedProperties = bKeepDeprecatedProperties;
@@ -221,7 +221,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    * @return this
    * @since 6.1.3
    */
-  @Nonnull
+  @NonNull
   public CSSReaderSettings setUseSourceLocation (final boolean bUseSourceLocation)
   {
     m_bUseSourceLocation = bUseSourceLocation;
@@ -247,7 +247,7 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    * @return this for chaining
    * @since 5.0.2
    */
-  @Nonnull
+  @NonNull
   public CSSReaderSettings setTabSize (@Nonnegative final int nTabSize)
   {
     ValueEnforcer.isGT0 (nTabSize, "TabSize");
@@ -276,14 +276,14 @@ public class CSSReaderSettings implements ICloneable <CSSReaderSettings>
    * @return this for chaining
    * @since 5.0.2
    */
-  @Nonnull
+  @NonNull
   public CSSReaderSettings setInterpretErrorHandler (@Nullable final ICSSInterpretErrorHandler aInterpretErrorHandler)
   {
     m_aInterpretErrorHandler = aInterpretErrorHandler;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSReaderSettings getClone ()
   {
     return new CSSReaderSettings (this);

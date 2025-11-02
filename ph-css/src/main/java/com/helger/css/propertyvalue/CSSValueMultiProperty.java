@@ -16,6 +16,8 @@
  */
 package com.helger.css.propertyvalue;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -29,8 +31,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a CSS value that has several property names, but only one value. This is e.g. if the
@@ -46,9 +46,9 @@ public class CSSValueMultiProperty implements ICSSMultiValue
   private final ECSSProperty m_eProperty;
   private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList <> ();
 
-  public CSSValueMultiProperty (@Nonnull final ECSSProperty eProperty,
-                                @Nonnull final ICSSProperty [] aProperties,
-                                @Nonnull @Nonempty final String sValue,
+  public CSSValueMultiProperty (@NonNull final ECSSProperty eProperty,
+                                @NonNull final ICSSProperty [] aProperties,
+                                @NonNull @Nonempty final String sValue,
                                 final boolean bIsImportant)
   {
     ValueEnforcer.notNull (eProperty, "Property");
@@ -72,21 +72,21 @@ public class CSSValueMultiProperty implements ICSSMultiValue
       m_aValues.add (new CSSValue (aProperty, sValue, bIsImportant));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSValue> getAllContainedValues ()
   {
     return m_aValues.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public ECSSProperty getProp ()
   {
     return m_eProperty;
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return StringImplode.imploder ().source (m_aValues, x -> x.getAsCSSString (aSettings, nIndentLevel)).build ();
   }

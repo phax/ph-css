@@ -16,7 +16,7 @@
  */
 package com.helger.css.decl;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for a CSS color definition
@@ -28,6 +28,6 @@ public interface ICSSColor
   /**
    * @return The textual representation of the color.
    */
-  @Nonnull
+  @NonNull
   String getAsString ();
 }

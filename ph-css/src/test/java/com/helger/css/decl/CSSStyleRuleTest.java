@@ -20,12 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.css.reader.CSSReader;
 import com.helger.unittest.support.TestHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for {@link CSSStyleRule}.
@@ -34,8 +33,8 @@ import jakarta.annotation.Nonnull;
  */
 public final class CSSStyleRuleTest
 {
-  @Nonnull
-  private static CSSStyleRule _parse (@Nonnull final String sCSS)
+  @NonNull
+  private static CSSStyleRule _parse (@NonNull final String sCSS)
   {
     final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
     assertNotNull (sCSS, aCSS);

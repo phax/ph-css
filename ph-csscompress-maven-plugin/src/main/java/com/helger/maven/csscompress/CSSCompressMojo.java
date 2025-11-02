@@ -26,6 +26,7 @@ import java.util.function.Function;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.jspecify.annotations.NonNull;
 
 import com.helger.base.charset.CharsetHelper;
 import com.helger.base.io.EAppend;
@@ -43,8 +44,6 @@ import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileOperationManager;
 import com.helger.io.file.FilenameHelper;
 import com.helger.io.resource.FileSystemResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * @goal csscompress
@@ -371,13 +370,13 @@ public final class CSSCompressMojo extends AbstractMojo
     return false;
   }
 
-  @Nonnull
-  private String _getSourceRelativePath (@Nonnull final File aFile)
+  @NonNull
+  private String _getSourceRelativePath (@NonNull final File aFile)
   {
     return aFile.getAbsolutePath ().substring (sourceDirectory.getAbsolutePath ().length () + 1);
   }
 
-  private void _compressCSSFile (@Nonnull final File aSourceFile)
+  private void _compressCSSFile (@NonNull final File aSourceFile)
   {
     final String sSourceRelativePath = _getSourceRelativePath (aSourceFile);
 
@@ -456,7 +455,7 @@ public final class CSSCompressMojo extends AbstractMojo
     }
   }
 
-  private void _scanDirectory (@Nonnull final File aDir)
+  private void _scanDirectory (@NonNull final File aDir)
   {
     for (final File aChild : FileHelper.getDirectoryContent (aDir))
     {

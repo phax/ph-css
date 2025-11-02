@@ -18,6 +18,9 @@ package com.helger.css.utils;
 
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -26,9 +29,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.css.CCSS;
 import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.propertyvalue.CCSSValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Provides URL handling sanity methods.
@@ -98,9 +98,9 @@ public final class CSSURLHelper
    *        if <code>true</code> single quotes are added around the URL
    * @return <code>url(<i>sURL</i>)</code> or <code>url('<i>sURL</i>')</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getAsCSSURL (@Nonnull final URL aURL, final boolean bQuoteURL)
+  public static String getAsCSSURL (@NonNull final URL aURL, final boolean bQuoteURL)
   {
     ValueEnforcer.notNull (aURL, "URL");
 
@@ -136,7 +136,7 @@ public final class CSSURLHelper
    * @return <code>true</code> if any of the contained characters needs escaping, <code>false</code>
    *         if the URL can be used as is.
    */
-  public static boolean isCSSURLRequiringQuotes (@Nonnull final String sURL)
+  public static boolean isCSSURLRequiringQuotes (@NonNull final String sURL)
   {
     ValueEnforcer.notNull (sURL, "URL");
 
@@ -156,9 +156,9 @@ public final class CSSURLHelper
    *        The quote char that is used. Either single quote or double quote.
    * @return The escaped string. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getEscapedCSSURL (@Nonnull final String sURL, final char cQuoteChar)
+  public static String getEscapedCSSURL (@NonNull final String sURL, final char cQuoteChar)
   {
     ValueEnforcer.notNull (sURL, "URL");
 
@@ -189,9 +189,9 @@ public final class CSSURLHelper
    *        if <code>true</code> single quotes are added around the URL
    * @return <code>url(<i>sURL</i>)</code> or <code>url('<i>sURL</i>')</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getAsCSSURL (@Nonnull final String sURL, final boolean bForceQuoteURL)
+  public static String getAsCSSURL (@NonNull final String sURL, final boolean bForceQuoteURL)
   {
     ValueEnforcer.notNull (sURL, "URL");
 

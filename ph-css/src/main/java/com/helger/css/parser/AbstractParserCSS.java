@@ -16,14 +16,13 @@
  */
 package com.helger.css.parser;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for CSS parsers.

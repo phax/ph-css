@@ -16,6 +16,8 @@
  */
 package com.helger.css.handler;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,9 +25,6 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.CGlobal;
 import com.helger.css.parser.CSSNode;
 import com.helger.css.parser.ParserCSS30TreeConstants;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Maps the different parser tokens. This enum is only used internally. It was previously used to
@@ -159,19 +158,19 @@ public enum ECSSNodeType
    * @return <code>true</code> if <code>this</code> is the type of the passed parser node in the
    *         given version
    */
-  public boolean isNode (@Nonnull final CSSNode aParserNode)
+  public boolean isNode (@NonNull final CSSNode aParserNode)
   {
     return aParserNode.getNodeType () == getParserNodeType ();
   }
 
-  @Nonnull
+  @NonNull
   String getNodeName ()
   {
     return ParserCSS30TreeConstants.jjtNodeName[m_nParserType30];
   }
 
   @Nullable
-  static ECSSNodeType getNodeType (@Nonnull final CSSNode aParserNode)
+  static ECSSNodeType getNodeType (@NonNull final CSSNode aParserNode)
   {
     for (final ECSSNodeType eNodeType : values ())
       if (eNodeType.isNode (aParserNode))
@@ -180,7 +179,7 @@ public enum ECSSNodeType
   }
 
   @Nullable
-  static String getNodeName (@Nonnull final CSSNode aParserNode)
+  static String getNodeName (@NonNull final CSSNode aParserNode)
   {
     final ECSSNodeType eNodeType = getNodeType (aParserNode);
     if (eNodeType != null)
@@ -189,9 +188,9 @@ public enum ECSSNodeType
     return null;
   }
 
-  private static void _dumpRecursive (@Nonnull final CSSNode aParserNode,
-                                      @Nonnull final StringBuilder aSB,
-                                      @Nonnull final String sPrefix)
+  private static void _dumpRecursive (@NonNull final CSSNode aParserNode,
+                                      @NonNull final StringBuilder aSB,
+                                      @NonNull final String sPrefix)
   {
     aSB.append (sPrefix).append (getNodeName (aParserNode));
     if (aParserNode.isNotEmpty ())
@@ -201,16 +200,16 @@ public enum ECSSNodeType
       _dumpRecursive (aChildNode, aSB, sPrefix + "  ");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getDump (@Nonnull final CSSNode aParserNode)
+  public static String getDump (@NonNull final CSSNode aParserNode)
   {
     final StringBuilder aSB = new StringBuilder ();
     _dumpRecursive (aParserNode, aSB, "");
     return aSB.toString ();
   }
 
-  public static boolean isErrorNode (@Nonnull final CSSNode aParserNode)
+  public static boolean isErrorNode (@NonNull final CSSNode aParserNode)
   {
     return ERROR_SKIPTO.isNode (aParserNode);
   }

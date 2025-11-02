@@ -16,6 +16,7 @@
  */
 package com.helger.css.writer;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +25,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Utility class to compress CSS content
@@ -51,8 +50,8 @@ public final class CSSCompressor
    * @return If compression failed because the CSS is invalid or whatsoever, the original CSS is
    *         returned, else the compressed version is returned.
    */
-  @Nonnull
-  public static String getCompressedCSS (@Nonnull final String sOriginalCSS)
+  @NonNull
+  public static String getCompressedCSS (@NonNull final String sOriginalCSS)
   {
     return getCompressedCSS (sOriginalCSS, false);
   }
@@ -67,8 +66,8 @@ public final class CSSCompressor
    * @return If compression failed because the CSS is invalid or whatsoever, the original CSS is
    *         returned, else the compressed version is returned.
    */
-  @Nonnull
-  public static String getCompressedCSS (@Nonnull final String sOriginalCSS, final boolean bRemoveUnnecessaryCode)
+  @NonNull
+  public static String getCompressedCSS (@NonNull final String sOriginalCSS, final boolean bRemoveUnnecessaryCode)
   {
     final CSSWriterSettings aSettings = new CSSWriterSettings (true);
     aSettings.setRemoveUnnecessaryCode (bRemoveUnnecessaryCode);
@@ -87,8 +86,8 @@ public final class CSSCompressor
    * @return If compression failed because the CSS is invalid or whatsoever, the original CSS is
    *         returned, else the rewritten version is returned.
    */
-  @Nonnull
-  public static String getRewrittenCSS (@Nonnull final String sOriginalCSS, @Nonnull final CSSWriterSettings aSettings)
+  @NonNull
+  public static String getRewrittenCSS (@NonNull final String sOriginalCSS, @NonNull final CSSWriterSettings aSettings)
   {
     ValueEnforcer.notNull (sOriginalCSS, "OriginalCSS");
     ValueEnforcer.notNull (aSettings, "Settings");

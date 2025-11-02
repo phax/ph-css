@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -25,9 +28,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents an expression member URI
@@ -39,12 +39,12 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
 {
   private CSSURI m_aURI;
 
-  public CSSExpressionMemberTermURI (@Nonnull final String sURIString)
+  public CSSExpressionMemberTermURI (@NonNull final String sURIString)
   {
     this (new CSSURI (sURIString));
   }
 
-  public CSSExpressionMemberTermURI (@Nonnull final CSSURI aURI)
+  public CSSExpressionMemberTermURI (@NonNull final CSSURI aURI)
   {
     setURI (aURI);
   }
@@ -52,7 +52,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
   /**
    * @return The contained {@link CSSURI} object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final CSSURI getURI ()
   {
     return m_aURI;
@@ -61,7 +61,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
   /**
    * @return A sanity shortcut for <code>getURI().getURI()</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getURIString ()
   {
@@ -75,8 +75,8 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
    *        The new URI to set. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final CSSExpressionMemberTermURI setURI (@Nonnull final CSSURI aURI)
+  @NonNull
+  public final CSSExpressionMemberTermURI setURI (@NonNull final CSSURI aURI)
   {
     m_aURI = ValueEnforcer.notNull (aURI, "URI");
     return this;
@@ -90,22 +90,22 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
    *        empty.
    * @return this
    */
-  @Nonnull
-  public final CSSExpressionMemberTermURI setURIString (@Nonnull final String sURIString)
+  @NonNull
+  public final CSSExpressionMemberTermURI setURIString (@NonNull final String sURIString)
   {
     m_aURI.setURI (sURIString);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSExpressionMemberTermURI getClone ()
   {
     return new CSSExpressionMemberTermURI (m_aURI);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return m_aURI.getAsCSSString (aSettings, nIndentLevel);
   }

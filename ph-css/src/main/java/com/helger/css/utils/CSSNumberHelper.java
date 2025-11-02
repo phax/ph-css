@@ -19,6 +19,9 @@ package com.helger.css.utils;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.css.ECSSUnit;
 import com.helger.css.propertyvalue.CSSSimpleValueWithUnit;
 import com.helger.text.compare.ComparatorHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Provides number handling sanity methods.
@@ -71,7 +71,7 @@ public final class CSSNumberHelper
    * @see #getMatchingUnitExclPercentage(String)
    */
   @Nullable
-  public static ECSSUnit getMatchingUnitInclPercentage (@Nonnull final String sCSSValue)
+  public static ECSSUnit getMatchingUnitInclPercentage (@NonNull final String sCSSValue)
   {
     ValueEnforcer.notNull (sCSSValue, "CSSValue");
     // Search units, the ones with the longest names come first
@@ -93,7 +93,7 @@ public final class CSSNumberHelper
    * @see #getMatchingUnitInclPercentage(String)
    */
   @Nullable
-  public static ECSSUnit getMatchingUnitExclPercentage (@Nonnull final String sCSSValue)
+  public static ECSSUnit getMatchingUnitExclPercentage (@NonNull final String sCSSValue)
   {
     final ECSSUnit eUnit = getMatchingUnitInclPercentage (sCSSValue);
     return eUnit == null || eUnit == ECSSUnit.PERCENTAGE ? null : eUnit;

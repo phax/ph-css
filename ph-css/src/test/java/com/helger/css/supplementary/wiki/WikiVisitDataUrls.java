@@ -16,6 +16,9 @@
  */
 package com.helger.css.supplementary.wiki;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
@@ -26,9 +29,6 @@ import com.helger.css.decl.visit.CSSVisitor;
 import com.helger.css.decl.visit.DefaultCSSUrlVisitor;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.utils.CSSDataURL;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Example how to extract all URLs from a certain CSS file using a
@@ -48,7 +48,7 @@ public final class WikiVisitDataUrls
     {
       // Called for each import
       @Override
-      public void onImport (@Nonnull final CSSImportRule aImportRule)
+      public void onImport (@NonNull final CSSImportRule aImportRule)
       {
         System.out.println ("Import: " + aImportRule.getLocationString ());
       }
@@ -56,8 +56,8 @@ public final class WikiVisitDataUrls
       // Call for URLs outside of URLs
       @Override
       public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                    @Nonnull final CSSDeclaration aDeclaration,
-                                    @Nonnull final CSSExpressionMemberTermURI aURITerm)
+                                    @NonNull final CSSDeclaration aDeclaration,
+                                    @NonNull final CSSExpressionMemberTermURI aURITerm)
       {
         final CSSURI aURI = aURITerm.getURI ();
 

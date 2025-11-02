@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -28,29 +31,26 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSWriterSettings;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public class CSSPageMarginBlock implements ICSSPageRuleMember, IHasCSSDeclarations <CSSPageMarginBlock>
 {
   private String m_sPageMarginSymbol;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSPageMarginBlock (@Nonnull @Nonempty final String sPargeMarginSymbol)
+  public CSSPageMarginBlock (@NonNull @Nonempty final String sPargeMarginSymbol)
   {
     setPageMarginSymbol (sPargeMarginSymbol);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getPageMarginSymbol ()
   {
     return m_sPageMarginSymbol;
   }
 
-  @Nonnull
-  public final CSSPageMarginBlock setPageMarginSymbol (@Nonnull @Nonempty final String sPargeMarginSymbol)
+  @NonNull
+  public final CSSPageMarginBlock setPageMarginSymbol (@NonNull @Nonempty final String sPargeMarginSymbol)
   {
     ValueEnforcer.notEmpty (sPargeMarginSymbol, "PargeMarginSymbol");
     ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'),
@@ -59,40 +59,40 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, IHasCSSDeclaratio
     return this;
   }
 
-  @Nonnull
-  public CSSPageMarginBlock addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public CSSPageMarginBlock addDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     m_aDeclarations.addDeclaration (aDeclaration);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSPageMarginBlock addDeclaration (@Nonnegative final int nIndex,
-                                            @Nonnull final CSSDeclaration aNewDeclaration)
+                                            @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
   }
 
-  @Nonnull
-  public EChange removeDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public EChange removeDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     return m_aDeclarations.removeDeclaration (aDeclaration);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
   {
     return m_aDeclarations.removeDeclaration (nDeclarationIndex);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllDeclarations ()
   {
     return m_aDeclarations.removeAllDeclarations ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
@@ -105,9 +105,9 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, IHasCSSDeclaratio
     return m_aDeclarations.getDeclarationAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   public CSSPageMarginBlock setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                   @Nonnull final CSSDeclaration aNewDeclaration)
+                                                   @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -130,16 +130,16 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, IHasCSSDeclaratio
     return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";

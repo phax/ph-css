@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -28,9 +31,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single CSS style rule. A style rule consists of a number of
@@ -63,16 +63,16 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return m_aSelectors.size ();
   }
 
-  @Nonnull
-  public CSSStyleRule addSelector (@Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  @NonNull
+  public CSSStyleRule addSelector (@NonNull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
     return addSelector (new CSSSelector ().addMember (aSingleSelectorMember));
   }
 
-  @Nonnull
-  public CSSStyleRule addSelector (@Nonnull final CSSSelector aSelector)
+  @NonNull
+  public CSSStyleRule addSelector (@NonNull final CSSSelector aSelector)
   {
     ValueEnforcer.notNull (aSelector, "Selector");
 
@@ -80,16 +80,16 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return this;
   }
 
-  @Nonnull
-  public CSSStyleRule addSelector (@Nonnegative final int nIndex, @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  @NonNull
+  public CSSStyleRule addSelector (@Nonnegative final int nIndex, @NonNull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
     return addSelector (nIndex, new CSSSelector ().addMember (aSingleSelectorMember));
   }
 
-  @Nonnull
-  public CSSStyleRule addSelector (@Nonnegative final int nIndex, @Nonnull final CSSSelector aSelector)
+  @NonNull
+  public CSSStyleRule addSelector (@Nonnegative final int nIndex, @NonNull final CSSSelector aSelector)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aSelector, "Selector");
@@ -101,13 +101,13 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return this;
   }
 
-  @Nonnull
-  public EChange removeSelector (@Nonnull final CSSSelector aSelector)
+  @NonNull
+  public EChange removeSelector (@NonNull final CSSSelector aSelector)
   {
     return m_aSelectors.removeObject (aSelector);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeSelector (@Nonnegative final int nSelectorIndex)
   {
     return m_aSelectors.removeAtIndex (nSelectorIndex);
@@ -120,7 +120,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllSelectors ()
   {
     return m_aSelectors.removeAll ();
@@ -132,46 +132,46 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return m_aSelectors.getAtIndex (nSelectorIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSSelector> getAllSelectors ()
   {
     return m_aSelectors.getClone ();
   }
 
-  @Nonnull
-  public CSSStyleRule addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public CSSStyleRule addDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     m_aDeclarations.addDeclaration (aDeclaration);
     return this;
   }
 
-  @Nonnull
-  public CSSStyleRule addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  @NonNull
+  public CSSStyleRule addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
   }
 
-  @Nonnull
-  public EChange removeDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public EChange removeDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     return m_aDeclarations.removeDeclaration (aDeclaration);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
   {
     return m_aDeclarations.removeDeclaration (nDeclarationIndex);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllDeclarations ()
   {
     return m_aDeclarations.removeAllDeclarations ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
@@ -184,8 +184,8 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return m_aDeclarations.getDeclarationAtIndex (nIndex);
   }
 
-  @Nonnull
-  public CSSStyleRule setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  @NonNull
+  public CSSStyleRule setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -208,15 +208,15 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
   }
 
-  @Nonnull
-  public String getSelectorsAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getSelectorsAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder ();
@@ -236,8 +236,8 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
     return aSB.toString ();
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";

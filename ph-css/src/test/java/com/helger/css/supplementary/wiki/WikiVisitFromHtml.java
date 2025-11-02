@@ -16,6 +16,8 @@
  */
 package com.helger.css.supplementary.wiki;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.visit.CSSVisitor;
@@ -23,8 +25,6 @@ import com.helger.css.decl.visit.DefaultCSSVisitor;
 import com.helger.css.decl.visit.ICSSVisitor;
 import com.helger.css.reader.CSSReaderDeclarationList;
 import com.helger.css.writer.CSSWriterSettings;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Example how to read the content of a CSS style attribute, and visit all contained declarations -
@@ -58,7 +58,7 @@ public final class WikiVisitFromHtml
     final ICSSVisitor aVisitor = new DefaultCSSVisitor ()
     {
       @Override
-      public void onDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+      public void onDeclaration (@NonNull final CSSDeclaration aDeclaration)
       {
         System.out.println (aDeclaration.getProperty () +
                             ": " +

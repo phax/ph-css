@@ -16,13 +16,13 @@
  */
 package com.helger.css.media;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
 import com.helger.css.annotation.DeprecatedInCSS21;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Defines all default CSS media types.
@@ -69,7 +69,7 @@ public enum ECSSMedium implements IHasName
 
   private final String m_sName;
 
-  ECSSMedium (@Nonnull @Nonempty final String sName)
+  ECSSMedium (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
@@ -77,7 +77,7 @@ public enum ECSSMedium implements IHasName
   /**
    * @return the CSS medium name. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {

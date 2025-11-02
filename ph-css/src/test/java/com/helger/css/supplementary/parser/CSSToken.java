@@ -16,11 +16,11 @@
  */
 package com.helger.css.supplementary.parser;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 public class CSSToken
 {
@@ -35,8 +35,8 @@ public class CSSToken
                    @Nonnegative final int nStartColumn,
                    @Nonnegative final int nEndLine,
                    @Nonnegative final int nEndColumn,
-                   @Nonnull @Nonempty final String sImage,
-                   @Nonnull final ECSSTokenType eType)
+                   @NonNull @Nonempty final String sImage,
+                   @NonNull final ECSSTokenType eType)
   {
     m_nStartLine = nStartLine;
     m_nStartColumn = nStartColumn;

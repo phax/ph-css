@@ -22,6 +22,9 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.name.IHasName;
 import com.helger.base.string.StringHelper;
@@ -39,9 +42,6 @@ import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.EXMLSerializeVersion;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Create the src/main/resources/supported-css-properties.html file with all supported properties.
  *
@@ -49,7 +49,7 @@ import jakarta.annotation.Nullable;
  */
 public class MainCreateSupportedCSSPropertiesFile
 {
-  private static void _boolean (@Nonnull final IMicroElement td, final boolean bSet, @Nullable final String sTitle)
+  private static void _boolean (@NonNull final IMicroElement td, final boolean bSet, @Nullable final String sTitle)
   {
     if (bSet)
     {
