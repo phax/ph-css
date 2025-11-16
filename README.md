@@ -315,6 +315,10 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.1.0 - 2025-11-16
+* Updated to ph-commons 12.1.0
+* Using JSpecify annotations
+
 v8.0.1 - 2025-10-28
 * Add support for case sensitivity in attribute selector. See [#116](https://github.com/phax/ph-css/pull/116) - thx @Aditi-1400
 
