@@ -16,15 +16,16 @@
  */
 package com.helger.css.utils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import java.net.URL;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.ISimpleURL;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 import com.helger.css.CCSS;
 import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -47,18 +48,18 @@ public final class CSSURLHelper
   {}
 
   /**
-   * Check if the passed CSS value is an URL value. This is either a URL
-   * starting with "url(" or it is the string "none".
+   * Check if the passed CSS value is an URL value. This is either a URL starting with "url(" or it
+   * is the string "none".
    *
    * @param sValue
    *        The value to be checked.
-   * @return <code>true</code> if the passed value starts with "url(" and ends
-   *         with ")" - <code>false</code> otherwise.
+   * @return <code>true</code> if the passed value starts with "url(" and ends with ")" -
+   *         <code>false</code> otherwise.
    */
   public static boolean isURLValue (@Nullable final String sValue)
   {
     final String sRealValue = StringHelper.trim (sValue);
-    if (StringHelper.hasNoText (sRealValue))
+    if (StringHelper.isEmpty (sRealValue))
       return false;
 
     if (sRealValue.equals (CCSSValue.NONE))
@@ -97,24 +98,23 @@ public final class CSSURLHelper
    *        if <code>true</code> single quotes are added around the URL
    * @return <code>url(<i>sURL</i>)</code> or <code>url('<i>sURL</i>')</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getAsCSSURL (@Nonnull final ISimpleURL aURL, final boolean bQuoteURL)
+  public static String getAsCSSURL (@NonNull final URL aURL, final boolean bQuoteURL)
   {
     ValueEnforcer.notNull (aURL, "URL");
 
-    return getAsCSSURL (aURL.getAsStringWithEncodedParameters (), bQuoteURL);
+    return getAsCSSURL (aURL.toExternalForm (), bQuoteURL);
   }
 
   /**
-   * Check if the passed character is a valid character inside a URL. Characters
-   * for which this method returns <code>false</code> must be escaped!
+   * Check if the passed character is a valid character inside a URL. Characters for which this
+   * method returns <code>false</code> must be escaped!
    *
    * @param c
    *        The character to be checked.
-   * @return <code>true</code> if the passed character can be directly contained
-   *         inside a URL, <code>false</code> otherwise if the character needs
-   *         to be escaped.
+   * @return <code>true</code> if the passed character can be directly contained inside a URL,
+   *         <code>false</code> otherwise if the character needs to be escaped.
    */
   public static boolean isValidCSSURLChar (final char c)
   {
@@ -133,10 +133,10 @@ public final class CSSURLHelper
    *
    * @param sURL
    *        The URL to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if any of the contained characters needs
-   *         escaping, <code>false</code> if the URL can be used as is.
+   * @return <code>true</code> if any of the contained characters needs escaping, <code>false</code>
+   *         if the URL can be used as is.
    */
-  public static boolean isCSSURLRequiringQuotes (@Nonnull final String sURL)
+  public static boolean isCSSURLRequiringQuotes (@NonNull final String sURL)
   {
     ValueEnforcer.notNull (sURL, "URL");
 
@@ -147,8 +147,8 @@ public final class CSSURLHelper
   }
 
   /**
-   * Internal method to escape a CSS URL. Because this method is only called for
-   * quoted URLs, only the quote character itself needs to be quoted.
+   * Internal method to escape a CSS URL. Because this method is only called for quoted URLs, only
+   * the quote character itself needs to be quoted.
    *
    * @param sURL
    *        The URL to be escaped. May not be <code>null</code>.
@@ -156,9 +156,9 @@ public final class CSSURLHelper
    *        The quote char that is used. Either single quote or double quote.
    * @return The escaped string. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getEscapedCSSURL (@Nonnull final String sURL, final char cQuoteChar)
+  public static String getEscapedCSSURL (@NonNull final String sURL, final char cQuoteChar)
   {
     ValueEnforcer.notNull (sURL, "URL");
 
@@ -180,8 +180,8 @@ public final class CSSURLHelper
   }
 
   /**
-   * Surround the passed URL with the CSS "url(...)". When the passed URL
-   * contains characters that require quoting, quotes are automatically added!
+   * Surround the passed URL with the CSS "url(...)". When the passed URL contains characters that
+   * require quoting, quotes are automatically added!
    *
    * @param sURL
    *        URL to be wrapped. May not be <code>null</code> but maybe empty.
@@ -189,9 +189,9 @@ public final class CSSURLHelper
    *        if <code>true</code> single quotes are added around the URL
    * @return <code>url(<i>sURL</i>)</code> or <code>url('<i>sURL</i>')</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getAsCSSURL (@Nonnull final String sURL, final boolean bForceQuoteURL)
+  public static String getAsCSSURL (@NonNull final String sURL, final boolean bForceQuoteURL)
   {
     ValueEnforcer.notNull (sURL, "URL");
 

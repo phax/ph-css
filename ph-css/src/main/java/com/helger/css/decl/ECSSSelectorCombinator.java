@@ -16,62 +16,45 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * This enum contains all the selector combinators. E.g. used in
- * <code>div <b>&gt;</b> span</code>
+ * This enum contains all the selector combinators. E.g. used in <code>div <b>&gt;</b> span</code>
  *
  * @author Philip Helger
  */
-public enum ECSSSelectorCombinator implements ICSSSelectorMember, ICSSVersionAware, IHasName
+public enum ECSSSelectorCombinator implements ICSSSelectorMember, IHasName
 {
   PLUS ("+"),
   GREATER (">"),
-  TILDE ("~", ECSSVersion.CSS30),
+  TILDE ("~"),
   BLANK (" ");
 
   private final String m_sName;
-  private final ECSSVersion m_eVersion;
 
-  ECSSSelectorCombinator (@Nonnull @Nonempty final String sName)
-  {
-    this (sName, ECSSVersion.CSS21);
-  }
-
-  ECSSSelectorCombinator (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
+  ECSSSelectorCombinator (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
-    m_eVersion = eVersion;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return m_sName;
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return m_eVersion;
   }
 
   @Nullable

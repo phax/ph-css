@@ -18,7 +18,6 @@ package com.helger.css.supplementary.issues;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.reader.CSSReader;
 
@@ -34,7 +33,7 @@ public final class Issue53Test
   {
     final String css = "@font-face { font-family: 'NeutraText-Bold'; src: url(https://www.someFonts.com/NeutraText-Bold.otf); }";
 
-    for (final ICSSTopLevelRule icssTopLevelRule : CSSReader.readFromString (css, ECSSVersion.LATEST).getAllRules ())
+    for (final ICSSTopLevelRule icssTopLevelRule : CSSReader.readFromString (css).getAllRules ())
     {
       icssTopLevelRule.getAsCSSString ();
     }

@@ -16,10 +16,9 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
@@ -44,12 +43,12 @@ public final class WikiVisitDataUrls
     final String sStyle = "@import '/folder/foobar.css';\n" +
                           "div{background:fixed url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9EFBAoYMhVvMQIAAAAtSURBVHicY/z//z8DHoBH+v///yy4FDEyMjIwMDDhM3lgpaEuh7gTEzDiDxYA9HEPDF90e5YAAAAASUVORK5CYII=) !important;}\n" +
                           "span { background-image:url('/my/folder/b.gif');}";
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle);
     CSSVisitor.visitCSSUrl (aCSS, new DefaultCSSUrlVisitor ()
     {
       // Called for each import
       @Override
-      public void onImport (@Nonnull final CSSImportRule aImportRule)
+      public void onImport (@NonNull final CSSImportRule aImportRule)
       {
         System.out.println ("Import: " + aImportRule.getLocationString ());
       }
@@ -57,8 +56,8 @@ public final class WikiVisitDataUrls
       // Call for URLs outside of URLs
       @Override
       public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                    @Nonnull final CSSDeclaration aDeclaration,
-                                    @Nonnull final CSSExpressionMemberTermURI aURITerm)
+                                    @NonNull final CSSDeclaration aDeclaration,
+                                    @NonNull final CSSExpressionMemberTermURI aURITerm)
       {
         final CSSURI aURI = aURITerm.getURI ();
 

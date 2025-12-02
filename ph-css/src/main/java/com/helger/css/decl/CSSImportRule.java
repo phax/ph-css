@@ -16,19 +16,19 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriteable;
@@ -49,12 +49,12 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSImportRule (@Nonnull final String sLocation)
+  public CSSImportRule (@NonNull final String sLocation)
   {
     this (new CSSURI (sLocation));
   }
 
-  public CSSImportRule (@Nonnull final CSSURI aLocation)
+  public CSSImportRule (@NonNull final CSSURI aLocation)
   {
     setLocation (aLocation);
   }
@@ -84,8 +84,8 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    *        The media query to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSImportRule addMediaQuery (@Nonnull final CSSMediaQuery aMediaQuery)
+  @NonNull
+  public CSSImportRule addMediaQuery (@NonNull final CSSMediaQuery aMediaQuery)
   {
     ValueEnforcer.notNull (aMediaQuery, "MediaQuery");
 
@@ -102,8 +102,8 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    *        The media query to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSImportRule addMediaQuery (@Nonnegative final int nIndex, @Nonnull final CSSMediaQuery aMediaQuery)
+  @NonNull
+  public CSSImportRule addMediaQuery (@Nonnegative final int nIndex, @NonNull final CSSMediaQuery aMediaQuery)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMediaQuery, "MediaQuery");
@@ -122,7 +122,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    *        The media query to be removed. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if removal was successful.
    */
-  @Nonnull
+  @NonNull
   public EChange removeMediaQuery (@Nullable final CSSMediaQuery aMediaQuery)
   {
     return m_aMediaQueries.removeObject (aMediaQuery);
@@ -135,7 +135,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    *        The index of the media query to be removed.
    * @return {@link EChange#CHANGED} if removal was successful.
    */
-  @Nonnull
+  @NonNull
   public EChange removeMediaQuery (final int nMediumIndex)
   {
     return m_aMediaQueries.removeAtIndex (nMediumIndex);
@@ -146,7 +146,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    *
    * @return {@link EChange#CHANGED} if at least one media query was contained.
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMediaQueries ()
   {
     return m_aMediaQueries.removeAll ();
@@ -156,7 +156,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    * @return A list with all contained media queries. Never <code>null</code>
    *         and always a copy of the underlying list.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaQuery> getAllMediaQueries ()
   {
@@ -166,7 +166,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * @return The URL object of the CSS file to import. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final CSSURI getLocation ()
   {
     return m_aLocation;
@@ -176,7 +176,7 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    * @return The URL of the CSS file to import. Never <code>null</code>. This is
    *         a shortcut for <code>getLocation().getURI()</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getLocationString ()
   {
@@ -190,8 +190,8 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    *        The location to use. May not be <code>null</code>.
    * @return this;
    */
-  @Nonnull
-  public final CSSImportRule setLocation (@Nonnull final CSSURI aLocation)
+  @NonNull
+  public final CSSImportRule setLocation (@NonNull final CSSURI aLocation)
   {
     ValueEnforcer.notNull (aLocation, "Location");
 
@@ -206,16 +206,16 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
    *        The location URI to use. May not be <code>null</code>.
    * @return this;
    */
-  @Nonnull
-  public final CSSImportRule setLocationString (@Nonnull final String sLocationURI)
+  @NonNull
+  public final CSSImportRule setLocationString (@NonNull final String sLocationURI)
   {
     m_aLocation.setURI (sLocationURI);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 

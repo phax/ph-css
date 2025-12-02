@@ -16,12 +16,12 @@
  */
 package com.helger.css.media;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 
 /**
  * This enum represents the W3C standard media query expression features.
@@ -117,7 +117,7 @@ public enum ECSSMediaExpressionFeature implements IHasName
 
   private final String m_sName;
 
-  ECSSMediaExpressionFeature (@Nonnull @Nonempty final String sName)
+  ECSSMediaExpressionFeature (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
@@ -125,7 +125,7 @@ public enum ECSSMediaExpressionFeature implements IHasName
   /**
    * @return the CSS media expression name. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {

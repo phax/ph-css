@@ -16,12 +16,12 @@
  */
 package com.helger.css.parser;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * This class has the same layout as the normal {@link Token} class, but its
@@ -39,7 +39,7 @@ public class ReadOnlyToken
   private final int m_nEndColumn;
   private final String m_sImage;
 
-  public ReadOnlyToken (@Nonnull final Token aToken)
+  public ReadOnlyToken (@NonNull final Token aToken)
   {
     ValueEnforcer.notNull (aToken, "Token");
 

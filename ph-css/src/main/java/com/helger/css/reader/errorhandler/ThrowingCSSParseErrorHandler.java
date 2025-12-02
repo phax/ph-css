@@ -16,12 +16,12 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
@@ -39,26 +39,26 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
   public ThrowingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
   {
     throw aParseEx;
   }
 
-  public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                   @Nonnull @Nonempty final String sRule,
-                                   @Nonnull @Nonempty final String sMsg) throws ParseException
+  public void onCSSUnexpectedRule (@NonNull final Token aCurrentToken,
+                                   @NonNull @Nonempty final String sRule,
+                                   @NonNull @Nonempty final String sMsg) throws ParseException
   {
     throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
 
-  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken) throws ParseException
+  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken) throws ParseException
   {
     throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
-                                         @Nonnull final Token aFromToken,
-                                         @Nonnull final Token aToToken) throws ParseException
+                                         @NonNull final Token aFromToken,
+                                         @NonNull final Token aToToken) throws ParseException
   {
     if (ex != null)
       throw ex;

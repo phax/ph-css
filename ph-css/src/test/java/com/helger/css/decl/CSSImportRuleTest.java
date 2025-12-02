@@ -20,14 +20,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
-
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.css.ECSSVersion;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriterSettings;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CSSImportRule}.
@@ -36,10 +34,10 @@ import com.helger.css.writer.CSSWriterSettings;
  */
 public final class CSSImportRuleTest
 {
-  @Nonnull
-  private static CSSImportRule _parse (@Nonnull final String sCSS)
+  @NonNull
+  private static CSSImportRule _parse (@NonNull final String sCSS)
   {
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
     assertNotNull (sCSS, aCSS);
     assertTrue (aCSS.hasImportRules ());
     assertEquals (1, aCSS.getImportRuleCount ());
@@ -51,8 +49,7 @@ public final class CSSImportRuleTest
   @Test
   public void testRead ()
   {
-    CSSImportRule aIR;
-    aIR = _parse ("@import url(a.gif);\n");
+    CSSImportRule aIR = _parse ("@import url(a.gif);\n");
     assertEquals (0, aIR.getMediaQueryCount ());
     assertTrue (aIR.getAllMediaQueries ().isEmpty ());
     assertEquals ("a.gif", aIR.getLocationString ());
@@ -71,14 +68,14 @@ public final class CSSImportRuleTest
     // Create the same rule by application
     final CSSImportRule aCreated = new CSSImportRule ("a.gif");
     aCreated.addMediaQuery (new CSSMediaQuery ("print")).addMediaQuery (new CSSMediaQuery ("screen"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aIR, aCreated);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aIR, aCreated);
   }
 
   @Test
   public void testCreate ()
   {
     final CSSImportRule aImportRule = new CSSImportRule ("a.gif");
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
     assertEquals ("@import url(a.gif);\n", aImportRule.getAsCSSString (aSettings));
     aSettings.setQuoteURLs (true);
     assertEquals ("@import url('a.gif');\n", aImportRule.getAsCSSString (aSettings));

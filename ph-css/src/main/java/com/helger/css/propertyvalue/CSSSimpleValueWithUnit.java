@@ -19,16 +19,16 @@ package com.helger.css.propertyvalue;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.CheckReturnValue;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.numeric.BigHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.ECSSUnit;
 
@@ -51,7 +51,7 @@ public class CSSSimpleValueWithUnit
    * @param eUnit
    *        CSS unit to use. May not be <code>null</code>.
    */
-  public CSSSimpleValueWithUnit (@Nonnull final BigDecimal aValue, @Nonnull final ECSSUnit eUnit)
+  public CSSSimpleValueWithUnit (@NonNull final BigDecimal aValue, @NonNull final ECSSUnit eUnit)
   {
     setValue (aValue);
     setUnit (eUnit);
@@ -65,7 +65,7 @@ public class CSSSimpleValueWithUnit
    * @param eUnit
    *        CSS unit to use. May not be <code>null</code>.
    */
-  public CSSSimpleValueWithUnit (final double dValue, @Nonnull final ECSSUnit eUnit)
+  public CSSSimpleValueWithUnit (final double dValue, @NonNull final ECSSUnit eUnit)
   {
     this (BigDecimal.valueOf (dValue), eUnit);
   }
@@ -78,8 +78,8 @@ public class CSSSimpleValueWithUnit
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
-  public CSSSimpleValueWithUnit setValue (@Nonnull final BigDecimal aValue)
+  @NonNull
+  public CSSSimpleValueWithUnit setValue (@NonNull final BigDecimal aValue)
   {
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
     return this;
@@ -93,7 +93,7 @@ public class CSSSimpleValueWithUnit
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public CSSSimpleValueWithUnit setValue (final double dValue)
   {
     return setValue (BigDecimal.valueOf (dValue));
@@ -103,7 +103,7 @@ public class CSSSimpleValueWithUnit
    * @return The numeric value as a decimal value (as passed in the constructor)
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public BigDecimal getAsBigDecimalValue ()
   {
     return m_aValue;
@@ -118,8 +118,7 @@ public class CSSSimpleValueWithUnit
   }
 
   /**
-   * @return The numeric value as an int value - no check for validity is
-   *         performed
+   * @return The numeric value as an int value - no check for validity is performed
    */
   public int getAsIntValue ()
   {
@@ -127,8 +126,7 @@ public class CSSSimpleValueWithUnit
   }
 
   /**
-   * @return The numeric value as a long value - no check for validity is
-   *         performed
+   * @return The numeric value as a long value - no check for validity is performed
    */
   public long getAsLongValue ()
   {
@@ -143,8 +141,8 @@ public class CSSSimpleValueWithUnit
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
-  public CSSSimpleValueWithUnit setUnit (@Nonnull final ECSSUnit eUnit)
+  @NonNull
+  public CSSSimpleValueWithUnit setUnit (@NonNull final ECSSUnit eUnit)
   {
     m_eUnit = ValueEnforcer.notNull (eUnit, "Unit");
     return this;
@@ -153,18 +151,17 @@ public class CSSSimpleValueWithUnit
   /**
    * @return The CSS unit of this value. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ECSSUnit getUnit ()
   {
     return m_eUnit;
   }
 
   /**
-   * @return The formatted string value of this item. Neither <code>null</code>
-   *         nor empty.
+   * @return The formatted string value of this item. Neither <code>null</code> nor empty.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getFormatted ()
   {
@@ -179,9 +176,9 @@ public class CSSSimpleValueWithUnit
    * @return A new object. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public CSSSimpleValueWithUnit add (@Nonnull final BigDecimal aDelta)
+  public CSSSimpleValueWithUnit add (@NonNull final BigDecimal aDelta)
   {
     return new CSSSimpleValueWithUnit (m_aValue.add (aDelta), m_eUnit);
   }
@@ -193,7 +190,7 @@ public class CSSSimpleValueWithUnit
    *        The delta to be added.
    * @return A new object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public CSSSimpleValueWithUnit add (final double dDelta)
   {
@@ -208,9 +205,9 @@ public class CSSSimpleValueWithUnit
    * @return A new object. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public CSSSimpleValueWithUnit substract (@Nonnull final BigDecimal aDelta)
+  public CSSSimpleValueWithUnit substract (@NonNull final BigDecimal aDelta)
   {
     return new CSSSimpleValueWithUnit (m_aValue.subtract (aDelta), m_eUnit);
   }
@@ -222,7 +219,7 @@ public class CSSSimpleValueWithUnit
    *        The delta to be subtracted.
    * @return A new object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public CSSSimpleValueWithUnit substract (final double dDelta)
   {
@@ -233,14 +230,13 @@ public class CSSSimpleValueWithUnit
    * Get a new object with the same unit but a multiplied value.
    *
    * @param aValue
-   *        The value to be multiply with this value. May not be
-   *        <code>null</code>.
+   *        The value to be multiply with this value. May not be <code>null</code>.
    * @return A new object. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public CSSSimpleValueWithUnit multiply (@Nonnull final BigDecimal aValue)
+  public CSSSimpleValueWithUnit multiply (@NonNull final BigDecimal aValue)
   {
     return new CSSSimpleValueWithUnit (m_aValue.multiply (aValue), m_eUnit);
   }
@@ -252,7 +248,7 @@ public class CSSSimpleValueWithUnit
    *        The value to be multiply with this value.
    * @return A new object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public CSSSimpleValueWithUnit multiply (final double dValue)
   {
@@ -271,28 +267,28 @@ public class CSSSimpleValueWithUnit
    * @return A new object. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public CSSSimpleValueWithUnit divide (@Nonnull final BigDecimal aDivisor,
+  public CSSSimpleValueWithUnit divide (@NonNull final BigDecimal aDivisor,
                                         @Nonnegative final int nScale,
-                                        @Nonnull final RoundingMode eRoundingMode)
+                                        @NonNull final RoundingMode eRoundingMode)
   {
     return new CSSSimpleValueWithUnit (m_aValue.divide (aDivisor, nScale, eRoundingMode), m_eUnit);
   }
 
   /**
    * Get a new object with the same unit but an divided value. By default
-   * {@link CCSS#CSS_MAXIMUM_FRACTION_DIGITS} is used as scale and
-   * {@link RoundingMode#HALF_UP} is used as rounding mode.
+   * {@link CCSS#CSS_MAXIMUM_FRACTION_DIGITS} is used as scale and {@link RoundingMode#HALF_UP} is
+   * used as rounding mode.
    *
    * @param aDivisor
    *        The divisor to use. May not be <code>null</code>.
    * @return A new object. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public CSSSimpleValueWithUnit divide (@Nonnull final BigDecimal aDivisor)
+  public CSSSimpleValueWithUnit divide (@NonNull final BigDecimal aDivisor)
   {
     return divide (aDivisor, CCSS.CSS_MAXIMUM_FRACTION_DIGITS, RoundingMode.HALF_UP);
   }
@@ -304,7 +300,7 @@ public class CSSSimpleValueWithUnit
    *        The divisor to use.
    * @return A new object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public CSSSimpleValueWithUnit divide (final double dDivisor)
   {
@@ -319,7 +315,7 @@ public class CSSSimpleValueWithUnit
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSimpleValueWithUnit rhs = (CSSSimpleValueWithUnit) o;
-    return EqualsHelper.equals (m_aValue, rhs.m_aValue) && m_eUnit.equals (rhs.m_eUnit);
+    return BigHelper.equalValues (m_aValue, rhs.m_aValue) && m_eUnit.equals (rhs.m_eUnit);
   }
 
   @Override
@@ -331,6 +327,6 @@ public class CSSSimpleValueWithUnit
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_aValue).append ("unit", m_eUnit).getToString ();
+    return new ToStringGenerator (this).append ("Value", m_aValue).append ("Unit", m_eUnit).getToString ();
   }
 }

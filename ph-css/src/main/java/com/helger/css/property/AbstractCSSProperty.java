@@ -16,19 +16,18 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ECSSVendorPrefix;
-import com.helger.css.ECSSVersion;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.propertyvalue.CSSValue;
@@ -56,7 +55,7 @@ public abstract class AbstractCSSProperty implements ICSSProperty
    * @param aCustomizer
    *        The customizer to be used. May be <code>null</code>.
    */
-  protected AbstractCSSProperty (@Nonnull final ECSSProperty eProp,
+  protected AbstractCSSProperty (@NonNull final ECSSProperty eProp,
                                  @Nullable final ECSSVendorPrefix eVendorPrefix,
                                  @Nullable final ICSSPropertyCustomizer aCustomizer)
   {
@@ -70,13 +69,7 @@ public abstract class AbstractCSSProperty implements ICSSProperty
                                        eProp);
   }
 
-  @Nonnull
-  public final ECSSVersion getMinimumCSSVersion ()
-  {
-    return m_eProp.getMinimumCSSVersion ();
-  }
-
-  @Nonnull
+  @NonNull
   public final ECSSProperty getProp ()
   {
     return m_eProp;
@@ -88,7 +81,7 @@ public abstract class AbstractCSSProperty implements ICSSProperty
     return m_eVendorPrefix;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getPropertyName ()
   {
@@ -133,8 +126,8 @@ public abstract class AbstractCSSProperty implements ICSSProperty
     return isValidPropertyValue (sValue);
   }
 
-  @Nonnull
-  public ICSSValue newValue (@Nonnull @Nonempty final String sValue, final boolean bIsImportant)
+  @NonNull
+  public ICSSValue newValue (@NonNull @Nonempty final String sValue, final boolean bIsImportant)
   {
     ValueEnforcer.notEmpty (sValue, "Value");
 

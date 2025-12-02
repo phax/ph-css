@@ -21,8 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.system.ENewLineMode;
-import com.helger.css.ECSSVersion;
+import com.helger.base.system.ENewLineMode;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.LoggingCSSParseExceptionCallback;
 import com.helger.css.reader.CSSReader;
@@ -48,13 +47,11 @@ public final class Issue41Test
                        "  background-size: 652px 295px;\r\n" +
                        " }\r\n" +
                        "}";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (true);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setBrowserCompliantMode (true);
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css, aSettings);
     assertNotNull (aCSS);
 
-    final CSSWriterSettings aCWS = new CSSWriterSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                           .setNewLineMode (ENewLineMode.WINDOWS)
-                                                           .setIndent (" ");
+    final CSSWriterSettings aCWS = new CSSWriterSettings ().setNewLineMode (ENewLineMode.WINDOWS).setIndent (" ");
     assertEquals ("@media (min--moz-device-pixel-ratio:1.3), (-o-min-device-pixel-ratio:2.6/2), (-webkit-min-device-pixel-ratio:1.3), (min-device-pixel-ratio:1.3), (min-resolution:1.3dppx) {\r\n" +
                   " .social .facebook a,\r\n" +
                   " .social .twitter a { background-size:-webkit-background-size; }\r\n" +
@@ -66,11 +63,11 @@ public final class Issue41Test
   public void testIssue2 ()
   {
     final String css = ".someRule {\r\n" + "   color:red;\r\n" + "}\r\n" + "\r\n" + "------- This is bad";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (true);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setBrowserCompliantMode (true);
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css, aSettings);
     assertNotNull (aCSS);
 
-    final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.LATEST).setNewLineMode (ENewLineMode.WINDOWS);
+    final CSSWriterSettings aCWS = new CSSWriterSettings ().setNewLineMode (ENewLineMode.WINDOWS);
     assertEquals (".someRule { color:red; }\r\n",
                   new CSSWriter (aCWS).setWriteHeaderText (false).setWriteFooterText (false).getCSSAsString (aCSS));
   }
@@ -87,15 +84,14 @@ public final class Issue41Test
                        ".someOtherRule {\r\n" +
                        "   color:blue;\r\n" +
                        "}";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true)
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setBrowserCompliantMode (true)
                                                                 .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                 .setCustomExceptionHandler (new LoggingCSSParseExceptionCallback ())
                                                                 .setInterpretErrorHandler (new LoggingCSSInterpretErrorHandler ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css, aSettings);
     assertNotNull (aCSS);
 
-    final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.LATEST).setNewLineMode (ENewLineMode.WINDOWS);
+    final CSSWriterSettings aCWS = new CSSWriterSettings ().setNewLineMode (ENewLineMode.WINDOWS);
     assertEquals (".someOtherRule { color:blue; }\r\n",
                   new CSSWriter (aCWS).setWriteHeaderText (false).setWriteFooterText (false).getCSSAsString (aCSS));
   }

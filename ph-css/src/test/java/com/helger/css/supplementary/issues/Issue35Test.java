@@ -22,14 +22,13 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.css.ECSSVersion;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
+import com.helger.io.resource.FileSystemResource;
 
 /**
  * Test for issue 35: https://github.com/phax/ph-css/issues/35
@@ -43,10 +42,10 @@ public final class Issue35Test
   {
     final String css = StreamHelper.getAllBytesAsString (new FileSystemResource ("src/test/resources/testfiles/css30/good/issue35.css"),
                                                          StandardCharsets.UTF_8);
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST).setBrowserCompliantMode (false);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setBrowserCompliantMode (false);
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
     assertNotNull (cascadingStyleSheet);
-    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
+    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (true));
     assertNotNull (writer.getCSSAsString (cascadingStyleSheet));
   }
 }

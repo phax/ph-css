@@ -16,12 +16,12 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
@@ -35,42 +35,42 @@ import com.helger.css.utils.CSSColorHelper;
 @NotThreadSafe
 public class CSSPropertyEnumOrColor extends CSSPropertyEnum
 {
-  public CSSPropertyEnumOrColor (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final String... aEnumValues)
+  public CSSPropertyEnumOrColor (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, aEnumValues);
   }
 
-  public CSSPropertyEnumOrColor (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrColor (@NonNull final ECSSProperty eProp,
                                  @Nullable final ICSSPropertyCustomizer aCustomizer,
-                                 @Nonnull @Nonempty final String... aEnumValues)
+                                 @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrColor (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrColor (@NonNull final ECSSProperty eProp,
                                  @Nullable final ECSSVendorPrefix eVendorPrefix,
                                  @Nullable final ICSSPropertyCustomizer aCustomizer,
-                                 @Nonnull @Nonempty final String... aEnumValues)
+                                 @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrColor (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnumOrColor (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
   }
 
-  public CSSPropertyEnumOrColor (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrColor (@NonNull final ECSSProperty eProp,
                                  @Nullable final ICSSPropertyCustomizer aCustomizer,
-                                 @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                 @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrColor (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrColor (@NonNull final ECSSProperty eProp,
                                  @Nullable final ECSSVendorPrefix eVendorPrefix,
                                  @Nullable final ICSSPropertyCustomizer aCustomizer,
-                                 @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                 @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
@@ -83,14 +83,14 @@ public class CSSPropertyEnumOrColor extends CSSPropertyEnum
   }
 
   @Override
-  @Nonnull
-  public CSSPropertyEnumOrColor getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyEnumOrColor getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyEnumOrColor (eProp, getVendorPrefix (), getCustomizer (), directGetEnumValues ());
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public CSSPropertyEnumOrColor getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyEnumOrColor (getProp (), eVendorPrefix, getCustomizer (), directGetEnumValues ());

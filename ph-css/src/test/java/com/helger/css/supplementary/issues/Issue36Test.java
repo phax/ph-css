@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -38,12 +37,15 @@ public final class Issue36Test
   @Test
   public void testIssue ()
   {
-    final String css = "@media screen and (min-width: 768px) {.section {.\r\n" + "    padding: 40px\r\n" + "}\r\n" + "\r\n" + "}";
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                .setBrowserCompliantMode (true)
+    final String css = "@media screen and (min-width: 768px) {.section {.\r\n" +
+                       "    padding: 40px\r\n" +
+                       "}\r\n" +
+                       "\r\n" +
+                       "}";
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setBrowserCompliantMode (true)
                                                                 .setCustomErrorHandler (new DoNothingCSSParseErrorHandler ());
     final CascadingStyleSheet cascadingStyleSheet = CSSReader.readFromStringStream (css, aSettings);
-    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (ECSSVersion.LATEST, true));
+    final CSSWriter writer = new CSSWriter (new CSSWriterSettings (true));
     assertEquals ("@media screen and (min-width:768px){.section{}}", writer.getCSSAsString (cascadingStyleSheet));
   }
 }

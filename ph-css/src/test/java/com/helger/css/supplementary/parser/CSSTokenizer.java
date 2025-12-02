@@ -23,14 +23,14 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
-import javax.annotation.WillNotClose;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.stream.StreamHelper;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.WillNotClose;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.io.file.FileHelper;
 
 public class CSSTokenizer
 {
@@ -45,27 +45,27 @@ public class CSSTokenizer
     this (StandardCharsets.UTF_8);
   }
 
-  public CSSTokenizer (@Nonnull final Charset aFallbackEncoding)
+  public CSSTokenizer (@NonNull final Charset aFallbackEncoding)
   {
     m_aFallbackEncoding = ValueEnforcer.notNull (aFallbackEncoding, "FallbackEncoding");
   }
 
-  @Nonnull
+  @NonNull
   public CSSTokenizer setStrictMode (final boolean bStrictMode)
   {
     m_bStrictMode = bStrictMode;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CSSTokenizer setDebugMode (final boolean bDebugMode)
   {
     m_bDebugMode = bDebugMode;
     return this;
   }
 
-  @Nonnull
-  private Charset _determineCharset (@Nonnull @WillNotClose final CSSInputStream aIS) throws IOException, CSSTokenizeException
+  @NonNull
+  private Charset _determineCharset (@NonNull @WillNotClose final CSSInputStream aIS) throws IOException, CSSTokenizeException
   {
     // Determine charset
     // https://www.w3.org/TR/css-syntax-3/#input-byte-stream
@@ -96,7 +96,7 @@ public class CSSTokenizer
     return m_aFallbackEncoding;
   }
 
-  public void tokenize (@Nonnull @WillClose final InputStream aIS, @Nonnull final Consumer <CSSToken> aConsumer) throws IOException,
+  public void tokenize (@NonNull @WillClose final InputStream aIS, @NonNull final Consumer <CSSToken> aConsumer) throws IOException,
                                                                                                                  CSSTokenizeException
   {
     ValueEnforcer.notNull (aIS, "InputStream");

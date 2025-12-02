@@ -17,24 +17,21 @@
 package com.helger.css.supplementary.main;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.io.file.FileSystemRecursiveIterator;
-import com.helger.commons.io.file.IFileFilter;
-import com.helger.commons.wrapper.Wrapper;
-import com.helger.css.ECSSVersion;
+import com.helger.base.wrapper.Wrapper;
+import com.helger.collection.commons.CommonsLinkedHashMap;
+import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.ICSSParseExceptionCallback;
 import com.helger.css.parser.ParseException;
 import com.helger.css.reader.CSSReader;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.css.reader.CSSReaderSettings;
+import com.helger.io.file.FileSystemRecursiveIterator;
+import com.helger.io.file.IFileFilter;
 
 /**
  * Crawl the disc for CSS files :)
@@ -45,7 +42,6 @@ public final class MainReadAllCSSOnDisc
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainReadAllCSSOnDisc.class);
 
-  @SuppressFBWarnings ("DMI_HARDCODED_ABSOLUTE_FILENAME")
   public static void main (final String [] args)
   {
     int nFilesOK = 0;
@@ -58,7 +54,8 @@ public final class MainReadAllCSSOnDisc
       if (false)
         LOGGER.info (aFile.getAbsolutePath ());
       aCurrentFile.set (aFile);
-      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile, StandardCharsets.UTF_8, ECSSVersion.CSS30, aHdl);
+      final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile,
+                                                               new CSSReaderSettings ().setCustomExceptionHandler (aHdl));
       if (aCSS == null)
       {
         nFilesError++;

@@ -20,22 +20,21 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.base64.Base64;
-import com.helger.commons.charset.CharsetHelper;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.mime.EMimeQuoting;
-import com.helger.commons.mime.IMimeType;
-import com.helger.commons.mime.MimeType;
-import com.helger.commons.mime.MimeTypeHelper;
-import com.helger.commons.mime.MimeTypeParser;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.charset.CharsetHelper;
+import com.helger.base.codec.base64.Base64;
+import com.helger.base.string.StringHelper;
+import com.helger.mime.CMimeType;
+import com.helger.mime.EMimeQuoting;
+import com.helger.mime.IMimeType;
+import com.helger.mime.MimeType;
+import com.helger.mime.MimeTypeHelper;
+import com.helger.mime.parse.MimeTypeParser;
 
 /**
  * Provides data URL handling sanity methods (RFC 2397).
@@ -73,14 +72,12 @@ public final class CSSDataURLHelper
   {}
 
   /**
-   * Check if the passed URL is a data URL. It is checked, whether the passed
-   * URL starts with {@value #PREFIX_DATA_URL} (after trimming, case
-   * insensitive).
+   * Check if the passed URL is a data URL. It is checked, whether the passed URL starts with
+   * {@value #PREFIX_DATA_URL} (after trimming, case insensitive).
    *
    * @param sURL
    *        The URL to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed URL is a data URL,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the passed URL is a data URL, <code>false</code> if not.
    */
   public static boolean isDataURL (@Nullable final String sURL)
   {
@@ -115,7 +112,7 @@ public final class CSSDataURLHelper
 
     // Skip the constant prefix
     final String sRest = sDataURL.trim ().substring (PREFIX_DATA_URL.length ());
-    if (StringHelper.hasNoText (sRest))
+    if (StringHelper.isEmpty (sRest))
     {
       // Plain "data:" URL - no content
       return new CSSDataURL ();
@@ -175,7 +172,7 @@ public final class CSSDataURLHelper
     String sMimeType = nMIMETypeEnd < 0 ? null : sRest.substring (0, nMIMETypeEnd).trim ();
     IMimeType aMimeType;
     Charset aCharset = null;
-    if (StringHelper.hasNoText (sMimeType))
+    if (StringHelper.isEmpty (sMimeType))
     {
       // If no MIME type is specified, the default is used
       aMimeType = DEFAULT_MIME_TYPE.getClone ();
@@ -206,7 +203,11 @@ public final class CSSDataURLHelper
         aCharset = CharsetHelper.getCharsetFromNameOrNull (sCharsetParam);
         if (aCharset == null)
         {
-          LOGGER.warn ("Illegal charset '" + sCharsetParam + "' contained. Defaulting to '" + DEFAULT_CHARSET.name () + "'");
+          LOGGER.warn ("Illegal charset '" +
+                       sCharsetParam +
+                       "' contained. Defaulting to '" +
+                       DEFAULT_CHARSET.name () +
+                       "'");
         }
       }
       if (aCharset == null)

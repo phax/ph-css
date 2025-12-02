@@ -23,13 +23,12 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 
 /**
  * Test for issue 17: https://github.com/phax/ph-css/issues/17
@@ -46,7 +45,6 @@ public final class Issue17Test
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
                                                                new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
-                                                                                       .setCSSVersion (ECSSVersion.CSS30)
                                                                                        .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                                        .setBrowserCompliantMode (true));
     assertNotNull (aCSS);

@@ -16,29 +16,28 @@
  */
 package com.helger.css.propertyvalue;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringImplode;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
 
 /**
- * Represents a CSS value that has one property name, but multiple different
- * values. This is e.g. if the property <code>display</code> is used with the
- * value <code>inline-block</code> than the result coding should first emit
- * <code>display:-moz-inline-block;</code> and then
- * <code>display:inline-block;</code> for FireFox 2.x specific support. (this
- * specific example was removed in ph-css 6)
+ * Represents a CSS value that has one property name, but multiple different values. This is e.g. if
+ * the property <code>display</code> is used with the value <code>inline-block</code> than the
+ * result coding should first emit <code>display:-moz-inline-block;</code> and then
+ * <code>display:inline-block;</code> for FireFox 2.x specific support. (this specific example was
+ * removed in ph-css 6)
  *
  * @author Philip Helger
  */
@@ -47,8 +46,8 @@ public class CSSValueMultiValue implements ICSSMultiValue
 {
   private final ICommonsList <CSSValue> m_aValues = new CommonsArrayList <> ();
 
-  public CSSValueMultiValue (@Nonnull final ICSSProperty aProperty,
-                             @Nonnull @Nonempty final String [] aValues,
+  public CSSValueMultiValue (@NonNull final ICSSProperty aProperty,
+                             @NonNull @Nonempty final String [] aValues,
                              final boolean bIsImportant)
   {
     ValueEnforcer.notNull (aProperty, "Property");
@@ -58,23 +57,23 @@ public class CSSValueMultiValue implements ICSSMultiValue
       m_aValues.add (new CSSValue (aProperty, sValue, bIsImportant));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSValue> getAllContainedValues ()
   {
     return m_aValues.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public ECSSProperty getProp ()
   {
     return m_aValues.getFirstOrNull ().getProp ();
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    return StringHelper.getImplodedMapped (m_aValues, x -> x.getAsCSSString (aSettings, nIndentLevel));
+    return StringImplode.imploder ().source (m_aValues, x -> x.getAsCSSString (aSettings, nIndentLevel)).build ();
   }
 
   @Override
@@ -97,6 +96,6 @@ public class CSSValueMultiValue implements ICSSMultiValue
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("values", m_aValues).getToString ();
+    return new ToStringGenerator (this).append ("Values", m_aValues).getToString ();
   }
 }

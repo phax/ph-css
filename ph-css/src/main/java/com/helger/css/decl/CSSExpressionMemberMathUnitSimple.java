@@ -16,18 +16,17 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ECSSUnit;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.utils.CSSNumberHelper;
@@ -44,9 +43,9 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   private final ECSSUnit m_eUnit;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSExpressionMemberMathUnitSimple (@Nonnull @Nonempty final String sText)
+  public CSSExpressionMemberMathUnitSimple (@NonNull @Nonempty final String sText)
   {
-    if (StringHelper.hasNoTextAfterTrim (sText))
+    if (StringHelper.isEmptyAfterTrim (sText))
       throw new IllegalArgumentException ("text may not be empty after trimming");
     m_sText = sText.trim ();
     m_eUnit = CSSNumberHelper.getMatchingUnitExclPercentage (m_sText);
@@ -55,15 +54,14 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   /**
    * @return The text including the unit. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final String getText ()
   {
     return m_sText;
   }
 
   /**
-   * @return The applicable CSS unit. May be <code>null</code> if no unit is
-   *         present.
+   * @return The applicable CSS unit. May be <code>null</code> if no unit is present.
    */
   @Nullable
   public final ECSSUnit getUnit ()
@@ -71,18 +69,11 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
     return m_eUnit;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return m_sText;
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

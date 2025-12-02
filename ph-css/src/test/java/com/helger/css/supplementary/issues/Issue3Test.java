@@ -19,13 +19,11 @@ package com.helger.css.supplementary.issues;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.Nonnull;
-
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
@@ -43,21 +41,20 @@ public final class Issue3Test
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (Issue3Test.class);
 
-  @Nonnull
-  private static CascadingStyleSheet _parse (@Nonnull final String sCSS, final boolean bBrowserCompliantMode)
+  @NonNull
+  private static CascadingStyleSheet _parse (@NonNull final String sCSS, final boolean bBrowserCompliantMode)
   {
     if (true)
       LOGGER.info ("[Parsing] " + sCSS);
     return CSSReader.readFromStringReader (sCSS,
-                                           new CSSReaderSettings ().setCSSVersion (ECSSVersion.CSS30)
-                                                                   .setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
+                                           new CSSReaderSettings ().setCustomErrorHandler (new LoggingCSSParseErrorHandler ())
                                                                    .setBrowserCompliantMode (bBrowserCompliantMode));
   }
 
-  private static void _print (@Nonnull final CascadingStyleSheet aCSS)
+  private static void _print (@NonNull final CascadingStyleSheet aCSS)
   {
-    LOGGER.info (new CSSWriter (new CSSWriterSettings (ECSSVersion.CSS30).setOptimizedOutput (true)).setWriteHeaderText (false)
-                                                                                                    .getCSSAsString (aCSS));
+    LOGGER.info (new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                   .getCSSAsString (aCSS));
   }
 
   @Test

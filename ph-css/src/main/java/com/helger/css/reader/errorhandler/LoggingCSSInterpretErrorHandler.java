@@ -16,14 +16,13 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * A logging implementation of {@link ICSSInterpretErrorHandler}. So in case a
@@ -43,12 +42,12 @@ public class LoggingCSSInterpretErrorHandler implements ICSSInterpretErrorHandle
   public LoggingCSSInterpretErrorHandler ()
   {}
 
-  public void onCSSInterpretationWarning (@Nonnull @Nonempty final String sMessage)
+  public void onCSSInterpretationWarning (@NonNull @Nonempty final String sMessage)
   {
     LOGGER.warn (sMessage);
   }
 
-  public void onCSSInterpretationError (@Nonnull @Nonempty final String sMessage)
+  public void onCSSInterpretationError (@NonNull @Nonempty final String sMessage)
   {
     LOGGER.error (sMessage);
   }

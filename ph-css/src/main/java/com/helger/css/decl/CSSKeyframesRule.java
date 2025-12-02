@@ -16,24 +16,22 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
@@ -47,19 +45,19 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
   private final String m_sDeclaration;
   private final String m_sAnimationName;
   private final ICommonsList <CSSKeyframesBlock> m_aBlocks = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public static boolean isValidDeclaration (@Nonnull @Nonempty final String sDeclaration)
+  public static boolean isValidDeclaration (@NonNull @Nonempty final String sDeclaration)
   {
     return StringHelper.startsWith (sDeclaration, '@') && StringHelper.endsWithIgnoreCase (sDeclaration, "keyframes");
   }
 
-  public CSSKeyframesRule (@Nonnull @Nonempty final String sDeclaration, @Nonnull @Nonempty final String sAnimationName)
+  public CSSKeyframesRule (@NonNull @Nonempty final String sDeclaration, @NonNull @Nonempty final String sAnimationName)
   {
     ValueEnforcer.isTrue (isValidDeclaration (sDeclaration), "Declaration is invalid");
     m_sDeclaration = sDeclaration;
@@ -67,18 +65,17 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
   }
 
   /**
-   * @return The rule declaration string used in the CSS. Neither
-   *         <code>null</code> nor empty. Always starting with <code>@</code>
-   *         and ending with <code>keyframes</code>.
+   * @return The rule declaration string used in the CSS. Neither <code>null</code> nor empty.
+   *         Always starting with <code>@</code> and ending with <code>keyframes</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getDeclaration ()
   {
     return m_sDeclaration;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getAnimationName ()
   {
@@ -96,8 +93,8 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     return m_aBlocks.size ();
   }
 
-  @Nonnull
-  public CSSKeyframesRule addBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  @NonNull
+  public CSSKeyframesRule addBlock (@NonNull final CSSKeyframesBlock aKeyframesBlock)
   {
     ValueEnforcer.notNull (aKeyframesBlock, "KeyframesBlock");
 
@@ -105,8 +102,8 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     return this;
   }
 
-  @Nonnull
-  public CSSKeyframesRule addBlock (@Nonnegative final int nIndex, @Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  @NonNull
+  public CSSKeyframesRule addBlock (@Nonnegative final int nIndex, @NonNull final CSSKeyframesBlock aKeyframesBlock)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aKeyframesBlock, "KeyframesBlock");
@@ -118,13 +115,13 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     return this;
   }
 
-  @Nonnull
-  public EChange removeBlock (@Nonnull final CSSKeyframesBlock aKeyframesBlock)
+  @NonNull
+  public EChange removeBlock (@NonNull final CSSKeyframesBlock aKeyframesBlock)
   {
     return m_aBlocks.removeObject (aKeyframesBlock);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeBlock (@Nonnegative final int nBlockIndex)
   {
     return m_aBlocks.removeAtIndex (nBlockIndex);
@@ -133,11 +130,11 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
   /**
    * Remove all blocks.
    *
-   * @return {@link EChange#CHANGED} if any block was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any block was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllBlocks ()
   {
     return m_aBlocks.removeAll ();
@@ -149,19 +146,17 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     return m_aBlocks.getAtIndex (nBlockIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSKeyframesBlock> getAllBlocks ()
   {
     return m_aBlocks.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     // Always ignore keyframes rules?
     if (!aSettings.isWriteKeyframesRules ())
       return "";
@@ -180,7 +175,7 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     for (final CSSKeyframesBlock aBlock : m_aBlocks)
     {
       final String sBlockCSS = aBlock.getAsCSSString (aSettings, nIndentLevel + 1);
-      if (StringHelper.hasText (sBlockCSS))
+      if (StringHelper.isNotEmpty (sBlockCSS))
       {
         if (!bOptimizedOutput)
           aSB.append (aSettings.getIndent (nIndentLevel + 1));
@@ -195,12 +190,6 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     if (!bOptimizedOutput)
       aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -222,13 +211,18 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSVersionAware, ICS
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSKeyframesRule rhs = (CSSKeyframesRule) o;
-    return m_sDeclaration.equals (rhs.m_sDeclaration) && m_sAnimationName.equals (rhs.m_sAnimationName) && m_aBlocks.equals (rhs.m_aBlocks);
+    return m_sDeclaration.equals (rhs.m_sDeclaration) &&
+           m_sAnimationName.equals (rhs.m_sAnimationName) &&
+           m_aBlocks.equals (rhs.m_aBlocks);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDeclaration).append (m_sAnimationName).append (m_aBlocks).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDeclaration)
+                                       .append (m_sAnimationName)
+                                       .append (m_aBlocks)
+                                       .getHashCode ();
   }
 
   @Override

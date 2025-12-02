@@ -16,7 +16,7 @@
  */
 package com.helger.css;
 
-public abstract class AbstractCSS30TestCase
+public abstract class AbstractCSSTestCase
 {
   protected static final String CSS1 = "/*\n" +
                                        "This file is part of pDAF.\n" +

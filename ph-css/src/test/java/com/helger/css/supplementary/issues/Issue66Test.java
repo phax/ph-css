@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -40,8 +39,7 @@ public final class Issue66Test
     final String css = "body:not(foo, .bar) {}\n";
 
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (css,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (true));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     assertEquals (css, new CSSWriter ().setWriteHeaderText (false).getCSSAsString (aCSS));
   }

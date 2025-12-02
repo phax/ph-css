@@ -16,14 +16,12 @@
  */
 package com.helger.css.media;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 import com.helger.css.annotation.DeprecatedInCSS21;
 
 /**
@@ -31,68 +29,59 @@ import com.helger.css.annotation.DeprecatedInCSS21;
  *
  * @author Philip Helger
  */
-public enum ECSSMedium implements ICSSVersionAware, IHasName
+public enum ECSSMedium implements IHasName
 {
   /** for all media types */
-  ALL ("all", ECSSVersion.CSS21),
+  ALL ("all"),
 
   /**
-   * For computer synthesized voice. Deprecated in CSS 2.1. Is "speech" in CSS
-   * 3.
+   * For computer synthesized voice. Deprecated in CSS 2.1. Is "speech" in CSS 3.
    */
   @DeprecatedInCSS21
-  AURAL ("aural", ECSSVersion.CSS21),
+  AURAL ("aural"),
 
   /** for blind people */
-  BRAILLE ("braille", ECSSVersion.CSS21),
+  BRAILLE ("braille"),
 
   /** for blind people */
-  EMBOSSED ("embossed", ECSSVersion.CSS21),
+  EMBOSSED ("embossed"),
 
   /** for PDAs */
-  HANDHELD ("handheld", ECSSVersion.CSS21),
+  HANDHELD ("handheld"),
 
   /** for printing */
-  PRINT ("print", ECSSVersion.CSS10),
+  PRINT ("print"),
 
   /** for projection */
-  PROJECTION ("projection", ECSSVersion.CSS21),
+  PROJECTION ("projection"),
 
   /** for normal screen display */
-  SCREEN ("screen", ECSSVersion.CSS10),
+  SCREEN ("screen"),
 
   /** For computer synthesized voice. */
-  SPEECH ("speech", ECSSVersion.CSS21),
+  SPEECH ("speech"),
 
   /** for text oriented devices */
-  TTY ("tty", ECSSVersion.CSS21),
+  TTY ("tty"),
 
   /** for televisions */
-  TV ("tv", ECSSVersion.CSS21);
+  TV ("tv");
 
   private final String m_sName;
-  private final ECSSVersion m_eVersion;
 
-  ECSSMedium (@Nonnull @Nonempty final String sName, @Nonnull final ECSSVersion eVersion)
+  ECSSMedium (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
-    m_eVersion = eVersion;
   }
 
   /**
    * @return the CSS medium name. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return m_eVersion;
   }
 
   @Nullable

@@ -20,9 +20,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.css.ECSSVersion;
 import com.helger.css.writer.CSSWriterSettings;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CSSRGB}.
@@ -34,14 +33,14 @@ public final class CSSRGBTest
   @Test
   public void testBasic ()
   {
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
     final CSSRGB aColor = new CSSRGB (1, 2, 3);
     assertEquals ("rgb(1,2,3)", aColor.getAsCSSString (aSettings));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGB (aColor));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGB (1, 2, 3));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGB (0, 2, 3));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGB (1, 0, 3));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGB (1, 2, 0));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGB (aColor));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aColor, new CSSRGB (1, 2, 3));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGB (0, 2, 3));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGB (1, 0, 3));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aColor, new CSSRGB (1, 2, 0));
   }
 }

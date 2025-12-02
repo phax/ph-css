@@ -16,11 +16,11 @@
  */
 package com.helger.css.utils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
 import com.helger.css.annotation.DeprecatedInCSS30;
 
 /**
@@ -65,7 +65,7 @@ public enum ECSSColorName implements ICSSNamedColor
 
   private final String m_sName;
 
-  ECSSColorName (@Nonnull @Nonempty final String sName)
+  ECSSColorName (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
@@ -74,7 +74,7 @@ public enum ECSSColorName implements ICSSNamedColor
    * @return The name of the color as to be used in CSS. Neither
    *         <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {

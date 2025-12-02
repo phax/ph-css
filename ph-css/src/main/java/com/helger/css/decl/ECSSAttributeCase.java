@@ -27,22 +27,21 @@ import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Enumeration with selector attribute operations as in <code>[foo<b>^=</b>"bar"]</code>
+ * Enumeration with case sensitivity flags as in <code>[foo="bar" i]</code> or
+ * <code>[foo="bar" s]</code>. See
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors#s for the spec.
  *
- * @author Philip Helger
+ * @author Aditi Singh
+ * @since 8.0.1
  */
-public enum ECSSAttributeOperator implements ICSSWriteable, IHasName
+public enum ECSSAttributeCase implements ICSSWriteable, IHasName
 {
-  EQUALS ("="),
-  INCLUDES ("~="),
-  DASHMATCH ("|="),
-  BEGINMATCH ("^="),
-  ENDMATCH ("$="),
-  CONTAINSMATCH ("*=");
+  CASE_SENSITIVE ("s"),
+  CASE_INSENSITIVE ("i");
 
   private final String m_sName;
 
-  ECSSAttributeOperator (@NonNull @Nonempty final String sName)
+  ECSSAttributeCase (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
@@ -62,8 +61,9 @@ public enum ECSSAttributeOperator implements ICSSWriteable, IHasName
   }
 
   @Nullable
-  public static ECSSAttributeOperator getFromNameOrNull (@Nullable final String sName)
+  public static ECSSAttributeCase getFromNameOrNull (@Nullable final String sName)
   {
-    return EnumHelper.getFromNameOrNull (ECSSAttributeOperator.class, sName);
+    // The check in the grammar is also case-insensitive
+    return EnumHelper.getFromNameCaseInsensitiveOrNull (ECSSAttributeCase.class, sName);
   }
 }

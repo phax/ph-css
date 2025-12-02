@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
@@ -43,8 +42,7 @@ public final class Issue91Test
   {
     final String sCSS = "div { \73\72\63\3a\35 }";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (true));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getStyleRuleCount ());
 

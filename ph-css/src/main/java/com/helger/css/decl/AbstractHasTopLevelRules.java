@@ -18,16 +18,16 @@ package com.helger.css.decl;
 
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.state.EChange;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.EChange;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * Abstract base class for all classes having top-level rules.
@@ -44,11 +44,11 @@ public abstract class AbstractHasTopLevelRules
   {}
 
   /**
-   * Check if any top-level rule. This method only considers top-level rules and
-   * not <code>@import</code> and <code>@namespace</code> rules!
+   * Check if any top-level rule. This method only considers top-level rules and not
+   * <code>@import</code> and <code>@namespace</code> rules!
    *
-   * @return <code>true</code> if at least one top-level rule is present,
-   *         <code>false</code> if otherwise.
+   * @return <code>true</code> if at least one top-level rule is present, <code>false</code> if
+   *         otherwise.
    */
   public boolean hasRules ()
   {
@@ -56,9 +56,8 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get the number of total contained top-level rules. This method only
-   * considers top-level rules and not <code>@import</code> and
-   * <code>@namespace</code> rules!
+   * Get the number of total contained top-level rules. This method only considers top-level rules
+   * and not <code>@import</code> and <code>@namespace</code> rules!
    *
    * @return The number of total contained top-level rules. Always &ge; 0.
    */
@@ -72,25 +71,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the top-level rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getRuleCount()}.
-   * @return <code>null</code> if an invalid index was specified.
-   * @since 3.7.4
-   * @deprecated Use {@link #getRuleAtIndex(int)} instead
-   */
-  @Nullable
-  @Deprecated
-  public ICSSTopLevelRule getRule (@Nonnegative final int nIndex)
-  {
-    return getRuleAtIndex (nIndex);
-  }
-
-  /**
-   * Get the top-level rule at the specified index.
-   *
-   * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -101,15 +82,15 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Add a new top-level rule at the end. This method only considers top-level
-   * rules and not <code>@import</code> and <code>@namespace</code> rules!
+   * Add a new top-level rule at the end. This method only considers top-level rules and not
+   * <code>@import</code> and <code>@namespace</code> rules!
    *
    * @param aRule
    *        The rule to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public AbstractHasTopLevelRules addRule (@Nonnull final ICSSTopLevelRule aRule)
+  @NonNull
+  public AbstractHasTopLevelRules addRule (@NonNull final ICSSTopLevelRule aRule)
   {
     ValueEnforcer.notNull (aRule, "Rule");
 
@@ -118,9 +99,8 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Add a new top-level rule at the specified index. This method only considers
-   * top-level rules and not <code>@import</code> and <code>@namespace</code>
-   * rules!
+   * Add a new top-level rule at the specified index. This method only considers top-level rules and
+   * not <code>@import</code> and <code>@namespace</code> rules!
    *
    * @param nIndex
    *        The index where the top-level rule should be added. Must be &ge; 0.
@@ -128,8 +108,8 @@ public abstract class AbstractHasTopLevelRules
    *        The rule to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public AbstractHasTopLevelRules addRule (@Nonnegative final int nIndex, @Nonnull final ICSSTopLevelRule aRule)
+  @NonNull
+  public AbstractHasTopLevelRules addRule (@Nonnegative final int nIndex, @NonNull final ICSSTopLevelRule aRule)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aRule, "Rule");
@@ -142,32 +122,30 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Remove the specified top-level rule. This method only considers top-level
-   * rules and not <code>@import</code> and <code>@namespace</code> rules!
+   * Remove the specified top-level rule. This method only considers top-level rules and not
+   * <code>@import</code> and <code>@namespace</code> rules!
    *
    * @param aRule
    *        The rule to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the rule was successfully removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if the rule was successfully removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeRule (@Nullable final ICSSTopLevelRule aRule)
   {
     return m_aRules.removeObject (aRule);
   }
 
   /**
-   * Remove the rule at the specified index. This method only considers
-   * top-level rules and not <code>@import</code> and <code>@namespace</code>
-   * rules!
+   * Remove the rule at the specified index. This method only considers top-level rules and not
+   * <code>@import</code> and <code>@namespace</code> rules!
    *
    * @param nRuleIndex
    *        The index of the rule to be removed. Should be &ge; 0.
-   * @return {@link EChange#CHANGED} if the rule at the specified index was
-   *         successfully removed, {@link EChange#UNCHANGED} otherwise. Never
-   *         <code>null</code>.
+   * @return {@link EChange#CHANGED} if the rule at the specified index was successfully removed,
+   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeRule (@Nonnegative final int nRuleIndex)
   {
     return m_aRules.removeAtIndex (nRuleIndex);
@@ -178,12 +156,12 @@ public abstract class AbstractHasTopLevelRules
    *
    * @param aFilter
    *        The predicate to apply for deletion. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} it at least one rule was removed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} it at least one rule was removed, {@link EChange#UNCHANGED}
+   *         otherwise.
    * @since 5.0.0
    */
-  @Nonnull
-  public EChange removeRules (@Nonnull final Predicate <? super ICSSTopLevelRule> aFilter)
+  @NonNull
+  public EChange removeRules (@NonNull final Predicate <? super ICSSTopLevelRule> aFilter)
   {
     return EChange.valueOf (m_aRules.removeIf (aFilter));
   }
@@ -191,24 +169,23 @@ public abstract class AbstractHasTopLevelRules
   /**
    * Remove all top-level rules.
    *
-   * @return {@link EChange#CHANGED} if any rule was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any rule was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllRules ()
   {
     return m_aRules.removeAll ();
   }
 
   /**
-   * Get a copy of all contained top-level rules. This method only considers
-   * top-level rules and not <code>@import</code> and <code>@namespace</code>
-   * rules!
+   * Get a copy of all contained top-level rules. This method only considers top-level rules and not
+   * <code>@import</code> and <code>@namespace</code> rules!
    *
    * @return A copy of all contained top-level rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSTopLevelRule> getAllRules ()
   {
@@ -216,17 +193,16 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get a copy of all contained top-level rules. This method only considers
-   * top-level rules and not <code>@import</code> and <code>@namespace</code>
-   * rules!
+   * Get a copy of all contained top-level rules. This method only considers top-level rules and not
+   * <code>@import</code> and <code>@namespace</code> rules!
    *
    * @param aFilter
    *        The predicate to be applied
    * @return A copy of all contained top-level rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <ICSSTopLevelRule> getAllRules (@Nonnull final Predicate <? super ICSSTopLevelRule> aFilter)
+  public ICommonsList <ICSSTopLevelRule> getAllRules (@NonNull final Predicate <? super ICSSTopLevelRule> aFilter)
   {
     return m_aRules.getAll (aFilter);
   }
@@ -235,8 +211,8 @@ public abstract class AbstractHasTopLevelRules
    * Check if at least one of the top-level rules is a style rule (implementing
    * {@link CSSStyleRule}).
    *
-   * @return <code>true</code> if at least one style rule is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one style rule is contained, <code>false</code>
+   *         otherwise.
    */
   public boolean hasStyleRules ()
   {
@@ -244,8 +220,7 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get the number of top-level rules that are style rules (implementing
-   * {@link CSSStyleRule}).
+   * Get the number of top-level rules that are style rules (implementing {@link CSSStyleRule}).
    *
    * @return The number of contained style rules. Always &ge; 0.
    */
@@ -259,8 +234,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the style rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getStyleRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getStyleRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -271,12 +245,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get a list of all top-level rules that are style rules (implementing
-   * {@link CSSStyleRule}).
+   * Get a list of all top-level rules that are style rules (implementing {@link CSSStyleRule}).
    *
    * @return A copy of all contained style rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSStyleRule> getAllStyleRules ()
   {
@@ -284,11 +257,10 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Check if at least one of the top-level rules is a page rule (implementing
-   * {@link CSSPageRule}).
+   * Check if at least one of the top-level rules is a page rule (implementing {@link CSSPageRule}).
    *
-   * @return <code>true</code> if at least one <code>@page</code> rule is
-   *         contained, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one <code>@page</code> rule is contained,
+   *         <code>false</code> otherwise.
    */
   public boolean hasPageRules ()
   {
@@ -296,8 +268,7 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get the number of top-level rules that are page rules (implementing
-   * {@link CSSPageRule}).
+   * Get the number of top-level rules that are page rules (implementing {@link CSSPageRule}).
    *
    * @return The number of contained <code>@page</code> rules. Always &ge; 0.
    */
@@ -311,8 +282,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the <code>@page</code> rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getPageRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getPageRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -323,13 +293,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get a list of all top-level rules that are page rules (implementing
-   * {@link CSSPageRule}).
+   * Get a list of all top-level rules that are page rules (implementing {@link CSSPageRule}).
    *
-   * @return A copy of all contained <code>@page</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all contained <code>@page</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSPageRule> getAllPageRules ()
   {
@@ -340,8 +308,8 @@ public abstract class AbstractHasTopLevelRules
    * Check if at least one of the top-level rules is a media rule (implementing
    * {@link CSSMediaRule}).
    *
-   * @return <code>true</code> if at least one <code>@media</code> rule is
-   *         contained, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one <code>@media</code> rule is contained,
+   *         <code>false</code> otherwise.
    */
   public boolean hasMediaRules ()
   {
@@ -349,8 +317,7 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get the number of top-level rules that are media rules (implementing
-   * {@link CSSMediaRule}).
+   * Get the number of top-level rules that are media rules (implementing {@link CSSMediaRule}).
    *
    * @return The number of contained <code>@media</code> rules. Always &ge; 0.
    */
@@ -364,8 +331,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the <code>@media</code> rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getMediaRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getMediaRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -376,13 +342,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get a list of all top-level rules that are media rules (implementing
-   * {@link CSSMediaRule}).
+   * Get a list of all top-level rules that are media rules (implementing {@link CSSMediaRule}).
    *
-   * @return A copy of all contained <code>@media</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all contained <code>@media</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaRule> getAllMediaRules ()
   {
@@ -390,11 +354,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Check if at least one of the top-level rules is a font-face rule
-   * (implementing {@link CSSFontFaceRule}).
+   * Check if at least one of the top-level rules is a font-face rule (implementing
+   * {@link CSSFontFaceRule}).
    *
-   * @return <code>true</code> if at least one <code>@font-face</code> rule is
-   *         contained, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one <code>@font-face</code> rule is contained,
+   *         <code>false</code> otherwise.
    */
   public boolean hasFontFaceRules ()
   {
@@ -405,8 +369,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the number of top-level rules that are font-face rules (implementing
    * {@link CSSFontFaceRule}).
    *
-   * @return The number of contained <code>@font-face</code> rules. Always &ge;
-   *         0.
+   * @return The number of contained <code>@font-face</code> rules. Always &ge; 0.
    */
   @Nonnegative
   public int getFontFaceRuleCount ()
@@ -418,8 +381,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the <code>@font-face</code> rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getFontFaceRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getFontFaceRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -433,10 +395,9 @@ public abstract class AbstractHasTopLevelRules
    * Get a list of all top-level rules that are font-face rules (implementing
    * {@link CSSFontFaceRule}).
    *
-   * @return A copy of all contained <code>@font-face</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all contained <code>@font-face</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSFontFaceRule> getAllFontFaceRules ()
   {
@@ -444,11 +405,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Check if at least one of the top-level rules is a keyframes rule
-   * (implementing {@link CSSKeyframesRule}).
+   * Check if at least one of the top-level rules is a keyframes rule (implementing
+   * {@link CSSKeyframesRule}).
    *
-   * @return <code>true</code> if at least one <code>@keyframes</code> rule is
-   *         contained, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one <code>@keyframes</code> rule is contained,
+   *         <code>false</code> otherwise.
    */
   public boolean hasKeyframesRules ()
   {
@@ -459,8 +420,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the number of top-level rules that are keyframes rules (implementing
    * {@link CSSKeyframesRule}).
    *
-   * @return The number of contained <code>@keyframes</code> rules. Always &ge;
-   *         0.
+   * @return The number of contained <code>@keyframes</code> rules. Always &ge; 0.
    */
   @Nonnegative
   public int getKeyframesRuleCount ()
@@ -472,8 +432,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the <code>@keyframes</code> rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getKeyframesRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getKeyframesRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -487,10 +446,9 @@ public abstract class AbstractHasTopLevelRules
    * Get a list of all top-level rules that are keyframes rules (implementing
    * {@link CSSKeyframesRule}).
    *
-   * @return A copy of all contained <code>@keyframes</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all contained <code>@keyframes</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSKeyframesRule> getAllKeyframesRules ()
   {
@@ -498,11 +456,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Check if at least one of the top-level rules is a viewport rule
-   * (implementing {@link CSSViewportRule}).
+   * Check if at least one of the top-level rules is a viewport rule (implementing
+   * {@link CSSViewportRule}).
    *
-   * @return <code>true</code> if at least one <code>@viewport</code> rule is
-   *         contained, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one <code>@viewport</code> rule is contained,
+   *         <code>false</code> otherwise.
    */
   public boolean hasViewportRules ()
   {
@@ -513,8 +471,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the number of top-level rules that are viewport rules (implementing
    * {@link CSSViewportRule}).
    *
-   * @return The number of contained <code>@viewport</code> rules. Always &ge;
-   *         0.
+   * @return The number of contained <code>@viewport</code> rules. Always &ge; 0.
    */
   @Nonnegative
   public int getViewportRuleCount ()
@@ -526,8 +483,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the <code>@viewport</code> rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getViewportRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getViewportRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -541,10 +497,9 @@ public abstract class AbstractHasTopLevelRules
    * Get a list of all top-level rules that are viewport rules (implementing
    * {@link CSSViewportRule}).
    *
-   * @return A copy of all contained <code>@viewport</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all contained <code>@viewport</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSViewportRule> getAllViewportRules ()
   {
@@ -552,11 +507,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Check if at least one of the top-level rules is a supports rule
-   * (implementing {@link CSSSupportsRule}).
+   * Check if at least one of the top-level rules is a supports rule (implementing
+   * {@link CSSSupportsRule}).
    *
-   * @return <code>true</code> if at least one <code>@supports</code> rule is
-   *         contained, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one <code>@supports</code> rule is contained,
+   *         <code>false</code> otherwise.
    */
   public boolean hasSupportsRules ()
   {
@@ -567,8 +522,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the number of top-level rules that are support rules (implementing
    * {@link CSSSupportsRule}).
    *
-   * @return The number of contained <code>@supports</code> rules. Always &ge;
-   *         0.
+   * @return The number of contained <code>@supports</code> rules. Always &ge; 0.
    */
   @Nonnegative
   public int getSupportsRuleCount ()
@@ -580,8 +534,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the <code>@supports</code> rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getSupportsRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getSupportsRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -595,10 +548,9 @@ public abstract class AbstractHasTopLevelRules
    * Get a list of all top-level rules that are support rules (implementing
    * {@link CSSSupportsRule}).
    *
-   * @return A copy of all contained <code>@supports</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all contained <code>@supports</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSSupportsRule> getAllSupportsRules ()
   {
@@ -606,11 +558,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Check if at least one of the top-level rules is an unknown rule
-   * (implementing {@link CSSUnknownRule}).
+   * Check if at least one of the top-level rules is an unknown rule (implementing
+   * {@link CSSUnknownRule}).
    *
-   * @return <code>true</code> if at least one unknown <code>@</code> rule is
-   *         contained, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one unknown <code>@</code> rule is contained,
+   *         <code>false</code> otherwise.
    */
   public boolean hasUnknownRules ()
   {
@@ -618,11 +570,9 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get the number of top-level rules that are unknown rules (implementing
-   * {@link CSSUnknownRule}).
+   * Get the number of top-level rules that are unknown rules (implementing {@link CSSUnknownRule}).
    *
-   * @return The number of contained unknown <code>@</code> rules. Always &ge;
-   *         0.
+   * @return The number of contained unknown <code>@</code> rules. Always &ge; 0.
    */
   @Nonnegative
   public int getUnknownRuleCount ()
@@ -634,8 +584,7 @@ public abstract class AbstractHasTopLevelRules
    * Get the unknown rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getUnknownRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getUnknownRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -646,13 +595,11 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
-   * Get a list of all top-level rules that are unknown rules (implementing
-   * {@link CSSUnknownRule}).
+   * Get a list of all top-level rules that are unknown rules (implementing {@link CSSUnknownRule}).
    *
-   * @return A copy of all contained unknown <code>@</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all contained unknown <code>@</code> rules. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSUnknownRule> getAllUnknownRules ()
   {

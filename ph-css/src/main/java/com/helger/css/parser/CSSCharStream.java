@@ -20,24 +20,19 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Arrays;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.io.stream.StreamHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
 
 /**
- * This class is only used internally as the source for the generated parsers.
- * <br>
- * An implementation of interface {@link CharStream}, where the stream is
- * assumed to contain only ASCII characters (with java-like unicode escape
- * processing).
+ * This class is only used internally as the source for the generated parsers. <br>
+ * An implementation of interface {@link CharStream}, where the stream is assumed to contain only
+ * ASCII characters (with java-like unicode escape processing).
  *
  * @author Philip Helger
  */
-@SuppressFBWarnings ("NM_METHOD_NAMING_CONVENTION")
 public final class CSSCharStream implements CharStream
 {
   private static final int DEFAULT_BUF_SIZE = 4096;
@@ -65,12 +60,12 @@ public final class CSSCharStream implements CharStream
   private int m_nTabSize = 8;
   private boolean m_bTrackLineColumn = true;
 
-  public CSSCharStream (@Nonnull final Reader aReader)
+  public CSSCharStream (@NonNull final Reader aReader)
   {
     this (aReader, 1, 1, DEFAULT_BUF_SIZE);
   }
 
-  private CSSCharStream (@Nonnull final Reader aReader,
+  private CSSCharStream (@NonNull final Reader aReader,
                          @Nonnegative final int nStartLine,
                          @Nonnegative final int nStartColumn,
                          @Nonnegative final int nBufferSize)

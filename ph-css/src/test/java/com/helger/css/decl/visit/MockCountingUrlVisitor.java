@@ -18,8 +18,8 @@ package com.helger.css.decl.visit;
 
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
@@ -42,8 +42,8 @@ final class MockCountingUrlVisitor extends DefaultCSSUrlVisitor
 
   @Override
   public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                @Nonnull final CSSDeclaration aDeclaration,
-                                @Nonnull final CSSExpressionMemberTermURI aURITerm)
+                                @NonNull final CSSDeclaration aDeclaration,
+                                @NonNull final CSSExpressionMemberTermURI aURITerm)
   {
     assertNotNull (aURITerm.getURI ());
     m_nCount++;

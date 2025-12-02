@@ -16,51 +16,50 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 @NotThreadSafe
-public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aSelectors;
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSLayerRule (@Nullable final String sLayerSelector)
   {
-    m_aSelectors = StringHelper.hasText (sLayerSelector) ? new CommonsArrayList <> (sLayerSelector) : new CommonsArrayList <> ();
+    m_aSelectors = StringHelper.isNotEmpty (sLayerSelector) ? new CommonsArrayList <> (sLayerSelector)
+                                                            : new CommonsArrayList <> ();
   }
 
-  public CSSLayerRule (@Nonnull final Iterable <String> aSelectors)
+  public CSSLayerRule (@NonNull final Iterable <String> aSelectors)
   {
     ValueEnforcer.notNullNoNullValue (aSelectors, "Selectors");
     m_aSelectors = new CommonsArrayList <> (aSelectors);
   }
 
-  @Nonnull
+  @NonNull
+  @ReturnsMutableCopy
   public ICommonsList <String> getAllSelectors ()
   {
     return m_aSelectors.getClone ();
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 
     final StringBuilder aSB = new StringBuilder ("@layer ");
@@ -80,7 +79,7 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
     final int nRuleCount = m_aRules.size ();
     if (nRuleCount == 0)
     {
-      aSB.append(";");
+      aSB.append (';');
     }
     else
     {
@@ -90,7 +89,7 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
       for (final ICSSTopLevelRule aRule : m_aRules)
       {
         final String sRuleCSS = aRule.getAsCSSString (aSettings, nIndentLevel + 1);
-        if (StringHelper.hasText (sRuleCSS))
+        if (StringHelper.isNotEmpty (sRuleCSS))
         {
           if (bFirst)
             bFirst = false;
@@ -112,12 +111,6 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
       aSB.append (aSettings.getNewLineString ());
 
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -150,7 +143,6 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("SourceLocation", m_aSourceLocation)
-                                       .getToString ();
+    return new ToStringGenerator (this).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
   }
 }

@@ -16,27 +16,27 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single <code>@media</code> rule: a list of style rules only
- * valid for certain media.<br>
+ * Represents a single <code>@media</code> rule: a list of style rules only valid for certain
+ * media.<br>
  * Example:<br>
  * <code>@media print {
   div#footer {
@@ -56,8 +56,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
   {}
 
   /**
-   * @return <code>true</code> if at least one media query is present,
-   *         <code>false</code> if no media query is present.
+   * @return <code>true</code> if at least one media query is present, <code>false</code> if no
+   *         media query is present.
    */
   public boolean hasMediaQueries ()
   {
@@ -80,8 +80,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    *        The media query to be added. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public CSSMediaRule addMediaQuery (@Nonnull @Nonempty final CSSMediaQuery aMediaQuery)
+  @NonNull
+  public CSSMediaRule addMediaQuery (@NonNull @Nonempty final CSSMediaQuery aMediaQuery)
   {
     ValueEnforcer.notNull (aMediaQuery, "MediaQuery");
 
@@ -93,15 +93,14 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    * Add a media query at the specified index.
    *
    * @param nIndex
-   *        The index to use. Must be &ge; 0. If the index is &ge;
-   *        {@link #getMediaQueryCount()} than the media query is appended like
-   *        in {@link #addMediaQuery(CSSMediaQuery)}.
+   *        The index to use. Must be &ge; 0. If the index is &ge; {@link #getMediaQueryCount()}
+   *        than the media query is appended like in {@link #addMediaQuery(CSSMediaQuery)}.
    * @param aMediaQuery
    *        The media query to be added. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public CSSMediaRule addMediaQuery (@Nonnegative final int nIndex, @Nonnull @Nonempty final CSSMediaQuery aMediaQuery)
+  @NonNull
+  public CSSMediaRule addMediaQuery (@Nonnegative final int nIndex, @NonNull @Nonempty final CSSMediaQuery aMediaQuery)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMediaQuery, "MediaQuery");
@@ -120,7 +119,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    *        The media query to be removed. May be <code>null</code>.
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public EChange removeMediaQuery (@Nullable final CSSMediaQuery aMediaQuery)
   {
     return m_aMediaQueries.removeObject (aMediaQuery);
@@ -133,7 +132,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
    *        The index to be removed. Should be &ge; 0.
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public EChange removeMediaQuery (@Nonnegative final int nMediumIndex)
   {
     return m_aMediaQueries.removeAtIndex (nMediumIndex);
@@ -142,11 +141,11 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
   /**
    * Remove all media queries.
    *
-   * @return {@link EChange#CHANGED} if any media query was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any media query was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMediaQueries ()
   {
     return m_aMediaQueries.removeAll ();
@@ -166,19 +165,18 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
   }
 
   /**
-   * @return A copy of all contained media queries. Never <code>null</code>.
-   *         Maybe empty.
+   * @return A copy of all contained media queries. Never <code>null</code>. Maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSMediaQuery> getAllMediaQueries ()
   {
     return m_aMediaQueries.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     // Always ignore media rules?
     if (!aSettings.isWriteMediaRules ())
@@ -213,7 +211,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
       for (final ICSSTopLevelRule aRule : m_aRules)
       {
         final String sRuleCSS = aRule.getAsCSSString (aSettings, nIndentLevel + 1);
-        if (StringHelper.hasText (sRuleCSS))
+        if (StringHelper.isNotEmpty (sRuleCSS))
         {
           if (bFirst)
             bFirst = false;

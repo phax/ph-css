@@ -16,30 +16,28 @@
  */
 package com.helger.css.propertyvalue;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.property.ICSSProperty;
 
 /**
- * Represents the combination of a single CSS property ({@link ICSSProperty})
- * and it's according value plus the important state (<code>!important</code> or
- * not). The main purpose of this class to make building a CSS from scratch
- * simpler. When an existing CSS is read the information resides in a
- * {@link com.helger.css.decl.CSSDeclaration} because it contains the
- * declaration value in a more structured form.<br>
+ * Represents the combination of a single CSS property ({@link ICSSProperty}) and it's according
+ * value plus the important state (<code>!important</code> or not). The main purpose of this class
+ * to make building a CSS from scratch simpler. When an existing CSS is read the information resides
+ * in a {@link com.helger.css.decl.CSSDeclaration} because it contains the declaration value in a
+ * more structured form.<br>
  * Instances of this class are mutable since 3.7.3.
  *
  * @author Philip Helger
@@ -53,8 +51,8 @@ public class CSSValue implements ICSSValue
   private static boolean s_bConsistencyChecksEnabled = DEFAULT_CONSISTENCY_CHECKS_ENABLED;
 
   /**
-   * @return <code>true</code> if consistency checks are enabled (by default),
-   *         <code>false</code> if not.
+   * @return <code>true</code> if consistency checks are enabled (by default), <code>false</code> if
+   *         not.
    * @since 5.0.2
    */
   public static boolean areConsistencyChecksEnabled ()
@@ -63,13 +61,12 @@ public class CSSValue implements ICSSValue
   }
 
   /**
-   * Enable or disable consistency checks. By default the consistency checks are
-   * enabled (for backwards compatibility) but if performance is a real matter,
-   * you may want to disable them globally.
+   * Enable or disable consistency checks. By default the consistency checks are enabled (for
+   * backwards compatibility) but if performance is a real matter, you may want to disable them
+   * globally.
    *
    * @param bEnabled
-   *        <code>true</code> to enable them, <code>false</code> to disable
-   *        them.
+   *        <code>true</code> to enable them, <code>false</code> to disable them.
    * @since 5.0.2
    */
   public static void setConsistencyChecksEnabled (final boolean bEnabled)
@@ -87,14 +84,13 @@ public class CSSValue implements ICSSValue
    * @param aProperty
    *        The CSS property. May not be <code>null</code>.
    * @param sValue
-   *        The String value to use. May be <code>null</code>. The value may
-   *        <strong>NOT</strong> contain the <code>!important</code> flag! The
-   *        value is internally trimmed to avoid leading and trailing.
+   *        The String value to use. May be <code>null</code>. The value may <strong>NOT</strong>
+   *        contain the <code>!important</code> flag! The value is internally trimmed to avoid
+   *        leading and trailing.
    * @param bIsImportant
-   *        <code>true</code> if the value should be important,
-   *        <code>false</code> otherwise
+   *        <code>true</code> if the value should be important, <code>false</code> otherwise
    */
-  public CSSValue (@Nonnull final ICSSProperty aProperty, @Nonnull final String sValue, final boolean bIsImportant)
+  public CSSValue (@NonNull final ICSSProperty aProperty, @NonNull final String sValue, final boolean bIsImportant)
   {
     setProperty (aProperty);
     setValue (sValue);
@@ -104,7 +100,7 @@ public class CSSValue implements ICSSValue
   /**
    * @return The CSS property used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ICSSProperty getProperty ()
   {
     return m_aProperty;
@@ -113,18 +109,18 @@ public class CSSValue implements ICSSValue
   /**
    * @return The CSS base property used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ECSSProperty getProp ()
   {
     return m_aProperty.getProp ();
   }
 
   /**
-   * @return The property name including an eventually contained vendor prefix.
-   *         Neither <code>null</code> nor empty.
+   * @return The property name including an eventually contained vendor prefix. Neither
+   *         <code>null</code> nor empty.
    * @since 3.9.0
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getPropertyName ()
   {
@@ -139,8 +135,8 @@ public class CSSValue implements ICSSValue
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
-  public CSSValue setProperty (@Nonnull final ICSSProperty aProperty)
+  @NonNull
+  public CSSValue setProperty (@NonNull final ICSSProperty aProperty)
   {
     m_aProperty = ValueEnforcer.notNull (aProperty, "Property");
     return this;
@@ -149,32 +145,36 @@ public class CSSValue implements ICSSValue
   /**
    * @return The CSS value used. May not be <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   public String getValue ()
   {
     return m_sValue;
   }
 
   /**
-   * Set the value of this CSS value (e.g. <code>red</code> in case the property
-   * is <code>background-color</code>).
+   * Set the value of this CSS value (e.g. <code>red</code> in case the property is
+   * <code>background-color</code>).
    *
    * @param sValue
-   *        The value to be set. May not be <code>null</code>. The value may
-   *        <strong>NOT</strong> contain the <code>!important</code> flag! The
-   *        value is internally trimmed to avoid leading and trailing.
+   *        The value to be set. May not be <code>null</code>. The value may <strong>NOT</strong>
+   *        contain the <code>!important</code> flag! The value is internally trimmed to avoid
+   *        leading and trailing.
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
-  public CSSValue setValue (@Nonnull final String sValue)
+  @NonNull
+  public CSSValue setValue (@NonNull final String sValue)
   {
     ValueEnforcer.notNull (sValue, "Value");
 
     if (areConsistencyChecksEnabled ())
     {
       if (!m_aProperty.isValidValue (sValue))
-        LOGGER.warn ("CSS: the value '" + sValue + "' is not valid for property '" + m_aProperty.getPropertyName () + "'");
+        LOGGER.warn ("CSS: the value '" +
+                     sValue +
+                     "' is not valid for property '" +
+                     m_aProperty.getPropertyName () +
+                     "'");
       if (sValue.contains (CCSS.IMPORTANT_SUFFIX))
         LOGGER.warn ("CSS: the value '" +
                      sValue +
@@ -198,26 +198,24 @@ public class CSSValue implements ICSSValue
    * Set the important flag of this value.
    *
    * @param bIsImportant
-   *        <code>true</code> to mark it important, <code>false</code> to remove
-   *        it.
+   *        <code>true</code> to mark it important, <code>false</code> to remove it.
    * @return this
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public CSSValue setImportant (final boolean bIsImportant)
   {
     m_bIsImportant = bIsImportant;
     return this;
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (m_aProperty);
     return m_aProperty.getPropertyName () +
            CCSS.SEPARATOR_PROPERTY_VALUE +
            m_sValue +
-           (StringHelper.hasText (m_sValue) && m_bIsImportant ? CCSS.IMPORTANT_SUFFIX : "") +
+           (StringHelper.isNotEmpty (m_sValue) && m_bIsImportant ? CCSS.IMPORTANT_SUFFIX : "") +
            CCSS.DEFINITION_END;
   }
 
@@ -237,7 +235,10 @@ public class CSSValue implements ICSSValue
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aProperty.getProp ()).append (m_sValue).append (m_bIsImportant).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aProperty.getProp ())
+                                       .append (m_sValue)
+                                       .append (m_bIsImportant)
+                                       .getHashCode ();
   }
 
   @Override

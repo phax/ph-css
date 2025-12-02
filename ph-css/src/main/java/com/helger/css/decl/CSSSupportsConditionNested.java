@@ -16,21 +16,20 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -59,8 +58,8 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return m_aMembers.size ();
   }
 
-  @Nonnull
-  public CSSSupportsConditionNested addMember (@Nonnull final ICSSSupportsConditionMember aMember)
+  @NonNull
+  public CSSSupportsConditionNested addMember (@NonNull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
 
@@ -68,8 +67,9 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return this;
   }
 
-  @Nonnull
-  public CSSSupportsConditionNested addMember (@Nonnegative final int nIndex, @Nonnull final ICSSSupportsConditionMember aMember)
+  @NonNull
+  public CSSSupportsConditionNested addMember (@Nonnegative final int nIndex,
+                                               @NonNull final ICSSSupportsConditionMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "SupportsConditionMember");
@@ -81,13 +81,13 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return this;
   }
 
-  @Nonnull
-  public EChange removeMember (@Nonnull final ICSSSupportsConditionMember aMember)
+  @NonNull
+  public EChange removeMember (@NonNull final ICSSSupportsConditionMember aMember)
   {
     return m_aMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nIndex)
   {
     return m_aMembers.removeAtIndex (nIndex);
@@ -96,11 +96,11 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   /**
    * Remove all members.
    *
-   * @return {@link EChange#CHANGED} if any member was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
@@ -112,18 +112,17 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
     return m_aMembers.getAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSSupportsConditionMember> getAllMembers ()
   {
     return m_aMembers.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     final StringBuilder aSB = new StringBuilder ("(");
     boolean bFirst = true;
     for (final ICSSSupportsConditionMember aMember : m_aMembers)
@@ -135,12 +134,6 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
       aSB.append (aMember.getAsCSSString (aSettings, nIndentLevel));
     }
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -174,6 +167,8 @@ public class CSSSupportsConditionNested implements ICSSSupportsConditionMember, 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (this).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

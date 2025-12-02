@@ -24,9 +24,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.css.ECSSVersion;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
@@ -58,50 +57,32 @@ public final class CSSReaderDeclarationListTest
                                                                                 " color :  !  important ");
 
   @Test
-  public void testIsValidCSS21 ()
+  public void testIsValid ()
   {
     for (final String sCSS : VALID)
-      assertTrue (sCSS, CSSReaderDeclarationList.isValidCSS (sCSS, ECSSVersion.CSS21));
+      assertTrue (sCSS, CSSReaderDeclarationList.isValidCSS (sCSS));
     for (final String sCSS : INVALID)
-      assertFalse (sCSS, CSSReaderDeclarationList.isValidCSS (sCSS, ECSSVersion.CSS21));
+      assertFalse (sCSS, CSSReaderDeclarationList.isValidCSS (sCSS));
   }
 
   @Test
-  public void testIsValidCSS30 ()
-  {
-    for (final String sCSS : VALID)
-      assertTrue (sCSS, CSSReaderDeclarationList.isValidCSS (sCSS, ECSSVersion.CSS30));
-    for (final String sCSS : INVALID)
-      assertFalse (sCSS, CSSReaderDeclarationList.isValidCSS (sCSS, ECSSVersion.CSS30));
-  }
-
-  @Test
-  public void testRead21 ()
+  public void testRead ()
   {
     final ICSSParseExceptionCallback aHdl = new DoNothingCSSParseExceptionCallback ();
     for (final String sCSS : VALID)
-    {
-      final CSSDeclarationList aDL = CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS30, aHdl);
-      assertNotNull (aDL);
-    }
+      assertNotNull (sCSS,
+                     CSSReaderDeclarationList.readFromString (sCSS,
+                                                              new CSSReaderSettings ().setCustomExceptionHandler (aHdl)));
     for (final String sCSS : INVALID)
-      assertNull (sCSS, CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS30, aHdl));
-  }
-
-  @Test
-  public void testRead30 ()
-  {
-    final ICSSParseExceptionCallback aHdl = new DoNothingCSSParseExceptionCallback ();
-    for (final String sCSS : VALID)
-      assertNotNull (sCSS, CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS30, aHdl));
-    for (final String sCSS : INVALID)
-      assertNull (sCSS, CSSReaderDeclarationList.readFromString (sCSS, ECSSVersion.CSS30, aHdl));
+      assertNull (sCSS,
+                  CSSReaderDeclarationList.readFromString (sCSS,
+                                                           new CSSReaderSettings ().setCustomExceptionHandler (aHdl)));
   }
 
   @Test
   public void testReadAndValidate ()
   {
-    final CSSDeclarationList aList = CSSReaderDeclarationList.readFromString ("color:red; background:fixed;", ECSSVersion.CSS30);
+    final CSSDeclarationList aList = CSSReaderDeclarationList.readFromString ("color:red; background:fixed;");
     assertNotNull (aList);
     assertEquals (2, aList.getDeclarationCount ());
     CSSDeclaration aDecl = aList.getDeclarationAtIndex (0);

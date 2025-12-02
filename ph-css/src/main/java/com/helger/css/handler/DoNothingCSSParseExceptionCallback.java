@@ -16,9 +16,9 @@
  */
 package com.helger.css.handler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.css.parser.ParseException;
 
 /**
@@ -33,7 +33,7 @@ public class DoNothingCSSParseExceptionCallback implements ICSSParseExceptionCal
   public DoNothingCSSParseExceptionCallback ()
   {}
 
-  public void onException (@Nonnull final ParseException ex)
+  public void onException (@NonNull final ParseException ex)
   {
     // ignore
   }

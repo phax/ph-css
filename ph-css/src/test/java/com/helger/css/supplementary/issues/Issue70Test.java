@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -40,8 +39,7 @@ public final class Issue70Test
   {
     final String sCSS = "div { color:red; @apply: 5;} ";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (true));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     assertEquals (0, aCSS.getStyleRuleCount ());
   }
@@ -51,11 +49,11 @@ public final class Issue70Test
   {
     final String sCSS = "div { color:red; --tw-placeholder-opacity: 1;} ";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (true));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getStyleRuleCount ());
     assertEquals ("div{color:red;--tw-placeholder-opacity:1}",
-                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false).getCSSAsString (aCSS));
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                    .getCSSAsString (aCSS));
   }
 }

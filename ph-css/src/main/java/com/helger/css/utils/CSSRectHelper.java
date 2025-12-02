@@ -16,13 +16,13 @@
  */
 package com.helger.css.utils;
 
-import javax.annotation.Nullable;
-import javax.annotation.RegEx;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.RegEx;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.string.StringHelper;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.css.decl.CSSRect;
 import com.helger.css.propertyvalue.CCSSValue;
 
@@ -71,19 +71,17 @@ public final class CSSRectHelper
   {}
 
   /**
-   * Check if the passed value is CSS rectangle definition or not. It checks
-   * both the current syntax (<code>rect(a,b,c,d)</code>) and the old syntax (
-   * <code>rect(a b c d)</code>).
+   * Check if the passed value is CSS rectangle definition or not. It checks both the current syntax
+   * (<code>rect(a,b,c,d)</code>) and the old syntax ( <code>rect(a b c d)</code>).
    *
    * @param sCSSValue
    *        The value to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed value is a rect value,
-   *         <code>false</code> if not
+   * @return <code>true</code> if the passed value is a rect value, <code>false</code> if not
    */
   public static boolean isRectValue (@Nullable final String sCSSValue)
   {
     final String sRealValue = StringHelper.trim (sCSSValue);
-    if (StringHelper.hasText (sRealValue))
+    if (StringHelper.isNotEmpty (sRealValue))
     {
       // Current syntax: rect(a,b,c,d)
       if (RegExHelper.stringMatchesPattern (PATTERN_CURRENT_SYNTAX, sRealValue))
@@ -101,15 +99,15 @@ public final class CSSRectHelper
    *
    * @param sCSSValue
    *        The CSS values to check. May be <code>null</code>.
-   * @return <code>null</code> if the passed String is not a CSS rectangle. An
-   *         array with 4 Strings if the passed value is a CSS rectangle.
+   * @return <code>null</code> if the passed String is not a CSS rectangle. An array with 4 Strings
+   *         if the passed value is a CSS rectangle.
    */
   @Nullable
   public static String [] getRectValues (@Nullable final String sCSSValue)
   {
     String [] ret = null;
     final String sRealValue = StringHelper.trim (sCSSValue);
-    if (StringHelper.hasText (sRealValue))
+    if (StringHelper.isNotEmpty (sRealValue))
     {
       ret = RegExHelper.getAllMatchingGroupValues (PATTERN_CURRENT_SYNTAX, sRealValue);
       if (ret == null)
@@ -119,8 +117,7 @@ public final class CSSRectHelper
   }
 
   /**
-   * Interpret the passed value as a CSS rectangle and convert it to a
-   * {@link CSSRect}.
+   * Interpret the passed value as a CSS rectangle and convert it to a {@link CSSRect}.
    *
    * @param sCSSValue
    *        The CSS values to check. May be <code>null</code>.

@@ -16,83 +16,83 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
-public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware, IHasCSSDeclarations <CSSPageMarginBlock>
+public class CSSPageMarginBlock implements ICSSPageRuleMember, IHasCSSDeclarations <CSSPageMarginBlock>
 {
   private String m_sPageMarginSymbol;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSPageMarginBlock (@Nonnull @Nonempty final String sPargeMarginSymbol)
+  public CSSPageMarginBlock (@NonNull @Nonempty final String sPargeMarginSymbol)
   {
     setPageMarginSymbol (sPargeMarginSymbol);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getPageMarginSymbol ()
   {
     return m_sPageMarginSymbol;
   }
 
-  @Nonnull
-  public final CSSPageMarginBlock setPageMarginSymbol (@Nonnull @Nonempty final String sPargeMarginSymbol)
+  @NonNull
+  public final CSSPageMarginBlock setPageMarginSymbol (@NonNull @Nonempty final String sPargeMarginSymbol)
   {
     ValueEnforcer.notEmpty (sPargeMarginSymbol, "PargeMarginSymbol");
-    ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'), "Page margin symbol does not start with '@'!");
+    ValueEnforcer.isTrue (StringHelper.startsWith (sPargeMarginSymbol, '@'),
+                          "Page margin symbol does not start with '@'!");
     m_sPageMarginSymbol = sPargeMarginSymbol;
     return this;
   }
 
-  @Nonnull
-  public CSSPageMarginBlock addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public CSSPageMarginBlock addDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     m_aDeclarations.addDeclaration (aDeclaration);
     return this;
   }
 
-  @Nonnull
-  public CSSPageMarginBlock addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  @NonNull
+  public CSSPageMarginBlock addDeclaration (@Nonnegative final int nIndex,
+                                            @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
   }
 
-  @Nonnull
-  public EChange removeDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public EChange removeDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     return m_aDeclarations.removeDeclaration (aDeclaration);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
   {
     return m_aDeclarations.removeDeclaration (nDeclarationIndex);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllDeclarations ()
   {
     return m_aDeclarations.removeAllDeclarations ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
@@ -105,8 +105,9 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
     return m_aDeclarations.getDeclarationAtIndex (nIndex);
   }
 
-  @Nonnull
-  public CSSPageMarginBlock setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  @NonNull
+  public CSSPageMarginBlock setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                   @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -129,19 +130,17 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
     return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
@@ -149,12 +148,6 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, ICSSVersionAware,
     aSB.append (m_sPageMarginSymbol);
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

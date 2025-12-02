@@ -16,12 +16,12 @@
  */
 package com.helger.css.property.customizer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.StringParser;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.string.StringParser;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.CSSPropertyFree;
 import com.helger.css.property.ECSSProperty;
@@ -38,8 +38,8 @@ import com.helger.css.propertyvalue.ICSSValue;
 public class CSSPropertyCustomizerOpacity extends AbstractCSSPropertyCustomizer
 {
   @Nullable
-  public ICSSValue createSpecialValue (@Nonnull final ICSSProperty aProperty,
-                                       @Nonnull @Nonempty final String sValue,
+  public ICSSValue createSpecialValue (@NonNull final ICSSProperty aProperty,
+                                       @NonNull @Nonempty final String sValue,
                                        final boolean bIsImportant)
   {
     final double dValue = StringParser.parseDouble (sValue, Double.NaN);
@@ -47,7 +47,8 @@ public class CSSPropertyCustomizerOpacity extends AbstractCSSPropertyCustomizer
     {
       final int nPerc = (int) (dValue * 100);
       return new CSSValueList (ECSSProperty.OPACITY,
-                               new ICSSProperty [] { new CSSPropertyFree (ECSSProperty.FILTER, ECSSVendorPrefix.MICROSOFT),
+                               new ICSSProperty [] { new CSSPropertyFree (ECSSProperty.FILTER,
+                                                                          ECSSVendorPrefix.MICROSOFT),
                                                      new CSSPropertyFree (ECSSProperty.FILTER),
                                                      aProperty.getClone (ECSSVendorPrefix.MOZILLA),
                                                      aProperty.getClone (ECSSVendorPrefix.WEBKIT),

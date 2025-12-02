@@ -21,12 +21,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
-
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
-import com.helger.css.AbstractCSS30TestCase;
-import com.helger.css.ECSSVersion;
+import com.helger.css.AbstractCSSTestCase;
 import com.helger.css.ICSSWriterSettings;
 
 /**
@@ -34,11 +32,10 @@ import com.helger.css.ICSSWriterSettings;
  *
  * @author Philip Helger
  */
-public final class CSSWriterSettingsTest extends AbstractCSS30TestCase
+public final class CSSWriterSettingsTest extends AbstractCSSTestCase
 {
-  private static void _checkDefault (@Nonnull final ICSSWriterSettings aSettings)
+  private static void _checkDefault (@NonNull final ICSSWriterSettings aSettings)
   {
-    assertSame (ECSSVersion.CSS30, aSettings.getCSSVersion ());
     assertTrue (CSSWriterSettings.DEFAULT_OPTIMIZED_OUTPUT == aSettings.isOptimizedOutput ());
     assertTrue (CSSWriterSettings.DEFAULT_REMOVE_UNNECESSARY_CODE == aSettings.isRemoveUnnecessaryCode ());
     assertSame (CSSWriterSettings.DEFAULT_NEW_LINE_MODE, aSettings.getNewLineMode ());

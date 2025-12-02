@@ -16,10 +16,10 @@
  */
 package com.helger.css.decl.visit;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
@@ -34,11 +34,11 @@ import com.helger.css.decl.ICSSTopLevelRule;
 @NotThreadSafe
 public abstract class AbstractModifyingCSSUrlVisitor extends DefaultCSSUrlVisitor
 {
-  @Nonnull
-  protected abstract String getModifiedURI (@Nonnull String sURI);
+  @NonNull
+  protected abstract String getModifiedURI (@NonNull String sURI);
 
   @Override
-  public void onImport (@Nonnull final CSSImportRule aImportRule)
+  public void onImport (@NonNull final CSSImportRule aImportRule)
   {
     // Get the source URL
     final String sURI = aImportRule.getLocationString ();
@@ -50,8 +50,8 @@ public abstract class AbstractModifyingCSSUrlVisitor extends DefaultCSSUrlVisito
 
   @Override
   public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                @Nonnull final CSSDeclaration aDeclaration,
-                                @Nonnull final CSSExpressionMemberTermURI aExprTerm)
+                                @NonNull final CSSDeclaration aDeclaration,
+                                @NonNull final CSSExpressionMemberTermURI aExprTerm)
   {
     // Get the source URL
     final String sURI = aExprTerm.getURIString ();

@@ -16,23 +16,21 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
@@ -41,64 +39,64 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock>, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock>, ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aKeyframesSelectors;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSKeyframesBlock (@Nonnull @Nonempty final String... aKeyframesSelectors)
+  public CSSKeyframesBlock (@NonNull @Nonempty final String... aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
     m_aKeyframesSelectors = new CommonsArrayList <> (aKeyframesSelectors);
   }
 
-  public CSSKeyframesBlock (@Nonnull @Nonempty final Iterable <String> aKeyframesSelectors)
+  public CSSKeyframesBlock (@NonNull @Nonempty final Iterable <String> aKeyframesSelectors)
   {
     ValueEnforcer.notEmptyNoNullValue (aKeyframesSelectors, "KeyframesSelectors");
     m_aKeyframesSelectors = new CommonsArrayList <> (aKeyframesSelectors);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllKeyframesSelectors ()
   {
     return m_aKeyframesSelectors.getClone ();
   }
 
-  @Nonnull
-  public CSSKeyframesBlock addDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public CSSKeyframesBlock addDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     m_aDeclarations.addDeclaration (aDeclaration);
     return this;
   }
 
-  @Nonnull
-  public CSSKeyframesBlock addDeclaration (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  @NonNull
+  public CSSKeyframesBlock addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
   }
 
-  @Nonnull
-  public EChange removeDeclaration (@Nonnull final CSSDeclaration aDeclaration)
+  @NonNull
+  public EChange removeDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     return m_aDeclarations.removeDeclaration (aDeclaration);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
   {
     return m_aDeclarations.removeDeclaration (nDeclarationIndex);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllDeclarations ()
   {
     return m_aDeclarations.removeAllDeclarations ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarations ()
   {
@@ -111,8 +109,9 @@ public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock
     return m_aDeclarations.getDeclarationAtIndex (nIndex);
   }
 
-  @Nonnull
-  public CSSKeyframesBlock setDeclarationAtIndex (@Nonnegative final int nIndex, @Nonnull final CSSDeclaration aNewDeclaration)
+  @NonNull
+  public CSSKeyframesBlock setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                  @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -135,19 +134,17 @@ public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock
     return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
@@ -165,12 +162,6 @@ public class CSSKeyframesBlock implements IHasCSSDeclarations <CSSKeyframesBlock
 
     aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

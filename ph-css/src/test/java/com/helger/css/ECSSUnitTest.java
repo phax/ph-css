@@ -17,7 +17,6 @@
 package com.helger.css;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -25,7 +24,7 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link ECSSUnit}.
@@ -39,11 +38,10 @@ public final class ECSSUnitTest
   {
     for (final ECSSUnit e : ECSSUnit.values ())
     {
-      assertTrue (StringHelper.hasText (e.getName ()));
-      assertNotNull (e.getMinimumCSSVersion ());
+      assertTrue (StringHelper.isNotEmpty (e.getName ()));
       assertSame (e, ECSSUnit.getFromNameOrNull (e.getName ()));
-      assertTrue (StringHelper.hasText (e.format (4711)));
-      assertTrue (StringHelper.hasText (e.format (47.11)));
+      assertTrue (StringHelper.isNotEmpty (e.format (4711)));
+      assertTrue (StringHelper.isNotEmpty (e.format (47.11)));
     }
   }
 

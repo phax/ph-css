@@ -19,18 +19,17 @@ package com.helger.css.writer;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.css.ECSSVersion;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.CSSNamespaceRule;
@@ -64,28 +63,15 @@ public class CSSWriter
   }
 
   /**
-   * Constructor for creating non-optimized output.
-   *
-   * @param eVersion
-   *        The CSS version to emit the code for. May not be <code>null</code> .
-   */
-  public CSSWriter (@Nonnull final ECSSVersion eVersion)
-  {
-    this (eVersion, DEFAULT_OPTIMIZED_OUTPUT);
-  }
-
-  /**
    * Constructor.
    *
-   * @param eVersion
-   *        The CSS version to emit the code for. May not be <code>null</code> .
    * @param bOptimizedOutput
-   *        If <code>true</code> the number of bytes emitted by this writer is
-   *        minimized. Also style rules having no declarations are omitted.
+   *        If <code>true</code> the number of bytes emitted by this writer is minimized. Also style
+   *        rules having no declarations are omitted.
    */
-  public CSSWriter (@Nonnull final ECSSVersion eVersion, final boolean bOptimizedOutput)
+  public CSSWriter (final boolean bOptimizedOutput)
   {
-    this (new CSSWriterSettings (eVersion, bOptimizedOutput));
+    this (new CSSWriterSettings (bOptimizedOutput));
   }
 
   /**
@@ -94,7 +80,7 @@ public class CSSWriter
    * @param aSettings
    *        The settings to be used. May not be <code>null</code>.
    */
-  public CSSWriter (@Nonnull final CSSWriterSettings aSettings)
+  public CSSWriter (@NonNull final CSSWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aSettings, "Settings");
     m_aSettings = aSettings;
@@ -103,11 +89,10 @@ public class CSSWriter
   }
 
   /**
-   * Check if the header text should be emitted. By default it is enabled, if
-   * non-optimized output is desired.
+   * Check if the header text should be emitted. By default it is enabled, if non-optimized output
+   * is desired.
    *
-   * @return <code>true</code> if the header text should be emitted,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the header text should be emitted, <code>false</code> if not.
    */
   public boolean isWriteHeaderText ()
   {
@@ -115,15 +100,15 @@ public class CSSWriter
   }
 
   /**
-   * Determine whether the file header should be written or not. By default it
-   * is enabled, if non-optimized output is desired.
+   * Determine whether the file header should be written or not. By default it is enabled, if
+   * non-optimized output is desired.
    *
    * @param bWriteHeaderText
-   *        If <code>true</code> the header text will be written, if
-   *        <code>false</code> the text will not be written.
+   *        If <code>true</code> the header text will be written, if <code>false</code> the text
+   *        will not be written.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setWriteHeaderText (final boolean bWriteHeaderText)
   {
     m_bWriteHeaderText = bWriteHeaderText;
@@ -140,15 +125,14 @@ public class CSSWriter
   }
 
   /**
-   * Set a custom header text that should be emitted. This text may be multi
-   * line separated by the '\n' character. It will emitted if
-   * {@link #isWriteHeaderText()} returns <code>true</code>.
+   * Set a custom header text that should be emitted. This text may be multi line separated by the
+   * '\n' character. It will emitted if {@link #isWriteHeaderText()} returns <code>true</code>.
    *
    * @param sHeaderText
    *        The header text to be emitted. May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setHeaderText (@Nullable final String sHeaderText)
   {
     m_sHeaderText = sHeaderText;
@@ -156,11 +140,10 @@ public class CSSWriter
   }
 
   /**
-   * Check if the footer text should be emitted. By default it is enabled, if
-   * non-optimized output is desired.
+   * Check if the footer text should be emitted. By default it is enabled, if non-optimized output
+   * is desired.
    *
-   * @return <code>true</code> if the footer text should be emitted,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the footer text should be emitted, <code>false</code> if not.
    */
   public boolean isWriteFooterText ()
   {
@@ -168,15 +151,15 @@ public class CSSWriter
   }
 
   /**
-   * Determine whether the file footer should be written or not. By default it
-   * is enabled, if non-optimized output is desired.
+   * Determine whether the file footer should be written or not. By default it is enabled, if
+   * non-optimized output is desired.
    *
    * @param bWriteFooterText
-   *        If <code>true</code> the footer text will be written, if
-   *        <code>false</code> the text will not be written.
+   *        If <code>true</code> the footer text will be written, if <code>false</code> the text
+   *        will not be written.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setWriteFooterText (final boolean bWriteFooterText)
   {
     m_bWriteFooterText = bWriteFooterText;
@@ -193,15 +176,14 @@ public class CSSWriter
   }
 
   /**
-   * Set a custom footer text that should be emitted. This text may be multi
-   * line separated by the '\n' character. It will emitted if
-   * {@link #isWriteFooterText()} returns <code>true</code>.
+   * Set a custom footer text that should be emitted. This text may be multi line separated by the
+   * '\n' character. It will emitted if {@link #isWriteFooterText()} returns <code>true</code>.
    *
    * @param sFooterText
    *        The footer text to be emitted. May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setFooterText (@Nullable final String sFooterText)
   {
     m_sFooterText = sFooterText;
@@ -209,8 +191,7 @@ public class CSSWriter
   }
 
   /**
-   * @return The current defined content charset for the CSS. By default it is
-   *         <code>null</code>.
+   * @return The current defined content charset for the CSS. By default it is <code>null</code>.
    */
   @Nullable
   public String getContentCharset ()
@@ -219,19 +200,18 @@ public class CSSWriter
   }
 
   /**
-   * Define the content charset to be used. If not <code>null</code> and not
-   * empty, the <code>@charset</code> element is emitted into the CSS. By
-   * default no charset is defined.<br>
-   * <b>Important:</b> this does not define the encoding of the output - it is
-   * just a declarative marker inside the code. Best practice is to use the same
-   * encoding for the CSS and the respective writer!
+   * Define the content charset to be used. If not <code>null</code> and not empty, the
+   * <code>@charset</code> element is emitted into the CSS. By default no charset is defined.<br>
+   * <b>Important:</b> this does not define the encoding of the output - it is just a declarative
+   * marker inside the code. Best practice is to use the same encoding for the CSS and the
+   * respective writer!
    *
    * @param sContentCharset
-   *        The content charset to be used. May be <code>null</code> to indicate
-   *        that no special charset name should be emitted into the CSS.
+   *        The content charset to be used. May be <code>null</code> to indicate that no special
+   *        charset name should be emitted into the CSS.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSWriter setContentCharset (@Nullable final String sContentCharset)
   {
     m_sContentCharset = sContentCharset;
@@ -239,11 +219,10 @@ public class CSSWriter
   }
 
   /**
-   * @return The CSS writer settings that are used to generate the different
-   *         element code. This is the same object as passed into/created by the
-   *         constructor. Never <code>null</code>.
+   * @return The CSS writer settings that are used to generate the different element code. This is
+   *         the same object as passed into/created by the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("Design")
   public CSSWriterSettings getSettings ()
   {
@@ -256,16 +235,16 @@ public class CSSWriter
    * @param aCSS
    *        The CSS to write. May not be <code>null</code>.
    * @param aWriter
-   *        The write to write the text to. May not be <code>null</code>. Is
-   *        automatically closed after the writing!
+   *        The write to write the text to. May not be <code>null</code>. Is automatically closed
+   *        after the writing!
    * @throws IOException
    *         In case writing fails.
    * @throws IllegalStateException
-   *         In case some elements cannot be written in the version supplied in
-   *         the constructor.
+   *         In case some elements cannot be written in the version supplied in the constructor.
    * @see #getCSSAsString(CascadingStyleSheet)
    */
-  public void writeCSS (@Nonnull final CascadingStyleSheet aCSS, @Nonnull @WillClose final Writer aWriter) throws IOException
+  public void writeCSS (@NonNull final CascadingStyleSheet aCSS, @NonNull @WillClose final Writer aWriter)
+                                                                                                           throws IOException
   {
     ValueEnforcer.notNull (aCSS, "CSS");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -276,7 +255,7 @@ public class CSSWriter
       final String sNewLineString = m_aSettings.getNewLineString ();
 
       // Write file header
-      if (m_bWriteHeaderText && StringHelper.hasText (m_sHeaderText))
+      if (m_bWriteHeaderText && StringHelper.isNotEmpty (m_sHeaderText))
       {
         aWriter.write ("/*");
         aWriter.write (sNewLineString);
@@ -290,7 +269,7 @@ public class CSSWriter
       }
 
       // Charset? Must be the first element before the import
-      if (StringHelper.hasText (m_sContentCharset))
+      if (StringHelper.isNotEmpty (m_sContentCharset))
       {
         aWriter.write ("@charset \"" + m_sContentCharset + "\";");
         if (!bOptimizedOutput)
@@ -320,7 +299,7 @@ public class CSSWriter
       for (final ICSSTopLevelRule aRule : aCSS.getAllRules ())
       {
         final String sRuleCSS = aRule.getAsCSSString (m_aSettings);
-        if (StringHelper.hasText (sRuleCSS))
+        if (StringHelper.isNotEmpty (sRuleCSS))
         {
           if (!bOptimizedOutput && nRulesEmitted > 0)
             aWriter.write (sNewLineString);
@@ -331,7 +310,7 @@ public class CSSWriter
       }
 
       // Write file footer
-      if (m_bWriteFooterText && StringHelper.hasText (m_sFooterText))
+      if (m_bWriteFooterText && StringHelper.isNotEmpty (m_sFooterText))
       {
         aWriter.write ("/*");
         aWriter.write (sNewLineString);
@@ -354,13 +333,12 @@ public class CSSWriter
    * Create the CSS without a specific charset.
    *
    * @param aCSS
-   *        The CSS object to be converted to text. May not be <code>null</code>
-   *        .
+   *        The CSS object to be converted to text. May not be <code>null</code> .
    * @return The text representation of the CSS.
    * @see #writeCSS(CascadingStyleSheet, Writer)
    */
-  @Nonnull
-  public String getCSSAsString (@Nonnull final CascadingStyleSheet aCSS)
+  @NonNull
+  public String getCSSAsString (@NonNull final CascadingStyleSheet aCSS)
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try
@@ -382,16 +360,15 @@ public class CSSWriter
    * @param aCSS
    *        The CSS to write. May not be <code>null</code>.
    * @param aWriter
-   *        The write to write the text to. May not be <code>null</code>. Is
-   *        automatically closed after the writing!
+   *        The write to write the text to. May not be <code>null</code>. Is automatically closed
+   *        after the writing!
    * @throws IOException
    *         In case writing fails.
    * @throws IllegalStateException
-   *         In case some elements cannot be written in the version supplied in
-   *         the constructor.
+   *         In case some elements cannot be written in the version supplied in the constructor.
    * @see #getCSSAsString(ICSSWriteable)
    */
-  public void writeCSS (@Nonnull final ICSSWriteable aCSS, @Nonnull @WillClose final Writer aWriter) throws IOException
+  public void writeCSS (@NonNull final ICSSWriteable aCSS, @NonNull @WillClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aCSS, "CSS");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -407,17 +384,16 @@ public class CSSWriter
   }
 
   /**
-   * Get the string representation of the passed CSS object. It can be any
-   * object that implements {@link ICSSWriteable}.
+   * Get the string representation of the passed CSS object. It can be any object that implements
+   * {@link ICSSWriteable}.
    *
    * @param aCSS
-   *        The CSS object to be converted to text. May not be <code>null</code>
-   *        .
+   *        The CSS object to be converted to text. May not be <code>null</code> .
    * @return The text representation of the CSS.
    * @see #writeCSS(ICSSWriteable, Writer)
    */
-  @Nonnull
-  public String getCSSAsString (@Nonnull final ICSSWriteable aCSS)
+  @NonNull
+  public String getCSSAsString (@NonNull final ICSSWriteable aCSS)
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try

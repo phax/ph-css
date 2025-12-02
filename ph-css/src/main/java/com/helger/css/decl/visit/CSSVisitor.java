@@ -16,11 +16,11 @@
  */
 package com.helger.css.decl.visit;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CSSImportRule;
@@ -66,7 +66,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitImportRule (@Nonnull final CSSImportRule aImportRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitImportRule (@NonNull final CSSImportRule aImportRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onImport (aImportRule);
   }
@@ -79,7 +79,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitNamespaceRule (@Nonnull final CSSNamespaceRule aNamespaceRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitNamespaceRule (@NonNull final CSSNamespaceRule aNamespaceRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onNamespace (aNamespaceRule);
   }
@@ -93,7 +93,7 @@ public final class CSSVisitor
    *        The visitor to be invoked on each declaration. May not be
    *        <code>null</code>.
    */
-  public static void visitAllDeclarations (@Nonnull final IHasCSSDeclarations <?> aHasDeclarations, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitAllDeclarations (@NonNull final IHasCSSDeclarations <?> aHasDeclarations, @NonNull final ICSSVisitor aVisitor)
   {
     // for all declarations
     for (final CSSDeclaration aDeclaration : aHasDeclarations.getAllDeclarations ())
@@ -108,7 +108,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitStyleRule (@Nonnull final CSSStyleRule aStyleRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitStyleRule (@NonNull final CSSStyleRule aStyleRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginStyleRule (aStyleRule);
     try
@@ -134,7 +134,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitPageRule (@Nonnull final CSSPageRule aPageRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitPageRule (@NonNull final CSSPageRule aPageRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginPageRule (aPageRule);
     try
@@ -172,7 +172,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitFontFaceRule (@Nonnull final CSSFontFaceRule aFontFaceRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitFontFaceRule (@NonNull final CSSFontFaceRule aFontFaceRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginFontFaceRule (aFontFaceRule);
     try
@@ -194,7 +194,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitMediaRule (@Nonnull final CSSMediaRule aMediaRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitMediaRule (@NonNull final CSSMediaRule aMediaRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginMediaRule (aMediaRule);
     try
@@ -217,7 +217,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitKeyframesRule (@Nonnull final CSSKeyframesRule aKeyframesRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitKeyframesRule (@NonNull final CSSKeyframesRule aKeyframesRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginKeyframesRule (aKeyframesRule);
     try
@@ -251,7 +251,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitViewportRule (@Nonnull final CSSViewportRule aViewportRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitViewportRule (@NonNull final CSSViewportRule aViewportRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginViewportRule (aViewportRule);
     try
@@ -273,7 +273,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitSupportsRule (@Nonnull final CSSSupportsRule aSupportsRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitSupportsRule (@NonNull final CSSSupportsRule aSupportsRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginSupportsRule (aSupportsRule);
     try
@@ -296,7 +296,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitLayerRule (@Nonnull final CSSLayerRule aLayerRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitLayerRule (@NonNull final CSSLayerRule aLayerRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginLayerRule (aLayerRule);
     try
@@ -319,7 +319,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitUnknownRule (@Nonnull final CSSUnknownRule aUnknownRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitUnknownRule (@NonNull final CSSUnknownRule aUnknownRule, @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onUnknownRule (aUnknownRule);
   }
@@ -333,7 +333,7 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitTopLevelRule (@Nonnull final ICSSTopLevelRule aTopLevelRule, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitTopLevelRule (@NonNull final ICSSTopLevelRule aTopLevelRule, @NonNull final ICSSVisitor aVisitor)
   {
     if (aTopLevelRule instanceof CSSStyleRule)
     {
@@ -394,7 +394,7 @@ public final class CSSVisitor
    *        The callback to be invoked for each element found. May not be
    *        <code>null</code>.
    */
-  public static void visitCSS (@Nonnull final CascadingStyleSheet aCSS, @Nonnull final ICSSVisitor aVisitor)
+  public static void visitCSS (@NonNull final CascadingStyleSheet aCSS, @NonNull final ICSSVisitor aVisitor)
   {
     ValueEnforcer.notNull (aCSS, "CSS");
     ValueEnforcer.notNull (aVisitor, "Visitor");
@@ -431,7 +431,7 @@ public final class CSSVisitor
    *        <code>null</code>.
    * @see CSSVisitorForUrl
    */
-  public static void visitCSSUrl (@Nonnull final CascadingStyleSheet aCSS, @Nonnull final ICSSUrlVisitor aVisitor)
+  public static void visitCSSUrl (@NonNull final CascadingStyleSheet aCSS, @NonNull final ICSSUrlVisitor aVisitor)
   {
     // Visit only the URLs of a CSS with a specific CSS visitor
     visitCSS (aCSS, new CSSVisitorForUrl (aVisitor));
@@ -447,7 +447,7 @@ public final class CSSVisitor
    *        The callback to invoke for each found occurrence. May not be
    *        <code>null</code>.
    */
-  public static void visitAllDeclarationUrls (@Nonnull final IHasCSSDeclarations <?> aCSS, @Nonnull final ICSSUrlVisitor aVisitor)
+  public static void visitAllDeclarationUrls (@NonNull final IHasCSSDeclarations <?> aCSS, @NonNull final ICSSUrlVisitor aVisitor)
   {
     // Visit only the URLs of a CSS with a specific CSS visitor
     visitAllDeclarations (aCSS, new CSSVisitorForUrl (aVisitor));

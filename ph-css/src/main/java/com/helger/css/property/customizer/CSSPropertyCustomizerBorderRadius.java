@@ -16,11 +16,11 @@
  */
 package com.helger.css.property.customizer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.ICSSProperty;
 import com.helger.css.propertyvalue.CSSValueMultiProperty;
@@ -35,8 +35,8 @@ import com.helger.css.propertyvalue.ICSSValue;
 public class CSSPropertyCustomizerBorderRadius extends AbstractCSSPropertyCustomizer
 {
   @Nullable
-  public ICSSValue createSpecialValue (@Nonnull final ICSSProperty aProperty,
-                                       @Nonnull @Nonempty final String sValue,
+  public ICSSValue createSpecialValue (@NonNull final ICSSProperty aProperty,
+                                       @NonNull @Nonempty final String sValue,
                                        final boolean bIsImportant)
   {
     return new CSSValueMultiProperty (aProperty.getProp (),

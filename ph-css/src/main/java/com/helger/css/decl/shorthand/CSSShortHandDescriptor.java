@@ -16,16 +16,15 @@
  */
 package com.helger.css.decl.shorthand;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.css.ECSSVersion;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpression;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
@@ -46,8 +45,8 @@ public class CSSShortHandDescriptor
   private final ECSSProperty m_eProperty;
   private final ICommonsList <CSSPropertyWithDefaultValue> m_aSubProperties;
 
-  public CSSShortHandDescriptor (@Nonnull final ECSSProperty eProperty,
-                                 @Nonnull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
+  public CSSShortHandDescriptor (@NonNull final ECSSProperty eProperty,
+                                 @NonNull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
   {
     ValueEnforcer.notNull (eProperty, "Property");
     ValueEnforcer.notEmptyNoNullValue (aSubProperties, "SubProperties");
@@ -67,13 +66,13 @@ public class CSSShortHandDescriptor
     }
   }
 
-  @Nonnull
+  @NonNull
   public ECSSProperty getProperty ()
   {
     return m_eProperty;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSPropertyWithDefaultValue> getAllSubProperties ()
   {
@@ -87,12 +86,12 @@ public class CSSShortHandDescriptor
    *        The list to be modified. Never <code>null</code> but maybe empty.
    */
   @OverrideOnDemand
-  protected void modifyExpressionMembers (@Nonnull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
+  protected void modifyExpressionMembers (@NonNull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <CSSDeclaration> getSplitIntoPieces (@Nonnull final CSSDeclaration aDeclaration)
+  public ICommonsList <CSSDeclaration> getSplitIntoPieces (@NonNull final CSSDeclaration aDeclaration)
   {
     ValueEnforcer.notNull (aDeclaration, "Declaration");
 
@@ -113,7 +112,7 @@ public class CSSShortHandDescriptor
     modifyExpressionMembers (aExpressionMembers);
 
     final int nExpressionMembers = aExpressionMembers.size ();
-    final CSSWriterSettings aCWS = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aCWS = new CSSWriterSettings (false);
     final boolean [] aHandledSubProperties = new boolean [nSubProperties];
 
     // For all expression members

@@ -20,14 +20,16 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
-import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
-import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.resource.URLResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.StringImplode;
+import com.helger.base.string.StringReplace;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
+import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
+import com.helger.io.file.SimpleFileIO;
+import com.helger.io.resource.URLResource;
+import com.helger.io.stream.StreamHelperExt;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.IMicroNode;
@@ -46,8 +48,8 @@ public class MainFetchW3C_CSSTests
   {
     final ICommonsList <String> aCSSFilenames = new CommonsArrayList <> ();
     System.out.println ("Fetching from " + sURL);
-    final ICommonsList <String> aIndex = StreamHelper.readStreamLines (new URLResource (sURL + "index.html"),
-                                                                       StandardCharsets.UTF_8);
+    final ICommonsList <String> aIndex = StreamHelperExt.readStreamLines (new URLResource (sURL + "index.html"),
+                                                                          StandardCharsets.UTF_8);
     {
       // Remove doctype
       aIndex.remove (0);
@@ -60,7 +62,7 @@ public class MainFetchW3C_CSSTests
           aIndex.set (i, sLine + "</link>");
       }
     }
-    final IMicroDocument aDoc = MicroReader.readMicroXML (StringHelper.getImploded ('\n', aIndex));
+    final IMicroDocument aDoc = MicroReader.readMicroXML (StringImplode.getImploded ('\n', aIndex));
     MicroVisitor.visit (aDoc, new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
@@ -73,7 +75,7 @@ public class MainFetchW3C_CSSTests
           {
             final String sHref = e.getAttributeValue ("href");
             if (sHref.endsWith (".xml"))
-              aCSSFilenames.add (StringHelper.replaceAll (sHref, ".xml", ".css"));
+              aCSSFilenames.add (StringReplace.replaceAll (sHref, ".xml", ".css"));
           }
         }
         return EHierarchyVisitorReturn.CONTINUE;

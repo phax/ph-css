@@ -16,14 +16,13 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
-import com.helger.css.ECSSVersion;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 import com.helger.css.ICSSWriterSettings;
 
 /**
@@ -39,29 +38,22 @@ public enum ECSSSupportsConditionOperator implements ICSSSupportsConditionMember
 
   private final String m_sName;
 
-  ECSSSupportsConditionOperator (@Nonnull @Nonempty final String sName)
+  ECSSSupportsConditionOperator (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return m_sName;
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

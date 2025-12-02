@@ -1,18 +1,17 @@
 # ph-css
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger/ph-css/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger/ph-css) 
+[![Maven Central](https://img.shields.io/maven-central/v/com.helger/ph-css)](https://img.shields.io/maven-central/v/com.helger/ph-css)
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
 [![CodeCov](https://codecov.io/gh/phax/ph-css/branch/master/graph/badge.svg)](https://codecov.io/gh/phax/ph-css)
-[![libs.tech recommends](https://libs.tech/project/23304527/badge.svg)](https://libs.tech/project/23304527/ph-css)
 
-Java CSS 2 and CSS 3 parser and builder. This version supersedes phloc-css.
-The Maven plugin to compress CSS files at build time is located in sub-project ph-csscompress-maven-plugin and described further down.
+Java-based CSS 3 parser and builder.
+The Maven plugin to compress CSS files at build time is located in sub-module `ph-csscompress-maven-plugin` and described further down.
 
-ph-css has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use.
+`ph-css` has no logic for applying CSS onto HTML elements. This page shows some basic code examples that can be used to use the library. All snippets are free for any use.
 
-ph-css and ph-csscompress-maven-plugin are both licensed under the **Apache 2.0 license**.
+`ph-css` and `ph-csscompress-maven-plugin` are both licensed under the **Apache 2.0 license**.
 
-ph-css is used as a part of [Apache JMeter 3](https://github.com/apache/jmeter) :)
+`ph-css` is used as a part of [Apache JMeter 3](https://github.com/apache/jmeter) :)
 
 # Maven usage
 
@@ -26,7 +25,7 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
 </dependency>
 ```
 
-To build ph-css from source, Maven 3.0.4 is required. Any Maven version below does **NOT** work! 
+To build `ph-css` from source, Maven 3.x is required. Any Maven version below does **NOT** work! 
 
 # Documentation
 
@@ -40,16 +39,17 @@ Please look at my personal [Coding Styleguide](https://github.com/phax/meta/blob
 
 A complete stylesheet is represented as an instance of `com.helger.css.decl.CascadingStyleSheet`. There is no difference between CSS 2.1 and CSS 3.0 instances. The class `com.helger.css.decl.CascadingStyleSheet` contains all top-level rules that may be present in a CSS:
 
-  * Import rules (`@import`) - `com.helger.css.decl.CSSImportRule`
-  * Namespace rules (`@namespace`) - `com.helger.css.decl.CSSNamespaceRule`
-  * Style rules (e.g. `div{color:red;}`) - `com.helger.css.decl.CSSStyleRule`
-  * Page rules (`@page`) - `com.helger.css.decl.CSSPageRule`
-  * Media rules (`@media`) - `com.helger.css.decl.CSSMediaRule`
-  * Font face rules (`@font-face`) - `com.helger.css.decl.CSSFontFaceRule`
-  * Keyframes rules (`@keyframes`) - `com.helger.css.decl.CSSKeyframesRule`
-  * Viewport rules (`@viewport`) - `com.helger.css.decl.CSSViewportRule`
-  * Supports rules (`@supports`) - `com.helger.css.decl.CSSSupportsRule`
-  * Any other unknown rules (`@foo`) - `com.helger.css.decl.CSSUnknownRule`
+* Import rules (`@import`) - `com.helger.css.decl.CSSImportRule`
+* Namespace rules (`@namespace`) - `com.helger.css.decl.CSSNamespaceRule`
+* Style rules (e.g. `div{color:red;}`) - `com.helger.css.decl.CSSStyleRule`
+* Page rules (`@page`) - `com.helger.css.decl.CSSPageRule`
+* Media rules (`@media`) - `com.helger.css.decl.CSSMediaRule`
+* Font face rules (`@font-face`) - `com.helger.css.decl.CSSFontFaceRule`
+* Keyframes rules (`@keyframes`) - `com.helger.css.decl.CSSKeyframesRule`
+* Viewport rules (`@viewport`) - `com.helger.css.decl.CSSViewportRule`
+* Supports rules (`@supports`) - `com.helger.css.decl.CSSSupportsRule`
+* Layer rules (`@layer`) - `com.helger.css.decl.CSSLayerRule`
+* Any other unknown rules (`@foo`) - `com.helger.css.decl.CSSUnknownRule`
 
 ## CSS reading
 
@@ -67,10 +67,10 @@ Since v3.8.2 the class `com.helger.css.reader.CSSReaderSettings` is present and 
 ### Recoverable Errors
 ph-css differentiates between recoverable errors and unrecoverable errors. An example for a recoverable error is e.g. an `@import` rule in the wrong place or a missing closing bracket within a style declaration. For recoverable errors a special handler interface `com.helger.css.reader.errorhandler.ICSSParseErrorHandler` is present. You can pass an implementation of this error handler to the CSS reader (see above). The following implementations are present by default (all residing in package `com.helger.css.reader.errorhandler`):
 
-  * `DoNothingCSSParseErrorHandler` - silently ignoring all recoverable errors
-  * `LoggingCSSParseErrorHandler` - logging all recoverable errors to an SLF4J logger
-  * `ThrowingCSSParseErrorHandler` - throws a `com.helger.css.parser.ParseException` in case of a recoverable error which is afterwards handled by the unrecoverable error handler (see below). This can be used to enforce handling only 100% valid CSS files. This is the default setting, if no error handler is specified during reading.
-  * `CollectingCSSParseErrorHandler` - collects all recoverable errors into a list of `com.helger.css.reader.errorhandler.CSSParseError` instances for later evaluation. 
+* `DoNothingCSSParseErrorHandler` - silently ignoring all recoverable errors
+* `LoggingCSSParseErrorHandler` - logging all recoverable errors to an SLF4J logger
+* `ThrowingCSSParseErrorHandler` - throws a `com.helger.css.parser.ParseException` in case of a recoverable error which is afterwards handled by the unrecoverable error handler (see below). This can be used to enforce handling only 100% valid CSS files. This is the default setting, if no error handler is specified during reading.
+* `CollectingCSSParseErrorHandler` - collects all recoverable errors into a list of `com.helger.css.reader.errorhandler.CSSParseError` instances for later evaluation. 
 
 Some error handlers can be nested so that a combination of a logging handler and a collecting handler can easily be achieved like:
 
@@ -86,8 +86,8 @@ Both `CSSReader` and `CSSReaderDeclarationList` have the possibility to define a
 
 In case of an unrecoverable error, the underlying parser engine of JavaCC throws a `com.helger.css.parser.ParseException`. This exception contains all the necessary information on where the error occurred. In case of such an unrecoverable error, the result of the reading will always be `null` and the exception is not automatically propagated to the caller. To explicitly get notified when such a parse error occurs, the handler interface `com.helger.css.handler.ICSSParseExceptionCallback` is available. The available implementations are (all residing in package `com.helger.css.handler`):
 
-  * `DoNothingCSSParseExceptionHandler` - silently ignore all unrecoverable errors
-  * `LoggingCSSParseExceptionHandler` - log all unrecoverable errors to an SLF4J logger 
+* `DoNothingCSSParseExceptionHandler` - silently ignore all unrecoverable errors
+* `LoggingCSSParseExceptionHandler` - log all unrecoverable errors to an SLF4J logger 
 
 As there is at most one unrecoverable error per parse there is no collecting implementation of an `ICSSParseExceptionCallback` available. If it is desired to propagate the Exception to the caller you need to implement your own `ICSSParseExceptionCallback` subclass that throws an unchecked exception (one derived from `RuntimeException`). Example:
 
@@ -147,7 +147,7 @@ All of these shorthand properties are registered in class `CSSShortHandRegistry`
 
 ```java
   // Parse a dummy declaration
-  final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed", ECSSVersion.CSS30).getDeclarationAtIndex (0);
+  final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px dashed").getDeclarationAtIndex (0);
 
   // Get the Shorthand descriptor for "border"    
   final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.BORDER);
@@ -158,21 +158,21 @@ All of these shorthand properties are registered in class `CSSShortHandRegistry`
 
 In the above example, `aSplittedDecls` will contain 3 elements with the following content:
 
-  * `border-width:1px`
-  * `border-style:dashed`
-  * `border-color:black` 
+* `border-width:1px`
+* `border-style:dashed`
+* `border-color:black` 
 
 Even though no color value was provided, the default value `black` is returned. For all "sub-declarations", sensible default values are defined.
 
 ## CSS utilities
 
 ph-css contains a multitude of small utility class covering different aspects of CSS
-  * `com.helger.css.utils.CSSColorHelper` contains methods to read and write the different types of CSS color values (rgb, rgba, hsl, hsla and hex value)
-  * `com.helger.css.utils.ECSSColor` contains the basic CSS colors as an enumeration
-  * `com.helger.css.ECSSUnit` contains all the default CSS units (like. `px` or `em`)
-  * `com.helger.css.utils.CSSNumberHelper` contains methods for handling the combination of numeric values and units.
-  * `com.helger.css.utils.CSSRectHelper` contains methods for handling CSS `rect` values.
-  * `com.helger.css.tools.MediaQueryTools` provides shortcut methods for wrapping a complete `CascadingStyleSheet` in one or more media queries
+* `com.helger.css.utils.CSSColorHelper` contains methods to read and write the different types of CSS color values (rgb, rgba, hsl, hsla and hex value)
+* `com.helger.css.utils.ECSSColor` contains the basic CSS colors as an enumeration
+* `com.helger.css.ECSSUnit` contains all the default CSS units (like. `px` or `em`)
+* `com.helger.css.utils.CSSNumberHelper` contains methods for handling the combination of numeric values and units.
+* `com.helger.css.utils.CSSRectHelper` contains methods for handling CSS `rect` values.
+* `com.helger.css.tools.MediaQueryTools` provides shortcut methods for wrapping a complete `CascadingStyleSheet` in one or more media queries
 
 # Code Examples
 
@@ -222,7 +222,7 @@ The following list gives an overview of known shortcomings in ph-css
 
 A Maven plugin to compress CSS files at build time using ph-css.
 
-It requires Java 11 and Maven 3 to run.
+It requires Java 17 and Maven 3.x to run.
 
 ## Maven configuration
 
@@ -315,128 +315,216 @@ Configuration items are:
 
 ## News and noteworthy
 
-* v7.0.4 - 2025-02-17
-    * Added additional media query features. See [#104}(https://github.com/phax/ph-css/pull/104) - thx @nhubbard
-    * Added new setting `CSSReaderSettings.setKeepDeprecatedProperties(boolean)` to customize if they should be read or discarded. See [#107](https://github.com/phax/ph-css/issues/107) - thx @hrozhkov1
-    * Added the property `keepDeprecatedProperties` to the Maven plugin
-    * Changed the default reading charset of the Maven plugin from `UTF-8` to `ISO-8859-1` to comply to the API based reading
-    * Added the `targetDirectory` property to the Maven plugin. See [#106](https://github.com/phax/ph-css/issues/106) - thx @isochronous
-* v7.0.3 - 2024-09-23
-    * Added support for the `:is`, `:has` and `:where` pseudo functions, fixing [#88](https://github.com/phax/ph-css/issues/88) (thx @brbog), [#97](https://github.com/phax/ph-css/issues/97) (thx @nafg) and [#101](https://github.com/phax/ph-css/issues/101) (thx @subbudvk) 
-* v7.0.2 - 2024-03-28
-    * Updated to ph-commons 11.1.5
-    * Created Java 21 compatibility
-* v7.0.1 - 2023-07-31
-    * Updated to ph-commons 11.1
-* v7.0.0 - 2023-02-01
-    * Using Java 11 as the baseline
-    * Updated to ph-commons 11
-* v6.5.0 - 2022-01-28
-    * Re-added explicit support for deprecated property names starting with `$` or `*` but only inside style declarations. See [issue #84](https://github.com/phax/ph-css/issues/84) and [PR #85](https://github.com/phax/ph-css/pull/85) - thanks @shagkur
-    * Therefore `ICSSParseErrorHandler.onCSSDeprecatedProperty` was added
-* v6.4.4 - 2022-01-18
-    * Added support for `:host-context`. See [issue #80](https://github.com/phax/ph-css/issues/80) and [PR #81](https://github.com/phax/ph-css/pull/81) - thanks @shagkur
-    * Improved support for the scientific number parsing. See [issue #82](https://github.com/phax/ph-css/issues/82) and [PR #83](https://github.com/phax/ph-css/pull/83) - thanks @shagkur
-* v6.4.3 - 2022-01-13
-    * Extended API of `CSSReaderDeclarationList`. See [issue #78](https://github.com/phax/ph-css/issues/78) - thanks @shagkur
-    * Added support for the scientific number (as in `1e6`) support in parsing. See [issue #79](https://github.com/phax/ph-css/issues/79) - thanks @shagkur
-* v6.4.2 - 2022-01-12
-    * Improved support for `:host` and `::slotted`. See [issue #77](https://github.com/phax/ph-css/issues/77) - thanks @shagkur
-    * Added a possibility to differentiate between String and Identifier in `CSSExpressionMemberTermSimple`. See [issue #75](https://github.com/phax/ph-css/issues/75) and [PR #76](https://github.com/phax/ph-css/pull/76) - thanks @shagkur
-* v6.4.1 - 2022-01-10
-    * Added support for `:host` and `::slotted`. See [issue #73](https://github.com/phax/ph-css/issues/73) and [PR #74](https://github.com/phax/ph-css/pull/74) - thanks @shagkur
-    * Renamed the "math*" rules to "calc*" - that also touched a few internal constants
-    * Fixed the emitting of pseudo selector functions without parameters (as in `:lang()`). See [issue #72](https://github.com/phax/ph-css/issues/72)) - thanks @shagkur
-    * Updated to latest version of ParserGeneratorCC for a bit more efficient code
-* v6.4.0 - 2021-11-22
-    * Fixed SonarCloud issues
-    * Removed the serialisability of the objects, because it was never done in a consistent way
-    * Added support for the `flex` shorthand property 
-* v6.3.4 - 2021-06-09
-    * Fixed an error with the shorthand expansion of `border-width`. See [PR #68](https://github.com/phax/ph-css/pull/68) - thanks @rockwotj
-* v6.3.3 - 2021-05-31
-    * Allow unknown rules inside `@media` rules. See [issue #67](https://github.com/phax/ph-css/issues/67) - thanks @yinkwok-ys
-* v6.3.2 - 2021-05-25
-    * Fixed an error with the negation parameters. See [issue #66](https://github.com/phax/ph-css/issues/66) - thanks @rockwotj
-* v6.3.1 - 2021-05-02
-    * Added support for `@footnote` in `@page` rules. See [PR #64](https://github.com/phax/ph-css/pull/64) - thanks @schmidti159
-* v6.3.0 - 2021-03-22
-    * Updated to ph-commons 10
-* v6.2.4 - 2021-02-25
-    * Updated to ph-commons 9.4.6, leading to a more resilient DataURL parsing
-    * Fixed the ignorance of minimum and maximum parameter count in class `CSSPropertyColors`
-    * Fixed the case-sensitivity of CSS variables declarations. See [issue #63](https://github.com/phax/ph-css/issues/63)
-* v6.2.3 - 2020-05-14
-    * Fixed an issue with the URL visitor not recursively descending into expression members. See [issue #59](https://github.com/phax/ph-css/issues/59)
-* v6.2.2 - 2020-03-29
-    * Updated to ph-commons 9.4.0
-* v6.2.1 - 2020-02-29
-    * Improved the pattern for colors in hex values. See [PR #55](https://github.com/phax/ph-css/pull/55).
-    * Fixed a grammar issue that resulted in failed `calc` parsing ([issue #57](https://github.com/phax/ph-css/pull/57)). The implications of this change are, that the special IE6 and IE7 hacks with `$` and `*` as identifier prefixes are no longer supported. If you need to parse CSS suitable for these old browsers, stay with v6.2.0. 
-    * Updated CSS properties of the completed specifications
-* v6.2.0 - 2019-06-30
-    * Fixed NPE in `CSSWriterSettings.DEFAULT_SETTINGS` because of wrong initialization order (#53)
-    * Added some `-o-` media expression features
-    * Changing browser compliant parsing in a way, so that less `null` is returned in parsing (#41)
-    * The default "custom error handler" for parsing was changed from `ThrowingCSSParseErrorHandler` to `LoggingCSSParseErrorHandler` for best browser compliant mode handling
-    * Improved fault tolerance in parsing when "browser compliant mode" is enabled
-* v6.1.3 - 2019-06-12
-    * Added some performance tweaks
-    * Added possibility to disable the usage of the source location using `CSSReaderSettings` (for performance reasons)
-* v6.1.2 - 2019-02-17
-    * Extended list of known media expression features (e.g. used in Bootstrap 4)
-* v6.1.1 - 2018-04-11
-    * Allow nested `calc` function (#48)
-* v6.1.0 - 2018-03-23
-    * Fixed a grammar issue for `calc` with spaces (as in `width: calc( 100% - 2.4em );`)
-    * Removed dependency upon `java.awt.Color` for improved Android compatibility.
-* v6.0.0 - 2017-12-20
-    * Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
-    * Updated to ph-commons 9.0.0
-    * Extended API to more easily access the CSS declaration expression string (#43)
-    * Data URI scheme is treated case-insensitive (#44)
-    * Extended API for easier CSS property comparison (#45)
-* v5.0.4 - 2017-04-06
-    * Improved special identifier handling in expressions (#38)
-    * Added support for css-grid spec with new "line-name" syntax element
-    * Added new CSS units: `fr`, `vmax` and `Q`
-* v5.0.3 - 2017-01-09
-    * Binds to ph-commons 8.6.0
-    * Added custom callback for illegal characters
-* v5.0.2 - 2016-10-21
-    * Made tab size configurable (issue #29)
-    * Improved media expressions (issue #30)
-    * Allowing to disable consistency checks in class `CSSValue`
-    * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
-* v5.0.1 - 2016-08-17
-    * Using "modern java template" for JavaCC parser - results in quicker execution
-    * Enhancement issue #27
-    * Integrated `ph-csscompress-maven-plugin` into this repository
-    * Bug fix wrong OutputStream (issue #28) 
-* v5.0.0 - 2016-06-12
-    * Using JDK8 as the basis
-    * removed explicit grammar for CSS 2.1 (issue #20)
-    * Added browser compliant error handler
-* v4.2.0 - 2018-03-22
-    * Removed dependency upon `java.awt.Color` for improved Android compatibility.
-* v4.1.6 - 2016-10-21
-    * Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
-* v4.1.5 - 2016-09-16
-    * Improved media expressions (issue #30)
-    * Integrated ph-csscompress-maven-plugin into this project (compatibility to 5.x)
-* v4.1.4 - Improved browser compliant parsing (issue #26)
-* v4.1.3 - Improved browser compliant parsing (issue #24)
-* v4.1.2 - Improved browser compliant parsing (issue #21)
-* v4.1.1 - Skipping style rules with invalid selectors in browser compliant mode; allowing "--" identifier prefix; improved unknown rule parsing (issues #17, #18, #19)
-* v4.1.0 - Improved calc parsing; extended support for page rules with page margin blocks
-* v4.0.1 - Added customizable newline characters
-* v4.0.0 - Updated to ph-commons 6.0.0 and added "browser compliant parsing mode"
-* v3.9.2 - Updated to ph-commons 5.7.1 and fix for some minor issues
-* v3.9.1 - Updated to ph-commons 5.6.0 and fix for some shorthand handling
-* v3.9.0 - API improvements and support for vendor specific "-calc" added
-* v3.8.2 - small bugfix release
-* v3.8.1 - improvements for expression parsing and single line comment handling 
-* v3.8.0 - initial version in com.helger group and package 
+v8.1.0 - 2025-11-16
+* Updated to ph-commons 12.1.0
+* Using JSpecify annotations
+
+v8.0.1 - 2025-10-28
+* Add support for case sensitivity in attribute selector. See [#116](https://github.com/phax/ph-css/pull/116) - thx @Aditi-1400
+
+v8.0.0 - 2025-08-25
+* Requires Java 17 as the minimum version
+* Updated to ph-commons 12.0.0
+* Removed all deprecated methods marked for removal
+* Removed the separation between CSS2 and CSS3 - all one now
+* Removed class `ECSSVersion` and interface `ICSSVersionAware` because they have no real role anymore
+
+v7.1.0 - 2025-08-20
+* Improved the selector list handling in the grammar and added `@layer` support. See [#111](https://github.com/phax/ph-css/pull/111) - thx @shagkur and @jmini
+    * This also fixes the issue #110  
+
+v7.0.5 - 2025-08-19
+* Extended the enum `ECSSUnit` with additional new units
+* Changed the parser to accept any kind of dimension. See [#114](https://github.com/phax/ph-css/issues/114) - thx @shapiroronny
+    * This was basically necessary, because the internal parse method created would exceed 64KB :-/
+
+v7.0.4 - 2025-02-17
+* Added additional media query features. See [#104](https://github.com/phax/ph-css/pull/104) - thx @nhubbard
+* Added new setting `CSSReaderSettings.setKeepDeprecatedProperties(boolean)` to customize if they should be read or discarded. See [#107](https://github.com/phax/ph-css/issues/107) - thx @hrozhkov1
+* Added the property `keepDeprecatedProperties` to the Maven plugin
+* Changed the default reading charset of the Maven plugin from `UTF-8` to `ISO-8859-1` to comply to the API based reading
+* Added the `targetDirectory` property to the Maven plugin. See [#106](https://github.com/phax/ph-css/issues/106) - thx @isochronous
+
+v7.0.3 - 2024-09-23
+* Added support for the `:is`, `:has` and `:where` pseudo functions, fixing [#88](https://github.com/phax/ph-css/issues/88) (thx @brbog), [#97](https://github.com/phax/ph-css/issues/97) (thx @nafg) and [#101](https://github.com/phax/ph-css/issues/101) (thx @subbudvk) 
+
+v7.0.2 - 2024-03-28
+* Updated to ph-commons 11.1.5
+* Created Java 21 compatibility
+
+v7.0.1 - 2023-07-31
+* Updated to ph-commons 11.1
+
+v7.0.0 - 2023-02-01
+* Using Java 11 as the baseline
+* Updated to ph-commons 11
+
+v6.5.0 - 2022-01-28
+* Re-added explicit support for deprecated property names starting with `$` or `*` but only inside style declarations. See [issue #84](https://github.com/phax/ph-css/issues/84) and [PR #85](https://github.com/phax/ph-css/pull/85) - thanks @shagkur
+* Therefore `ICSSParseErrorHandler.onCSSDeprecatedProperty` was added
+
+v6.4.4 - 2022-01-18
+* Added support for `:host-context`. See [issue #80](https://github.com/phax/ph-css/issues/80) and [PR #81](https://github.com/phax/ph-css/pull/81) - thanks @shagkur
+* Improved support for the scientific number parsing. See [issue #82](https://github.com/phax/ph-css/issues/82) and [PR #83](https://github.com/phax/ph-css/pull/83) - thanks @shagkur
+
+v6.4.3 - 2022-01-13
+* Extended API of `CSSReaderDeclarationList`. See [issue #78](https://github.com/phax/ph-css/issues/78) - thanks @shagkur
+* Added support for the scientific number (as in `1e6`) support in parsing. See [issue #79](https://github.com/phax/ph-css/issues/79) - thanks @shagkur
+
+v6.4.2 - 2022-01-12
+* Improved support for `:host` and `::slotted`. See [issue #77](https://github.com/phax/ph-css/issues/77) - thanks @shagkur
+* Added a possibility to differentiate between String and Identifier in `CSSExpressionMemberTermSimple`. See [issue #75](https://github.com/phax/ph-css/issues/75) and [PR #76](https://github.com/phax/ph-css/pull/76) - thanks @shagkur
+
+v6.4.1 - 2022-01-10
+* Added support for `:host` and `::slotted`. See [issue #73](https://github.com/phax/ph-css/issues/73) and [PR #74](https://github.com/phax/ph-css/pull/74) - thanks @shagkur
+* Renamed the "math*" rules to "calc*" - that also touched a few internal constants
+* Fixed the emitting of pseudo selector functions without parameters (as in `:lang()`). See [issue #72](https://github.com/phax/ph-css/issues/72)) - thanks @shagkur
+* Updated to latest version of ParserGeneratorCC for a bit more efficient code
+
+v6.4.0 - 2021-11-22
+* Fixed SonarCloud issues
+* Removed the serialisability of the objects, because it was never done in a consistent way
+* Added support for the `flex` shorthand property 
+
+v6.3.4 - 2021-06-09
+* Fixed an error with the shorthand expansion of `border-width`. See [PR #68](https://github.com/phax/ph-css/pull/68) - thanks @rockwotj
+
+v6.3.3 - 2021-05-31
+* Allow unknown rules inside `@media` rules. See [issue #67](https://github.com/phax/ph-css/issues/67) - thanks @yinkwok-ys
+
+v6.3.2 - 2021-05-25
+* Fixed an error with the negation parameters. See [issue #66](https://github.com/phax/ph-css/issues/66) - thanks @rockwotj
+
+v6.3.1 - 2021-05-02
+* Added support for `@footnote` in `@page` rules. See [PR #64](https://github.com/phax/ph-css/pull/64) - thanks @schmidti159
+
+v6.3.0 - 2021-03-22
+* Updated to ph-commons 10
+
+v6.2.4 - 2021-02-25
+* Updated to ph-commons 9.4.6, leading to a more resilient DataURL parsing
+* Fixed the ignorance of minimum and maximum parameter count in class `CSSPropertyColors`
+* Fixed the case-sensitivity of CSS variables declarations. See [issue #63](https://github.com/phax/ph-css/issues/63)
+
+v6.2.3 - 2020-05-14
+* Fixed an issue with the URL visitor not recursively descending into expression members. See [issue #59](https://github.com/phax/ph-css/issues/59)
+
+v6.2.2 - 2020-03-29
+* Updated to ph-commons 9.4.0
+
+v6.2.1 - 2020-02-29
+* Improved the pattern for colors in hex values. See [PR #55](https://github.com/phax/ph-css/pull/55).
+* Fixed a grammar issue that resulted in failed `calc` parsing ([issue #57](https://github.com/phax/ph-css/pull/57)). The implications of this change are, that the special IE6 and IE7 hacks with `$` and `*` as identifier prefixes are no longer supported. If you need to parse CSS suitable for these old browsers, stay with v6.2.0. 
+* Updated CSS properties of the completed specifications
+
+v6.2.0 - 2019-06-30
+* Fixed NPE in `CSSWriterSettings.DEFAULT_SETTINGS` because of wrong initialization order (#53)
+* Added some `-o-` media expression features
+* Changing browser compliant parsing in a way, so that less `null` is returned in parsing (#41)
+* The default "custom error handler" for parsing was changed from `ThrowingCSSParseErrorHandler` to `LoggingCSSParseErrorHandler` for best browser compliant mode handling
+* Improved fault tolerance in parsing when "browser compliant mode" is enabled
+
+v6.1.3 - 2019-06-12
+* Added some performance tweaks
+* Added possibility to disable the usage of the source location using `CSSReaderSettings` (for performance reasons)
+
+v6.1.2 - 2019-02-17
+* Extended list of known media expression features (e.g. used in Bootstrap 4)
+
+v6.1.1 - 2018-04-11
+* Allow nested `calc` function (#48)
+
+v6.1.0 - 2018-03-23
+* Fixed a grammar issue for `calc` with spaces (as in `width: calc( 100% - 2.4em );`)
+* Removed dependency upon `java.awt.Color` for improved Android compatibility.
+
+v6.0.0 - 2017-12-20
+* Extracted base class `AbstractHasTopLevelRules` for type-safe access of top-level rules (#39)
+* Updated to ph-commons 9.0.0
+* Extended API to more easily access the CSS declaration expression string (#43)
+* Data URI scheme is treated case-insensitive (#44)
+* Extended API for easier CSS property comparison (#45)
+
+v5.0.4 - 2017-04-06
+* Improved special identifier handling in expressions (#38)
+* Added support for css-grid spec with new "line-name" syntax element
+* Added new CSS units: `fr`, `vmax` and `Q`
+
+v5.0.3 - 2017-01-09
+* Binds to ph-commons 8.6.0
+* Added custom callback for illegal characters
+
+v5.0.2 - 2016-10-21
+* Made tab size configurable (issue #29)
+* Improved media expressions (issue #30)
+* Allowing to disable consistency checks in class `CSSValue`
+* Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
+
+v5.0.1 - 2016-08-17
+* Using "modern java template" for JavaCC parser - results in quicker execution
+* Enhancement issue #27
+* Integrated `ph-csscompress-maven-plugin` into this repository
+* Bug fix wrong OutputStream (issue #28) 
+
+v5.0.0 - 2016-06-12
+* Using JDK8 as the basis
+* removed explicit grammar for CSS 2.1 (issue #20)
+* Added browser compliant error handler
+
+v4.2.0 - 2018-03-22
+* Removed dependency upon `java.awt.Color` for improved Android compatibility.
+
+v4.1.6 - 2016-10-21
+* Made CSS interpretation warnings customizable with class `ICSSInterpretErrorHandler` (issue #33)
+
+v4.1.5 - 2016-09-16
+* Improved media expressions (issue #30)
+* Integrated ph-csscompress-maven-plugin into this project (compatibility to 5.x)
+
+v4.1.4
+* Improved browser compliant parsing (issue #26)
+
+v4.1.3
+* Improved browser compliant parsing (issue #24)
+
+v4.1.2
+* Improved browser compliant parsing (issue #21)
+
+v4.1.1
+* Skipping style rules with invalid selectors in browser compliant mode
+* allowing `--` identifier prefix
+* improved unknown rule parsing (issues #17, #18, #19)
+
+v4.1.0
+* Improved calc parsing
+* extended support for page rules with page margin blocks
+
+v4.0.1
+* Added customizable newline characters
+
+v4.0.0
+* Updated to ph-commons 6.0.0
+* Added "browser compliant parsing mode"
+
+v3.9.2
+* Updated to ph-commons 5.7.1 
+* fix for some minor issues
+
+v3.9.1
+* Updated to ph-commons 5.6.0
+* fix for some shorthand handling
+
+v3.9.0
+* API improvements and support for vendor specific `-calc` added
+
+v3.8.2
+* small bugfix release
+
+v3.8.1
+* improvements for expression parsing and single line comment handling 
+
+v3.8.0
+* initial version in `com.helger` group and package 
 
 ---
 

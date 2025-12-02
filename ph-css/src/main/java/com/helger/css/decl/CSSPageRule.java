@@ -16,23 +16,21 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
@@ -46,7 +44,7 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aSelectors;
   private final CSSWritableList <ICSSPageRuleMember> m_aMembers = new CSSWritableList <> ();
@@ -54,54 +52,55 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
 
   public CSSPageRule (@Nullable final String sPseudoPage)
   {
-    m_aSelectors = StringHelper.hasText (sPseudoPage) ? new CommonsArrayList <> (sPseudoPage) : new CommonsArrayList <> ();
+    m_aSelectors = StringHelper.isNotEmpty (sPseudoPage) ? new CommonsArrayList <> (sPseudoPage)
+                                                         : new CommonsArrayList <> ();
   }
 
-  public CSSPageRule (@Nonnull final Iterable <String> aSelectors)
+  public CSSPageRule (@NonNull final Iterable <String> aSelectors)
   {
     ValueEnforcer.notNullNoNullValue (aSelectors, "Selectors");
     m_aSelectors = new CommonsArrayList <> (aSelectors);
   }
 
-  @Nonnull
+  @NonNull
   public ICommonsList <String> getAllSelectors ()
   {
     return m_aSelectors.getClone ();
   }
 
-  @Nonnull
-  public CSSPageRule addMember (@Nonnull final ICSSPageRuleMember aMember)
+  @NonNull
+  public CSSPageRule addMember (@NonNull final ICSSPageRuleMember aMember)
   {
     m_aMembers.add (aMember);
     return this;
   }
 
-  @Nonnull
-  public CSSPageRule addMember (@Nonnegative final int nIndex, @Nonnull final ICSSPageRuleMember aMember)
+  @NonNull
+  public CSSPageRule addMember (@Nonnegative final int nIndex, @NonNull final ICSSPageRuleMember aMember)
   {
     m_aMembers.add (nIndex, aMember);
     return this;
   }
 
-  @Nonnull
-  public EChange removeMember (@Nonnull final ICSSPageRuleMember aMember)
+  @NonNull
+  public EChange removeMember (@NonNull final ICSSPageRuleMember aMember)
   {
     return m_aMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nIndex)
   {
     return m_aMembers.removeAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSPageRuleMember> getAllMembers ()
   {
@@ -114,8 +113,8 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
     return m_aMembers.getAtIndex (nIndex);
   }
 
-  @Nonnull
-  public CSSPageRule setMemberAtIndex (@Nonnegative final int nIndex, @Nonnull final ICSSPageRuleMember aNewDeclaration)
+  @NonNull
+  public CSSPageRule setMemberAtIndex (@Nonnegative final int nIndex, @NonNull final ICSSPageRuleMember aNewDeclaration)
   {
     m_aMembers.set (nIndex, aNewDeclaration);
     return this;
@@ -129,14 +128,12 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
   @Nonnegative
   public int getMemberCount ()
   {
-    return m_aMembers.getCount ();
+    return m_aMembers.size ();
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     // Always ignore page rules?
     if (!aSettings.isWritePageRules ())
       return "";
@@ -162,7 +159,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
       }
     }
 
-    final int nDeclCount = m_aMembers.getCount ();
+    final int nDeclCount = m_aMembers.size ();
     if (nDeclCount == 0)
     {
       aSB.append (bOptimizedOutput ? "{}" : " {}");
@@ -191,14 +188,6 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSVersionAware, ICSSSour
       aSB.append (aSettings.getNewLineString ());
 
     return aSB.toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    if (m_aMembers.containsAny (CSSPageMarginBlock.class::isInstance))
-      return ECSSVersion.CSS30;
-    return ECSSVersion.CSS21;
   }
 
   @Nullable

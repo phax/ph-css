@@ -16,11 +16,11 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
@@ -44,7 +44,7 @@ public interface ICSSParseErrorHandler
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  void onCSSParseError (@Nonnull ParseException aParseEx, @Nullable Token aLastSkippedToken) throws ParseException;
+  void onCSSParseError (@NonNull ParseException aParseEx, @Nullable Token aLastSkippedToken) throws ParseException;
 
   /**
    * Called upon an unexpected rule. This happens e.g. when <code>@import</code>
@@ -60,9 +60,9 @@ public interface ICSSParseErrorHandler
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    */
-  void onCSSUnexpectedRule (@Nonnull Token aCurrentToken,
-                            @Nonnull @Nonempty String sRule,
-                            @Nonnull @Nonempty String sMsg) throws ParseException;
+  void onCSSUnexpectedRule (@NonNull Token aCurrentToken,
+                            @NonNull @Nonempty String sRule,
+                            @NonNull @Nonempty String sMsg) throws ParseException;
 
   /**
    * To be called, if a deprecated old IE 6/7 property is found.
@@ -75,7 +75,7 @@ public interface ICSSParseErrorHandler
    *         In case the error is fatal and should be propagated.
    * @since 6.5.0
    */
-  void onCSSDeprecatedProperty (@Nonnull Token aPrefixToken, @Nonnull Token aIdentifierToken) throws ParseException;
+  void onCSSDeprecatedProperty (@NonNull Token aPrefixToken, @NonNull Token aIdentifierToken) throws ParseException;
 
   /**
    * This method is only called in browser compliant mode if a certain part of
@@ -94,7 +94,7 @@ public interface ICSSParseErrorHandler
    *         In case the error is fatal and should be propagated.
    * @see com.helger.css.reader.CSSReaderSettings#setBrowserCompliantMode(boolean)
    */
-  void onCSSBrowserCompliantSkip (@Nullable ParseException ex, @Nonnull Token aFromToken, @Nonnull Token aToToken) throws ParseException;
+  void onCSSBrowserCompliantSkip (@Nullable ParseException ex, @NonNull Token aFromToken, @NonNull Token aToToken) throws ParseException;
 
   /**
    * This method is invoked, when an illegal character is encountered (in
@@ -115,37 +115,37 @@ public interface ICSSParseErrorHandler
    *        The other handler to also be invoked.
    * @return A new instance. Never <code>null</code>.
    */
-  @Nonnull
-  default ICSSParseErrorHandler and (@Nonnull final ICSSParseErrorHandler aOther)
+  @NonNull
+  default ICSSParseErrorHandler and (@NonNull final ICSSParseErrorHandler aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     final ICSSParseErrorHandler aThis = this;
 
     return new ICSSParseErrorHandler ()
     {
-      public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+      public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
       {
         aThis.onCSSParseError (aParseEx, aLastSkippedToken);
         aOther.onCSSParseError (aParseEx, aLastSkippedToken);
       }
 
-      public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                       @Nonnull @Nonempty final String sRule,
-                                       @Nonnull @Nonempty final String sMsg) throws ParseException
+      public void onCSSUnexpectedRule (@NonNull final Token aCurrentToken,
+                                       @NonNull @Nonempty final String sRule,
+                                       @NonNull @Nonempty final String sMsg) throws ParseException
       {
         aThis.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
         aOther.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
       }
 
-      public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken) throws ParseException
+      public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken) throws ParseException
       {
         aThis.onCSSDeprecatedProperty (aPrefixToken, aIdentifierToken);
         aOther.onCSSDeprecatedProperty (aPrefixToken, aIdentifierToken);
       }
 
       public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
-                                             @Nonnull final Token aFromToken,
-                                             @Nonnull final Token aToToken) throws ParseException
+                                             @NonNull final Token aFromToken,
+                                             @NonNull final Token aToToken) throws ParseException
       {
         aThis.onCSSBrowserCompliantSkip (ex, aFromToken, aToToken);
         aOther.onCSSBrowserCompliantSkip (ex, aFromToken, aToToken);

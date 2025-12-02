@@ -16,17 +16,16 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -41,7 +40,7 @@ public class CSSSupportsConditionNegation implements ICSSSupportsConditionMember
   private final ICSSSupportsConditionMember m_aSupportsMember;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSupportsConditionNegation (@Nonnull final ICSSSupportsConditionMember aSupportsMember)
+  public CSSSupportsConditionNegation (@NonNull final ICSSSupportsConditionMember aSupportsMember)
   {
     m_aSupportsMember = ValueEnforcer.notNull (aSupportsMember, "SupportsMember");
   }
@@ -49,24 +48,17 @@ public class CSSSupportsConditionNegation implements ICSSSupportsConditionMember
   /**
    * @return The contained supports condition member. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ICSSSupportsConditionMember getSupportsMember ()
   {
     return m_aSupportsMember;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return "not " + m_aSupportsMember.getAsCSSString (aSettings, nIndentLevel);
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

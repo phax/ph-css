@@ -16,10 +16,10 @@
  */
 package com.helger.css.supplementary.parser;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.text.codepoint.Codepoint;
+import com.helger.annotation.Nonnegative;
+import com.helger.text.codepoint.Codepoint;
 
 public final class CSSCodepoint extends Codepoint
 {
@@ -125,7 +125,7 @@ public final class CSSCodepoint extends Codepoint
   }
 
   @Override
-  public void appendTo (@Nonnull final StringBuilder aSB)
+  public void appendTo (@NonNull final StringBuilder aSB)
   {
     final int nValue = getValue ();
     if (isSingleChar ())
@@ -139,7 +139,7 @@ public final class CSSCodepoint extends Codepoint
     }
   }
 
-  @Nonnull
+  @NonNull
   private ECSSTokenStartType _findTokenStartType ()
   {
     final int nValue = getValue ();
@@ -208,7 +208,7 @@ public final class CSSCodepoint extends Codepoint
     return ECSSTokenStartType.ANYTHING_ELSE;
   }
 
-  @Nonnull
+  @NonNull
   public ECSSTokenStartType getTokenStartType ()
   {
     ECSSTokenStartType ret = m_eTokenStartType;
@@ -220,7 +220,7 @@ public final class CSSCodepoint extends Codepoint
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static CSSCodepoint createEOF ()
   {
     return new CSSCodepoint ();

@@ -16,16 +16,16 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
@@ -41,12 +41,14 @@ public class CSSPropertyColors extends AbstractCSSProperty
   private final int m_nMinArgCount;
   private final int m_nMaxArgCount;
 
-  public CSSPropertyColors (@Nonnull final ECSSProperty eProp, @Nonnegative final int nMinArgCount, @Nonnegative final int nMaxArgCount)
+  public CSSPropertyColors (@NonNull final ECSSProperty eProp,
+                            @Nonnegative final int nMinArgCount,
+                            @Nonnegative final int nMaxArgCount)
   {
     this (eProp, (ICSSPropertyCustomizer) null, nMinArgCount, nMaxArgCount);
   }
 
-  public CSSPropertyColors (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyColors (@NonNull final ECSSProperty eProp,
                             @Nullable final ICSSPropertyCustomizer aCustomizer,
                             @Nonnegative final int nMinArgCount,
                             @Nonnegative final int nMaxArgCount)
@@ -54,7 +56,7 @@ public class CSSPropertyColors extends AbstractCSSProperty
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, nMinArgCount, nMaxArgCount);
   }
 
-  public CSSPropertyColors (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyColors (@NonNull final ECSSProperty eProp,
                             @Nullable final ECSSVendorPrefix eVendorPrefix,
                             @Nullable final ICSSPropertyCustomizer aCustomizer,
                             @Nonnegative final int nMinArgCount,
@@ -106,17 +108,25 @@ public class CSSPropertyColors extends AbstractCSSProperty
   }
 
   @Override
-  @Nonnull
-  public CSSPropertyColors getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyColors getClone (@NonNull final ECSSProperty eProp)
   {
-    return new CSSPropertyColors (eProp, getVendorPrefix (), getCustomizer (), getMinimumArgumentCount (), getMaximumArgumentCount ());
+    return new CSSPropertyColors (eProp,
+                                  getVendorPrefix (),
+                                  getCustomizer (),
+                                  getMinimumArgumentCount (),
+                                  getMaximumArgumentCount ());
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public CSSPropertyColors getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
-    return new CSSPropertyColors (getProp (), eVendorPrefix, getCustomizer (), getMinimumArgumentCount (), getMaximumArgumentCount ());
+    return new CSSPropertyColors (getProp (),
+                                  eVendorPrefix,
+                                  getCustomizer (),
+                                  getMinimumArgumentCount (),
+                                  getMaximumArgumentCount ());
   }
 
   @Override
@@ -133,7 +143,10 @@ public class CSSPropertyColors extends AbstractCSSProperty
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_nMinArgCount).append (m_nMaxArgCount).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ())
+                            .append (m_nMinArgCount)
+                            .append (m_nMaxArgCount)
+                            .getHashCode ();
   }
 
   @Override

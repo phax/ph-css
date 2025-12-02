@@ -23,13 +23,13 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
+import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 
 /**
  * Test for issue 4: https://github.com/phax/ph-css/issues/4
@@ -44,11 +44,10 @@ public final class Issue4Test
     final IReadableResource aRes = new ClassPathResource ("testfiles/css30/good/issue4.css");
     assertTrue (aRes.exists ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStream (aRes,
-                                                               StandardCharsets.UTF_8,
-                                                               ECSSVersion.CSS30,
-                                                               new LoggingCSSParseErrorHandler ());
+                                                               new CSSReaderSettings ().setFallbackCharset (StandardCharsets.UTF_8)
+                                                                                       .setCustomErrorHandler (new LoggingCSSParseErrorHandler ()));
     assertNotNull (aCSS);
     if (false)
-      System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
+      System.out.println (new CSSWriter ().getCSSAsString (aCSS));
   }
 }

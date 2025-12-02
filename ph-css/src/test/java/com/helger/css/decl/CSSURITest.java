@@ -24,10 +24,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.css.ECSSVersion;
 import com.helger.css.utils.CSSDataURL;
 import com.helger.css.writer.CSSWriterSettings;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link CSSURI}.
@@ -41,15 +40,15 @@ public final class CSSURITest
   {
     final CSSURI aURI = new CSSURI ("a.gif");
     assertEquals ("a.gif", aURI.getURI ());
-    final CSSWriterSettings aSettings = new CSSWriterSettings (ECSSVersion.CSS30, false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
     assertEquals ("url(a.gif)", aURI.getAsCSSString (aSettings));
     aSettings.setQuoteURLs (true);
     assertEquals ("url('a.gif')", aURI.getAsCSSString (aSettings));
     assertFalse (aURI.isDataURL ());
     assertNull (aURI.getAsDataURL ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aURI, new CSSURI ("a.gif"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aURI, new CSSURI ("b.gif"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aURI, new CSSURI ("a.gif"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aURI, new CSSURI ("b.gif"));
   }
 
   @Test

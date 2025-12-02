@@ -16,20 +16,20 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringReplace;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
@@ -57,8 +57,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The member to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSExpression addMember (@Nonnull final ICSSExpressionMember aMember)
+  @NonNull
+  public CSSExpression addMember (@NonNull final ICSSExpressionMember aMember)
   {
     ValueEnforcer.notNull (aMember, "ExpressionMember");
 
@@ -75,8 +75,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The member to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSExpression addMember (@Nonnegative final int nIndex, @Nonnull final ICSSExpressionMember aMember)
+  @NonNull
+  public CSSExpression addMember (@Nonnegative final int nIndex, @NonNull final ICSSExpressionMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "ExpressionMember");
@@ -95,8 +95,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added. May neither be <code>null</code> nor empty.
    * @return this
    */
-  @Nonnull
-  public CSSExpression addTermSimple (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public CSSExpression addTermSimple (@NonNull @Nonempty final String sValue)
   {
     return addMember (new CSSExpressionMemberTermSimple (sValue));
   }
@@ -110,8 +110,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added. May neither be <code>null</code> nor empty.
    * @return this
    */
-  @Nonnull
-  public CSSExpression addTermSimple (@Nonnegative final int nIndex, @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public CSSExpression addTermSimple (@Nonnegative final int nIndex, @NonNull @Nonempty final String sValue)
   {
     return addMember (nIndex, new CSSExpressionMemberTermSimple (sValue));
   }
@@ -123,7 +123,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSExpression addNumber (final int nValue)
   {
     return addMember (new CSSExpressionMemberTermSimple (nValue));
@@ -138,7 +138,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSExpression addNumber (@Nonnegative final int nIndex, final int nValue)
   {
     return addMember (nIndex, new CSSExpressionMemberTermSimple (nValue));
@@ -151,7 +151,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSExpression addNumber (final long nValue)
   {
     return addMember (new CSSExpressionMemberTermSimple (nValue));
@@ -166,7 +166,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSExpression addNumber (@Nonnegative final int nIndex, final long nValue)
   {
     return addMember (nIndex, new CSSExpressionMemberTermSimple (nValue));
@@ -179,7 +179,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSExpression addNumber (final float fValue)
   {
     return addMember (new CSSExpressionMemberTermSimple (fValue));
@@ -194,7 +194,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSExpression addNumber (@Nonnegative final int nIndex, final float fValue)
   {
     return addMember (nIndex, new CSSExpressionMemberTermSimple (fValue));
@@ -207,7 +207,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSExpression addNumber (final double dValue)
   {
     return addMember (new CSSExpressionMemberTermSimple (dValue));
@@ -222,30 +222,29 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSSExpression addNumber (@Nonnegative final int nIndex, final double dValue)
   {
     return addMember (nIndex, new CSSExpressionMemberTermSimple (dValue));
   }
 
   /**
-   * Get a quoted string value. Every double quote (") is replaced to a
-   * backslash and a double quote (\").
+   * Get a quoted string value. Every double quote (") is replaced to a backslash and a double quote
+   * (\").
    *
    * @param sValue
    *        The source value. May not be <code>null</code>.
-   * @return An opening double quote + the quoted string + a closing double
-   *         quote
+   * @return An opening double quote + the quoted string + a closing double quote
    * @since 6.1.2
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getQuotedStringValue (@Nonnull final String sValue)
+  public static String getQuotedStringValue (@NonNull final String sValue)
   {
     ValueEnforcer.notNull (sValue, "Value");
     if (sValue.length () == 0)
       return "\"\"";
-    return CCSS.DOUBLE_QUOTE + StringHelper.replaceAll (sValue, "\"", "\\\"") + CCSS.DOUBLE_QUOTE;
+    return CCSS.DOUBLE_QUOTE + StringReplace.replaceAll (sValue, "\"", "\\\"") + CCSS.DOUBLE_QUOTE;
   }
 
   /**
@@ -255,8 +254,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be quoted and than added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSExpression addString (@Nonnull final String sValue)
+  @NonNull
+  public CSSExpression addString (@NonNull final String sValue)
   {
     return addTermSimple (getQuotedStringValue (sValue));
   }
@@ -270,8 +269,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be quoted and than added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public CSSExpression addString (@Nonnegative final int nIndex, @Nonnull final String sValue)
+  @NonNull
+  public CSSExpression addString (@Nonnegative final int nIndex, @NonNull final String sValue)
   {
     return addTermSimple (nIndex, getQuotedStringValue (sValue));
   }
@@ -283,8 +282,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added. May neither be <code>null</code> nor empty
    * @return this
    */
-  @Nonnull
-  public CSSExpression addURI (@Nonnull @Nonempty final String sURI)
+  @NonNull
+  public CSSExpression addURI (@NonNull @Nonempty final String sURI)
   {
     return addMember (new CSSExpressionMemberTermURI (sURI));
   }
@@ -298,8 +297,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be added. May neither be <code>null</code> nor empty
    * @return this
    */
-  @Nonnull
-  public CSSExpression addURI (@Nonnegative final int nIndex, @Nonnull @Nonempty final String sURI)
+  @NonNull
+  public CSSExpression addURI (@Nonnegative final int nIndex, @NonNull @Nonempty final String sURI)
   {
     return addMember (nIndex, new CSSExpressionMemberTermURI (sURI));
   }
@@ -311,7 +310,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The member to be removed. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nullable final ICSSExpressionMember aMember)
   {
     return m_aMembers.removeObject (aMember);
@@ -324,7 +323,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        the index of the member to be removed. May not be &lt; 0.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nMemberIndex)
   {
     return m_aMembers.removeAtIndex (nMemberIndex);
@@ -333,21 +332,20 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * Remove all members.
    *
-   * @return {@link EChange#CHANGED} if any member was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
   }
 
   /**
-   * @return A copy of all contained expression members. Never <code>null</code>
-   *         .
+   * @return A copy of all contained expression members. Never <code>null</code> .
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSExpressionMember> getAllMembers ()
   {
@@ -380,14 +378,14 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    * @return A list with all expression members that are of type
    *         {@link CSSExpressionMemberTermSimple}
    */
-  @Nonnull
+  @NonNull
   public ICommonsList <CSSExpressionMemberTermSimple> getAllSimpleMembers ()
   {
     return m_aMembers.getAllInstanceOf (CSSExpressionMemberTermSimple.class);
   }
 
-  @Nonnull
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  @NonNull
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     final StringBuilder aSB = new StringBuilder ();
     boolean bPrevWasOperator = false;
@@ -436,7 +434,9 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (null).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 
   /**
@@ -446,8 +446,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
    */
-  @Nonnull
-  public static CSSExpression createSimple (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public static CSSExpression createSimple (@NonNull @Nonempty final String sValue)
   {
     return new CSSExpression ().addTermSimple (sValue);
   }
@@ -459,8 +459,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be wrapped in a string
    * @return The CSS expression to be used.
    */
-  @Nonnull
-  public static CSSExpression createString (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public static CSSExpression createString (@NonNull @Nonempty final String sValue)
   {
     return new CSSExpression ().addString (sValue);
   }
@@ -472,7 +472,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
    */
-  @Nonnull
+  @NonNull
   public static CSSExpression createNumber (final int nValue)
   {
     return new CSSExpression ().addNumber (nValue);
@@ -485,7 +485,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
    */
-  @Nonnull
+  @NonNull
   public static CSSExpression createNumber (final long nValue)
   {
     return new CSSExpression ().addNumber (nValue);
@@ -498,7 +498,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
    */
-  @Nonnull
+  @NonNull
   public static CSSExpression createNumber (final float fValue)
   {
     return new CSSExpression ().addNumber (fValue);
@@ -511,7 +511,7 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The value to be wrapped in an expression
    * @return The CSS expression to be used.
    */
-  @Nonnull
+  @NonNull
   public static CSSExpression createNumber (final double dValue)
   {
     return new CSSExpression ().addNumber (dValue);
@@ -524,8 +524,8 @@ public class CSSExpression implements ICSSWriteable, ICSSSourceLocationAware
    *        The URI to be wrapped in an expression
    * @return The CSS expression to be used.
    */
-  @Nonnull
-  public static CSSExpression createURI (@Nonnull @Nonempty final String sURI)
+  @NonNull
+  public static CSSExpression createURI (@NonNull @Nonempty final String sURI)
   {
     return new CSSExpression ().addURI (sURI);
   }

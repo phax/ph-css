@@ -16,11 +16,10 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.css.ECSSVersion;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.visit.CSSVisitor;
@@ -29,8 +28,7 @@ import com.helger.css.reader.CSSReader;
 import com.helger.css.writer.CSSWriterSettings;
 
 /**
- * Example how to extract all selectors from a certain CSS file using a
- * {@link DefaultCSSUrlVisitor}.
+ * Example how to extract all selectors from a certain CSS file using a {@link DefaultCSSVisitor}.
  *
  * @author Philip Helger
  */
@@ -50,14 +48,14 @@ public final class WikiVisitSelectors
                           "a:hover { text-decoration:none; }\r\n" +
                           "\r\n" +
                           "img { border:none; }";
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle);
     final ICommonsList <String> aAllSelectors = new CommonsArrayList <> ();
     CSSVisitor.visitCSS (aCSS, new DefaultCSSVisitor ()
     {
       @Override
-      public void onStyleRuleSelector (@Nonnull final CSSSelector aSelector)
+      public void onStyleRuleSelector (@NonNull final CSSSelector aSelector)
       {
-        aAllSelectors.add (aSelector.getAsCSSString (new CSSWriterSettings (ECSSVersion.CSS30)));
+        aAllSelectors.add (aSelector.getAsCSSString (new CSSWriterSettings ()));
       }
     });
     System.out.println (aAllSelectors);

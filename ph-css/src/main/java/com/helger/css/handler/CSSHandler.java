@@ -16,21 +16,19 @@
  */
 package com.helger.css.handler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.css.ECSSVersion;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.parser.CSSNode;
-import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.errorhandler.ICSSInterpretErrorHandler;
 
 /**
- * This class is the entry point for converting AST nodes from the parser to
- * domain objects. This class is only used internally.
+ * This class is the entry point for converting AST nodes from the parser to domain objects. This
+ * class is only used internally.
  *
  * @author Philip Helger
  */
@@ -48,148 +46,52 @@ public final class CSSHandler
   /**
    * Create a {@link CascadingStyleSheet} object from a parsed object.
    *
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
-   * @param aNode
-   *        The parsed CSS object to read. May not be <code>null</code>.
-   * @return Never <code>null</code>.
-   * @deprecated Use
-   *             {@link #readCascadingStyleSheetFromNode(ECSSVersion, ICSSInterpretErrorHandler, boolean, CSSNode)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated
-  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ECSSVersion eVersion, @Nonnull final CSSNode aNode)
-  {
-    return readCascadingStyleSheetFromNode (eVersion, CSSReader.getDefaultInterpretErrorHandler (), DEFAULT_USE_SOURCE_LOCATION, aNode);
-  }
-
-  /**
-   * Create a {@link CascadingStyleSheet} object from a parsed object.
-   *
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
-   * @param aNode
-   *        The parsed CSS object to read. May not be <code>null</code>.
-   * @param aErrorHandler
-   *        The error handler to be used. May not be <code>null</code>.
-   * @return Never <code>null</code>.
-   * @since 5.0.2
-   * @deprecated Use
-   *             {@link #readCascadingStyleSheetFromNode(ECSSVersion, ICSSInterpretErrorHandler, boolean, CSSNode)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated
-  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ECSSVersion eVersion,
-                                                                     @Nonnull final CSSNode aNode,
-                                                                     @Nonnull final ICSSInterpretErrorHandler aErrorHandler)
-  {
-    return readCascadingStyleSheetFromNode (eVersion, aErrorHandler, DEFAULT_USE_SOURCE_LOCATION, aNode);
-  }
-
-  /**
-   * Create a {@link CascadingStyleSheet} object from a parsed object.
-   *
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
    * @param aErrorHandler
    *        The error handler to be used. May not be <code>null</code>.
    * @param bUseSourceLocation
-   *        <code>true</code> to keep the source location, <code>false</code> to
-   *        ignore the source location. Disabling the source location may be a
-   *        performance improvement.
+   *        <code>true</code> to keep the source location, <code>false</code> to ignore the source
+   *        location. Disabling the source location may be a performance improvement.
    * @param aNode
    *        The parsed CSS object to read. May not be <code>null</code>.
    * @return Never <code>null</code>.
    * @since 6.1.3
    */
-  @Nonnull
-  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@Nonnull final ECSSVersion eVersion,
-                                                                     @Nonnull final ICSSInterpretErrorHandler aErrorHandler,
+  @NonNull
+  public static CascadingStyleSheet readCascadingStyleSheetFromNode (@NonNull final ICSSInterpretErrorHandler aErrorHandler,
                                                                      final boolean bUseSourceLocation,
-                                                                     @Nonnull final CSSNode aNode)
+                                                                     @NonNull final CSSNode aNode)
   {
-    ValueEnforcer.notNull (eVersion, "Version");
     ValueEnforcer.notNull (aNode, "Node");
-    if (!ECSSNodeType.ROOT.isNode (aNode, eVersion))
+    if (!ECSSNodeType.ROOT.isNode (aNode))
       throw new CSSHandlingException (aNode, "Passed node is not a root node!");
     ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
 
-    return new CSSNodeToDomainObject (eVersion, aErrorHandler, bUseSourceLocation).createCascadingStyleSheetFromNode (aNode);
+    return new CSSNodeToDomainObject (aErrorHandler, bUseSourceLocation).createCascadingStyleSheetFromNode (aNode);
   }
 
   /**
    * Create a {@link CSSDeclarationList} object from a parsed object.
    *
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
-   * @param aNode
-   *        The parsed CSS object to read. May not be <code>null</code>.
-   * @return Never <code>null</code>.
-   * @deprecated Use
-   *             {@link #readDeclarationListFromNode(ECSSVersion, ICSSInterpretErrorHandler, boolean, CSSNode)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated
-  public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ECSSVersion eVersion, @Nonnull final CSSNode aNode)
-  {
-    return readDeclarationListFromNode (eVersion, CSSReader.getDefaultInterpretErrorHandler (), DEFAULT_USE_SOURCE_LOCATION, aNode);
-  }
-
-  /**
-   * Create a {@link CSSDeclarationList} object from a parsed object.
-   *
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
-   * @param aNode
-   *        The parsed CSS object to read. May not be <code>null</code>.
-   * @param aErrorHandler
-   *        The error handler to be used. May not be <code>null</code>.
-   * @return Never <code>null</code>.
-   * @since 5.0.2
-   * @deprecated Use
-   *             {@link #readDeclarationListFromNode(ECSSVersion, ICSSInterpretErrorHandler, boolean, CSSNode)}
-   *             instead
-   */
-  @Deprecated
-  @Nonnull
-  public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ECSSVersion eVersion,
-                                                                @Nonnull final CSSNode aNode,
-                                                                @Nonnull final ICSSInterpretErrorHandler aErrorHandler)
-  {
-    return readDeclarationListFromNode (eVersion, aErrorHandler, DEFAULT_USE_SOURCE_LOCATION, aNode);
-  }
-
-  /**
-   * Create a {@link CSSDeclarationList} object from a parsed object.
-   *
-   * @param eVersion
-   *        The CSS version to use. May not be <code>null</code>.
    * @param aErrorHandler
    *        The error handler to be used. May not be <code>null</code>.
    * @param bUseSourceLocation
-   *        <code>true</code> to keep the source location, <code>false</code> to
-   *        ignore the source location. Disabling the source location may be a
-   *        performance improvement.
+   *        <code>true</code> to keep the source location, <code>false</code> to ignore the source
+   *        location. Disabling the source location may be a performance improvement.
    * @param aNode
    *        The parsed CSS object to read. May not be <code>null</code>.
    * @return Never <code>null</code>.
    * @since 6.1.3
    */
-  @Nonnull
-  public static CSSDeclarationList readDeclarationListFromNode (@Nonnull final ECSSVersion eVersion,
-                                                                @Nonnull final ICSSInterpretErrorHandler aErrorHandler,
+  @NonNull
+  public static CSSDeclarationList readDeclarationListFromNode (@NonNull final ICSSInterpretErrorHandler aErrorHandler,
                                                                 final boolean bUseSourceLocation,
-                                                                @Nonnull final CSSNode aNode)
+                                                                @NonNull final CSSNode aNode)
   {
-    ValueEnforcer.notNull (eVersion, "Version");
     ValueEnforcer.notNull (aNode, "Node");
-    if (!ECSSNodeType.STYLEDECLARATIONLIST.isNode (aNode, eVersion))
+    if (!ECSSNodeType.STYLEDECLARATIONLIST.isNode (aNode))
       throw new CSSHandlingException (aNode, "Passed node is not a style declaration node!");
     ValueEnforcer.notNull (aErrorHandler, "ErrorHandler");
 
-    return new CSSNodeToDomainObject (eVersion, aErrorHandler, bUseSourceLocation).createDeclarationListFromNode (aNode);
+    return new CSSNodeToDomainObject (aErrorHandler, bUseSourceLocation).createDeclarationListFromNode (aNode);
   }
 }

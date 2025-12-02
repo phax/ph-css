@@ -16,17 +16,15 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.css.ECSSVersion;
-import com.helger.css.ICSSVersionAware;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -38,7 +36,7 @@ import com.helger.css.utils.CSSColorHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, ICloneable <CSSHSL>
+public class CSSHSL implements ICSSWriteable, ICSSColor, ICloneable <CSSHSL>
 {
   private String m_sHue;
   private String m_sSaturation;
@@ -50,7 +48,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    * @param aOther
    *        The object to copy the data from. May not be <code>null</code>.
    */
-  public CSSHSL (@Nonnull final CSSHSL aOther)
+  public CSSHSL (@NonNull final CSSHSL aOther)
   {
     this (aOther.getHue (), aOther.getSaturation (), aOther.getLightness ());
   }
@@ -89,9 +87,9 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
           Float.toString (CSSColorHelper.getHSLPercentageValue (fLightness)) + "%");
   }
 
-  public CSSHSL (@Nonnull @Nonempty final String sHue,
-                 @Nonnull @Nonempty final String sSaturation,
-                 @Nonnull @Nonempty final String sLightness)
+  public CSSHSL (@NonNull @Nonempty final String sHue,
+                 @NonNull @Nonempty final String sSaturation,
+                 @NonNull @Nonempty final String sLightness)
   {
     setHue (sHue);
     setSaturation (sSaturation);
@@ -101,15 +99,15 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
   /**
    * @return hue part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getHue ()
   {
     return m_sHue;
   }
 
-  @Nonnull
-  public final CSSHSL setHue (@Nonnull @Nonempty final String sHue)
+  @NonNull
+  public final CSSHSL setHue (@NonNull @Nonempty final String sHue)
   {
     ValueEnforcer.notEmpty (sHue, "Hue");
 
@@ -120,15 +118,15 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
   /**
    * @return saturation part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getSaturation ()
   {
     return m_sSaturation;
   }
 
-  @Nonnull
-  public final CSSHSL setSaturation (@Nonnull @Nonempty final String sSaturation)
+  @NonNull
+  public final CSSHSL setSaturation (@NonNull @Nonempty final String sSaturation)
   {
     ValueEnforcer.notEmpty (sSaturation, "Saturation");
 
@@ -139,15 +137,15 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
   /**
    * @return lightness part
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getLightness ()
   {
     return m_sLightness;
   }
 
-  @Nonnull
-  public final CSSHSL setLightness (@Nonnull @Nonempty final String sLightness)
+  @NonNull
+  public final CSSHSL setLightness (@NonNull @Nonempty final String sLightness)
   {
     ValueEnforcer.notEmpty (sLightness, "Lightness");
 
@@ -160,11 +158,10 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    *
    * @param fOpacity
    *        Opacity part. Is fitted to a value between 0 and 1.
-   * @return This value as HSLA value with the passed opacity. Never
-   *         <code>null</code>.
+   * @return This value as HSLA value with the passed opacity. Never <code>null</code>.
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   public CSSHSLA getAsHSLA (final float fOpacity)
   {
     return new CSSHSLA (this, fOpacity);
@@ -175,12 +172,11 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    *
    * @param sOpacity
    *        Opacity part. May neither be <code>null</code> nor empty.
-   * @return This value as HSLA value with the passed opacity. Never
-   *         <code>null</code>.
+   * @return This value as HSLA value with the passed opacity. Never <code>null</code>.
    * @since 3.8.3
    */
-  @Nonnull
-  public CSSHSLA getAsHSLA (@Nonnull @Nonempty final String sOpacity)
+  @NonNull
+  public CSSHSLA getAsHSLA (@NonNull @Nonempty final String sOpacity)
   {
     return new CSSHSLA (this, sOpacity);
   }
@@ -190,25 +186,18 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    *
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsString ()
   {
     return CCSSValue.PREFIX_HSL_OPEN + m_sHue + ',' + m_sSaturation + ',' + m_sLightness + CCSSValue.SUFFIX_HSL_CLOSE;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return getAsString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   /**
@@ -216,7 +205,7 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
    *
    * @since 3.8.3
    */
-  @Nonnull
+  @NonNull
   public CSSHSL getClone ()
   {
     return new CSSHSL (this);
@@ -230,7 +219,9 @@ public class CSSHSL implements ICSSWriteable, ICSSVersionAware, ICSSColor, IClon
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSHSL rhs = (CSSHSL) o;
-    return m_sHue.equals (rhs.m_sHue) && m_sSaturation.equals (rhs.m_sSaturation) && m_sLightness.equals (rhs.m_sLightness);
+    return m_sHue.equals (rhs.m_sHue) &&
+           m_sSaturation.equals (rhs.m_sSaturation) &&
+           m_sLightness.equals (rhs.m_sLightness);
   }
 
   @Override

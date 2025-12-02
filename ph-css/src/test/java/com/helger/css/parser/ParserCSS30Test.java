@@ -22,9 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.css.AbstractCSS30TestCase;
-import com.helger.css.ECSSVersion;
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
+import com.helger.css.AbstractCSSTestCase;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.handler.CSSHandler;
@@ -35,7 +34,7 @@ import com.helger.css.reader.CSSReader;
  *
  * @author Philip Helger
  */
-public final class ParserCSS30Test extends AbstractCSS30TestCase
+public final class ParserCSS30Test extends AbstractCSSTestCase
 {
   @Test
   public void testBasic1 () throws ParseException
@@ -56,7 +55,7 @@ public final class ParserCSS30Test extends AbstractCSS30TestCase
     final CSSNode aNode = aParser.styleSheet ();
     assertNotNull (aNode);
 
-    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (ECSSVersion.CSS30,
+    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (
                                                                                  CSSReader.getDefaultInterpretErrorHandler (),
                                                                                  true,
                                                                                  aNode);
@@ -80,7 +79,7 @@ public final class ParserCSS30Test extends AbstractCSS30TestCase
     final CSSNode aNode = aParser.styleSheet ();
     assertNotNull (aNode);
 
-    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (ECSSVersion.CSS30,
+    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (
                                                                                  CSSReader.getDefaultInterpretErrorHandler (),
                                                                                  false,
                                                                                  aNode);

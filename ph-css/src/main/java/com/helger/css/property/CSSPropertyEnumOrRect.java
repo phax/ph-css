@@ -16,12 +16,12 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSRectHelper;
@@ -34,42 +34,42 @@ import com.helger.css.utils.CSSRectHelper;
 @NotThreadSafe
 public class CSSPropertyEnumOrRect extends CSSPropertyEnum
 {
-  public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final String... aEnumValues)
+  public CSSPropertyEnumOrRect (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, aEnumValues);
   }
 
-  public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrRect (@NonNull final ECSSProperty eProp,
                                 @Nullable final ICSSPropertyCustomizer aCustomizer,
-                                @Nonnull @Nonempty final String... aEnumValues)
+                                @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrRect (@NonNull final ECSSProperty eProp,
                                 @Nullable final ECSSVendorPrefix eVendorPrefix,
                                 @Nullable final ICSSPropertyCustomizer aCustomizer,
-                                @Nonnull @Nonempty final String... aEnumValues)
+                                @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp, @Nonnull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnumOrRect (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
   }
 
-  public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrRect (@NonNull final ECSSProperty eProp,
                                 @Nullable final ICSSPropertyCustomizer aCustomizer,
-                                @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrRect (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrRect (@NonNull final ECSSProperty eProp,
                                 @Nullable final ECSSVendorPrefix eVendorPrefix,
                                 @Nullable final ICSSPropertyCustomizer aCustomizer,
-                                @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
@@ -82,14 +82,14 @@ public class CSSPropertyEnumOrRect extends CSSPropertyEnum
   }
 
   @Override
-  @Nonnull
-  public CSSPropertyEnumOrRect getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyEnumOrRect getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyEnumOrRect (eProp, getVendorPrefix (), getCustomizer (), directGetEnumValues ());
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public CSSPropertyEnumOrRect getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyEnumOrRect (getProp (), eVendorPrefix, getCustomizer (), directGetEnumValues ());

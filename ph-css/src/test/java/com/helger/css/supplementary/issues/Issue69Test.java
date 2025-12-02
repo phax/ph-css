@@ -21,8 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.system.ENewLineMode;
-import com.helger.css.ECSSVersion;
+import com.helger.base.system.ENewLineMode;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -41,15 +40,15 @@ public final class Issue69Test
   {
     final String sCSS = "div+p .foo{width:100vw}";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (true));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     assertEquals ("div+p .foo { width:100vw; }\n",
-                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (false)
-                                                         .setNewLineMode (ENewLineMode.UNIX)).setWriteHeaderText (false)
-                                                                                             .getCSSAsString (aCSS));
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (false).setNewLineMode (ENewLineMode.UNIX))
+                                                                                                                        .setWriteHeaderText (false)
+                                                                                                                        .getCSSAsString (aCSS));
     assertEquals ("div+p .foo{width:100vw}",
-                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false).getCSSAsString (aCSS));
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                    .getCSSAsString (aCSS));
   }
 
   @Test
@@ -57,14 +56,14 @@ public final class Issue69Test
   {
     final String sCSS = "div + p .foo{width:100vw}";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (true));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     assertEquals ("div+p .foo { width:100vw; }\n",
-                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (false)
-                                                         .setNewLineMode (ENewLineMode.UNIX)).setWriteHeaderText (false)
-                                                                                             .getCSSAsString (aCSS));
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (false).setNewLineMode (ENewLineMode.UNIX))
+                                                                                                                        .setWriteHeaderText (false)
+                                                                                                                        .getCSSAsString (aCSS));
     assertEquals ("div+p .foo{width:100vw}",
-                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false).getCSSAsString (aCSS));
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                    .getCSSAsString (aCSS));
   }
 }

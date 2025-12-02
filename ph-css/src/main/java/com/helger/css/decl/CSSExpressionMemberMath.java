@@ -16,21 +16,20 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -48,21 +47,22 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   public CSSExpressionMemberMath ()
   {}
 
-  public CSSExpressionMemberMath (@Nonnull final Iterable <? extends ICSSExpressionMathMember> aMembers)
+  public CSSExpressionMemberMath (@NonNull final Iterable <? extends ICSSExpressionMathMember> aMembers)
   {
     m_aMembers.addAll (aMembers);
   }
 
-  @Nonnull
-  public CSSExpressionMemberMath addMember (@Nonnull final ICSSExpressionMathMember aMember)
+  @NonNull
+  public CSSExpressionMemberMath addMember (@NonNull final ICSSExpressionMathMember aMember)
   {
     ValueEnforcer.notNull (aMember, "Member");
     m_aMembers.add (aMember);
     return this;
   }
 
-  @Nonnull
-  public CSSExpressionMemberMath addMember (@Nonnegative final int nIndex, @Nonnull final ICSSExpressionMathMember aMember)
+  @NonNull
+  public CSSExpressionMemberMath addMember (@Nonnegative final int nIndex,
+                                            @NonNull final ICSSExpressionMathMember aMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aMember, "Member");
@@ -74,13 +74,13 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
     return this;
   }
 
-  @Nonnull
-  public EChange removeMember (@Nonnull final ICSSExpressionMathMember aMember)
+  @NonNull
+  public EChange removeMember (@NonNull final ICSSExpressionMathMember aMember)
   {
     return m_aMembers.removeObject (aMember);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeMember (@Nonnegative final int nMemberIndex)
   {
     return m_aMembers.removeAtIndex (nMemberIndex);
@@ -89,17 +89,17 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   /**
    * Remove all members.
    *
-   * @return {@link EChange#CHANGED} if any member was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any member was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllMembers ()
   {
     return m_aMembers.removeAll ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSExpressionMathMember> getAllMembers ()
   {
@@ -112,27 +112,20 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
     return m_aMembers.size ();
   }
 
-  @Nonnull
+  @NonNull
   public CSSExpressionMemberMath getClone ()
   {
     return new CSSExpressionMemberMath (m_aMembers);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     final StringBuilder aSB = new StringBuilder ("calc(");
     for (final ICSSExpressionMathMember aMember : m_aMembers)
       aSB.append (aMember.getAsCSSString (aSettings, nIndentLevel));
     return aSB.append (")").toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable
@@ -166,6 +159,8 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (null).append ("members", m_aMembers)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

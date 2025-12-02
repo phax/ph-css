@@ -16,16 +16,16 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
@@ -43,12 +43,12 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   private String m_sBody;
   private CSSSourceLocation m_aSourceLocation;
 
-  public static boolean isValidDeclaration (@Nonnull @Nonempty final String sDeclaration)
+  public static boolean isValidDeclaration (@NonNull @Nonempty final String sDeclaration)
   {
     return StringHelper.startsWith (sDeclaration, '@');
   }
 
-  public CSSUnknownRule (@Nonnull @Nonempty final String sDeclaration)
+  public CSSUnknownRule (@NonNull @Nonempty final String sDeclaration)
   {
     if (!isValidDeclaration (sDeclaration))
       throw new IllegalArgumentException ("declaration");
@@ -56,17 +56,17 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   }
 
   /**
-   * @return The rule declaration string used in the CSS. Neither
-   *         <code>null</code> nor empty. Always starting with <code>@</code>.
+   * @return The rule declaration string used in the CSS. Neither <code>null</code> nor empty.
+   *         Always starting with <code>@</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDeclaration ()
   {
     return m_sDeclaration;
   }
 
-  @Nonnull
+  @NonNull
   public CSSUnknownRule setParameterList (@Nullable final String sParameterList)
   {
     m_sParameterList = StringHelper.trim (sParameterList);
@@ -74,8 +74,8 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   }
 
   /**
-   * @return The parameter-list of the unknown rule. This is the part between
-   *         the declaration and the first opening bracket ('{')
+   * @return The parameter-list of the unknown rule. This is the part between the declaration and
+   *         the first opening bracket ('{')
    */
   @Nullable
   public String getParameterList ()
@@ -83,7 +83,7 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return m_sParameterList;
   }
 
-  @Nonnull
+  @NonNull
   public CSSUnknownRule setBody (@Nullable final String sBody)
   {
     m_sBody = StringHelper.trim (sBody);
@@ -91,8 +91,8 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   }
 
   /**
-   * @return The body of the unknown rule. This is the part between the first
-   *         opening bracket ('{') and the matching closing bracket ('}').
+   * @return The body of the unknown rule. This is the part between the first opening bracket ('{')
+   *         and the matching closing bracket ('}').
    */
   @Nullable
   public String getBody ()
@@ -100,9 +100,9 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return m_sBody;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     // Always ignore unknown rules?
     if (!aSettings.isWriteUnknownRules ())
@@ -112,10 +112,10 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 
     final StringBuilder aSB = new StringBuilder (m_sDeclaration);
 
-    if (StringHelper.hasText (m_sParameterList))
+    if (StringHelper.isNotEmpty (m_sParameterList))
       aSB.append (' ').append (m_sParameterList);
 
-    if (StringHelper.hasNoText (m_sBody))
+    if (StringHelper.isEmpty (m_sBody))
     {
       aSB.append (bOptimizedOutput ? "{}" : " {}" + aSettings.getNewLineString ());
     }
@@ -162,7 +162,10 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDeclaration).append (m_sParameterList).append (m_sBody).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDeclaration)
+                                       .append (m_sParameterList)
+                                       .append (m_sBody)
+                                       .getHashCode ();
   }
 
   @Override

@@ -16,13 +16,13 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.ReadOnlyToken;
 import com.helger.css.parser.Token;
@@ -42,7 +42,7 @@ public class CSSParseError
   private final ReadOnlyToken m_aLastSkippedToken;
   private final String m_sErrorMessage;
 
-  public CSSParseError (@Nonnull @Nonempty final String sErrorMsg)
+  public CSSParseError (@NonNull @Nonempty final String sErrorMsg)
   {
     ValueEnforcer.notEmpty (sErrorMsg, "ErrorMsg");
 
@@ -53,9 +53,9 @@ public class CSSParseError
     m_sErrorMessage = sErrorMsg;
   }
 
-  public CSSParseError (@Nonnull final Token aLastValidToken,
-                        @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                        @Nonnull final String [] aTokenImageVal,
+  public CSSParseError (@NonNull final Token aLastValidToken,
+                        @NonNull final int [] [] aExpectedTokenSequencesVal,
+                        @NonNull final String [] aTokenImageVal,
                         @Nullable final Token aLastSkippedToken)
   {
     ValueEnforcer.notNull (aLastValidToken, "LastValidToken");
@@ -123,7 +123,7 @@ public class CSSParseError
    * @return The error message created by {@link LoggingCSSParseErrorHandler} as
    *         a convenience method. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getErrorMessage ()
   {
@@ -141,29 +141,29 @@ public class CSSParseError
                                        .getToString ();
   }
 
-  @Nonnull
-  public static CSSParseError createUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                                    @Nonnull @Nonempty final String sRule,
-                                                    @Nonnull @Nonempty final String sMsg)
+  @NonNull
+  public static CSSParseError createUnexpectedRule (@NonNull final Token aCurrentToken,
+                                                    @NonNull @Nonempty final String sRule,
+                                                    @NonNull @Nonempty final String sMsg)
   {
     return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
 
-  @Nonnull
-  public static CSSParseError createDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  @NonNull
+  public static CSSParseError createDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
   {
     return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
   }
 
-  @Nonnull
+  @NonNull
   public static CSSParseError createBrowserCompliantSkip (@Nullable final ParseException ex,
-                                                          @Nonnull final Token aFromToken,
-                                                          @Nonnull final Token aToToken)
+                                                          @NonNull final Token aFromToken,
+                                                          @NonNull final Token aToToken)
   {
     return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
   }
 
-  @Nonnull
+  @NonNull
   public static CSSParseError createIllegalCharacter (final char cIllegalChar)
   {
     return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringIllegalCharacter (cIllegalChar));

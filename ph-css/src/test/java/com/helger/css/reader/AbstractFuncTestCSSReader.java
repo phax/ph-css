@@ -24,19 +24,18 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
-
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.FileSystemRecursiveIterator;
-import com.helger.commons.io.file.IFileFilter;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.handler.LoggingCSSParseExceptionCallback;
 import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
 import com.helger.css.writer.CSSWriterSettings;
+import com.helger.io.file.FileSystemRecursiveIterator;
+import com.helger.io.file.IFileFilter;
 
 /**
  * Abstract class for reading multiple CSS files
@@ -50,7 +49,7 @@ public abstract class AbstractFuncTestCSSReader
   private final CSSReaderSettings m_aReaderSettings;
   private final CSSWriterSettings m_aWriterSettings;
 
-  protected AbstractFuncTestCSSReader (@Nonnull final Charset aCharset,
+  protected AbstractFuncTestCSSReader (@NonNull final Charset aCharset,
                                        final boolean bDebug,
                                        final boolean bBrowserCompliantMode)
   {
@@ -70,7 +69,7 @@ public abstract class AbstractFuncTestCSSReader
     return m_aReaderSettings.isBrowserCompliantMode ();
   }
 
-  protected final void testReadGood (@Nonnull final String sBaseDir)
+  protected final void testReadGood (@NonNull final String sBaseDir)
   {
     final File aBaseDir = new File (sBaseDir);
     if (!aBaseDir.exists ())
@@ -119,7 +118,7 @@ public abstract class AbstractFuncTestCSSReader
     }
   }
 
-  protected final void testReadBad (@Nonnull final String sBaseDir)
+  protected final void testReadBad (@NonNull final String sBaseDir)
   {
     final File aBaseDir = new File (sBaseDir);
     if (!aBaseDir.exists ())
@@ -137,7 +136,7 @@ public abstract class AbstractFuncTestCSSReader
     }
   }
 
-  protected final void testReadBadButRecoverable (@Nonnull final String sBaseDir)
+  protected final void testReadBadButRecoverable (@NonNull final String sBaseDir)
   {
     final File aBaseDir = new File (sBaseDir);
     if (!aBaseDir.exists ())
@@ -171,7 +170,7 @@ public abstract class AbstractFuncTestCSSReader
     }
   }
 
-  protected final void testReadBadButBrowserCompliant (@Nonnull final String sBaseDir)
+  protected final void testReadBadButBrowserCompliant (@NonNull final String sBaseDir)
   {
     if (m_aReaderSettings.isBrowserCompliantMode ())
       testReadGood (sBaseDir);
@@ -179,7 +178,7 @@ public abstract class AbstractFuncTestCSSReader
       testReadBad (sBaseDir);
   }
 
-  protected final void testReadBadButRecoverableAndBrowserCompliant (@Nonnull final String sBaseDir)
+  protected final void testReadBadButRecoverableAndBrowserCompliant (@NonNull final String sBaseDir)
   {
     if (m_aReaderSettings.isBrowserCompliantMode ())
       testReadGood (sBaseDir);

@@ -24,14 +24,13 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriter;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 
 /**
  * Test for issue 21: https://github.com/phax/ph-css/issues/21
@@ -52,7 +51,7 @@ public final class Issue21Test
                                                                                        .setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     if (false)
-      System.out.println (new CSSWriter (ECSSVersion.CSS30).getCSSAsString (aCSS));
+      System.out.println (new CSSWriter ().getCSSAsString (aCSS));
     assertEquals (2, aCSS.getRuleCount ());
     assertEquals (2, aCSS.getStyleRuleCount ());
   }

@@ -16,7 +16,7 @@
  */
 package com.helger.css.decl.visit;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSFontFaceRule;
@@ -55,7 +55,7 @@ public interface ICSSVisitor
    * @param aImportRule
    *        Other imported CSS. Never <code>null</code>.
    */
-  void onImport (@Nonnull CSSImportRule aImportRule);
+  void onImport (@NonNull CSSImportRule aImportRule);
 
   /**
    * Called on CSS namespace statement
@@ -63,7 +63,7 @@ public interface ICSSVisitor
    * @param aNamespaceRule
    *        The namespace rule. Never <code>null</code>.
    */
-  void onNamespace (@Nonnull CSSNamespaceRule aNamespaceRule);
+  void onNamespace (@NonNull CSSNamespaceRule aNamespaceRule);
 
   /**
    * Called for each declaration
@@ -71,7 +71,7 @@ public interface ICSSVisitor
    * @param aDeclaration
    *        The declaration. Never <code>null</code>.
    */
-  void onDeclaration (@Nonnull CSSDeclaration aDeclaration);
+  void onDeclaration (@NonNull CSSDeclaration aDeclaration);
 
   // style rules:
   /**
@@ -82,7 +82,7 @@ public interface ICSSVisitor
    * @param aStyleRule
    *        The style rule. Never <code>null</code>.
    */
-  void onBeginStyleRule (@Nonnull CSSStyleRule aStyleRule);
+  void onBeginStyleRule (@NonNull CSSStyleRule aStyleRule);
 
   /**
    * Called for each selector of a style rule
@@ -90,7 +90,7 @@ public interface ICSSVisitor
    * @param aSelector
    *        The style rule selector. Never <code>null</code>.
    */
-  void onStyleRuleSelector (@Nonnull CSSSelector aSelector);
+  void onStyleRuleSelector (@NonNull CSSSelector aSelector);
 
   /**
    * Called when a style rule ends.
@@ -98,7 +98,7 @@ public interface ICSSVisitor
    * @param aStyleRule
    *        The style rule. Never <code>null</code>.
    */
-  void onEndStyleRule (@Nonnull CSSStyleRule aStyleRule);
+  void onEndStyleRule (@NonNull CSSStyleRule aStyleRule);
 
   // page rules:
   /**
@@ -111,7 +111,7 @@ public interface ICSSVisitor
    * @param aPageRule
    *        The page rule. Never <code>null</code>.
    */
-  void onBeginPageRule (@Nonnull CSSPageRule aPageRule);
+  void onBeginPageRule (@NonNull CSSPageRule aPageRule);
 
   /**
    * Called when a page margin block starts.<br>
@@ -121,7 +121,7 @@ public interface ICSSVisitor
    * @param aPageMarginBlock
    *        The page margin block. Never <code>null</code>.
    */
-  void onBeginPageMarginBlock (@Nonnull CSSPageMarginBlock aPageMarginBlock);
+  void onBeginPageMarginBlock (@NonNull CSSPageMarginBlock aPageMarginBlock);
 
   /**
    * Called when a page margin block ends.
@@ -129,7 +129,7 @@ public interface ICSSVisitor
    * @param aPageMarginBlock
    *        The page margin block. Never <code>null</code>.
    */
-  void onEndPageMarginBlock (@Nonnull CSSPageMarginBlock aPageMarginBlock);
+  void onEndPageMarginBlock (@NonNull CSSPageMarginBlock aPageMarginBlock);
 
   /**
    * Called when a page rule ends.
@@ -137,7 +137,7 @@ public interface ICSSVisitor
    * @param aPageRule
    *        The page rule. Never <code>null</code>.
    */
-  void onEndPageRule (@Nonnull CSSPageRule aPageRule);
+  void onEndPageRule (@NonNull CSSPageRule aPageRule);
 
   // font face rules:
   /**
@@ -148,7 +148,7 @@ public interface ICSSVisitor
    * @param aFontFaceRule
    *        The font-face rule. Never <code>null</code>.
    */
-  void onBeginFontFaceRule (@Nonnull CSSFontFaceRule aFontFaceRule);
+  void onBeginFontFaceRule (@NonNull CSSFontFaceRule aFontFaceRule);
 
   /**
    * Called when a font-face rule ends.
@@ -156,7 +156,7 @@ public interface ICSSVisitor
    * @param aFontFaceRule
    *        The font-face rule. Never <code>null</code>.
    */
-  void onEndFontFaceRule (@Nonnull CSSFontFaceRule aFontFaceRule);
+  void onEndFontFaceRule (@NonNull CSSFontFaceRule aFontFaceRule);
 
   // media rules:
   /**
@@ -167,7 +167,7 @@ public interface ICSSVisitor
    * @param aMediaRule
    *        The media rule. Never <code>null</code>.
    */
-  void onBeginMediaRule (@Nonnull CSSMediaRule aMediaRule);
+  void onBeginMediaRule (@NonNull CSSMediaRule aMediaRule);
 
   /**
    * Called when a media rule ends.
@@ -175,7 +175,7 @@ public interface ICSSVisitor
    * @param aMediaRule
    *        The media rule. Never <code>null</code>.
    */
-  void onEndMediaRule (@Nonnull CSSMediaRule aMediaRule);
+  void onEndMediaRule (@NonNull CSSMediaRule aMediaRule);
 
   // keyframes rules:
   /**
@@ -186,7 +186,7 @@ public interface ICSSVisitor
    * @param aKeyframesRule
    *        The keyframes rule. Never <code>null</code>.
    */
-  void onBeginKeyframesRule (@Nonnull CSSKeyframesRule aKeyframesRule);
+  void onBeginKeyframesRule (@NonNull CSSKeyframesRule aKeyframesRule);
 
   /**
    * Called when a keyframes block starts.
@@ -194,7 +194,7 @@ public interface ICSSVisitor
    * @param aKeyframesBlock
    *        The keyframes rule block. Never <code>null</code>.
    */
-  void onBeginKeyframesBlock (@Nonnull CSSKeyframesBlock aKeyframesBlock);
+  void onBeginKeyframesBlock (@NonNull CSSKeyframesBlock aKeyframesBlock);
 
   /**
    * Called when a keyframes block ends.
@@ -202,7 +202,7 @@ public interface ICSSVisitor
    * @param aKeyframesBlock
    *        The keyframes rule block. Never <code>null</code>.
    */
-  void onEndKeyframesBlock (@Nonnull CSSKeyframesBlock aKeyframesBlock);
+  void onEndKeyframesBlock (@NonNull CSSKeyframesBlock aKeyframesBlock);
 
   /**
    * Called when a keyframes rule ends.
@@ -210,7 +210,7 @@ public interface ICSSVisitor
    * @param aKeyframesRule
    *        The keyframes rule. Never <code>null</code>.
    */
-  void onEndKeyframesRule (@Nonnull CSSKeyframesRule aKeyframesRule);
+  void onEndKeyframesRule (@NonNull CSSKeyframesRule aKeyframesRule);
 
   // viewport rules
   /**
@@ -219,7 +219,7 @@ public interface ICSSVisitor
    * @param aViewportRule
    *        The viewport rule. Never <code>null</code>.
    */
-  void onBeginViewportRule (@Nonnull CSSViewportRule aViewportRule);
+  void onBeginViewportRule (@NonNull CSSViewportRule aViewportRule);
 
   /**
    * Called when a viewport rule ends.
@@ -227,7 +227,7 @@ public interface ICSSVisitor
    * @param aViewportRule
    *        The viewport rule. Never <code>null</code>.
    */
-  void onEndViewportRule (@Nonnull CSSViewportRule aViewportRule);
+  void onEndViewportRule (@NonNull CSSViewportRule aViewportRule);
 
   // supports rules
   /**
@@ -236,7 +236,7 @@ public interface ICSSVisitor
    * @param aSupportsRule
    *        The supports rule. Never <code>null</code>.
    */
-  void onBeginSupportsRule (@Nonnull CSSSupportsRule aSupportsRule);
+  void onBeginSupportsRule (@NonNull CSSSupportsRule aSupportsRule);
 
   /**
    * Called when a supports rule ends.
@@ -244,7 +244,7 @@ public interface ICSSVisitor
    * @param aSupportsRule
    *        The supports rule. Never <code>null</code>.
    */
-  void onEndSupportsRule (@Nonnull CSSSupportsRule aSupportsRule);
+  void onEndSupportsRule (@NonNull CSSSupportsRule aSupportsRule);
 
   /**
    * Called when a layer rule start.
@@ -252,7 +252,7 @@ public interface ICSSVisitor
    * @param aLayerRule
    *        The layer rule. Never <code>null</code>.
    */
-  void onBeginLayerRule (@Nonnull CSSLayerRule aLayerRule);
+  void onBeginLayerRule (@NonNull CSSLayerRule aLayerRule);
 
   /**
    * Called when a layer rule ends.
@@ -260,7 +260,7 @@ public interface ICSSVisitor
    * @param aLayerRule
    *        The layer rule. Never <code>null</code>.
    */
-  void onEndLayerRule (@Nonnull CSSLayerRule aLayerRule);
+  void onEndLayerRule (@NonNull CSSLayerRule aLayerRule);
 
   // unknown rules
   /**
@@ -269,7 +269,7 @@ public interface ICSSVisitor
    * @param aUnknownRule
    *        The unknown rule. Never <code>null</code>.
    */
-  void onUnknownRule (@Nonnull CSSUnknownRule aUnknownRule);
+  void onUnknownRule (@NonNull CSSUnknownRule aUnknownRule);
 
   /**
    * After visiting is done.<br>

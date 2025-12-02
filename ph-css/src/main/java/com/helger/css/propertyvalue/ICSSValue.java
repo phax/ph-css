@@ -16,9 +16,9 @@
  */
 package com.helger.css.propertyvalue;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.css.ICSSWriteable;
 import com.helger.css.property.ECSSProperty;
 
@@ -33,6 +33,6 @@ public interface ICSSValue extends ICSSWriteable
   /**
    * @return The underlying CSS property from an enum. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ECSSProperty getProp ();
 }

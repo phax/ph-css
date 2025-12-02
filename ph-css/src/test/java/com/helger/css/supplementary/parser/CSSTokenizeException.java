@@ -16,11 +16,11 @@
  */
 package com.helger.css.supplementary.parser;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 public class CSSTokenizeException extends Exception
 {
-  public CSSTokenizeException (@Nonnull final String sMsg)
+  public CSSTokenizeException (@NonNull final String sMsg)
   {
     super (sMsg);
   }

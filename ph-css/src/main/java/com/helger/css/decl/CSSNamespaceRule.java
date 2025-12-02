@@ -16,17 +16,17 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriteable;
@@ -53,7 +53,7 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
    * @param sURL
    *        The namespace URL to use. May not be <code>null</code>.
    */
-  public CSSNamespaceRule (@Nonnull final String sURL)
+  public CSSNamespaceRule (@NonNull final String sURL)
   {
     this (null, sURL);
   }
@@ -62,12 +62,12 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
    * Constructor
    *
    * @param sNamespacePrefix
-   *        The namespace prefix to use. May be <code>null</code> or empty for
-   *        the default namespace.
+   *        The namespace prefix to use. May be <code>null</code> or empty for the default
+   *        namespace.
    * @param sURL
    *        The namespace URL to use. May not be <code>null</code>.
    */
-  public CSSNamespaceRule (@Nullable final String sNamespacePrefix, @Nonnull final String sURL)
+  public CSSNamespaceRule (@Nullable final String sNamespacePrefix, @NonNull final String sURL)
   {
     setNamespacePrefix (sNamespacePrefix);
     setNamespaceURL (sURL);
@@ -79,7 +79,7 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
     return m_sPrefix;
   }
 
-  @Nonnull
+  @NonNull
   public final CSSNamespaceRule setNamespacePrefix (@Nullable final String sNamespacePrefix)
   {
     m_sPrefix = sNamespacePrefix;
@@ -89,14 +89,14 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * @return The namespace URL. May not be <code>null</code> but maybe empty!
    */
-  @Nonnull
+  @NonNull
   public final String getNamespaceURL ()
   {
     return m_sURL;
   }
 
-  @Nonnull
-  public final CSSNamespaceRule setNamespaceURL (@Nonnull final String sURL)
+  @NonNull
+  public final CSSNamespaceRule setNamespaceURL (@NonNull final String sURL)
   {
     ValueEnforcer.notNull (sURL, "URL");
 
@@ -104,9 +104,9 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     // Always ignore namespace rules?
     if (!aSettings.isWriteNamespaceRules ())
@@ -114,9 +114,9 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
 
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ("@namespace ");
-    if (StringHelper.hasText (m_sPrefix))
+    if (StringHelper.isNotEmpty (m_sPrefix))
       aSB.append (m_sPrefix).append (' ');
-    if (StringHelper.hasText (m_sURL))
+    if (StringHelper.isNotEmpty (m_sURL))
       aSB.append (CSSURLHelper.getAsCSSURL (m_sURL, false));
     else
       aSB.append ("\"\"");

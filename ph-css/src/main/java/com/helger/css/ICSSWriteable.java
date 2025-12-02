@@ -16,9 +16,9 @@
  */
 package com.helger.css;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.css.writer.CSSWriterSettings;
 
 /**
@@ -36,7 +36,7 @@ public interface ICSSWriteable
    * @see #getAsCSSString(ICSSWriterSettings, int)
    * @since 6.0.0
    */
-  @Nonnull
+  @NonNull
   default String getAsCSSString ()
   {
     return getAsCSSString (CSSWriterSettings.DEFAULT_SETTINGS);
@@ -53,8 +53,8 @@ public interface ICSSWriteable
    * @see #getAsCSSString(ICSSWriterSettings, int)
    * @since 5.0.4
    */
-  @Nonnull
-  default String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings)
+  @NonNull
+  default String getAsCSSString (@NonNull final ICSSWriterSettings aSettings)
   {
     return getAsCSSString (aSettings, 0);
   }
@@ -70,6 +70,6 @@ public interface ICSSWriteable
    *        The current indentation level
    * @return The content of this object as CSS string. Never <code>null</code>.
    */
-  @Nonnull
-  String getAsCSSString (@Nonnull ICSSWriterSettings aSettings, @Nonnegative int nIndentLevel);
+  @NonNull
+  String getAsCSSString (@NonNull ICSSWriterSettings aSettings, @Nonnegative int nIndentLevel);
 }

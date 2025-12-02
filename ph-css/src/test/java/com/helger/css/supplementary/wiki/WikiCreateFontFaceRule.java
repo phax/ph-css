@@ -16,11 +16,11 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.string.StringHelper;
 import com.helger.css.decl.CSSExpression;
 import com.helger.css.decl.CSSExpressionMemberFunction;
 import com.helger.css.decl.CSSFontFaceRule;
@@ -34,8 +34,8 @@ import com.helger.css.decl.ECSSExpressionOperator;
  */
 public final class WikiCreateFontFaceRule
 {
-  @Nonnull
-  private static CSSExpressionMemberFunction _createFormatFct (@Nonnull @Nonempty final String sFormatName)
+  @NonNull
+  private static CSSExpressionMemberFunction _createFormatFct (@NonNull @Nonempty final String sFormatName)
   {
     return new CSSExpressionMemberFunction ("format", CSSExpression.createString (sFormatName));
   }
@@ -55,23 +55,21 @@ public final class WikiCreateFontFaceRule
    * </pre>
    *
    * @param sTypefaceName
-   *        The name of the font-face in CSS. May neither be <code>null</code>
-   *        nor empty.
+   *        The name of the font-face in CSS. May neither be <code>null</code> nor empty.
    * @param sLocalName
    *        The name of the local font to be used. May be <code>null</code>.
    * @param sPath
-   *        The server-relative path, where the font files reside. May not be
-   *        <code>null</code>.
+   *        The server-relative path, where the font files reside. May not be <code>null</code>.
    * @param sBasename
-   *        the base name of the font-files (without extension). May neither be
-   *        <code>null</code> nor empty
+   *        the base name of the font-files (without extension). May neither be <code>null</code>
+   *        nor empty
    * @return The created {@link CascadingStyleSheet}.
    */
-  @Nonnull
-  public static CascadingStyleSheet createFontFace (@Nonnull @Nonempty final String sTypefaceName,
+  @NonNull
+  public static CascadingStyleSheet createFontFace (@NonNull @Nonempty final String sTypefaceName,
                                                     @Nullable final String sLocalName,
-                                                    @Nonnull final String sPath,
-                                                    @Nonnull final String sBasename)
+                                                    @NonNull final String sPath,
+                                                    @NonNull final String sBasename)
   {
     final CascadingStyleSheet aCSS = new CascadingStyleSheet ();
     final CSSFontFaceRule aFFR = new CSSFontFaceRule ();
@@ -84,7 +82,7 @@ public final class WikiCreateFontFaceRule
 
     // The generic rules
     final CSSExpression aExpr = new CSSExpression ();
-    if (StringHelper.hasText (sLocalName))
+    if (StringHelper.isNotEmpty (sLocalName))
       aExpr.addMember (new CSSExpressionMemberFunction ("local", CSSExpression.createString (sLocalName)))
            .addMember (ECSSExpressionOperator.COMMA);
     aExpr.addURI (sPath + sBasename + ".woff")

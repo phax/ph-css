@@ -261,36 +261,8 @@ TOKEN :
            <NMSTART>
            ( <NMCHAR> )* > { matchedToken.image = CSSParseHelper.validateIdentifier(image); }
 
-
-| < EM: <NUM> "em" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "em"; }
-| < EX: <NUM> "ex" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ex"; }
-| < FR: <NUM> "fr" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "fr"; }
-| < PX: <NUM> "px" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "px"; }
-| < CH: <NUM> "ch" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "ch"; }
-| < REM: <NUM> "rem" >         { matchedToken.image = CSSParseHelper.splitNumber(image) + "rem"; }
-| < VW: <NUM> "vw" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "vw"; }
-| < VH: <NUM> "vh" >           { matchedToken.image = CSSParseHelper.splitNumber(image) + "vh"; }
-| < VMIN: <NUM> "vmin" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "vmin"; }
-| < VMAX: <NUM> "vmax" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "vmax"; }
-| < DPI: <NUM> "dpi" >         { matchedToken.image = CSSParseHelper.splitNumber(image) + "dpi"; }
-| < DPCM: <NUM> "dpcm" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "dpcm"; }
-| < DPPX: <NUM> "dppx" >       { matchedToken.image = CSSParseHelper.splitNumber(image) + "dppx"; }
-| < LENGTH_CM: <NUM> "cm" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "cm"; }
-| < LENGTH_MM: <NUM> "mm" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "mm"; }
-| < LENGTH_Q:  <NUM> "q" >     { matchedToken.image = CSSParseHelper.splitNumber(image) + "q"; }
-| < LENGTH_IN: <NUM> "in" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "in"; }
-| < LENGTH_PT: <NUM> "pt" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "pt"; }
-| < LENGTH_PC: <NUM> "pc" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "pc"; }
-| < ANGLE_DEG: <NUM> "deg" >   { matchedToken.image = CSSParseHelper.splitNumber(image) + "deg"; }
-| < ANGLE_RAD: <NUM> "rad" >   { matchedToken.image = CSSParseHelper.splitNumber(image) + "rad"; }
-| < ANGLE_GRAD: <NUM> "grad" > { matchedToken.image = CSSParseHelper.splitNumber(image) + "grad"; }
-| < ANGLE_TURN: <NUM> "turn" > { matchedToken.image = CSSParseHelper.splitNumber(image) + "turn"; }
-| < TIME_MS: <NUM> "ms" >      { matchedToken.image = CSSParseHelper.splitNumber(image) + "ms"; }
-| < TIME_S: <NUM> "s" >        { matchedToken.image = CSSParseHelper.splitNumber(image) + "s"; }
-| < FREQ_HZ: <NUM> "hz" >      { matchedToken.image = CSSParseHelper.splitNumber(image) + "hz"; }
-| < FREQ_KHZ: <NUM> "khz" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "khz"; }
 | < PERCENTAGE: <NUM> "%" >    { matchedToken.image = CSSParseHelper.splitNumber(image) + "%"; }
-// | < DIMENSION: <NUM> <IDENT> >
+| < DIMENSION: <NUM> <IDENT> >
 
 | < #URL_CONTENT: ( <S> )* ( <STRING1>
                            | <STRING2>
@@ -389,7 +361,7 @@ private Token errorSkipTo(final ParseException ex, final int... aKinds) throws P
       // Encountered EOF while skipping - throw the original exception!
       throw ex;
     }
-  } while (!com.helger.commons.collection.ArrayHelper.contains (aKinds, tok.kind));
+  } while (!com.helger.base.array.ArrayHelper.contains (aKinds, tok.kind));
 
   if (LOGGER.isDebugEnabled ())
     LOGGER.debug ("Skipped until token " + tok.toString ());
@@ -425,8 +397,8 @@ private String javaSkipToClosingParantheses() throws ParseException #void {
         if (tok.kind == EOF)
           throw new ParseEOFException ("EOF while searching for matching closing ')'.");
         // Sometimes token images contain parenthesis
-        nNesting += com.helger.commons.string.StringHelper.getCharCount (tok.image, '(');
-        nNesting -= com.helger.commons.string.StringHelper.getCharCount (tok.image, ')');
+        nNesting += com.helger.base.string.StringCount.getCharCount (tok.image, '(');
+        nNesting -= com.helger.base.string.StringCount.getCharCount (tok.image, ')');
       }
   }
   return aSB.toString ();
@@ -709,33 +681,7 @@ String unaryOperator() #void : {}
 Token dimension() #void :
 { Token t; }
 {
-  ( t = <EM>
-  | t = <EX>
-  | t = <FR>
-  | t = <PX>
-  | t = <CH>
-  | t = <REM>
-  | t = <VW>
-  | t = <VH>
-  | t = <VMIN>
-  | t = <VMAX>
-  | t = <DPI>
-  | t = <DPCM>
-  | t = <DPPX>
-  | t = <LENGTH_CM>
-  | t = <LENGTH_MM>
-  | t = <LENGTH_Q>
-  | t = <LENGTH_IN>
-  | t = <LENGTH_PT>
-  | t = <LENGTH_PC>
-  | t = <ANGLE_DEG>
-  | t = <ANGLE_RAD>
-  | t = <ANGLE_GRAD>
-  | t = <ANGLE_TURN>
-  | t = <TIME_MS>
-  | t = <TIME_S>
-  | t = <FREQ_HZ>
-  | t = <FREQ_KHZ>
+  ( t = <DIMENSION>
   )
   { return t; }
 }
@@ -996,6 +942,19 @@ void attribValue() :
   )
 }
 
+void attribCase() : {}
+{
+  ( <IDENT>
+    {
+      final String v = token.image;
+      if ("i".equalsIgnoreCase (v) || "s".equalsIgnoreCase (v))
+        jjtThis.setText (v.toLowerCase (java.util.Locale.ROOT));
+      else
+        throw new ParseException ("Invalid case-sensitivity flag '" + v + "'. Only 'i' or 's' are allowed.");
+    }
+  )?
+}
+
 void attributeSelector() : {}
 {
   <LSQUARE>
@@ -1011,7 +970,9 @@ void attributeSelector() : {}
     ( <S> )*
     attribValue()
     ( <S> )*
+    attribCase()
   )?
+  ( <S> )*  
   <RSQUARE>
 }
 

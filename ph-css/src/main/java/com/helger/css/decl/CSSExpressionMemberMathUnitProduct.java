@@ -16,17 +16,16 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
@@ -40,29 +39,22 @@ public class CSSExpressionMemberMathUnitProduct implements ICSSExpressionMathMem
 {
   private final CSSExpressionMemberMathProduct m_aProduct;
 
-  public CSSExpressionMemberMathUnitProduct (@Nonnull @Nonempty final CSSExpressionMemberMathProduct aProduct)
+  public CSSExpressionMemberMathUnitProduct (@NonNull @Nonempty final CSSExpressionMemberMathProduct aProduct)
   {
     m_aProduct = ValueEnforcer.notNull (aProduct, "Product");
   }
 
-  @Nonnull
+  @NonNull
   public final CSSExpressionMemberMathProduct getProduct ()
   {
     return m_aProduct;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return "(" + m_aProduct.getAsCSSString (aSettings, nIndentLevel) + ")";
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

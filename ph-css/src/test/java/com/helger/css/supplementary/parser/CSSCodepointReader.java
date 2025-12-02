@@ -21,12 +21,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.Nonnegative;
+import com.helger.base.io.nonblocking.NonBlockingPushbackReader;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.ring.RingBufferLifo;
-import com.helger.commons.io.stream.NonBlockingPushbackReader;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A special CSS Codepoint reader that converts chars to Codepoints and keeps
@@ -64,7 +64,7 @@ public class CSSCodepointReader implements Closeable
         ++m_nCol;
     }
 
-    @Nonnull
+    @NonNull
     public Pos getClone ()
     {
       return new Pos (m_nLine, m_nCol);
@@ -86,13 +86,13 @@ public class CSSCodepointReader implements Closeable
   private Pos m_aTokenStartPos;
   private final StringBuilder m_aTokenImage = new StringBuilder (1024);
 
-  public CSSCodepointReader (@Nonnull final CSSInputStream aCSSIS, @Nonnull final Charset aCharset)
+  public CSSCodepointReader (@NonNull final CSSInputStream aCSSIS, @NonNull final Charset aCharset)
   {
     // Pushback maybe 2 chars each
     m_aReader = new NonBlockingPushbackReader (new InputStreamReader (aCSSIS, aCharset), PUSHBACK_COUNT * 2);
   }
 
-  @Nonnull
+  @NonNull
   public CSSCodepoint read () throws IOException
   {
     final int nHigh = m_aReader.read ();
@@ -124,7 +124,7 @@ public class CSSCodepointReader implements Closeable
     return ret;
   }
 
-  public void unread (@Nonnull final CSSCodepoint aCP) throws IOException
+  public void unread (@NonNull final CSSCodepoint aCP) throws IOException
   {
     final int nValue = aCP.getValue ();
     if (aCP.isSingleChar ())
@@ -144,7 +144,7 @@ public class CSSCodepointReader implements Closeable
     m_aPos = m_aPosRB.take ();
   }
 
-  @Nonnull
+  @NonNull
   public CSSCodepoint peek () throws IOException
   {
     final int nHigh = m_aReader.read ();
@@ -187,7 +187,7 @@ public class CSSCodepointReader implements Closeable
     return m_aPos.m_nCol;
   }
 
-  @Nonnull
+  @NonNull
   public CSSCodepoint startToken () throws IOException
   {
     // Reset token related stuff
@@ -210,14 +210,14 @@ public class CSSCodepointReader implements Closeable
     return m_aTokenStartPos.m_nCol;
   }
 
-  @Nonnull
+  @NonNull
   public String getTokenImage ()
   {
     return m_aTokenImage.toString ();
   }
 
-  @Nonnull
-  public CSSToken createToken (@Nonnull final ECSSTokenType eTokenType)
+  @NonNull
+  public CSSToken createToken (@NonNull final ECSSTokenType eTokenType)
   {
     return new CSSToken (getTokenStartLineNumber (),
                          getTokenStartColumnNumber (),

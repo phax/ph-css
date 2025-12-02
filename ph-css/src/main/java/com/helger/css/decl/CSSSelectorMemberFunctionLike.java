@@ -16,15 +16,15 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
@@ -42,7 +42,7 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
   private final CSSExpression m_aParamExpr;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberFunctionLike (@Nonnull @Nonempty final String sFuncName, @Nonnull final CSSExpression aParamExpr)
+  public CSSSelectorMemberFunctionLike (@NonNull @Nonempty final String sFuncName, @NonNull final CSSExpression aParamExpr)
   {
     ValueEnforcer.notEmpty (sFuncName, "FunctionName");
     if (!sFuncName.endsWith ("("))
@@ -56,22 +56,22 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
   /**
    * @return The name of the function with a trailing "("
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getFunctionName ()
   {
     return m_sFuncName;
   }
 
-  @Nonnull
+  @NonNull
   public CSSExpression getParameterExpression ()
   {
     return m_aParamExpr;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return m_sFuncName + m_aParamExpr.getAsCSSString (aSettings, nIndentLevel) + ')';
   }

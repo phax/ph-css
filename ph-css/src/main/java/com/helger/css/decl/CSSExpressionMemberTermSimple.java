@@ -16,16 +16,16 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
@@ -63,13 +63,13 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
     this (Double.toString (dValue));
   }
 
-  public CSSExpressionMemberTermSimple (@Nonnull @Nonempty final String sValue)
+  public CSSExpressionMemberTermSimple (@NonNull @Nonempty final String sValue)
   {
     setValue (sValue);
   }
 
-  @Nonnull
-  public final CSSExpressionMemberTermSimple setValue (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public final CSSExpressionMemberTermSimple setValue (@NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sValue, "Value");
     m_sValue = sValue;
@@ -80,7 +80,7 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
   /**
    * @return The original value. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getValue ()
   {
@@ -92,7 +92,7 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
    *         the original version.
    * @see CSSExpressionTermOptimizer#getOptimizedValue(String)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getOptimizedValue ()
   {
@@ -109,15 +109,15 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
     return (cFirst == CCSS.DOUBLE_QUOTE || cFirst == CCSS.SINGLE_QUOTE) && cFirst == StringHelper.getLastChar (m_sValue);
   }
 
-  @Nonnull
+  @NonNull
   public CSSExpressionMemberTermSimple getClone ()
   {
     return new CSSExpressionMemberTermSimple (m_sValue);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
     return aSettings.isOptimizedOutput () ? m_sOptimizedValue : m_sValue;
   }

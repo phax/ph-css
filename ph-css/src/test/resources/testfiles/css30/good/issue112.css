@@ -14,41 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-element {}
-element.class {}
-element#id {}
-element:pseudo {}
+.tableView tr:has(> .error) {
+    position: relative;
+}
 
-.class {}
-#id {}
-:pseudo {}
-[attr] {}
-.class .class2 {}
-#id #id2 {}
-:pseudo :pseudo2 {}
-[attr] [attr2=value] {}
-
-element+element {}
-element.class+element {}
-element#id+element {}
-element:pseudo+element {}
-element:pseudo+element:pseudo {}
-
-element1, element2 {}
-element1 element2 {}
-element1[attr] {}
-element1[attr=value] {}
-element1[attr~=value] {}
-element1[attr|=value] {}
-element1[attr|=value] element2 {}
-
-/* Example from http://www.w3.org/TR/CSS2/syndata.html#rule-sets */
-p[example="public class foo\
-{\
-    private int x;\
-\
-    foo(int x) {\
-        this.x = x;\
-    }\
-\
-}"] { color: red }

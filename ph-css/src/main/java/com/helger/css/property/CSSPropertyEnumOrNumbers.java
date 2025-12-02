@@ -16,17 +16,17 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
@@ -44,32 +44,32 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
   private final int m_nMinNumbers;
   private final int m_nMaxNumbers;
 
-  public CSSPropertyEnumOrNumbers (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumbers (@NonNull final ECSSProperty eProp,
                                    final boolean bWithPercentage,
                                    @Nonnegative final int nMinNumbers,
                                    @Nonnegative final int nMaxNumbers,
-                                   @Nonnull @Nonempty final String... aEnumValues)
+                                   @NonNull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnumOrNumbers (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumbers (@NonNull final ECSSProperty eProp,
                                    @Nullable final ICSSPropertyCustomizer aCustomizer,
                                    final boolean bWithPercentage,
                                    @Nonnegative final int nMinNumbers,
                                    @Nonnegative final int nMaxNumbers,
-                                   @Nonnull @Nonempty final String... aEnumValues)
+                                   @NonNull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnumOrNumbers (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumbers (@NonNull final ECSSProperty eProp,
                                    @Nullable final ECSSVendorPrefix eVendorPrefix,
                                    @Nullable final ICSSPropertyCustomizer aCustomizer,
                                    final boolean bWithPercentage,
                                    @Nonnegative final int nMinNumbers,
                                    @Nonnegative final int nMaxNumbers,
-                                   @Nonnull @Nonempty final String... aEnumValues)
+                                   @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
@@ -81,32 +81,32 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
     m_nMaxNumbers = nMaxNumbers;
   }
 
-  public CSSPropertyEnumOrNumbers (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumbers (@NonNull final ECSSProperty eProp,
                                    final boolean bWithPercentage,
                                    @Nonnegative final int nMinNumbers,
                                    @Nonnegative final int nMaxNumbers,
-                                   @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                   @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, bWithPercentage, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnumOrNumbers (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumbers (@NonNull final ECSSProperty eProp,
                                    @Nullable final ICSSPropertyCustomizer aCustomizer,
                                    final boolean bWithPercentage,
                                    @Nonnegative final int nMinNumbers,
                                    @Nonnegative final int nMaxNumbers,
-                                   @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                   @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, bWithPercentage, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnumOrNumbers (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnumOrNumbers (@NonNull final ECSSProperty eProp,
                                    @Nullable final ECSSVendorPrefix eVendorPrefix,
                                    @Nullable final ICSSPropertyCustomizer aCustomizer,
                                    final boolean bWithPercentage,
                                    @Nonnegative final int nMinNumbers,
                                    @Nonnegative final int nMaxNumbers,
-                                   @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                                   @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
     ValueEnforcer.isGT0 (nMinNumbers, "MinNumbers");
@@ -152,8 +152,8 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
   }
 
   @Override
-  @Nonnull
-  public CSSPropertyEnumOrNumbers getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyEnumOrNumbers getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyEnumOrNumbers (eProp,
                                          getVendorPrefix (),
@@ -165,7 +165,7 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public CSSPropertyEnumOrNumbers getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyEnumOrNumbers (getProp (),

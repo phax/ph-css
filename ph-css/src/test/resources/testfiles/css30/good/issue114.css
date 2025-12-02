@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -14,20 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.css.decl;
+ @container (width > 700px) {
+   .card h2 {
+     font-size: max(1.5em, 1.23em + 2cqi);
+   }
+ }
 
-import org.jspecify.annotations.NonNull;
-
-/**
- * Base interface for a CSS color definition
- *
- * @author Philip Helger
- */
-public interface ICSSColor
-{
-  /**
-   * @return The textual representation of the color.
-   */
-  @NonNull
-  String getAsString ();
-}
+ .card {
+   display: grid;
+   grid-template-columns: 2fr 1fr;
+ }
+ 

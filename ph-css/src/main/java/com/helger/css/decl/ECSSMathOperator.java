@@ -16,14 +16,13 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
-import com.helger.css.ECSSVersion;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 import com.helger.css.ICSSWriterSettings;
 
 /**
@@ -42,30 +41,23 @@ public enum ECSSMathOperator implements ICSSExpressionMathMember, IHasName
   private final String m_sName;
   private final String m_sText;
 
-  ECSSMathOperator (@Nonnull @Nonempty final String sName, @Nonnull @Nonempty final String sText)
+  ECSSMathOperator (@NonNull @Nonempty final String sName, @NonNull @Nonempty final String sText)
   {
     m_sName = sName;
     m_sText = sText;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
-  }
-
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
     return m_sText;
   }
 

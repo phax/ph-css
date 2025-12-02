@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpression;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
@@ -45,8 +44,7 @@ public final class Issue79Test
   {
     final String sCSS = "div {  padding: 1e+06em; }";
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS,
-                                                                     new CSSReaderSettings ().setCSSVersion (ECSSVersion.LATEST)
-                                                                                             .setBrowserCompliantMode (true));
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (true));
     assertNotNull (aCSS);
     assertEquals (1, aCSS.getStyleRuleCount ());
 
@@ -62,6 +60,7 @@ public final class Issue79Test
     assertEquals ("1e+06em", aTS.getAsCSSString ());
 
     assertEquals ("div{padding:1e+06em}",
-                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false).getCSSAsString (aCSS));
+                  new CSSWriter (new CSSWriterSettings ().setOptimizedOutput (true)).setWriteHeaderText (false)
+                                                                                    .getCSSAsString (aCSS));
   }
 }

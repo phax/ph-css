@@ -16,13 +16,13 @@
  */
 package com.helger.css.utils;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.lang.EnumHelper;
 import com.helger.css.decl.CSSHSL;
 import com.helger.css.decl.CSSHSLA;
 import com.helger.css.decl.CSSRGB;
@@ -192,7 +192,7 @@ public enum ECSSColor implements ICSSNamedColor
   private final float m_fSaturation;
   private final float m_fLightness;
 
-  ECSSColor (@Nonnull @Nonempty final String sName,
+  ECSSColor (@NonNull @Nonempty final String sName,
              @Nonnegative final int nRed,
              @Nonnegative final int nGreen,
              @Nonnegative final int nBlue)
@@ -217,7 +217,7 @@ public enum ECSSColor implements ICSSNamedColor
    * @return The name of the color as to be used in CSS. Neither
    *         <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
@@ -281,7 +281,7 @@ public enum ECSSColor implements ICSSNamedColor
   /**
    * @return The CSS hex color representation of this color (e.g. #ff0000)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsHexColorValue ()
   {
@@ -291,7 +291,7 @@ public enum ECSSColor implements ICSSNamedColor
   /**
    * @return This color as an CSS RGB color value.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsRGBColorValue ()
   {
@@ -301,7 +301,7 @@ public enum ECSSColor implements ICSSNamedColor
   /**
    * @return This color as an CSS RGB color object.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public CSSRGB getAsRGB ()
   {
@@ -313,7 +313,7 @@ public enum ECSSColor implements ICSSNamedColor
    *        The opacity to be used. Is scaled to 0-1.
    * @return This color as an CSS RGBA color value.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsRGBAColorValue (@Nonnegative final float fOpacity)
   {
@@ -325,7 +325,7 @@ public enum ECSSColor implements ICSSNamedColor
    *        The opacity to be used. Is scaled to 0-1.
    * @return This color as an CSS RGBA color object.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public CSSRGBA getAsRGBA (@Nonnegative final float fOpacity)
   {
@@ -335,7 +335,7 @@ public enum ECSSColor implements ICSSNamedColor
   /**
    * @return This color as an CSS HSL color value.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsHSLColorValue ()
   {
@@ -345,7 +345,7 @@ public enum ECSSColor implements ICSSNamedColor
   /**
    * @return This color as an CSS HSL color object.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public CSSHSL getAsHSL ()
   {
@@ -357,7 +357,7 @@ public enum ECSSColor implements ICSSNamedColor
    *        The opacity to be used. Is scaled to 0-1.
    * @return This color as an CSS HSLA color value.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsHSLAColorValue (@Nonnegative final float fOpacity)
   {
@@ -369,7 +369,7 @@ public enum ECSSColor implements ICSSNamedColor
    *        The opacity to be used. Is scaled to 0-1.
    * @return This color as an CSS HSL color object.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public CSSHSLA getAsHSLA (@Nonnegative final float fOpacity)
   {

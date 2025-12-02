@@ -16,34 +16,34 @@
  */
 package com.helger.css.decl.shorthand;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringParser;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.string.StringParser;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
 import com.helger.css.decl.ICSSExpressionMember;
 import com.helger.css.property.ECSSProperty;
 import com.helger.css.propertyvalue.CCSSValue;
 
 /**
- * A special {@link CSSShortHandDescriptor} implementation for margin and
- * padding as well as for border-color.
+ * A special {@link CSSShortHandDescriptor} implementation for margin and padding as well as for
+ * border-color.
  *
  * @author Philip Helger
  */
 public class CSSShortHandDescriptorFlex extends CSSShortHandDescriptor
 {
-  public CSSShortHandDescriptorFlex (@Nonnull final ECSSProperty eProperty,
-                                     @Nonnull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
+  public CSSShortHandDescriptorFlex (@NonNull final ECSSProperty eProperty,
+                                     @NonNull @Nonempty final CSSPropertyWithDefaultValue... aSubProperties)
   {
     super (eProperty, aSubProperties);
   }
 
   @Override
   @OverrideOnDemand
-  protected void modifyExpressionMembers (@Nonnull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
+  protected void modifyExpressionMembers (@NonNull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
   {
     final int nSize = aExpressionMembers.size ();
     if (nSize == 1)

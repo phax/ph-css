@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
@@ -14,22 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.css;
-
-import javax.annotation.Nonnull;
-
-/**
- * Interface for objects indicating that they are supported by a minimum CSS
- * version that may be higher than the default (CSS 2.1).
- *
- * @author Philip Helger
- */
-public interface ICSSVersionAware
+:is(#new_comment_field, button)
 {
-  /**
-   * @return The minimum CSS version that is required to read or write this
-   *         artifact. May not be <code>null</code>.
-   */
-  @Nonnull
-  ECSSVersion getMinimumCSSVersion ();
+    position: relative;
 }

@@ -16,11 +16,11 @@
  */
 package com.helger.css.propertyvalue;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * Base interface for a CSS value that contains more than one value
@@ -33,7 +33,7 @@ public interface ICSSMultiValue extends ICSSValue
   /**
    * @return The contained CSS values. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <CSSValue> getAllContainedValues ();
 }

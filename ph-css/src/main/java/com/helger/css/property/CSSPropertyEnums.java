@@ -16,14 +16,14 @@
  */
 package com.helger.css.property;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.regex.RegExHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 
@@ -35,56 +35,56 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 @NotThreadSafe
 public class CSSPropertyEnums extends AbstractCSSPropertyEnums
 {
-  public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnums (@NonNull final ECSSProperty eProp,
                            @Nonnegative final int nMinNumbers,
                            @Nonnegative final int nMaxNumbers,
-                           @Nonnull @Nonempty final String... aEnumValues)
+                           @NonNull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnums (@NonNull final ECSSProperty eProp,
                            @Nullable final ICSSPropertyCustomizer aCustomizer,
                            @Nonnegative final int nMinNumbers,
                            @Nonnegative final int nMaxNumbers,
-                           @Nonnull @Nonempty final String... aEnumValues)
+                           @NonNull @Nonempty final String... aEnumValues)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnums (@NonNull final ECSSProperty eProp,
                            @Nullable final ECSSVendorPrefix eVendorPrefix,
                            @Nullable final ICSSPropertyCustomizer aCustomizer,
                            @Nonnegative final int nMinNumbers,
                            @Nonnegative final int nMaxNumbers,
-                           @Nonnull @Nonempty final String... aEnumValues)
+                           @NonNull @Nonempty final String... aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnums (@NonNull final ECSSProperty eProp,
                            @Nonnegative final int nMinNumbers,
                            @Nonnegative final int nMaxNumbers,
-                           @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                           @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     this (eProp, (ICSSPropertyCustomizer) null, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnums (@NonNull final ECSSProperty eProp,
                            @Nullable final ICSSPropertyCustomizer aCustomizer,
                            @Nonnegative final int nMinNumbers,
                            @Nonnegative final int nMaxNumbers,
-                           @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                           @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     this (eProp, (ECSSVendorPrefix) null, aCustomizer, nMinNumbers, nMaxNumbers, aEnumValues);
   }
 
-  public CSSPropertyEnums (@Nonnull final ECSSProperty eProp,
+  public CSSPropertyEnums (@NonNull final ECSSProperty eProp,
                            @Nullable final ECSSVendorPrefix eVendorPrefix,
                            @Nullable final ICSSPropertyCustomizer aCustomizer,
                            @Nonnegative final int nMinNumbers,
                            @Nonnegative final int nMaxNumbers,
-                           @Nonnull @Nonempty final Iterable <String> aEnumValues)
+                           @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, eVendorPrefix, aCustomizer, nMinNumbers, nMaxNumbers, aEnumValues);
   }
@@ -108,8 +108,8 @@ public class CSSPropertyEnums extends AbstractCSSPropertyEnums
   }
 
   @Override
-  @Nonnull
-  public CSSPropertyEnums getClone (@Nonnull final ECSSProperty eProp)
+  @NonNull
+  public CSSPropertyEnums getClone (@NonNull final ECSSProperty eProp)
   {
     return new CSSPropertyEnums (eProp,
                                  getVendorPrefix (),
@@ -120,7 +120,7 @@ public class CSSPropertyEnums extends AbstractCSSPropertyEnums
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public CSSPropertyEnums getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
     return new CSSPropertyEnums (getProp (),

@@ -16,11 +16,10 @@
  */
 package com.helger.css.supplementary.wiki;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
 import com.helger.css.decl.CSSImportRule;
@@ -38,7 +37,7 @@ import com.helger.css.reader.CSSReader;
  */
 public final class WikiVisitUrls
 {
-  public static String getSourceLocationString (@Nonnull final CSSSourceLocation aSourceLoc)
+  public static String getSourceLocationString (@NonNull final CSSSourceLocation aSourceLoc)
   {
     return "source location reaches from [" +
            aSourceLoc.getFirstTokenBeginLineNumber () +
@@ -56,12 +55,12 @@ public final class WikiVisitUrls
     final String sStyle = "@import 'foobar.css';\n" +
                           "div{background:fixed url(a.gif) !important;}\n" +
                           "span { background-image:url('/my/folder/b.gif');}";
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle, ECSSVersion.CSS30);
+    final CascadingStyleSheet aCSS = CSSReader.readFromString (sStyle);
     CSSVisitor.visitCSSUrl (aCSS, new DefaultCSSUrlVisitor ()
     {
       // Called for each import
       @Override
-      public void onImport (@Nonnull final CSSImportRule aImportRule)
+      public void onImport (@NonNull final CSSImportRule aImportRule)
       {
         System.out.println ("Import: " +
                             aImportRule.getLocationString () +
@@ -72,8 +71,8 @@ public final class WikiVisitUrls
       // Call for URLs outside of URLs
       @Override
       public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                    @Nonnull final CSSDeclaration aDeclaration,
-                                    @Nonnull final CSSExpressionMemberTermURI aURITerm)
+                                    @NonNull final CSSDeclaration aDeclaration,
+                                    @NonNull final CSSExpressionMemberTermURI aURITerm)
       {
         System.out.println (aDeclaration.getProperty () +
                             " - references: " +

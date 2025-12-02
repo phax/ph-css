@@ -16,23 +16,22 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHex;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
 /**
- * A logging implementation of {@link ICSSParseErrorHandler}. So in case a
- * recoverable error occurs, the details are logged to an SLF4J logger.
+ * A logging implementation of {@link ICSSParseErrorHandler}. So in case a recoverable error occurs,
+ * the details are logged to an SLF4J logger.
  *
  * @author Philip Helger
  */
@@ -48,9 +47,9 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
   public LoggingCSSParseErrorHandler ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringParseError (@Nonnull final ParseException ex)
+  public static String createLoggingStringParseError (@NonNull final ParseException ex)
   {
     if (ex.currentToken == null)
     {
@@ -60,11 +59,11 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return createLoggingStringParseError (ex.currentToken, ex.expectedTokenSequences, ex.tokenImage, null);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringParseError (@Nonnull final Token aLastValidToken,
-                                                      @Nonnull final int [] [] aExpectedTokenSequencesVal,
-                                                      @Nonnull final String [] aTokenImageVal,
+  public static String createLoggingStringParseError (@NonNull final Token aLastValidToken,
+                                                      @NonNull final int [] [] aExpectedTokenSequencesVal,
+                                                      @NonNull final String [] aTokenImageVal,
                                                       @Nullable final Token aLastSkippedToken)
   {
     ValueEnforcer.notNull (aLastValidToken, "LastValidToken");
@@ -85,10 +84,18 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     }
 
     final StringBuilder retval = new StringBuilder (1024);
-    retval.append ('[').append (aLastValidToken.next.beginLine).append (':').append (aLastValidToken.next.beginColumn).append (']');
+    retval.append ('[')
+          .append (aLastValidToken.next.beginLine)
+          .append (':')
+          .append (aLastValidToken.next.beginColumn)
+          .append (']');
     if (aLastSkippedToken != null)
     {
-      retval.append ("-[").append (aLastSkippedToken.endLine).append (':').append (aLastSkippedToken.endColumn).append (']');
+      retval.append ("-[")
+            .append (aLastSkippedToken.endLine)
+            .append (':')
+            .append (aLastSkippedToken.endColumn)
+            .append (']');
     }
     retval.append (" Encountered");
     Token aCurToken = aLastValidToken.next;
@@ -100,17 +107,22 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
         retval.append (aTokenImageVal[TOKEN_EOF]);
         break;
       }
-      retval.append ("text '").append (aCurToken.image).append ("' corresponding to token ").append (aTokenImageVal[aCurToken.kind]);
+      retval.append ("text '")
+            .append (aCurToken.image)
+            .append ("' corresponding to token ")
+            .append (aTokenImageVal[aCurToken.kind]);
       aCurToken = aCurToken.next;
     }
     retval.append (". ");
     if (aLastSkippedToken != null)
       retval.append ("Skipped until token ").append (aLastSkippedToken).append (". ");
-    retval.append (aExpectedTokenSequencesVal.length == 1 ? "Was expecting:" : "Was expecting one of:").append (aExpected);
+    retval.append (aExpectedTokenSequencesVal.length == 1 ? "Was expecting:" : "Was expecting one of:")
+          .append (aExpected);
     return retval.toString ();
   }
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
+                                                                                                                throws ParseException
   {
     if (aParseEx.expectedTokenSequences == null)
       LOGGER.warn (aParseEx.getMessage ());
@@ -127,45 +139,51 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
    * @param aCurrentToken
    *        The current token that caused an error. Never <code>null</code>.
    * @param sRule
-   *        The name of the rule. Always starts with a '@'. May neither be
-   *        <code>null</code> nor empty.
+   *        The name of the rule. Always starts with a '@'. May neither be <code>null</code> nor
+   *        empty.
    * @param sMsg
    *        The custom error message. Neither <code>null</code> nor empty.
-   * @return The concatenated string with source location, rule and message. May
-   *         neither be <code>null</code> nor empty.
+   * @return The concatenated string with source location, rule and message. May neither be
+   *         <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                                          @Nonnull @Nonempty final String sRule,
-                                                          @Nonnull @Nonempty final String sMsg)
+  public static String createLoggingStringUnexpectedRule (@NonNull final Token aCurrentToken,
+                                                          @NonNull @Nonempty final String sRule,
+                                                          @NonNull @Nonempty final String sMsg)
   {
-    return "[" + aCurrentToken.beginLine + ":" + aCurrentToken.beginColumn + "] Unexpected rule '" + sRule + "': " + sMsg;
+    return "[" +
+           aCurrentToken.beginLine +
+           ":" +
+           aCurrentToken.beginColumn +
+           "] Unexpected rule '" +
+           sRule +
+           "': " +
+           sMsg;
   }
 
-  public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                   @Nonnull @Nonempty final String sRule,
-                                   @Nonnull @Nonempty final String sMsg) throws ParseException
+  public void onCSSUnexpectedRule (@NonNull final Token aCurrentToken,
+                                   @NonNull @Nonempty final String sRule,
+                                   @NonNull @Nonempty final String sMsg) throws ParseException
   {
     LOGGER.warn (createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
   }
 
   /**
-   * Create a common string to be used for deprecated properties. To be called,
-   * if a deprecated old IE 6/7 property is found.
+   * Create a common string to be used for deprecated properties. To be called, if a deprecated old
+   * IE 6/7 property is found.
    *
    * @param aPrefixToken
    *        The prefix token found (like '$' or '*'). Never <code>null</code>.
    * @param aIdentifierToken
    *        The identifier token found. Never <code>null</code>.
-   * @throws ParseException
-   *         In case the error is fatal and should be propagated.
-   * @return The concatenated string with source location, etc. May neither be
-   *         <code>null</code> nor empty.
+   * @return The concatenated string with source location, etc. May neither be <code>null</code> nor
+   *         empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  public static String createLoggingStringDeprecatedProperty (@NonNull final Token aPrefixToken,
+                                                              @NonNull final Token aIdentifierToken)
   {
     return "[" +
            aPrefixToken.beginLine +
@@ -177,47 +195,54 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
            "'";
   }
 
-  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
   {
     LOGGER.warn (createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String createLoggingStringBrowserCompliantSkip (@Nullable final ParseException ex,
-                                                                @Nonnull final Token aFromToken,
-                                                                @Nonnull final Token aToToken)
+                                                                @NonNull final Token aFromToken,
+                                                                @NonNull final Token aToToken)
   {
-    String ret = "Browser compliant mode skipped CSS from [" +
-                 aFromToken.beginLine +
-                 ":" +
-                 aFromToken.beginColumn +
-                 "] starting at token '" +
-                 aFromToken.image +
-                 "' until [" +
-                 aToToken.endLine +
-                 ":" +
-                 aToToken.endColumn +
-                 "] to token '" +
-                 aToToken.image +
-                 "'";
+    final StringBuilder ret = new StringBuilder ("Browser compliant mode skipped CSS from [").append (aFromToken.beginLine)
+                                                                                             .append (":")
+                                                                                             .append (aFromToken.beginColumn)
+                                                                                             .append ("] starting at token '")
+                                                                                             .append (aFromToken.image)
+                                                                                             .append ("' until [")
+                                                                                             .append (aToToken.endLine)
+                                                                                             .append (":")
+                                                                                             .append (aToToken.endColumn)
+                                                                                             .append ("] to token '")
+                                                                                             .append (aToToken.image)
+                                                                                             .append ("'");
     if (ex != null)
-      ret += " (based on " + ex.getClass ().getName () + ": " + ex.getMessage () + ")";
-    return ret;
+      ret.append (" (based on ")
+         .append (ex.getClass ().getName ())
+         .append (": ")
+         .append (ex.getMessage ())
+         .append (")");
+    return ret.toString ();
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
-                                         @Nonnull final Token aFromToken,
-                                         @Nonnull final Token aToToken) throws ParseException
+                                         @NonNull final Token aFromToken,
+                                         @NonNull final Token aToToken) throws ParseException
   {
     LOGGER.warn (createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String createLoggingStringIllegalCharacter (final char cIllegalChar)
   {
-    return "Found illegal character: " + cIllegalChar + " (0x" + StringHelper.getHexStringLeadingZero (cIllegalChar, 4) + ")";
+    return "Found illegal character: " +
+           cIllegalChar +
+           " (0x" +
+           StringHex.getHexStringLeadingZero (cIllegalChar, 4) +
+           ")";
   }
 
   @Override

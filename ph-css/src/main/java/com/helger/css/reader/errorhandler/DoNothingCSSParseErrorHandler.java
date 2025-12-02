@@ -16,11 +16,11 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
@@ -35,24 +35,24 @@ public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
   public DoNothingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@Nonnull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
+  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
   {
     /* really do nothing :) */
   }
 
-  public void onCSSUnexpectedRule (@Nonnull final Token aCurrentToken,
-                                   @Nonnull @Nonempty final String sRule,
-                                   @Nonnull @Nonempty final String sMsg)
+  public void onCSSUnexpectedRule (@NonNull final Token aCurrentToken,
+                                   @NonNull @Nonempty final String sRule,
+                                   @NonNull @Nonempty final String sMsg)
   {
     /* really do nothing :) */
   }
 
-  public void onCSSDeprecatedProperty (@Nonnull final Token aPrefixToken, @Nonnull final Token aIdentifierToken)
+  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
   {
     /* really do nothing :) */
   }
 
-  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex, @Nonnull final Token aFromToken, @Nonnull final Token aToToken)
+  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex, @NonNull final Token aFromToken, @NonNull final Token aToToken)
   {
     /* really do nothing :) */
   }

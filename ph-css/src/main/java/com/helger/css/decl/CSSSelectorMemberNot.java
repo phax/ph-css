@@ -16,23 +16,21 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
-import com.helger.css.ECSSVersion;
 import com.helger.css.ICSSSourceLocationAware;
-import com.helger.css.ICSSVersionAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
@@ -42,24 +40,24 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAware, ICSSSourceLocationAware
+public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSSourceLocationAware
 {
   private final ICommonsList <CSSSelector> m_aNestedSelectors;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberNot (@Nonnull final CSSSelector aNestedSelector)
+  public CSSSelectorMemberNot (@NonNull final CSSSelector aNestedSelector)
   {
     ValueEnforcer.notNull (aNestedSelector, "NestedSelector");
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelector);
   }
 
-  public CSSSelectorMemberNot (@Nonnull final CSSSelector... aNestedSelectors)
+  public CSSSelectorMemberNot (@NonNull final CSSSelector... aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
   }
 
-  public CSSSelectorMemberNot (@Nonnull final Iterable <CSSSelector> aNestedSelectors)
+  public CSSSelectorMemberNot (@NonNull final Iterable <CSSSelector> aNestedSelectors)
   {
     ValueEnforcer.notNull (aNestedSelectors, "NestedSelectors");
     m_aNestedSelectors = new CommonsArrayList <> (aNestedSelectors);
@@ -76,16 +74,16 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
     return m_aNestedSelectors.size ();
   }
 
-  @Nonnull
-  public CSSSelectorMemberNot addSelector (@Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  @NonNull
+  public CSSSelectorMemberNot addSelector (@NonNull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
     return addSelector (new CSSSelector ().addMember (aSingleSelectorMember));
   }
 
-  @Nonnull
-  public CSSSelectorMemberNot addSelector (@Nonnull final CSSSelector aSelector)
+  @NonNull
+  public CSSSelectorMemberNot addSelector (@NonNull final CSSSelector aSelector)
   {
     ValueEnforcer.notNull (aSelector, "Selector");
 
@@ -93,16 +91,17 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
     return this;
   }
 
-  @Nonnull
-  public CSSSelectorMemberNot addSelector (@Nonnegative final int nIndex, @Nonnull final ICSSSelectorMember aSingleSelectorMember)
+  @NonNull
+  public CSSSelectorMemberNot addSelector (@Nonnegative final int nIndex,
+                                           @NonNull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
     return addSelector (nIndex, new CSSSelector ().addMember (aSingleSelectorMember));
   }
 
-  @Nonnull
-  public CSSSelectorMemberNot addSelector (@Nonnegative final int nIndex, @Nonnull final CSSSelector aSelector)
+  @NonNull
+  public CSSSelectorMemberNot addSelector (@Nonnegative final int nIndex, @NonNull final CSSSelector aSelector)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aSelector, "Selector");
@@ -114,13 +113,13 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
     return this;
   }
 
-  @Nonnull
-  public EChange removeSelector (@Nonnull final CSSSelector aSelector)
+  @NonNull
+  public EChange removeSelector (@NonNull final CSSSelector aSelector)
   {
     return m_aNestedSelectors.removeObject (aSelector);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeSelector (@Nonnegative final int nSelectorIndex)
   {
     return m_aNestedSelectors.removeAtIndex (nSelectorIndex);
@@ -129,10 +128,10 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
   /**
    * Remove all selectors.
    *
-   * @return {@link EChange#CHANGED} if any selector was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any selector was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllSelectors ()
   {
     return m_aNestedSelectors.removeAll ();
@@ -144,19 +143,17 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
     return m_aNestedSelectors.getAtIndex (nSelectorIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSSelector> getAllSelectors ()
   {
     return m_aNestedSelectors.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsCSSString (@Nonnull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    aSettings.checkVersionRequirements (this);
-
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder (":not(");
     boolean bFirst = true;
@@ -169,12 +166,6 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSVersionAwar
       aSB.append (aNestedSelector.getAsCSSString (aSettings, 0));
     }
     return aSB.append (')').toString ();
-  }
-
-  @Nonnull
-  public ECSSVersion getMinimumCSSVersion ()
-  {
-    return ECSSVersion.CSS30;
   }
 
   @Nullable

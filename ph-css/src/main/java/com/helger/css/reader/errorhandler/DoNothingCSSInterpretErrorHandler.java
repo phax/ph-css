@@ -16,10 +16,10 @@
  */
 package com.helger.css.reader.errorhandler;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * An implementation of {@link ICSSInterpretErrorHandler} that does nothing.
@@ -32,12 +32,12 @@ public class DoNothingCSSInterpretErrorHandler implements ICSSInterpretErrorHand
   public DoNothingCSSInterpretErrorHandler ()
   {}
 
-  public void onCSSInterpretationWarning (@Nonnull @Nonempty final String sMessage)
+  public void onCSSInterpretationWarning (@NonNull @Nonempty final String sMessage)
   {
     /* really do nothing :) */
   }
 
-  public void onCSSInterpretationError (@Nonnull @Nonempty final String sMessage)
+  public void onCSSInterpretationError (@NonNull @Nonempty final String sMessage)
   {
     /* really do nothing :) */
   }

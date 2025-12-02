@@ -20,11 +20,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>unblu.patched.com.helger</groupId>
+    <groupId>com.helger</groupId>
     <artifactId>ph-css-parent-pom</artifactId>
-    <version>7.0.5-SNAPSHOT</version>
+    <version>8.1.1-SNAPSHOT</version>
   </parent>
-  <groupId>unblu.patched.com.helger.maven</groupId>
+  <groupId>com.helger.maven</groupId>
   <artifactId>ph-csscompress-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>ph-csscompress-maven-plugin</name>
@@ -55,7 +55,7 @@
   </developers>
 
   <properties>
-    <maven.core.version>3.8.3</maven.core.version>
+    <maven.core.version>3.9.11</maven.core.version>
     <maven.annot.version>3.8.2</maven.annot.version>
   </properties>
   
@@ -74,16 +74,8 @@
     </dependency>
     
     <dependency>
-      <groupId>unblu.patched.com.helger</groupId>
+      <groupId>com.helger</groupId>
       <artifactId>ph-css</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.github.spotbugs</groupId>
-      <artifactId>spotbugs-annotations</artifactId>
-      <version>${spotbugs-annotations.version}</version>
-      <scope>compile</scope>
-      <optional>true</optional>
     </dependency>
 
     <dependency>
@@ -131,7 +123,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.15.1</version>
+        <version>3.15.2</version>
       </plugin>
     </plugins>
   </reporting>

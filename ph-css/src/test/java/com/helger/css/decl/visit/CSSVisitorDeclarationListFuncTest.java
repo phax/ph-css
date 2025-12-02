@@ -20,12 +20,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 
-import com.helger.css.ECSSVersion;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSDeclarationList;
 import com.helger.css.decl.CSSExpressionMemberTermURI;
@@ -45,7 +43,7 @@ public final class CSSVisitorDeclarationListFuncTest
   public void testVisitConstantCSS ()
   {
     // CSS 1
-    CSSDeclarationList aCSS = CSSReaderDeclarationList.readFromString ("color:red;", ECSSVersion.CSS30);
+    CSSDeclarationList aCSS = CSSReaderDeclarationList.readFromString ("color:red;");
     assertNotNull (aCSS);
     MockCountingUrlVisitor aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitAllDeclarationUrls (aCSS, aVisitor);
@@ -54,7 +52,7 @@ public final class CSSVisitorDeclarationListFuncTest
     assertEquals (0, aVisitor.getCount ());
 
     // CSS 2
-    aCSS = CSSReaderDeclarationList.readFromString ("background:url(a.gif)", ECSSVersion.CSS30);
+    aCSS = CSSReaderDeclarationList.readFromString ("background:url(a.gif)");
     assertNotNull (aCSS);
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitAllDeclarationUrls (aCSS, aVisitor);
@@ -63,7 +61,7 @@ public final class CSSVisitorDeclarationListFuncTest
     assertEquals (1, aVisitor.getCount ());
 
     // CSS 3
-    aCSS = CSSReaderDeclarationList.readFromString ("background:url(a.gif);background:url(b.gif);", ECSSVersion.CSS30);
+    aCSS = CSSReaderDeclarationList.readFromString ("background:url(a.gif);background:url(b.gif);");
     assertNotNull (aCSS);
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitAllDeclarationUrls (aCSS, aVisitor);
@@ -75,8 +73,7 @@ public final class CSSVisitorDeclarationListFuncTest
   @Test
   public void testModifyingCSSUrlVisitor ()
   {
-    final CSSDeclarationList aCSS = CSSReaderDeclarationList.readFromString ("background:url(a.gif);background:url(b.gif);",
-                                                                             ECSSVersion.CSS30);
+    final CSSDeclarationList aCSS = CSSReaderDeclarationList.readFromString ("background:url(a.gif);background:url(b.gif);");
     assertNotNull (aCSS);
 
     // Append ".modified" to all URLs
@@ -85,21 +82,21 @@ public final class CSSVisitorDeclarationListFuncTest
 
     // Check the result
     assertEquals ("background:url(a.gif.modified);background:url(b.gif.modified)",
-                  new CSSWriter (ECSSVersion.CSS30, true).getCSSAsString (aCSS));
+                  new CSSWriter (true).getCSSAsString (aCSS));
 
     // Re-iterate to check twice
     CSSVisitor.visitAllDeclarationUrls (aCSS, new DefaultCSSUrlVisitor ()
     {
       @Override
-      public void onImport (@Nonnull final CSSImportRule aImportRule)
+      public void onImport (@NonNull final CSSImportRule aImportRule)
       {
         assertTrue (aImportRule.getLocationString ().endsWith (".modified"));
       }
 
       @Override
       public void onUrlDeclaration (@Nullable final ICSSTopLevelRule aTopLevelRule,
-                                    @Nonnull final CSSDeclaration aDeclaration,
-                                    @Nonnull final CSSExpressionMemberTermURI aURITerm)
+                                    @NonNull final CSSDeclaration aDeclaration,
+                                    @NonNull final CSSExpressionMemberTermURI aURITerm)
       {
         assertTrue (aURITerm.getURIString ().endsWith (".modified"));
       }

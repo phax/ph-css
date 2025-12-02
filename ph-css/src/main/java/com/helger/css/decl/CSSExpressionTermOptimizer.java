@@ -16,13 +16,13 @@
  */
 package com.helger.css.decl;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.css.ECSSUnit;
 import com.helger.css.propertyvalue.CCSSValue;
 
@@ -49,9 +49,9 @@ public final class CSSExpressionTermOptimizer
   private CSSExpressionTermOptimizer ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getOptimizedValue (@Nonnull @Nonempty final String sValue)
+  public static String getOptimizedValue (@NonNull @Nonempty final String sValue)
   {
     // Replace e.g. "0px" with "0"
     if (UNIT_VALUES_0.contains (sValue))
