@@ -573,6 +573,84 @@ public enum ECSSUnit implements IHasName
   /**
    * @param nValue
    *        value to format
+   * @return <code>value + "dvw"</code>
+   * @since 8.1.1
+   */
+  @NonNull
+  @Nonempty
+  public static String dvw (final int nValue)
+  {
+    return DVW.format (nValue);
+  }
+
+  /**
+   * @param dValue
+   *        value to format
+   * @return <code>value + "dvw"</code>
+   * @since 8.1.1
+   */
+  @NonNull
+  @Nonempty
+  public static String dvw (final double dValue)
+  {
+    return DVW.format (dValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to format. May not be <code>null</code>.
+   * @return <code>value + "dvw"</code>
+   * @since 8.1.1
+   */
+  @NonNull
+  @Nonempty
+  public static String dvw (@NonNull final BigDecimal aValue)
+  {
+    return DVW.format (aValue);
+  }
+
+  /**
+   * @param nValue
+   *        value to format
+   * @return <code>value + "dvh"</code>
+   * @since 8.1.1
+   */
+  @NonNull
+  @Nonempty
+  public static String dvh (final int nValue)
+  {
+    return DVH.format (nValue);
+  }
+
+  /**
+   * @param dValue
+   *        value to format
+   * @return <code>value + "dvh"</code>
+   * @since 8.1.1
+   */
+  @NonNull
+  @Nonempty
+  public static String dvh (final double dValue)
+  {
+    return DVH.format (dValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to format. May not be <code>null</code>.
+   * @return <code>value + "dvh"</code>
+   * @since 8.1.1
+   */
+  @NonNull
+  @Nonempty
+  public static String dvh (@NonNull final BigDecimal aValue)
+  {
+    return DVH.format (aValue);
+  }
+
+  /**
+   * @param nValue
+   *        value to format
    * @return <code>value + "ch"</code>
    */
   @NonNull
