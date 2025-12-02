@@ -88,6 +88,10 @@ public enum ECSSUnit implements IHasName
   VMIN ("vmin", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
   /** Equal to the larger of 'vw' or 'vh'. */
   VMAX ("vmax", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to 1% of the width of the dynamic viewport. */
+  DVW ("dvw", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to 1% of the height of the dynamic viewport. */
+  DVH ("dvh", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
 
   /** Represents a percentage of the width of the query container. */
   CQW ("cqw", ECSSMetaUnit.CONTAINER_RELATIVE_LENGTH),
