@@ -88,10 +88,33 @@ public enum ECSSUnit implements IHasName
   VMIN ("vmin", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
   /** Equal to the larger of 'vw' or 'vh'. */
   VMAX ("vmax", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+
+  /** Equal to 1% of the width of the small viewport. */
+  SVW ("svw", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to 1% of the height of the small viewport. */
+  SVH ("svh", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to the smaller of 'svw' or 'svh'. */
+  SVMIN ("svmin", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to the larger of 'svw' or 'svh'. */
+  SVMAX ("svmax", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+
+  /** Equal to 1% of the width of the large viewport. */
+  LVW ("lvw", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to 1% of the height of the large viewport. */
+  LVH ("lvh", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to the smaller of 'lvw' or 'lvh'. */
+  LVMIN ("lvmin", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to the larger of 'lvw' or 'lvh'. */
+  LVMAX ("lvmax", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+
   /** Equal to 1% of the width of the dynamic viewport. */
   DVW ("dvw", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
   /** Equal to 1% of the height of the dynamic viewport. */
   DVH ("dvh", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to the smaller of 'dvw' or 'dvh'. */
+  DVMIN ("dvmin", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
+  /** Equal to the larger of 'dvw' or 'dvh'. */
+  DVMAX ("dvmax", ECSSMetaUnit.VIEWPORT_RELATIVE_LENGTH),
 
   /** Represents a percentage of the width of the query container. */
   CQW ("cqw", ECSSMetaUnit.CONTAINER_RELATIVE_LENGTH),

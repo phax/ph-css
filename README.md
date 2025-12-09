@@ -315,6 +315,10 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.1.1 - 2025-12-09
+* Added new CSS units `dvw` and `dvh`. See [#118](https://github.com/phax/ph-css/pull/118) - thx @shagkur
+* Added new CSS units `dvmin`, `dvmax`, `svw`, `svh`, `svmin`, `svmax`, `lvw`, `lvh`, `lvmin`, `lvmax`
+
 v8.1.0 - 2025-11-16
 * Updated to ph-commons 12.1.0
 * Using JSpecify annotations
