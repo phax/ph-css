@@ -1,6 +1,6 @@
 # ph-css
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.helger/ph-css)](https://img.shields.io/maven-central/v/com.helger/ph-css)
+[![Maven Central](https://img.shields.io/maven-central/v/com.helger/ph-css)](https://mvnrepository.com/artifact/com.helger/ph-css/latest)
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
 [![CodeCov](https://codecov.io/gh/phax/ph-css/branch/master/graph/badge.svg)](https://codecov.io/gh/phax/ph-css)
 
@@ -15,7 +15,7 @@ The Maven plugin to compress CSS files at build time is located in sub-module `p
 
 # Maven usage
 
-Add the following to your pom.xml to use this artifact, replacing `x.y.z` with the latest version:
+Add the following to your pom.xml to use this artifact, replacing `x.y.z` with the [latest version](https://mvnrepository.com/artifact/com.helger/ph-css/latest):
 
 ```xml
 <dependency>
