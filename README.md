@@ -1,6 +1,6 @@
 # ph-css
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.helger/ph-css?versionPrefix=)](https://img.shields.io/maven-central/v/com.helger/ph-css)
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css/)
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
 
 Java-based CSS 3 parser and builder.
