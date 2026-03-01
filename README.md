@@ -1,8 +1,7 @@
 # ph-css
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.helger/ph-css)](https://img.shields.io/maven-central/v/com.helger/ph-css)
+[![Maven Central](https://img.shields.io/maven-central/v/com.helger/ph-css?versionPrefix=)](https://img.shields.io/maven-central/v/com.helger/ph-css)
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
-[![CodeCov](https://codecov.io/gh/phax/ph-css/branch/master/graph/badge.svg)](https://codecov.io/gh/phax/ph-css)
 
 Java-based CSS 3 parser and builder.
 The Maven plugin to compress CSS files at build time is located in sub-module `ph-csscompress-maven-plugin` and described further down.
