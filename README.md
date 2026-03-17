@@ -1,7 +1,7 @@
 # ph-css
 
 <!-- ph-badge-start -->
-[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css/)
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css-parent-pom/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css-parent-pom/)
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
 <!-- ph-badge-end -->
 
