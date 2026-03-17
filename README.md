@@ -1,7 +1,9 @@
 # ph-css
 
+<!-- ph-badge-start -->
 [![Sonatype Central](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css/)
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
+<!-- ph-badge-end -->
 
 Java-based CSS 3 parser and builder.
 The Maven plugin to compress CSS files at build time is located in sub-module `ph-csscompress-maven-plugin` and described further down.
