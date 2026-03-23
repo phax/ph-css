@@ -115,7 +115,21 @@ public final class CSSStyleRuleTest
   @Test
   public void testRead3 ()
   {
-    CSSStyleRule aSR = _parse ("div { color: red; .foobar { color: green; #id { color: red } color: white } }");
-    System.out.println(aSR);
+    CSSStyleRule aSR = _parse ("div { color: red; .foobar { color: green; #id { color: blue } color: white; } }");
+    assertEquals (1, aSR.getDeclarationCount ());
+    assertEquals (1, aSR.getRuleCount ());
+
+    assertEquals ("color:red", aSR.getDeclarationAtIndex(0).getAsCSSString());
+
+    assertEquals (2, aSR.getRuleAtIndex (0).getDeclarationCount());
+    assertEquals (1, aSR.getRuleAtIndex (0).getRuleCount());
+
+    assertEquals ("color:green", aSR.getRuleAtIndex (0).getDeclarationAtIndex(0).getAsCSSString());
+    assertEquals ("color:white", aSR.getRuleAtIndex (0).getDeclarationAtIndex(1).getAsCSSString());
+
+    assertEquals (1, aSR.getRuleAtIndex (0).getRuleAtIndex(0).getDeclarationCount());
+    assertEquals (0, aSR.getRuleAtIndex (0).getRuleAtIndex(0).getRuleCount());
+
+    assertEquals ("color:blue", aSR.getRuleAtIndex (0).getRuleAtIndex(0).getDeclarationAtIndex(0).getAsCSSString());
   }
 }

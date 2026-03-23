@@ -82,5 +82,21 @@ public final class CSSSelectorTest
     assertTrue (aSel.getMemberAtIndex (2) instanceof CSSSelectorSimpleMember);
     assertEquals ("div", aSel.getMemberAtIndex (2).getAsCSSString ());
     assertEquals ("#id~div", aSel.getAsCSSString ());
+
+    aSel = _parse ("&.foo { color:red }");
+    assertEquals (2, aSel.getMemberCount ());
+    assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
+    assertEquals ("&", aSel.getMemberAtIndex (0).getAsCSSString ());
+    assertTrue (aSel.getMemberAtIndex (1) instanceof CSSSelectorSimpleMember);
+    assertEquals (".foo", aSel.getMemberAtIndex (1).getAsCSSString ());
+
+    aSel = _parse (".foo & { color:red }");
+    assertEquals (3, aSel.getMemberCount ());
+    assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
+    assertEquals (".foo", aSel.getMemberAtIndex (0).getAsCSSString ());
+    assertTrue (aSel.getMemberAtIndex (1) instanceof ECSSSelectorCombinator);
+    assertEquals (" ", aSel.getMemberAtIndex (1).getAsCSSString ());
+    assertTrue (aSel.getMemberAtIndex (2) instanceof CSSSelectorSimpleMember);
+    assertEquals ("&", aSel.getMemberAtIndex (2).getAsCSSString ());
   }
 }
