@@ -47,6 +47,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
 {
   private final ICommonsList <CSSSelector> m_aSelectors = new CommonsArrayList <> ();
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
+  private final ICommonsList <CSSStyleRule> m_aRules = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
 
   public CSSStyleRule ()
@@ -137,6 +138,77 @@ public class CSSStyleRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSS
   public ICommonsList <CSSSelector> getAllSelectors ()
   {
     return m_aSelectors.getClone ();
+  }
+
+  public boolean hasRules ()
+  {
+    return m_aRules.isNotEmpty ();
+  }
+
+  @Nonnegative
+  public int getRuleCount ()
+  {
+    return m_aRules.size ();
+  }
+
+  @NonNull
+  public CSSStyleRule addRule (@NonNull final CSSStyleRule aRule)
+  {
+    ValueEnforcer.notNull (aRule, "Rule");
+
+    m_aRules.add (aRule);
+    return this;
+  }
+
+  @NonNull
+  public CSSStyleRule addRule (@Nonnegative final int nIndex, @NonNull final CSSStyleRule aRule)
+  {
+    ValueEnforcer.isGE0 (nIndex, "Index");
+    ValueEnforcer.notNull (aRule, "Rule");
+
+    if (nIndex >= getRuleCount ())
+      m_aRules.add (aRule);
+    else
+      m_aRules.add (nIndex, aRule);
+    return this;
+  }
+
+  @NonNull
+  public EChange removeRule (@NonNull final CSSStyleRule aRule)
+  {
+    return m_aRules.removeObject (aRule);
+  }
+
+  @NonNull
+  public EChange removeRule (@Nonnegative final int nRuleIndex)
+  {
+    return m_aRules.removeAtIndex (nRuleIndex);
+  }
+
+  /**
+   * Remove all rules.
+   *
+   * @return {@link EChange#CHANGED} if any rule was removed,
+   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @since 3.7.3
+   */
+  @NonNull
+  public EChange removeAllRules ()
+  {
+    return m_aRules.removeAll ();
+  }
+
+  @Nullable
+  public CSSStyleRule getRuleAtIndex (@Nonnegative final int nRuleIndex)
+  {
+    return m_aRules.getAtIndex (nRuleIndex);
+  }
+
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <CSSStyleRule> getAllRules ()
+  {
+    return m_aRules.getClone ();
   }
 
   @NonNull

@@ -232,7 +232,8 @@ final class CSSNodeToDomainObject
     if (ECSSNodeType.NAMESPACEPREFIX.isNode (aNode) ||
         ECSSNodeType.ELEMENTNAME.isNode (aNode) ||
         ECSSNodeType.HASH.isNode (aNode) ||
-        ECSSNodeType.CLASS.isNode (aNode))
+        ECSSNodeType.CLASS.isNode (aNode) ||
+        ECSSNodeType.NESTING.isNode (aNode))
     {
       if (nChildCount != 0)
         _throwUnexpectedChildrenCount (aNode, "CSS simple selector member expected 0 children and got " + nChildCount);
@@ -776,6 +777,26 @@ final class CSSNodeToDomainObject
     }
   }
 
+  private void _readStyleDeclarationListRules (@NonNull final CSSNode aNode,
+                                          @NonNull final Consumer <CSSStyleRule> aConsumer)
+  {
+    _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLIST);
+    // Read all contained declarations
+    final int nDecls = aNode.jjtGetNumChildren ();
+    for (int nDecl = 0; nDecl < nDecls; ++nDecl)
+    {
+      final CSSNode aChildNode = aNode.jjtGetChild (nDecl);
+      if (ECSSNodeType.STYLERULE.isNode (aChildNode))
+      {
+        final CSSStyleRule aRule = _createStyleRule (aChildNode);
+        if (aRule != null)
+          aConsumer.accept (aRule);
+      }
+      // else
+      // ignore ERROR_SKIP to and all "@" things
+    }
+  }
+
   @Nullable
   private CSSStyleRule _createStyleRule (@NonNull final CSSNode aNode)
   {
@@ -801,6 +822,9 @@ final class CSSNodeToDomainObject
         {
           // Read all contained declarations
           _readStyleDeclarationList (aChildNode, ret::addDeclaration);
+
+          // Read all contained rules
+          _readStyleDeclarationListRules (aChildNode, ret::addRule);
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode))

@@ -202,6 +202,7 @@ TOKEN :
 | < GREATER: ">" >
 | < TILDE: "~" >
 | < DOLLAR: "$" >
+| < AMPERSAND: "&" >
 | < HASH: "#" <NAME> >
 | < INCLUDES: "~=" >
 | < DASHMATCH: "|=" >
@@ -911,6 +912,11 @@ void typeSelector() #void : {}
   elementName()
 }
 
+void nestingSelector() #Nesting : {}
+{
+  <AMPERSAND> { jjtThis.setText ("&"); }
+}
+
 void idSelector() : {}
 {
   <HASH> { jjtThis.setText (token.image); }
@@ -1129,6 +1135,7 @@ void simpleSelectorSequence() #void : {}
     ( idSelector()
     | classSelector()
     | attributeSelector()
+    | nestingSelector()
     | pseudoClassSelector()
     | funcNot()
     )*
@@ -1136,6 +1143,7 @@ void simpleSelectorSequence() #void : {}
   | ( idSelector()
     | classSelector()
     | attributeSelector()
+    | nestingSelector()
     | pseudoClassSelector()
     | funcNot()
     )+
@@ -1213,8 +1221,10 @@ try{
 
 void styleDeclarationOrRule() #void : {}
 {
-  ( styleDeclaration()
-  | ( mediaRule()     { errorUnexpectedRule ("@media", "media rule in the middle of a rule-set is not allowed!"); }
+  ( styleDeclaration() ( LOOKAHEAD( (<S>)* (<RBRACE> | <EOF>) ) (<S>)* | (<S>)* <SEMICOLON> (<S>)* )
+  | <SEMICOLON> (<S>)* // final semicolon from single line comment
+  | ( styleRule()
+    | mediaRule()     { errorUnexpectedRule ("@media", "media rule in the middle of a rule-set is not allowed!"); }
     | pageRule()      { errorUnexpectedRule ("@page", "page rule in the middle of a rule-set is not allowed!"); }
     | fontfaceRule()  { errorUnexpectedRule ("@font-face", "font-face rule in the middle of a rule-set is not allowed!"); }
     | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule in the middle of a rule-set is not allowed!"); }
@@ -1234,11 +1244,7 @@ CSSNode styleDeclarationList() : {}
 {
 try {
   ( <S> )*
-  ( styleDeclarationOrRule() )?
-  ( <SEMICOLON>
-    ( <S> )*
-    ( styleDeclarationOrRule() )?
-  )*
+  ( styleDeclarationOrRule() )*
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
     browserCompliantSkipDecl (ex);

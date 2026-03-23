@@ -111,4 +111,11 @@ public final class CSSStyleRuleTest
                                                                                   ECSSAttributeCase.CASE_INSENSITIVE)));
     TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
   }
+
+  @Test
+  public void testRead3 ()
+  {
+    CSSStyleRule aSR = _parse ("div { color: red; .foobar { color: green; #id { color: red } color: white } }");
+    System.out.println(aSR);
+  }
 }
