@@ -1,8 +1,9 @@
 # ph-css
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.helger/ph-css)](https://img.shields.io/maven-central/v/com.helger/ph-css)
+<!-- ph-badge-start -->
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css-parent-pom/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.helger/ph-css-parent-pom/)
 [![javadoc](https://javadoc.io/badge2/com.helger/ph-css/javadoc.svg)](https://javadoc.io/doc/com.helger/ph-css)
-[![CodeCov](https://codecov.io/gh/phax/ph-css/branch/master/graph/badge.svg)](https://codecov.io/gh/phax/ph-css)
+<!-- ph-badge-end -->
 
 Java-based CSS 3 parser and builder.
 The Maven plugin to compress CSS files at build time is located in sub-module `ph-csscompress-maven-plugin` and described further down.
@@ -314,6 +315,10 @@ Configuration items are:
    Defaults to `UTF-8`.  
 
 ## News and noteworthy
+
+v8.1.1 - 2025-12-09
+* Added new CSS units `dvw` and `dvh`. See [#118](https://github.com/phax/ph-css/pull/118) - thx @shagkur
+* Added new CSS units `dvmin`, `dvmax`, `svw`, `svh`, `svmin`, `svmax`, `lvw`, `lvh`, `lvmin`, `lvmax`
 
 v8.1.0 - 2025-11-16
 * Updated to ph-commons 12.1.0
