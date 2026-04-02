@@ -1772,7 +1772,7 @@ void propertyRule() :
   t = <IDENT> 
   { 
     if (!t.image.startsWith ("--"))
-      throw new ParseException ("Exprected dashed identifier");
+      throw new ParseException ("Invalid identifier '" + t.image + "'. Only dashed identifier allowed (e.g. '--canBeAnything').");
     jjtThis.setText (t.image);
   }
   ( <S> )*
