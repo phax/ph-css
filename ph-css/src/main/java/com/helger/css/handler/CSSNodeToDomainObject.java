@@ -1383,6 +1383,54 @@ final class CSSNodeToDomainObject
   }
 
   @NonNull
+  private CSSPropertyRuleDeclaration _createPropertyRuleDeclaration (@NonNull final CSSNode aNode)
+  {
+    _expectNodeType(aNode, ECSSNodeType.PROPERTYRULEDECLARATION);
+    final int nChildCount = aNode.jjtGetNumChildren ();
+    if (nChildCount != 2)
+      _throwUnexpectedChildrenCount (aNode, "Expected 2 children but got " + nChildCount + "!");
+
+    if (nChildCount == 1)
+    {
+      // Syntax error. E.g. "syntax:;"
+      return null;
+    }
+
+    final String sDescriptor = aNode.jjtGetChild (0).getText ();
+    if (sDescriptor == null)
+    {
+      // Syntax error with deprecated property name (see #84)
+      return null;
+    }
+
+    final CSSExpression aExpression = _createExpression (aNode.jjtGetChild (1));
+    final CSSPropertyRuleDeclaration ret = new CSSPropertyRuleDeclaration (sDescriptor, aExpression);
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
+    return ret;
+  }
+
+  @NonNull
+  private CSSPropertyRule _createPropertyRule (@NonNull final CSSNode aNode)
+  {
+    _expectNodeType (aNode, ECSSNodeType.PROPERTYRULE);
+    final int nChildCount = aNode.jjtGetNumChildren ();
+    if (nChildCount > 3)
+      _throwUnexpectedChildrenCount (aNode,
+                                     "Expected at most 3 children but got " + nChildCount + "!");
+
+    // Get the identifier (e.g. "--canBeAnything")
+    final String sIdentifier = aNode.getText ();
+
+    final CSSPropertyRule ret = new CSSPropertyRule (sIdentifier);
+    if (m_bUseSourceLocation)
+      ret.setSourceLocation (aNode.getSourceLocation ());
+    for (final CSSNode aChildNode : aNode)
+      ret.addPropertyRuleDeclaration (_createPropertyRuleDeclaration (aChildNode));
+    return ret;
+  }
+
+  @NonNull
   private CSSUnknownRule _createUnknownRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.UNKNOWNRULE);
@@ -1455,30 +1503,33 @@ final class CSSNodeToDomainObject
                           if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode))
                             ret.addRule (_createSupportsRule (aChildNode));
                           else
-                            if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode))
-                            {
-                              // Unknown rule indicates either
-                              // 1. a parsing error
-                              // 2. a non-standard rule
-                              ret.addRule (_createUnknownRule (aChildNode));
-                            }
+                            if (ECSSNodeType.PROPERTYRULE.isNode (aChildNode))
+                              ret.addRule (_createPropertyRule (aChildNode));
                             else
-                              if (ECSSNodeType.ROOT.isNode (aChildNode))
+                              if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode))
                               {
-                                /*
-                                 * In case a parsing error occurs (as e.g. happening in issue #41)
-                                 * and browser compliant mode is enabled, some CSS code is skipped
-                                 * and a retry happens. This retry will be a recursive stylesheet
-                                 * object that is a child of the previous stylesheet but "flattened"
-                                 * for the result object.
-                                 */
-                                _recursiveFillCascadingStyleSheetFromNode (aChildNode, ret);
+                                // Unknown rule indicates either
+                                // 1. a parsing error
+                                // 2. a non-standard rule
+                                ret.addRule (_createUnknownRule (aChildNode));
                               }
                               else
-                                m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
-                                                                          ECSSNodeType.getNodeName (aNode) +
-                                                                          ": " +
-                                                                          ECSSNodeType.getNodeName (aChildNode));
+                                if (ECSSNodeType.ROOT.isNode (aChildNode))
+                                {
+                                  /*
+                                  * In case a parsing error occurs (as e.g. happening in issue #41)
+                                  * and browser compliant mode is enabled, some CSS code is skipped
+                                  * and a retry happens. This retry will be a recursive stylesheet
+                                  * object that is a child of the previous stylesheet but "flattened"
+                                  * for the result object.
+                                  */
+                                  _recursiveFillCascadingStyleSheetFromNode (aChildNode, ret);
+                                }
+                                else
+                                  m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                                            ECSSNodeType.getNodeName (aNode) +
+                                                                            ": " +
+                                                                            ECSSNodeType.getNodeName (aChildNode));
     }
   }
 

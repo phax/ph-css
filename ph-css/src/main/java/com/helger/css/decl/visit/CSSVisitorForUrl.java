@@ -140,6 +140,11 @@ public class CSSVisitorForUrl implements ICSSVisitor
     _recursiveCheckExpression (aTopLevelRule, aDeclaration, aDeclaration.getExpression ());
   }
 
+  public void onPropertyRuleDeclaration (@NonNull final CSSPropertyRuleDeclaration aDeclaration)
+  {
+    // No action    
+  }
+
   public void onBeginStyleRule (@NonNull final CSSStyleRule aStyleRule)
   {
     m_aTopLevelRule.push (aStyleRule);
@@ -241,6 +246,16 @@ public class CSSVisitorForUrl implements ICSSVisitor
   }
 
   public void onEndLayerRule (@NonNull final CSSLayerRule aLayerRule)
+  {
+    m_aTopLevelRule.pop();
+  }
+
+  public void onBeginPropertyRule (@NonNull final CSSPropertyRule aPropertyRule)
+  {
+    m_aTopLevelRule.push(aPropertyRule);
+  }
+
+  public void onEndPropertyRule (@NonNull final CSSPropertyRule aPropertyRule)
   {
     m_aTopLevelRule.pop();
   }

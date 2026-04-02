@@ -240,6 +240,7 @@ TOKEN :
 | < VIEWPORT_SYM: "@-" <IDENT> "-viewport"
                 | "@viewport" >
 | < SUPPORTS_SYM: "@supports" >
+| < PROPERTY_SYM: "@property" >
 | < AT_UNKNOWN: "@" <IDENT>
               | "@" > : IN_UNKNOWN_RULE
 | < IMPORTANT_SYM: "!" ( <S> )* "important" >
@@ -252,6 +253,11 @@ TOKEN :
 | < FROM_SYM: "from" >
 | < TO_SYM: "to" >
 | < OR_SYM: "or" >
+| < TRUE_SYM: "true" >
+| < FALSE_SYM: "false" >
+| < SYNTAX_SYM: "syntax" >
+| < INHERITS_SYM: "inherits" >
+| < INITIALVALUE_SYM: "initial-value" >
 
 // ident        (--|-|$|*)?{nmstart}{nmchar}*
 // Note: "*" hack for IE <= 6 was altered in 6.2.1
@@ -573,6 +579,7 @@ try{
     | keyframesRule()
     | viewportRule()
     | supportsRule()
+    | propertyRule()
     | unknownRule()
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of the file is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of the file is not allowed!"); }
@@ -647,6 +654,14 @@ String anyIdentifier() #void : {}
   | <FROM_SYM>
   | <TO_SYM>
   | <OR_SYM>
+  )
+  { return token.image; }
+}
+
+String booleanOperator() #void : {}
+{
+  ( <TRUE_SYM> 
+  | <FALSE_SYM>
   )
   { return token.image; }
 }
@@ -791,6 +806,7 @@ void exprTerm() :
 // Hack to allow "from" and "to" as identifiers (e.g. in linear-gradient)
 // Also allow "or" as parameter to "x:lang(no)"
   | sPrefix = anyIdentifier()
+  | sPrefix = booleanOperator()
   | url()
   | t = <HASH>
   | function()
@@ -1220,6 +1236,7 @@ void styleDeclarationOrRule() #void : {}
     | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule in the middle of a rule-set is not allowed!"); }
     | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a rule-set is not allowed!"); }
     | supportsRule()  { errorUnexpectedRule ("@supports", "supports rule in the middle of a rule-set is not allowed!"); }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a rule-set is not allowed!"); }
     | unknownRule()   { errorUnexpectedRule ("@", "Unknown rule in the middle of a rule-set is not allowed!"); }
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a rule-set is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a rule-set is not allowed!"); }
@@ -1360,6 +1377,7 @@ void mediaRuleList() #void : {}
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @media rule is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @media rule is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @media rule is not allowed!"); }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @media rule is not allowed!"); }
     )
     ( <S> )*
   )+
@@ -1507,6 +1525,7 @@ void layerBody() #void : {}
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @layer rule is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @layer rule is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @layer rule is not allowed!"); }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @layer rule is not allowed!"); }
     )
     ( <S> )*
   )+
@@ -1674,6 +1693,7 @@ void supportsRuleBodyRule() #void : {}
   | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @supports rule is not allowed!"); }
   | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @supports rule is not allowed!"); }
   | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @supports rule is not allowed!"); }
+  | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @supports rule is not allowed!"); }
   | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a @supports rule is not allowed!"); }
   )
 }
@@ -1704,6 +1724,50 @@ void supportsRule() : {}
   supportsRuleBody()
 }
 
+void propertyRuleDescriptor() : {}
+{
+  ( <SYNTAX_SYM> { jjtThis.setText (token.image); }
+  | <INHERITS_SYM> { jjtThis.setText (token.image); }
+  | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
+  )
+}
+
+void propertyRuleDeclaration() : {}
+{
+  propertyRuleDescriptor()
+  ( <S> )*
+  <COLON>
+  ( <S> )*
+  expr()
+  <SEMICOLON>
+}
+
+void propertyRule() :
+{ Token t; }
+{
+  <PROPERTY_SYM>
+  ( <S> )*
+  t = <IDENT> 
+  { 
+    if (!t.image.startsWith ("--"))
+      throw new ParseException ("Exprected dashed identifier");
+    jjtThis.setText (t.image);
+  }
+  ( <S> )*
+  <LBRACE>
+try {
+  ( <S> )*
+  ( propertyRuleDeclaration()
+    ( <S> )*
+  )*
+  <RBRACE>
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipInRule (ex);
+  else
+    errorSkipTo (ex, RBRACE);
+}
+}
 //
 // Unknown rule
 //

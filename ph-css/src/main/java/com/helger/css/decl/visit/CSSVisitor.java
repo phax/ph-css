@@ -34,6 +34,8 @@ import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CSSSupportsRule;
+import com.helger.css.decl.CSSPropertyRule;
+import com.helger.css.decl.CSSPropertyRuleDeclaration;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
 import com.helger.css.decl.CascadingStyleSheet;
@@ -312,6 +314,29 @@ public final class CSSVisitor
   }
 
   /**
+   * Visit all elements of a single property rule.
+   *
+   * @param aPropertyRule
+   *        The property rule to visit. May not be <code>null</code>.
+   * @param aVisitor
+   *        The visitor to use. May not be <code>null</code>.
+   */
+  public static void visitPropertyRule (@NonNull final CSSPropertyRule aPropertyRule, @NonNull final ICSSVisitor aVisitor)
+  {
+    aVisitor.onBeginPropertyRule (aPropertyRule);
+    try
+    {
+      // for all property rule declarations
+      for (final CSSPropertyRuleDeclaration aDeclaration : aPropertyRule.getAllPropertyRuleDeclarations ())
+        aVisitor.onPropertyRuleDeclaration (aDeclaration);
+    }
+    finally
+    {
+      aVisitor.onEndPropertyRule (aPropertyRule);
+    }
+  }
+
+  /**
    * Visit all elements of a single unknown @ rule.
    *
    * @param aUnknownRule
@@ -375,12 +400,17 @@ public final class CSSVisitor
                     visitLayerRule ((CSSLayerRule) aTopLevelRule, aVisitor);
                   }
                   else
-                    if (aTopLevelRule instanceof CSSUnknownRule)
+                    if (aTopLevelRule instanceof CSSPropertyRule)
                     {
-                      visitUnknownRule ((CSSUnknownRule) aTopLevelRule, aVisitor);
+                      visitPropertyRule((CSSPropertyRule) aTopLevelRule, aVisitor);
                     }
                     else
-                      throw new IllegalStateException ("Top level rule " + aTopLevelRule + " is unsupported!");
+                      if (aTopLevelRule instanceof CSSUnknownRule)
+                      {
+                        visitUnknownRule ((CSSUnknownRule) aTopLevelRule, aVisitor);
+                      }
+                      else
+                        throw new IllegalStateException ("Top level rule " + aTopLevelRule + " is unsupported!");
   }
 
   /**

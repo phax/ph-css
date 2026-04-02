@@ -108,6 +108,11 @@ public interface ICSSWriterSettings
   boolean isWriteSupportsRules ();
 
   /**
+   * @return <code>true</code> if @property rules should be written, <code>false</code> if not
+   */
+  boolean isWritePropertyRules ();
+
+  /**
    * @return <code>true</code> if unknown @ rules should be written, <code>false</code> if not
    */
   boolean isWriteUnknownRules ();
