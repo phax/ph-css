@@ -806,7 +806,6 @@ void exprTerm() :
 // Hack to allow "from" and "to" as identifiers (e.g. in linear-gradient)
 // Also allow "or" as parameter to "x:lang(no)"
   | sPrefix = anyIdentifier()
-  | sPrefix = booleanOperator()
   | url()
   | t = <HASH>
   | function()
@@ -1724,6 +1723,30 @@ void supportsRule() : {}
   supportsRuleBody()
 }
 
+void propertyRuleSimpleExpressionTerm() #exprterm :
+{ String sStr; }
+{
+  ( sStr = string()
+  | sStr = booleanOperator()
+  )
+  {
+    if (sStr != null)
+      jjtThis.setText (sStr);
+  }
+}
+
+void propertyRuleSimpleExpression() #expr : {}
+{
+  propertyRuleSimpleExpressionTerm()
+}
+
+void propertyRuleExpression() #void : {}
+{
+  ( propertyRuleSimpleExpression()
+  | expr()
+  )
+}
+
 void propertyRuleDescriptor() : {}
 {
   ( <SYNTAX_SYM> { jjtThis.setText (token.image); }
@@ -1731,14 +1754,13 @@ void propertyRuleDescriptor() : {}
   | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
   )
 }
-
 void propertyRuleDeclaration() : {}
 {
   propertyRuleDescriptor()
   ( <S> )*
   <COLON>
   ( <S> )*
-  expr()
+  propertyRuleExpression()
   <SEMICOLON>
 }
 
