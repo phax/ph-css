@@ -215,6 +215,7 @@ TOKEN :
 | < IMPORT_SYM: "@import" >
 | < NAMESPACE_SYM: "@namespace" >
 | < PAGE_SYM: "@page" >
+| < PROPERTY_SYM: "@property" >
 | < TOPLEFTCORNER_SYM:      "@top-left-corner" >
 | < TOPLEFT_SYM:            "@top-left" >
 | < TOPCENTER_SYM:          "@top-center" >
@@ -572,6 +573,7 @@ try{
     | layerRule()
     | fontfaceRule()
     | keyframesRule()
+    | propertyRule()
     | viewportRule()
     | supportsRule()
     | unknownRule()
@@ -1231,6 +1233,7 @@ void styleDeclarationOrRule() #void : {}
     | pageRule()      { errorUnexpectedRule ("@page", "page rule in the middle of a rule-set is not allowed!"); }
     | fontfaceRule()  { errorUnexpectedRule ("@font-face", "font-face rule in the middle of a rule-set is not allowed!"); }
     | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule in the middle of a rule-set is not allowed!"); }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a rule-set is not allowed!"); }
     | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a rule-set is not allowed!"); }
     | supportsRule()  { errorUnexpectedRule ("@supports", "supports rule in the middle of a rule-set is not allowed!"); }
     | unknownRule()   { errorUnexpectedRule ("@", "Unknown rule in the middle of a rule-set is not allowed!"); }
@@ -1252,6 +1255,7 @@ void styleDeclarationOrRuleWithNested() #void : {}
     | pageRule()      { errorUnexpectedRule ("@page", "page rule is not allowed as a nested rule!"); }
     | fontfaceRule()  { errorUnexpectedRule ("@font-face", "font-face rule is not allowed as a nested rule!"); }
     | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule is not allowed as a nested rule!"); }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a rule-set is not allowed!"); }
     | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule is not allowed as a nested rule!"); }
     | supportsRule()  { }
     | unknownRule()   { }
@@ -1423,6 +1427,7 @@ void mediaRuleList() #void : {}
     | unknownRule()
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @media rule is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @media rule is not allowed!"); }
+    | propertyRule() { errorUnexpectedRule ("@property", "property rule in the middle of a @media rule is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @media rule is not allowed!"); }
     )
     ( <S> )*
@@ -1683,6 +1688,19 @@ void viewportRule() : {}
 }
 
 //
+// Property rule
+// https://drafts.css-houdini.org/css-properties-values-api/#at-property-rule
+//
+void propertyRule() : {}
+{
+  <PROPERTY_SYM>
+  ( <S> )*
+  <IDENT> { jjtThis.setText (token.image); }
+  ( <S> )*
+  styleDeclarationBlock()
+}
+
+//
 // Supports rule
 // http://www.w3.org/TR/2013/CR-css3-conditional-20130404/#at-supports
 //
@@ -1738,6 +1756,7 @@ void supportsRuleBodyRule() #void : {}
   | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @supports rule is not allowed!"); }
   | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @supports rule is not allowed!"); }
   | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @supports rule is not allowed!"); }
+  | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @supports rule is not allowed!"); }
   | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a @supports rule is not allowed!"); }
   )
 }

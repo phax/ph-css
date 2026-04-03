@@ -23,6 +23,7 @@ import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CSSNestedDeclarations;
 import com.helger.css.decl.CSSPageRule;
+import com.helger.css.decl.CSSPropertyRule;
 import com.helger.css.decl.CSSSupportsRule;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
@@ -117,6 +118,11 @@ public interface ICSSWriterSettings
    * @return <code>true</code> if {@link CSSPageRule @page rules} should be written, <code>false</code> if not
    */
   boolean isWritePageRules ();
+
+  /**
+   * @return <code>true</code> if {@link CSSPropertyRule @property rules} should be written, <code>false</code> if not
+   */
+  boolean isWritePropertyRules ();
 
   /**
    * @return <code>true</code> if {@link CSSViewportRule @viewport rules} should be written, <code>false</code> if not

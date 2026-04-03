@@ -17,6 +17,7 @@
 package com.helger.css.decl.visit;
 
 import com.helger.css.decl.CSSNestedDeclarations;
+import com.helger.css.decl.CSSPropertyRule;
 import com.helger.css.decl.ICSSNestedRule;
 import com.helger.css.decl.IHasCSSNestedRules;
 import org.jspecify.annotations.NonNull;
@@ -53,136 +54,125 @@ import com.helger.css.decl.IHasCSSDeclarations;
  * @author Philip Helger
  */
 @Immutable
-public final class CSSVisitor
-{
+public final class CSSVisitor {
   @PresentForCodeCoverage
-  private static final CSSVisitor INSTANCE = new CSSVisitor ();
+  private static final CSSVisitor INSTANCE = new CSSVisitor();
 
-  private CSSVisitor ()
-  {}
+  private CSSVisitor() {
+  }
 
   /**
    * Visit all elements of a single import rule.
    *
-   * @param aImportRule
-   *        The import rule to visit. May not be <code>null</code>.
-   * @param aVisitor
-   *        The visitor to use. May not be <code>null</code>.
+   * @param aImportRule The import rule to visit. May not be <code>null</code>.
+   * @param aVisitor    The visitor to use. May not be <code>null</code>.
    */
-  public static void visitImportRule (@NonNull final CSSImportRule aImportRule, @NonNull final ICSSVisitor aVisitor)
-  {
-    aVisitor.onImport (aImportRule);
+  public static void visitImportRule(@NonNull final CSSImportRule aImportRule, @NonNull final ICSSVisitor aVisitor) {
+    aVisitor.onImport(aImportRule);
   }
 
   /**
    * Visit all elements of a single namespace rule.
    *
-   * @param aNamespaceRule
-   *        The namespace rule to visit. May not be <code>null</code>.
-   * @param aVisitor
-   *        The visitor to use. May not be <code>null</code>.
+   * @param aNamespaceRule The namespace rule to visit. May not be <code>null</code>.
+   * @param aVisitor       The visitor to use. May not be <code>null</code>.
    */
-  public static void visitNamespaceRule (@NonNull final CSSNamespaceRule aNamespaceRule, @NonNull final ICSSVisitor aVisitor)
-  {
-    aVisitor.onNamespace (aNamespaceRule);
+  public static void visitNamespaceRule(@NonNull final CSSNamespaceRule aNamespaceRule, @NonNull final ICSSVisitor aVisitor) {
+    aVisitor.onNamespace(aNamespaceRule);
   }
 
   /**
    * Visit all declarations contained in the given declaration container.
    *
-   * @param aHasDeclarations
-   *        The declarations to be visited. May not be <code>null</code>.
-   * @param aVisitor
-   *        The visitor to be invoked on each declaration. May not be
-   *        <code>null</code>.
+   * @param aHasDeclarations The declarations to be visited. May not be <code>null</code>.
+   * @param aVisitor         The visitor to be invoked on each declaration. May not be
+   *                         <code>null</code>.
    */
-  public static void visitAllDeclarations (@NonNull final IHasCSSDeclarations <?> aHasDeclarations, @NonNull final ICSSVisitor aVisitor)
-  {
+  public static void visitAllDeclarations(@NonNull final IHasCSSDeclarations<?> aHasDeclarations, @NonNull final ICSSVisitor aVisitor) {
     // for all declarations
-    for (final CSSDeclaration aDeclaration : aHasDeclarations.getAllDeclarations ())
-      aVisitor.onDeclaration (aDeclaration);
+    for (final CSSDeclaration aDeclaration : aHasDeclarations.getAllDeclarations())
+      aVisitor.onDeclaration(aDeclaration);
   }
 
   /**
    * Visit all nested rules contained in the given rule container.
    *
-   * @param aHasNestedRules
-   *        The nested rules to be visited. May not be <code>null</code>.
-   * @param aVisitor
-   *        The visitor to be invoked on each nested rule. May not be
-   *        <code>null</code>.
+   * @param aHasNestedRules The nested rules to be visited. May not be <code>null</code>.
+   * @param aVisitor        The visitor to be invoked on each nested rule. May not be
+   *                        <code>null</code>.
    */
-  public static void visitAllNestedRules (@NonNull final IHasCSSNestedRules<?> aHasNestedRules, @NonNull final ICSSVisitor aVisitor)
-  {
+  public static void visitAllNestedRules(@NonNull final IHasCSSNestedRules<?> aHasNestedRules, @NonNull final ICSSVisitor aVisitor) {
     // for all nested rules
-    for (final ICSSNestedRule aNestedRule : aHasNestedRules.getAllRules ())
-      visitNestedRule (aNestedRule, aVisitor);
+    for (final ICSSNestedRule aNestedRule : aHasNestedRules.getAllRules())
+      visitNestedRule(aNestedRule, aVisitor);
   }
 
   /**
    * Visit all elements of a single style rule.
    *
-   * @param aStyleRule
-   *        The style rule to visit. May not be <code>null</code>.
-   * @param aVisitor
-   *        The visitor to use. May not be <code>null</code>.
+   * @param aStyleRule The style rule to visit. May not be <code>null</code>.
+   * @param aVisitor   The visitor to use. May not be <code>null</code>.
    */
-  public static void visitStyleRule (@NonNull final CSSStyleRule aStyleRule, @NonNull final ICSSVisitor aVisitor)
-  {
-    aVisitor.onBeginStyleRule (aStyleRule);
-    try
-    {
+  public static void visitStyleRule(@NonNull final CSSStyleRule aStyleRule, @NonNull final ICSSVisitor aVisitor) {
+    aVisitor.onBeginStyleRule(aStyleRule);
+    try {
       // for all selectors
-      for (final CSSSelector aSelector : aStyleRule.getAllSelectors ())
-        aVisitor.onStyleRuleSelector (aSelector);
+      for (final CSSSelector aSelector : aStyleRule.getAllSelectors())
+        aVisitor.onStyleRuleSelector(aSelector);
 
       // for all declarations
-      visitAllDeclarations (aStyleRule, aVisitor);
+      visitAllDeclarations(aStyleRule, aVisitor);
 
       // for all nested rules
-      visitAllNestedRules (aStyleRule, aVisitor);
-    }
-    finally
-    {
-      aVisitor.onEndStyleRule (aStyleRule);
+      visitAllNestedRules(aStyleRule, aVisitor);
+    } finally {
+      aVisitor.onEndStyleRule(aStyleRule);
     }
   }
 
   /**
    * Visit all elements of a single page rule.
    *
-   * @param aPageRule
-   *        The page rule to visit. May not be <code>null</code>.
-   * @param aVisitor
-   *        The visitor to use. May not be <code>null</code>.
+   * @param aPageRule The page rule to visit. May not be <code>null</code>.
+   * @param aVisitor  The visitor to use. May not be <code>null</code>.
    */
-  public static void visitPageRule (@NonNull final CSSPageRule aPageRule, @NonNull final ICSSVisitor aVisitor)
-  {
-    aVisitor.onBeginPageRule (aPageRule);
-    try
-    {
+  public static void visitPageRule(@NonNull final CSSPageRule aPageRule, @NonNull final ICSSVisitor aVisitor) {
+    aVisitor.onBeginPageRule(aPageRule);
+    try {
       // for all declarations
-      for (final ICSSPageRuleMember aMember : aPageRule.getAllMembers ())
+      for (final ICSSPageRuleMember aMember : aPageRule.getAllMembers())
         if (aMember instanceof CSSDeclaration)
-          aVisitor.onDeclaration ((CSSDeclaration) aMember);
-        else
-        {
+          aVisitor.onDeclaration((CSSDeclaration) aMember);
+        else {
           final CSSPageMarginBlock aPageMarginBlock = (CSSPageMarginBlock) aMember;
-          aVisitor.onBeginPageMarginBlock (aPageMarginBlock);
-          try
-          {
+          aVisitor.onBeginPageMarginBlock(aPageMarginBlock);
+          try {
             // for all declarations
-            visitAllDeclarations (aPageMarginBlock, aVisitor);
-          }
-          finally
-          {
-            aVisitor.onEndPageMarginBlock (aPageMarginBlock);
+            visitAllDeclarations(aPageMarginBlock, aVisitor);
+          } finally {
+            aVisitor.onEndPageMarginBlock(aPageMarginBlock);
           }
         }
+    } finally {
+      aVisitor.onEndPageRule(aPageRule);
     }
-    finally
-    {
-      aVisitor.onEndPageRule (aPageRule);
+  }
+
+  /**
+   * Visit all elements of a single property rule.
+   *
+   * @param aPageRule The property rule to visit. May not be <code>null</code>.
+   * @param aVisitor  The visitor to use. May not be <code>null</code>.
+   */
+  public static void visitPropertyRule(@NonNull final CSSPropertyRule aPageRule, @NonNull final ICSSVisitor aVisitor)
+  {
+    try {
+      aVisitor.onBeginPropertyRule(aPageRule);
+      // for all declarations
+      for (final CSSDeclaration aDeclaration : aPageRule.getAllDeclarations())
+        aVisitor.onDeclaration(aDeclaration);
+    } finally {
+      aVisitor.onEndPropertyRule(aPageRule);
     }
   }
 
@@ -384,42 +374,47 @@ public final class CSSVisitor
         visitPageRule ((CSSPageRule) aTopLevelRule, aVisitor);
       }
       else
-        if (aTopLevelRule instanceof CSSFontFaceRule)
+        if (aTopLevelRule instanceof CSSPropertyRule)
         {
-          visitFontFaceRule ((CSSFontFaceRule) aTopLevelRule, aVisitor);
+          visitPropertyRule ((CSSPropertyRule) aTopLevelRule, aVisitor);
         }
         else
-          if (aTopLevelRule instanceof CSSMediaRule)
+          if (aTopLevelRule instanceof CSSFontFaceRule)
           {
-            visitMediaRule ((CSSMediaRule) aTopLevelRule, aVisitor);
+            visitFontFaceRule ((CSSFontFaceRule) aTopLevelRule, aVisitor);
           }
           else
-            if (aTopLevelRule instanceof CSSKeyframesRule)
+            if (aTopLevelRule instanceof CSSMediaRule)
             {
-              visitKeyframesRule ((CSSKeyframesRule) aTopLevelRule, aVisitor);
+              visitMediaRule ((CSSMediaRule) aTopLevelRule, aVisitor);
             }
             else
-              if (aTopLevelRule instanceof CSSViewportRule)
+              if (aTopLevelRule instanceof CSSKeyframesRule)
               {
-                visitViewportRule ((CSSViewportRule) aTopLevelRule, aVisitor);
+                visitKeyframesRule ((CSSKeyframesRule) aTopLevelRule, aVisitor);
               }
               else
-                if (aTopLevelRule instanceof CSSSupportsRule)
+                if (aTopLevelRule instanceof CSSViewportRule)
                 {
-                  visitSupportsRule ((CSSSupportsRule) aTopLevelRule, aVisitor);
+                  visitViewportRule ((CSSViewportRule) aTopLevelRule, aVisitor);
                 }
                 else
-                  if (aTopLevelRule instanceof CSSLayerRule)
+                  if (aTopLevelRule instanceof CSSSupportsRule)
                   {
-                    visitLayerRule ((CSSLayerRule) aTopLevelRule, aVisitor);
+                    visitSupportsRule ((CSSSupportsRule) aTopLevelRule, aVisitor);
                   }
                   else
-                    if (aTopLevelRule instanceof CSSUnknownRule)
+                    if (aTopLevelRule instanceof CSSLayerRule)
                     {
-                      visitUnknownRule ((CSSUnknownRule) aTopLevelRule, aVisitor);
+                      visitLayerRule ((CSSLayerRule) aTopLevelRule, aVisitor);
                     }
                     else
-                      throw new IllegalStateException ("Top level rule " + aTopLevelRule + " is unsupported!");
+                      if (aTopLevelRule instanceof CSSUnknownRule)
+                      {
+                        visitUnknownRule ((CSSUnknownRule) aTopLevelRule, aVisitor);
+                      }
+                      else
+                        throw new IllegalStateException ("Top level rule " + aTopLevelRule + " is unsupported!");
   }
 
   /**
@@ -503,7 +498,7 @@ public final class CSSVisitor
   }
 
   /**
-   * Visit all items that can contain URLs in CSS files. Therefore the special
+   * Visit all items that can contain URLs in CSS files. Therefore, the special
    * visitor class {@link CSSVisitorForUrl} is used.
    *
    * @param aCSS
@@ -520,7 +515,7 @@ public final class CSSVisitor
   }
 
   /**
-   * Visit all items that can contain URLs in CSS files. Therefore the special
+   * Visit all items that can contain URLs in CSS files. Therefore, the special
    * visitor class {@link CSSVisitorForUrl} is used.
    *
    * @param aCSS

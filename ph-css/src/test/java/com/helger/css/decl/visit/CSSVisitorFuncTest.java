@@ -110,22 +110,52 @@ public final class CSSVisitorFuncTest extends AbstractCSSTestCase
 
   @Test
   public void testVisitNestedDeclarations() {
-    CascadingStyleSheet aSheet = CSSReader.readFromString(".foo { color: red; .bar { color: green; } color: blue; }");
-    CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex(0);
-    MockCountingNestedDeclarationsVisitor aVisitor = new MockCountingNestedDeclarationsVisitor();
-    CSSVisitor.visitStyleRule(aStyleRule, aVisitor);
-    assertEquals(1, aVisitor.getBeginNestedDeclarationsCount());
-    assertEquals(1, aVisitor.getEndNestedDeclarationsCount());
-    assertEquals(List.of("color:blue;"), aVisitor.getNestedDeclarations());
+    CascadingStyleSheet aSheet = CSSReader.readFromString (".foo { color: red; .bar { color: green; } color: blue; }");
+    CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex (0);
+    MockCountingNestedDeclarationsVisitor aVisitor = new MockCountingNestedDeclarationsVisitor ();
+    CSSVisitor.visitStyleRule (aStyleRule, aVisitor);
+    assertEquals(1, aVisitor.getBeginNestedDeclarationsCount ());
+    assertEquals(1, aVisitor.getEndNestedDeclarationsCount ());
+    assertEquals(List.of("color:blue;"), aVisitor.getNestedDeclarations ());
   }
 
   @Test
   public void testVisitDeclarations() {
-    CascadingStyleSheet aSheet = CSSReader.readFromString(".foo { color: red; .bar { color: green; } color: blue; }");
-    CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex(0);
-    MockCountingDeclarationsVisitor aVisitor = new MockCountingDeclarationsVisitor();
-    CSSVisitor.visitStyleRule(aStyleRule, aVisitor);
-    assertEquals(3, aVisitor.getDeclarationCount());
-    assertEquals(List.of("color:red", "color:green", "color:blue"), aVisitor.getDeclarations());
+    CascadingStyleSheet aSheet = CSSReader.readFromString (".foo { color: red; .bar { color: green; } color: blue; }");
+    CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex (0);
+    MockCountingDeclarationsVisitor aVisitor = new MockCountingDeclarationsVisitor ();
+    CSSVisitor.visitStyleRule (aStyleRule, aVisitor);
+    assertEquals(3, aVisitor.getDeclarationCount ());
+    assertEquals(List.of ("color:red", "color:green", "color:blue"), aVisitor.getDeclarations ());
+  }
+
+  @Test
+  public void testVisitPropertyRule() {
+    CascadingStyleSheet aSheet = CSSReader.readFromString ("""
+      @property --canBeAnything {
+        syntax: "*";
+        inherits: true;
+      }
+
+      @property --rotation {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 45deg;
+      }
+
+      @property --defaultSize {
+        syntax: "<length> | <percentage>";
+        inherits: true;
+        initial-value: 200px;
+      }
+      """);
+    MockCountingPageRuleVisitor aVisitor = new MockCountingPageRuleVisitor ();
+    CSSVisitor.visitCSS (aSheet, aVisitor);
+    assertEquals(3, aVisitor.getBeginPropertyRuleCount ());
+    assertEquals(3, aVisitor.getEndPropertyRuleCount ());
+    assertEquals(List.of (
+            "@property --canBeAnything {\n  syntax:\"*\";\n  inherits:true;\n}",
+            "@property --rotation {\n  syntax:\"<angle>\";\n  inherits:false;\n  initial-value:45deg;\n}",
+            "@property --defaultSize {\n  syntax:\"<length> | <percentage>\";\n  inherits:true;\n  initial-value:200px;\n}"), aVisitor.getPropertyRules ());
   }
 }

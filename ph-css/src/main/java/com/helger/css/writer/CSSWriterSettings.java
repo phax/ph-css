@@ -65,6 +65,8 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   public static final boolean DEFAULT_WRITE_MEDIA_RULES = true;
   /** By default, page rules are written */
   public static final boolean DEFAULT_WRITE_PAGE_RULES = true;
+  /** By default, property rules are written */
+  public static final boolean DEFAULT_WRITE_PROPERTY_RULES = true;
   /** By default, viewport rules are written */
   public static final boolean DEFAULT_WRITE_VIEWPORT_RULES = true;
   /** By default, supports rules are written */
@@ -92,6 +94,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   private boolean m_bWriteLayerRules = DEFAULT_WRITE_LAYER_RULES;
   private boolean m_bWriteMediaRules = DEFAULT_WRITE_MEDIA_RULES;
   private boolean m_bWritePageRules = DEFAULT_WRITE_PAGE_RULES;
+  private boolean m_bWritePropertyRules = DEFAULT_WRITE_PROPERTY_RULES;
   private boolean m_bWriteViewportRules = DEFAULT_WRITE_VIEWPORT_RULES;
   private boolean m_bWriteSupportsRules = DEFAULT_WRITE_SUPPORTS_RULES;
   private boolean m_bWriteUnknownRules = DEFAULT_WRITE_UNKNOWN_RULES;
@@ -135,6 +138,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     setWriteLayerRules (aBase.isWriteLayerRules ());
     setWriteMediaRules (aBase.isWriteMediaRules ());
     setWritePageRules (aBase.isWritePageRules ());
+    setWritePropertyRules (aBase.isWritePropertyRules ());
     setWriteViewportRules (aBase.isWriteViewportRules ());
     setWriteSupportsRules (aBase.isWriteSupportsRules ());
     setWriteUnknownRules (aBase.isWriteUnknownRules ());
@@ -306,6 +310,18 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   public final CSSWriterSettings setWritePageRules (final boolean bWritePageRules)
   {
     m_bWritePageRules = bWritePageRules;
+    return this;
+  }
+
+  public final boolean isWritePropertyRules ()
+  {
+    return m_bWritePropertyRules;
+  }
+
+  @NonNull
+  public final CSSWriterSettings setWritePropertyRules (final boolean bWritePropertyRules)
+  {
+    m_bWritePropertyRules = bWritePropertyRules;
     return this;
   }
 

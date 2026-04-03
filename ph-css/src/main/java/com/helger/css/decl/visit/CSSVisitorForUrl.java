@@ -175,6 +175,18 @@ public class CSSVisitorForUrl implements ICSSVisitor
     m_aTopLevelRule.pop ();
   }
 
+  @Override
+  public void onBeginPropertyRule(@NonNull CSSPropertyRule aPropertyRule)
+  {
+    m_aTopLevelRule.push (aPropertyRule);
+  }
+
+  @Override
+  public void onEndPropertyRule(@NonNull CSSPropertyRule aPropertyRule)
+  {
+    m_aTopLevelRule.pop ();
+  }
+
   public void onBeginFontFaceRule (@NonNull final CSSFontFaceRule aFontFaceRule)
   {
     m_aTopLevelRule.push (aFontFaceRule);

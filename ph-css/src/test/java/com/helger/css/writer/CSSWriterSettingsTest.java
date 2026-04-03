@@ -50,6 +50,7 @@ public final class CSSWriterSettingsTest extends AbstractCSSTestCase
     assertTrue (aSettings.isWriteLayerRules ());
     assertTrue (aSettings.isWriteMediaRules ());
     assertTrue (aSettings.isWritePageRules ());
+    assertTrue (aSettings.isWritePropertyRules ());
     assertTrue (aSettings.isWriteViewportRules ());
     assertTrue (aSettings.isWriteSupportsRules ());
     assertTrue (aSettings.isWriteUnknownRules ());

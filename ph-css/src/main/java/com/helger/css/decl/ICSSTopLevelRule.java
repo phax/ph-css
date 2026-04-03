@@ -28,6 +28,7 @@ import com.helger.css.ICSSWriteable;
  * <li>layer rules - {@link CSSLayerRule}
  * <li>media rules - {@link CSSMediaRule}
  * <li>page rules - {@link CSSPageRule}
+ * <li>property rules - {@link CSSPropertyRule}
  * <li>style rules - {@link CSSStyleRule}
  * <li>supports rules - {@link CSSSupportsRule}
  * <li>unknown rules - {@link CSSUnknownRule}

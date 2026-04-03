@@ -17,6 +17,7 @@
 package com.helger.css.decl.visit;
 
 import com.helger.css.decl.CSSNestedDeclarations;
+import com.helger.css.decl.CSSPropertyRule;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.css.decl.CSSDeclaration;
@@ -139,6 +140,21 @@ public interface ICSSVisitor
    *        The page rule. Never <code>null</code>.
    */
   void onEndPageRule (@NonNull CSSPageRule aPageRule);
+
+  /**
+   * Called when a property rule starts.
+   * @param aPropertyRule
+   *        The property rule. Never <code>null</code>.
+   */
+  void onBeginPropertyRule (@NonNull CSSPropertyRule aPropertyRule);
+
+  /**
+   * Called when a property rule ends.
+   *
+   * @param aPropertyRule
+   *        The property rule. Never <code>null</code>.
+   */
+  void onEndPropertyRule (@NonNull CSSPropertyRule aPropertyRule);
 
   // font face rules:
   /**

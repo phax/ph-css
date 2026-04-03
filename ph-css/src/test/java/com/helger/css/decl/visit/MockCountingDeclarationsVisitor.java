@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 class MockCountingDeclarationsVisitor extends DefaultCSSVisitor {
-    private int m_nDeclaration = 0;
-    private final List<String> m_sDeclarations = new ArrayList<>();
+  private int m_nDeclaration = 0;
+  private final List<String> m_sDeclarations = new ArrayList<>();
 
-    @Override
-    public void onDeclaration(@NonNull CSSDeclaration aDeclaration) {
-        m_nDeclaration++;
-        m_sDeclarations.add(aDeclaration.getAsCSSString());
-    }
+  @Override
+  public void onDeclaration(@NonNull CSSDeclaration aDeclaration) {
+    m_nDeclaration++;
+    m_sDeclarations.add(aDeclaration.getAsCSSString());
+  }
 
-    public int getDeclarationCount() {
-        return m_nDeclaration;
-    }
+  public int getDeclarationCount() {
+    return m_nDeclaration;
+  }
 
-    public List<String> getDeclarations() {
-        return m_sDeclarations;
-    }
+  public List<String> getDeclarations() {
+    return m_sDeclarations;
+  }
 }
