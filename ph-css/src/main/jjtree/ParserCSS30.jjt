@@ -1754,14 +1754,21 @@ void propertyRuleDescriptor() : {}
   | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
   )
 }
+
 void propertyRuleDeclaration() : {}
 {
+try {
   propertyRuleDescriptor()
-  ( <S> )*
   <COLON>
   ( <S> )*
   propertyRuleExpression()
   <SEMICOLON>
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl (ex);
+  else
+    errorSkipTo (ex, SEMICOLON);
+}
 }
 
 void propertyRule() :
