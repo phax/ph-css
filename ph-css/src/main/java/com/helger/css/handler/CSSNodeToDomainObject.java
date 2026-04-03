@@ -777,24 +777,86 @@ final class CSSNodeToDomainObject
     }
   }
 
-  private void _readStyleDeclarationListRules (@NonNull final CSSNode aNode,
-                                          @NonNull final Consumer <CSSStyleRule> aConsumer)
+  private void _readStyleDeclarationListWithNestedRules (@NonNull final CSSNode aNode,
+                                          @NonNull final Consumer <CSSDeclaration> aDeclarationConsumer,
+                                          @NonNull final Consumer <ICSSNestedRule> aNestedRuleConsumer)
   {
-    _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLIST);
-    // Read all contained declarations
+    _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLISTWITHNESTED);
+    // Read all contained declarations and rules
     final int nDecls = aNode.jjtGetNumChildren ();
+    CSSNestedDeclarations aNestedDeclarations = null;
     for (int nDecl = 0; nDecl < nDecls; ++nDecl)
     {
       final CSSNode aChildNode = aNode.jjtGetChild (nDecl);
-      if (ECSSNodeType.STYLERULE.isNode (aChildNode))
+      if (ECSSNodeType.STYLEDECLARATION.isNode (aChildNode))
       {
-        final CSSStyleRule aRule = _createStyleRule (aChildNode);
-        if (aRule != null)
-          aConsumer.accept (aRule);
+        final CSSDeclaration aDeclaration = _createDeclaration (aChildNode);
+        if (aDeclaration != null) {
+          // declarations that appear at the start are added as declarations of the style rule
+          // declarations that appear interspersed with other rules are wrapped in a nested declarations element
+          if (aNestedDeclarations != null) {
+            aNestedDeclarations.addDeclaration(aDeclaration);
+          } else {
+            aDeclarationConsumer.accept (aDeclaration);
+          }
+        }
       }
-      // else
-      // ignore ERROR_SKIP to and all "@" things
+      else
+        if (ECSSNodeType.STYLERULE.isNode (aChildNode))
+        {
+          if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+            aNestedRuleConsumer.accept (aNestedDeclarations);
+          final CSSStyleRule aRule = _createStyleRule (aChildNode);
+          if (aRule != null)
+            aNestedRuleConsumer.accept (aRule);
+          aNestedDeclarations = new CSSNestedDeclarations();
+        }
+        else
+          if (ECSSNodeType.MEDIARULE.isNode (aChildNode))
+          {
+            if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+              aNestedRuleConsumer.accept (aNestedDeclarations);
+            final CSSMediaRule aRule = _createMediaRule (aChildNode);
+            if (aRule != null)
+              aNestedRuleConsumer.accept (aRule);
+            aNestedDeclarations = new CSSNestedDeclarations();
+          }
+          else
+            if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode))
+            {
+              if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+                aNestedRuleConsumer.accept (aNestedDeclarations);
+              final CSSSupportsRule aRule = _createSupportsRule (aChildNode);
+              if (aRule != null)
+                aNestedRuleConsumer.accept (aRule);
+              aNestedDeclarations = new CSSNestedDeclarations();
+            }
+            else
+              if (ECSSNodeType.LAYERRULE.isNode (aChildNode))
+              {
+                if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+                  aNestedRuleConsumer.accept (aNestedDeclarations);
+                final CSSLayerRule aRule = _createLayerRule (aChildNode);
+                if (aRule != null)
+                  aNestedRuleConsumer.accept (aRule);
+                aNestedDeclarations = new CSSNestedDeclarations();
+              }
+              else
+                if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode))
+                {
+                  if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+                    aNestedRuleConsumer.accept (aNestedDeclarations);
+                  final CSSUnknownRule aRule = _createUnknownRule (aChildNode);
+                  if (aRule != null)
+                    aNestedRuleConsumer.accept (aRule);
+                  aNestedDeclarations = new CSSNestedDeclarations();
+                }
+                // else
+                // ignore ERROR_SKIP to and all unsupported nested "@" rules
     }
+    // append trailing declarations if there are any
+    if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+      aNestedRuleConsumer.accept (aNestedDeclarations);
   }
 
   @Nullable
@@ -818,13 +880,10 @@ final class CSSNodeToDomainObject
       {
         // OK, we're after the selectors
         bSelectors = false;
-        if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode))
+        if (ECSSNodeType.STYLEDECLARATIONLISTWITHNESTED.isNode (aChildNode))
         {
-          // Read all contained declarations
-          _readStyleDeclarationList (aChildNode, ret::addDeclaration);
-
-          // Read all contained rules
-          _readStyleDeclarationListRules (aChildNode, ret::addRule);
+          // Read all contained declarations and nested rules
+          _readStyleDeclarationListWithNestedRules (aChildNode, ret::addDeclaration, ret::addRule);
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode))

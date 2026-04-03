@@ -16,6 +16,7 @@
  */
 package com.helger.css.decl;
 
+import com.helger.base.state.EChange;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -33,7 +34,7 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 @NotThreadSafe
-public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware
+public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSNestedRule, ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aSelectors;
   private CSSSourceLocation m_aSourceLocation;
@@ -50,6 +51,121 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
     m_aSelectors = new CommonsArrayList <> (aSelectors);
   }
 
+  /**
+   * Checks if at least one selector is present.
+   * @return <code>true</code> if at least one selector is present, <code>false</code> otherwise.
+   * @since 8.2.0
+   */
+  public boolean hasSelectors ()
+  {
+    return m_aSelectors.isNotEmpty ();
+  }
+
+  /**
+   * Gets the number of selectors.
+   * @return The number of selectors. Always &ge; 0.
+   * @since 8.2.0
+   */
+  @Nonnegative
+  public int getSelectorCount ()
+  {
+    return m_aSelectors.size ();
+  }
+
+  /**
+   * Adds a selector to the end of the selector list.
+   * @param aSelector The selector to be added. Must not be <code>null</code>.
+   * @return This rule for chaining. Never <code>null</code>.
+   * @since 8.2.0
+   */
+  @NonNull
+  public CSSLayerRule addSelector (@NonNull final String aSelector)
+  {
+    ValueEnforcer.notNull (aSelector, "Selector");
+
+    m_aSelectors.add (aSelector);
+    return this;
+  }
+
+  /**
+   * Adds a selector at the specified index. If the index is greater than the current number of selectors, the selector
+   * is added at the end of the list.
+   * @param nIndex The index at which the selector should be added. Must be &ge; 0.
+   * @param aSelector The selector to be added. Must not be <code>null</code>.
+   * @return This rule for chaining. Never <code>null</code>.
+   * @since 8.2.0
+   */
+  @NonNull
+  public CSSLayerRule addSelector (@Nonnegative final int nIndex, @NonNull final String aSelector)
+  {
+    ValueEnforcer.isGE0 (nIndex, "Index");
+    ValueEnforcer.notNull (aSelector, "Selector");
+
+    if (nIndex >= getSelectorCount ())
+      m_aSelectors.add (aSelector);
+    else
+      m_aSelectors.add (nIndex, aSelector);
+    return this;
+  }
+
+  /**
+   * Remove the specified selector, if present.
+   *
+   * @param aSelector The selector to be removed. Must not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the selector was removed, {@link EChange#UNCHANGED} if the selector was not found.
+   *         Never <code>null</code>.
+   * @since 8.2.0
+   */
+  @NonNull
+  public EChange removeSelector (@NonNull final String aSelector)
+  {
+    return m_aSelectors.removeObject (aSelector);
+  }
+
+  /**
+   * Removes the selector at the specified index.
+   *
+   * @param nSelectorIndex The index of the selector to be removed. Must be &ge; 0.
+   * @return {@link EChange#CHANGED} if the selector was removed, {@link EChange#UNCHANGED} if the index was &ge; the
+   * number of selectors. Never <code>null</code>.
+   * @since 8.2.0
+   */
+  @NonNull
+  public EChange removeSelector (@Nonnegative final int nSelectorIndex)
+  {
+    return m_aSelectors.removeAtIndex (nSelectorIndex);
+  }
+
+  /**
+   * Removes all selectors.
+   *
+   * @return {@link EChange#CHANGED} if any selector was removed,
+   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @since 8.2.0
+   */
+  @NonNull
+  public EChange removeAllSelectors ()
+  {
+    return m_aSelectors.removeAll ();
+  }
+
+  /**
+   * Gets the selector at the specified index.
+   *
+   * @param nSelectorIndex The index of the selector to be retrieved. Must be &ge; 0.
+   * @return The selector at the specified index, or <code>null</code> if the index is &ge; the number of selectors.
+   * @since 8.2.0
+   */
+  @Nullable
+  public String getSelectorAtIndex (@Nonnegative final int nSelectorIndex)
+  {
+    return m_aSelectors.getAtIndex (nSelectorIndex);
+  }
+
+  /**
+   * Gets a copy of all selectors. Modifications to the returned list do not affect this rule, and vice versa.
+   * @return A list of all selectors. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllSelectors ()
@@ -60,6 +176,10 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   @NonNull
   public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
+    // Always ignore layer rules?
+    if (!aSettings.isWriteLayerRules ())
+      return "";
+
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 
     final StringBuilder aSB = new StringBuilder ("@layer ");
@@ -103,12 +223,9 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
         }
       }
       if (!bOptimizedOutput)
-        aSB.append (aSettings.getIndent (nIndentLevel));
+        aSB.append(aSettings.getNewLineString()).append (aSettings.getIndent (nIndentLevel));
       aSB.append ('}');
     }
-
-    if (!bOptimizedOutput)
-      aSB.append (aSettings.getNewLineString ());
 
     return aSB.toString ();
   }
