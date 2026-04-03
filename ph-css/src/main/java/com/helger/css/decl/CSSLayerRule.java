@@ -74,16 +74,16 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
 
   /**
    * Adds a selector to the end of the selector list.
-   * @param aSelector The selector to be added. Must not be <code>null</code>.
+   * @param sSelector The selector to be added. Must not be <code>null</code>.
    * @return This rule for chaining. Never <code>null</code>.
    * @since 8.2.0
    */
   @NonNull
-  public CSSLayerRule addSelector (@NonNull final String aSelector)
+  public CSSLayerRule addSelector (@NonNull final String sSelector)
   {
-    ValueEnforcer.notNull (aSelector, "Selector");
+    ValueEnforcer.notNull (sSelector, "Selector");
 
-    m_aSelectors.add (aSelector);
+    m_aSelectors.add (sSelector);
     return this;
   }
 
@@ -91,35 +91,35 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
    * Adds a selector at the specified index. If the index is greater than the current number of selectors, the selector
    * is added at the end of the list.
    * @param nIndex The index at which the selector should be added. Must be &ge; 0.
-   * @param aSelector The selector to be added. Must not be <code>null</code>.
+   * @param sSelector The selector to be added. Must not be <code>null</code>.
    * @return This rule for chaining. Never <code>null</code>.
    * @since 8.2.0
    */
   @NonNull
-  public CSSLayerRule addSelector (@Nonnegative final int nIndex, @NonNull final String aSelector)
+  public CSSLayerRule addSelector (@Nonnegative final int nIndex, @NonNull final String sSelector)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
-    ValueEnforcer.notNull (aSelector, "Selector");
+    ValueEnforcer.notNull (sSelector, "Selector");
 
     if (nIndex >= getSelectorCount ())
-      m_aSelectors.add (aSelector);
+      m_aSelectors.add (sSelector);
     else
-      m_aSelectors.add (nIndex, aSelector);
+      m_aSelectors.add (nIndex, sSelector);
     return this;
   }
 
   /**
    * Remove the specified selector, if present.
    *
-   * @param aSelector The selector to be removed. Must not be <code>null</code>.
+   * @param sSelector The selector to be removed. Must not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the selector was removed, {@link EChange#UNCHANGED} if the selector was not found.
    *         Never <code>null</code>.
    * @since 8.2.0
    */
   @NonNull
-  public EChange removeSelector (@NonNull final String aSelector)
+  public EChange removeSelector (@NonNull final String sSelector)
   {
-    return m_aSelectors.removeObject (aSelector);
+    return m_aSelectors.removeObject (sSelector);
   }
 
   /**

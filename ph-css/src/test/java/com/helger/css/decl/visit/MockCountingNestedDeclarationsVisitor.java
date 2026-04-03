@@ -9,7 +9,7 @@ import java.util.List;
 class MockCountingNestedDeclarationsVisitor extends DefaultCSSVisitor {
     private int m_nBeginNestedDeclarations = 0;
     private int m_nEndNestedDeclarations = 0;
-    private final List<String> nestedDeclaration = new ArrayList<>();
+    private final List<String> m_sNestedDeclaration = new ArrayList<>();
 
     @Override
     public void onBeginNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations) {
@@ -19,7 +19,7 @@ class MockCountingNestedDeclarationsVisitor extends DefaultCSSVisitor {
     @Override
     public void onEndNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations) {
         m_nEndNestedDeclarations++;
-        nestedDeclaration.add(aNestedDeclarations.getAsCSSString());
+        m_sNestedDeclaration.add(aNestedDeclarations.getAsCSSString());
     }
 
     public int getBeginNestedDeclarationsCount() {
@@ -31,6 +31,6 @@ class MockCountingNestedDeclarationsVisitor extends DefaultCSSVisitor {
     }
 
     public List<String> getNestedDeclarations() {
-        return nestedDeclaration;
+        return m_sNestedDeclaration;
     }
 }

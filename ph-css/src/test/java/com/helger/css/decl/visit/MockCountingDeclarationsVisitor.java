@@ -8,12 +8,12 @@ import java.util.List;
 
 class MockCountingDeclarationsVisitor extends DefaultCSSVisitor {
     private int m_nDeclaration = 0;
-    private final List<String> declarations = new ArrayList<>();
+    private final List<String> m_sDeclarations = new ArrayList<>();
 
     @Override
     public void onDeclaration(@NonNull CSSDeclaration aDeclaration) {
         m_nDeclaration++;
-        declarations.add(aDeclaration.getAsCSSString());
+        m_sDeclarations.add(aDeclaration.getAsCSSString());
     }
 
     public int getDeclarationCount() {
@@ -21,6 +21,6 @@ class MockCountingDeclarationsVisitor extends DefaultCSSVisitor {
     }
 
     public List<String> getDeclarations() {
-        return declarations;
+        return m_sDeclarations;
     }
 }
