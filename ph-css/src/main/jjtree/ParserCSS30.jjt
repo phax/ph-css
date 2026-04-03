@@ -1747,39 +1747,33 @@ void propertyRuleExpression() #void : {}
   )
 }
 
-void propertyRuleUnknownDescriptor() #void : {}
+void propertyRuleInvalidDeclaration() #void : {}
 {
-  <IDENT> { throw new ParseException ("Invalid identifier '" + token.image + "'"); }
+try {
+  <IDENT> { throw new ParseException ("Invalid descriptor '" + token.image + "'"); }
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl (ex);
+  else
+    errorSkipTo (ex, SEMICOLON);
+}
 }
 
 void propertyRuleDescriptor() : {}
 {
-  ( ( <SYNTAX_SYM> { jjtThis.setText (token.image); }
-    | <INHERITS_SYM> { jjtThis.setText (token.image); }
-    | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
-    )
-    ( <S> )*
+  ( <SYNTAX_SYM> { jjtThis.setText (token.image); }
+  | <INHERITS_SYM> { jjtThis.setText (token.image); }
+  | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
   )
-  | propertyRuleUnknownDescriptor()
+  ( <S> )*
 }
 
 void propertyRuleDeclaration() : {}
 {
-try {
   propertyRuleDescriptor()
   <COLON>
   ( <S> )*
   propertyRuleExpression()
-} catch (/*final*/ ParseException ex) {
-  if (m_bBrowserCompliantMode)
-    browserCompliantSkipDecl (ex);
-  else {
-    errorSkipTo (ex, SEMICOLON);
-    token_source.backup(1);
-  }
-  jjtree.closeNodeScope (jjtn000, false);
-  jjtc000 = false;
-}
 }
 
 void propertyRule() :
@@ -1797,7 +1791,9 @@ void propertyRule() :
   <LBRACE>
 try {
   ( <S> )*
-  ( propertyRuleDeclaration()
+  ( ( propertyRuleDeclaration()
+    | propertyRuleInvalidDeclaration()
+    )
     <SEMICOLON>
     ( <S> )*
   )*
