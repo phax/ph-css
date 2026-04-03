@@ -1037,6 +1037,11 @@ void relativeSelector() : {}
   selector ()
 }
 
+void selectorOrRelativeSelector() #void : {}
+{
+  ( LOOKAHEAD( selectorCombinator() ) relativeSelector() | selector() )
+}
+
 void relativeSelectorList() #void : {}
 {
   ( <S> )*
@@ -1326,11 +1331,11 @@ try {
 void styleRule() : {}
 {
 try{
-  selector ()
+  selectorOrRelativeSelector ()
   ( <S> )*
   ( <COMMA>
     ( <S> )*
-    selector()
+    selectorOrRelativeSelector()
     ( <S> )*
   )*
   styleDeclarationBlockWithNested()

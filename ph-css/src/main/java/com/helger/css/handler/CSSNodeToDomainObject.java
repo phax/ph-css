@@ -779,7 +779,8 @@ final class CSSNodeToDomainObject
 
   private void _readStyleDeclarationListWithNestedRules (@NonNull final CSSNode aNode,
                                           @NonNull final Consumer <CSSDeclaration> aDeclarationConsumer,
-                                          @NonNull final Consumer <ICSSNestedRule> aNestedRuleConsumer)
+                                          @NonNull final Consumer <ICSSNestedRule> aNestedRuleConsumer,
+                                          final int nStyleRuleCount)
   {
     _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLISTWITHNESTED);
     // Read all contained declarations and rules
@@ -806,7 +807,7 @@ final class CSSNodeToDomainObject
         {
           if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
             aNestedRuleConsumer.accept (aNestedDeclarations);
-          final CSSStyleRule aRule = _createStyleRule (aChildNode);
+          final CSSStyleRule aRule = _createStyleRule (aChildNode, nStyleRuleCount + 1);
           if (aRule != null)
             aNestedRuleConsumer.accept (aRule);
           aNestedDeclarations = new CSSNestedDeclarations();
@@ -816,7 +817,7 @@ final class CSSNodeToDomainObject
           {
             if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
               aNestedRuleConsumer.accept (aNestedDeclarations);
-            final CSSMediaRule aRule = _createMediaRule (aChildNode);
+            final CSSMediaRule aRule = _createMediaRule (aChildNode, nStyleRuleCount);
             if (aRule != null)
               aNestedRuleConsumer.accept (aRule);
             aNestedDeclarations = new CSSNestedDeclarations();
@@ -826,7 +827,7 @@ final class CSSNodeToDomainObject
             {
               if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
                 aNestedRuleConsumer.accept (aNestedDeclarations);
-              final CSSSupportsRule aRule = _createSupportsRule (aChildNode);
+              final CSSSupportsRule aRule = _createSupportsRule (aChildNode, nStyleRuleCount);
               if (aRule != null)
                 aNestedRuleConsumer.accept (aRule);
               aNestedDeclarations = new CSSNestedDeclarations();
@@ -836,7 +837,7 @@ final class CSSNodeToDomainObject
               {
                 if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
                   aNestedRuleConsumer.accept (aNestedDeclarations);
-                final CSSLayerRule aRule = _createLayerRule (aChildNode);
+                final CSSLayerRule aRule = _createLayerRule (aChildNode, nStyleRuleCount);
                 if (aRule != null)
                   aNestedRuleConsumer.accept (aRule);
                 aNestedDeclarations = new CSSNestedDeclarations();
@@ -860,7 +861,7 @@ final class CSSNodeToDomainObject
   }
 
   @Nullable
-  private CSSStyleRule _createStyleRule (@NonNull final CSSNode aNode)
+  private CSSStyleRule _createStyleRule (@NonNull final CSSNode aNode, final int nStyleRuleCount)
   {
     _expectNodeType (aNode, ECSSNodeType.STYLERULE);
     final CSSStyleRule ret = new CSSStyleRule ();
@@ -876,6 +877,16 @@ final class CSSNodeToDomainObject
 
         ret.addSelector (_createSelector (aChildNode));
       }
+      else if (ECSSNodeType.RELATIVESELECTOR.isNode (aChildNode))
+      {
+        if (!bSelectors)
+          m_aErrorHandler.onCSSInterpretationError ("Found a selector after a declaration!");
+
+        if (nStyleRuleCount == 0)
+          m_aErrorHandler.onCSSInterpretationError ("Relative selectors are not allowed at the top level!");
+
+        ret.addSelector (_createRelativeSelector (aChildNode));
+      }
       else
       {
         // OK, we're after the selectors
@@ -883,7 +894,7 @@ final class CSSNodeToDomainObject
         if (ECSSNodeType.STYLEDECLARATIONLISTWITHNESTED.isNode (aChildNode))
         {
           // Read all contained declarations and nested rules
-          _readStyleDeclarationListWithNestedRules (aChildNode, ret::addDeclaration, ret::addRule);
+          _readStyleDeclarationListWithNestedRules (aChildNode, ret::addDeclaration, ret::addRule, nStyleRuleCount);
         }
         else
           if (!ECSSNodeType.isErrorNode (aChildNode))
@@ -964,7 +975,7 @@ final class CSSNodeToDomainObject
   }
 
   @NonNull
-  private CSSMediaRule _createMediaRule (@NonNull final CSSNode aNode)
+  private CSSMediaRule _createMediaRule (@NonNull final CSSNode aNode, final int nStyleRuleCount)
   {
     _expectNodeType (aNode, ECSSNodeType.MEDIARULE);
     final CSSMediaRule ret = new CSSMediaRule ();
@@ -980,7 +991,7 @@ final class CSSNodeToDomainObject
       else
         if (ECSSNodeType.STYLERULE.isNode (aChildNode))
         {
-          final CSSStyleRule aStyleRule = _createStyleRule (aChildNode);
+          final CSSStyleRule aStyleRule = _createStyleRule (aChildNode, nStyleRuleCount);
           if (aStyleRule != null)
             ret.addRule (aStyleRule);
         }
@@ -988,7 +999,7 @@ final class CSSNodeToDomainObject
           if (ECSSNodeType.MEDIARULE.isNode (aChildNode))
           {
             // Nested media rules are OK!
-            ret.addRule (_createMediaRule (aChildNode));
+            ret.addRule (_createMediaRule (aChildNode, nStyleRuleCount));
           }
           else
             if (ECSSNodeType.PAGERULE.isNode (aChildNode))
@@ -1004,10 +1015,10 @@ final class CSSNodeToDomainObject
                     ret.addRule (_createViewportRule (aChildNode));
                   else
                     if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode))
-                      ret.addRule (_createSupportsRule (aChildNode));
+                      ret.addRule (_createSupportsRule (aChildNode, nStyleRuleCount));
                     else
                       if (ECSSNodeType.LAYERRULE.isNode (aChildNode))
-                        ret.addRule (_createLayerRule (aChildNode));
+                        ret.addRule (_createLayerRule (aChildNode, nStyleRuleCount));
                       else
                         if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode))
                         {
@@ -1155,7 +1166,7 @@ final class CSSNodeToDomainObject
   }
 
   @NonNull
-  private CSSLayerRule _createLayerRule (@NonNull final CSSNode aNode)
+  private CSSLayerRule _createLayerRule (@NonNull final CSSNode aNode, final int nStyleRuleCount)
   {
     _expectNodeType (aNode, ECSSNodeType.LAYERRULE);
     final int nChildCount = aNode.jjtGetNumChildren ();
@@ -1193,19 +1204,19 @@ final class CSSNodeToDomainObject
         final CSSNode aBodyChildNode = aBodyNode.jjtGetChild (nIndex);
         if (ECSSNodeType.STYLERULE.isNode (aBodyChildNode))
         {
-          final CSSStyleRule aStyleRule = _createStyleRule (aBodyChildNode);
+          final CSSStyleRule aStyleRule = _createStyleRule (aBodyChildNode, nStyleRuleCount);
           if (aStyleRule != null)
             ret.addRule (aStyleRule);
         }
         else
           if (ECSSNodeType.LAYERRULE.isNode (aBodyChildNode))
-            ret.addRule (_createLayerRule (aBodyChildNode));
+            ret.addRule (_createLayerRule (aBodyChildNode, nStyleRuleCount));
           else
             if (ECSSNodeType.MEDIARULE.isNode (aBodyChildNode))
-              ret.addRule (_createMediaRule (aBodyChildNode));
+              ret.addRule (_createMediaRule (aBodyChildNode, nStyleRuleCount));
             else
               if (ECSSNodeType.SUPPORTSRULE.isNode (aBodyChildNode))
-                ret.addRule (_createSupportsRule (aBodyChildNode));
+                ret.addRule (_createSupportsRule (aBodyChildNode, nStyleRuleCount));
               else
                 if (ECSSNodeType.KEYFRAMESRULE.isNode (aBodyChildNode))
                   ret.addRule (_createKeyframesRule (aBodyChildNode));
@@ -1412,7 +1423,7 @@ final class CSSNodeToDomainObject
   }
 
   @NonNull
-  private CSSSupportsRule _createSupportsRule (@NonNull final CSSNode aNode)
+  private CSSSupportsRule _createSupportsRule (@NonNull final CSSNode aNode, final int nStyleRuleCount)
   {
     _expectNodeType (aNode, ECSSNodeType.SUPPORTSRULE);
     final CSSSupportsRule ret = new CSSSupportsRule ();
@@ -1432,13 +1443,13 @@ final class CSSNodeToDomainObject
       else
         if (ECSSNodeType.STYLERULE.isNode (aChildNode))
         {
-          final CSSStyleRule aStyleRule = _createStyleRule (aChildNode);
+          final CSSStyleRule aStyleRule = _createStyleRule (aChildNode, nStyleRuleCount);
           if (aStyleRule != null)
             ret.addRule (aStyleRule);
         }
         else
           if (ECSSNodeType.MEDIARULE.isNode (aChildNode))
-            ret.addRule (_createMediaRule (aChildNode));
+            ret.addRule (_createMediaRule (aChildNode, nStyleRuleCount));
           else
             if (ECSSNodeType.PAGERULE.isNode (aChildNode))
               ret.addRule (_createPageRule (aChildNode));
@@ -1453,10 +1464,10 @@ final class CSSNodeToDomainObject
                     ret.addRule (_createViewportRule (aChildNode));
                   else
                     if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode))
-                      ret.addRule (_createSupportsRule (aChildNode));
+                      ret.addRule (_createSupportsRule (aChildNode, nStyleRuleCount));
                     else
                       if (ECSSNodeType.LAYERRULE.isNode (aChildNode))
-                        ret.addRule (_createLayerRule (aChildNode));
+                        ret.addRule (_createLayerRule (aChildNode, nStyleRuleCount));
                       else
                         if (!ECSSNodeType.isErrorNode (aChildNode))
                           m_aErrorHandler.onCSSInterpretationError ("Unsupported supports-rule child: " +
@@ -1512,7 +1523,7 @@ final class CSSNodeToDomainObject
           else
             if (ECSSNodeType.STYLERULE.isNode (aChildNode))
             {
-              final CSSStyleRule aStyleRule = _createStyleRule (aChildNode);
+              final CSSStyleRule aStyleRule = _createStyleRule (aChildNode, 0);
               if (aStyleRule != null)
                 ret.addRule (aStyleRule);
             }
@@ -1521,13 +1532,13 @@ final class CSSNodeToDomainObject
                 ret.addRule (_createPageRule (aChildNode));
               else
                 if (ECSSNodeType.MEDIARULE.isNode (aChildNode))
-                  ret.addRule (_createMediaRule (aChildNode));
+                  ret.addRule (_createMediaRule (aChildNode, 0));
                 else
                   if (ECSSNodeType.FONTFACERULE.isNode (aChildNode))
                     ret.addRule (_createFontFaceRule (aChildNode));
                   else
                     if (ECSSNodeType.LAYERRULE.isNode (aChildNode))
-                      ret.addRule (_createLayerRule (aChildNode));
+                      ret.addRule (_createLayerRule (aChildNode, 0));
                     else
                       if (ECSSNodeType.KEYFRAMESRULE.isNode (aChildNode))
                         ret.addRule (_createKeyframesRule (aChildNode));
@@ -1536,7 +1547,7 @@ final class CSSNodeToDomainObject
                           ret.addRule (_createViewportRule (aChildNode));
                         else
                           if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode))
-                            ret.addRule (_createSupportsRule (aChildNode));
+                            ret.addRule (_createSupportsRule (aChildNode, 0));
                           else
                             if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode))
                             {
