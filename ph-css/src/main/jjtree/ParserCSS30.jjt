@@ -1747,12 +1747,20 @@ void propertyRuleExpression() #void : {}
   )
 }
 
+void propertyRuleUnknownDescriptor() #void : {}
+{
+  <IDENT> { throw new ParseException ("Invalid identifier '" + token.image + "'"); }
+}
+
 void propertyRuleDescriptor() : {}
 {
-  ( <SYNTAX_SYM> { jjtThis.setText (token.image); }
-  | <INHERITS_SYM> { jjtThis.setText (token.image); }
-  | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
+  ( ( <SYNTAX_SYM> { jjtThis.setText (token.image); }
+    | <INHERITS_SYM> { jjtThis.setText (token.image); }
+    | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
+    )
+    ( <S> )*
   )
+  | propertyRuleUnknownDescriptor()
 }
 
 void propertyRuleDeclaration() : {}
@@ -1762,12 +1770,15 @@ try {
   <COLON>
   ( <S> )*
   propertyRuleExpression()
-  <SEMICOLON>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
     browserCompliantSkipDecl (ex);
-  else
+  else {
     errorSkipTo (ex, SEMICOLON);
+    token_source.backup(1);
+  }
+  jjtree.closeNodeScope (jjtn000, false);
+  jjtc000 = false;
 }
 }
 
@@ -1787,6 +1798,7 @@ void propertyRule() :
 try {
   ( <S> )*
   ( propertyRuleDeclaration()
+    <SEMICOLON>
     ( <S> )*
   )*
   <RBRACE>
