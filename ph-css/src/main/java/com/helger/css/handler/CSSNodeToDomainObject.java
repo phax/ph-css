@@ -16,6 +16,8 @@
  */
 package com.helger.css.handler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.jspecify.annotations.NonNull;
@@ -1334,18 +1336,40 @@ final class CSSNodeToDomainObject
     if (m_bUseSourceLocation)
       ret.setSourceLocation (aNode.getSourceLocation ());
 
+    final List<CSSDeclaration> aDeclarations = new ArrayList<>();
     for (final CSSNode aChildNode : aNode)
     {
       if (ECSSNodeType.STYLEDECLARATIONLIST.isNode (aChildNode))
-      {
         // Read all contained declarations
-        _readStyleDeclarationList (aChildNode, ret::addDeclaration);
-      }
+        _readStyleDeclarationList (aChildNode, aDeclarations::add);
       else
-      if (!ECSSNodeType.isErrorNode (aChildNode))
-        m_aErrorHandler.onCSSInterpretationError ("Unsupported property rule child: " +
-                ECSSNodeType.getNodeName (aChildNode));
+        if (!ECSSNodeType.isErrorNode (aChildNode))
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported property rule child: " + ECSSNodeType.getNodeName (aChildNode));
     }
+    for (final CSSDeclaration aDeclaration : aDeclarations)
+      switch (aDeclaration.getProperty())
+      {
+        case "syntax":
+          ret.setSyntax(aDeclaration.getExpression().getAsCSSString());
+          break;
+        case "inherits":
+          switch (aDeclaration.getExpression().getAsCSSString()) {
+            case "true":
+              ret.setInherits(true);
+              break;
+            case "false":
+              ret.setInherits(false);
+              break;
+            default:
+          }
+          break;
+        case "initial-value":
+          ret.setInitialValue(aDeclaration.getExpression().getAsCSSString());
+          break;
+        default:
+          m_aErrorHandler.onCSSInterpretationError ("Unsupported property rule declaration: " + aDeclaration.getAsCSSString());
+          break;
+      }
     return ret;
   }
 

@@ -19,18 +19,19 @@ package com.helger.css.decl;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
-import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a single <code>@viewport</code> rule.
@@ -47,10 +48,12 @@ import org.jspecify.annotations.Nullable;
  * @since 8.2.0
  */
 @NotThreadSafe
-public class CSSPropertyRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSPropertyRule>, ICSSSourceLocationAware
+public class CSSPropertyRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 {
-  private final String m_sPropertyName;
-  private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
+  private String m_sName;
+  private String m_sInitialValue;
+  private Boolean m_bInherits;
+  private String m_sSyntax;
   private CSSSourceLocation m_aSourceLocation;
 
   /**
@@ -67,7 +70,7 @@ public class CSSPropertyRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
   public CSSPropertyRule(@NonNull @Nonempty final String sPropertyName)
   {
     ValueEnforcer.isTrue (isValidPropertyName (sPropertyName), "Property name is invalid");
-    m_sPropertyName = sPropertyName;
+    m_sName = sPropertyName;
   }
 
   /**
@@ -75,98 +78,44 @@ public class CSSPropertyRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
    */
   @NonNull
   @Nonempty
-  public String getPropertyName ()
+  public String getName ()
   {
-    return m_sPropertyName;
+    return m_sName;
   }
 
-  @Override
+  public void setName(String name) {
+    ValueEnforcer.isTrue (isValidPropertyName (name), "Property name is invalid");
+    this.m_sName = name;
+  }
+
+
   @NonNull
-  public CSSPropertyRule addDeclaration (@NonNull final CSSDeclaration aDeclaration)
+  public String getInitialValue ()
   {
-    m_aDeclarations.addDeclaration (aDeclaration);
-    return this;
+      return m_sInitialValue != null ? m_sInitialValue : "";
   }
 
-  @Override
+  public void setInitialValue(String initialValue) {
+      this.m_sInitialValue = initialValue;
+  }
+
+  public boolean isInherits ()
+  {
+      return m_bInherits  != null ? m_bInherits : false;
+  }
+
+  public void setInherits(Boolean inherits) {
+      this.m_bInherits = inherits;
+  }
+
   @NonNull
-  public CSSPropertyRule addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
+  public String getSyntax ()
   {
-    m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
-    return this;
+      return m_sSyntax != null ? m_sSyntax : "";
   }
 
-  @Override
-  @NonNull
-  public EChange removeDeclaration (@NonNull final CSSDeclaration aDeclaration)
-  {
-    return m_aDeclarations.removeDeclaration (aDeclaration);
-  }
-
-  @Override
-  @NonNull
-  public EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
-  {
-    return m_aDeclarations.removeDeclaration (nDeclarationIndex);
-  }
-
-  @Override
-  @NonNull
-  public EChange removeAllDeclarations ()
-  {
-    return m_aDeclarations.removeAllDeclarations ();
-  }
-
-  @Override
-  @NonNull
-  @ReturnsMutableCopy
-  public ICommonsList <CSSDeclaration> getAllDeclarations ()
-  {
-    return m_aDeclarations.getAllDeclarations ();
-  }
-
-  @Override
-  @Nullable
-  public CSSDeclaration getDeclarationAtIndex (@Nonnegative final int nIndex)
-  {
-    return m_aDeclarations.getDeclarationAtIndex (nIndex);
-  }
-
-  @Override
-  @NonNull
-  public CSSPropertyRule setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                @NonNull final CSSDeclaration aNewDeclaration)
-  {
-    m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
-    return this;
-  }
-
-  @Override
-  public boolean hasDeclarations ()
-  {
-    return m_aDeclarations.hasDeclarations ();
-  }
-
-  @Override
-  @Nonnegative
-  public int getDeclarationCount ()
-  {
-    return m_aDeclarations.getDeclarationCount ();
-  }
-
-  @Override
-  @Nullable
-  public CSSDeclaration getDeclarationOfPropertyName (@Nullable final String sPropertyName)
-  {
-    return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
-  }
-
-  @Override
-  @NonNull
-  @ReturnsMutableCopy
-  public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
-  {
-    return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
+  public void setSyntax(String syntax) {
+      this.m_sSyntax = syntax;
   }
 
   @Override
@@ -178,9 +127,36 @@ public class CSSPropertyRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
     if (!aSettings.isWritePropertyRules ())
       return "";
 
+    final boolean bOptimizeOutput = aSettings.isOptimizedOutput ();
+    final List<Map.Entry<String, String>> aDeclarations = _buildDeclarations();
+    final int nCount = aDeclarations.size ();
+
     final StringBuilder aSB = new StringBuilder ("@property ");
-    aSB.append (m_sPropertyName);
-    aSB.append (m_aDeclarations.getAsCSSString(aSettings, nIndentLevel));
+    aSB.append(m_sName);
+
+    aSB.append (bOptimizeOutput ? "{" : " {");
+    if (!bOptimizeOutput && nCount == 1)
+      aSB.append (" ");
+
+    int nIndex = 0;
+    for (final Map.Entry<String, String> aDeclaration : aDeclarations)
+    {
+      if (!bOptimizeOutput && nCount > 1)
+        aSB.append (aSettings.getNewLineString()).append (aSettings.getIndent (nIndentLevel + 1));
+      aSB.append (aDeclaration.getKey ());
+      aSB.append (":");
+      aSB.append (aDeclaration.getValue ());
+      if (!bOptimizeOutput || nIndex != aDeclarations.size() - 1)
+        aSB.append (";");
+      ++nIndex;
+    }
+
+    if (!bOptimizeOutput && nCount > 1)
+      aSB.append (aSettings.getNewLineString()).append (aSettings.getIndent (nIndentLevel));
+    if (!bOptimizeOutput && nCount == 1)
+      aSB.append (" ");
+    aSB.append("}");
+
     return aSB.toString ();
   }
 
@@ -205,21 +181,45 @@ public class CSSPropertyRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSPropertyRule rhs = (CSSPropertyRule) o;
-    return m_sPropertyName.equals (rhs.m_sPropertyName) && m_aDeclarations.equals (rhs.m_aDeclarations);
+    return m_sName.equals (rhs.m_sName) && m_sInitialValue.equals (rhs.m_sInitialValue) && m_bInherits == rhs.m_bInherits && m_sSyntax.equals (rhs.m_sSyntax);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sPropertyName).append (m_aDeclarations).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sName).append (m_bInherits).append(m_sSyntax).append(m_sInitialValue).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("propertyName", m_sPropertyName)
-                                       .append ("declarations", m_aDeclarations)
+    return new ToStringGenerator (this).append ("propertyName", m_sName)
+                                       .append ("syntax", m_sSyntax)
+                                       .append ("inherits", m_bInherits)
+                                       .append ("initialValue", m_sInitialValue)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
+  }
+
+  private List<Map.Entry<String, String>> _buildDeclarations()
+  {
+    final List<Map.Entry<String, String>> ret = new ArrayList<> ();
+
+    if (StringHelper.isNotEmpty(m_sSyntax))
+    {
+      ret.add (Map.entry ("syntax", m_sSyntax));
+    }
+
+    if (m_bInherits != null)
+    {
+      ret.add (Map.entry ("inherits", Boolean.toString(m_bInherits)));
+    }
+
+    if (StringHelper.isNotEmpty(m_sInitialValue))
+    {
+      ret.add (Map.entry ("initial-value", m_sInitialValue));
+    }
+
+    return ret;
   }
 }

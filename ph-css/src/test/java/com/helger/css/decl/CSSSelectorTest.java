@@ -36,7 +36,7 @@ import java.util.List;
  */
 public final class CSSSelectorTest
 {
-  private CollectingCSSInterpretErrorHandler m_aIEH = new CollectingCSSInterpretErrorHandler ();
+  private final CollectingCSSInterpretErrorHandler m_aIEH = new CollectingCSSInterpretErrorHandler ();
 
   @NonNull
   private CSSSelector _parse (@NonNull final String sCSS)

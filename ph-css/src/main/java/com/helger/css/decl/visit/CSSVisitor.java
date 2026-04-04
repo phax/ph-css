@@ -168,9 +168,6 @@ public final class CSSVisitor {
   {
     try {
       aVisitor.onBeginPropertyRule(aPageRule);
-      // for all declarations
-      for (final CSSDeclaration aDeclaration : aPageRule.getAllDeclarations())
-        aVisitor.onDeclaration(aDeclaration);
     } finally {
       aVisitor.onEndPropertyRule(aPageRule);
     }
