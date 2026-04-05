@@ -89,7 +89,27 @@ SPECIAL_TOKEN :
   < "*/" > : DEFAULT
 }
 
-<DEFAULT, IN_NTH, IN_UNKNOWN_RULE>
+<DEFAULT, IN_NTH, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
+TOKEN :
+{
+  < PLUS: "+" >
+| < MINUS: "-" >
+| < LROUND: "(" >
+| < RROUND: ")" >
+  {
+    if (curLexState == IN_NTH)
+      SwitchTo(DEFAULT);
+  }
+}
+
+<DEFAULT, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
+TOKEN :
+{
+  < LBRACE: "{" >
+| < RBRACE: "}" > : DEFAULT
+}
+
+<DEFAULT, IN_NTH, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
 TOKEN :
 {
   < S: (" "|"\t"|"\n"|"\r\n"|"\r"|"\f")+ >
@@ -106,16 +126,15 @@ TOKEN :
 | < INTEGER: ( ["0"-"9"] )+ >
 }
 
-<DEFAULT, IN_NTH, IN_UNKNOWN_RULE>
+<IN_PROPERTY_RULE>
 TOKEN :
 {
-  < PLUS: "+" >
-| < MINUS: "-" >
-| < LROUND: "(" >
-| < RROUND: ")" > : DEFAULT
+  < SYNTAX_SYM: "syntax" >
+| < INHERITS_SYM: "inherits" >
+| < INITIALVALUE_SYM: "initial-value" >
 }
 
-<DEFAULT, IN_UNKNOWN_RULE>
+<DEFAULT, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
 TOKEN :
 {
 // private reg ex come first (no actions possible!)
@@ -187,8 +206,6 @@ TOKEN :
                        >
 | < NUMBER: <NUM> >
 
-| < LBRACE: "{" >
-| < RBRACE: "}" >
 | < LSQUARE: "[" >
 | < RSQUARE: "]" >
 | < DOT: "." >
@@ -240,7 +257,7 @@ TOKEN :
 | < VIEWPORT_SYM: "@-" <IDENT> "-viewport"
                 | "@viewport" >
 | < SUPPORTS_SYM: "@supports" >
-| < PROPERTY_SYM: "@property" >
+| < PROPERTY_SYM: "@property" > : IN_PROPERTY_RULE
 | < AT_UNKNOWN: "@" <IDENT>
               | "@" > : IN_UNKNOWN_RULE
 | < IMPORTANT_SYM: "!" ( <S> )* "important" >
@@ -255,9 +272,6 @@ TOKEN :
 | < OR_SYM: "or" >
 | < TRUE_SYM: "true" >
 | < FALSE_SYM: "false" >
-| < SYNTAX_SYM: "syntax" >
-| < INHERITS_SYM: "inherits" >
-| < INITIALVALUE_SYM: "initial-value" >
 
 // ident        (--|-|$|*)?{nmstart}{nmchar}*
 // Note: "*" hack for IE <= 6 was altered in 6.2.1
@@ -305,7 +319,7 @@ TOKEN :
 
 // Single line comments are handled in all states except in unknown rules, because
 // there, tokens are simply chained together to a string
-<DEFAULT, IN_NTH>
+<DEFAULT, IN_NTH, IN_PROPERTY_RULE>
 SPECIAL_TOKEN :
 {
   // Skip until end of line or ";" or "}"
@@ -313,7 +327,8 @@ SPECIAL_TOKEN :
   < SINGLE_LINE_COMMENT: "//" (~["\n","\r",";","}"])* ("\n"|"\r"|"\r\n")? >
 }
 
-<*> TOKEN:
+<DEFAULT, IN_NTH, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
+TOKEN:
 {
   < UNKNOWN: ~[] >
   {
