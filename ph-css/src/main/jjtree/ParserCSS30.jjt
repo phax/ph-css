@@ -1793,14 +1793,23 @@ void propertyRuleDeclaration() : {}
   propertyRuleExpression()
 }
 
+void propertyRuleDeclarationOrInvalid() #void : {}
+{
+  ( propertyRuleDeclaration()
+    | propertyRuleInvalidDeclaration()
+    ( <S> | <CDO> | <CDC> )*
+  )
+}
+
 CSSNode propertyRuleDeclarationList() : {}
 {
 try {
-  ( ( propertyRuleDeclaration()
-    | propertyRuleInvalidDeclaration()
-    )
+  ( <S> )*
+  ( propertyRuleDeclarationOrInvalid() )?
+  (
     <SEMICOLON>
     ( <S> )*
+    ( propertyRuleDeclarationOrInvalid() )?
   )*
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
@@ -1827,7 +1836,6 @@ void propertyRule() :
   ( <S> )*
   <LBRACE>
 try {
-  ( <S> )*
   propertyRuleDeclarationList()
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
@@ -1837,6 +1845,7 @@ try {
     errorSkipTo (ex, RBRACE);
 }
 }
+
 //
 // Unknown rule
 //
