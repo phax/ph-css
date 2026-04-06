@@ -1410,14 +1410,43 @@ final class CSSNodeToDomainObject
     return ret;
   }
 
+  private void _readPropertyRuleDeclarationList (@NonNull final CSSNode aNode,
+                                          @NonNull final Consumer <CSSPropertyRuleDeclaration> aConsumer)
+  {
+    _expectNodeType (aNode, ECSSNodeType.PROPERTYRULEDECLARATIONLIST);
+    int nValidDecls = 0;
+    for (CSSNode aChildNode : aNode)
+    {
+      if (ECSSNodeType.PROPERTYRULEDECLARATION.isNode (aChildNode))
+        nValidDecls++;
+    }
+    if (nValidDecls > 3)
+      _throwUnexpectedChildrenCount (aNode,
+                                     "Expected at most 3 children but got " + nValidDecls + "!");
+
+    // Read all contained declarations
+    final int nDecls = aNode.jjtGetNumChildren ();
+    for (int nDecl = 0; nDecl < nDecls; ++nDecl)
+    {
+      final CSSNode aChildNode = aNode.jjtGetChild (nDecl);
+      if (ECSSNodeType.PROPERTYRULEDECLARATION.isNode (aChildNode))
+      {
+        final CSSPropertyRuleDeclaration aDeclaration = _createPropertyRuleDeclaration (aChildNode);
+        if (aDeclaration != null)
+          aConsumer.accept (aDeclaration);
+      }
+      // else
+      // ignore ERROR_SKIP to and all "@" things
+    }
+  }
+
   @NonNull
   private CSSPropertyRule _createPropertyRule (@NonNull final CSSNode aNode)
   {
     _expectNodeType (aNode, ECSSNodeType.PROPERTYRULE);
     final int nChildCount = aNode.jjtGetNumChildren ();
-    if (nChildCount > 3)
-      _throwUnexpectedChildrenCount (aNode,
-                                     "Expected at most 3 children but got " + nChildCount + "!");
+    if (nChildCount != 1)
+      _throwUnexpectedChildrenCount (aNode, "Expected 1 child but got " + nChildCount + "!");
 
     // Get the identifier (e.g. "--canBeAnything")
     final String sIdentifier = aNode.getText ();
@@ -1425,8 +1454,17 @@ final class CSSNodeToDomainObject
     final CSSPropertyRule ret = new CSSPropertyRule (sIdentifier);
     if (m_bUseSourceLocation)
       ret.setSourceLocation (aNode.getSourceLocation ());
-    for (final CSSNode aChildNode : aNode)
-      ret.addPropertyRuleDeclaration (_createPropertyRuleDeclaration (aChildNode));
+
+    final CSSNode aChildNode = aNode.jjtGetChild(0);
+    if (ECSSNodeType.PROPERTYRULEDECLARATIONLIST.isNode(aChildNode))
+    {
+        // Read all contained declarations
+        _readPropertyRuleDeclarationList (aChildNode, ret::addDeclaration);
+    }
+    else
+      if (!ECSSNodeType.isErrorNode (aChildNode))
+        m_aErrorHandler.onCSSInterpretationError ("Unsupported property rule child: " +
+                                                  ECSSNodeType.getNodeName (aChildNode));
     return ret;
   }
 

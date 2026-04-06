@@ -1769,8 +1769,10 @@ try {
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
     browserCompliantSkipDecl (ex);
-  else
+  else {
     errorSkipTo (ex, SEMICOLON);
+    token_source.backup(1);
+  }
 }
 }
 
@@ -1791,27 +1793,42 @@ void propertyRuleDeclaration() : {}
   propertyRuleExpression()
 }
 
-void propertyRule() :
-{ Token t; }
+CSSNode propertyRuleDeclarationList() : {}
 {
-  <PROPERTY_SYM>
-  ( <S> )*
-  t = <IDENT> 
-  { 
-    if (!t.image.startsWith ("--"))
-      throw new ParseException ("Invalid identifier '" + t.image + "'. Only dashed identifier allowed (e.g. '--canBeAnything').");
-    jjtThis.setText (t.image);
-  }
-  ( <S> )*
-  <LBRACE>
 try {
-  ( <S> )*
   ( ( propertyRuleDeclaration()
     | propertyRuleInvalidDeclaration()
     )
     <SEMICOLON>
     ( <S> )*
   )*
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl (ex);
+  else {
+    errorSkipTo (ex, RBRACE);
+    token_source.backup(1);
+  }
+}
+  { return jjtThis; }
+}
+
+void propertyRule() :
+{ Token t; }
+{
+  <PROPERTY_SYM>
+  ( <S> )*
+  <IDENT> 
+  { 
+    if (!token.image.startsWith ("--"))
+      throw new ParseException ("Invalid identifier '" + token.image + "'. Only dashed identifier allowed (e.g. '--canBeAnything').");
+    jjtThis.setText (token.image);
+  }
+  ( <S> )*
+  <LBRACE>
+try {
+  ( <S> )*
+  propertyRuleDeclarationList()
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)

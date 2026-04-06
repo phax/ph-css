@@ -327,7 +327,7 @@ public final class CSSVisitor
     try
     {
       // for all property rule declarations
-      for (final CSSPropertyRuleDeclaration aDeclaration : aPropertyRule.getAllPropertyRuleDeclarations ())
+      for (final CSSPropertyRuleDeclaration aDeclaration : aPropertyRule.getAllDeclarations ())
         aVisitor.onPropertyRuleDeclaration (aDeclaration);
     }
     finally

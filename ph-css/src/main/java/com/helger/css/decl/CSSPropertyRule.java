@@ -46,7 +46,7 @@ import com.helger.css.ICSSWriterSettings;
 public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware
 { 
   private final String m_sIdentifier;
-  private final ICommonsList <CSSPropertyRuleDeclaration> m_aDeclarations = new CommonsArrayList <> ();
+  private final CSSPropertyRuleDeclarationList m_aDeclarations = new CSSPropertyRuleDeclarationList();
   private CSSSourceLocation m_aSourceLocation;
 
   public static boolean isValidIdentifier (@NonNull @Nonempty final String sIdentifier)
@@ -68,71 +68,71 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
   }
 
   @NonNull
-  public CSSPropertyRule addPropertyRuleDeclaration (@NonNull final CSSPropertyRuleDeclaration aDeclaration)
+  public CSSPropertyRule addDeclaration (@NonNull final CSSPropertyRuleDeclaration aDeclaration)
   {
     ValueEnforcer.notNull (aDeclaration, "PropertyRuleDeclaration");
 
-    m_aDeclarations.add (aDeclaration);
+    m_aDeclarations.addDeclaration (aDeclaration);
     return this;
   }
 
   @NonNull
-  public CSSPropertyRule addPropertyRuleDeclaration (@Nonnegative final int nIndex, @NonNull final CSSPropertyRuleDeclaration aDeclaration)
+  public CSSPropertyRule addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSPropertyRuleDeclaration aDeclaration)
   {
     ValueEnforcer.isGE0(nIndex, "Index");
     ValueEnforcer.notNull (aDeclaration, "PropertyRuleDeclaration");
 
-    m_aDeclarations.add (nIndex, aDeclaration);
+    m_aDeclarations.addDeclaration (nIndex, aDeclaration);
     return this;
   }
 
   @NonNull
-  public EChange removePropertyRuleDeclaration (@NonNull final CSSPropertyRuleDeclaration aDeclaration)
+  public EChange removeDeclaration (@NonNull final CSSPropertyRuleDeclaration aDeclaration)
   {
-    return m_aDeclarations.removeObject (aDeclaration);
+    return m_aDeclarations.removeDeclaration (aDeclaration);
   }
 
   @NonNull
-  public EChange removePropertyRuleDeclaration (@Nonnegative final int nIndex)
+  public EChange removeDeclaration (@Nonnegative final int nIndex)
   {
-    return m_aDeclarations.removeAtIndex (nIndex);
+    return m_aDeclarations.removeDeclaration (nIndex);
   }
 
   @NonNull
-  public EChange removeAllPropertyRuleDeclarations ()
+  public EChange removeAllDeclarations ()
   {
-    return m_aDeclarations.removeAll ();
+    return m_aDeclarations.removeAllDeclarations ();
   }
 
   @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <CSSPropertyRuleDeclaration> getAllPropertyRuleDeclarations ()
+  public ICommonsList <CSSPropertyRuleDeclaration> getAllDeclarations ()
   {
-    return m_aDeclarations.getClone();
+    return m_aDeclarations.getAllDeclarations();
   }
   
   @Nullable
-  public CSSPropertyRuleDeclaration getPropertyRuleDeclarationAtIndex (@Nonnegative final int nIndex)
+  public CSSPropertyRuleDeclaration getDeclarationAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aDeclarations.getAtIndex (nIndex);
+    return m_aDeclarations.getDeclarationAtIndex (nIndex);
   }
 
   @NonNull
-  public CSSPropertyRule setMemberAtIndex (@Nonnegative final int nIndex, @NonNull final CSSPropertyRuleDeclaration aNewDeclaration)
+  public CSSPropertyRule setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSPropertyRuleDeclaration aNewDeclaration)
   {
-    m_aDeclarations.set (nIndex, aNewDeclaration);
+    m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
   }
 
-  public boolean hashPropertyRuleDeclarations ()
+  public boolean hasDeclarations ()
   {
-    return m_aDeclarations.isNotEmpty ();
+    return m_aDeclarations.hasDeclarations ();
   }
 
   @Nonnegative
-  public int getPropertyRuleDeclarationCount ()
+  public int getDeclarationCount ()
   {
-    return m_aDeclarations.size ();
+    return m_aDeclarations.getDeclarationCount ();
   }
 
   @NonNull
@@ -144,42 +144,29 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
       return "";
 
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
-    final int nMemberCount = m_aDeclarations.size();
-
-    if (aSettings.isRemoveUnnecessaryCode () && nMemberCount == 0)
-      return "";
+    final int nDeclCount = m_aDeclarations.getDeclarationCount();
 
     final StringBuilder aSB = new StringBuilder ("@property ").append (m_sIdentifier);
-    if (nMemberCount == 0)
+    if (nDeclCount == 0)
     {
       aSB.append (bOptimizedOutput ? "{}" : " {}" + aSettings.getNewLineString ());
     }
     else
     {
-      // At least one descriptor present
-      aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
-      boolean bFirst = true;
-      for (final CSSPropertyRuleDeclaration aDeclaration : m_aDeclarations)
+      if (nDeclCount == 1)
       {
-        final String sDescriptorCSS = aDeclaration.getAsCSSString (aSettings, nIndentLevel + 1);
-        if (StringHelper.isNotEmpty (sDescriptorCSS))
-        {
-          if (bFirst)
-            bFirst = false;
-          else
-            if (!bOptimizedOutput)
-              aSB.append (aSettings.getNewLineString ());
-
-          if (!bOptimizedOutput)
-            aSB.append (aSettings.getIndent (nIndentLevel + 1));
-          aSB.append (sDescriptorCSS);
-        }
+        aSB.append (bOptimizedOutput ? "{" : " { ");
+        aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
+        aSB.append (bOptimizedOutput ? "}" : " }");
       }
-      if (!bOptimizedOutput)
-        aSB.append (aSettings.getIndent (nIndentLevel));
-      aSB.append ('}');
-      if (!bOptimizedOutput)
-        aSB.append (aSettings.getNewLineString ());
+      else
+      {
+        aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
+        aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
+        if (!bOptimizedOutput)
+          aSB.append (aSettings.getIndent (nIndentLevel));
+        aSB.append ('}');
+      }
     }
     return aSB.toString();
   }

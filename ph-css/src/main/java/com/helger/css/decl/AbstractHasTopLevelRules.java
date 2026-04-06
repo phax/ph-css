@@ -558,6 +558,57 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
+   * Check if at least one of the top-level rules is a property rule (implementing
+   * {@link CSSPropertyRule}).
+   *
+   * @return <code>true</code> if at least one <code>@property</code> rule is contained,
+   *         <code>false</code> otherwise.
+   */
+  public boolean hasPropertyRules ()
+  {
+    return m_aRules.containsAny (CSSPropertyRule.class::isInstance);
+  }
+
+  /**
+   * Get the number of top-level rules that are property rules (implementing
+   * {@link CSSPropertyRule}).
+   *
+   * @return The number of contained <code>@supports</code> rules. Always &ge; 0.
+   */
+  @Nonnegative
+  public int getPropertyRuleCount ()
+  {
+    return m_aRules.getCount (CSSPropertyRule.class::isInstance);
+  }
+
+  /**
+   * Get the <code>@property</code> rule at the specified index.
+   *
+   * @param nIndex
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getPropertyRuleCount()}.
+   * @return <code>null</code> if an invalid index was specified.
+   * @since 8.1.2
+   */
+  @Nullable
+  public CSSPropertyRule getPropertyRuleAtIndex (@Nonnegative final int nIndex)
+  {
+    return m_aRules.getAtIndexMapped (CSSPropertyRule.class::isInstance, nIndex, CSSPropertyRule.class::cast);
+  }
+
+  /**
+   * Get a list of all top-level rules that are property rules (implementing
+   * {@link CSSPropertyRule}).
+   *
+   * @return A copy of all contained <code>@property</code> rules. Never <code>null</code>.
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <CSSPropertyRule> getAllPropertyRules ()
+  {
+    return m_aRules.getAllMapped (CSSPropertyRule.class::isInstance, CSSPropertyRule.class::cast);
+  }
+
+  /**
    * Check if at least one of the top-level rules is an unknown rule (implementing
    * {@link CSSUnknownRule}).
    *

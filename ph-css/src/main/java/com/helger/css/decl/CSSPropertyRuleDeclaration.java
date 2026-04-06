@@ -14,9 +14,10 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
+import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 
-public class CSSPropertyRuleDeclaration implements ICSSSourceLocationAware
+public class CSSPropertyRuleDeclaration implements ICSSSourceLocationAware, ICSSWriteable
 {
   private String m_sDescriptor;
   private CSSExpression m_aExpression;
