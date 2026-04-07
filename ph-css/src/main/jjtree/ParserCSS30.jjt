@@ -564,7 +564,7 @@ private void browserCompliantSkipDecl(final ParseException ex) throws ParseEOFEx
   // push back last token (char count!!)
   token_source.backup(1);
   if (m_aCustomErrorHandler != null)
-    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex, ex.currentToken != null ? ex.currentToken : token, token);
+    m_aCustomErrorHandler.onCSSBrowserCompliantSkip (ex, ex.currentToken, token);
 }
 
 //
@@ -1763,15 +1763,24 @@ void propertyRuleExpression() #void : {}
 }
 
 void propertyRuleInvalidDeclaration() #void :
-{ Token aPrefixToken; }
+{ Token prevToken = token; }
 {
 try {
   ( <IDENT>
   | LOOKAHEAD(( <ASTERISK> | <DOLLAR> ) <IDENT> )
-    ( <ASTERISK> | <DOLLAR> ) { aPrefixToken = token; }
-    <IDENT> { token.image = aPrefixToken.image + token.image; }
+    ( <ASTERISK> | <DOLLAR> ) { prevToken = token; }
+    <IDENT>
   )
-  { throw new ParseException ("Invalid descriptor '" + token.image + "'"); }
+  {
+    throw new ParseException (prevToken,
+                              new int[][] {
+                                new int[] { SYNTAX_SYM },
+                                new int[] { INHERITS_SYM },
+                                new int[] { INITIALVALUE_SYM }
+                              },
+                              tokenImage,
+                              token_source == null ? null : ParserCSS30TokenManager.lexStateNames[token_source.curLexState]);
+  }
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
     browserCompliantSkipDecl (ex);

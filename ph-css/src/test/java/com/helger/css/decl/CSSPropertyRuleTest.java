@@ -136,7 +136,7 @@ public class CSSPropertyRuleTest
   {
     CSSPropertyRule aPR = _parse (false, "@property --rotation { syntax: \"<angle>\"; inherits: false; *zoom:1; }");
     assertEquals (1, m_aPEH.getParseErrorCount ());
-    assertEquals ("Invalid descriptor '*zoom'", m_aPEH.getAllParseErrors ().get (0).getErrorMessage ());
+    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text 'zoom' corresponding to token <IDENT>. Skipped until token ;"));
     assertEquals (2, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"<angle>\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -172,7 +172,7 @@ public class CSSPropertyRuleTest
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
     CSSPropertyRule aPR = _parse (false, "@property --rotation { color: red; }");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertEquals ("Invalid descriptor 'color'", m_aPEH.getAllParseErrors ().get (0).getErrorMessage ());
+    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
     assertEquals (0, aPR.getDeclarationCount ());
   }
 
@@ -192,7 +192,7 @@ public class CSSPropertyRuleTest
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
     CSSPropertyRule aPR = _parse (false, "@property --rotation { syntax: \"*\"; color: red; inherits: true; }");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertEquals ("Invalid descriptor 'color'", m_aPEH.getAllParseErrors ().get (0).getErrorMessage ());
+    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
     assertEquals (2, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"*\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -220,7 +220,7 @@ public class CSSPropertyRuleTest
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
     CSSPropertyRule aPR = _parse (false, "@property --rotation { syntax: \"*\"; color: red; inherits: true; initial-value: 45deg; }");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertEquals ("Invalid descriptor 'color'", m_aPEH.getAllParseErrors ().get (0).getErrorMessage ());
+    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
     assertEquals (3, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"*\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
