@@ -16,6 +16,7 @@
  */
 package com.helger.css.decl;
 
+import com.helger.css.CCSS;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -34,12 +35,13 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single <code>@page</code> rule.<br>
- * Example:<br>
- * <code>@page {
+ * Represents a single <code>@page</code> rule.
+ * <p>Example:
+ *
+ * <pre>@page {
   size: auto;
   margin: 10%;
-}</code>
+}</pre>
  *
  * @author Philip Helger
  */
@@ -170,22 +172,22 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
       {
         // A single declaration
         aSB.append (bOptimizedOutput ? "{" : " { ");
-        aSB.append (m_aMembers.getAsCSSString (aSettings, nIndentLevel));
+        aSB.append (_getPageRuleMemberAsCSS(aSettings, nIndentLevel + 1));
         aSB.append (bOptimizedOutput ? "}" : " }");
       }
       else
       {
         // More than one declaration
         aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
-        aSB.append (m_aMembers.getAsCSSString (aSettings, nIndentLevel));
+        if (!bOptimizedOutput) {
+          aSB.append (aSettings.getIndent(nIndentLevel + 1));
+        }
+        aSB.append (_getPageRuleMemberAsCSS(aSettings, nIndentLevel + 1));
         if (!bOptimizedOutput)
-          aSB.append (aSettings.getIndent (nIndentLevel));
+          aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
         aSB.append ('}');
       }
     }
-
-    if (!bOptimizedOutput)
-      aSB.append (aSettings.getNewLineString ());
 
     return aSB.toString ();
   }
@@ -224,5 +226,44 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
     return new ToStringGenerator (this).append ("declarations", m_aMembers)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
+  }
+
+  private String _getPageRuleMemberAsCSS(@NonNull ICSSWriterSettings aSettings, int nIndentLevel) {
+    final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
+
+    final int nDeclCount = m_aMembers.size ();
+    if (nDeclCount == 0)
+      return "";
+    if (nDeclCount == 1)
+    {
+      // A single element
+      final StringBuilder aSB = new StringBuilder ();
+      aSB.append (m_aMembers.get (0).getAsCSSString (aSettings, nIndentLevel));
+      // No ';' at the last entry
+      if (m_aMembers.get (0) instanceof CSSDeclaration)
+        if (!bOptimizedOutput)
+          aSB.append (CCSS.DEFINITION_END);
+      return aSB.toString ();
+    }
+
+    // More than one element
+    final StringBuilder aSB = new StringBuilder ();
+    int nIndex = 0;
+    for (final ICSSPageRuleMember aElement : m_aMembers)
+    {
+      // Indentation
+      if (!bOptimizedOutput && nIndex != 0)
+        aSB.append (aSettings.getIndent (nIndentLevel));
+      // Emit the main element plus the semicolon
+      aSB.append (aElement.getAsCSSString (aSettings, nIndentLevel ));
+      // No ';' at the last decl
+      if (aElement instanceof CSSDeclaration)
+        if (!bOptimizedOutput || nIndex < nDeclCount - 1)
+          aSB.append (CCSS.DEFINITION_END);
+      if (!bOptimizedOutput && nIndex != m_aMembers.size() -1)
+        aSB.append (aSettings.getNewLineString ());
+      ++nIndex;
+    }
+    return aSB.toString ();
   }
 }

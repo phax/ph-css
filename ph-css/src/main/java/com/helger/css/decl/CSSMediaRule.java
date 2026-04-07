@@ -36,18 +36,20 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single <code>@media</code> rule: a list of style rules only valid for certain
- * media.<br>
- * Example:<br>
- * <code>@media print {
+ * media.
+ *
+ * <p>Example:
+ *
+ * <pre>@media print {
   div#footer {
     display: none;
   }
-}</code>
+}</pre>
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware
+public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSNestedRule, ICSSSourceLocationAware
 {
   private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
@@ -201,7 +203,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
 
     if (nRuleCount == 0)
     {
-      aSB.append (bOptimizedOutput ? "{}" : " {}" + aSettings.getNewLineString ());
+      aSB.append (bOptimizedOutput ? "{}" : " {}");
     }
     else
     {
@@ -217,7 +219,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
             bFirst = false;
           else
             if (!bOptimizedOutput)
-              aSB.append (aSettings.getNewLineString ());
+              aSB.append (aSettings.getNewLineString ()).append (aSettings.getNewLineString ());
 
           if (!bOptimizedOutput)
             aSB.append (aSettings.getIndent (nIndentLevel + 1));
@@ -225,10 +227,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
         }
       }
       if (!bOptimizedOutput)
-        aSB.append (aSettings.getIndent (nIndentLevel));
+        aSB.append(aSettings.getNewLineString()).append (aSettings.getIndent (nIndentLevel));
       aSB.append ('}');
-      if (!bOptimizedOutput)
-        aSB.append (aSettings.getNewLineString ());
     }
     return aSB.toString ();
   }

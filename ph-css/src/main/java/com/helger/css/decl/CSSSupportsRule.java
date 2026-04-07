@@ -36,16 +36,18 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single <code>@supports</code> rule: a list of style rules only valid when a certain
- * declaration is available. See {@link com.helger.css.ECSSSpecification#CSS3_CONDITIONAL}<br>
- * Example:<br>
- * <code>@supports (transition-property: color) {
+ * declaration is available. See {@link com.helger.css.ECSSSpecification#CSS3_CONDITIONAL}
+ *
+ * <p>Example:
+ *
+ * <pre>@supports (transition-property: color) {
   div { color:red; }
-}</code>
+}</pre>
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware
+public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSNestedRule, ICSSSourceLocationAware
 {
   private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
@@ -152,7 +154,7 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
 
     if (nRuleCount == 0)
     {
-      aSB.append (bOptimizedOutput ? "{}" : " {}" + aSettings.getNewLineString ());
+      aSB.append (bOptimizedOutput ? "{}" : " {}");
     }
     else
     {
@@ -176,10 +178,8 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTop
         }
       }
       if (!bOptimizedOutput)
-        aSB.append (aSettings.getIndent (nIndentLevel));
+        aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
       aSB.append ('}');
-      if (!bOptimizedOutput)
-        aSB.append (aSettings.getNewLineString ());
     }
     return aSB.toString ();
   }

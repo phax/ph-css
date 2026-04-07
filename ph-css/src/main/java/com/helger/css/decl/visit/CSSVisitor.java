@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl.visit;
 
+import com.helger.css.decl.CSSNestedDeclarations;
+import com.helger.css.decl.ICSSNestedRule;
+import com.helger.css.decl.IHasCSSNestedRules;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
@@ -85,7 +88,7 @@ public final class CSSVisitor
   }
 
   /**
-   * Visit all declarations contained in the passed declaration container.
+   * Visit all declarations contained in the given declaration container.
    *
    * @param aHasDeclarations
    *        The declarations to be visited. May not be <code>null</code>.
@@ -98,6 +101,22 @@ public final class CSSVisitor
     // for all declarations
     for (final CSSDeclaration aDeclaration : aHasDeclarations.getAllDeclarations ())
       aVisitor.onDeclaration (aDeclaration);
+  }
+
+  /**
+   * Visit all nested rules contained in the given rule container.
+   *
+   * @param aHasNestedRules
+   *        The nested rules to be visited. May not be <code>null</code>.
+   * @param aVisitor
+   *        The visitor to be invoked on each nested rule. May not be
+   *        <code>null</code>.
+   */
+  public static void visitAllNestedRules (@NonNull final IHasCSSNestedRules<?> aHasNestedRules, @NonNull final ICSSVisitor aVisitor)
+  {
+    // for all nested rules
+    for (final ICSSNestedRule aNestedRule : aHasNestedRules.getAllRules ())
+      visitNestedRule (aNestedRule, aVisitor);
   }
 
   /**
@@ -119,6 +138,9 @@ public final class CSSVisitor
 
       // for all declarations
       visitAllDeclarations (aStyleRule, aVisitor);
+
+      // for all nested rules
+      visitAllNestedRules (aStyleRule, aVisitor);
     }
     finally
     {
@@ -312,6 +334,23 @@ public final class CSSVisitor
   }
 
   /**
+   * Visit all elements of a single nested declarations.
+   *
+   * @param aNestedDeclarations
+   *        The nested declarations to visit. May not be <code>null</code>.
+   * @param aVisitor
+   *        The visitor to use. May not be <code>null</code>.
+   */
+  public static void visitNestedDeclarations (@NonNull final CSSNestedDeclarations aNestedDeclarations, @NonNull final ICSSVisitor aVisitor)
+  {
+    aVisitor.onBeginNestedDeclarations(aNestedDeclarations);
+    for (final CSSDeclaration aDeclaration : aNestedDeclarations.getAllDeclarations()) {
+      aVisitor.onDeclaration(aDeclaration);
+    }
+    aVisitor.onEndNestedDeclarations(aNestedDeclarations);
+  }
+
+  /**
    * Visit all elements of a single unknown @ rule.
    *
    * @param aUnknownRule
@@ -381,6 +420,49 @@ public final class CSSVisitor
                     }
                     else
                       throw new IllegalStateException ("Top level rule " + aTopLevelRule + " is unsupported!");
+  }
+
+  /**
+   * Visit all elements of a single {@link ICSSNestedRule nested rule}.
+   *
+   * @param aNestedRule
+   *        The nested rule to visit. May not be <code>null</code>.
+   * @param aVisitor
+   *        The visitor to use. May not be <code>null</code>.
+   */
+  public static void visitNestedRule (@NonNull final ICSSNestedRule aNestedRule, @NonNull final ICSSVisitor aVisitor)
+  {
+    if (aNestedRule instanceof CSSStyleRule)
+    {
+      visitStyleRule ((CSSStyleRule) aNestedRule, aVisitor);
+    }
+    else
+      if (aNestedRule instanceof CSSMediaRule)
+      {
+        visitMediaRule ((CSSMediaRule) aNestedRule, aVisitor);
+      }
+      else
+        if (aNestedRule instanceof CSSSupportsRule)
+        {
+          visitSupportsRule ((CSSSupportsRule) aNestedRule, aVisitor);
+        }
+        else
+          if (aNestedRule instanceof CSSLayerRule)
+          {
+            visitLayerRule ((CSSLayerRule) aNestedRule, aVisitor);
+          }
+          else
+            if (aNestedRule instanceof CSSNestedDeclarations)
+            {
+              visitNestedDeclarations ((CSSNestedDeclarations) aNestedRule, aVisitor);
+            }
+          else
+            if (aNestedRule instanceof CSSUnknownRule)
+            {
+              visitUnknownRule ((CSSUnknownRule) aNestedRule, aVisitor);
+            }
+            else
+              throw new IllegalStateException ("Nested rule " + aNestedRule + " is unsupported!");
   }
 
   /**

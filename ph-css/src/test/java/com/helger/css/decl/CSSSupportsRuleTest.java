@@ -28,6 +28,8 @@ import org.junit.Test;
 import com.helger.css.reader.CSSReader;
 import com.helger.unittest.support.TestHelper;
 
+import java.util.List;
+
 /**
  * Test class for {@link CSSSupportsRule}.
  *
@@ -127,5 +129,45 @@ public final class CSSSupportsRuleTest
     aCreated.addRule (new CSSStyleRule ().addSelector (new CSSSelectorSimpleMember ("div"))
                                          .addDeclaration ("color", CSSExpression.createSimple ("red"), false));
     TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+  }
+
+  @Test
+  public void testRead3 ()
+  {
+    CSSSupportsRule aSR = _parse ("""
+      @supports(column-count: 1) {
+        .foo {
+          color: white;
+          .bar {
+            color: orange
+          }
+          color: black;
+        }
+      }
+      """);
+
+    assertEquals (1, aSR.getSupportsConditionMemberCount ());
+    assertEquals (1, aSR.getRuleCount ());
+
+    assertEquals ("(column-count:1)", aSR.getSupportsConditionMemberAtIndex (0).getAsCSSString ());
+
+    CSSStyleRule rule1 = (CSSStyleRule) aSR.getRuleAtIndex (0);
+    assertEquals (1, rule1.getSelectorCount ());
+    assertEquals (1, rule1.getDeclarationCount ());
+    assertEquals (2, rule1.getRuleCount ());
+
+    assertEquals (".foo", rule1.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals (".foo", rule1.getSelectorAtIndex (0).getAsCSSString ());
+
+    CSSStyleRule rule11 = (CSSStyleRule) rule1.getRuleAtIndex (0);
+    assertEquals (1, rule11.getSelectorCount ());
+    assertEquals (1, rule11.getDeclarationCount ());
+    assertEquals (0, rule11.getRuleCount ());
+    assertEquals (".bar", rule11.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:orange", rule11.getDeclarationAtIndex (0).getAsCSSString ());
+
+    CSSNestedDeclarations rule12 = (CSSNestedDeclarations) rule1.getRuleAtIndex (1);
+    assertEquals (1, rule12.getDeclarationCount ());
+    assertEquals ("color:black", rule12.getDeclarationAtIndex (0).getAsCSSString ());
   }
 }

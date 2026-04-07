@@ -245,6 +245,14 @@ public class CSSVisitorForUrl implements ICSSVisitor
     m_aTopLevelRule.pop();
   }
 
+  public void onBeginNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations) {
+    // no action
+  }
+
+  public void onEndNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations) {
+    // no action
+  }
+
   public void onUnknownRule (@NonNull final CSSUnknownRule aUnknownRule)
   {
     // no action

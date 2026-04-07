@@ -16,79 +16,72 @@
  */
 package com.helger.css.decl;
 
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
-import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
-import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
- * Represents a single <code>@font-face</code> rule.
+ * Represents nested style declarations. When nesting rules, all CSS style declarations after nested rules are wrapped
+ * within a nested declarations block, in accordance with the CSS Nesting Module Level 1 specification. A nested
+ * declarations instance consists of a number of declarations (the styles to be applied to the selected elements).
  *
  * <p>Example:
  *
- * <pre>@font-face {
-  font-family: 'icons';
-  src: url(path/to/font.woff) format('woff');
-  unicode-range: U+E000-E005;
+ * <pre>div {
+  color: red;
+  span {
+    color: green;
+  }
+  color: blue;
 }</pre>
  *
+ * In the above example, <code>color: blue;</code> will be placed inside a nested declarations instances, as a child
+ * of a {@link CSSStyleRule}. The resulting object structure will look like this:
+ *
+ * <ul>
+ *     <li>A {@link CSSStyleRule} representing the entire <code>div { ... }</code> block
+ *     <ul>
+ *         <li>The {@link CSSStyleRule#getAllDeclarations()} with <code>color: red;</code></li>
+ *         <li>The {@link CSSStyleRule#getAllRules()} with</li>
+ *         <ul>
+ *             <li>A nested {@link CSSStyleRule} represent <code>span { color: green; }</code>
+ *             <li>A nested {@link CSSNestedDeclarations} representing <code>color: blue;</code></li>
+ *         </ul>
+ *     </ul>
+ * </ul>
  * @author Philip Helger
+ * @since 8.2.0
  */
 @NotThreadSafe
-public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <CSSFontFaceRule>, ICSSSourceLocationAware
+public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclarations <CSSNestedDeclarations>, ICSSSourceLocationAware
 {
-  private final String m_sDeclaration;
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
 
-  public static boolean isValidDeclaration (@NonNull @Nonempty final String sDeclaration)
-  {
-    return StringHelper.startsWith (sDeclaration, '@') && StringHelper.endsWithIgnoreCase (sDeclaration, "font-face");
-  }
-
-  public CSSFontFaceRule ()
-  {
-    this ("@font-face");
-  }
-
-  public CSSFontFaceRule (@NonNull @Nonempty final String sDeclaration)
-  {
-    ValueEnforcer.isTrue (isValidDeclaration (sDeclaration), () -> "Declaration '" + sDeclaration + "' is invalid");
-    m_sDeclaration = sDeclaration;
-  }
-
   /**
-   * @return The rule declaration string used in the CSS. Neither <code>null</code> nor empty.
-   *         Always starting with <code>@</code> and ending with <code>font-face</code>.
+   * Creates a new, empty instance with no declarations.
    */
-  @NonNull
-  @Nonempty
-  public final String getDeclaration ()
-  {
-    return m_sDeclaration;
-  }
+  public CSSNestedDeclarations ()
+  {}
 
   @NonNull
-  public CSSFontFaceRule addDeclaration (@NonNull final CSSDeclaration aDeclaration)
+  public CSSNestedDeclarations addDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     m_aDeclarations.addDeclaration (aDeclaration);
     return this;
   }
 
   @NonNull
-  public CSSFontFaceRule addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
+  public CSSNestedDeclarations addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
@@ -126,8 +119,7 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
   }
 
   @NonNull
-  public CSSFontFaceRule setDeclarationAtIndex (@Nonnegative final int nIndex,
-                                                @NonNull final CSSDeclaration aNewDeclaration)
+  public CSSNestedDeclarations setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -158,17 +150,16 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
   }
 
   @NonNull
-  @Nonempty
   public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    // Always ignore font-face rules?
-    if (!aSettings.isWriteFontFaceRules ())
+    // Always ignore nested declarations?
+    if (!aSettings.isWriteNestedDeclarations ())
       return "";
 
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
-      return m_sDeclaration + m_aDeclarations.getAsCSSString(aSettings, nIndentLevel);
+    return m_aDeclarations.getDeclarationsAsCSSString (aSettings, nIndentLevel);
   }
 
   @Nullable
@@ -189,24 +180,20 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final CSSFontFaceRule rhs = (CSSFontFaceRule) o;
-    return m_sDeclaration.equals (rhs.m_sDeclaration) && m_aDeclarations.equals (rhs.m_aDeclarations);
+    final CSSNestedDeclarations rhs = (CSSNestedDeclarations) o;
+    return m_aDeclarations.equals (rhs.m_aDeclarations);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDeclaration)
-                                       .append (m_aDeclarations)
-                                       .append (m_aDeclarations)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_aDeclarations).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Declaration", m_sDeclaration)
-                                       .append ("Declarations", m_aDeclarations)
+    return new ToStringGenerator (this).append ("declarations", m_aDeclarations)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

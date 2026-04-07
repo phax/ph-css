@@ -202,6 +202,7 @@ TOKEN :
 | < GREATER: ">" >
 | < TILDE: "~" >
 | < DOLLAR: "$" >
+| < AMPERSAND: "&" >
 | < HASH: "#" <NAME> >
 | < INCLUDES: "~=" >
 | < DASHMATCH: "|=" >
@@ -911,6 +912,11 @@ void typeSelector() #void : {}
   elementName()
 }
 
+void nestingSelector() #Nesting : {}
+{
+  <AMPERSAND> { jjtThis.setText ("&"); }
+}
+
 void idSelector() : {}
 {
   <HASH> { jjtThis.setText (token.image); }
@@ -1031,6 +1037,11 @@ void relativeSelector() : {}
   selector ()
 }
 
+void selectorOrRelativeSelector() #void : {}
+{
+  ( LOOKAHEAD( selectorCombinator() ) relativeSelector() | selector() )
+}
+
 void relativeSelectorList() #void : {}
 {
   ( <S> )*
@@ -1129,6 +1140,7 @@ void simpleSelectorSequence() #void : {}
     ( idSelector()
     | classSelector()
     | attributeSelector()
+    | nestingSelector()
     | pseudoClassSelector()
     | funcNot()
     )*
@@ -1136,6 +1148,7 @@ void simpleSelectorSequence() #void : {}
   | ( idSelector()
     | classSelector()
     | attributeSelector()
+    | nestingSelector()
     | pseudoClassSelector()
     | funcNot()
     )+
@@ -1230,6 +1243,27 @@ void styleDeclarationOrRule() #void : {}
   )
 }
 
+void styleDeclarationOrRuleWithNested() #void : {}
+{
+  ( LOOKAHEAD( property() <COLON> ) styleDeclaration() ( LOOKAHEAD( (<S>)* (<RBRACE> | <EOF>) ) (<S>)* | (<S>)* <SEMICOLON> (<S>)* )
+  | <SEMICOLON> (<S>)* // final semicolon from single line comment
+  | ( styleRule()
+    | mediaRule()     { }
+    | pageRule()      { errorUnexpectedRule ("@page", "page rule is not allowed as a nested rule!"); }
+    | fontfaceRule()  { errorUnexpectedRule ("@font-face", "font-face rule is not allowed as a nested rule!"); }
+    | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule is not allowed as a nested rule!"); }
+    | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule is not allowed as a nested rule!"); }
+    | supportsRule()  { }
+    | unknownRule()   { }
+    | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule is not allowed as a nested rule!"); }
+    | importRule()    { errorUnexpectedRule ("@import", "import rule is not allowed as a nested rule!"); }
+    | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule is not allowed as a nested rule!"); }
+    | layerRule()     { }
+    )
+    ( <S> | <CDO> | <CDC> )*
+  )
+}
+
 CSSNode styleDeclarationList() : {}
 {
 try {
@@ -1250,11 +1284,41 @@ try {
   { return jjtThis; }
 }
 
+CSSNode styleDeclarationListWithNested() : {}
+{
+try {
+  ( <S> )*
+  ( styleDeclarationOrRuleWithNested() )*
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl (ex);
+  else {
+    errorSkipTo (ex, RBRACE);
+    token_source.backup(1);
+  }
+}
+  { return jjtThis; }
+}
+
 void styleDeclarationBlock() #void : {}
 {
   <LBRACE>
 try {
   styleDeclarationList()
+  <RBRACE>
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl (ex);
+  else
+    errorSkipTo (ex, RBRACE);
+}
+}
+
+void styleDeclarationBlockWithNested() #void : {}
+{
+  <LBRACE>
+try {
+  styleDeclarationListWithNested()
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
@@ -1267,14 +1331,14 @@ try {
 void styleRule() : {}
 {
 try{
-  selector ()
+  selectorOrRelativeSelector ()
   ( <S> )*
   ( <COMMA>
     ( <S> )*
-    selector()
+    selectorOrRelativeSelector()
     ( <S> )*
   )*
-  styleDeclarationBlock()
+  styleDeclarationBlockWithNested()
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
     browserCompliantSkipInSelector (ex);

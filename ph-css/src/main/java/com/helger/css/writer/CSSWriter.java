@@ -44,7 +44,7 @@ import com.helger.css.decl.ICSSTopLevelRule;
 @NotThreadSafe
 public class CSSWriter
 {
-  /** By default optimized output is disabled */
+  /** By default, optimized output is disabled */
   public static final boolean DEFAULT_OPTIMIZED_OUTPUT = CSSWriterSettings.DEFAULT_OPTIMIZED_OUTPUT;
 
   private final CSSWriterSettings m_aSettings;
@@ -89,7 +89,7 @@ public class CSSWriter
   }
 
   /**
-   * Check if the header text should be emitted. By default it is enabled, if non-optimized output
+   * Check if the header text should be emitted. By default, it is enabled, if non-optimized output
    * is desired.
    *
    * @return <code>true</code> if the header text should be emitted, <code>false</code> if not.
@@ -100,7 +100,7 @@ public class CSSWriter
   }
 
   /**
-   * Determine whether the file header should be written or not. By default it is enabled, if
+   * Determine whether the file header should be written or not. By default, it is enabled, if
    * non-optimized output is desired.
    *
    * @param bWriteHeaderText
@@ -126,7 +126,7 @@ public class CSSWriter
 
   /**
    * Set a custom header text that should be emitted. This text may be multi line separated by the
-   * '\n' character. It will emitted if {@link #isWriteHeaderText()} returns <code>true</code>.
+   * '\n' character. It will be emitted if {@link #isWriteHeaderText()} returns <code>true</code>.
    *
    * @param sHeaderText
    *        The header text to be emitted. May be <code>null</code>.
@@ -140,7 +140,7 @@ public class CSSWriter
   }
 
   /**
-   * Check if the footer text should be emitted. By default it is enabled, if non-optimized output
+   * Check if the footer text should be emitted. By default, it is enabled, if non-optimized output
    * is desired.
    *
    * @return <code>true</code> if the footer text should be emitted, <code>false</code> if not.
@@ -151,7 +151,7 @@ public class CSSWriter
   }
 
   /**
-   * Determine whether the file footer should be written or not. By default it is enabled, if
+   * Determine whether the file footer should be written or not. By default, it is enabled, if
    * non-optimized output is desired.
    *
    * @param bWriteFooterText
@@ -177,7 +177,7 @@ public class CSSWriter
 
   /**
    * Set a custom footer text that should be emitted. This text may be multi line separated by the
-   * '\n' character. It will emitted if {@link #isWriteFooterText()} returns <code>true</code>.
+   * '\n' character. It will be emitted if {@link #isWriteFooterText()} returns <code>true</code>.
    *
    * @param sFooterText
    *        The footer text to be emitted. May be <code>null</code>.
@@ -191,7 +191,7 @@ public class CSSWriter
   }
 
   /**
-   * @return The current defined content charset for the CSS. By default it is <code>null</code>.
+   * @return The current defined content charset for the CSS. By default, it is <code>null</code>.
    */
   @Nullable
   public String getContentCharset ()
@@ -201,7 +201,7 @@ public class CSSWriter
 
   /**
    * Define the content charset to be used. If not <code>null</code> and not empty, the
-   * <code>@charset</code> element is emitted into the CSS. By default no charset is defined.<br>
+   * <code>@charset</code> element is emitted into the CSS. By default, no charset is defined.<br>
    * <b>Important:</b> this does not define the encoding of the output - it is just a declarative
    * marker inside the code. Best practice is to use the same encoding for the CSS and the
    * respective writer!
@@ -235,7 +235,7 @@ public class CSSWriter
    * @param aCSS
    *        The CSS to write. May not be <code>null</code>.
    * @param aWriter
-   *        The write to write the text to. May not be <code>null</code>. Is automatically closed
+   *        The writer to write the text to. May not be <code>null</code>. Is automatically closed
    *        after the writing!
    * @throws IOException
    *         In case writing fails.
@@ -268,32 +268,58 @@ public class CSSWriter
         aWriter.write (sNewLineString);
       }
 
+      int nRulesEmitted = 0;
+
       // Charset? Must be the first element before the import
       if (StringHelper.isNotEmpty (m_sContentCharset))
       {
         aWriter.write ("@charset \"" + m_sContentCharset + "\";");
-        if (!bOptimizedOutput)
-          aWriter.write (sNewLineString);
+        ++nRulesEmitted;
       }
 
       // Import rules
-      int nRulesEmitted = 0;
+      boolean bFirst = true;
       final ICommonsList <CSSImportRule> aImportRules = aCSS.getAllImportRules ();
       if (aImportRules.isNotEmpty ())
+      {
+        if (!bOptimizedOutput && nRulesEmitted > 0)
+        {
+          aWriter.write(sNewLineString);
+          aWriter.write(sNewLineString);
+        }
         for (final CSSImportRule aImportRule : aImportRules)
         {
+          if (bFirst)
+            bFirst = false;
+          else
+            if (!bOptimizedOutput)
+              aWriter.write (sNewLineString);
           aWriter.write (aImportRule.getAsCSSString (m_aSettings));
           ++nRulesEmitted;
         }
+      }
 
       // Namespace rules
+      bFirst = true;
       final ICommonsList <CSSNamespaceRule> aNamespaceRules = aCSS.getAllNamespaceRules ();
       if (aNamespaceRules.isNotEmpty ())
+      {
+        if (!bOptimizedOutput && nRulesEmitted > 0)
+        {
+          aWriter.write(sNewLineString);
+          aWriter.write(sNewLineString);
+        }
         for (final CSSNamespaceRule aNamespaceRule : aNamespaceRules)
         {
+          if (bFirst)
+            bFirst = false;
+          else
+            if (!bOptimizedOutput)
+              aWriter.write (sNewLineString);
           aWriter.write (aNamespaceRule.getAsCSSString (m_aSettings));
           ++nRulesEmitted;
         }
+      }
 
       // Main CSS rules
       for (final ICSSTopLevelRule aRule : aCSS.getAllRules ())
@@ -302,11 +328,19 @@ public class CSSWriter
         if (StringHelper.isNotEmpty (sRuleCSS))
         {
           if (!bOptimizedOutput && nRulesEmitted > 0)
-            aWriter.write (sNewLineString);
+          {
+            aWriter.write(sNewLineString);
+            aWriter.write(sNewLineString);
+          }
 
           aWriter.write (sRuleCSS);
           ++nRulesEmitted;
         }
+      }
+
+      // Newline after all rules
+      if (!bOptimizedOutput && nRulesEmitted > 0){
+        aWriter.write (sNewLineString);
       }
 
       // Write file footer
@@ -360,7 +394,7 @@ public class CSSWriter
    * @param aCSS
    *        The CSS to write. May not be <code>null</code>.
    * @param aWriter
-   *        The write to write the text to. May not be <code>null</code>. Is automatically closed
+   *        The writer to write the text to. May not be <code>null</code>. Is automatically closed
    *        after the writing!
    * @throws IOException
    *         In case writing fails.

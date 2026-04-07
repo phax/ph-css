@@ -76,8 +76,8 @@ public final class CSSImportRuleTest
   {
     final CSSImportRule aImportRule = new CSSImportRule ("a.gif");
     final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
-    assertEquals ("@import url(a.gif);\n", aImportRule.getAsCSSString (aSettings));
+    assertEquals ("@import url(a.gif);", aImportRule.getAsCSSString (aSettings));
     aSettings.setQuoteURLs (true);
-    assertEquals ("@import url('a.gif');\n", aImportRule.getAsCSSString (aSettings));
+    assertEquals ("@import url('a.gif');", aImportRule.getAsCSSString (aSettings));
   }
 }

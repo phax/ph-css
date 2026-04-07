@@ -15,4 +15,4 @@
  * limitations under the License.
  */
   p { background: lime; }
-  foo & address, p { background: red; }
+  foo % address, p { background: red; }

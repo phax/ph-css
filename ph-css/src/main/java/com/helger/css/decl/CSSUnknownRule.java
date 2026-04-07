@@ -36,7 +36,7 @@ import com.helger.css.ICSSWriterSettings;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
+public class CSSUnknownRule implements ICSSTopLevelRule, ICSSNestedRule, ICSSSourceLocationAware
 {
   private final String m_sDeclaration;
   private String m_sParameterList;
@@ -117,20 +117,18 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSSourceLocationAware
 
     if (StringHelper.isEmpty (m_sBody))
     {
-      aSB.append (bOptimizedOutput ? "{}" : " {}" + aSettings.getNewLineString ());
+      aSB.append (bOptimizedOutput ? "{}" : " {}");
     }
     else
     {
       // At least one rule present
       aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
       if (!bOptimizedOutput)
-        aSB.append (aSettings.getIndent (nIndentLevel));
+        aSB.append (aSettings.getIndent (nIndentLevel + 1));
       aSB.append (m_sBody);
       if (!bOptimizedOutput)
-        aSB.append (aSettings.getIndent (nIndentLevel));
+        aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
       aSB.append ('}');
-      if (!bOptimizedOutput)
-        aSB.append (aSettings.getNewLineString ());
     }
     return aSB.toString ();
   }

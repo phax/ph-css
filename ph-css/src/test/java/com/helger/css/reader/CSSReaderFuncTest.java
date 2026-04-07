@@ -354,9 +354,13 @@ public final class CSSReaderFuncTest extends AbstractFuncTestCSSReader
     // Parsing problem
     String sCSS = ".class{color:red;.class{color:green}.class{color:blue}";
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
-    assertNotNull (aCSS);
-    assertEquals (bBrowserCompliantMode ? "" : ".class{color:red}.class{color:blue}",
-                  new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    if (bBrowserCompliantMode)
+    {
+      assertNotNull (aCSS);
+      assertEquals ("", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    }
+    else
+      assertNull (aCSS);
 
     sCSS = "  \n/* comment */\n  \n.class{color:red;}";
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);

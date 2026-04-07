@@ -21,7 +21,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
+import com.helger.css.decl.CSSStyleRule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,5 +106,26 @@ public final class CSSVisitorFuncTest extends AbstractCSSTestCase
     aVisitor = new MockCountingUrlVisitor ();
     CSSVisitor.visitCSSUrl (aCSS, aVisitor);
     assertEquals (8, aVisitor.getCount ());
+  }
+
+  @Test
+  public void testVisitNestedDeclarations() {
+    CascadingStyleSheet aSheet = CSSReader.readFromString(".foo { color: red; .bar { color: green; } color: blue; }");
+    CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex(0);
+    MockCountingNestedDeclarationsVisitor aVisitor = new MockCountingNestedDeclarationsVisitor();
+    CSSVisitor.visitStyleRule(aStyleRule, aVisitor);
+    assertEquals(1, aVisitor.getBeginNestedDeclarationsCount());
+    assertEquals(1, aVisitor.getEndNestedDeclarationsCount());
+    assertEquals(List.of("color:blue;"), aVisitor.getNestedDeclarations());
+  }
+
+  @Test
+  public void testVisitDeclarations() {
+    CascadingStyleSheet aSheet = CSSReader.readFromString(".foo { color: red; .bar { color: green; } color: blue; }");
+    CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex(0);
+    MockCountingDeclarationsVisitor aVisitor = new MockCountingDeclarationsVisitor();
+    CSSVisitor.visitStyleRule(aStyleRule, aVisitor);
+    assertEquals(3, aVisitor.getDeclarationCount());
+    assertEquals(List.of("color:red", "color:green", "color:blue"), aVisitor.getDeclarations());
   }
 }
