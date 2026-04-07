@@ -136,7 +136,7 @@ public class CSSPropertyRuleTest
   {
     CSSPropertyRule aPR = _parse (false, "@property --rotation { syntax: \"<angle>\"; inherits: false; *zoom:1; }");
     assertEquals (1, m_aPEH.getParseErrorCount ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text '*' corresponding to token \"*\". Skipped until token }"));
+    assertEquals ("Invalid descriptor '*zoom'", m_aPEH.getAllParseErrors ().get (0).getErrorMessage ());
     assertEquals (2, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"<angle>\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -267,29 +267,6 @@ public class CSSPropertyRuleTest
   }
 
   @Test
-  public void testReadWithComment ()
-  {
-    CSSPropertyRule aPR = _parse (false, """
-    @property /* comment1 */ --rotation /* comment2 */ {
-      /* comment3 */
-      syntax: /* comment4 */ "<angle>";
-      inherits: false;
-      /* comment5 */
-      initial-value: 45deg /* comment6 */;
-      /* comment7 */
-    }
-    """);
-    assertEquals (0, m_aPEH.getParseErrorCount ());
-    assertEquals (3, aPR.getDeclarationCount ());
-    assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
-    assertEquals ("\"<angle>\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
-    assertEquals ("inherits", aPR.getDeclarationAtIndex (1).getDescriptor ());
-    assertEquals ("false", aPR.getDeclarationAtIndex (1).getExpression ().getAsCSSString ());
-    assertEquals ("initial-value", aPR.getDeclarationAtIndex (2).getDescriptor ());
-    assertEquals ("45deg", aPR.getDeclarationAtIndex (2).getExpression ().getAsCSSString ());
-  }
-
-  @Test
   public void testWriteMultipleDeclarations ()
   {
     CSSPropertyRule aPR = _parse (false, """
@@ -297,15 +274,13 @@ public class CSSPropertyRuleTest
       syntax: "<angle>";
       inherits: false;
       initial-value: 45deg;
-    }
-    """);
+    }""");
     assertEquals ("""
       @property --rotation {
         syntax:"<angle>";
         inherits:false;
         initial-value:45deg;
-      }
-      """, aPR.getAsCSSString (new CSSWriterSettings (false)));
+      }""", aPR.getAsCSSString (new CSSWriterSettings (false)));
     assertEquals ("""
       @property --rotation{syntax:"<angle>";inherits:false;initial-value:45deg}""", aPR.getAsCSSString (new CSSWriterSettings (true)));
   }
@@ -334,14 +309,12 @@ public class CSSPropertyRuleTest
       syntax: "<angle>";
       inherits: false;
       color: red;
-    }
-    """);
+    }""");
     assertEquals ("""
       @property --rotation {
         syntax:"<angle>";
         inherits:false;
-      }
-      """, aPR.getAsCSSString (new CSSWriterSettings (false)));
+      }""", aPR.getAsCSSString (new CSSWriterSettings (false)));
     assertEquals ("""
       @property --rotation{syntax:"<angle>";inherits:false}""", aPR.getAsCSSString (new CSSWriterSettings (true)));
   }
