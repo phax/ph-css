@@ -16,7 +16,7 @@ import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
 import com.helger.css.writer.CSSWriterSettings;
 
 /**
- * Test class for {@link CSSLayerRule}.
+ * Test class for {@link CSSPropertyRule}.
  *
  * @author Philip Helger
  */
