@@ -1805,12 +1805,14 @@ CSSNode propertyRuleDeclarationList() : {}
 {
 try {
   ( <S> )*
-  ( propertyRuleDeclarationOrInvalid() )?
-  (
-    <SEMICOLON>
-    ( <S> )*
-    ( propertyRuleDeclarationOrInvalid() )?
-  )*
+  ( (propertyRuleDeclarationOrInvalid() )
+    (
+      <SEMICOLON>
+      ( <S> )*
+      ( propertyRuleDeclarationOrInvalid() )?
+    )*
+  )?
+  ( <S> )*
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
     browserCompliantSkipDecl (ex);
@@ -1822,8 +1824,7 @@ try {
   { return jjtThis; }
 }
 
-void propertyRule() :
-{ Token t; }
+void propertyRule() : {}
 {
   <PROPERTY_SYM>
   ( <S> )*
