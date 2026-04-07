@@ -172,7 +172,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
       {
         // A single declaration
         aSB.append (bOptimizedOutput ? "{" : " { ");
-        aSB.append (getPageRuleMemberAsCSS(aSettings, nIndentLevel + 1));
+        aSB.append (_getPageRuleMemberAsCSS(aSettings, nIndentLevel + 1));
         aSB.append (bOptimizedOutput ? "}" : " }");
       }
       else
@@ -182,7 +182,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
         if (!bOptimizedOutput) {
           aSB.append (aSettings.getIndent(nIndentLevel + 1));
         }
-        aSB.append (getPageRuleMemberAsCSS(aSettings, nIndentLevel + 1));
+        aSB.append (_getPageRuleMemberAsCSS(aSettings, nIndentLevel + 1));
         if (!bOptimizedOutput)
           aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
         aSB.append ('}');
@@ -228,7 +228,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
                                        .getToString ();
   }
 
-  private String getPageRuleMemberAsCSS(@NonNull ICSSWriterSettings aSettings, int nIndentLevel) {
+  private String _getPageRuleMemberAsCSS(@NonNull ICSSWriterSettings aSettings, int nIndentLevel) {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 
     final int nDeclCount = m_aMembers.size ();

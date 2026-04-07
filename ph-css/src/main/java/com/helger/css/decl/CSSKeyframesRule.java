@@ -162,12 +162,12 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
     if (!aSettings.isWriteKeyframesRules ())
       return "";
 
-    int nBlockCount = m_aBlocks.size ();
     boolean bFirst = true;
 
-    if (aSettings.isRemoveUnnecessaryCode () && nBlockCount == 0)
+    if (aSettings.isRemoveUnnecessaryCode () && m_aBlocks.isEmpty ())
       return "";
 
+    final int nBlockCount = m_aBlocks.size ();
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 
     final StringBuilder aSB = new StringBuilder (m_sDeclaration);

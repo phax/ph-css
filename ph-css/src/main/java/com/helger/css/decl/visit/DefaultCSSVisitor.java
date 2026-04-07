@@ -149,11 +149,11 @@ public class DefaultCSSVisitor implements ICSSVisitor
   public void onEndLayerRule (@NonNull final CSSLayerRule aLayerRule)
   {}
 
-  @Override
+  @OverrideOnDemand
   public void onBeginNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
   {}
 
-  @Override
+  @OverrideOnDemand
   public void onEndNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
   {}
 

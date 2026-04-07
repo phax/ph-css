@@ -120,18 +120,18 @@ public final class CSSStyleRuleTest
     assertEquals (0, aSR.getDeclarationCount ());
     assertEquals (1, aSR.getRuleCount ());
 
-    assertEquals("div", aSR.getSelectorAtIndex(0).getAsCSSString());
+    assertEquals ("div", aSR.getSelectorAtIndex (0).getAsCSSString ());
 
     assertTrue (aSR.getRuleAtIndex (0) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getRuleCount());
+    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorCount ());
+    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationCount ());
+    assertEquals (0, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getRuleCount ());
 
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getRuleCount());
-    assertEquals ("p", ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:red", ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationAtIndex(0).getAsCSSString());
+    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorCount ());
+    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationCount ());
+    assertEquals (0, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getRuleCount ());
+    assertEquals ("p", ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:red", ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationAtIndex (0).getAsCSSString ());
   }
 
   @Test
@@ -173,66 +173,68 @@ public final class CSSStyleRuleTest
     assertEquals (2, aSR.getDeclarationCount ());
     assertEquals (5, aSR.getRuleCount ());
 
-    assertEquals ("color:red", aSR.getDeclarationAtIndex(0).getAsCSSString());
-    assertEquals ("p:dummy", aSR.getDeclarationAtIndex(1).getAsCSSString());
+    assertEquals ("color:red", aSR.getDeclarationAtIndex (0).getAsCSSString ());
+    assertEquals ("p:dummy", aSR.getDeclarationAtIndex (1).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (0) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getRuleCount());
-    assertEquals ("p", ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:dummy", ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSStyleRule rule1 = (CSSStyleRule) aSR.getRuleAtIndex (0);
+    assertEquals (1, rule1.getSelectorCount ());
+    assertEquals (1, rule1.getDeclarationCount ());
+    assertEquals (0, rule1.getRuleCount ());
+    assertEquals ("p", rule1.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:dummy", rule1.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (1) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (1)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (1)).getDeclarationCount());
-    assertEquals (2, ((CSSStyleRule)aSR.getRuleAtIndex (1)).getRuleCount());
-    assertEquals (".foobar", ((CSSStyleRule)aSR.getRuleAtIndex (1)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:green", ((CSSStyleRule)aSR.getRuleAtIndex (1)).getDeclarationAtIndex(0).getAsCSSString());
-    assertTrue (((CSSStyleRule)aSR.getRuleAtIndex (1)).getRuleAtIndex(0) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)((CSSStyleRule)aSR.getRuleAtIndex (1)).getRuleAtIndex(0)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)((CSSStyleRule)aSR.getRuleAtIndex (1)).getRuleAtIndex(0)).getRuleCount());
-    assertEquals ("color:blue", ((CSSStyleRule)((CSSStyleRule)aSR.getRuleAtIndex (1)).getRuleAtIndex(0)).getDeclarationAtIndex(0).getAsCSSString());
-    assertTrue (((CSSStyleRule)aSR.getRuleAtIndex (1)).getRuleAtIndex(1) instanceof CSSNestedDeclarations);
-    assertEquals (1, ((CSSNestedDeclarations)((CSSStyleRule)aSR.getRuleAtIndex (1)).getRuleAtIndex(1)).getDeclarationCount());
-    assertEquals ("color:white", ((CSSNestedDeclarations)((CSSStyleRule)aSR.getRuleAtIndex (1)).getRuleAtIndex(1)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSStyleRule rule2 = (CSSStyleRule) aSR.getRuleAtIndex (1);
+    assertEquals (1, rule2.getSelectorCount ());
+    assertEquals (1, rule2.getDeclarationCount ());
+    assertEquals (2, rule2.getRuleCount ());
+    assertEquals (".foobar", rule2.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:green", rule2.getDeclarationAtIndex (0).getAsCSSString ());
+    CSSStyleRule rule21 = (CSSStyleRule) rule2.getRuleAtIndex (0);
+    assertEquals (1, rule21.getDeclarationCount ());
+    assertEquals (0, rule21.getRuleCount ());
+    assertEquals ("color:blue", rule21.getDeclarationAtIndex (0).getAsCSSString ());
+    CSSNestedDeclarations rule22 = (CSSNestedDeclarations) rule2.getRuleAtIndex (1);
+    assertEquals (1, rule22.getDeclarationCount ());
+    assertEquals ("color:white", rule22.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (2) instanceof CSSNestedDeclarations);
-    assertEquals (1, ((CSSNestedDeclarations)aSR.getRuleAtIndex (2)).getDeclarationCount());
-    assertEquals ("color:yellow", ((CSSNestedDeclarations)aSR.getRuleAtIndex (2)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSNestedDeclarations rule3 = (CSSNestedDeclarations) aSR.getRuleAtIndex (2);
+    assertEquals (1, rule3.getDeclarationCount ());
+    assertEquals ("color:yellow", rule3.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (3) instanceof CSSMediaRule);
-    assertEquals (1, ((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleCount());
-    assertTrue (((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getDeclarationCount());
-    assertEquals (1, ((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getRuleCount());
-    assertEquals (".print", ((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:black", ((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getDeclarationAtIndex(0).getAsCSSString());
-    assertTrue (((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getRuleAtIndex(0) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getRuleAtIndex(0)).getSelectorCount());
-    assertEquals (2, ((CSSStyleRule)((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getRuleAtIndex(0)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getRuleAtIndex(0)).getRuleCount());
-    assertEquals ("&:hover", ((CSSStyleRule)((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getRuleAtIndex(0)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:orange", ((CSSStyleRule)((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getRuleAtIndex(0)).getDeclarationAtIndex(0).getAsCSSString());
-    assertEquals ("font-size:20px", ((CSSStyleRule)((CSSStyleRule)((CSSMediaRule)aSR.getRuleAtIndex (3)).getRuleAtIndex(0)).getRuleAtIndex(0)).getDeclarationAtIndex(1).getAsCSSString());
+    CSSMediaRule rule4 = (CSSMediaRule) aSR.getRuleAtIndex (3);
+    assertEquals (1, rule4.getRuleCount ());
+    CSSStyleRule rule41 = (CSSStyleRule)rule4.getRuleAtIndex (0); 
+    assertEquals (1, rule41.getSelectorCount ());
+    assertEquals (1, rule41.getDeclarationCount ());
+    assertEquals (1, rule41.getRuleCount ());
+    assertEquals (".print", rule41.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:black", rule41.getDeclarationAtIndex (0).getAsCSSString ());
+    CSSStyleRule rule411 = (CSSStyleRule)rule41.getRuleAtIndex (0);
+    assertEquals (1, rule411.getSelectorCount ());
+    assertEquals (2, rule411.getDeclarationCount ());
+    assertEquals (0, rule411.getRuleCount ());
+    assertEquals ("&:hover", rule411.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:orange", rule411.getDeclarationAtIndex (0).getAsCSSString ());
+    assertEquals ("font-size:20px", rule411.getDeclarationAtIndex (1).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (4) instanceof CSSLayerRule);
-    assertEquals (1, ((CSSLayerRule)aSR.getRuleAtIndex (4)).getSelectorCount());
-    assertEquals (1, ((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleCount());
-    assertEquals ("state", ((CSSLayerRule)aSR.getRuleAtIndex (4)).getSelectorAtIndex(0));
-    assertTrue (((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getDeclarationCount());
-    assertEquals (1, ((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getRuleCount());
-    assertEquals (".alert", ((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("background-color:brown", ((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getDeclarationAtIndex(0).getAsCSSString());
-    assertTrue (((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getRuleAtIndex(0) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getRuleAtIndex(0)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getRuleAtIndex(0)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getRuleAtIndex(0)).getRuleCount());
-    assertEquals ("p", ((CSSStyleRule)((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getRuleAtIndex(0)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("border:medium solid limegreen", ((CSSStyleRule)((CSSStyleRule)((CSSLayerRule)aSR.getRuleAtIndex (4)).getRuleAtIndex(0)).getRuleAtIndex(0)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSLayerRule rule5 = (CSSLayerRule) aSR.getRuleAtIndex (4);
+    assertEquals (1, rule5.getSelectorCount ());
+    assertEquals (1, rule5.getRuleCount ());
+    assertEquals ("state", rule5.getSelectorAtIndex (0));
+    assertTrue (rule5.getRuleAtIndex (0) instanceof CSSStyleRule);
+    CSSStyleRule rule51 = (CSSStyleRule)rule5.getRuleAtIndex (0);
+    assertEquals (1, rule51.getSelectorCount ());
+    assertEquals (1, rule51.getDeclarationCount ());
+    assertEquals (1, rule51.getRuleCount ());
+    assertEquals (".alert", rule51.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("background-color:brown", rule51.getDeclarationAtIndex (0).getAsCSSString ());
+    assertEquals (1, rule51.getRuleCount ());
+    CSSStyleRule rule511 = (CSSStyleRule) rule51.getRuleAtIndex (0);
+    assertEquals (1, rule511.getSelectorCount ());
+    assertEquals (1, rule511.getDeclarationCount ());
+    assertEquals (0, rule511.getRuleCount ());
+    assertEquals ("p", rule511.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("border:medium solid limegreen", rule511.getDeclarationAtIndex (0).getAsCSSString ());
   }
 
   @Test
@@ -253,40 +255,40 @@ public final class CSSStyleRuleTest
     assertEquals (1, aSR.getDeclarationCount ());
     assertEquals (6, aSR.getRuleCount ());
 
-    assertEquals ("div", aSR.getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:red", aSR.getDeclarationAtIndex(0).getAsCSSString());
+    assertEquals ("div", aSR.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:red", aSR.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (0) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)aSR.getRuleAtIndex (0)).getRuleCount());
-    assertEquals (".a1", ((CSSStyleRule)aSR.getRuleAtIndex (0)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:green", ((CSSStyleRule)aSR.getRuleAtIndex (0)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSStyleRule rule1 = (CSSStyleRule) aSR.getRuleAtIndex (0);
+    assertEquals (1, rule1.getSelectorCount ());
+    assertEquals (1, rule1.getDeclarationCount ());
+    assertEquals (0, rule1.getRuleCount ());
+    assertEquals (".a1", rule1.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:green", rule1.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (1) instanceof CSSNestedDeclarations);
-    assertEquals (1, ((CSSNestedDeclarations)aSR.getRuleAtIndex (1)).getDeclarationCount());
-    assertEquals ("color:blue", ((CSSNestedDeclarations)aSR.getRuleAtIndex (1)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSNestedDeclarations rule2 = (CSSNestedDeclarations) aSR.getRuleAtIndex (1);
+    assertEquals (1, rule2.getDeclarationCount ());
+    assertEquals ("color:blue", rule2.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (2) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (2)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (2)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)aSR.getRuleAtIndex (2)).getRuleCount());
-    assertEquals (".a2", ((CSSStyleRule)aSR.getRuleAtIndex (2)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:orange", ((CSSStyleRule)aSR.getRuleAtIndex (2)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSStyleRule rule3 = (CSSStyleRule) aSR.getRuleAtIndex (2);
+    assertEquals (1, rule3.getSelectorCount ());
+    assertEquals (1, rule3.getDeclarationCount ());
+    assertEquals (0, rule3.getRuleCount ());
+    assertEquals (".a2", rule3.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:orange", rule3.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (3) instanceof CSSNestedDeclarations);
-    assertEquals (1, ((CSSNestedDeclarations)aSR.getRuleAtIndex (3)).getDeclarationCount());
-    assertEquals ("color:yellow", ((CSSNestedDeclarations)aSR.getRuleAtIndex (3)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSNestedDeclarations rule4 = (CSSNestedDeclarations) aSR.getRuleAtIndex (3);
+    assertEquals (1, rule4.getDeclarationCount ());
+    assertEquals ("color:yellow", rule4.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (4) instanceof CSSStyleRule);
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (4)).getSelectorCount());
-    assertEquals (1, ((CSSStyleRule)aSR.getRuleAtIndex (4)).getDeclarationCount());
-    assertEquals (0, ((CSSStyleRule)aSR.getRuleAtIndex (4)).getRuleCount());
-    assertEquals (".a3", ((CSSStyleRule)aSR.getRuleAtIndex (4)).getSelectorAtIndex(0).getAsCSSString());
-    assertEquals ("color:white", ((CSSStyleRule)aSR.getRuleAtIndex (4)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSStyleRule rule5 = (CSSStyleRule) aSR.getRuleAtIndex (4);
+    assertEquals (1, rule5.getSelectorCount ());
+    assertEquals (1, rule5.getDeclarationCount ());
+    assertEquals (0, rule5.getRuleCount ());
+    assertEquals (".a3", rule5.getSelectorAtIndex (0).getAsCSSString ());
+    assertEquals ("color:white", rule5.getDeclarationAtIndex (0).getAsCSSString ());
 
-    assertTrue (aSR.getRuleAtIndex (5) instanceof CSSNestedDeclarations);
-    assertEquals (1, ((CSSNestedDeclarations)aSR.getRuleAtIndex (5)).getDeclarationCount());
-    assertEquals ("color:cyan", ((CSSNestedDeclarations)aSR.getRuleAtIndex (5)).getDeclarationAtIndex(0).getAsCSSString());
+    CSSNestedDeclarations rule6 = (CSSNestedDeclarations) aSR.getRuleAtIndex (5);
+    assertEquals (1, rule6.getDeclarationCount ());
+    assertEquals ("color:cyan", rule6.getDeclarationAtIndex (0).getAsCSSString ());
   }
 }

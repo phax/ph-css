@@ -150,20 +150,17 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return m_aSelectors.getClone ();
   }
 
-  @Override
   public boolean hasRules()
   {
     return m_aRules.isNotEmpty ();
   }
 
-  @Override
   @Nonnegative
   public int getRuleCount()
   {
     return m_aRules.size ();
   }
 
-  @Override
   @NonNull
   public CSSStyleRule addRule(@NonNull final ICSSNestedRule aRule)
   {
@@ -173,7 +170,6 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return this;
   }
 
-  @Override
   @NonNull
   public CSSStyleRule addRule(@Nonnegative final int nIndex, @NonNull final ICSSNestedRule aRule)
   {
@@ -187,35 +183,30 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return this;
   }
 
-  @Override
   @NonNull
   public EChange removeRule(@NonNull final ICSSNestedRule aRule)
   {
     return m_aRules.removeObject (aRule);
   }
 
-  @Override
   @NonNull
   public EChange removeRule(@Nonnegative final int nRuleIndex)
   {
     return m_aRules.removeAtIndex (nRuleIndex);
   }
 
-  @Override
   @NonNull
   public EChange removeAllRules()
   {
     return m_aRules.removeAll ();
   }
 
-  @Override
   @Nullable
   public ICSSNestedRule getRuleAtIndex(@Nonnegative final int nRuleIndex)
   {
     return m_aRules.getAtIndex (nRuleIndex);
   }
 
-  @Override
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICSSNestedRule> getAllRules()
@@ -223,7 +214,6 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return m_aRules.getClone ();
   }
 
-  @Override
   @NonNull
   public CSSStyleRule addDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
@@ -231,7 +221,6 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return this;
   }
 
-  @Override
   @NonNull
   public CSSStyleRule addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
@@ -239,28 +228,24 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return this;
   }
 
-  @Override
   @NonNull
   public EChange removeDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     return m_aDeclarations.removeDeclaration (aDeclaration);
   }
 
-  @Override
   @NonNull
   public EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
   {
     return m_aDeclarations.removeDeclaration (nDeclarationIndex);
   }
 
-  @Override
   @NonNull
   public EChange removeAllDeclarations ()
   {
     return m_aDeclarations.removeAllDeclarations ();
   }
 
-  @Override
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarations ()
@@ -268,14 +253,12 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return m_aDeclarations.getAllDeclarations ();
   }
 
-  @Override
   @Nullable
   public CSSDeclaration getDeclarationAtIndex (@Nonnegative final int nIndex)
   {
     return m_aDeclarations.getDeclarationAtIndex (nIndex);
   }
 
-  @Override
   @NonNull
   public CSSStyleRule setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
@@ -283,27 +266,23 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return this;
   }
 
-  @Override
   public boolean hasDeclarations ()
   {
     return m_aDeclarations.hasDeclarations ();
   }
 
-  @Override
   @Nonnegative
   public int getDeclarationCount ()
   {
     return m_aDeclarations.getDeclarationCount ();
   }
 
-  @Override
   @Nullable
   public CSSDeclaration getDeclarationOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
   }
 
-  @Override
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
@@ -342,7 +321,6 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return aSB.toString ();
   }
 
-  @Override
   @NonNull
   public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
@@ -439,14 +417,12 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return aSB.toString ();
   }
 
-  @Override
   @Nullable
   public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
   }
 
-  @Override
   public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
   {
     m_aSourceLocation = aSourceLocation;

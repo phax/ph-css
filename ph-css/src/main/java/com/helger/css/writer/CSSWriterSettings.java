@@ -223,7 +223,6 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return this;
   }
 
-  @Override
   public final boolean isWriteNestedDeclarations()
   {
     return m_bWriteNestedDeclarations;
@@ -266,7 +265,6 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return this;
   }
 
-  @Override
   public final boolean isWriteLayerRules ()
   {
     return m_bWriteLayerRules;

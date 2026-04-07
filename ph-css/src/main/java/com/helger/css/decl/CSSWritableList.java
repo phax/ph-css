@@ -81,7 +81,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> extends CommonsArr
       // No ';' at the last decl
       if (!bOptimizedOutput || nIndex < nDeclCount - 1)
         aSB.append (CCSS.DEFINITION_END);
-      if (!bOptimizedOutput && nIndex != size() - 1)
+      if (!bOptimizedOutput && nIndex != nDeclCount - 1)
         aSB.append (aSettings.getNewLineString ());
       ++nIndex;
     }

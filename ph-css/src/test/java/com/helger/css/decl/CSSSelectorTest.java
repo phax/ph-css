@@ -41,7 +41,7 @@ public final class CSSSelectorTest
   @NonNull
   private CSSSelector _parse (@NonNull final String sCSS)
   {
-    CSSReaderSettings aSettings = new CSSReaderSettings().setInterpretErrorHandler(m_aIEH);
+    CSSReaderSettings aSettings = new CSSReaderSettings ().setInterpretErrorHandler (m_aIEH);
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
     assertNotNull (sCSS, aCSS);
     assertTrue (aCSS.hasStyleRules ());
@@ -70,29 +70,29 @@ public final class CSSSelectorTest
   @Test
   public void testReadElementSelector ()
   {
-    CSSSelector aSel = _parse("div { color:red }");
-    assertEquals(List.of(), m_aIEH.getErrors());
-    assertEquals(1, aSel.getMemberCount());
-    assertTrue(aSel.getMemberAtIndex(0) instanceof CSSSelectorSimpleMember);
-    assertEquals("div", aSel.getMemberAtIndex(0).getAsCSSString());
+    CSSSelector aSel = _parse ("div { color:red }");
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
+    assertEquals (1, aSel.getMemberCount ());
+    assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
+    assertEquals ("div", aSel.getMemberAtIndex (0).getAsCSSString ());
   }
 
   @Test
   public void testReadIdSelector ()
   {
-    CSSSelector aSel = _parse("#id { color:red }");
-    assertEquals(List.of(), m_aIEH.getErrors());
-    assertEquals(1, aSel.getMemberCount());
-    assertTrue(aSel.getMemberAtIndex(0) instanceof CSSSelectorSimpleMember);
-    assertEquals("#id", aSel.getMemberAtIndex(0).getAsCSSString());
-    assertEquals("#id", aSel.getAsCSSString());
+    CSSSelector aSel = _parse ("#id { color:red }");
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
+    assertEquals (1, aSel.getMemberCount ());
+    assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
+    assertEquals ("#id", aSel.getMemberAtIndex (0).getAsCSSString ());
+    assertEquals ("#id", aSel.getAsCSSString ());
   }
 
   @Test
   public void testReadIdSpaceCombinator ()
   {
     CSSSelector aSel = _parse ("#id div { color:red }");
-    assertEquals(List.of(), m_aIEH.getErrors());
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
     assertEquals (3, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
     assertEquals ("#id", aSel.getMemberAtIndex (0).getAsCSSString ());
@@ -107,7 +107,7 @@ public final class CSSSelectorTest
   public void testReadWaveDashCombinator ()
   {
     CSSSelector aSel = _parse ("#id ~ div { color:red }");
-    assertEquals(List.of(), m_aIEH.getErrors());
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
     assertEquals (3, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
     assertEquals ("#id", aSel.getMemberAtIndex (0).getAsCSSString ());
@@ -119,9 +119,9 @@ public final class CSSSelectorTest
   }
 
   @Test
-  public void testReadNestingSelectorAtStartWithoutSpace() {
+  public void testReadNestingSelectorAtStartWithoutSpace () {
     CSSSelector aSel = _parse ("&.foo { color:red }");
-    assertEquals(List.of(), m_aIEH.getErrors());
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
     assertEquals (2, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
     assertEquals ("&", aSel.getMemberAtIndex (0).getAsCSSString ());
@@ -130,9 +130,9 @@ public final class CSSSelectorTest
   }
 
   @Test
-  public void testReadNestingSelectorAtStartWithSpace() {
+  public void testReadNestingSelectorAtStartWithSpace () {
     CSSSelector aSel = _parse ("& .foo { color:red }");
-    assertEquals(List.of(), m_aIEH.getErrors());
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
     assertEquals (3, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
     assertEquals ("&", aSel.getMemberAtIndex (0).getAsCSSString ());
@@ -143,9 +143,9 @@ public final class CSSSelectorTest
   }
 
   @Test
-  public void testReadNestingSelectorAtEnd() {
+  public void testReadNestingSelectorAtEnd () {
     CSSSelector aSel = _parse (".foo & { color:red }");
-    assertEquals(List.of(), m_aIEH.getErrors());
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
     assertEquals (3, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
     assertEquals (".foo", aSel.getMemberAtIndex (0).getAsCSSString ());
@@ -156,74 +156,74 @@ public final class CSSSelectorTest
   }
 
   @Test
-  public void testReadRelativeSelectorWithinStyleRuleWithWaveDash() {
+  public void testReadRelativeSelectorWithinStyleRuleWithWaveDash () {
     CSSStyleRule aRule = _parseRule (".foo { ~ .bar { color:red } }");
 
-    assertEquals(List.of(), m_aIEH.getErrors());
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
 
-    assertEquals(".foo", aRule.getSelectorAtIndex(0).getAsCSSString());
-    assertTrue(aRule.getRuleAtIndex(0) instanceof CSSStyleRule);
-    assertEquals(1, ((CSSStyleRule)aRule.getRuleAtIndex(0)).getSelectorCount());
-    CSSSelector aSel = ((CSSStyleRule)aRule.getRuleAtIndex(0)).getSelectorAtIndex(0);
+    assertEquals (".foo", aRule.getSelectorAtIndex (0).getAsCSSString ());
+    assertTrue (aRule.getRuleAtIndex (0) instanceof CSSStyleRule);
+    assertEquals (1, ((CSSStyleRule)aRule.getRuleAtIndex (0)).getSelectorCount ());
+    CSSSelector aSel = ((CSSStyleRule)aRule.getRuleAtIndex (0)).getSelectorAtIndex (0);
     assertEquals (2, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof ECSSSelectorCombinator);
-    assertEquals ("~", ((ECSSSelectorCombinator)aSel.getMemberAtIndex (0)).getName());
+    assertEquals ("~", ((ECSSSelectorCombinator)aSel.getMemberAtIndex (0)).getName ());
 
     assertTrue (aSel.getMemberAtIndex (1) instanceof CSSSelector);
-    assertTrue (((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex(0) instanceof CSSSelectorSimpleMember);
-    assertEquals (".bar", ((CSSSelectorSimpleMember)((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex(0)).getValue());
+    assertTrue (((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
+    assertEquals (".bar", ((CSSSelectorSimpleMember)((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex (0)).getValue ());
   }
 
   @Test
-  public void testReadRelativeSelectorWithinStyleRuleWithPlus() {
+  public void testReadRelativeSelectorWithinStyleRuleWithPlus () {
     CSSStyleRule aRule = _parseRule (".foo { + .bar { color:red } }");
 
-    assertEquals(List.of(), m_aIEH.getErrors());
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
 
-    assertEquals(".foo", aRule.getSelectorAtIndex(0).getAsCSSString());
-    assertTrue(aRule.getRuleAtIndex(0) instanceof CSSStyleRule);
-    assertEquals(1, ((CSSStyleRule)aRule.getRuleAtIndex(0)).getSelectorCount());
-    CSSSelector aSel = ((CSSStyleRule)aRule.getRuleAtIndex(0)).getSelectorAtIndex(0);
+    assertEquals (".foo", aRule.getSelectorAtIndex (0).getAsCSSString ());
+    assertTrue (aRule.getRuleAtIndex (0) instanceof CSSStyleRule);
+    assertEquals (1, ((CSSStyleRule)aRule.getRuleAtIndex (0)).getSelectorCount ());
+    CSSSelector aSel = ((CSSStyleRule)aRule.getRuleAtIndex (0)).getSelectorAtIndex (0);
     assertEquals (2, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof ECSSSelectorCombinator);
-    assertEquals ("+", ((ECSSSelectorCombinator)aSel.getMemberAtIndex (0)).getName());
+    assertEquals ("+", ((ECSSSelectorCombinator)aSel.getMemberAtIndex (0)).getName ());
 
     assertTrue (aSel.getMemberAtIndex (1) instanceof CSSSelector);
-    assertTrue (((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex(0) instanceof CSSSelectorSimpleMember);
-    assertEquals (".bar", ((CSSSelectorSimpleMember)((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex(0)).getValue());
+    assertTrue (((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
+    assertEquals (".bar", ((CSSSelectorSimpleMember)((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex (0)).getValue ());
   }
 
   @Test
-  public void testReadRelativeSelectorWithinStyleRuleWithGreater() {
+  public void testReadRelativeSelectorWithinStyleRuleWithGreater () {
     CSSStyleRule aRule = _parseRule (".foo { > .bar { color:red } }");
 
-    assertEquals(List.of(), m_aIEH.getErrors());
+    assertTrue (m_aIEH.getErrors ().isEmpty ());
 
-    assertEquals(".foo", aRule.getSelectorAtIndex(0).getAsCSSString());
-    assertTrue(aRule.getRuleAtIndex(0) instanceof CSSStyleRule);
-    assertEquals(1, ((CSSStyleRule)aRule.getRuleAtIndex(0)).getSelectorCount());
-    CSSSelector aSel = ((CSSStyleRule)aRule.getRuleAtIndex(0)).getSelectorAtIndex(0);
+    assertEquals (".foo", aRule.getSelectorAtIndex (0).getAsCSSString ());
+    assertTrue (aRule.getRuleAtIndex (0) instanceof CSSStyleRule);
+    assertEquals (1, ((CSSStyleRule)aRule.getRuleAtIndex (0)).getSelectorCount ());
+    CSSSelector aSel = ((CSSStyleRule)aRule.getRuleAtIndex (0)).getSelectorAtIndex (0);
     assertEquals (2, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof ECSSSelectorCombinator);
-    assertEquals (">", ((ECSSSelectorCombinator)aSel.getMemberAtIndex (0)).getName());
+    assertEquals (">", ((ECSSSelectorCombinator)aSel.getMemberAtIndex (0)).getName ());
 
     assertTrue (aSel.getMemberAtIndex (1) instanceof CSSSelector);
-    assertTrue (((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex(0) instanceof CSSSelectorSimpleMember);
-    assertEquals (".bar", ((CSSSelectorSimpleMember)((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex(0)).getValue());
+    assertTrue (((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
+    assertEquals (".bar", ((CSSSelectorSimpleMember)((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex (0)).getValue ());
   }
 
   @Test
-  public void testReadRelativeSelectorAtTopLevel() {
+  public void testReadRelativeSelectorAtTopLevel () {
     CSSSelector aSel = _parse ("> .bar { color:red }");
 
-    assertEquals(List.of("Relative selectors are not allowed at the top level!"), m_aIEH.getErrors());
+    assertEquals (List.of ("Relative selectors are not allowed at the top level!"), m_aIEH.getErrors ());
 
     assertEquals (2, aSel.getMemberCount ());
     assertTrue (aSel.getMemberAtIndex (0) instanceof ECSSSelectorCombinator);
-    assertEquals (">", ((ECSSSelectorCombinator)aSel.getMemberAtIndex (0)).getName());
+    assertEquals (">", ((ECSSSelectorCombinator)aSel.getMemberAtIndex (0)).getName ());
 
     assertTrue (aSel.getMemberAtIndex (1) instanceof CSSSelector);
-    assertTrue (((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex(0) instanceof CSSSelectorSimpleMember);
-    assertEquals (".bar", ((CSSSelectorSimpleMember)((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex(0)).getValue());
+    assertTrue (((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex (0) instanceof CSSSelectorSimpleMember);
+    assertEquals (".bar", ((CSSSelectorSimpleMember)((CSSSelector) aSel.getMemberAtIndex (1)).getMemberAtIndex (0)).getValue ());
   }
 }

@@ -70,10 +70,9 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
   /**
    * Creates a new, empty instance with no declarations.
    */
-  public CSSNestedDeclarations()
+  public CSSNestedDeclarations ()
   {}
 
-  @Override
   @NonNull
   public CSSNestedDeclarations addDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
@@ -81,7 +80,6 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
     return this;
   }
 
-  @Override
   @NonNull
   public CSSNestedDeclarations addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
@@ -89,28 +87,24 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
     return this;
   }
 
-  @Override
   @NonNull
   public EChange removeDeclaration (@NonNull final CSSDeclaration aDeclaration)
   {
     return m_aDeclarations.removeDeclaration (aDeclaration);
   }
 
-  @Override
   @NonNull
   public EChange removeDeclaration (@Nonnegative final int nDeclarationIndex)
   {
     return m_aDeclarations.removeDeclaration (nDeclarationIndex);
   }
 
-  @Override
   @NonNull
   public EChange removeAllDeclarations ()
   {
     return m_aDeclarations.removeAllDeclarations ();
   }
 
-  @Override
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarations ()
@@ -118,14 +112,12 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
     return m_aDeclarations.getAllDeclarations ();
   }
 
-  @Override
   @Nullable
   public CSSDeclaration getDeclarationAtIndex (@Nonnegative final int nIndex)
   {
     return m_aDeclarations.getDeclarationAtIndex (nIndex);
   }
 
-  @Override
   @NonNull
   public CSSNestedDeclarations setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
   {
@@ -133,27 +125,23 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
     return this;
   }
 
-  @Override
   public boolean hasDeclarations ()
   {
     return m_aDeclarations.hasDeclarations ();
   }
 
-  @Override
   @Nonnegative
   public int getDeclarationCount ()
   {
     return m_aDeclarations.getDeclarationCount ();
   }
 
-  @Override
   @Nullable
   public CSSDeclaration getDeclarationOfPropertyName (@Nullable final String sPropertyName)
   {
     return m_aDeclarations.getDeclarationOfPropertyName (sPropertyName);
   }
 
-  @Override
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <CSSDeclaration> getAllDeclarationsOfPropertyName (@Nullable final String sPropertyName)
@@ -161,7 +149,6 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
     return m_aDeclarations.getAllDeclarationsOfPropertyName (sPropertyName);
   }
 
-  @Override
   @NonNull
   public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
@@ -172,17 +159,15 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
-    return m_aDeclarations.getDeclarationsAsCSSString(aSettings, nIndentLevel);
+    return m_aDeclarations.getDeclarationsAsCSSString (aSettings, nIndentLevel);
   }
 
-  @Override
   @Nullable
   public final CSSSourceLocation getSourceLocation ()
   {
     return m_aSourceLocation;
   }
 
-  @Override
   public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
   {
     m_aSourceLocation = aSourceLocation;

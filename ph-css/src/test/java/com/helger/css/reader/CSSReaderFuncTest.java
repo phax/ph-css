@@ -355,7 +355,10 @@ public final class CSSReaderFuncTest extends AbstractFuncTestCSSReader
     String sCSS = ".class{color:red;.class{color:green}.class{color:blue}";
     aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
     if (bBrowserCompliantMode)
+    {
+      assertNotNull (aCSS);
       assertEquals ("", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+    }
     else
       assertNull (aCSS);
 
