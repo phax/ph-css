@@ -97,7 +97,7 @@ TOKEN :
 | < LROUND: "(" >
 | < RROUND: ")" >
   {
-    if (curLexState == IN_NTH)
+    if (curLexState == IN_NTH || curLexState == IN_UNKNOWN_RULE)
       SwitchTo(DEFAULT);
   }
 }
