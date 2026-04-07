@@ -132,6 +132,9 @@ TOKEN :
   < SYNTAX_SYM: "syntax" >
 | < INHERITS_SYM: "inherits" >
 | < INITIALVALUE_SYM: "initial-value" >
+| < DASHED_IDENT: "--"
+                  <NMSTART>
+                  ( <NMCHAR> )* > { matchedToken.image = CSSParseHelper.validateIdentifier(image); }
 }
 
 <DEFAULT, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
@@ -1843,12 +1846,7 @@ void propertyRule() : {}
 {
   <PROPERTY_SYM>
   ( <S> )*
-  <IDENT> 
-  { 
-    if (!token.image.startsWith ("--"))
-      throw new ParseException ("Invalid identifier '" + token.image + "'. Only dashed identifier allowed (e.g. '--canBeAnything').");
-    jjtThis.setText (token.image);
-  }
+  <DASHED_IDENT> { jjtThis.setText (token.image); }
   ( <S> )*
   <LBRACE>
 try {
