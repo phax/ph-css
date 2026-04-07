@@ -1823,14 +1823,12 @@ CSSNode propertyRuleDeclarationList() : {}
 {
 try {
   ( <S> )*
-  ( (propertyRuleDeclarationOrInvalid() )
-    (
-      <SEMICOLON>
-      ( <S> )*
-      ( propertyRuleDeclarationOrInvalid() )?
-    )*
-  )?
-  ( <S> )*
+  ( propertyRuleDeclarationOrInvalid() )?
+  (
+    <SEMICOLON>
+    ( <S> )*
+    ( propertyRuleDeclarationOrInvalid() )?
+  )*
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
     browserCompliantSkipDecl (ex);
