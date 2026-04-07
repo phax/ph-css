@@ -94,8 +94,8 @@ public enum ECSSMediaExpressionFeature implements IHasName
   _MS_VIEW_STATE ("-ms-view-state"),
   _MOZ_MAX_DEVICE_PIXEL_RATIO ("-moz-max-device-pixel-ratio"),
   _MOZ_MIN_DEVICE_PIXEL_RATIO ("-moz-min-device-pixel-ratio"),
-  MAX_MOZ_DEVICE_PIXEL_RATION ("max--moz-device-pixel-ratio"),
-  MIN_MOZ_DEVICE_PIXEL_RATION ("min--moz-device-pixel-ratio"),
+  MAX_MOZ_DEVICE_PIXEL_RATIO ("max--moz-device-pixel-ratio"),
+  MIN_MOZ_DEVICE_PIXEL_RATIO ("min--moz-device-pixel-ratio"),
   _MOZ_IMAGES_IN_MENUS ("-moz-images-in-menus"),
   _MOZ_MAC_GRAPHITE_THEME ("-moz-mac-graphite-theme"),
   _MOZ_MAEMO_CLASSIC ("-moz-maemo-classic"),
@@ -115,6 +115,14 @@ public enum ECSSMediaExpressionFeature implements IHasName
   _O_MAX_DEVICE_PIXEL_RATIO ("-o-max-device-pixel-ratio"),
   _O_MIN_DEVICE_PIXEL_RATIO ("-o-min-device-pixel-ratio");
 
+  // Old name with a typo
+  @Deprecated (forRemoval = true, since = "8.2.0")
+  public static final ECSSMediaExpressionFeature MAX_MOZ_DEVICE_PIXEL_RATION = MAX_MOZ_DEVICE_PIXEL_RATIO;
+
+  // Old name with a typo
+  @Deprecated (forRemoval = true, since = "8.2.0")
+  public static final ECSSMediaExpressionFeature MIN_MOZ_DEVICE_PIXEL_RATION = MIN_MOZ_DEVICE_PIXEL_RATIO;
+
   private final String m_sName;
 
   ECSSMediaExpressionFeature (@NonNull @Nonempty final String sName)
@@ -133,8 +141,8 @@ public enum ECSSMediaExpressionFeature implements IHasName
   }
 
   /**
-   * @return <code>true</code> if this media expression feature is WebKit
-   *         specific, <code>false</code> if not.
+   * @return <code>true</code> if this media expression feature is WebKit specific,
+   *         <code>false</code> if not.
    */
   public boolean isWebkitSpecific ()
   {
@@ -142,8 +150,8 @@ public enum ECSSMediaExpressionFeature implements IHasName
   }
 
   /**
-   * @return <code>true</code> if this media expression feature is Mozilla
-   *         specific, <code>false</code> if not.
+   * @return <code>true</code> if this media expression feature is Mozilla specific,
+   *         <code>false</code> if not.
    */
   public boolean isMozillaSpecific ()
   {
@@ -151,8 +159,8 @@ public enum ECSSMediaExpressionFeature implements IHasName
   }
 
   /**
-   * @return <code>true</code> if this media expression feature is Microsoft
-   *         specific, <code>false</code> if not.
+   * @return <code>true</code> if this media expression feature is Microsoft specific,
+   *         <code>false</code> if not.
    */
   public boolean isMicrosoftSpecific ()
   {
@@ -160,8 +168,8 @@ public enum ECSSMediaExpressionFeature implements IHasName
   }
 
   /**
-   * @return <code>true</code> if this media expression feature is browser
-   *         specific, <code>false</code> if not.
+   * @return <code>true</code> if this media expression feature is browser specific,
+   *         <code>false</code> if not.
    */
   public boolean isBrowserSpecific ()
   {
