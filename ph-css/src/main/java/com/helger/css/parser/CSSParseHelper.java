@@ -338,31 +338,31 @@ public final class CSSParseHelper
     return aPattern.toString ();
   }
 
-  /**
-   * Unescape e.g. <code>\26</code> or <code>\000026</code> to <code>&amp;</code>.
-   *
-   * @param aImage
-   *        Source string
-   * @return Unmasked string
-   */
-  @NonNull
-  public static String unescapeUnicode (final StringBuilder aImage)
-  {
-    // FIXME
-    return aImage.toString ();
-  }
+  // /**
+  // * Unescape e.g. <code>\26</code> or <code>\000026</code> to <code>&amp;</code>.
+  // *
+  // * @param aImage
+  // * Source string
+  // * @return Unmasked string
+  // */
+  // @NonNull
+  // public static String unescapeUnicode (final StringBuilder aImage)
+  // {
+  // // FIXME
+  // return aImage.toString ();
+  // }
 
-  /**
-   * Unescape e.g. <code>\x</code> to x.
-   *
-   * @param aImage
-   *        Source string
-   * @return Unmasked string
-   */
-  @NonNull
-  public static String unescapeOther (final StringBuilder aImage)
-  {
-    // FIXME
-    return aImage.toString ();
-  }
+  // /**
+  // * Unescape e.g. <code>\x</code> to x.
+  // *
+  // * @param aImage
+  // * Source string
+  // * @return Unmasked string
+  // */
+  // @NonNull
+  // public static String unescapeOther (final StringBuilder aImage)
+  // {
+  // // FIXME
+  // return aImage.toString ();
+  // }
 }
