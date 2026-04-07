@@ -23,12 +23,12 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import com.helger.css.decl.CSSStyleRule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.css.AbstractCSSTestCase;
+import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CascadingStyleSheet;
 import com.helger.css.reader.CSSReader;
 import com.helger.css.reader.CSSReaderSettings;
@@ -109,23 +109,25 @@ public final class CSSVisitorFuncTest extends AbstractCSSTestCase
   }
 
   @Test
-  public void testVisitNestedDeclarations() {
-    CascadingStyleSheet aSheet = CSSReader.readFromString(".foo { color: red; .bar { color: green; } color: blue; }");
-    CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex(0);
-    MockCountingNestedDeclarationsVisitor aVisitor = new MockCountingNestedDeclarationsVisitor();
-    CSSVisitor.visitStyleRule(aStyleRule, aVisitor);
-    assertEquals(1, aVisitor.getBeginNestedDeclarationsCount());
-    assertEquals(1, aVisitor.getEndNestedDeclarationsCount());
-    assertEquals(List.of("color:blue;"), aVisitor.getNestedDeclarations());
+  public void testVisitNestedDeclarations ()
+  {
+    final CascadingStyleSheet aSheet = CSSReader.readFromString (".foo { color: red; .bar { color: green; } color: blue; }");
+    final CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex (0);
+    final MockCountingNestedDeclarationsVisitor aVisitor = new MockCountingNestedDeclarationsVisitor ();
+    CSSVisitor.visitStyleRule (aStyleRule, aVisitor);
+    assertEquals (1, aVisitor.getBeginNestedDeclarationsCount ());
+    assertEquals (1, aVisitor.getEndNestedDeclarationsCount ());
+    assertEquals (List.of ("color:blue;"), aVisitor.getNestedDeclarations ());
   }
 
   @Test
-  public void testVisitDeclarations() {
-    CascadingStyleSheet aSheet = CSSReader.readFromString(".foo { color: red; .bar { color: green; } color: blue; }");
-    CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex(0);
-    MockCountingDeclarationsVisitor aVisitor = new MockCountingDeclarationsVisitor();
-    CSSVisitor.visitStyleRule(aStyleRule, aVisitor);
-    assertEquals(3, aVisitor.getDeclarationCount());
-    assertEquals(List.of("color:red", "color:green", "color:blue"), aVisitor.getDeclarations());
+  public void testVisitDeclarations ()
+  {
+    final CascadingStyleSheet aSheet = CSSReader.readFromString (".foo { color: red; .bar { color: green; } color: blue; }");
+    final CSSStyleRule aStyleRule = aSheet.getStyleRuleAtIndex (0);
+    final MockCountingDeclarationsVisitor aVisitor = new MockCountingDeclarationsVisitor ();
+    CSSVisitor.visitStyleRule (aStyleRule, aVisitor);
+    assertEquals (3, aVisitor.getDeclarationCount ());
+    assertEquals (List.of ("color:red", "color:green", "color:blue"), aVisitor.getDeclarations ());
   }
 }

@@ -1,26 +1,31 @@
 package com.helger.css.decl.visit;
 
-import com.helger.css.decl.CSSDeclaration;
-import org.jspecify.annotations.NonNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
-class MockCountingDeclarationsVisitor extends DefaultCSSVisitor {
-    private int m_nDeclaration = 0;
-    private final List<String> m_sDeclarations = new ArrayList<>();
+import org.jspecify.annotations.NonNull;
 
-    @Override
-    public void onDeclaration(@NonNull CSSDeclaration aDeclaration) {
-        m_nDeclaration++;
-        m_sDeclarations.add(aDeclaration.getAsCSSString());
-    }
+import com.helger.css.decl.CSSDeclaration;
 
-    public int getDeclarationCount() {
-        return m_nDeclaration;
-    }
+class MockCountingDeclarationsVisitor extends DefaultCSSVisitor
+{
+  private int m_nDeclaration = 0;
+  private final List <String> m_sDeclarations = new ArrayList <> ();
 
-    public List<String> getDeclarations() {
-        return m_sDeclarations;
-    }
+  @Override
+  public void onDeclaration (@NonNull CSSDeclaration aDeclaration)
+  {
+    m_nDeclaration++;
+    m_sDeclarations.add (aDeclaration.getAsCSSString ());
+  }
+
+  public int getDeclarationCount ()
+  {
+    return m_nDeclaration;
+  }
+
+  public List <String> getDeclarations ()
+  {
+    return m_sDeclarations;
+  }
 }

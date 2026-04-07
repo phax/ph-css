@@ -22,10 +22,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import com.helger.base.system.ENewLineMode;
 import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
+import com.helger.base.system.ENewLineMode;
 import com.helger.css.AbstractCSSTestCase;
 import com.helger.css.ICSSWriterSettings;
 

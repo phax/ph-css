@@ -108,8 +108,8 @@ public abstract class AbstractFuncTestCSSReader
 
       // Write non-optimized and code-removed version and ensure it is not
       // null
-      sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)
-                                             .setRemoveUnnecessaryCode (true)).getCSSAsString (aCSS);
+      sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false).setRemoveUnnecessaryCode (true))
+                                                                                                         .getCSSAsString (aCSS);
       assertNotNull (sFilename, sCSS);
       assertNotNull (sFilename, CSSReader.readFromStringReader (sCSS, m_aReaderSettings));
 

@@ -65,7 +65,8 @@ public class CSSTokenizer
   }
 
   @NonNull
-  private Charset _determineCharset (@NonNull @WillNotClose final CSSInputStream aIS) throws IOException, CSSTokenizeException
+  private Charset _determineCharset (@NonNull @WillNotClose final CSSInputStream aIS) throws IOException,
+                                                                                      CSSTokenizeException
   {
     // Determine charset
     // https://www.w3.org/TR/css-syntax-3/#input-byte-stream
@@ -96,7 +97,8 @@ public class CSSTokenizer
     return m_aFallbackEncoding;
   }
 
-  public void tokenize (@NonNull @WillClose final InputStream aIS, @NonNull final Consumer <CSSToken> aConsumer) throws IOException,
+  public void tokenize (@NonNull @WillClose final InputStream aIS, @NonNull final Consumer <CSSToken> aConsumer)
+                                                                                                                 throws IOException,
                                                                                                                  CSSTokenizeException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
@@ -122,13 +124,13 @@ public class CSSTokenizer
                                 ":" +
                                 aReader.getTokenStartColumnNumber () +
                                 "] - " +
-                                (eTokenStartType == ECSSTokenStartType.EOF ? "EOF"
-                                                                           : "read CP " +
-                                                                             (nValue >= 0x20 &&
-                                                                              nValue <= 0x7f ? Character.toString ((char) nValue)
-                                                                                             : "0x" + Integer.toHexString (nValue)) +
-                                                                             " as " +
-                                                                             eTokenStartType));
+                                (eTokenStartType == ECSSTokenStartType.EOF ? "EOF" : "read CP " +
+                                                                                     (nValue >= 0x20 && nValue <= 0x7f
+                                                                                                                       ? Character.toString ((char) nValue)
+                                                                                                                       : "0x" +
+                                                                                                                         Integer.toHexString (nValue)) +
+                                                                                     " as " +
+                                                                                     eTokenStartType));
           }
 
           if (eTokenStartType == ECSSTokenStartType.EOF)
@@ -190,9 +192,7 @@ public class CSSTokenizer
     final File f = new File ("src/test/resources/testfiles/css30/good/pure-min.css");
     try (InputStream aIS = StreamHelper.getBuffered (FileHelper.getInputStream (f)))
     {
-      new CSSTokenizer ().setDebugMode (false).tokenize (aIS, t -> {
-        System.out.println (t);
-      });
+      new CSSTokenizer ().setDebugMode (false).tokenize (aIS, t -> { System.out.println (t); });
     }
   }
 }

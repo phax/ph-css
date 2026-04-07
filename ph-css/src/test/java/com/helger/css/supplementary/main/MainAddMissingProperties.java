@@ -20,8 +20,8 @@ import com.helger.css.property.CCSSProperties;
 import com.helger.css.property.ECSSProperty;
 
 /**
- * Helper class to create all constants for {@link CCSSProperties} based on
- * {@link ECSSProperty} that are missing.
+ * Helper class to create all constants for {@link CCSSProperties} based on {@link ECSSProperty}
+ * that are missing.
  *
  * @author Philip Helger
  */
@@ -45,7 +45,11 @@ public class MainAddMissingProperties
         {
           if (e.getClass ().getField (e.name ()).getAnnotation (Deprecated.class) != null)
             System.out.println ("@Deprecated");
-          System.out.println ("public static final ICSSProperty " + e.name () + " = new CSSPropertyFree (ECSSProperty." + e.name () + ");");
+          System.out.println ("public static final ICSSProperty " +
+                              e.name () +
+                              " = new CSSPropertyFree (ECSSProperty." +
+                              e.name () +
+                              ");");
           bFieldEmitted = true;
         }
       }
