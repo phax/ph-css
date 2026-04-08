@@ -1288,6 +1288,7 @@ void styleDeclarationOrRuleWithNested() #void : {}
     | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule is not allowed as a nested rule!"); }
     | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule is not allowed as a nested rule!"); }
     | supportsRule()  { }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule is not allowed as a nested rule!"); }
     | unknownRule()   { }
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule is not allowed as a nested rule!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule is not allowed as a nested rule!"); }

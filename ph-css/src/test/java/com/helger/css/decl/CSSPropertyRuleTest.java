@@ -297,7 +297,7 @@ public class CSSPropertyRuleTest
   public void testWriteNoDeclarations ()
   {
     CSSPropertyRule aPR = _parse (false, "@property --rotation {}");
-    assertEquals ("@property --rotation {}\n", aPR.getAsCSSString (new CSSWriterSettings (false)));
+    assertEquals ("@property --rotation {}", aPR.getAsCSSString (new CSSWriterSettings (false)));
     assertEquals ("@property --rotation{}", aPR.getAsCSSString (new CSSWriterSettings (true)));
   }
 

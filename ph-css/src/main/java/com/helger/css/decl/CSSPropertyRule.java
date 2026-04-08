@@ -148,20 +148,22 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
     final StringBuilder aSB = new StringBuilder ("@property ").append (m_sIdentifier);
     if (nDeclCount == 0)
     {
-      aSB.append (bOptimizedOutput ? "{}" : " {}" + aSettings.getNewLineString ());
+      aSB.append (bOptimizedOutput ? "{}" : " {}");
     }
     else
     {
       if (nDeclCount == 1)
       {
         aSB.append (bOptimizedOutput ? "{" : " { ");
-        aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
+        aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel + 1));
         aSB.append (bOptimizedOutput ? "}" : " }");
       }
       else
       {
         aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
-        aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
+        if (!bOptimizedOutput)
+          aSB.append (aSettings.getIndent (nIndentLevel + 1));
+        aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel + 1));
         if (!bOptimizedOutput)
           aSB.append (aSettings.getIndent (nIndentLevel));
         aSB.append ('}');

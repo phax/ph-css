@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import com.helger.css.reader.CSSReaderSettings;
+import com.helger.css.reader.errorhandler.CollectingCSSParseErrorHandler;
 import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
@@ -33,10 +35,13 @@ import com.helger.unittest.support.TestHelper;
  */
 public final class CSSStyleRuleTest
 {
+  private CollectingCSSParseErrorHandler m_aCEH = new CollectingCSSParseErrorHandler ();
+
   @NonNull
-  private static CSSStyleRule _parse (@NonNull final String sCSS)
+  private CSSStyleRule _parse (@NonNull final String sCSS)
   {
-    final CascadingStyleSheet aCSS = CSSReader.readFromString (sCSS);
+    CSSReaderSettings settings = new CSSReaderSettings ().setCustomErrorHandler (m_aCEH);
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS, settings);
     assertNotNull (sCSS, aCSS);
     assertTrue (aCSS.hasStyleRules ());
     assertEquals (1, aCSS.getStyleRuleCount ());
@@ -291,5 +296,148 @@ public final class CSSStyleRuleTest
     final CSSNestedDeclarations rule6 = (CSSNestedDeclarations) aSR.getRuleAtIndex (5);
     assertEquals (1, rule6.getDeclarationCount ());
     assertEquals ("color:cyan", rule6.getDeclarationAtIndex (0).getAsCSSString ());
+  }
+
+  @Test
+  public void testReadPropertyRuleCannotBeNested ()
+  {
+    final CSSStyleRule aSR = _parse ("""
+        div {
+          @property --rotation {
+            syntax: "<angle>";
+            inherits: false;
+            initial-value: 45deg;
+          }
+        }
+        """);
+    assertEquals (1, m_aCEH.getParseErrorCount ());
+    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@property': property rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount());
+    assertEquals (0, aSR.getDeclarationCount());
+    assertEquals (0, aSR.getRuleCount());
+  }
+
+  @Test
+  public void testReadPageRuleCannotBeNested ()
+  {
+    final CSSStyleRule aSR = _parse ("""
+        div {
+          @page :left {
+            margin-top: 4in;
+          }
+        }
+        """);
+    assertEquals (1, m_aCEH.getParseErrorCount ());
+    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@page': page rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount());
+    assertEquals (0, aSR.getDeclarationCount());
+    assertEquals (0, aSR.getRuleCount());
+  }
+
+  @Test
+  public void testReadFontFaceRuleCannotBeNested ()
+  {
+    final CSSStyleRule aSR = _parse ("""
+        div {
+          @font-face {
+            font-family: "Trickster";
+            src:
+              local("Trickster"),
+              url("trickster-COLRv1.otf") format("opentype") tech(color-COLRv1),
+              url("trickster-outline.otf") format("opentype"),
+              url("trickster-outline.woff2") format("woff2");
+          }
+        }
+        """);
+    assertEquals (1, m_aCEH.getParseErrorCount ());
+    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@font-face': font-face rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount());
+    assertEquals (0, aSR.getDeclarationCount());
+    assertEquals (0, aSR.getRuleCount());
+  }
+
+  @Test
+  public void testReadKeyframesRuleCannotBeNested ()
+  {
+    final CSSStyleRule aSR = _parse ("""
+        div {
+          @keyframes slide-in {
+           from {
+             transform: translateX(0%);
+           }
+    
+           to {
+             transform: translateX(100%);
+           }
+         }
+        }
+        """);
+    assertEquals (1, m_aCEH.getParseErrorCount ());
+    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@keyframes': keyframes rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount());
+    assertEquals (0, aSR.getDeclarationCount());
+    assertEquals (0, aSR.getRuleCount());
+  }
+
+  @Test
+  public void testReadViewportRuleCannotBeNested ()
+  {
+    final CSSStyleRule aSR = _parse ("""
+        div {
+          @viewport {
+            width: device-width;
+          }
+        }
+        """);
+    assertEquals (1, m_aCEH.getParseErrorCount ());
+    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@viewport': viewport rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount());
+    assertEquals (0, aSR.getDeclarationCount());
+    assertEquals (0, aSR.getRuleCount());
+  }
+
+  @Test
+  public void testReadCharsetRuleCannotBeNested ()
+  {
+    final CSSStyleRule aSR = _parse ("""
+        div {
+          @charset "UTF-8";
+        }
+        """);
+    assertEquals (1, m_aCEH.getParseErrorCount ());
+    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@charset': charset rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount());
+    assertEquals (0, aSR.getDeclarationCount());
+    assertEquals (0, aSR.getRuleCount());
+  }
+
+  @Test
+  public void testReadImportRuleCannotBeNested ()
+  {
+    final CSSStyleRule aSR = _parse ("""
+        div {
+          @import "my-imported-styles.css";
+        }
+        """);
+    assertEquals (1, m_aCEH.getParseErrorCount ());
+    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@import': import rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount());
+    assertEquals (0, aSR.getDeclarationCount());
+    assertEquals (0, aSR.getRuleCount());
+  }
+
+  @Test
+  public void testReadNamespaceRuleCannotBeNested ()
+  {
+    final CSSStyleRule aSR = _parse ("""
+        div {
+          @namespace svg url("http://www.w3.org/2000/svg");
+        }
+        """);
+    assertEquals (1, m_aCEH.getParseErrorCount ());
+    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@namespace': namespace rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount());
+    assertEquals (0, aSR.getDeclarationCount());
+    assertEquals (0, aSR.getRuleCount());
   }
 }
