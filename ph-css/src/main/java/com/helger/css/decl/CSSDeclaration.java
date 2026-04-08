@@ -35,7 +35,7 @@ import com.helger.css.ICSSWriterSettings;
 import com.helger.css.property.ECSSProperty;
 
 /**
- * Represents a single element in a CSS style rule. (eg. <code>color:red;</code>
+ * Represents a single element in a CSS style rule. (e.g. <code>color:red;</code>
  * or <code>background:uri(a.gif) !important;</code>)<br>
  * Instances of this class are mutable since 3.7.4.
  *
@@ -99,7 +99,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
   @NonNull
   private static String _unifyProperty (@NonNull final String sProperty)
   {
-    // CSS variables are case sensitive (see issue 63)
+    // CSS variables are case-sensitive (see issue 63)
     if (sProperty.startsWith ("--"))
       return sProperty;
     return sProperty.toLowerCase (Locale.ROOT);
@@ -107,7 +107,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
 
   /**
    * Check if this declaration has the specified property. The comparison is
-   * case insensitive!
+   * case-insensitive!
    *
    * @param sProperty
    *        The property to check. May not be <code>null</code>.
@@ -123,7 +123,7 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
 
   /**
    * Check if this declaration has the specified property. The comparison is
-   * case insensitive!
+   * case-insensitive!
    *
    * @param eProperty
    *        The property to check. May not be <code>null</code>.

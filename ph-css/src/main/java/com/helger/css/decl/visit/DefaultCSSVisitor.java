@@ -16,6 +16,7 @@
  */
 package com.helger.css.decl.visit;
 
+import com.helger.css.decl.CSSNestedDeclarations;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
@@ -153,7 +154,15 @@ public class DefaultCSSVisitor implements ICSSVisitor
   @OverrideOnDemand
   public void onEndLayerRule (@NonNull final CSSLayerRule aLayerRule)
   {}
-  
+
+  @OverrideOnDemand
+  public void onBeginNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
+  {}
+
+  @OverrideOnDemand
+  public void onEndNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
+  {}
+
   @OverrideOnDemand
   public void onBeginPropertyRule (@NonNull final CSSPropertyRule aPropertyRule)
   {}

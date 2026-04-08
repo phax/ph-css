@@ -16,6 +16,16 @@
  */
 package com.helger.css;
 
+import com.helger.css.decl.CSSFontFaceRule;
+import com.helger.css.decl.CSSKeyframesRule;
+import com.helger.css.decl.CSSLayerRule;
+import com.helger.css.decl.CSSMediaRule;
+import com.helger.css.decl.CSSNamespaceRule;
+import com.helger.css.decl.CSSNestedDeclarations;
+import com.helger.css.decl.CSSPageRule;
+import com.helger.css.decl.CSSSupportsRule;
+import com.helger.css.decl.CSSUnknownRule;
+import com.helger.css.decl.CSSViewportRule;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
@@ -73,47 +83,58 @@ public interface ICSSWriterSettings
   boolean isQuoteURLs ();
 
   /**
-   * @return <code>true</code> if @namespace rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSNamespaceRule @namespace rules} should be written, <code>false</code> if not
    */
   boolean isWriteNamespaceRules ();
 
   /**
-   * @return <code>true</code> if @font-face rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSNestedDeclarations nested declarations} should be written,
+   * <code>false</code> if not
+   */
+  boolean isWriteNestedDeclarations();
+
+  /**
+   * @return <code>true</code> if {@link CSSFontFaceRule @font-face rules} should be written, <code>false</code> if not
    */
   boolean isWriteFontFaceRules ();
 
   /**
-   * @return <code>true</code> if @keyframes rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSKeyframesRule @keyframes rules} should be written, <code>false</code> if not
    */
   boolean isWriteKeyframesRules ();
 
   /**
-   * @return <code>true</code> if @media rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSLayerRule @layer rules} should be written, <code>false</code> if not
+   */
+  boolean isWriteLayerRules ();
+
+  /**
+   * @return <code>true</code> if {@link CSSMediaRule @media rules} should be written, <code>false</code> if not
    */
   boolean isWriteMediaRules ();
 
   /**
-   * @return <code>true</code> if @page rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSPageRule @page rules} should be written, <code>false</code> if not
    */
   boolean isWritePageRules ();
 
   /**
-   * @return <code>true</code> if @viewport rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSViewportRule @viewport rules} should be written, <code>false</code> if not
    */
   boolean isWriteViewportRules ();
 
   /**
-   * @return <code>true</code> if @supports rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSSupportsRule @supports rules} should be written, <code>false</code> if not
    */
   boolean isWriteSupportsRules ();
 
   /**
-   * @return <code>true</code> if @property rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSPropertyRule @property rules} should be written, <code>false</code> if not
    */
   boolean isWritePropertyRules ();
 
   /**
-   * @return <code>true</code> if unknown @ rules should be written, <code>false</code> if not
+   * @return <code>true</code> if {@link CSSUnknownRule unknown @ rules} should be written, <code>false</code> if not
    */
   boolean isWriteUnknownRules ();
 }

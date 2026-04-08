@@ -22,6 +22,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
@@ -30,8 +31,7 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single CSS complex selector pseudo element. Like
- * <code>:lang(fr)</code>
+ * Represents a single CSS complex selector pseudo element. Like <code>:lang(fr)</code>
  *
  * @author Philip Helger
  */
@@ -42,7 +42,8 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
   private final CSSExpression m_aParamExpr;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSSelectorMemberFunctionLike (@NonNull @Nonempty final String sFuncName, @NonNull final CSSExpression aParamExpr)
+  public CSSSelectorMemberFunctionLike (@NonNull @Nonempty final String sFuncName,
+                                        @NonNull final CSSExpression aParamExpr)
   {
     ValueEnforcer.notEmpty (sFuncName, "FunctionName");
     if (!sFuncName.endsWith ("("))
@@ -64,6 +65,7 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
   }
 
   @NonNull
+  @ReturnsMutableObject
   public CSSExpression getParameterExpression ()
   {
     return m_aParamExpr;
@@ -107,8 +109,8 @@ public class CSSSelectorMemberFunctionLike implements ICSSSelectorMember, ICSSSo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("functionName", m_sFuncName)
-                                       .append ("paramExpr", m_aParamExpr)
+    return new ToStringGenerator (null).append ("FunctionName", m_sFuncName)
+                                       .append ("ParamExpr", m_aParamExpr)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

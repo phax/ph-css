@@ -95,9 +95,11 @@ public final class CSSNumberHelperTest
     assertEquals (new CSSSimpleValueWithUnit (50, ECSSUnit.EX), CSSNumberHelper.getValueWithUnit (" 50ex ", true));
     assertEquals (new CSSSimpleValueWithUnit (50, ECSSUnit.EX), CSSNumberHelper.getValueWithUnit (" 50ex ", false));
     assertEquals (new CSSSimpleValueWithUnit (50, ECSSUnit.EX), CSSNumberHelper.getValueWithUnit (" 50 ex ", false));
-    assertEquals (new CSSSimpleValueWithUnit (50, ECSSUnit.EX), CSSNumberHelper.getValueWithUnit ("    50      ex     ", false));
+    assertEquals (new CSSSimpleValueWithUnit (50, ECSSUnit.EX),
+                  CSSNumberHelper.getValueWithUnit ("    50      ex     ", false));
     assertEquals (new CSSSimpleValueWithUnit (50, ECSSUnit.TIME_S), CSSNumberHelper.getValueWithUnit (" 50 s ", false));
-    assertEquals (new CSSSimpleValueWithUnit (50, ECSSUnit.TIME_MS), CSSNumberHelper.getValueWithUnit (" 50 ms ", false));
+    assertEquals (new CSSSimpleValueWithUnit (50, ECSSUnit.TIME_MS),
+                  CSSNumberHelper.getValueWithUnit (" 50 ms ", false));
 
     assertNull (CSSNumberHelper.getValueWithUnit (" 50 xs ", false));
     assertNull (CSSNumberHelper.getValueWithUnit ("50%", false));

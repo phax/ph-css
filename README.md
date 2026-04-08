@@ -316,6 +316,15 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.2.0 - work in progress
+* Added support for CSS Nesting (CSS Nesting Module Level 1). See [#94](https://github.com/phax/ph-css/issues/94) and [#123](https://github.com/phax/ph-css/pull/123) - thx @blutorange
+    * New interface `ICSSNestedRule` as a marker for all nested CSS elements
+    * New interface `IHasCSSNestedRules` for managing nested rules
+    * New class `CSSNestedDeclarations` to represent nested style declarations
+    * Added support for relative selectors in nested style rules
+    * Updated `CSSVisitor` and `ICSSVisitor` with `onBeginNestedDeclarations`/`onEndNestedDeclarations` callbacks
+    * Updated the CSS 3.0 grammar to support nested rules and the nesting selector (`&`)
+
 v8.1.1 - 2025-12-09
 * Added new CSS units `dvw` and `dvh`. See [#118](https://github.com/phax/ph-css/pull/118) - thx @shagkur
 * Added new CSS units `dvmin`, `dvmax`, `svw`, `svh`, `svmin`, `svmax`, `lvw`, `lvh`, `lvmin`, `lvmax`

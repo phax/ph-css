@@ -199,7 +199,7 @@ public class CSSSelectorMemberNot implements ICSSSelectorMember, ICSSSourceLocat
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("nestedSelectors", m_aNestedSelectors)
+    return new ToStringGenerator (null).append ("NestedSelectors", m_aNestedSelectors)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

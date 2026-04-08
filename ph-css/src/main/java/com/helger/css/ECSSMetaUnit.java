@@ -35,7 +35,7 @@ public enum ECSSMetaUnit
   ABSOLUTE_LENGTH,
   ANGLE,
   TIME,
-  FREQUENZY,
+  FREQUENCY,
   RESOLUTION,
   FLEX,
   /**
@@ -45,6 +45,10 @@ public enum ECSSMetaUnit
    * containers without having to recalculate concrete length values.
    */
   CONTAINER_RELATIVE_LENGTH;
+
+  // Old name with a typo
+  @Deprecated (forRemoval = true, since = "8.2.0")
+  public static final ECSSMetaUnit FREQUENZY = FREQUENCY;
 
   public boolean isRelativeLength ()
   {

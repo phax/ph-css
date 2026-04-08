@@ -34,9 +34,13 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single <code>@viewport</code> rule.<br>
- * Example:<br>
- * <code>@viewport { width: device-width; }</code>
+ * Represents a single <code>@viewport</code> rule.
+ *
+ * <p>Example:
+ *
+ * <pre>@viewport {
+  width: device-width;
+}</pre>
  *
  * @author Philip Helger
  */
@@ -157,11 +161,7 @@ public class CSSViewportRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
-    final StringBuilder aSB = new StringBuilder (m_sDeclaration);
-    aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel));
-    if (!aSettings.isOptimizedOutput ())
-      aSB.append (aSettings.getNewLineString ());
-    return aSB.toString ();
+    return m_sDeclaration + m_aDeclarations.getAsCSSString(aSettings, nIndentLevel);
   }
 
   @Nullable

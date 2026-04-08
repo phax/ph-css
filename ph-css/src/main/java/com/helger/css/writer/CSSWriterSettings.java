@@ -16,6 +16,8 @@
  */
 package com.helger.css.writer;
 
+import com.helger.css.decl.CSSLayerRule;
+import com.helger.css.decl.CSSNestedDeclarations;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
@@ -41,33 +43,35 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
 {
   /** By default no optimized output */
   public static final boolean DEFAULT_OPTIMIZED_OUTPUT = false;
-  /** By default unnecessary code is not removed */
+  /** By default, unnecessary code is not removed */
   public static final boolean DEFAULT_REMOVE_UNNECESSARY_CODE = false;
-  /**
-   * By default unix line endings are used - for backwards compatibility reasons
-   */
+  /** By default, UNIX line endings are used - for backwards compatibility reasons */
   public static final ENewLineMode DEFAULT_NEW_LINE_MODE = ENewLineMode.UNIX;
-  /** By default indentation is done by 2 spaces */
+  /** By default, indentation is done by 2 spaces */
   public static final String DEFAULT_INDENT = "  ";
-  /** By default URLs are not quoted */
+  /** By default, URLs are not quoted */
   public static final boolean DEFAULT_QUOTE_URLS = CSSURLHelper.DEFAULT_QUOTE_URLS;
-  /** By default namespace rules are written */
+  /** By default, namespace rules are written */
   public static final boolean DEFAULT_WRITE_NAMESPACE_RULES = true;
-  /** By default font-face rules are written */
+  /** By default, nested declarations are written */
+  public static final boolean DEFAULT_WRITE_NESTED_DECLARATIONS = true;
+  /** By default, font-face rules are written */
   public static final boolean DEFAULT_WRITE_FONT_FACE_RULES = true;
-  /** By default keyframes rules are written */
+  /** By default, keyframes rules are written */
   public static final boolean DEFAULT_WRITE_KEYFRAMES_RULES = true;
-  /** By default media rules are written */
+  /** By default, layer rules are written */
+  public static final boolean DEFAULT_WRITE_LAYER_RULES = true;
+  /** By default, media rules are written */
   public static final boolean DEFAULT_WRITE_MEDIA_RULES = true;
-  /** By default page rules are written */
+  /** By default, page rules are written */
   public static final boolean DEFAULT_WRITE_PAGE_RULES = true;
-  /** By default viewport rules are written */
+  /** By default, viewport rules are written */
   public static final boolean DEFAULT_WRITE_VIEWPORT_RULES = true;
-  /** By default supports rules are written */
+  /** By default, supports rules are written */
   public static final boolean DEFAULT_WRITE_SUPPORTS_RULES = true;
-  /** By default property rules are written */
+  /** By default, property rules are written */
   public static final boolean DEFAULT_WRITE_PROPERTY_RULES = true;
-  /** By default unknown rules are written */
+  /** By default, unknown rules are written */
   public static final boolean DEFAULT_WRITE_UNKNOWN_RULES = true;
 
   /**
@@ -84,8 +88,10 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   private String m_sIndent = DEFAULT_INDENT;
   private boolean m_bQuoteURLs = DEFAULT_QUOTE_URLS;
   private boolean m_bWriteNamespaceRules = DEFAULT_WRITE_NAMESPACE_RULES;
+  private boolean m_bWriteNestedDeclarations = DEFAULT_WRITE_NESTED_DECLARATIONS;
   private boolean m_bWriteFontFaceRules = DEFAULT_WRITE_FONT_FACE_RULES;
   private boolean m_bWriteKeyframesRules = DEFAULT_WRITE_KEYFRAMES_RULES;
+  private boolean m_bWriteLayerRules = DEFAULT_WRITE_LAYER_RULES;
   private boolean m_bWriteMediaRules = DEFAULT_WRITE_MEDIA_RULES;
   private boolean m_bWritePageRules = DEFAULT_WRITE_PAGE_RULES;
   private boolean m_bWriteViewportRules = DEFAULT_WRITE_VIEWPORT_RULES;
@@ -126,8 +132,10 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     setIndent (aBase.getIndent (1));
     setQuoteURLs (aBase.isQuoteURLs ());
     setWriteNamespaceRules (aBase.isWriteNamespaceRules ());
+    setWriteNestedDeclarations (aBase.isWriteNestedDeclarations ());
     setWriteFontFaceRules (aBase.isWriteFontFaceRules ());
     setWriteKeyframesRules (aBase.isWriteKeyframesRules ());
+    setWriteLayerRules (aBase.isWriteLayerRules ());
     setWriteMediaRules (aBase.isWriteMediaRules ());
     setWritePageRules (aBase.isWritePageRules ());
     setWriteViewportRules (aBase.isWriteViewportRules ());
@@ -219,6 +227,24 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return this;
   }
 
+  public final boolean isWriteNestedDeclarations()
+  {
+    return m_bWriteNestedDeclarations;
+  }
+
+  /**
+   * Configures whether {@link CSSNestedDeclarations nested declarations} are written.
+   * @param bWriteNestedDeclarations <code>true</code> to write nested declarations, <code>false</code> to ignore them.
+   * @return This instance for chaining
+   * @since 8.2.0
+   */
+  @NonNull
+  public final CSSWriterSettings setWriteNestedDeclarations(final boolean bWriteNestedDeclarations)
+  {
+    m_bWriteNestedDeclarations = bWriteNestedDeclarations;
+    return this;
+  }
+
   public final boolean isWriteFontFaceRules ()
   {
     return m_bWriteFontFaceRules;
@@ -241,6 +267,24 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
   {
     m_bWriteKeyframesRules = bWriteKeyframesRules;
     return this;
+  }
+
+  public final boolean isWriteLayerRules ()
+  {
+    return m_bWriteLayerRules;
+  }
+
+  /**
+   * Configures whether {@link CSSLayerRule @layer rules} are written.
+   * @param bWriteLayerRules <code>true</code> to write layer rules, <code>false</code> to ignore them.
+   * @return This instance for chaining
+   * @since 8.2.0
+   */
+  @NonNull
+  public final CSSWriterSettings setWriteLayerRules (final boolean bWriteLayerRules)
+  {
+      m_bWriteLayerRules = bWriteLayerRules;
+      return this;
   }
 
   public final boolean isWriteMediaRules ()
@@ -336,8 +380,10 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
            m_sIndent.equals (rhs.m_sIndent) &&
            m_bQuoteURLs == rhs.m_bQuoteURLs &&
            m_bWriteNamespaceRules == rhs.m_bWriteNamespaceRules &&
+           m_bWriteNestedDeclarations == rhs.m_bWriteNestedDeclarations &&
            m_bWriteFontFaceRules == rhs.m_bWriteFontFaceRules &&
            m_bWriteKeyframesRules == rhs.m_bWriteKeyframesRules &&
+           m_bWriteLayerRules == rhs.m_bWriteLayerRules &&
            m_bWriteMediaRules == rhs.m_bWriteMediaRules &&
            m_bWritePageRules == rhs.m_bWritePageRules &&
            m_bWriteViewportRules == rhs.m_bWriteViewportRules &&
@@ -355,8 +401,10 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
                                        .append (m_sIndent)
                                        .append (m_bQuoteURLs)
                                        .append (m_bWriteNamespaceRules)
+                                       .append (m_bWriteNestedDeclarations)
                                        .append (m_bWriteFontFaceRules)
                                        .append (m_bWriteKeyframesRules)
+                                       .append (m_bWriteLayerRules)
                                        .append (m_bWriteMediaRules)
                                        .append (m_bWritePageRules)
                                        .append (m_bWriteViewportRules)
@@ -375,8 +423,10 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
                                        .append ("Indent", m_sIndent)
                                        .append ("QuoteURLs", m_bQuoteURLs)
                                        .append ("WriteNamespaceRules", m_bWriteNamespaceRules)
+                                       .append ("WriteNestedDeclarations", m_bWriteNestedDeclarations)
                                        .append ("WriteFontFaceRules", m_bWriteFontFaceRules)
                                        .append ("WriteKeyframesRules", m_bWriteKeyframesRules)
+                                       .append ("WriteLayerRules", m_bWriteLayerRules)
                                        .append ("WriteMediaRules", m_bWriteMediaRules)
                                        .append ("WritePageRules", m_bWritePageRules)
                                        .append ("WriteViewportRules", m_bWriteViewportRules)

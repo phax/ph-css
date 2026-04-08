@@ -36,6 +36,13 @@ public class CSSDeclarationContainer extends CSSDeclarationList
   public CSSDeclarationContainer ()
   {}
 
+  @NonNull
+  @Nonempty
+  public String getDeclarationsAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  {
+    return super.getAsCSSString (aSettings, nIndentLevel);
+  }
+
   @Override
   @NonNull
   @Nonempty
@@ -55,16 +62,18 @@ public class CSSDeclarationContainer extends CSSDeclarationList
       {
         // A single declaration
         aSB.append (bOptimizedOutput ? "{" : " { ");
-        aSB.append (super.getAsCSSString (aSettings, nIndentLevel));
+        aSB.append (super.getAsCSSString (aSettings, nIndentLevel + 1));
         aSB.append (bOptimizedOutput ? "}" : " }");
       }
       else
       {
         // More than one declaration
         aSB.append (bOptimizedOutput ? "{" : " {" + aSettings.getNewLineString ());
-        aSB.append (super.getAsCSSString (aSettings, nIndentLevel));
         if (!bOptimizedOutput)
-          aSB.append (aSettings.getIndent (nIndentLevel));
+          aSB.append (aSettings.getIndent (nIndentLevel + 1));
+        aSB.append (super.getAsCSSString (aSettings, nIndentLevel + 1));
+        if (!bOptimizedOutput)
+          aSB.append(aSettings.getNewLineString()).append (aSettings.getIndent (nIndentLevel));
         aSB.append ('}');
       }
     }

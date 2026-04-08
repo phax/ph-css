@@ -104,9 +104,9 @@ public class CSSPropertyEnumOrColors extends AbstractCSSPropertyEnums
       return false;
 
     // Check each value
-    for (final String aPart : aParts)
+    for (final String sPart : aParts)
     {
-      final String sTrimmedPart = aPart.trim ();
+      final String sTrimmedPart = sPart.trim ();
       if (!super.isValidValue (sTrimmedPart) && !CSSColorHelper.isColorValue (sTrimmedPart))
         return false;
     }

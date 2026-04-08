@@ -1,7 +1,9 @@
+.claude/
 .settings/ 
 target/
 
 .classpath 
+.idea
 .project 
 zz
 

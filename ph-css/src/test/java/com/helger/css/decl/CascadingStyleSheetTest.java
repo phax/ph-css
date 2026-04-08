@@ -45,9 +45,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadEmpty ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("");
-
+    final CascadingStyleSheet aCSS = _parse ("");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -92,9 +90,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadImportOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@import url(a.gif);\n");
-
+    final CascadingStyleSheet aCSS = _parse ("@import url(a.gif);\n");
     assertTrue (aCSS.hasImportRules ());
     assertEquals (1, aCSS.getImportRuleCount ());
     assertNotNull (aCSS.getAllImportRules ().get (0));
@@ -139,9 +135,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadNamespaceOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@namespace toto2 url(http://toto.example.org);");
-
+    final CascadingStyleSheet aCSS = _parse ("@namespace toto2 url(http://toto.example.org);");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -186,9 +180,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadStyleOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("div { color: red; }");
-
+    final CascadingStyleSheet aCSS = _parse ("div { color: red; }");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -233,9 +225,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadPageOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@page { size: 8.5in 11in; }");
-
+    final CascadingStyleSheet aCSS = _parse ("@page { size: 8.5in 11in; }");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -280,9 +270,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadMediaOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@media ( min-width :450px) and (max-width:950px) { }");
-
+    final CascadingStyleSheet aCSS = _parse ("@media ( min-width :450px) and (max-width:950px) { }");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -327,9 +315,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadFontFaceOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@font-face { font-family: JapaneseWithGentium; src: local(MSMincho); }");
-
+    final CascadingStyleSheet aCSS = _parse ("@font-face { font-family: JapaneseWithGentium; src: local(MSMincho); }");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -374,9 +360,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadKeyframesOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@-webkit-keyframes travel { from { } to { left: 640px; } }");
-
+    final CascadingStyleSheet aCSS = _parse ("@-webkit-keyframes travel { from { } to { left: 640px; } }");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -421,9 +405,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadViewportOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@viewport { width: device-width; }");
-
+    final CascadingStyleSheet aCSS = _parse ("@viewport { width: device-width; }");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -468,9 +450,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadSupportsOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@supports (column-count: 1) and (background-image: linear-gradient(#f00,#00f)) { }");
-
+    final CascadingStyleSheet aCSS = _parse ("@supports (column-count: 1) and (background-image: linear-gradient(#f00,#00f)) { }");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -515,9 +495,7 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadUnknownOnly ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@-moz-document    anything else or whatever 4711    {   }");
-
+    final CascadingStyleSheet aCSS = _parse ("@-moz-document    anything else or whatever 4711    {   }");
     assertFalse (aCSS.hasImportRules ());
     assertEquals (0, aCSS.getImportRuleCount ());
     assertTrue (aCSS.getAllImportRules ().isEmpty ());
@@ -562,18 +540,16 @@ public final class CascadingStyleSheetTest
   @Test
   public void testReadOneOfAll ()
   {
-    CascadingStyleSheet aCSS;
-    aCSS = _parse ("@import url(a.gif);\n" +
-                   "@namespace toto2 url(http://toto.example.org);\n" +
-                   "div { color: red; }\n" +
-                   "@page { size: 8.5in 11in; }\n" +
-                   "@media ( min-width :450px) and (max-width:950px) { }\n" +
-                   "@font-face { font-family: JapaneseWithGentium; src: local(MSMincho); }\n" +
-                   "@keyframes travel { from { } to { left: 640px; } }\n" +
-                   "@viewport { width: device-width; }\n" +
-                   "@supports (column-count: 1) and (background-image: linear-gradient(#f00,#00f)) { }\n" +
-                   "@document    anything else or whatever 4711    {   }\n");
-
+    final CascadingStyleSheet aCSS = _parse ("@import url(a.gif);\n" +
+                       "@namespace toto2 url(http://toto.example.org);\n" +
+                       "div { color: red; }\n" +
+                       "@page { size: 8.5in 11in; }\n" +
+                       "@media ( min-width :450px) and (max-width:950px) { }\n" +
+                       "@font-face { font-family: JapaneseWithGentium; src: local(MSMincho); }\n" +
+                       "@keyframes travel { from { } to { left: 640px; } }\n" +
+                       "@viewport { width: device-width; }\n" +
+                       "@supports (column-count: 1) and (background-image: linear-gradient(#f00,#00f)) { }\n" +
+                       "@document    anything else or whatever 4711    {   }\n");
     assertTrue (aCSS.hasImportRules ());
     assertEquals (1, aCSS.getImportRuleCount ());
     assertNotNull (aCSS.getAllImportRules ().get (0));

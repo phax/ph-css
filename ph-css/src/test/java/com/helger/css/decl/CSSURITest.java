@@ -40,7 +40,7 @@ public final class CSSURITest
   {
     final CSSURI aURI = new CSSURI ("a.gif");
     assertEquals ("a.gif", aURI.getURI ());
-    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings (false);
     assertEquals ("url(a.gif)", aURI.getAsCSSString (aSettings));
     aSettings.setQuoteURLs (true);
     assertEquals ("url('a.gif')", aURI.getAsCSSString (aSettings));

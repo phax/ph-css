@@ -62,22 +62,22 @@ public class CSSExpressionMemberLineNames implements ICSSExpressionMember, ICSSS
   }
 
   @NonNull
-  public CSSExpressionMemberLineNames addMember (@Nonnegative final int nIndex, @NonNull @Nonempty final String aMember)
+  public CSSExpressionMemberLineNames addMember (@Nonnegative final int nIndex, @NonNull @Nonempty final String sMember)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
-    ValueEnforcer.notNull (aMember, "Member");
+    ValueEnforcer.notNull (sMember, "Member");
 
     if (nIndex >= getMemberCount ())
-      m_aMembers.add (aMember);
+      m_aMembers.add (sMember);
     else
-      m_aMembers.add (nIndex, aMember);
+      m_aMembers.add (nIndex, sMember);
     return this;
   }
 
   @NonNull
-  public EChange removeMember (@NonNull final String aMember)
+  public EChange removeMember (@NonNull final String sMember)
   {
-    return m_aMembers.removeObject (aMember);
+    return m_aMembers.removeObject (sMember);
   }
 
   @NonNull

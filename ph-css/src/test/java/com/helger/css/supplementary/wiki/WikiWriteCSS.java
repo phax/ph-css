@@ -44,14 +44,14 @@ public final class WikiWriteCSS
    *        The CSS to be written to a file. May not be <code>null</code>.
    * @param aFile
    *        The file to be written. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if everything went okay, and
-   *         {@link ESuccess#FAILURE} if an error occurred
+   * @return {@link ESuccess#SUCCESS} if everything went okay, and {@link ESuccess#FAILURE} if an
+   *         error occurred
    */
   public ESuccess writeCSS30 (final CascadingStyleSheet aCSS, final File aFile)
   {
     // 1.param: version to write
     // 2.param: false== non-optimized output
-    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings (false);
     try
     {
       final CSSWriter aWriter = new CSSWriter (aSettings);

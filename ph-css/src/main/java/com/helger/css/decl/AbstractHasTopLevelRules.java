@@ -208,6 +208,58 @@ public abstract class AbstractHasTopLevelRules
   }
 
   /**
+   * Check if at least one of the top-level rules is a layer rule (implementing
+   * {@link CSSLayerRule}).
+   *
+   * @return <code>true</code> if at least one layer rule is contained, <code>false</code>
+   *         otherwise.
+   * @since 8.2.0
+   */
+  public boolean hasLayerRules ()
+  {
+    return m_aRules.containsAny (CSSLayerRule.class::isInstance);
+  }
+
+  /**
+   * Get the number of top-level rules that are layer rules (implementing {@link CSSLayerRule}).
+   *
+   * @return The number of contained layer rules. Always &ge; 0.
+   * @since 8.2.0
+   */
+  @Nonnegative
+  public int getLayerRuleCount ()
+  {
+    return m_aRules.getCount (CSSLayerRule.class::isInstance);
+  }
+
+  /**
+   * Get the layer rule at the specified index.
+   *
+   * @param nIndex
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getStyleRuleCount()}.
+   * @return The layer rule at the given index, or <code>null</code> if an invalid index was specified.
+   * @since 8.2.0
+   */
+  @Nullable
+  public CSSLayerRule getLayerRuleAtIndex (@Nonnegative final int nIndex)
+  {
+    return m_aRules.getAtIndexMapped (CSSLayerRule.class::isInstance, nIndex, CSSLayerRule.class::cast);
+  }
+
+  /**
+   * Get a list of all top-level rules that are layer rules (implementing {@link CSSLayerRule}).
+   *
+   * @return A copy of all contained layer rules. Never <code>null</code>.
+   * @since 8.2.0
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <CSSLayerRule> getAllLayerRules ()
+  {
+    return m_aRules.getAllMapped (CSSLayerRule.class::isInstance, CSSLayerRule.class::cast);
+  }
+
+  /**
    * Check if at least one of the top-level rules is a style rule (implementing
    * {@link CSSStyleRule}).
    *

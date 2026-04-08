@@ -394,4 +394,423 @@ public final class CSSWriterTest extends AbstractCSSTestCase
     assertNotNull (aCSS);
     assertEquals ("h1{color:red;margin:1px}h2{color:red;margin:1px}", aWriter.getCSSAsString (aCSS));
   }
+
+  @Test
+  public void testAllRulesWithPrettyPrinting ()
+  {
+    final CascadingStyleSheet aCSS = CSSReader.readFromString ("""
+        @charset "UTF-8";
+        @import url("x.css");
+        @import url("y.css");
+        @namespace url(http://www.w3.org/1999/xhtml);
+        @namespace svg url(http://www.w3.org/2000/svg);
+        div {
+          color: red;
+          p: dummy;
+          div {}
+          p {
+            color: dummy;
+          }
+          span {
+            color: dummy;
+            margin: 0;
+          }
+          .foobar {
+            color: green;
+            element {}
+            #id {
+              color: blue
+            }
+            .class {
+              color: blue;
+              padding: 0;
+            }
+            color: white
+          }
+          color: yellow;
+          background-color: purple;
+          font-size: 12px;
+          @media print {}
+          @media print {
+            .print {
+              color: white;
+            }
+          }
+          @media print {
+            .print {
+              color: black;
+              &:hover {
+                color: orange;
+                font-size: 20px;
+              }
+            }
+            .pretty-print {
+              color: pink;
+            }
+          }
+          @layer state;
+          @layer state { .alert { color: green; } }
+          @layer state {
+            .alert {
+              background-color: brown;
+              p {
+                border: medium solid limegreen;
+              }
+            }
+            .warning {
+              background-color: red;
+            }
+          }
+        }
+        @font-face {}
+        @font-face { font-family: x; }
+        @font-face {
+          font-family: x;
+          src: url(x.woff2) format("woff2");
+        }
+        @keyframes anim1 {}
+        @keyframes anim2 { from { opacity: 0.5; }}
+        @keyframes anim3 { from { opacity: 0; } to { opacity: 1; font-size: 12px; } }
+        @supports (display: grid) {}
+        @supports (display: grid) { .grid { display: grid; gap: 10px; } }
+        @supports (display: grid) {
+          .grid {
+            display: grid;
+          }
+          .grid {
+            gap: 10px;
+          }
+        }
+        @page {}
+        @page :first {}
+        @page :first { margin: 0; }
+        @page :first {
+          margin: 0;
+          padding: 0;
+        }
+        @page :first {
+          @top-center { content: "Preliminary edition" }
+        }
+        @page :first {
+          @bottom-left { }
+          @top-center { content: "Preliminary edition" }
+          @bottom-center { content: counter(page); color: violet; }
+        }
+        @viewport {}
+        @viewport { width: device-width; }
+        @viewport {
+          width: device-width;
+          height: device-height;
+        }
+        @unknown {}
+        @unknown { a: b; }
+        @unknown { a: b; c: d; }
+        @unknown {
+          a: b;
+          c: d;
+        }
+        @unknown { .foo { a: b; c: d; } }""");
+
+    assertNotNull (aCSS);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ().setOptimizedOutput (false);
+    final String sPrinted = new CSSWriter (aSettings).setFooterText ("end-of-file")
+                                                     .setContentCharset ("utf-8")
+                                                     .getCSSAsString (aCSS);
+
+    assertEquals ("""
+        /*
+         * THIS FILE IS GENERATED - DO NOT EDIT
+         */
+        @charset "utf-8";
+
+        @import url(x.css);
+        @import url(y.css);
+
+        @namespace url(http://www.w3.org/1999/xhtml);
+        @namespace svg url(http://www.w3.org/2000/svg);
+
+        div {
+          color:red;
+          p:dummy;
+
+          div {}
+
+          p { color:dummy; }
+
+          span {
+            color:dummy;
+            margin:0;
+          }
+
+          .foobar {
+            color:green;
+
+            element {}
+
+            #id { color:blue; }
+
+            .class {
+              color:blue;
+              padding:0;
+            }
+
+            color:white;
+          }
+
+          color:yellow;
+          background-color:purple;
+          font-size:12px;
+
+          @media print {}
+
+          @media print {
+            .print { color:white; }
+          }
+
+          @media print {
+            .print {
+              color:black;
+
+              &:hover {
+                color:orange;
+                font-size:20px;
+              }
+            }
+
+            .pretty-print { color:pink; }
+          }
+
+          @layer state;
+
+          @layer state {
+            .alert { color:green; }
+          }
+
+          @layer state {
+            .alert {
+              background-color:brown;
+
+              p { border:medium solid limegreen; }
+            }
+            .warning { background-color:red; }
+          }
+        }
+
+        @font-face {}
+
+        @font-face { font-family:x; }
+
+        @font-face {
+          font-family:x;
+          src:url(x.woff2) format("woff2");
+        }
+
+        @keyframes anim1 {}
+
+        @keyframes anim2 {
+          from { opacity:0.5; }
+        }
+
+        @keyframes anim3 {
+          from { opacity:0; }
+          to {
+            opacity:1;
+            font-size:12px;
+          }
+        }
+
+        @supports (display:grid) {}
+
+        @supports (display:grid) {
+          .grid {
+            display:grid;
+            gap:10px;
+          }
+        }
+
+        @supports (display:grid) {
+          .grid { display:grid; }
+          .grid { gap:10px; }
+        }
+
+        @page {}
+
+        @page :first {}
+
+        @page :first { margin:0; }
+
+        @page :first {
+          margin:0;
+          padding:0;
+        }
+
+        @page :first { @top-center { content:"Preliminary edition"; } }
+
+        @page :first {
+          @bottom-left {}
+          @top-center { content:"Preliminary edition"; }
+          @bottom-center {
+            content:counter(page);
+            color:violet;
+          }
+        }
+
+        @viewport {}
+
+        @viewport { width:device-width; }
+
+        @viewport {
+          width:device-width;
+          height:device-height;
+        }
+
+        @unknown {}
+
+        @unknown {
+          a: b;
+        }
+
+        @unknown {
+          a: b; c: d;
+        }
+
+        @unknown {
+          a: b;
+          c: d;
+        }
+
+        @unknown {
+          .foo { a: b; c: d; }
+        }
+        /*
+         * end-of-file
+         */
+        """, sPrinted);
+  }
+
+  @Test
+  public void testAllRulesWithOptimizedPrinting ()
+  {
+    final CascadingStyleSheet aCSS = CSSReader.readFromString ("""
+        @charset "UTF-8";
+        @import url("x.css");
+        @import url("y.css");
+        @namespace url(http://www.w3.org/1999/xhtml);
+        @namespace svg url(http://www.w3.org/2000/svg);
+        div {
+          color: red;
+          p: dummy;
+          div {}
+          p {
+            color: dummy;
+          }
+          span {
+            color: dummy;
+            margin: 0;
+          }
+          .foobar {
+            color: green;
+            element {}
+            #id {
+              color: blue
+            }
+            .class {
+              color: blue;
+              padding: 0;
+            }
+            color: white
+          }
+          color: yellow;
+          background-color: purple;
+          font-size: 12px;
+          @media print {}
+          @media print {
+            .print {
+              color: white;
+            }
+          }
+          @media print {
+            .print {
+              color: black;
+              &:hover {
+                color: orange;
+                font-size: 20px;
+              }
+            }
+            .pretty-print {
+              color: pink;
+            }
+          }
+          @layer state;
+          @layer state { .alert { color: green; } }
+          @layer state {
+            .alert {
+              background-color: brown;
+              p {
+                border: medium solid limegreen;
+              }
+            }
+            .warning {
+              background-color: red;
+            }
+          }
+        }
+        @font-face {}
+        @font-face { font-family: x; }
+        @font-face {
+          font-family: x;
+          src: url(x.woff2) format("woff2");
+        }
+        @keyframes anim1 {}
+        @keyframes anim2 { from { opacity: 0.5; }}
+        @keyframes anim3 { from { opacity: 0; } to { opacity: 1; font-size: 12px; } }
+        @supports (display: grid) {}
+        @supports (display: grid) { .grid { display: grid; gap: 10px; } }
+        @supports (display: grid) {
+          .grid {
+            display: grid;
+          }
+          .grid {
+            gap: 10px;
+          }
+        }
+        @page {}
+        @page :first {}
+        @page :first { margin: 0; }
+        @page :first {
+          margin: 0;
+          padding: 0;
+        }
+        @page :first {
+          @top-center { content: "Preliminary edition" }
+        }
+        @page :first {
+          @bottom-left { }
+          @top-center { content: "Preliminary edition" }
+          @bottom-center { content: counter(page); color: violet; }
+        }
+        @viewport {}
+        @viewport { width: device-width; }
+        @viewport {
+          width: device-width;
+          height: device-height;
+        }
+        @unknown {}
+        @unknown { a: b; }
+        @unknown { a: b; c: d; }
+        @unknown {
+          a: b;
+          c: d;
+        }
+        @unknown { .foo { a: b; c: d; } }""");
+
+    assertNotNull (aCSS);
+    final CSSWriterSettings aSettings = new CSSWriterSettings ().setOptimizedOutput (true);
+    final String sPrinted = new CSSWriter (aSettings).setFooterText ("end-of-file")
+                                                     .setContentCharset ("utf-8")
+                                                     .getCSSAsString (aCSS);
+
+    assertEquals ("@charset \"utf-8\";@import url(x.css);@import url(y.css);@namespace url(http://www.w3.org/1999/xhtml);@namespace svg url(http://www.w3.org/2000/svg);div{color:red;p:dummy;div{}p{color:dummy}span{color:dummy;margin:0}.foobar{color:green;element{}#id{color:blue}.class{color:blue;padding:0}color:white}color:yellow;background-color:purple;font-size:12px;@media print{}@media print{.print{color:white}}@media print{.print{color:black;&:hover{color:orange;font-size:20px}}.pretty-print{color:pink}}@layer state;@layer state{.alert{color:green}}@layer state{.alert{background-color:brown;p{border:medium solid limegreen}}.warning{background-color:red}}}@font-face{}@font-face{font-family:x}@font-face{font-family:x;src:url(x.woff2) format(\"woff2\")}@keyframes anim1{}@keyframes anim2{from{opacity:0.5}}@keyframes anim3{from{opacity:0}to{opacity:1;font-size:12px}}@supports (display:grid){}@supports (display:grid){.grid{display:grid;gap:10px}}@supports (display:grid){.grid{display:grid}.grid{gap:10px}}@page{}@page :first{}@page :first{margin:0}@page :first{margin:0;padding:0}@page :first{@top-center{content:\"Preliminary edition\"}}@page :first{@bottom-left{}@top-center{content:\"Preliminary edition\"}@bottom-center{content:counter(page);color:violet}}@viewport{}@viewport{width:device-width}@viewport{width:device-width;height:device-height}@unknown{}@unknown{a: b;}@unknown{a: b; c: d;}@unknown{a: b;\n  c: d;}@unknown{.foo { a: b; c: d; }}",
+                  sPrinted);
+  }
 }

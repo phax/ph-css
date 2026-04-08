@@ -17,6 +17,7 @@
 package com.helger.css.writer;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertTrue;
 import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
+import com.helger.base.system.ENewLineMode;
 import com.helger.css.AbstractCSSTestCase;
 import com.helger.css.ICSSWriterSettings;
 
@@ -36,19 +38,21 @@ public final class CSSWriterSettingsTest extends AbstractCSSTestCase
 {
   private static void _checkDefault (@NonNull final ICSSWriterSettings aSettings)
   {
-    assertTrue (CSSWriterSettings.DEFAULT_OPTIMIZED_OUTPUT == aSettings.isOptimizedOutput ());
-    assertTrue (CSSWriterSettings.DEFAULT_REMOVE_UNNECESSARY_CODE == aSettings.isRemoveUnnecessaryCode ());
-    assertSame (CSSWriterSettings.DEFAULT_NEW_LINE_MODE, aSettings.getNewLineMode ());
-    assertEquals (CSSWriterSettings.DEFAULT_INDENT, aSettings.getIndent (1));
-    assertTrue (CSSWriterSettings.DEFAULT_QUOTE_URLS == aSettings.isQuoteURLs ());
-    assertTrue (CSSWriterSettings.DEFAULT_WRITE_NAMESPACE_RULES == aSettings.isWriteNamespaceRules ());
-    assertTrue (CSSWriterSettings.DEFAULT_WRITE_FONT_FACE_RULES == aSettings.isWriteFontFaceRules ());
-    assertTrue (CSSWriterSettings.DEFAULT_WRITE_KEYFRAMES_RULES == aSettings.isWriteKeyframesRules ());
-    assertTrue (CSSWriterSettings.DEFAULT_WRITE_MEDIA_RULES == aSettings.isWriteMediaRules ());
-    assertTrue (CSSWriterSettings.DEFAULT_WRITE_PAGE_RULES == aSettings.isWritePageRules ());
-    assertTrue (CSSWriterSettings.DEFAULT_WRITE_VIEWPORT_RULES == aSettings.isWriteViewportRules ());
-    assertTrue (CSSWriterSettings.DEFAULT_WRITE_SUPPORTS_RULES == aSettings.isWriteSupportsRules ());
-    assertTrue (CSSWriterSettings.DEFAULT_WRITE_UNKNOWN_RULES == aSettings.isWriteUnknownRules ());
+    assertFalse (aSettings.isOptimizedOutput ());
+    assertFalse (aSettings.isRemoveUnnecessaryCode ());
+    assertSame (ENewLineMode.UNIX, aSettings.getNewLineMode ());
+    assertEquals ("  ", aSettings.getIndent (1));
+    assertFalse (aSettings.isQuoteURLs ());
+    assertTrue (aSettings.isWriteNamespaceRules ());
+    assertTrue (aSettings.isWriteNestedDeclarations ());
+    assertTrue (aSettings.isWriteFontFaceRules ());
+    assertTrue (aSettings.isWriteKeyframesRules ());
+    assertTrue (aSettings.isWriteLayerRules ());
+    assertTrue (aSettings.isWriteMediaRules ());
+    assertTrue (aSettings.isWritePageRules ());
+    assertTrue (aSettings.isWriteViewportRules ());
+    assertTrue (aSettings.isWriteSupportsRules ());
+    assertTrue (aSettings.isWriteUnknownRules ());
   }
 
   @Test

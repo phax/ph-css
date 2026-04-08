@@ -55,11 +55,11 @@ public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLo
   }
 
   /**
-   * @return <code>true</code> if it is no hash, no class and no pseudo selector
+   * @return <code>true</code> if it is no hash, no class, no pseudo, and no nesting selector
    */
   public boolean isElementName ()
   {
-    return !isHash () && !isClass () && !isPseudo ();
+    return !isHash () && !isClass () && !isPseudo () && !isNesting();
   }
 
   /**
@@ -84,6 +84,16 @@ public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLo
   public boolean isPseudo ()
   {
     return m_sValue.charAt (0) == ':';
+  }
+
+  /**
+   * Checks if this selector represents the nesting selector <code>&</code>.
+   * @return <code>true</code> if it is a nesting selector
+   * @since 8.2.0
+   */
+  public boolean isNesting ()
+  {
+    return m_sValue.charAt (0) == '&';
   }
 
   @NonNull

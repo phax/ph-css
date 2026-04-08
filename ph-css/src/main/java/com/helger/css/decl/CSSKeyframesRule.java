@@ -35,13 +35,14 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single @keyframes rule.<br>
- * Example:<br>
- * <code>@keyframes identifier {
+ * Represents a single @keyframes rule.
+ *
+ * <p>Example:
+ *
+ * <pre>@keyframes identifier {
   0% { top: 0; left: 0; }
   30% { top: 50px; }
- }</code>
- *
+}</pre>
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -161,14 +162,17 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
     if (!aSettings.isWriteKeyframesRules ())
       return "";
 
+    boolean bFirst = true;
+
     if (aSettings.isRemoveUnnecessaryCode () && m_aBlocks.isEmpty ())
       return "";
 
+    final int nBlockCount = m_aBlocks.size ();
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
 
     final StringBuilder aSB = new StringBuilder (m_sDeclaration);
     aSB.append (' ').append (m_sAnimationName).append (bOptimizedOutput ? "{" : " {");
-    if (!bOptimizedOutput)
+    if (!bOptimizedOutput && nBlockCount > 0)
       aSB.append (aSettings.getNewLineString ());
 
     // Add all blocks
@@ -177,18 +181,19 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
       final String sBlockCSS = aBlock.getAsCSSString (aSettings, nIndentLevel + 1);
       if (StringHelper.isNotEmpty (sBlockCSS))
       {
+        if (bFirst)
+          bFirst = false;
+        else
+        if (!bOptimizedOutput)
+          aSB.append (aSettings.getNewLineString ());
         if (!bOptimizedOutput)
           aSB.append (aSettings.getIndent (nIndentLevel + 1));
         aSB.append (sBlockCSS);
-        if (!bOptimizedOutput)
-          aSB.append (aSettings.getNewLineString ());
       }
     }
-    if (!bOptimizedOutput)
-      aSB.append (aSettings.getIndent (nIndentLevel));
+    if (!bOptimizedOutput && nBlockCount > 0)
+      aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
     aSB.append ('}');
-    if (!bOptimizedOutput)
-      aSB.append (aSettings.getNewLineString ());
     return aSB.toString ();
   }
 

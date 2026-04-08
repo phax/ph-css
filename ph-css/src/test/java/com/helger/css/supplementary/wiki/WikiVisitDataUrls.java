@@ -31,8 +31,8 @@ import com.helger.css.reader.CSSReader;
 import com.helger.css.utils.CSSDataURL;
 
 /**
- * Example how to extract all URLs from a certain CSS file using a
- * {@link DefaultCSSUrlVisitor} and handle them as data URLs.
+ * Example how to extract all URLs from a certain CSS file using a {@link DefaultCSSUrlVisitor} and
+ * handle them as data URLs.
  *
  * @author Philip Helger
  */

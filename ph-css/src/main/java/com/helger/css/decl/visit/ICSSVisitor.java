@@ -16,6 +16,7 @@
  */
 package com.helger.css.decl.visit;
 
+import com.helger.css.decl.CSSNestedDeclarations;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.css.decl.CSSDeclaration;
@@ -283,6 +284,21 @@ public interface ICSSVisitor
    *        The property rule. Never <code>null</code>.
    */
   void onEndPropertyRule (@NonNull CSSPropertyRule aPropertyRule);
+
+  /**
+   * Called when a nested declarations rule starts.
+   * @param aNestedDeclarations
+   *        The nested declarations. Never <code>null</code>.
+   */
+  void onBeginNestedDeclarations (@NonNull CSSNestedDeclarations aNestedDeclarations);
+
+  /**
+   * Called when a nested declarations rule ends.
+   *
+   * @param aNestedDeclarations
+   *        The nested declarations. Never <code>null</code>.
+   */
+  void onEndNestedDeclarations (@NonNull CSSNestedDeclarations aNestedDeclarations);
 
   // unknown rules
   /**

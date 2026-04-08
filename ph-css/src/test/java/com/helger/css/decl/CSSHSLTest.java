@@ -33,7 +33,7 @@ public final class CSSHSLTest
   @Test
   public void testBasic ()
   {
-    final CSSWriterSettings aSettings = new CSSWriterSettings ( false);
+    final CSSWriterSettings aSettings = new CSSWriterSettings (false);
     final CSSHSL aColor = new CSSHSL (1, 2, 3);
     assertEquals ("hsl(1,2%,3%)", aColor.getAsCSSString (aSettings));
 
