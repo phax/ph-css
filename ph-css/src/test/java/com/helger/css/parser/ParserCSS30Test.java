@@ -55,8 +55,7 @@ public final class ParserCSS30Test extends AbstractCSSTestCase
     final CSSNode aNode = aParser.styleSheet ();
     assertNotNull (aNode);
 
-    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (
-                                                                                 CSSReader.getDefaultInterpretErrorHandler (),
+    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (CSSReader.getDefaultInterpretErrorHandler (),
                                                                                  true,
                                                                                  aNode);
     assertNotNull (aCSS);
@@ -79,8 +78,7 @@ public final class ParserCSS30Test extends AbstractCSSTestCase
     final CSSNode aNode = aParser.styleSheet ();
     assertNotNull (aNode);
 
-    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (
-                                                                                 CSSReader.getDefaultInterpretErrorHandler (),
+    final CascadingStyleSheet aCSS = CSSHandler.readCascadingStyleSheetFromNode (CSSReader.getDefaultInterpretErrorHandler (),
                                                                                  false,
                                                                                  aNode);
     assertNotNull (aCSS);

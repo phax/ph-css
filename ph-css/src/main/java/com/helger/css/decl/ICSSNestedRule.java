@@ -20,18 +20,15 @@ import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.css.ICSSWriteable;
 
 /**
- * Marker interface for all top level CSS elements that can occur in any order
+ * Marker interface for all nested CSS elements that can occur in any order
  *
  * <ul>
- * <li>font face rules - {@link CSSFontFaceRule}
- * <li>keyframes rules - {@link CSSKeyframesRule}
  * <li>layer rules - {@link CSSLayerRule}
  * <li>media rules - {@link CSSMediaRule}
- * <li>page rules - {@link CSSPageRule}
+ * <li>nested declarations - {@link CSSNestedDeclarations}
  * <li>style rules - {@link CSSStyleRule}
  * <li>supports rules - {@link CSSSupportsRule}
  * <li>unknown rules - {@link CSSUnknownRule}
- * <li>viewport rules - {@link CSSViewportRule}
  * </ul>
  *
  * To easily iterate over all rules contained in a {@link CascadingStyleSheet}
@@ -43,9 +40,10 @@ import com.helger.css.ICSSWriteable;
  * your own implementations.
  *
  * @author Philip Helger
+ * @since 8.2.0
  */
 @MustImplementEqualsAndHashcode
-public interface ICSSTopLevelRule extends ICSSWriteable
+public interface ICSSNestedRule extends ICSSWriteable
 {
   /* empty */
 }

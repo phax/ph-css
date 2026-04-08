@@ -30,8 +30,7 @@ import com.helger.css.decl.visit.DefaultCSSUrlVisitor;
 import com.helger.css.reader.CSSReader;
 
 /**
- * Example how to extract all URLs from a certain CSS file using a
- * {@link DefaultCSSUrlVisitor}.
+ * Example how to extract all URLs from a certain CSS file using a {@link DefaultCSSUrlVisitor}.
  *
  * @author Philip Helger
  */

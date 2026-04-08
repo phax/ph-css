@@ -170,9 +170,9 @@ public enum ECSSUnit implements IHasName
   TIME_S ("s", ECSSMetaUnit.TIME),
 
   /** Hertz. It represents the number of occurrences per second. */
-  FREQ_HZ ("hz", ECSSMetaUnit.FREQUENZY),
+  FREQ_HZ ("hz", ECSSMetaUnit.FREQUENCY),
   /** Kilohertz. A kiloHertz is 1000 Hertz. */
-  FREQ_KHZ ("khz", ECSSMetaUnit.FREQUENZY),
+  FREQ_KHZ ("khz", ECSSMetaUnit.FREQUENCY),
 
   /** Dots per CSS inch */
   DPI ("dpi", ECSSMetaUnit.RESOLUTION),

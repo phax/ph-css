@@ -142,9 +142,9 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
     if (aParts.length < m_nMinNumbers || aParts.length > m_nMaxNumbers)
       return false;
 
-    for (final String aPart : aParts)
+    for (final String sPart : aParts)
     {
-      final String sTrimmedPart = aPart.trim ();
+      final String sTrimmedPart = sPart.trim ();
       if (!super.isValidValue (sTrimmedPart) && !CSSNumberHelper.isValueWithUnit (sTrimmedPart, m_bWithPercentage))
         return false;
     }

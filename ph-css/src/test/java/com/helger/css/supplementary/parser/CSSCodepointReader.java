@@ -29,8 +29,8 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.ring.RingBufferLifo;
 
 /**
- * A special CSS Codepoint reader that converts chars to Codepoints and keeps
- * track of the line and column number.
+ * A special CSS Codepoint reader that converts chars to Codepoints and keeps track of the line and
+ * column number.
  *
  * @author Philip Helger
  */

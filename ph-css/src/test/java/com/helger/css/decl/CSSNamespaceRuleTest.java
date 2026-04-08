@@ -48,8 +48,7 @@ public final class CSSNamespaceRuleTest
   @Test
   public void testRead ()
   {
-    CSSNamespaceRule aNSR;
-    aNSR = _parse ("@namespace empty \"\";");
+    CSSNamespaceRule aNSR = _parse ("@namespace empty \"\";");
     assertEquals ("empty", aNSR.getNamespacePrefix ());
     assertEquals ("", aNSR.getNamespaceURL ());
 

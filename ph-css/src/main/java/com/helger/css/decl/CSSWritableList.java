@@ -74,14 +74,14 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> extends CommonsArr
     for (final DATATYPE aElement : this)
     {
       // Indentation
-      if (!bOptimizedOutput)
-        aSB.append (aSettings.getIndent (nIndentLevel + 1));
+      if (!bOptimizedOutput && nIndex != 0)
+        aSB.append (aSettings.getIndent (nIndentLevel));
       // Emit the main element plus the semicolon
-      aSB.append (aElement.getAsCSSString (aSettings, nIndentLevel + 1));
+      aSB.append (aElement.getAsCSSString (aSettings, nIndentLevel ));
       // No ';' at the last decl
       if (!bOptimizedOutput || nIndex < nDeclCount - 1)
         aSB.append (CCSS.DEFINITION_END);
-      if (!bOptimizedOutput)
+      if (!bOptimizedOutput && nIndex != nDeclCount - 1)
         aSB.append (aSettings.getNewLineString ());
       ++nIndex;
     }

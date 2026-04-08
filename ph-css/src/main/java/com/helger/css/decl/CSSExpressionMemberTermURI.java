@@ -22,6 +22,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
@@ -53,6 +54,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
    * @return The contained {@link CSSURI} object. Never <code>null</code>.
    */
   @NonNull
+  @ReturnsMutableObject
   public final CSSURI getURI ()
   {
     return m_aURI;
@@ -86,8 +88,7 @@ public class CSSExpressionMemberTermURI implements ICSSExpressionMember, ICSSSou
    * Replace the URI string in the existing {@link CSSURI} object.
    *
    * @param sURIString
-   *        The new URI string to set. May not be <code>null</code> but may be
-   *        empty.
+   *        The new URI string to set. May not be <code>null</code> but may be empty.
    * @return this
    */
   @NonNull

@@ -124,6 +124,7 @@ public class CSSExpressionMemberFunction implements
   @NonNull
   public CSSExpressionMemberFunction getClone ()
   {
+    // Note: m_aExpression is not clonable!
     return new CSSExpressionMemberFunction (m_sFunctionName, m_aExpression);
   }
 
