@@ -165,7 +165,7 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
           aSB.append (aSettings.getIndent (nIndentLevel + 1));
         aSB.append (m_aDeclarations.getAsCSSString (aSettings, nIndentLevel + 1));
         if (!bOptimizedOutput)
-          aSB.append (aSettings.getIndent (nIndentLevel));
+          aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
         aSB.append ('}');
       }
     }
