@@ -317,6 +317,7 @@ Configuration items are:
 ## News and noteworthy
 
 v8.2.0 - work in progress
+* Removed OSGI bundling
 * Added support for CSS Nesting (CSS Nesting Module Level 1). See [#94](https://github.com/phax/ph-css/issues/94) and [#123](https://github.com/phax/ph-css/pull/123) - thx @blutorange
     * New interface `ICSSNestedRule` as a marker for all nested CSS elements
     * New interface `IHasCSSNestedRules` for managing nested rules
