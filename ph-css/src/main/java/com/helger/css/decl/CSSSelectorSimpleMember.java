@@ -87,8 +87,8 @@ public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLo
   }
 
   /**
-   * Checks if this selector represents the nesting selector <code>&</code>.
-   * 
+   * Checks if this selector represents the nesting selector <code>&amp;</code>.
+   *
    * @return <code>true</code> if it is a nesting selector
    * @since 8.2.0
    */

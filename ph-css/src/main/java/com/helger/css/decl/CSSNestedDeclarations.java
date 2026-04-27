@@ -16,6 +16,9 @@
  */
 package com.helger.css.decl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -26,8 +29,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
 /**
  * Represents nested style declarations. When nesting rules, all CSS style declarations after nested
@@ -53,15 +54,15 @@ import org.jspecify.annotations.Nullable;
  * <ul>
  * <li>A {@link CSSStyleRule} representing the entire <code>div { ... }</code> block
  * <ul>
- * <li>The {@link CSSStyleRule#getAllDeclarations()} with <code>color: red;</code></li>
- * <li>The {@link CSSStyleRule#getAllRules()} with</li>
+ * <li>The {@link CSSStyleRule#getAllDeclarations()} with <code>color: red;</code>
+ * <li>The {@link CSSStyleRule#getAllRules()} with
  * <ul>
  * <li>A nested {@link CSSStyleRule} represent <code>span { color: green; }</code>
- * <li>A nested {@link CSSNestedDeclarations} representing <code>color: blue;</code></li>
+ * <li>A nested {@link CSSNestedDeclarations} representing <code>color: blue;</code>
  * </ul>
  * </ul>
  * </ul>
- * 
+ *
  * @author Philip Helger
  * @since 8.2.0
  */

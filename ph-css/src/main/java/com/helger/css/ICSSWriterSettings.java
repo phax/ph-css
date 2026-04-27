@@ -16,6 +16,11 @@
  */
 package com.helger.css;
 
+import org.jspecify.annotations.NonNull;
+
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.base.system.ENewLineMode;
 import com.helger.css.decl.CSSFontFaceRule;
 import com.helger.css.decl.CSSKeyframesRule;
 import com.helger.css.decl.CSSLayerRule;
@@ -23,14 +28,10 @@ import com.helger.css.decl.CSSMediaRule;
 import com.helger.css.decl.CSSNamespaceRule;
 import com.helger.css.decl.CSSNestedDeclarations;
 import com.helger.css.decl.CSSPageRule;
+import com.helger.css.decl.CSSPropertyRule;
 import com.helger.css.decl.CSSSupportsRule;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
-import org.jspecify.annotations.NonNull;
-
-import com.helger.annotation.Nonempty;
-import com.helger.annotation.Nonnegative;
-import com.helger.base.system.ENewLineMode;
 
 /**
  * Settings for customizing the serialization of CSS properties etc.

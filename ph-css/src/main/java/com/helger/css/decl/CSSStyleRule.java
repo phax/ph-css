@@ -16,7 +16,6 @@
  */
 package com.helger.css.decl;
 
-import com.helger.css.CCSS;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -29,6 +28,7 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
@@ -45,7 +45,7 @@ import com.helger.css.ICSSWriterSettings;
  * <pre>
  * div {
   color: red;
-  &:hover {
+  &amp;:hover {
     color: blue;
   }
 }
