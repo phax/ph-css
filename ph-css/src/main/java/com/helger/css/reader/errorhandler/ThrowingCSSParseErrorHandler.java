@@ -26,10 +26,9 @@ import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
 /**
- * An implementation of {@link ICSSParseErrorHandler} that throws a
- * {@link ParseException}. So in case a recoverable error occurs, a new
- * {@link ParseException} is thrown. This is the most strict implementation of
- * {@link ICSSParseErrorHandler}.
+ * An implementation of {@link ICSSParseErrorHandler} that throws a {@link ParseException}. So in
+ * case a recoverable error occurs, a new {@link ParseException} is thrown. This is the most strict
+ * implementation of {@link ICSSParseErrorHandler}.
  *
  * @author Philip Helger
  */
@@ -39,7 +38,8 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
   public ThrowingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
+                                                                                                                throws ParseException
   {
     throw aParseEx;
   }
@@ -48,12 +48,16 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @NonNull @Nonempty final String sRule,
                                    @NonNull @Nonempty final String sMsg) throws ParseException
   {
-    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken,
+                                                                                             sRule,
+                                                                                             sMsg));
   }
 
-  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken) throws ParseException
+  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
+                                                                                                                 throws ParseException
   {
-    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken,
+                                                                                                 aIdentifierToken));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
@@ -62,7 +66,9 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
   {
     if (ex != null)
       throw ex;
-    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (null, aFromToken, aToToken));
+    throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (null,
+                                                                                                   aFromToken,
+                                                                                                   aToToken));
   }
 
   @Override

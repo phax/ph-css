@@ -22,8 +22,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.css.parser.ParseException;
 
 /**
- * An implementation of {@link ICSSParseExceptionCallback} that silently ignores
- * all errors.
+ * An implementation of {@link ICSSParseExceptionCallback} that silently ignores all errors.
  *
  * @author Philip Helger
  */

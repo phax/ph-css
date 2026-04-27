@@ -21,10 +21,9 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.css.ECSSUnit;
 
 /**
- * Contains CSS style constants and utility stuff. Only constants that are part
- * of the CSS specification are contained in this class.<br>
- * Units of measurement are based on:
- * http://de.selfhtml.org/css/formate/wertzuweisung.htm<br>
+ * Contains CSS style constants and utility stuff. Only constants that are part of the CSS
+ * specification are contained in this class.<br>
+ * Units of measurement are based on: http://de.selfhtml.org/css/formate/wertzuweisung.htm<br>
  *
  * @author Philip Helger
  */

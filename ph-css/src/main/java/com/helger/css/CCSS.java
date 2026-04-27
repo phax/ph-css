@@ -20,10 +20,9 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
- * Contains CSS style constants and utility stuff. Only constants that are part
- * of the CSS specification are contained in this class.<br>
- * Units of measurement are based on:
- * http://de.selfhtml.org/css/formate/wertzuweisung.htm<br>
+ * Contains CSS style constants and utility stuff. Only constants that are part of the CSS
+ * specification are contained in this class.<br>
+ * Units of measurement are based on: http://de.selfhtml.org/css/formate/wertzuweisung.htm<br>
  *
  * @author Philip Helger
  */
@@ -55,8 +54,7 @@ public final class CCSS
   public static final char DOUBLE_QUOTE = '"';
 
   /**
-   * The maximum fraction digits to be considered when printing CSS decimal
-   * values.
+   * The maximum fraction digits to be considered when printing CSS decimal values.
    *
    * @since 3.7.3
    */

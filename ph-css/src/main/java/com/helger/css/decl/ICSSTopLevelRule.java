@@ -21,7 +21,6 @@ import com.helger.css.ICSSWriteable;
 
 /**
  * Marker interface for all top level CSS elements that can occur in any order
- *
  * <ul>
  * <li>font face rules - {@link CSSFontFaceRule}
  * <li>keyframes rules - {@link CSSKeyframesRule}
@@ -33,11 +32,9 @@ import com.helger.css.ICSSWriteable;
  * <li>unknown rules - {@link CSSUnknownRule}
  * <li>viewport rules - {@link CSSViewportRule}
  * </ul>
- *
- * To easily iterate over all rules contained in a {@link CascadingStyleSheet}
- * you can use the
- * {@link com.helger.css.decl.visit.CSSVisitor#visitCSS(CascadingStyleSheet, com.helger.css.decl.visit.ICSSVisitor) CSSVisitor#visitCSS(sheet, visitor)}
- * method. An empty stub implementation of
+ * To easily iterate over all rules contained in a {@link CascadingStyleSheet} you can use the
+ * {@link com.helger.css.decl.visit.CSSVisitor#visitCSS(CascadingStyleSheet, com.helger.css.decl.visit.ICSSVisitor)
+ * CSSVisitor#visitCSS(sheet, visitor)} method. An empty stub implementation of
  * {@link com.helger.css.decl.visit.ICSSVisitor ICSSVisitor} is the class
  * {@link com.helger.css.decl.visit.DefaultCSSVisitor DefaultCSSVisitor} which is a good basis for
  * your own implementations.

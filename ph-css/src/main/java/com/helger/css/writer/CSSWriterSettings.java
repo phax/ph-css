@@ -140,7 +140,7 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     setWritePageRules (aBase.isWritePageRules ());
     setWriteViewportRules (aBase.isWriteViewportRules ());
     setWriteSupportsRules (aBase.isWriteSupportsRules ());
-    setWritePropertyRules (aBase.isWritePropertyRules());
+    setWritePropertyRules (aBase.isWritePropertyRules ());
     setWriteUnknownRules (aBase.isWriteUnknownRules ());
   }
 
@@ -227,19 +227,21 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
     return this;
   }
 
-  public final boolean isWriteNestedDeclarations()
+  public final boolean isWriteNestedDeclarations ()
   {
     return m_bWriteNestedDeclarations;
   }
 
   /**
    * Configures whether {@link CSSNestedDeclarations nested declarations} are written.
-   * @param bWriteNestedDeclarations <code>true</code> to write nested declarations, <code>false</code> to ignore them.
+   * 
+   * @param bWriteNestedDeclarations
+   *        <code>true</code> to write nested declarations, <code>false</code> to ignore them.
    * @return This instance for chaining
    * @since 8.2.0
    */
   @NonNull
-  public final CSSWriterSettings setWriteNestedDeclarations(final boolean bWriteNestedDeclarations)
+  public final CSSWriterSettings setWriteNestedDeclarations (final boolean bWriteNestedDeclarations)
   {
     m_bWriteNestedDeclarations = bWriteNestedDeclarations;
     return this;
@@ -276,15 +278,17 @@ public class CSSWriterSettings implements ICSSWriterSettings, ICloneable <CSSWri
 
   /**
    * Configures whether {@link CSSLayerRule @layer rules} are written.
-   * @param bWriteLayerRules <code>true</code> to write layer rules, <code>false</code> to ignore them.
+   * 
+   * @param bWriteLayerRules
+   *        <code>true</code> to write layer rules, <code>false</code> to ignore them.
    * @return This instance for chaining
    * @since 8.2.0
    */
   @NonNull
   public final CSSWriterSettings setWriteLayerRules (final boolean bWriteLayerRules)
   {
-      m_bWriteLayerRules = bWriteLayerRules;
-      return this;
+    m_bWriteLayerRules = bWriteLayerRules;
+    return this;
   }
 
   public final boolean isWriteMediaRules ()

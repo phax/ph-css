@@ -80,7 +80,9 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    * @param sBlue
    *        Blue part.
    */
-  public CSSRGB (@NonNull @Nonempty final String sRed, @NonNull @Nonempty final String sGreen, @NonNull @Nonempty final String sBlue)
+  public CSSRGB (@NonNull @Nonempty final String sRed,
+                 @NonNull @Nonempty final String sGreen,
+                 @NonNull @Nonempty final String sBlue)
   {
     setRed (sRed);
     setGreen (sGreen);
@@ -149,8 +151,7 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    *
    * @param fOpacity
    *        Opacity part. Is fitted to a value between 0 and 1.
-   * @return This value as RGBA value with the passed opacity. Never
-   *         <code>null</code>.
+   * @return This value as RGBA value with the passed opacity. Never <code>null</code>.
    * @since 3.8.3
    */
   @NonNull
@@ -164,8 +165,7 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
    *
    * @param sOpacity
    *        Opacity part. May neither be <code>null</code> nor empty.
-   * @return This value as RGBA value with the passed opacity. Never
-   *         <code>null</code>.
+   * @return This value as RGBA value with the passed opacity. Never <code>null</code>.
    * @since 3.8.3
    */
   @NonNull
@@ -224,6 +224,9 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("red", m_sRed).append ("green", m_sGreen).append ("blue", m_sBlue).getToString ();
+    return new ToStringGenerator (this).append ("red", m_sRed)
+                                       .append ("green", m_sGreen)
+                                       .append ("blue", m_sBlue)
+                                       .getToString ();
   }
 }

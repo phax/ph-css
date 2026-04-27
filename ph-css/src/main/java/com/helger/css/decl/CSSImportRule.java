@@ -35,8 +35,8 @@ import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single import rule on top level. It consists of a mandatory URI
- * and an optional list of media queries.<br>
+ * Represents a single import rule on top level. It consists of a mandatory URI and an optional list
+ * of media queries.<br>
  * Example:<br>
  * <code>@import url("style.css") screen;</code>
  *
@@ -60,8 +60,8 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   }
 
   /**
-   * @return <code>true</code> if this import rule has any specific media
-   *         queries, to which it belongs, <code>false</code> if not.
+   * @return <code>true</code> if this import rule has any specific media queries, to which it
+   *         belongs, <code>false</code> if not.
    */
   public boolean hasMediaQueries ()
   {
@@ -153,8 +153,8 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   }
 
   /**
-   * @return A list with all contained media queries. Never <code>null</code>
-   *         and always a copy of the underlying list.
+   * @return A list with all contained media queries. Never <code>null</code> and always a copy of
+   *         the underlying list.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -173,8 +173,8 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   }
 
   /**
-   * @return The URL of the CSS file to import. Never <code>null</code>. This is
-   *         a shortcut for <code>getLocation().getURI()</code>
+   * @return The URL of the CSS file to import. Never <code>null</code>. This is a shortcut for
+   *         <code>getLocation().getURI()</code>
    */
   @NonNull
   @Nonempty

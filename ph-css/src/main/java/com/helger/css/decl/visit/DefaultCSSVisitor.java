@@ -40,8 +40,8 @@ import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
 
 /**
- * Default implementation of the {@link ICSSVisitor} interface. Use as base
- * class for your own implementations since this class does nothing on its own.
+ * Default implementation of the {@link ICSSVisitor} interface. Use as base class for your own
+ * implementations since this class does nothing on its own.
  *
  * @author Philip Helger
  */
@@ -156,11 +156,11 @@ public class DefaultCSSVisitor implements ICSSVisitor
   {}
 
   @OverrideOnDemand
-  public void onBeginNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
+  public void onBeginNestedDeclarations (@NonNull CSSNestedDeclarations aNestedDeclarations)
   {}
 
   @OverrideOnDemand
-  public void onEndNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
+  public void onEndNestedDeclarations (@NonNull CSSNestedDeclarations aNestedDeclarations)
   {}
 
   @OverrideOnDemand
@@ -170,7 +170,7 @@ public class DefaultCSSVisitor implements ICSSVisitor
   @OverrideOnDemand
   public void onEndPropertyRule (@NonNull final CSSPropertyRule aLayerRule)
   {}
-  
+
   @OverrideOnDemand
   public void onUnknownRule (@NonNull final CSSUnknownRule aUnknownRule)
   {}

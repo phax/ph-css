@@ -28,7 +28,8 @@ public class CSSPropertyRuleTest
   @NonNull
   private CSSPropertyRule _parse (final boolean bBrowserCompliant, @NonNull final String sCSS)
   {
-    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCustomErrorHandler (m_aPEH).setBrowserCompliantMode (bBrowserCompliant);
+    final CSSReaderSettings aSettings = new CSSReaderSettings ().setCustomErrorHandler (m_aPEH)
+                                                                .setBrowserCompliantMode (bBrowserCompliant);
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
     assertNotNull (sCSS, aCSS);
     assertTrue (aCSS.hasPropertyRules ());
@@ -39,21 +40,22 @@ public class CSSPropertyRuleTest
   }
 
   @NonNull
-  private ICommonsList<CSSStyleRule> _parseStyleRules (@NonNull final String sCSS)
+  private ICommonsList <CSSStyleRule> _parseStyleRules (@NonNull final String sCSS)
   {
     final CSSReaderSettings aSettings = new CSSReaderSettings ().setCustomErrorHandler (m_aPEH);
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader (sCSS, aSettings);
     assertNotNull (sCSS, aCSS);
     assertTrue (aCSS.hasStyleRules ());
-    final ICommonsList<CSSStyleRule> ret = aCSS.getAllStyleRules ();
-    assertTrue (!ret.isEmpty());
+    final ICommonsList <CSSStyleRule> ret = aCSS.getAllStyleRules ();
+    assertTrue (!ret.isEmpty ());
     return ret;
   }
 
   @Test
   public void testReadNoWhitespace ()
   {
-    CSSPropertyRule aPR = _parse (false, "@property --rotation{syntax:\"<angle>\";inherits: false;initial-value:45deg;}");
+    CSSPropertyRule aPR = _parse (false,
+                                  "@property --rotation{syntax:\"<angle>\";inherits: false;initial-value:45deg;}");
     assertEquals (0, m_aPEH.getParseErrorCount ());
     assertEquals (3, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
@@ -67,7 +69,8 @@ public class CSSPropertyRuleTest
   @Test
   public void testReadMultipleWhitespace ()
   {
-    CSSPropertyRule aPR = _parse (false, "  @property   --rotation   {  syntax:   \"<angle>\"  ;   inherits  : false   ;  initial-value  : 45deg   ;   }   ");
+    CSSPropertyRule aPR = _parse (false,
+                                  "  @property   --rotation   {  syntax:   \"<angle>\"  ;   inherits  : false   ;  initial-value  : 45deg   ;   }   ");
     assertEquals (0, m_aPEH.getParseErrorCount ());
     assertEquals (3, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
@@ -81,7 +84,8 @@ public class CSSPropertyRuleTest
   @Test
   public void testReadMultipleWhitespaceAndInvalidDeclaration ()
   {
-    CSSPropertyRule aPR = _parse (false, "  @property   --rotation   {  syntax:   \"<angle>\"  ;   inherits  : false   ;   color   :  red  ;   }  ");
+    CSSPropertyRule aPR = _parse (false,
+                                  "  @property   --rotation   {  syntax:   \"<angle>\"  ;   inherits  : false   ;   color   :  red  ;   }  ");
     assertEquals (1, m_aPEH.getParseErrorCount ());
     assertEquals (2, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
@@ -94,12 +98,12 @@ public class CSSPropertyRuleTest
   public void testReadMultipleDeclarations ()
   {
     CSSPropertyRule aPR = _parse (false, """
-    @property --rotation {
-      syntax: "<angle>";
-      inherits: false;
-      initial-value: 45deg;
-    }
-    """);
+        @property --rotation {
+          syntax: "<angle>";
+          inherits: false;
+          initial-value: 45deg;
+        }
+        """);
     assertEquals (0, m_aPEH.getParseErrorCount ());
     assertEquals (3, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
@@ -121,9 +125,13 @@ public class CSSPropertyRuleTest
   @Test
   public void testReadWithMissingValue ()
   {
-    CSSPropertyRule aPR = _parse (false, "@property --rotation { syntax: \"<angle>\"; inherits: false; initial-value:}");
+    CSSPropertyRule aPR = _parse (false,
+                                  "@property --rotation { syntax: \"<angle>\"; inherits: false; initial-value:}");
     assertEquals (1, m_aPEH.getParseErrorCount ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text '}' corresponding to token \"}\". Skipped until token }"));
+    assertTrue (m_aPEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Encountered text '}' corresponding to token \"}\". Skipped until token }"));
     assertEquals (2, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"<angle>\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -136,7 +144,10 @@ public class CSSPropertyRuleTest
   {
     CSSPropertyRule aPR = _parse (false, "@property --rotation { syntax: \"<angle>\"; inherits: false; *zoom:1; }");
     assertEquals (1, m_aPEH.getParseErrorCount ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text 'zoom' corresponding to token <IDENT>. Skipped until token ;"));
+    assertTrue (m_aPEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Encountered text 'zoom' corresponding to token <IDENT>. Skipped until token ;"));
     assertEquals (2, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"<angle>\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -172,7 +183,10 @@ public class CSSPropertyRuleTest
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
     CSSPropertyRule aPR = _parse (false, "@property --rotation { color: red; }");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
+    assertTrue (m_aPEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
     assertEquals (0, aPR.getDeclarationCount ());
   }
 
@@ -182,7 +196,7 @@ public class CSSPropertyRuleTest
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
     CSSPropertyRule aPR = _parse (true, "@property --rotation { color: red;}");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage().contains ("Browser compliant mode skipped CSS"));
+    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Browser compliant mode skipped CSS"));
     assertEquals (0, aPR.getDeclarationCount ());
   }
 
@@ -192,7 +206,10 @@ public class CSSPropertyRuleTest
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
     CSSPropertyRule aPR = _parse (false, "@property --rotation { syntax: \"*\"; color: red; inherits: true; }");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
+    assertTrue (m_aPEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
     assertEquals (2, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"*\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -206,7 +223,7 @@ public class CSSPropertyRuleTest
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
     CSSPropertyRule aPR = _parse (true, "@property --rotation { syntax: \"*\"; color: red; inherits: true; }");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage().contains ("Browser compliant mode skipped CSS"));
+    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Browser compliant mode skipped CSS"));
     assertEquals (2, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"*\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -218,9 +235,13 @@ public class CSSPropertyRuleTest
   public void testReadWithAllValidDeclarationsAndAdditionalInvalidDeclarationsWithoutBrowserCompliance ()
   {
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
-    CSSPropertyRule aPR = _parse (false, "@property --rotation { syntax: \"*\"; color: red; inherits: true; initial-value: 45deg; }");
+    CSSPropertyRule aPR = _parse (false,
+                                  "@property --rotation { syntax: \"*\"; color: red; inherits: true; initial-value: 45deg; }");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
+    assertTrue (m_aPEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Encountered text 'color' corresponding to token <IDENT>. Skipped until token ;"));
     assertEquals (3, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"*\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -234,9 +255,10 @@ public class CSSPropertyRuleTest
   public void testReadWithAllValidDeclarationsAndAdditionalInvalidDeclarationsWithBrowserCompliance ()
   {
     // Unknown descriptors are invalid and ignored, but do not invalidate the @property rule.
-    CSSPropertyRule aPR = _parse (true, "@property --rotation { syntax: \"*\"; color: red; inherits: true; initial-value: 45deg; }");
+    CSSPropertyRule aPR = _parse (true,
+                                  "@property --rotation { syntax: \"*\"; color: red; inherits: true; initial-value: 45deg; }");
     assertEquals (1, m_aPEH.getAllParseErrors ().size ());
-    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage().contains ("Browser compliant mode skipped CSS"));
+    assertTrue (m_aPEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Browser compliant mode skipped CSS"));
     assertEquals (3, aPR.getDeclarationCount ());
     assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
     assertEquals ("\"*\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
@@ -249,19 +271,19 @@ public class CSSPropertyRuleTest
   @Test
   public void testReadSelectorWithPropertyRuleKeywords ()
   {
-    ICommonsList<CSSStyleRule> aRules = _parseStyleRules("""
-      syntax { color : red }
-      inherits { color : green }
-      .initial-value { color : blue }
-    """);
-    assertEquals(0, m_aPEH.getAllParseErrors ().size ());
+    ICommonsList <CSSStyleRule> aRules = _parseStyleRules ("""
+          syntax { color : red }
+          inherits { color : green }
+          .initial-value { color : blue }
+        """);
+    assertEquals (0, m_aPEH.getAllParseErrors ().size ());
     assertEquals (3, aRules.size ());
 
-    assertEquals ("syntax", aRules.get (0).getSelectorAtIndex (0) .getAsCSSString ());
+    assertEquals ("syntax", aRules.get (0).getSelectorAtIndex (0).getAsCSSString ());
     assertEquals ("inherits", aRules.get (1).getSelectorAtIndex (0).getAsCSSString ());
     assertEquals (".initial-value", aRules.get (2).getSelectorAtIndex (0).getAsCSSString ());
 
-    assertEquals ("color:red", aRules.get (0).getDeclarationAtIndex (0) .getAsCSSString ());
+    assertEquals ("color:red", aRules.get (0).getDeclarationAtIndex (0).getAsCSSString ());
     assertEquals ("color:green", aRules.get (1).getDeclarationAtIndex (0).getAsCSSString ());
     assertEquals ("color:blue", aRules.get (2).getDeclarationAtIndex (0).getAsCSSString ());
   }
@@ -270,19 +292,20 @@ public class CSSPropertyRuleTest
   public void testWriteMultipleDeclarations ()
   {
     CSSPropertyRule aPR = _parse (false, """
-    @property --rotation {
-      syntax: "<angle>";
-      inherits: false;
-      initial-value: 45deg;
-    }""");
+        @property --rotation {
+          syntax: "<angle>";
+          inherits: false;
+          initial-value: 45deg;
+        }""");
     assertEquals ("""
-      @property --rotation {
-        syntax:"<angle>";
-        inherits:false;
-        initial-value:45deg;
-      }""", aPR.getAsCSSString (new CSSWriterSettings (false)));
+        @property --rotation {
+          syntax:"<angle>";
+          inherits:false;
+          initial-value:45deg;
+        }""", aPR.getAsCSSString (new CSSWriterSettings (false)));
     assertEquals ("""
-      @property --rotation{syntax:"<angle>";inherits:false;initial-value:45deg}""", aPR.getAsCSSString (new CSSWriterSettings (true)));
+        @property --rotation{syntax:"<angle>";inherits:false;initial-value:45deg}""",
+                  aPR.getAsCSSString (new CSSWriterSettings (true)));
   }
 
   @Test
@@ -305,17 +328,17 @@ public class CSSPropertyRuleTest
   public void testWriteWithInvalidDeclaration ()
   {
     CSSPropertyRule aPR = _parse (false, """
-    @property --rotation {
-      syntax: "<angle>";
-      inherits: false;
-      color: red;
-    }""");
+        @property --rotation {
+          syntax: "<angle>";
+          inherits: false;
+          color: red;
+        }""");
     assertEquals ("""
-      @property --rotation {
-        syntax:"<angle>";
-        inherits:false;
-      }""", aPR.getAsCSSString (new CSSWriterSettings (false)));
+        @property --rotation {
+          syntax:"<angle>";
+          inherits:false;
+        }""", aPR.getAsCSSString (new CSSWriterSettings (false)));
     assertEquals ("""
-      @property --rotation{syntax:"<angle>";inherits:false}""", aPR.getAsCSSString (new CSSWriterSettings (true)));
+        @property --rotation{syntax:"<angle>";inherits:false}""", aPR.getAsCSSString (new CSSWriterSettings (true)));
   }
 }

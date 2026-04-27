@@ -29,8 +29,7 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
 
 /**
- * CSS property that is either an enumeration or a numeric value (e.g.
- * font-size)
+ * CSS property that is either an enumeration or a numeric value (e.g. font-size)
  *
  * @author Philip Helger
  */
@@ -100,14 +99,22 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
   @NonNull
   public CSSPropertyEnumOrNumber getClone (@NonNull final ECSSProperty eProp)
   {
-    return new CSSPropertyEnumOrNumber (eProp, getVendorPrefix (), getCustomizer (), m_bWithPercentage, directGetEnumValues ());
+    return new CSSPropertyEnumOrNumber (eProp,
+                                        getVendorPrefix (),
+                                        getCustomizer (),
+                                        m_bWithPercentage,
+                                        directGetEnumValues ());
   }
 
   @Override
   @NonNull
   public CSSPropertyEnumOrNumber getClone (@Nullable final ECSSVendorPrefix eVendorPrefix)
   {
-    return new CSSPropertyEnumOrNumber (getProp (), eVendorPrefix, getCustomizer (), m_bWithPercentage, directGetEnumValues ());
+    return new CSSPropertyEnumOrNumber (getProp (),
+                                        eVendorPrefix,
+                                        getCustomizer (),
+                                        m_bWithPercentage,
+                                        directGetEnumValues ());
   }
 
   @Override

@@ -21,7 +21,6 @@ import com.helger.css.ICSSWriteable;
 
 /**
  * Marker interface for all nested CSS elements that can occur in any order
- *
  * <ul>
  * <li>layer rules - {@link CSSLayerRule}
  * <li>media rules - {@link CSSMediaRule}
@@ -30,11 +29,9 @@ import com.helger.css.ICSSWriteable;
  * <li>supports rules - {@link CSSSupportsRule}
  * <li>unknown rules - {@link CSSUnknownRule}
  * </ul>
- *
- * To easily iterate over all rules contained in a {@link CascadingStyleSheet}
- * you can use the
- * {@link com.helger.css.decl.visit.CSSVisitor#visitCSS(CascadingStyleSheet, com.helger.css.decl.visit.ICSSVisitor) CSSVisitor#visitCSS(sheet, visitor)}
- * method. An empty stub implementation of
+ * To easily iterate over all rules contained in a {@link CascadingStyleSheet} you can use the
+ * {@link com.helger.css.decl.visit.CSSVisitor#visitCSS(CascadingStyleSheet, com.helger.css.decl.visit.ICSSVisitor)
+ * CSSVisitor#visitCSS(sheet, visitor)} method. An empty stub implementation of
  * {@link com.helger.css.decl.visit.ICSSVisitor ICSSVisitor} is the class
  * {@link com.helger.css.decl.visit.DefaultCSSVisitor DefaultCSSVisitor} which is a good basis for
  * your own implementations.

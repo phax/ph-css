@@ -34,7 +34,10 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 @NotThreadSafe
-public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSNestedRule, ICSSSourceLocationAware
+public class CSSLayerRule extends AbstractHasTopLevelRules implements
+                          ICSSTopLevelRule,
+                          ICSSNestedRule,
+                          ICSSSourceLocationAware
 {
   private final ICommonsList <String> m_aSelectors;
   private CSSSourceLocation m_aSourceLocation;
@@ -53,6 +56,7 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
 
   /**
    * Checks if at least one selector is present.
+   * 
    * @return <code>true</code> if at least one selector is present, <code>false</code> otherwise.
    * @since 8.2.0
    */
@@ -63,6 +67,7 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
 
   /**
    * Gets the number of selectors.
+   * 
    * @return The number of selectors. Always &ge; 0.
    * @since 8.2.0
    */
@@ -74,7 +79,9 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
 
   /**
    * Adds a selector to the end of the selector list.
-   * @param sSelector The selector to be added. Must not be <code>null</code>.
+   * 
+   * @param sSelector
+   *        The selector to be added. Must not be <code>null</code>.
    * @return This rule for chaining. Never <code>null</code>.
    * @since 8.2.0
    */
@@ -88,10 +95,13 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   }
 
   /**
-   * Adds a selector at the specified index. If the index is greater than the current number of selectors, the selector
-   * is added at the end of the list.
-   * @param nIndex The index at which the selector should be added. Must be &ge; 0.
-   * @param sSelector The selector to be added. Must not be <code>null</code>.
+   * Adds a selector at the specified index. If the index is greater than the current number of
+   * selectors, the selector is added at the end of the list.
+   * 
+   * @param nIndex
+   *        The index at which the selector should be added. Must be &ge; 0.
+   * @param sSelector
+   *        The selector to be added. Must not be <code>null</code>.
    * @return This rule for chaining. Never <code>null</code>.
    * @since 8.2.0
    */
@@ -111,9 +121,10 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   /**
    * Remove the specified selector, if present.
    *
-   * @param sSelector The selector to be removed. Must not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the selector was removed, {@link EChange#UNCHANGED} if the selector was not found.
-   *         Never <code>null</code>.
+   * @param sSelector
+   *        The selector to be removed. Must not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the selector was removed, {@link EChange#UNCHANGED} if the
+   *         selector was not found. Never <code>null</code>.
    * @since 8.2.0
    */
   @NonNull
@@ -125,9 +136,10 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   /**
    * Removes the selector at the specified index.
    *
-   * @param nSelectorIndex The index of the selector to be removed. Must be &ge; 0.
-   * @return {@link EChange#CHANGED} if the selector was removed, {@link EChange#UNCHANGED} if the index was &ge; the
-   * number of selectors. Never <code>null</code>.
+   * @param nSelectorIndex
+   *        The index of the selector to be removed. Must be &ge; 0.
+   * @return {@link EChange#CHANGED} if the selector was removed, {@link EChange#UNCHANGED} if the
+   *         index was &ge; the number of selectors. Never <code>null</code>.
    * @since 8.2.0
    */
   @NonNull
@@ -139,8 +151,8 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   /**
    * Removes all selectors.
    *
-   * @return {@link EChange#CHANGED} if any selector was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any selector was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    * @since 8.2.0
    */
   @NonNull
@@ -152,8 +164,10 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   /**
    * Gets the selector at the specified index.
    *
-   * @param nSelectorIndex The index of the selector to be retrieved. Must be &ge; 0.
-   * @return The selector at the specified index, or <code>null</code> if the index is &ge; the number of selectors.
+   * @param nSelectorIndex
+   *        The index of the selector to be retrieved. Must be &ge; 0.
+   * @return The selector at the specified index, or <code>null</code> if the index is &ge; the
+   *         number of selectors.
    * @since 8.2.0
    */
   @Nullable
@@ -163,7 +177,9 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
   }
 
   /**
-   * Gets a copy of all selectors. Modifications to the returned list do not affect this rule, and vice versa.
+   * Gets a copy of all selectors. Modifications to the returned list do not affect this rule, and
+   * vice versa.
+   * 
    * @return A list of all selectors. Never <code>null</code>.
    */
   @NonNull
@@ -223,7 +239,7 @@ public class CSSLayerRule extends AbstractHasTopLevelRules implements ICSSTopLev
         }
       }
       if (!bOptimizedOutput)
-        aSB.append(aSettings.getNewLineString()).append (aSettings.getIndent (nIndentLevel));
+        aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
       aSB.append ('}');
     }
 

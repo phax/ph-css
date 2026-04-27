@@ -25,8 +25,8 @@ import com.helger.css.decl.ICSSExpressionMember;
 import com.helger.css.property.ECSSProperty;
 
 /**
- * A special {@link CSSShortHandDescriptor} implementation for margin and
- * padding as well as for border-color.
+ * A special {@link CSSShortHandDescriptor} implementation for margin and padding as well as for
+ * border-color.
  *
  * @author Philip Helger
  */

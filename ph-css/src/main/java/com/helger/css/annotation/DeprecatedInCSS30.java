@@ -21,8 +21,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Marker annotation that denotes all CSS elements that are marked deprecated in
- * CSS 3.0
+ * Marker annotation that denotes all CSS elements that are marked deprecated in CSS 3.0
  *
  * @author Philip Helger
  */

@@ -90,8 +90,7 @@ public class CSSParseError
   }
 
   /**
-   * @return The expected tokens as a string representation. May be
-   *         <code>null</code>.
+   * @return The expected tokens as a string representation. May be <code>null</code>.
    */
   @Nullable
   public String getExpectedTokens ()
@@ -100,8 +99,8 @@ public class CSSParseError
   }
 
   /**
-   * @return The first token that was skipped. That can be used to identify the
-   *         start position of the error. May be <code>null</code>.
+   * @return The first token that was skipped. That can be used to identify the start position of
+   *         the error. May be <code>null</code>.
    */
   @Nullable
   public ReadOnlyToken getFirstSkippedToken ()
@@ -110,8 +109,8 @@ public class CSSParseError
   }
 
   /**
-   * @return The last token that was skipped. That can be used to identify the
-   *         end position of the error. May be <code>null</code>.
+   * @return The last token that was skipped. That can be used to identify the end position of the
+   *         error. May be <code>null</code>.
    */
   @Nullable
   public ReadOnlyToken getLastSkippedToken ()
@@ -120,8 +119,8 @@ public class CSSParseError
   }
 
   /**
-   * @return The error message created by {@link LoggingCSSParseErrorHandler} as
-   *         a convenience method. Neither <code>null</code> nor empty.
+   * @return The error message created by {@link LoggingCSSParseErrorHandler} as a convenience
+   *         method. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -146,13 +145,17 @@ public class CSSParseError
                                                     @NonNull @Nonempty final String sRule,
                                                     @NonNull @Nonempty final String sMsg)
   {
-    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken, sRule, sMsg));
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringUnexpectedRule (aCurrentToken,
+                                                                                             sRule,
+                                                                                             sMsg));
   }
 
   @NonNull
-  public static CSSParseError createDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
+  public static CSSParseError createDeprecatedProperty (@NonNull final Token aPrefixToken,
+                                                        @NonNull final Token aIdentifierToken)
   {
-    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken, aIdentifierToken));
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken,
+                                                                                                 aIdentifierToken));
   }
 
   @NonNull
@@ -160,7 +163,9 @@ public class CSSParseError
                                                           @NonNull final Token aFromToken,
                                                           @NonNull final Token aToToken)
   {
-    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex, aFromToken, aToToken));
+    return new CSSParseError (LoggingCSSParseErrorHandler.createLoggingStringBrowserCompliantSkip (ex,
+                                                                                                   aFromToken,
+                                                                                                   aToToken));
   }
 
   @NonNull

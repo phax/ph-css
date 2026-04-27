@@ -25,8 +25,8 @@ import com.helger.css.parser.ParseException;
 import com.helger.css.reader.errorhandler.LoggingCSSParseErrorHandler;
 
 /**
- * An implementation of {@link ICSSParseExceptionCallback} that logs all
- * {@link ParseException}s to a Logger.
+ * An implementation of {@link ICSSParseExceptionCallback} that logs all {@link ParseException}s to
+ * a Logger.
  *
  * @author Philip Helger
  * @since 3.7.4

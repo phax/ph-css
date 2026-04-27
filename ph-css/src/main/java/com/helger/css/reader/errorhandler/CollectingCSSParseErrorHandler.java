@@ -32,9 +32,9 @@ import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
 /**
- * A collecting implementation of {@link ICSSParseErrorHandler}. So in case a
- * recoverable error occurs, it is remembered in the internal list and can be
- * retrieved by {@link #getAllParseErrors()}.
+ * A collecting implementation of {@link ICSSParseErrorHandler}. So in case a recoverable error
+ * occurs, it is remembered in the internal list and can be retrieved by
+ * {@link #getAllParseErrors()}.
  *
  * @author Philip Helger
  */
@@ -48,13 +48,17 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   public CollectingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
+                                                                                                                throws ParseException
   {
     m_aRWLock.writeLocked ( () -> {
       if (aParseEx.expectedTokenSequences == null)
         m_aErrors.add (new CSSParseError (aParseEx.getMessage ()));
       else
-        m_aErrors.add (new CSSParseError (aParseEx.currentToken, aParseEx.expectedTokenSequences, aParseEx.tokenImage, aLastSkippedToken));
+        m_aErrors.add (new CSSParseError (aParseEx.currentToken,
+                                          aParseEx.expectedTokenSequences,
+                                          aParseEx.tokenImage,
+                                          aLastSkippedToken));
     });
   }
 
@@ -67,7 +71,8 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
 
   public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createDeprecatedProperty (aPrefixToken, aIdentifierToken)));
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createDeprecatedProperty (aPrefixToken,
+                                                                                         aIdentifierToken)));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
@@ -84,8 +89,8 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   }
 
   /**
-   * @return <code>true</code> if at least one parse error is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one parse error is contained, <code>false</code>
+   *         otherwise.
    */
   @Nonnegative
   public boolean hasParseErrors ()
@@ -103,8 +108,7 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   }
 
   /**
-   * @return A copy of the list with all contained errors. Never
-   *         <code>null</code> but maybe empty.
+   * @return A copy of the list with all contained errors. Never <code>null</code> but maybe empty.
    * @see #getParseErrorCount()
    * @see #hasParseErrors()
    */

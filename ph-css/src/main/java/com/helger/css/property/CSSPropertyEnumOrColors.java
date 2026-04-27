@@ -29,8 +29,7 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
 
 /**
- * CSS property that is a list of either an enumeration or a color value (e.g.
- * border-color)
+ * CSS property that is a list of either an enumeration or a color value (e.g. border-color)
  *
  * @author Philip Helger
  */

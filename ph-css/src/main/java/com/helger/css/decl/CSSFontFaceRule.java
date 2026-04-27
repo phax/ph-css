@@ -35,14 +35,16 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single <code>@font-face</code> rule.
+ * <p>
+ * Example:
  *
- * <p>Example:
- *
- * <pre>@font-face {
+ * <pre>
+ * &#64;font-face {
   font-family: 'icons';
   src: url(path/to/font.woff) format('woff');
   unicode-range: U+E000-E005;
-}</pre>
+}
+ * </pre>
  *
  * @author Philip Helger
  */
@@ -168,7 +170,7 @@ public class CSSFontFaceRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
-      return m_sDeclaration + m_aDeclarations.getAsCSSString(aSettings, nIndentLevel);
+    return m_sDeclaration + m_aDeclarations.getAsCSSString (aSettings, nIndentLevel);
   }
 
   @Nullable

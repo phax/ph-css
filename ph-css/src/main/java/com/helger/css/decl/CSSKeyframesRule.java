@@ -36,13 +36,16 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single @keyframes rule.
+ * <p>
+ * Example:
  *
- * <p>Example:
- *
- * <pre>@keyframes identifier {
+ * <pre>
+ * &#64;keyframes identifier {
   0% { top: 0; left: 0; }
   30% { top: 50px; }
-}</pre>
+}
+ * </pre>
+ * 
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -184,8 +187,8 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
         if (bFirst)
           bFirst = false;
         else
-        if (!bOptimizedOutput)
-          aSB.append (aSettings.getNewLineString ());
+          if (!bOptimizedOutput)
+            aSB.append (aSettings.getNewLineString ());
         if (!bOptimizedOutput)
           aSB.append (aSettings.getIndent (nIndentLevel + 1));
         aSB.append (sBlockCSS);

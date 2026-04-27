@@ -34,8 +34,8 @@ import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.utils.ECSSColor;
 
 /**
- * A static registry for all CSS short hand declarations (like
- * <code>border</code> or <code>margin</code>).
+ * A static registry for all CSS short hand declarations (like <code>border</code> or
+ * <code>margin</code>).
  *
  * @author Philip Helger
  * @since 3.7.4
@@ -69,17 +69,23 @@ public final class CSSShortHandRegistry
                                                                                               "auto auto")));
     // Not supported by Firefox 28
     registerShortHandDescriptor (new CSSShortHandDescriptor (ECSSProperty.FONT,
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.FONT_STYLE, CCSSValue.NORMAL),
+                                                             new CSSPropertyWithDefaultValue (CCSSProperties.FONT_STYLE,
+                                                                                              CCSSValue.NORMAL),
                                                              new CSSPropertyWithDefaultValue (CCSSProperties.FONT_VARIANT,
                                                                                               CCSSValue.NORMAL),
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.FONT_WEIGHT, CCSSValue.NORMAL),
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.FONT_SIZE, CCSSValue.INHERIT),
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.LINE_HEIGHT, CCSSValue.NORMAL),
+                                                             new CSSPropertyWithDefaultValue (CCSSProperties.FONT_WEIGHT,
+                                                                                              CCSSValue.NORMAL),
+                                                             new CSSPropertyWithDefaultValue (CCSSProperties.FONT_SIZE,
+                                                                                              CCSSValue.INHERIT),
+                                                             new CSSPropertyWithDefaultValue (CCSSProperties.LINE_HEIGHT,
+                                                                                              CCSSValue.NORMAL),
                                                              new CSSPropertyWithDefaultValue (CCSSProperties.FONT_FAMILY,
                                                                                               CCSSValue.INHERIT)));
     registerShortHandDescriptor (new CSSShortHandDescriptor (ECSSProperty.BORDER,
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_WIDTH, ECSSUnit.px (3)),
-                                                             new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_STYLE, CCSSValue.SOLID),
+                                                             new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_WIDTH,
+                                                                                              ECSSUnit.px (3)),
+                                                             new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_STYLE,
+                                                                                              CCSSValue.SOLID),
                                                              new CSSPropertyWithDefaultValue (CCSSProperties.BORDER_COLOR,
                                                                                               ECSSColor.BLACK.getName ())));
     registerShortHandDescriptor (new CSSShortHandDescriptor (ECSSProperty.BORDER_TOP,
@@ -170,8 +176,10 @@ public final class CSSShortHandRegistry
                                                              new CSSPropertyWithDefaultValue (CCSSProperties.LIST_STYLE_IMAGE,
                                                                                               CCSSValue.NONE)));
     registerShortHandDescriptor (new CSSShortHandDescriptorFlex (ECSSProperty.FLEX,
-                                                                 new CSSPropertyWithDefaultValue (CCSSProperties.FLEX_GROW, "0"),
-                                                                 new CSSPropertyWithDefaultValue (CCSSProperties.FLEX_SHRINK, "1"),
+                                                                 new CSSPropertyWithDefaultValue (CCSSProperties.FLEX_GROW,
+                                                                                                  "0"),
+                                                                 new CSSPropertyWithDefaultValue (CCSSProperties.FLEX_SHRINK,
+                                                                                                  "1"),
                                                                  new CSSPropertyWithDefaultValue (CCSSProperties.FLEX_BASIS,
                                                                                                   CCSSValue.AUTO)));
   }
@@ -186,7 +194,9 @@ public final class CSSShortHandRegistry
     final ECSSProperty eProperty = aDescriptor.getProperty ();
     RW_LOCK.writeLocked ( () -> {
       if (MAP.containsKey (eProperty))
-        throw new IllegalStateException ("A short hand for property '" + eProperty.getName () + "' is already registered!");
+        throw new IllegalStateException ("A short hand for property '" +
+                                         eProperty.getName () +
+                                         "' is already registered!");
       MAP.put (eProperty, aDescriptor);
     });
   }

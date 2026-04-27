@@ -21,7 +21,8 @@ public class CSSPropertyRuleDeclarationList extends CSSWritableList <CSSProperty
   }
 
   @NonNull
-  public CSSPropertyRuleDeclarationList addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSPropertyRuleDeclaration aDeclaration)
+  public CSSPropertyRuleDeclarationList addDeclaration (@Nonnegative final int nIndex,
+                                                        @NonNull final CSSPropertyRuleDeclaration aDeclaration)
   {
     add (nIndex, aDeclaration);
     return this;
@@ -49,9 +50,9 @@ public class CSSPropertyRuleDeclarationList extends CSSWritableList <CSSProperty
   @ReturnsMutableCopy
   public ICommonsList <CSSPropertyRuleDeclaration> getAllDeclarations ()
   {
-    return getClone();
+    return getClone ();
   }
-  
+
   @Nullable
   public CSSPropertyRuleDeclaration getDeclarationAtIndex (@Nonnegative final int nIndex)
   {
@@ -59,7 +60,8 @@ public class CSSPropertyRuleDeclarationList extends CSSWritableList <CSSProperty
   }
 
   @NonNull
-  public CSSPropertyRuleDeclarationList setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSPropertyRuleDeclaration aNewDeclaration)
+  public CSSPropertyRuleDeclarationList setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                               @NonNull final CSSPropertyRuleDeclaration aNewDeclaration)
   {
     set (nIndex, aNewDeclaration);
     return this;

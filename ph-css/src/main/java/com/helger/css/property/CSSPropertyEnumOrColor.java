@@ -27,8 +27,7 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
 
 /**
- * CSS property that is either an enumeration or a color value (e.g.
- * background-color)
+ * CSS property that is either an enumeration or a color value (e.g. background-color)
  *
  * @author Philip Helger
  */
@@ -55,7 +54,8 @@ public class CSSPropertyEnumOrColor extends CSSPropertyEnum
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrColor (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnumOrColor (@NonNull final ECSSProperty eProp,
+                                 @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
   }

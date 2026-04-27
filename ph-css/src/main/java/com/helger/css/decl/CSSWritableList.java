@@ -30,9 +30,8 @@ import com.helger.css.ICSSWriteable;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a list of {@link ICSSWriteable} objects. This class emits all
- * contained elements with a semicolon as separator but without any surrounding
- * block elements.
+ * Represents a list of {@link ICSSWriteable} objects. This class emits all contained elements with
+ * a semicolon as separator but without any surrounding block elements.
  *
  * @author Philip Helger
  * @param <DATATYPE>
@@ -77,7 +76,7 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> extends CommonsArr
       if (!bOptimizedOutput && nIndex != 0)
         aSB.append (aSettings.getIndent (nIndentLevel));
       // Emit the main element plus the semicolon
-      aSB.append (aElement.getAsCSSString (aSettings, nIndentLevel ));
+      aSB.append (aElement.getAsCSSString (aSettings, nIndentLevel));
       // No ';' at the last decl
       if (!bOptimizedOutput || nIndex < nDeclCount - 1)
         aSB.append (CCSS.DEFINITION_END);
@@ -114,6 +113,8 @@ public class CSSWritableList <DATATYPE extends ICSSWriteable> extends CommonsArr
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                            .getToString ();
   }
 }

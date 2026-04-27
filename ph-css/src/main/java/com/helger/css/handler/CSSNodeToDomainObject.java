@@ -778,9 +778,9 @@ final class CSSNodeToDomainObject
   }
 
   private void _readStyleDeclarationListWithNestedRules (@NonNull final CSSNode aNode,
-                                          @NonNull final Consumer <CSSDeclaration> aDeclarationConsumer,
-                                          @NonNull final Consumer <ICSSNestedRule> aNestedRuleConsumer,
-                                          final boolean bIsTopLevel)
+                                                         @NonNull final Consumer <CSSDeclaration> aDeclarationConsumer,
+                                                         @NonNull final Consumer <ICSSNestedRule> aNestedRuleConsumer,
+                                                         final boolean bIsTopLevel)
   {
     _expectNodeType (aNode, ECSSNodeType.STYLEDECLARATIONLISTWITHNESTED);
     // Read all contained declarations and rules
@@ -792,12 +792,17 @@ final class CSSNodeToDomainObject
       if (ECSSNodeType.STYLEDECLARATION.isNode (aChildNode))
       {
         final CSSDeclaration aDeclaration = _createDeclaration (aChildNode);
-        if (aDeclaration != null) {
+        if (aDeclaration != null)
+        {
           // declarations that appear at the start are added as declarations of the style rule
-          // declarations that appear interspersed with other rules are wrapped in a nested declarations element
-          if (aNestedDeclarations != null) {
-            aNestedDeclarations.addDeclaration(aDeclaration);
-          } else {
+          // declarations that appear interspersed with other rules are wrapped in a nested
+          // declarations element
+          if (aNestedDeclarations != null)
+          {
+            aNestedDeclarations.addDeclaration (aDeclaration);
+          }
+          else
+          {
             aDeclarationConsumer.accept (aDeclaration);
           }
         }
@@ -805,58 +810,58 @@ final class CSSNodeToDomainObject
       else
         if (ECSSNodeType.STYLERULE.isNode (aChildNode))
         {
-          if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+          if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations ())
             aNestedRuleConsumer.accept (aNestedDeclarations);
           final CSSStyleRule aRule = _createStyleRule (aChildNode, false);
           if (aRule != null)
             aNestedRuleConsumer.accept (aRule);
-          aNestedDeclarations = new CSSNestedDeclarations();
+          aNestedDeclarations = new CSSNestedDeclarations ();
         }
         else
           if (ECSSNodeType.MEDIARULE.isNode (aChildNode))
           {
-            if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+            if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations ())
               aNestedRuleConsumer.accept (aNestedDeclarations);
             final CSSMediaRule aRule = _createMediaRule (aChildNode, bIsTopLevel);
             if (aRule != null)
               aNestedRuleConsumer.accept (aRule);
-            aNestedDeclarations = new CSSNestedDeclarations();
+            aNestedDeclarations = new CSSNestedDeclarations ();
           }
           else
             if (ECSSNodeType.SUPPORTSRULE.isNode (aChildNode))
             {
-              if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+              if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations ())
                 aNestedRuleConsumer.accept (aNestedDeclarations);
               final CSSSupportsRule aRule = _createSupportsRule (aChildNode, bIsTopLevel);
               if (aRule != null)
                 aNestedRuleConsumer.accept (aRule);
-              aNestedDeclarations = new CSSNestedDeclarations();
+              aNestedDeclarations = new CSSNestedDeclarations ();
             }
             else
               if (ECSSNodeType.LAYERRULE.isNode (aChildNode))
               {
-                if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+                if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations ())
                   aNestedRuleConsumer.accept (aNestedDeclarations);
                 final CSSLayerRule aRule = _createLayerRule (aChildNode, bIsTopLevel);
                 if (aRule != null)
                   aNestedRuleConsumer.accept (aRule);
-                aNestedDeclarations = new CSSNestedDeclarations();
+                aNestedDeclarations = new CSSNestedDeclarations ();
               }
               else
                 if (ECSSNodeType.UNKNOWNRULE.isNode (aChildNode))
                 {
-                  if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+                  if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations ())
                     aNestedRuleConsumer.accept (aNestedDeclarations);
                   final CSSUnknownRule aRule = _createUnknownRule (aChildNode);
                   if (aRule != null)
                     aNestedRuleConsumer.accept (aRule);
-                  aNestedDeclarations = new CSSNestedDeclarations();
+                  aNestedDeclarations = new CSSNestedDeclarations ();
                 }
-                // else
-                // ignore ERROR_SKIP to and all unsupported nested "@" rules
+      // else
+      // ignore ERROR_SKIP to and all unsupported nested "@" rules
     }
     // append trailing declarations if there are any
-    if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations())
+    if (aNestedDeclarations != null && aNestedDeclarations.hasDeclarations ())
       aNestedRuleConsumer.accept (aNestedDeclarations);
   }
 
@@ -877,32 +882,33 @@ final class CSSNodeToDomainObject
 
         ret.addSelector (_createSelector (aChildNode));
       }
-      else if (ECSSNodeType.RELATIVESELECTOR.isNode (aChildNode))
-      {
-        if (!bSelectors)
-          m_aErrorHandler.onCSSInterpretationError ("Found a selector after a declaration!");
-
-        if (bIsTopLevel)
-          m_aErrorHandler.onCSSInterpretationError ("Relative selectors are not allowed at the top level!");
-
-        ret.addSelector (_createRelativeSelector (aChildNode));
-      }
       else
-      {
-        // OK, we're after the selectors
-        bSelectors = false;
-        if (ECSSNodeType.STYLEDECLARATIONLISTWITHNESTED.isNode (aChildNode))
+        if (ECSSNodeType.RELATIVESELECTOR.isNode (aChildNode))
         {
-          // Read all contained declarations and nested rules
-          _readStyleDeclarationListWithNestedRules (aChildNode, ret::addDeclaration, ret::addRule, bIsTopLevel);
+          if (!bSelectors)
+            m_aErrorHandler.onCSSInterpretationError ("Found a selector after a declaration!");
+
+          if (bIsTopLevel)
+            m_aErrorHandler.onCSSInterpretationError ("Relative selectors are not allowed at the top level!");
+
+          ret.addSelector (_createRelativeSelector (aChildNode));
         }
         else
-          if (!ECSSNodeType.isErrorNode (aChildNode))
-            m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
-                                                      ECSSNodeType.getNodeName (aNode) +
-                                                      ": " +
-                                                      ECSSNodeType.getNodeName (aChildNode));
-      }
+        {
+          // OK, we're after the selectors
+          bSelectors = false;
+          if (ECSSNodeType.STYLEDECLARATIONLISTWITHNESTED.isNode (aChildNode))
+          {
+            // Read all contained declarations and nested rules
+            _readStyleDeclarationListWithNestedRules (aChildNode, ret::addDeclaration, ret::addRule, bIsTopLevel);
+          }
+          else
+            if (!ECSSNodeType.isErrorNode (aChildNode))
+              m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                        ECSSNodeType.getNodeName (aNode) +
+                                                        ": " +
+                                                        ECSSNodeType.getNodeName (aChildNode));
+        }
     }
 
     if (ret.getSelectorCount () == 0)
@@ -1479,7 +1485,7 @@ final class CSSNodeToDomainObject
   @NonNull
   private CSSPropertyRuleDeclaration _createPropertyRuleDeclaration (@NonNull final CSSNode aNode)
   {
-    _expectNodeType(aNode, ECSSNodeType.PROPERTYRULEDECLARATION);
+    _expectNodeType (aNode, ECSSNodeType.PROPERTYRULEDECLARATION);
     final int nChildCount = aNode.jjtGetNumChildren ();
     if (nChildCount != 2)
       _throwUnexpectedChildrenCount (aNode, "Expected 2 children but got " + nChildCount + "!");
@@ -1505,7 +1511,7 @@ final class CSSNodeToDomainObject
   }
 
   private void _readPropertyRuleDeclarationList (@NonNull final CSSNode aNode,
-                                          @NonNull final Consumer <CSSPropertyRuleDeclaration> aConsumer)
+                                                 @NonNull final Consumer <CSSPropertyRuleDeclaration> aConsumer)
   {
     _expectNodeType (aNode, ECSSNodeType.PROPERTYRULEDECLARATIONLIST);
     int nValidDecls = 0;
@@ -1515,8 +1521,7 @@ final class CSSNodeToDomainObject
         nValidDecls++;
     }
     if (nValidDecls > 3)
-      _throwUnexpectedChildrenCount (aNode,
-                                     "Expected at most 3 children but got " + nValidDecls + "!");
+      _throwUnexpectedChildrenCount (aNode, "Expected at most 3 children but got " + nValidDecls + "!");
 
     // Read all contained declarations
     final int nDecls = aNode.jjtGetNumChildren ();
@@ -1549,11 +1554,11 @@ final class CSSNodeToDomainObject
     if (m_bUseSourceLocation)
       ret.setSourceLocation (aNode.getSourceLocation ());
 
-    final CSSNode aChildNode = aNode.jjtGetChild(0);
-    if (ECSSNodeType.PROPERTYRULEDECLARATIONLIST.isNode(aChildNode))
+    final CSSNode aChildNode = aNode.jjtGetChild (0);
+    if (ECSSNodeType.PROPERTYRULEDECLARATIONLIST.isNode (aChildNode))
     {
-        // Read all contained declarations
-        _readPropertyRuleDeclarationList (aChildNode, ret::addDeclaration);
+      // Read all contained declarations
+      _readPropertyRuleDeclarationList (aChildNode, ret::addDeclaration);
     }
     else
       if (!ECSSNodeType.isErrorNode (aChildNode))
@@ -1649,12 +1654,12 @@ final class CSSNodeToDomainObject
                                 if (ECSSNodeType.ROOT.isNode (aChildNode))
                                 {
                                   /*
-                                  * In case a parsing error occurs (as e.g. happening in issue #41)
-                                  * and browser compliant mode is enabled, some CSS code is skipped
-                                  * and a retry happens. This retry will be a recursive stylesheet
-                                  * object that is a child of the previous stylesheet but "flattened"
-                                  * for the result object.
-                                  */
+                                   * In case a parsing error occurs (as e.g. happening in issue #41)
+                                   * and browser compliant mode is enabled, some CSS code is skipped
+                                   * and a retry happens. This retry will be a recursive stylesheet
+                                   * object that is a child of the previous stylesheet but
+                                   * "flattened" for the result object.
+                                   */
                                   _recursiveFillCascadingStyleSheetFromNode (aChildNode, ret);
                                 }
                                 else

@@ -25,8 +25,8 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A logging implementation of {@link ICSSInterpretErrorHandler}. So in case a
- * warning or an error occurs, the details are logged to an SLF4J logger.
+ * A logging implementation of {@link ICSSInterpretErrorHandler}. So in case a warning or an error
+ * occurs, the details are logged to an SLF4J logger.
  *
  * @author Philip Helger
  * @since 5.0.2

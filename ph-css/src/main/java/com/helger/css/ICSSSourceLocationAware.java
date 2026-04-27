@@ -26,9 +26,8 @@ import org.jspecify.annotations.Nullable;
 public interface ICSSSourceLocationAware
 {
   /**
-   * @return The source location of this object when it was read by the parser.
-   *         May be <code>null</code> if an object was not read but manually
-   *         created.
+   * @return The source location of this object when it was read by the parser. May be
+   *         <code>null</code> if an object was not read but manually created.
    */
   @Nullable
   CSSSourceLocation getSourceLocation ();

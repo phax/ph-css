@@ -34,8 +34,8 @@ public enum ECSSSpecificationStatus
   REWRITING,
   ABANDONED,
   /**
-   * Special status that indicates that a CSS property is defined outside the
-   * scope of the CSS specifications.
+   * Special status that indicates that a CSS property is defined outside the scope of the CSS
+   * specifications.
    */
   OUTSIDE_CSS;
 }

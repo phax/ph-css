@@ -88,8 +88,8 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
   }
 
   /**
-   * @return An optimized version of the value. In most cases it is identical to
-   *         the original version.
+   * @return An optimized version of the value. In most cases it is identical to the original
+   *         version.
    * @see CSSExpressionTermOptimizer#getOptimizedValue(String)
    */
   @NonNull
@@ -100,13 +100,14 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
   }
 
   /**
-   * @return <code>true</code> if this value is a string literal.
-   *         <code>false</code> it is considered to be an identifier.
+   * @return <code>true</code> if this value is a string literal. <code>false</code> it is
+   *         considered to be an identifier.
    */
   public final boolean isStringLiteral ()
   {
     final char cFirst = m_sValue.charAt (0);
-    return (cFirst == CCSS.DOUBLE_QUOTE || cFirst == CCSS.SINGLE_QUOTE) && cFirst == StringHelper.getLastChar (m_sValue);
+    return (cFirst == CCSS.DOUBLE_QUOTE || cFirst == CCSS.SINGLE_QUOTE) &&
+           cFirst == StringHelper.getLastChar (m_sValue);
   }
 
   @NonNull

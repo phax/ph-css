@@ -34,26 +34,32 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single CSS style rule. A style rule consists of a number of
- * {@link CSSSelector selectors} (determines the elements to which
- * the style rule applies), a number of {@link CSSDeclarationContainer declarations}
- * (the styles to be applied to the selected elements), and a number of
- * {@link ICSSNestedRule nested rules} (the rules nested within the style rule,
- * e.g. media rules, supports rules, or nested declarations).
+ * Represents a single CSS style rule. A style rule consists of a number of {@link CSSSelector
+ * selectors} (determines the elements to which the style rule applies), a number of
+ * {@link CSSDeclarationContainer declarations} (the styles to be applied to the selected elements),
+ * and a number of {@link ICSSNestedRule nested rules} (the rules nested within the style rule, e.g.
+ * media rules, supports rules, or nested declarations).
+ * <p>
+ * Example:
  *
- * <p>Example:
- *
- * <pre>div {
+ * <pre>
+ * div {
   color: red;
   &:hover {
     color: blue;
   }
-}</pre>
+}
+ * </pre>
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDeclarations <CSSStyleRule>, IHasCSSNestedRules<CSSStyleRule>, ICSSSourceLocationAware
+public class CSSStyleRule implements
+                          ICSSTopLevelRule,
+                          ICSSNestedRule,
+                          IHasCSSDeclarations <CSSStyleRule>,
+                          IHasCSSNestedRules <CSSStyleRule>,
+                          ICSSSourceLocationAware
 {
   private final ICommonsList <CSSSelector> m_aSelectors = new CommonsArrayList <> ();
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
@@ -92,7 +98,8 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
   }
 
   @NonNull
-  public CSSStyleRule addSelector (@Nonnegative final int nIndex, @NonNull final ICSSSelectorMember aSingleSelectorMember)
+  public CSSStyleRule addSelector (@Nonnegative final int nIndex,
+                                   @NonNull final ICSSSelectorMember aSingleSelectorMember)
   {
     ValueEnforcer.notNull (aSingleSelectorMember, "SingleSelectorMember");
 
@@ -127,8 +134,8 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
   /**
    * Remove all selectors.
    *
-   * @return {@link EChange#CHANGED} if any selector was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any selector was removed, {@link EChange#UNCHANGED}
+   *         otherwise. Never <code>null</code>.
    * @since 3.7.3
    */
   @NonNull
@@ -150,19 +157,19 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     return m_aSelectors.getClone ();
   }
 
-  public boolean hasRules()
+  public boolean hasRules ()
   {
     return m_aRules.isNotEmpty ();
   }
 
   @Nonnegative
-  public int getRuleCount()
+  public int getRuleCount ()
   {
     return m_aRules.size ();
   }
 
   @NonNull
-  public CSSStyleRule addRule(@NonNull final ICSSNestedRule aRule)
+  public CSSStyleRule addRule (@NonNull final ICSSNestedRule aRule)
   {
     ValueEnforcer.notNull (aRule, "Rule");
 
@@ -171,7 +178,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
   }
 
   @NonNull
-  public CSSStyleRule addRule(@Nonnegative final int nIndex, @NonNull final ICSSNestedRule aRule)
+  public CSSStyleRule addRule (@Nonnegative final int nIndex, @NonNull final ICSSNestedRule aRule)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aRule, "Rule");
@@ -184,32 +191,32 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
   }
 
   @NonNull
-  public EChange removeRule(@NonNull final ICSSNestedRule aRule)
+  public EChange removeRule (@NonNull final ICSSNestedRule aRule)
   {
     return m_aRules.removeObject (aRule);
   }
 
   @NonNull
-  public EChange removeRule(@Nonnegative final int nRuleIndex)
+  public EChange removeRule (@Nonnegative final int nRuleIndex)
   {
     return m_aRules.removeAtIndex (nRuleIndex);
   }
 
   @NonNull
-  public EChange removeAllRules()
+  public EChange removeAllRules ()
   {
     return m_aRules.removeAll ();
   }
 
   @Nullable
-  public ICSSNestedRule getRuleAtIndex(@Nonnegative final int nRuleIndex)
+  public ICSSNestedRule getRuleAtIndex (@Nonnegative final int nRuleIndex)
   {
     return m_aRules.getAtIndex (nRuleIndex);
   }
 
   @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <ICSSNestedRule> getAllRules()
+  public ICommonsList <ICSSNestedRule> getAllRules ()
   {
     return m_aRules.getClone ();
   }
@@ -260,7 +267,8 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
   }
 
   @NonNull
-  public CSSStyleRule setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
+  public CSSStyleRule setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                             @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -294,14 +302,14 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
    * Get the selectors as a serialized CSS string for writing to an output.
    *
    * @param aSettings
-   *        The settings to be used to format the output. May not be
-   *        <code>null</code>.
+   *        The settings to be used to format the output. May not be <code>null</code>.
    * @param nIndentLevel
    *        The current indentation level
    * @return The content of the selectors as CSS string. Never <code>null</code>.
    */
   @NonNull
-  public String getSelectorsAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getSelectorsAsCSSString (@NonNull final ICSSWriterSettings aSettings,
+                                         @Nonnegative final int nIndentLevel)
   {
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
     final StringBuilder aSB = new StringBuilder ();
@@ -324,7 +332,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
   @NonNull
   public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations () && !hasRules())
+    if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations () && !hasRules ())
       return "";
 
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
@@ -349,13 +357,14 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     // Append the declarations
     if (nDeclCount == 1 && nRuleCount == 0)
     {
-      aSB.append (m_aDeclarations.get(0).getAsCSSString (aSettings, nIndentLevel));
+      aSB.append (m_aDeclarations.get (0).getAsCSSString (aSettings, nIndentLevel));
       // No ';' at the last entry
       if (!bOptimizedOutput)
         aSB.append (CCSS.DEFINITION_END);
     }
     else
-      if (nDeclCount >= 1) {
+      if (nDeclCount >= 1)
+      {
         int nIndex = 0;
         for (final CSSDeclaration aDeclaration : m_aDeclarations)
         {
@@ -393,10 +402,11 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
 
         if (!bOptimizedOutput)
           aSB.append (aSettings.getIndent (nIndentLevel + 1));
-        aSB.append(aRule.getAsCSSString(aSettings, nIndentLevel + 1));
+        aSB.append (aRule.getAsCSSString (aSettings, nIndentLevel + 1));
         // When outputting optimized, no semicolon is added after the last declaration
         // But when there are more rules, we need a semicolon as a separator
-        if (bOptimizedOutput && aRule instanceof CSSNestedDeclarations && nRuleIndex != nRuleCount - 1) {
+        if (bOptimizedOutput && aRule instanceof CSSNestedDeclarations && nRuleIndex != nRuleCount - 1)
+        {
           aSB.append (CCSS.DEFINITION_END);
         }
 
@@ -407,9 +417,9 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     if (!bOptimizedOutput && nElementCount > 0)
       // Add space if there is exactly one declaration and no rules. Otherwise, add a line break
       if (nElementCount == 1 && nRuleCount == 0)
-        aSB.append(" ");
+        aSB.append (" ");
       else
-        aSB.append(aSettings.getNewLineString()).append(aSettings.getIndent(nIndentLevel));
+        aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
 
     // Append the closing brace
     aSB.append ("}");
@@ -436,14 +446,15 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSStyleRule rhs = (CSSStyleRule) o;
-    return m_aSelectors.equals (rhs.m_aSelectors) && m_aDeclarations.equals (rhs.m_aDeclarations)
-            && m_aRules.equals (rhs.m_aRules);
+    return m_aSelectors.equals (rhs.m_aSelectors) &&
+           m_aDeclarations.equals (rhs.m_aDeclarations) &&
+           m_aRules.equals (rhs.m_aRules);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aSelectors).append (m_aDeclarations).append(m_aRules).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aSelectors).append (m_aDeclarations).append (m_aRules).getHashCode ();
   }
 
   @Override
@@ -451,7 +462,7 @@ public class CSSStyleRule implements ICSSTopLevelRule, ICSSNestedRule, IHasCSSDe
   {
     return new ToStringGenerator (this).append ("selectors", m_aSelectors)
                                        .append ("declarations", m_aDeclarations)
-                                      .append ("rules", m_aRules)
+                                       .append ("rules", m_aRules)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

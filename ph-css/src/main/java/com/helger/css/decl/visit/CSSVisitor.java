@@ -47,10 +47,10 @@ import com.helger.css.decl.ICSSTopLevelRule;
 import com.helger.css.decl.IHasCSSDeclarations;
 
 /**
- * This class is used to walk a CSS domain object and call the respective
- * {@link ICSSVisitor} and {@link ICSSUrlVisitor} interface methods. Method
- * {@link #visitCSS(CascadingStyleSheet, ICSSVisitor)} is usually the entry
- * point to iterate over the whole content of a parsed CSS.
+ * This class is used to walk a CSS domain object and call the respective {@link ICSSVisitor} and
+ * {@link ICSSUrlVisitor} interface methods. Method
+ * {@link #visitCSS(CascadingStyleSheet, ICSSVisitor)} is usually the entry point to iterate over
+ * the whole content of a parsed CSS.
  *
  * @author Philip Helger
  */
@@ -84,7 +84,8 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitNamespaceRule (@NonNull final CSSNamespaceRule aNamespaceRule, @NonNull final ICSSVisitor aVisitor)
+  public static void visitNamespaceRule (@NonNull final CSSNamespaceRule aNamespaceRule,
+                                         @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onNamespace (aNamespaceRule);
   }
@@ -95,10 +96,10 @@ public final class CSSVisitor
    * @param aHasDeclarations
    *        The declarations to be visited. May not be <code>null</code>.
    * @param aVisitor
-   *        The visitor to be invoked on each declaration. May not be
-   *        <code>null</code>.
+   *        The visitor to be invoked on each declaration. May not be <code>null</code>.
    */
-  public static void visitAllDeclarations (@NonNull final IHasCSSDeclarations <?> aHasDeclarations, @NonNull final ICSSVisitor aVisitor)
+  public static void visitAllDeclarations (@NonNull final IHasCSSDeclarations <?> aHasDeclarations,
+                                           @NonNull final ICSSVisitor aVisitor)
   {
     // for all declarations
     for (final CSSDeclaration aDeclaration : aHasDeclarations.getAllDeclarations ())
@@ -111,10 +112,10 @@ public final class CSSVisitor
    * @param aHasNestedRules
    *        The nested rules to be visited. May not be <code>null</code>.
    * @param aVisitor
-   *        The visitor to be invoked on each nested rule. May not be
-   *        <code>null</code>.
+   *        The visitor to be invoked on each nested rule. May not be <code>null</code>.
    */
-  public static void visitAllNestedRules (@NonNull final IHasCSSNestedRules<?> aHasNestedRules, @NonNull final ICSSVisitor aVisitor)
+  public static void visitAllNestedRules (@NonNull final IHasCSSNestedRules <?> aHasNestedRules,
+                                          @NonNull final ICSSVisitor aVisitor)
   {
     // for all nested rules
     for (final ICSSNestedRule aNestedRule : aHasNestedRules.getAllRules ())
@@ -196,7 +197,8 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitFontFaceRule (@NonNull final CSSFontFaceRule aFontFaceRule, @NonNull final ICSSVisitor aVisitor)
+  public static void visitFontFaceRule (@NonNull final CSSFontFaceRule aFontFaceRule,
+                                        @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginFontFaceRule (aFontFaceRule);
     try
@@ -241,7 +243,8 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitKeyframesRule (@NonNull final CSSKeyframesRule aKeyframesRule, @NonNull final ICSSVisitor aVisitor)
+  public static void visitKeyframesRule (@NonNull final CSSKeyframesRule aKeyframesRule,
+                                         @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginKeyframesRule (aKeyframesRule);
     try
@@ -275,7 +278,8 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitViewportRule (@NonNull final CSSViewportRule aViewportRule, @NonNull final ICSSVisitor aVisitor)
+  public static void visitViewportRule (@NonNull final CSSViewportRule aViewportRule,
+                                        @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginViewportRule (aViewportRule);
     try
@@ -297,7 +301,8 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitSupportsRule (@NonNull final CSSSupportsRule aSupportsRule, @NonNull final ICSSVisitor aVisitor)
+  public static void visitSupportsRule (@NonNull final CSSSupportsRule aSupportsRule,
+                                        @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginSupportsRule (aSupportsRule);
     try
@@ -343,7 +348,8 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitPropertyRule (@NonNull final CSSPropertyRule aPropertyRule, @NonNull final ICSSVisitor aVisitor)
+  public static void visitPropertyRule (@NonNull final CSSPropertyRule aPropertyRule,
+                                        @NonNull final ICSSVisitor aVisitor)
   {
     aVisitor.onBeginPropertyRule (aPropertyRule);
     try
@@ -366,13 +372,15 @@ public final class CSSVisitor
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitNestedDeclarations (@NonNull final CSSNestedDeclarations aNestedDeclarations, @NonNull final ICSSVisitor aVisitor)
+  public static void visitNestedDeclarations (@NonNull final CSSNestedDeclarations aNestedDeclarations,
+                                              @NonNull final ICSSVisitor aVisitor)
   {
-    aVisitor.onBeginNestedDeclarations(aNestedDeclarations);
-    for (final CSSDeclaration aDeclaration : aNestedDeclarations.getAllDeclarations()) {
-      aVisitor.onDeclaration(aDeclaration);
+    aVisitor.onBeginNestedDeclarations (aNestedDeclarations);
+    for (final CSSDeclaration aDeclaration : aNestedDeclarations.getAllDeclarations ())
+    {
+      aVisitor.onDeclaration (aDeclaration);
     }
-    aVisitor.onEndNestedDeclarations(aNestedDeclarations);
+    aVisitor.onEndNestedDeclarations (aNestedDeclarations);
   }
 
   /**
@@ -389,15 +397,16 @@ public final class CSSVisitor
   }
 
   /**
-   * Visit all elements of a single top-level rule. This includes all rules
-   * except <code>@import</code> and <code>@namespace</code> rules.
+   * Visit all elements of a single top-level rule. This includes all rules except
+   * <code>@import</code> and <code>@namespace</code> rules.
    *
    * @param aTopLevelRule
    *        The top-level rule to visit. May not be <code>null</code>.
    * @param aVisitor
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitTopLevelRule (@NonNull final ICSSTopLevelRule aTopLevelRule, @NonNull final ICSSVisitor aVisitor)
+  public static void visitTopLevelRule (@NonNull final ICSSTopLevelRule aTopLevelRule,
+                                        @NonNull final ICSSVisitor aVisitor)
   {
     if (aTopLevelRule instanceof CSSStyleRule)
     {
@@ -441,7 +450,7 @@ public final class CSSVisitor
                   else
                     if (aTopLevelRule instanceof CSSPropertyRule)
                     {
-                      visitPropertyRule((CSSPropertyRule) aTopLevelRule, aVisitor);
+                      visitPropertyRule ((CSSPropertyRule) aTopLevelRule, aVisitor);
                     }
                     else
                       if (aTopLevelRule instanceof CSSUnknownRule)
@@ -486,25 +495,23 @@ public final class CSSVisitor
             {
               visitNestedDeclarations ((CSSNestedDeclarations) aNestedRule, aVisitor);
             }
-          else
-            if (aNestedRule instanceof CSSUnknownRule)
-            {
-              visitUnknownRule ((CSSUnknownRule) aNestedRule, aVisitor);
-            }
             else
-              throw new IllegalStateException ("Nested rule " + aNestedRule + " is unsupported!");
+              if (aNestedRule instanceof CSSUnknownRule)
+              {
+                visitUnknownRule ((CSSUnknownRule) aNestedRule, aVisitor);
+              }
+              else
+                throw new IllegalStateException ("Nested rule " + aNestedRule + " is unsupported!");
   }
 
   /**
-   * Visit all CSS elements in the order of their declaration. import rules come
-   * first, namespace rules come next and all other top-level rules in the order
-   * of their declaration.
+   * Visit all CSS elements in the order of their declaration. import rules come first, namespace
+   * rules come next and all other top-level rules in the order of their declaration.
    *
    * @param aCSS
    *        The CSS to visit. May not be <code>null</code>.
    * @param aVisitor
-   *        The callback to be invoked for each element found. May not be
-   *        <code>null</code>.
+   *        The callback to be invoked for each element found. May not be <code>null</code>.
    */
   public static void visitCSS (@NonNull final CascadingStyleSheet aCSS, @NonNull final ICSSVisitor aVisitor)
   {
@@ -533,14 +540,13 @@ public final class CSSVisitor
   }
 
   /**
-   * Visit all items that can contain URLs in CSS files. Therefore the special
-   * visitor class {@link CSSVisitorForUrl} is used.
+   * Visit all items that can contain URLs in CSS files. Therefore the special visitor class
+   * {@link CSSVisitorForUrl} is used.
    *
    * @param aCSS
    *        The CSS to visit. May not be <code>null</code>.
    * @param aVisitor
-   *        The callback to invoke for each found occurrence. May not be
-   *        <code>null</code>.
+   *        The callback to invoke for each found occurrence. May not be <code>null</code>.
    * @see CSSVisitorForUrl
    */
   public static void visitCSSUrl (@NonNull final CascadingStyleSheet aCSS, @NonNull final ICSSUrlVisitor aVisitor)
@@ -550,16 +556,16 @@ public final class CSSVisitor
   }
 
   /**
-   * Visit all items that can contain URLs in CSS files. Therefore the special
-   * visitor class {@link CSSVisitorForUrl} is used.
+   * Visit all items that can contain URLs in CSS files. Therefore the special visitor class
+   * {@link CSSVisitorForUrl} is used.
    *
    * @param aCSS
    *        The CSS to visit. May not be <code>null</code>.
    * @param aVisitor
-   *        The callback to invoke for each found occurrence. May not be
-   *        <code>null</code>.
+   *        The callback to invoke for each found occurrence. May not be <code>null</code>.
    */
-  public static void visitAllDeclarationUrls (@NonNull final IHasCSSDeclarations <?> aCSS, @NonNull final ICSSUrlVisitor aVisitor)
+  public static void visitAllDeclarationUrls (@NonNull final IHasCSSDeclarations <?> aCSS,
+                                              @NonNull final ICSSUrlVisitor aVisitor)
   {
     // Visit only the URLs of a CSS with a specific CSS visitor
     visitAllDeclarations (aCSS, new CSSVisitorForUrl (aVisitor));

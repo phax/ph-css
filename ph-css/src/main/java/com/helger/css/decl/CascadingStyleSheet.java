@@ -32,10 +32,9 @@ import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 
 /**
- * This is the main object for a parsed CSS declaration. It has special handling
- * for import and namespace rules, as these rules must always be on the
- * beginning of a file. All other rules (all implementing
- * {@link ICSSTopLevelRule}) are maintained in a combined list.
+ * This is the main object for a parsed CSS declaration. It has special handling for import and
+ * namespace rules, as these rules must always be on the beginning of a file. All other rules (all
+ * implementing {@link ICSSTopLevelRule}) are maintained in a combined list.
  *
  * @author Philip Helger
  */
@@ -50,8 +49,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   {}
 
   /**
-   * @return <code>true</code> if at least one <code>@import</code> rule is
-   *         present, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one <code>@import</code> rule is present,
+   *         <code>false</code> otherwise.
    */
   public boolean hasImportRules ()
   {
@@ -71,8 +70,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * Get the <code>@import</code> rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getImportRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getImportRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -83,8 +81,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   }
 
   /**
-   * Add a new <code>@import</code> rule at the end of the <code>@import</code>
-   * rule list.
+   * Add a new <code>@import</code> rule at the end of the <code>@import</code> rule list.
    *
    * @param aImportRule
    *        The import rule to add. May not be <code>null</code>.
@@ -100,8 +97,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   }
 
   /**
-   * Add a new <code>@import</code> rule at a specified index of the
-   * <code>@import</code> rule list.
+   * Add a new <code>@import</code> rule at a specified index of the <code>@import</code> rule list.
    *
    * @param nIndex
    *        The index where the rule should be added. Must be &ge; 0.
@@ -129,8 +125,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *
    * @param aImportRule
    *        The import rule to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if removal was successful,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if removal was successful, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    */
   @NonNull
   public EChange removeImportRule (@Nullable final CSSImportRule aImportRule)
@@ -143,8 +139,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *
    * @param nImportRuleIndex
    *        The index to be removed. Should be &ge; 0.
-   * @return {@link EChange#CHANGED} if removal was successful,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if removal was successful, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    */
   @NonNull
   public EChange removeImportRule (@Nonnegative final int nImportRuleIndex)
@@ -155,8 +151,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   /**
    * Remove all <code>@import</code> rules.
    *
-   * @return {@link EChange#CHANGED} if any rule was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any rule was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
   @NonNull
@@ -166,8 +162,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   }
 
   /**
-   * @return A copy of all contained <code>@import</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all contained <code>@import</code> rules. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -177,8 +172,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   }
 
   /**
-   * @return <code>true</code> if at least one <code>@namespace</code> rule is
-   *         present, <code>false</code> otherwise.
+   * @return <code>true</code> if at least one <code>@namespace</code> rule is present,
+   *         <code>false</code> otherwise.
    */
   public boolean hasNamespaceRules ()
   {
@@ -186,8 +181,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   }
 
   /**
-   * @return The number of contained <code>@namespace</code> rules. Always &ge;
-   *         0.
+   * @return The number of contained <code>@namespace</code> rules. Always &ge; 0.
    */
   @Nonnegative
   public int getNamespaceRuleCount ()
@@ -199,8 +193,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * Get the <code>@namespace</code> rule at the specified index.
    *
    * @param nIndex
-   *        The index to be resolved. Should be &ge; 0 and &lt;
-   *        {@link #getNamespaceRuleCount()}.
+   *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getNamespaceRuleCount()}.
    * @return <code>null</code> if an invalid index was specified.
    * @since 3.7.4
    */
@@ -211,8 +204,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   }
 
   /**
-   * Add a new <code>@namespace</code> rule at the end of the
-   * <code>@namespace</code> rule list.
+   * Add a new <code>@namespace</code> rule at the end of the <code>@namespace</code> rule list.
    *
    * @param aNamespaceRule
    *        The namespace rule to be added. May not be <code>null</code>.
@@ -228,8 +220,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   }
 
   /**
-   * Add a new <code>@namespace</code> rule at the specified index of the
-   * <code>@namespace</code> rule list.
+   * Add a new <code>@namespace</code> rule at the specified index of the <code>@namespace</code>
+   * rule list.
    *
    * @param nIndex
    *        The index where the rule should be added. Must be &ge; 0.
@@ -238,7 +230,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    * @return this
    */
   @NonNull
-  public CascadingStyleSheet addNamespaceRule (@Nonnegative final int nIndex, @NonNull final CSSNamespaceRule aNamespaceRule)
+  public CascadingStyleSheet addNamespaceRule (@Nonnegative final int nIndex,
+                                               @NonNull final CSSNamespaceRule aNamespaceRule)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aNamespaceRule, "NamespaceRule");
@@ -255,9 +248,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *
    * @param aNamespaceRule
    *        The namespace rule to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the namespace rule was successfully
-   *         removed, {@link EChange#UNCHANGED} otherwise. Never
-   *         <code>null</code>.
+   * @return {@link EChange#CHANGED} if the namespace rule was successfully removed,
+   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
   @NonNull
   public EChange removeNamespaceRule (@Nullable final CSSNamespaceRule aNamespaceRule)
@@ -270,9 +262,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
    *
    * @param nNamespaceRuleIndex
    *        The index to be removed. Should be &ge; 0.
-   * @return {@link EChange#CHANGED} if the namespace rule was successfully
-   *         removed, {@link EChange#UNCHANGED} otherwise. Never
-   *         <code>null</code>.
+   * @return {@link EChange#CHANGED} if the namespace rule was successfully removed,
+   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
   @NonNull
   public EChange removeNamespaceRule (@Nonnegative final int nNamespaceRuleIndex)
@@ -283,8 +274,8 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   /**
    * Remove all <code>@namespace</code> rules.
    *
-   * @return {@link EChange#CHANGED} if any rule was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if any rule was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    * @since 3.7.3
    */
   @NonNull
@@ -294,8 +285,7 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   }
 
   /**
-   * @return A copy of all <code>@namespace</code> rules. Never
-   *         <code>null</code>.
+   * @return A copy of all <code>@namespace</code> rules. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -323,13 +313,18 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CascadingStyleSheet rhs = (CascadingStyleSheet) o;
-    return m_aImportRules.equals (rhs.m_aImportRules) && m_aNamespaceRules.equals (rhs.m_aNamespaceRules) && m_aRules.equals (rhs.m_aRules);
+    return m_aImportRules.equals (rhs.m_aImportRules) &&
+           m_aNamespaceRules.equals (rhs.m_aNamespaceRules) &&
+           m_aRules.equals (rhs.m_aRules);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aImportRules).append (m_aNamespaceRules).append (m_aRules).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aImportRules)
+                                       .append (m_aNamespaceRules)
+                                       .append (m_aRules)
+                                       .getHashCode ();
   }
 
   @Override

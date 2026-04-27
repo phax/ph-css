@@ -30,8 +30,8 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single CSS selector like an element name, a hash value (ID), a
- * class or a pseudo class.
+ * Represents a single CSS selector like an element name, a hash value (ID), a class or a pseudo
+ * class.
  *
  * @author Philip Helger
  */
@@ -59,7 +59,7 @@ public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLo
    */
   public boolean isElementName ()
   {
-    return !isHash () && !isClass () && !isPseudo () && !isNesting();
+    return !isHash () && !isClass () && !isPseudo () && !isNesting ();
   }
 
   /**
@@ -88,6 +88,7 @@ public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLo
 
   /**
    * Checks if this selector represents the nesting selector <code>&</code>.
+   * 
    * @return <code>true</code> if it is a nesting selector
    * @since 8.2.0
    */
@@ -134,6 +135,8 @@ public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("value", m_sValue).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (null).append ("value", m_sValue)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

@@ -237,7 +237,8 @@ public abstract class AbstractHasTopLevelRules
    *
    * @param nIndex
    *        The index to be resolved. Should be &ge; 0 and &lt; {@link #getStyleRuleCount()}.
-   * @return The layer rule at the given index, or <code>null</code> if an invalid index was specified.
+   * @return The layer rule at the given index, or <code>null</code> if an invalid index was
+   *         specified.
    * @since 8.2.0
    */
   @Nullable

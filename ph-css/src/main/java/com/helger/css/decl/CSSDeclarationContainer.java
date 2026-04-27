@@ -24,9 +24,9 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a common container of {@link CSSDeclaration} objects. In contrary
- * to {@link CSSDeclarationList} this class emits block level elements around
- * the declarations as used in style rules etc.
+ * Represents a common container of {@link CSSDeclaration} objects. In contrary to
+ * {@link CSSDeclarationList} this class emits block level elements around the declarations as used
+ * in style rules etc.
  *
  * @author Philip Helger
  */
@@ -38,7 +38,8 @@ public class CSSDeclarationContainer extends CSSDeclarationList
 
   @NonNull
   @Nonempty
-  public String getDeclarationsAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  public String getDeclarationsAsCSSString (@NonNull final ICSSWriterSettings aSettings,
+                                            @Nonnegative final int nIndentLevel)
   {
     return super.getAsCSSString (aSettings, nIndentLevel);
   }
@@ -73,7 +74,7 @@ public class CSSDeclarationContainer extends CSSDeclarationList
           aSB.append (aSettings.getIndent (nIndentLevel + 1));
         aSB.append (super.getAsCSSString (aSettings, nIndentLevel + 1));
         if (!bOptimizedOutput)
-          aSB.append(aSettings.getNewLineString()).append (aSettings.getIndent (nIndentLevel));
+          aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
         aSB.append ('}');
       }
     }

@@ -34,8 +34,7 @@ import com.helger.css.utils.CSSDataURLHelper;
 import com.helger.css.utils.CSSURLHelper;
 
 /**
- * Represents a single CSS URI. The contained URI might be modified using
- * {@link #setURI(String)}.
+ * Represents a single CSS URI. The contained URI might be modified using {@link #setURI(String)}.
  *
  * @author Philip Helger
  */
@@ -60,13 +59,13 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   }
 
   /**
-   * Set the URI string of this object. This may either be a regular URI or a
-   * data URL string (starting with "data:"). The passed string may not start
-   * with the prefix "url(" and end with ")".
+   * Set the URI string of this object. This may either be a regular URI or a data URL string
+   * (starting with "data:"). The passed string may not start with the prefix "url(" and end with
+   * ")".
    *
    * @param sURI
-   *        The URI to be set. May not be <code>null</code> but may be empty
-   *        (even though an empty URL usually does not make sense).
+   *        The URI to be set. May not be <code>null</code> but may be empty (even though an empty
+   *        URL usually does not make sense).
    * @return this
    */
   @NonNull
@@ -83,8 +82,7 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * Check if this URI is a data URL (starting with "data:")
    *
-   * @return <code>true</code> if the URI is a data URL, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the URI is a data URL, <code>false</code> otherwise.
    */
   public boolean isDataURL ()
   {
@@ -94,8 +92,8 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   /**
    * Try to convert the contained URI to a Data URL object.
    *
-   * @return <code>null</code> if conversion to a data URL failed, the
-   *         {@link CSSDataURL} object otherwise.
+   * @return <code>null</code> if conversion to a data URL failed, the {@link CSSDataURL} object
+   *         otherwise.
    */
   @Nullable
   public CSSDataURL getAsDataURL ()
@@ -141,6 +139,8 @@ public class CSSURI implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("URI", m_sURI).appendIfNotNull ("SourceLocation", m_aSourceLocation).getToString ();
+    return new ToStringGenerator (this).append ("URI", m_sURI)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
   }
 }

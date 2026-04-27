@@ -25,8 +25,8 @@ import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
 /**
- * An implementation of {@link ICSSParseErrorHandler} that does nothing. So in
- * case a recoverable error occurs it is silently ignored.
+ * An implementation of {@link ICSSParseErrorHandler} that does nothing. So in case a recoverable
+ * error occurs it is silently ignored.
  *
  * @author Philip Helger
  */
@@ -52,7 +52,9 @@ public class DoNothingCSSParseErrorHandler implements ICSSParseErrorHandler
     /* really do nothing :) */
   }
 
-  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex, @NonNull final Token aFromToken, @NonNull final Token aToToken)
+  public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
+                                         @NonNull final Token aFromToken,
+                                         @NonNull final Token aToToken)
   {
     /* really do nothing :) */
   }

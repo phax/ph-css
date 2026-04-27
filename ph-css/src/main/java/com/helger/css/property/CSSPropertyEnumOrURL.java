@@ -27,8 +27,7 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSURLHelper;
 
 /**
- * CSS property that is either an enumeration or a URL value (e.g.
- * list-style-image)
+ * CSS property that is either an enumeration or a URL value (e.g. list-style-image)
  *
  * @author Philip Helger
  */
@@ -55,7 +54,8 @@ public class CSSPropertyEnumOrURL extends CSSPropertyEnum
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrURL (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnumOrURL (@NonNull final ECSSProperty eProp,
+                               @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
   }

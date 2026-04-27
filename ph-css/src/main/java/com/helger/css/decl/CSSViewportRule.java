@@ -35,12 +35,14 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Represents a single <code>@viewport</code> rule.
+ * <p>
+ * Example:
  *
- * <p>Example:
- *
- * <pre>@viewport {
+ * <pre>
+ * &#64;viewport {
   width: device-width;
-}</pre>
+}
+ * </pre>
  *
  * @author Philip Helger
  */
@@ -161,7 +163,7 @@ public class CSSViewportRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
     if (aSettings.isRemoveUnnecessaryCode () && !hasDeclarations ())
       return "";
 
-    return m_sDeclaration + m_aDeclarations.getAsCSSString(aSettings, nIndentLevel);
+    return m_sDeclaration + m_aDeclarations.getAsCSSString (aSettings, nIndentLevel);
   }
 
   @Nullable

@@ -39,8 +39,7 @@ public final class CSSFilenameHelper
   {}
 
   /**
-   * Check if the passed filename is a CSS filename (independent if regular or
-   * minified)
+   * Check if the passed filename is a CSS filename (independent if regular or minified)
    *
    * @param sFilename
    *        The filename to check.
@@ -56,8 +55,7 @@ public final class CSSFilenameHelper
    *
    * @param sFilename
    *        The filename to check.
-   * @return <code>true</code> if the passed filename is a minified CSS
-   *         filename.
+   * @return <code>true</code> if the passed filename is a minified CSS filename.
    */
   public static boolean isMinifiedCSSFilename (@Nullable final String sFilename)
   {
@@ -77,8 +75,8 @@ public final class CSSFilenameHelper
   }
 
   /**
-   * Get the minified CSS filename from the passed filename. If the passed
-   * filename is already minified, it is returned as is.
+   * Get the minified CSS filename from the passed filename. If the passed filename is already
+   * minified, it is returned as is.
    *
    * @param sCSSFilename
    *        The filename to get minified. May not be <code>null</code>.
@@ -87,7 +85,8 @@ public final class CSSFilenameHelper
   @NonNull
   public static String getMinifiedCSSFilename (@NonNull final String sCSSFilename)
   {
-    ValueEnforcer.isTrue (isCSSFilename (sCSSFilename), "Passed file name '" + sCSSFilename + "' is not a CSS file name!");
+    ValueEnforcer.isTrue (isCSSFilename (sCSSFilename),
+                          "Passed file name '" + sCSSFilename + "' is not a CSS file name!");
     if (isMinifiedCSSFilename (sCSSFilename))
       return sCSSFilename;
     return StringHelper.trimEnd (sCSSFilename, CCSS.FILE_EXTENSION_CSS) + CCSS.FILE_EXTENSION_MIN_CSS;

@@ -43,9 +43,9 @@ import com.helger.css.ICSSWriterSettings;
  * @author Mike Wiedenbauer
  */
 public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSSourceLocationAware
-{ 
+{
   private final String m_sIdentifier;
-  private final CSSPropertyRuleDeclarationList m_aDeclarations = new CSSPropertyRuleDeclarationList();
+  private final CSSPropertyRuleDeclarationList m_aDeclarations = new CSSPropertyRuleDeclarationList ();
   private CSSSourceLocation m_aSourceLocation;
 
   public static boolean isValidIdentifier (@NonNull @Nonempty final String sIdentifier)
@@ -76,9 +76,10 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
   }
 
   @NonNull
-  public CSSPropertyRule addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSPropertyRuleDeclaration aDeclaration)
+  public CSSPropertyRule addDeclaration (@Nonnegative final int nIndex,
+                                         @NonNull final CSSPropertyRuleDeclaration aDeclaration)
   {
-    ValueEnforcer.isGE0(nIndex, "Index");
+    ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aDeclaration, "PropertyRuleDeclaration");
 
     m_aDeclarations.addDeclaration (nIndex, aDeclaration);
@@ -107,9 +108,9 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
   @ReturnsMutableCopy
   public ICommonsList <CSSPropertyRuleDeclaration> getAllDeclarations ()
   {
-    return m_aDeclarations.getAllDeclarations();
+    return m_aDeclarations.getAllDeclarations ();
   }
-  
+
   @Nullable
   public CSSPropertyRuleDeclaration getDeclarationAtIndex (@Nonnegative final int nIndex)
   {
@@ -117,7 +118,8 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
   }
 
   @NonNull
-  public CSSPropertyRule setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSPropertyRuleDeclaration aNewDeclaration)
+  public CSSPropertyRule setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                @NonNull final CSSPropertyRuleDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;
@@ -143,7 +145,7 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
       return "";
 
     final boolean bOptimizedOutput = aSettings.isOptimizedOutput ();
-    final int nDeclCount = m_aDeclarations.getDeclarationCount();
+    final int nDeclCount = m_aDeclarations.getDeclarationCount ();
 
     final StringBuilder aSB = new StringBuilder ("@property ").append (m_sIdentifier);
     if (nDeclCount == 0)
@@ -169,7 +171,7 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
         aSB.append ('}');
       }
     }
-    return aSB.toString();
+    return aSB.toString ();
   }
 
   @Nullable

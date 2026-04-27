@@ -30,39 +30,46 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Represents nested style declarations. When nesting rules, all CSS style declarations after nested rules are wrapped
- * within a nested declarations block, in accordance with the CSS Nesting Module Level 1 specification. A nested
- * declarations instance consists of a number of declarations (the styles to be applied to the selected elements).
+ * Represents nested style declarations. When nesting rules, all CSS style declarations after nested
+ * rules are wrapped within a nested declarations block, in accordance with the CSS Nesting Module
+ * Level 1 specification. A nested declarations instance consists of a number of declarations (the
+ * styles to be applied to the selected elements).
+ * <p>
+ * Example:
  *
- * <p>Example:
- *
- * <pre>div {
+ * <pre>
+ * div {
   color: red;
   span {
     color: green;
   }
   color: blue;
-}</pre>
+}
+ * </pre>
  *
- * In the above example, <code>color: blue;</code> will be placed inside a nested declarations instances, as a child
- * of a {@link CSSStyleRule}. The resulting object structure will look like this:
- *
+ * In the above example, <code>color: blue;</code> will be placed inside a nested declarations
+ * instances, as a child of a {@link CSSStyleRule}. The resulting object structure will look like
+ * this:
  * <ul>
- *     <li>A {@link CSSStyleRule} representing the entire <code>div { ... }</code> block
- *     <ul>
- *         <li>The {@link CSSStyleRule#getAllDeclarations()} with <code>color: red;</code></li>
- *         <li>The {@link CSSStyleRule#getAllRules()} with</li>
- *         <ul>
- *             <li>A nested {@link CSSStyleRule} represent <code>span { color: green; }</code>
- *             <li>A nested {@link CSSNestedDeclarations} representing <code>color: blue;</code></li>
- *         </ul>
- *     </ul>
+ * <li>A {@link CSSStyleRule} representing the entire <code>div { ... }</code> block
+ * <ul>
+ * <li>The {@link CSSStyleRule#getAllDeclarations()} with <code>color: red;</code></li>
+ * <li>The {@link CSSStyleRule#getAllRules()} with</li>
+ * <ul>
+ * <li>A nested {@link CSSStyleRule} represent <code>span { color: green; }</code>
+ * <li>A nested {@link CSSNestedDeclarations} representing <code>color: blue;</code></li>
  * </ul>
+ * </ul>
+ * </ul>
+ * 
  * @author Philip Helger
  * @since 8.2.0
  */
 @NotThreadSafe
-public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclarations <CSSNestedDeclarations>, ICSSSourceLocationAware
+public class CSSNestedDeclarations implements
+                                   ICSSNestedRule,
+                                   IHasCSSDeclarations <CSSNestedDeclarations>,
+                                   ICSSSourceLocationAware
 {
   private final CSSDeclarationContainer m_aDeclarations = new CSSDeclarationContainer ();
   private CSSSourceLocation m_aSourceLocation;
@@ -81,7 +88,8 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
   }
 
   @NonNull
-  public CSSNestedDeclarations addDeclaration (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
+  public CSSNestedDeclarations addDeclaration (@Nonnegative final int nIndex,
+                                               @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.addDeclaration (nIndex, aNewDeclaration);
     return this;
@@ -119,7 +127,8 @@ public class CSSNestedDeclarations implements ICSSNestedRule, IHasCSSDeclaration
   }
 
   @NonNull
-  public CSSNestedDeclarations setDeclarationAtIndex (@Nonnegative final int nIndex, @NonNull final CSSDeclaration aNewDeclaration)
+  public CSSNestedDeclarations setDeclarationAtIndex (@Nonnegative final int nIndex,
+                                                      @NonNull final CSSDeclaration aNewDeclaration)
   {
     m_aDeclarations.setDeclarationAtIndex (nIndex, aNewDeclaration);
     return this;

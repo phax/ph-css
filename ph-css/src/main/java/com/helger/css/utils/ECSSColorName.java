@@ -25,8 +25,7 @@ import com.helger.css.annotation.DeprecatedInCSS30;
 
 /**
  * Contains a list of predefined color values in CSS 2.1.<br>
- * These names are deprecated in CSS 3.0 in favour of the appearance property.
- * <br>
+ * These names are deprecated in CSS 3.0 in favour of the appearance property. <br>
  * Source: http://www.w3.org/TR/css3-color/ chapter 4.5.1
  *
  * @author Philip Helger
@@ -71,8 +70,7 @@ public enum ECSSColorName implements ICSSNamedColor
   }
 
   /**
-   * @return The name of the color as to be used in CSS. Neither
-   *         <code>null</code> nor empty.
+   * @return The name of the color as to be used in CSS. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -92,8 +90,8 @@ public enum ECSSColorName implements ICSSNamedColor
    *
    * @param sName
    *        The color name to check.
-   * @return <code>true</code> if the passed color name is a default color name,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the passed color name is a default color name, <code>false</code>
+   *         if not.
    */
   public static boolean isDefaultColorName (@Nullable final String sName)
   {

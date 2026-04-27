@@ -30,9 +30,8 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Defines the source location of an object when reading CSS from a stream. It
- * consists of the position of the start token and the position of the end
- * token.
+ * Defines the source location of an object when reading CSS from a stream. It consists of the
+ * position of the start token and the position of the end token.
  *
  * @author Philip Helger
  */
@@ -46,11 +45,11 @@ public class CSSSourceLocation
    * Constructor.
    *
    * @param aFirstTokenArea
-   *        Area of the first token. May be <code>null</code> if the last token
-   *        area is not <code>null</code>.
+   *        Area of the first token. May be <code>null</code> if the last token area is not
+   *        <code>null</code>.
    * @param aLastTokenArea
-   *        Area of the last token. May be <code>null</code> if the first token
-   *        area is not <code>null</code>.
+   *        Area of the last token. May be <code>null</code> if the first token area is not
+   *        <code>null</code>.
    * @throws IllegalArgumentException
    *         if both areas are <code>null</code>.
    */
@@ -62,8 +61,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The area of the first token. May be <code>null</code> if no such
-   *         information is available.
+   * @return The area of the first token. May be <code>null</code> if no such information is
+   *         available.
    */
   @Nullable
   public CSSSourceArea getFirstTokenArea ()
@@ -80,8 +79,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The line number where the first token begins (incl.). May be -1 if
-   *         not such token is available.
+   * @return The line number where the first token begins (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getFirstTokenBeginLineNumber ()
@@ -90,8 +89,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The column number where the first token begins (incl.). May be -1
-   *         if not such token is available.
+   * @return The column number where the first token begins (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getFirstTokenBeginColumnNumber ()
@@ -100,8 +99,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The line number where the fist token ends (incl.). May be -1 if not
-   *         such token is available.
+   * @return The line number where the fist token ends (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getFirstTokenEndLineNumber ()
@@ -110,8 +109,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The column number where the first token ends (incl.). May be -1 if
-   *         not such token is available.
+   * @return The column number where the first token ends (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getFirstTokenEndColumnNumber ()
@@ -120,8 +119,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The area of the last token. May be <code>null</code> if no such
-   *         information is available.
+   * @return The area of the last token. May be <code>null</code> if no such information is
+   *         available.
    */
   @Nullable
   public CSSSourceArea getLastTokenArea ()
@@ -138,8 +137,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The line number where the last token begins (incl.). May be -1 if
-   *         not such token is available.
+   * @return The line number where the last token begins (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getLastTokenBeginLineNumber ()
@@ -148,8 +147,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The column number where the last token begins (incl.). May be -1 if
-   *         not such token is available.
+   * @return The column number where the last token begins (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getLastTokenBeginColumnNumber ()
@@ -158,8 +157,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The line number where the fist token ends (incl.). May be -1 if not
-   *         such token is available.
+   * @return The line number where the fist token ends (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getLastTokenEndLineNumber ()
@@ -168,8 +167,8 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The column number where the last token ends (incl.). May be -1 if
-   *         not such token is available.
+   * @return The column number where the last token ends (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getLastTokenEndColumnNumber ()
@@ -178,8 +177,7 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The location of the first token as a simple string. May be
-   *         <code>null</code>.
+   * @return The location of the first token as a simple string. May be <code>null</code>.
    */
   @Nullable
   public String getFirstTokenLocationAsString ()
@@ -188,8 +186,7 @@ public class CSSSourceLocation
   }
 
   /**
-   * @return The location of the last token as a simple string. May be
-   *         <code>null</code>.
+   * @return The location of the last token as a simple string. May be <code>null</code>.
    */
   @Nullable
   public String getLastTokenLocationAsString ()
@@ -214,7 +211,8 @@ public class CSSSourceLocation
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final CSSSourceLocation rhs = (CSSSourceLocation) o;
-    return EqualsHelper.equals (m_aFirstTokenArea, rhs.m_aFirstTokenArea) && EqualsHelper.equals (m_aLastTokenArea, rhs.m_aLastTokenArea);
+    return EqualsHelper.equals (m_aFirstTokenArea, rhs.m_aFirstTokenArea) &&
+           EqualsHelper.equals (m_aLastTokenArea, rhs.m_aLastTokenArea);
   }
 
   @Override

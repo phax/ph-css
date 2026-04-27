@@ -23,12 +23,13 @@ public class CSSPropertyRuleDeclaration implements ICSSSourceLocationAware, ICSS
   private CSSExpression m_aExpression;
   private CSSSourceLocation m_aSourceLocation;
 
-  public CSSPropertyRuleDeclaration (@NonNull @Nonempty final String sDescriptor, @NonNull final CSSExpression aExpression)
+  public CSSPropertyRuleDeclaration (@NonNull @Nonempty final String sDescriptor,
+                                     @NonNull final CSSExpression aExpression)
   {
-    setDescriptor(sDescriptor);
-    setExpression(aExpression);
+    setDescriptor (sDescriptor);
+    setExpression (aExpression);
   }
-  
+
   @NonNull
   @Nonempty
   public final String getDescriptor ()
@@ -68,9 +69,7 @@ public class CSSPropertyRuleDeclaration implements ICSSSourceLocationAware, ICSS
   @Nonempty
   public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
-    return m_sDescriptor +
-           CCSS.SEPARATOR_PROPERTY_VALUE +
-           m_aExpression.getAsCSSString (aSettings, nIndentLevel);
+    return m_sDescriptor + CCSS.SEPARATOR_PROPERTY_VALUE + m_aExpression.getAsCSSString (aSettings, nIndentLevel);
   }
 
   @Nullable

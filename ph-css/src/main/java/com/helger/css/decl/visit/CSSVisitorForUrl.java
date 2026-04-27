@@ -25,10 +25,9 @@ import com.helger.collection.stack.NonBlockingStack;
 import com.helger.css.decl.*;
 
 /**
- * A special {@link ICSSVisitor} that is used to extract URLs from the available
- * rules and call the {@link ICSSUrlVisitor} visitor. This visitor effectively
- * only visits URLs that are in import rules and those in declaration
- * expressions.
+ * A special {@link ICSSVisitor} that is used to extract URLs from the available rules and call the
+ * {@link ICSSUrlVisitor} visitor. This visitor effectively only visits URLs that are in import
+ * rules and those in declaration expressions.
  *
  * @author Philip Helger
  */
@@ -142,7 +141,7 @@ public class CSSVisitorForUrl implements ICSSVisitor
 
   public void onPropertyRuleDeclaration (@NonNull final CSSPropertyRuleDeclaration aDeclaration)
   {
-    // No action    
+    // No action
   }
 
   public void onBeginStyleRule (@NonNull final CSSStyleRule aStyleRule)
@@ -242,30 +241,30 @@ public class CSSVisitorForUrl implements ICSSVisitor
 
   public void onBeginLayerRule (@NonNull final CSSLayerRule aLayerRule)
   {
-    m_aTopLevelRule.push(aLayerRule);
+    m_aTopLevelRule.push (aLayerRule);
   }
 
   public void onEndLayerRule (@NonNull final CSSLayerRule aLayerRule)
   {
-    m_aTopLevelRule.pop();
+    m_aTopLevelRule.pop ();
   }
 
   public void onBeginPropertyRule (@NonNull final CSSPropertyRule aPropertyRule)
   {
-    m_aTopLevelRule.push(aPropertyRule);
+    m_aTopLevelRule.push (aPropertyRule);
   }
 
   public void onEndPropertyRule (@NonNull final CSSPropertyRule aPropertyRule)
   {
-    m_aTopLevelRule.pop();
+    m_aTopLevelRule.pop ();
   }
 
-  public void onBeginNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
+  public void onBeginNestedDeclarations (@NonNull CSSNestedDeclarations aNestedDeclarations)
   {
     // no action
   }
 
-  public void onEndNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
+  public void onEndNestedDeclarations (@NonNull CSSNestedDeclarations aNestedDeclarations)
   {
     // no action
   }

@@ -25,9 +25,8 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Defines the source location of a single token when reading CSS from a stream.
- * It consists of the start position (getTokenBegin*) and the end position
- * (getTokenEnd*).
+ * Defines the source location of a single token when reading CSS from a stream. It consists of the
+ * start position (getTokenBegin*) and the end position (getTokenEnd*).
  *
  * @author Philip Helger
  */
@@ -43,17 +42,18 @@ public class CSSSourceArea
    * Constructor
    *
    * @param nBeginLineNumber
-   *        Line number of the beginning. May be -1 if not such token is
-   *        available.
+   *        Line number of the beginning. May be -1 if not such token is available.
    * @param nBeginColumnNumber
-   *        Column number of the beginning. May be -1 if not such token is
-   *        available.
+   *        Column number of the beginning. May be -1 if not such token is available.
    * @param nEndLineNumber
    *        Line number of the end. May be -1 if not such token is available.
    * @param nEndColumnNumber
    *        Column number of the end. May be -1 if not such token is available.
    */
-  public CSSSourceArea (final int nBeginLineNumber, final int nBeginColumnNumber, final int nEndLineNumber, final int nEndColumnNumber)
+  public CSSSourceArea (final int nBeginLineNumber,
+                        final int nBeginColumnNumber,
+                        final int nEndLineNumber,
+                        final int nEndColumnNumber)
   {
     m_nBeginLineNumber = nBeginLineNumber;
     m_nBeginColumnNumber = nBeginColumnNumber;
@@ -62,8 +62,8 @@ public class CSSSourceArea
   }
 
   /**
-   * @return The line number where the token begins (incl.). May be -1 if not
-   *         such token is available.
+   * @return The line number where the token begins (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getTokenBeginLineNumber ()
@@ -72,8 +72,8 @@ public class CSSSourceArea
   }
 
   /**
-   * @return The column number where the token begins (incl.). May be -1 if not
-   *         such token is available.
+   * @return The column number where the token begins (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getTokenBeginColumnNumber ()
@@ -82,8 +82,7 @@ public class CSSSourceArea
   }
 
   /**
-   * @return The line number where the token ends (incl.). May be -1 if not such
-   *         token is available.
+   * @return The line number where the token ends (incl.). May be -1 if not such token is available.
    */
   @CheckForSigned
   public int getTokenEndLineNumber ()
@@ -92,8 +91,8 @@ public class CSSSourceArea
   }
 
   /**
-   * @return The column number where the token ends (incl.). May be -1 if not
-   *         such token is available.
+   * @return The column number where the token ends (incl.). May be -1 if not such token is
+   *         available.
    */
   @CheckForSigned
   public int getTokenEndColumnNumber ()
@@ -102,10 +101,9 @@ public class CSSSourceArea
   }
 
   /**
-   * @return The location of the token as a simple string. Never
-   *         <code>null</code>. Example: <code>(1:2/3:4)</code>. If begin and
-   *         end are identical, only one line/column value is printed:
-   *         <code>(1:2)</code>.
+   * @return The location of the token as a simple string. Never <code>null</code>. Example:
+   *         <code>(1:2/3:4)</code>. If begin and end are identical, only one line/column value is
+   *         printed: <code>(1:2)</code>.
    */
   @NonNull
   @Nonempty
@@ -116,7 +114,15 @@ public class CSSSourceArea
       return "(" + m_nBeginLineNumber + ":" + m_nBeginColumnNumber + ")";
 
     // Begin != end
-    return "(" + m_nBeginLineNumber + ":" + m_nBeginColumnNumber + "/" + m_nEndLineNumber + ":" + m_nEndColumnNumber + ")";
+    return "(" +
+           m_nBeginLineNumber +
+           ":" +
+           m_nBeginColumnNumber +
+           "/" +
+           m_nEndLineNumber +
+           ":" +
+           m_nEndColumnNumber +
+           ")";
   }
 
   @Override

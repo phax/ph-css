@@ -26,8 +26,7 @@ import com.helger.base.name.IHasName;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Enumeration with expression operators. E.g. used in
- * <code>rgb(1<b>,</b>2<b>,</b>3)</code>
+ * Enumeration with expression operators. E.g. used in <code>rgb(1<b>,</b>2<b>,</b>3)</code>
  *
  * @author Philip Helger
  */

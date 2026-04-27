@@ -311,10 +311,13 @@ public final class CSSStyleRuleTest
         }
         """);
     assertEquals (1, m_aCEH.getParseErrorCount ());
-    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@property': property rule is not allowed as a nested rule!"));
-    assertEquals (1, aSR.getSelectorCount());
-    assertEquals (0, aSR.getDeclarationCount());
-    assertEquals (0, aSR.getRuleCount());
+    assertTrue (m_aCEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Unexpected rule '@property': property rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount ());
+    assertEquals (0, aSR.getDeclarationCount ());
+    assertEquals (0, aSR.getRuleCount ());
   }
 
   @Test
@@ -328,10 +331,13 @@ public final class CSSStyleRuleTest
         }
         """);
     assertEquals (1, m_aCEH.getParseErrorCount ());
-    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@page': page rule is not allowed as a nested rule!"));
-    assertEquals (1, aSR.getSelectorCount());
-    assertEquals (0, aSR.getDeclarationCount());
-    assertEquals (0, aSR.getRuleCount());
+    assertTrue (m_aCEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Unexpected rule '@page': page rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount ());
+    assertEquals (0, aSR.getDeclarationCount ());
+    assertEquals (0, aSR.getRuleCount ());
   }
 
   @Test
@@ -350,10 +356,13 @@ public final class CSSStyleRuleTest
         }
         """);
     assertEquals (1, m_aCEH.getParseErrorCount ());
-    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@font-face': font-face rule is not allowed as a nested rule!"));
-    assertEquals (1, aSR.getSelectorCount());
-    assertEquals (0, aSR.getDeclarationCount());
-    assertEquals (0, aSR.getRuleCount());
+    assertTrue (m_aCEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Unexpected rule '@font-face': font-face rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount ());
+    assertEquals (0, aSR.getDeclarationCount ());
+    assertEquals (0, aSR.getRuleCount ());
   }
 
   @Test
@@ -365,7 +374,7 @@ public final class CSSStyleRuleTest
            from {
              transform: translateX(0%);
            }
-    
+
            to {
              transform: translateX(100%);
            }
@@ -373,10 +382,13 @@ public final class CSSStyleRuleTest
         }
         """);
     assertEquals (1, m_aCEH.getParseErrorCount ());
-    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@keyframes': keyframes rule is not allowed as a nested rule!"));
-    assertEquals (1, aSR.getSelectorCount());
-    assertEquals (0, aSR.getDeclarationCount());
-    assertEquals (0, aSR.getRuleCount());
+    assertTrue (m_aCEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Unexpected rule '@keyframes': keyframes rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount ());
+    assertEquals (0, aSR.getDeclarationCount ());
+    assertEquals (0, aSR.getRuleCount ());
   }
 
   @Test
@@ -390,10 +402,13 @@ public final class CSSStyleRuleTest
         }
         """);
     assertEquals (1, m_aCEH.getParseErrorCount ());
-    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@viewport': viewport rule is not allowed as a nested rule!"));
-    assertEquals (1, aSR.getSelectorCount());
-    assertEquals (0, aSR.getDeclarationCount());
-    assertEquals (0, aSR.getRuleCount());
+    assertTrue (m_aCEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Unexpected rule '@viewport': viewport rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount ());
+    assertEquals (0, aSR.getDeclarationCount ());
+    assertEquals (0, aSR.getRuleCount ());
   }
 
   @Test
@@ -405,10 +420,13 @@ public final class CSSStyleRuleTest
         }
         """);
     assertEquals (1, m_aCEH.getParseErrorCount ());
-    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@charset': charset rule is not allowed as a nested rule!"));
-    assertEquals (1, aSR.getSelectorCount());
-    assertEquals (0, aSR.getDeclarationCount());
-    assertEquals (0, aSR.getRuleCount());
+    assertTrue (m_aCEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Unexpected rule '@charset': charset rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount ());
+    assertEquals (0, aSR.getDeclarationCount ());
+    assertEquals (0, aSR.getRuleCount ());
   }
 
   @Test
@@ -420,10 +438,13 @@ public final class CSSStyleRuleTest
         }
         """);
     assertEquals (1, m_aCEH.getParseErrorCount ());
-    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@import': import rule is not allowed as a nested rule!"));
-    assertEquals (1, aSR.getSelectorCount());
-    assertEquals (0, aSR.getDeclarationCount());
-    assertEquals (0, aSR.getRuleCount());
+    assertTrue (m_aCEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Unexpected rule '@import': import rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount ());
+    assertEquals (0, aSR.getDeclarationCount ());
+    assertEquals (0, aSR.getRuleCount ());
   }
 
   @Test
@@ -435,9 +456,12 @@ public final class CSSStyleRuleTest
         }
         """);
     assertEquals (1, m_aCEH.getParseErrorCount ());
-    assertTrue (m_aCEH.getAllParseErrors ().get (0).getErrorMessage ().contains ("Unexpected rule '@namespace': namespace rule is not allowed as a nested rule!"));
-    assertEquals (1, aSR.getSelectorCount());
-    assertEquals (0, aSR.getDeclarationCount());
-    assertEquals (0, aSR.getRuleCount());
+    assertTrue (m_aCEH.getAllParseErrors ()
+                      .get (0)
+                      .getErrorMessage ()
+                      .contains ("Unexpected rule '@namespace': namespace rule is not allowed as a nested rule!"));
+    assertEquals (1, aSR.getSelectorCount ());
+    assertEquals (0, aSR.getDeclarationCount ());
+    assertEquals (0, aSR.getRuleCount ());
   }
 }

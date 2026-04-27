@@ -54,7 +54,8 @@ public class CSSPropertyEnumOrRect extends CSSPropertyEnum
     super (eProp, eVendorPrefix, aCustomizer, aEnumValues);
   }
 
-  public CSSPropertyEnumOrRect (@NonNull final ECSSProperty eProp, @NonNull @Nonempty final Iterable <String> aEnumValues)
+  public CSSPropertyEnumOrRect (@NonNull final ECSSProperty eProp,
+                                @NonNull @Nonempty final Iterable <String> aEnumValues)
   {
     super (eProp, aEnumValues);
   }

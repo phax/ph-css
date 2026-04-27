@@ -24,8 +24,8 @@ import com.helger.css.property.ICSSProperty;
 import com.helger.css.propertyvalue.ICSSValue;
 
 /**
- * A special customizer that can be assigned to CSS properties to modify their
- * default behavior. This can be used to add browser-specific values.
+ * A special customizer that can be assigned to CSS properties to modify their default behavior.
+ * This can be used to add browser-specific values.
  *
  * @author Philip Helger
  */
@@ -33,20 +33,20 @@ import com.helger.css.propertyvalue.ICSSValue;
 public interface ICSSPropertyCustomizer
 {
   /**
-   * Create a special value for the passed property. For example if the property
-   * is "border-radius" than the browser specific values like
-   * "-moz-border-radius" and "-webkit-border-radius" should be emitted as well.
+   * Create a special value for the passed property. For example if the property is "border-radius"
+   * than the browser specific values like "-moz-border-radius" and "-webkit-border-radius" should
+   * be emitted as well.
    *
    * @param aProperty
    *        The CSS property the fuzz is all about. Never <code>null</code>.
    * @param sValue
    *        The value to be created. Neither <code>null</code> nor empty.
    * @param bIsImportant
-   *        <code>true</code> if the property is important, <code>false</code>
-   *        if not.
-   * @return May be <code>null</code> in which case the default value is
-   *         created.
+   *        <code>true</code> if the property is important, <code>false</code> if not.
+   * @return May be <code>null</code> in which case the default value is created.
    */
   @Nullable
-  ICSSValue createSpecialValue (@NonNull ICSSProperty aProperty, @NonNull @Nonempty String sValue, boolean bIsImportant);
+  ICSSValue createSpecialValue (@NonNull ICSSProperty aProperty,
+                                @NonNull @Nonempty String sValue,
+                                boolean bIsImportant);
 }

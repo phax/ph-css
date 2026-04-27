@@ -28,10 +28,9 @@ import com.helger.css.decl.ICSSTopLevelRule;
  * Interface for visiting all URLs in a CSS document.
  *
  * @author Philip Helger
- * @see DefaultCSSUrlVisitor DefaultCSSUrlVisitor for a default empty
- *      implementation
- * @see AbstractModifyingCSSUrlVisitor AbstractModifyingCSSUrlVisitor for an
- *      abstract URL visitor that modifies URLs according to a rule
+ * @see DefaultCSSUrlVisitor DefaultCSSUrlVisitor for a default empty implementation
+ * @see AbstractModifyingCSSUrlVisitor AbstractModifyingCSSUrlVisitor for an abstract URL visitor
+ *      that modifies URLs according to a rule
  */
 public interface ICSSUrlVisitor
 {
@@ -42,8 +41,8 @@ public interface ICSSUrlVisitor
   {}
 
   /**
-   * Called on CSS import statement. Use <code>aImportRule.getLocation()</code>
-   * to retrieve the imported URL.
+   * Called on CSS import statement. Use <code>aImportRule.getLocation()</code> to retrieve the
+   * imported URL.
    *
    * @param aImportRule
    *        Other imported CSS. Never <code>null</code>.
@@ -52,12 +51,11 @@ public interface ICSSUrlVisitor
 
   /**
    * Called on a CSS declaration value that contains an URL.<br>
-   * Note: for keyframes it is currently not possible to retrieve the keyframes
-   * block to which the declaration belongs.
+   * Note: for keyframes it is currently not possible to retrieve the keyframes block to which the
+   * declaration belongs.
    *
    * @param aTopLevelRule
-   *        Top level rule of the URL. May be <code>null</code> when a
-   *        declaration list is handled.
+   *        Top level rule of the URL. May be <code>null</code> when a declaration list is handled.
    * @param aDeclaration
    *        Declaration of the URL. Never <code>null</code>.
    * @param aURITerm

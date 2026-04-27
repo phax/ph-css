@@ -37,8 +37,7 @@ public interface ICSSMediaList
   int getMediaCount ();
 
   /**
-   * @return <code>true</code> if any explicit media is defined,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if any explicit media is defined, <code>false</code> if not.
    */
   default boolean hasAnyMedia ()
   {
@@ -46,14 +45,14 @@ public interface ICSSMediaList
   }
 
   /**
-   * @return <code>true</code> if no explicit media is defined,
-   *         <code>false</code> if a media is defined.
+   * @return <code>true</code> if no explicit media is defined, <code>false</code> if a media is
+   *         defined.
    */
   boolean hasNoMedia ();
 
   /**
-   * @return <code>true</code> if no explicit media is defined or if
-   *         {@link ECSSMedium#ALL} is contained.
+   * @return <code>true</code> if no explicit media is defined or if {@link ECSSMedium#ALL} is
+   *         contained.
    */
   default boolean hasNoMediaOrAll ()
   {
@@ -70,13 +69,12 @@ public interface ICSSMediaList
   boolean containsMedium (@Nullable ECSSMedium eMedium);
 
   /**
-   * Check if the passed medium or the {@link ECSSMedium#ALL} is explicitly
-   * specified
+   * Check if the passed medium or the {@link ECSSMedium#ALL} is explicitly specified
    *
    * @param eMedium
    *        The medium to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed medium or the "all" medium is
-   *         contained, <code>false</code> otherwise
+   * @return <code>true</code> if the passed medium or the "all" medium is contained,
+   *         <code>false</code> otherwise
    */
   default boolean containsMediumOrAll (@Nullable final ECSSMedium eMedium)
   {
@@ -85,9 +83,8 @@ public interface ICSSMediaList
   }
 
   /**
-   * Check if the passed medium is usable for the screen. This is the case if
-   * either the "screen" medium, the "all" medium or no medium at all is
-   * contained.
+   * Check if the passed medium is usable for the screen. This is the case if either the "screen"
+   * medium, the "all" medium or no medium at all is contained.
    *
    * @return <code>true</code> if the media list is usable for screen display
    */
@@ -98,17 +95,16 @@ public interface ICSSMediaList
   }
 
   /**
-   * @return A copy of all specified media in the order they were specified.
-   *         Never <code>null</code> but maybe empty.
+   * @return A copy of all specified media in the order they were specified. Never <code>null</code>
+   *         but maybe empty.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <ECSSMedium> getAllMedia ();
 
   /**
-   * @return A non-<code>null</code> but maybe empty String with all media in
-   *         the order they where inserted and separated by
-   *         {@link CSSMediaList#DEFAULT_MEDIA_STRING_SEPARATOR}
+   * @return A non-<code>null</code> but maybe empty String with all media in the order they where
+   *         inserted and separated by {@link CSSMediaList#DEFAULT_MEDIA_STRING_SEPARATOR}
    * @see #getMediaString(String)
    */
   @NonNull
@@ -120,9 +116,8 @@ public interface ICSSMediaList
   /**
    * @param sSeparator
    *        The separator to be used. May not be <code>null</code>.
-   * @return A non-<code>null</code> but maybe empty String with all media in
-   *         the order they where inserted and separated by the specified
-   *         separator
+   * @return A non-<code>null</code> but maybe empty String with all media in the order they where
+   *         inserted and separated by the specified separator
    */
   @NonNull
   String getMediaString (@NonNull String sSeparator);

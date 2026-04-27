@@ -27,8 +27,8 @@ import com.helger.css.decl.CSSImportRule;
 import com.helger.css.decl.ICSSTopLevelRule;
 
 /**
- * Default implementation of the {@link ICSSUrlVisitor} interface which does
- * nothing. Use as the base class for your implementation.
+ * Default implementation of the {@link ICSSUrlVisitor} interface which does nothing. Use as the
+ * base class for your implementation.
  *
  * @author Philip Helger
  */

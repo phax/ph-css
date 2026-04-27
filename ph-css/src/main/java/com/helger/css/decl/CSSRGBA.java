@@ -202,8 +202,7 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
   }
 
   /**
-   * @return This value as RGB value without the opacity. Never
-   *         <code>null</code>.
+   * @return This value as RGB value without the opacity. Never <code>null</code>.
    * @since 3.8.3
    */
   @NonNull
@@ -221,7 +220,15 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
   @Nonempty
   public String getAsString ()
   {
-    return CCSSValue.PREFIX_RGBA_OPEN + m_sRed + ',' + m_sGreen + ',' + m_sBlue + ',' + m_sOpacity + CCSSValue.SUFFIX_RGBA_CLOSE;
+    return CCSSValue.PREFIX_RGBA_OPEN +
+           m_sRed +
+           ',' +
+           m_sGreen +
+           ',' +
+           m_sBlue +
+           ',' +
+           m_sOpacity +
+           CCSSValue.SUFFIX_RGBA_CLOSE;
   }
 
   @NonNull
@@ -259,7 +266,11 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sRed).append (m_sGreen).append (m_sBlue).append (m_sOpacity).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sRed)
+                                       .append (m_sGreen)
+                                       .append (m_sBlue)
+                                       .append (m_sOpacity)
+                                       .getHashCode ();
   }
 
   @Override

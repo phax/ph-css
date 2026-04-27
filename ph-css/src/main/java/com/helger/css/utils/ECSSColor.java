@@ -29,8 +29,7 @@ import com.helger.css.decl.CSSRGB;
 import com.helger.css.decl.CSSRGBA;
 
 /**
- * CSS basic colors. Source: http://www.w3.org/TR/css3-color/ chapter 4.1 and
- * 4.3
+ * CSS basic colors. Source: http://www.w3.org/TR/css3-color/ chapter 4.1 and 4.3
  *
  * @author Philip Helger
  */
@@ -214,8 +213,7 @@ public enum ECSSColor implements ICSSNamedColor
   }
 
   /**
-   * @return The name of the color as to be used in CSS. Neither
-   *         <code>null</code> nor empty.
+   * @return The name of the color as to be used in CSS. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -387,8 +385,8 @@ public enum ECSSColor implements ICSSNamedColor
    *
    * @param sName
    *        The color name to check.
-   * @return <code>true</code> if the passed color name is a default color name,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the passed color name is a default color name, <code>false</code>
+   *         if not.
    */
   public static boolean isDefaultColorName (@Nullable final String sName)
   {

@@ -284,8 +284,8 @@ public class CSSWriter
       {
         if (!bOptimizedOutput && nRulesEmitted > 0)
         {
-          aWriter.write(sNewLineString);
-          aWriter.write(sNewLineString);
+          aWriter.write (sNewLineString);
+          aWriter.write (sNewLineString);
         }
         for (final CSSImportRule aImportRule : aImportRules)
         {
@@ -306,8 +306,8 @@ public class CSSWriter
       {
         if (!bOptimizedOutput && nRulesEmitted > 0)
         {
-          aWriter.write(sNewLineString);
-          aWriter.write(sNewLineString);
+          aWriter.write (sNewLineString);
+          aWriter.write (sNewLineString);
         }
         for (final CSSNamespaceRule aNamespaceRule : aNamespaceRules)
         {
@@ -329,8 +329,8 @@ public class CSSWriter
         {
           if (!bOptimizedOutput && nRulesEmitted > 0)
           {
-            aWriter.write(sNewLineString);
-            aWriter.write(sNewLineString);
+            aWriter.write (sNewLineString);
+            aWriter.write (sNewLineString);
           }
 
           aWriter.write (sRuleCSS);
@@ -339,7 +339,8 @@ public class CSSWriter
       }
 
       // Newline after all rules
-      if (!bOptimizedOutput && nRulesEmitted > 0){
+      if (!bOptimizedOutput && nRulesEmitted > 0)
+      {
         aWriter.write (sNewLineString);
       }
 

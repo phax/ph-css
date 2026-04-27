@@ -35,21 +35,25 @@ import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
 
 /**
- * Represents a single <code>@media</code> rule: a list of style rules only valid for certain
- * media.
+ * Represents a single <code>@media</code> rule: a list of style rules only valid for certain media.
+ * <p>
+ * Example:
  *
- * <p>Example:
- *
- * <pre>@media print {
+ * <pre>
+ * &#64;media print {
   div#footer {
     display: none;
   }
-}</pre>
+}
+ * </pre>
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSNestedRule, ICSSSourceLocationAware
+public class CSSMediaRule extends AbstractHasTopLevelRules implements
+                          ICSSTopLevelRule,
+                          ICSSNestedRule,
+                          ICSSSourceLocationAware
 {
   private final ICommonsList <CSSMediaQuery> m_aMediaQueries = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
@@ -227,7 +231,7 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements ICSSTopLev
         }
       }
       if (!bOptimizedOutput)
-        aSB.append(aSettings.getNewLineString()).append (aSettings.getIndent (nIndentLevel));
+        aSB.append (aSettings.getNewLineString ()).append (aSettings.getIndent (nIndentLevel));
       aSB.append ('}');
     }
     return aSB.toString ();

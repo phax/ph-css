@@ -25,17 +25,16 @@ import com.helger.css.parser.ParseException;
 import com.helger.css.parser.Token;
 
 /**
- * Special CSS handler that is invoked during reading in case of a recoverable
- * errors. In case of unrecoverable errors, a
- * {@link com.helger.css.parser.ParseException} is thrown!
+ * Special CSS handler that is invoked during reading in case of a recoverable errors. In case of
+ * unrecoverable errors, a {@link com.helger.css.parser.ParseException} is thrown!
  *
  * @author Philip Helger
  */
 public interface ICSSParseErrorHandler
 {
   /**
-   * Called upon a recoverable error. The parameter list is similar to the one
-   * of the {@link com.helger.css.parser.ParseException}.
+   * Called upon a recoverable error. The parameter list is similar to the one of the
+   * {@link com.helger.css.parser.ParseException}.
    *
    * @param aParseEx
    *        The original parse exception. May not be <code>null</code>.
@@ -47,14 +46,13 @@ public interface ICSSParseErrorHandler
   void onCSSParseError (@NonNull ParseException aParseEx, @Nullable Token aLastSkippedToken) throws ParseException;
 
   /**
-   * Called upon an unexpected rule. This happens e.g. when <code>@import</code>
-   * is used in the middle of the file.
+   * Called upon an unexpected rule. This happens e.g. when <code>@import</code> is used in the
+   * middle of the file.
    *
    * @param aCurrentToken
    *        The token that could not be interpreted. Never <code>null</code>.
    * @param sRule
-   *        The name of the rule. Always starts with a '@'. Neither
-   *        <code>null</code> nor empty.
+   *        The name of the rule. Always starts with a '@'. Neither <code>null</code> nor empty.
    * @param sMsg
    *        The custom error message. Neither <code>null</code> nor empty.
    * @throws ParseException
@@ -78,27 +76,26 @@ public interface ICSSParseErrorHandler
   void onCSSDeprecatedProperty (@NonNull Token aPrefixToken, @NonNull Token aIdentifierToken) throws ParseException;
 
   /**
-   * This method is only called in browser compliant mode if a certain part of
-   * the CSS is skipped.
+   * This method is only called in browser compliant mode if a certain part of the CSS is skipped.
    *
    * @param ex
-   *        The original {@link ParseException} that causes the parser to skip.
-   *        May be <code>null</code>.
-   * @param aFromToken
-   *        Original token that caused the error and was skipped (inclusive).
-   *        Never <code>null</code>.
-   * @param aToToken
-   *        The end token until which was skipped (exclusive). Never
+   *        The original {@link ParseException} that causes the parser to skip. May be
    *        <code>null</code>.
+   * @param aFromToken
+   *        Original token that caused the error and was skipped (inclusive). Never
+   *        <code>null</code>.
+   * @param aToToken
+   *        The end token until which was skipped (exclusive). Never <code>null</code>.
    * @throws ParseException
    *         In case the error is fatal and should be propagated.
    * @see com.helger.css.reader.CSSReaderSettings#setBrowserCompliantMode(boolean)
    */
-  void onCSSBrowserCompliantSkip (@Nullable ParseException ex, @NonNull Token aFromToken, @NonNull Token aToToken) throws ParseException;
+  void onCSSBrowserCompliantSkip (@Nullable ParseException ex, @NonNull Token aFromToken, @NonNull Token aToToken)
+                                                                                                                   throws ParseException;
 
   /**
-   * This method is invoked, when an illegal character is encountered (in
-   * TokenManager), and the respective rule is part of the JavaCC grammar.
+   * This method is invoked, when an illegal character is encountered (in TokenManager), and the
+   * respective rule is part of the JavaCC grammar.
    *
    * @param cIllegalChar
    *        The illegal char
@@ -108,8 +105,8 @@ public interface ICSSParseErrorHandler
   {}
 
   /**
-   * Create a new {@link ICSSParseErrorHandler} that invokes both
-   * <code>this</code> and the other error handler in a serial way.
+   * Create a new {@link ICSSParseErrorHandler} that invokes both <code>this</code> and the other
+   * error handler in a serial way.
    *
    * @param aOther
    *        The other handler to also be invoked.
@@ -123,7 +120,8 @@ public interface ICSSParseErrorHandler
 
     return new ICSSParseErrorHandler ()
     {
-      public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken) throws ParseException
+      public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
+                                                                                                                    throws ParseException
       {
         aThis.onCSSParseError (aParseEx, aLastSkippedToken);
         aOther.onCSSParseError (aParseEx, aLastSkippedToken);
@@ -137,7 +135,8 @@ public interface ICSSParseErrorHandler
         aOther.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
       }
 
-      public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken) throws ParseException
+      public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
+                                                                                                                     throws ParseException
       {
         aThis.onCSSDeprecatedProperty (aPrefixToken, aIdentifierToken);
         aOther.onCSSDeprecatedProperty (aPrefixToken, aIdentifierToken);

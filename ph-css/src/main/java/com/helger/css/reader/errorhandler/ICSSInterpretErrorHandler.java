@@ -21,8 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.Nonempty;
 
 /**
- * Special CSS error handler that is invoked during interpretation of a parsed
- * CSS.
+ * Special CSS error handler that is invoked during interpretation of a parsed CSS.
  *
  * @author Philip Helger
  * @since 5.0.2

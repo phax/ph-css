@@ -24,8 +24,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * This class has the same layout as the normal {@link Token} class, but its
- * contents are not modifiable!
+ * This class has the same layout as the normal {@link Token} class, but its contents are not
+ * modifiable!
  *
  * @author Philip Helger
  */
@@ -92,8 +92,7 @@ public class ReadOnlyToken
   }
 
   /**
-   * @return The string representation of the token. May be <code>null</code>
-   *         but should not.
+   * @return The string representation of the token. May be <code>null</code> but should not.
    */
   @Nullable
   public String getImage ()

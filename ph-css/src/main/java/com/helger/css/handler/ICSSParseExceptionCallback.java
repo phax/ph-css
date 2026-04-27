@@ -20,8 +20,8 @@ import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.css.parser.ParseException;
 
 /**
- * Special CSS exception handler. It is called in case of an unrecoverable error
- * while parsing a CSS.
+ * Special CSS exception handler. It is called in case of an unrecoverable error while parsing a
+ * CSS.
  *
  * @author Philip Helger
  */

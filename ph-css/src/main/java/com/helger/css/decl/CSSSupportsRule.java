@@ -37,17 +37,22 @@ import com.helger.css.ICSSWriterSettings;
 /**
  * Represents a single <code>@supports</code> rule: a list of style rules only valid when a certain
  * declaration is available. See {@link com.helger.css.ECSSSpecification#CSS3_CONDITIONAL}
+ * <p>
+ * Example:
  *
- * <p>Example:
- *
- * <pre>@supports (transition-property: color) {
+ * <pre>
+ * &#64;supports (transition-property: color) {
   div { color:red; }
-}</pre>
+}
+ * </pre>
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class CSSSupportsRule extends AbstractHasTopLevelRules implements ICSSTopLevelRule, ICSSNestedRule, ICSSSourceLocationAware
+public class CSSSupportsRule extends AbstractHasTopLevelRules implements
+                             ICSSTopLevelRule,
+                             ICSSNestedRule,
+                             ICSSSourceLocationAware
 {
   private final ICommonsList <ICSSSupportsConditionMember> m_aConditionMembers = new CommonsArrayList <> ();
   private CSSSourceLocation m_aSourceLocation;
