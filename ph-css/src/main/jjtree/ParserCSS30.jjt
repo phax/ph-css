@@ -89,7 +89,27 @@ SPECIAL_TOKEN :
   < "*/" > : DEFAULT
 }
 
-<DEFAULT, IN_NTH, IN_UNKNOWN_RULE>
+<DEFAULT, IN_NTH, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
+TOKEN :
+{
+  < PLUS: "+" >
+| < MINUS: "-" >
+| < LROUND: "(" >
+| < RROUND: ")" >
+  {
+    if (curLexState == IN_NTH || curLexState == IN_UNKNOWN_RULE)
+      SwitchTo(DEFAULT);
+  }
+}
+
+<DEFAULT, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
+TOKEN :
+{
+  < LBRACE: "{" >
+| < RBRACE: "}" > : DEFAULT
+}
+
+<DEFAULT, IN_NTH, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
 TOKEN :
 {
   < S: (" "|"\t"|"\n"|"\r\n"|"\r"|"\f")+ >
@@ -106,16 +126,18 @@ TOKEN :
 | < INTEGER: ( ["0"-"9"] )+ >
 }
 
-<DEFAULT, IN_NTH, IN_UNKNOWN_RULE>
+<IN_PROPERTY_RULE>
 TOKEN :
 {
-  < PLUS: "+" >
-| < MINUS: "-" >
-| < LROUND: "(" >
-| < RROUND: ")" > : DEFAULT
+  < SYNTAX_SYM: "syntax" >
+| < INHERITS_SYM: "inherits" >
+| < INITIALVALUE_SYM: "initial-value" >
+| < DASHED_IDENT: "--"
+                  <NMSTART>
+                  ( <NMCHAR> )* > { matchedToken.image = CSSParseHelper.validateIdentifier(image); }
 }
 
-<DEFAULT, IN_UNKNOWN_RULE>
+<DEFAULT, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
 TOKEN :
 {
 // private reg ex come first (no actions possible!)
@@ -187,8 +209,6 @@ TOKEN :
                        >
 | < NUMBER: <NUM> >
 
-| < LBRACE: "{" >
-| < RBRACE: "}" >
 | < LSQUARE: "[" >
 | < RSQUARE: "]" >
 | < DOT: "." >
@@ -241,6 +261,7 @@ TOKEN :
 | < VIEWPORT_SYM: "@-" <IDENT> "-viewport"
                 | "@viewport" >
 | < SUPPORTS_SYM: "@supports" >
+| < PROPERTY_SYM: "@property" > : IN_PROPERTY_RULE
 | < AT_UNKNOWN: "@" <IDENT>
               | "@" > : IN_UNKNOWN_RULE
 | < IMPORTANT_SYM: "!" ( <S> )* "important" >
@@ -253,6 +274,8 @@ TOKEN :
 | < FROM_SYM: "from" >
 | < TO_SYM: "to" >
 | < OR_SYM: "or" >
+| < TRUE_SYM: "true" >
+| < FALSE_SYM: "false" >
 
 // ident        (--|-|$|*)?{nmstart}{nmchar}*
 // Note: "*" hack for IE <= 6 was altered in 6.2.1
@@ -300,7 +323,7 @@ TOKEN :
 
 // Single line comments are handled in all states except in unknown rules, because
 // there, tokens are simply chained together to a string
-<DEFAULT, IN_NTH>
+<DEFAULT, IN_NTH, IN_PROPERTY_RULE>
 SPECIAL_TOKEN :
 {
   // Skip until end of line or ";" or "}"
@@ -308,7 +331,8 @@ SPECIAL_TOKEN :
   < SINGLE_LINE_COMMENT: "//" (~["\n","\r",";","}"])* ("\n"|"\r"|"\r\n")? >
 }
 
-<*> TOKEN:
+<DEFAULT, IN_NTH, IN_PROPERTY_RULE, IN_UNKNOWN_RULE>
+TOKEN:
 {
   < UNKNOWN: ~[] >
   {
@@ -574,6 +598,7 @@ try{
     | keyframesRule()
     | viewportRule()
     | supportsRule()
+    | propertyRule()
     | unknownRule()
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of the file is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of the file is not allowed!"); }
@@ -648,6 +673,14 @@ String anyIdentifier() #void : {}
   | <FROM_SYM>
   | <TO_SYM>
   | <OR_SYM>
+  )
+  { return token.image; }
+}
+
+String booleanOperator() #void : {}
+{
+  ( <TRUE_SYM> 
+  | <FALSE_SYM>
   )
   { return token.image; }
 }
@@ -1233,6 +1266,7 @@ void styleDeclarationOrRule() #void : {}
     | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule in the middle of a rule-set is not allowed!"); }
     | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a rule-set is not allowed!"); }
     | supportsRule()  { errorUnexpectedRule ("@supports", "supports rule in the middle of a rule-set is not allowed!"); }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a rule-set is not allowed!"); }
     | unknownRule()   { errorUnexpectedRule ("@", "Unknown rule in the middle of a rule-set is not allowed!"); }
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a rule-set is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a rule-set is not allowed!"); }
@@ -1254,6 +1288,7 @@ void styleDeclarationOrRuleWithNested() #void : {}
     | keyframesRule() { errorUnexpectedRule ("@keyframes", "keyframes rule is not allowed as a nested rule!"); }
     | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule is not allowed as a nested rule!"); }
     | supportsRule()  { }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule is not allowed as a nested rule!"); }
     | unknownRule()   { }
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule is not allowed as a nested rule!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule is not allowed as a nested rule!"); }
@@ -1424,6 +1459,7 @@ void mediaRuleList() #void : {}
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @media rule is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @media rule is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @media rule is not allowed!"); }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @media rule is not allowed!"); }
     )
     ( <S> )*
   )+
@@ -1571,6 +1607,7 @@ void layerBody() #void : {}
     | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @layer rule is not allowed!"); }
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @layer rule is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @layer rule is not allowed!"); }
+    | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @layer rule is not allowed!"); }
     )
     ( <S> )*
   )+
@@ -1738,6 +1775,7 @@ void supportsRuleBodyRule() #void : {}
   | charsetRule()   { errorUnexpectedRule ("@charset", "charset rule in the middle of a @supports rule is not allowed!"); }
   | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of a @supports rule is not allowed!"); }
   | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @supports rule is not allowed!"); }
+  | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @supports rule is not allowed!"); }
   | viewportRule()  { errorUnexpectedRule ("@viewport", "viewport rule in the middle of a @supports rule is not allowed!"); }
   )
 }
@@ -1766,6 +1804,123 @@ void supportsRule() : {}
   supportsCondition()
   ( <S> )*
   supportsRuleBody()
+}
+
+void propertyRuleSimpleExpressionTerm() #exprterm :
+{ String sStr; }
+{
+  ( sStr = string()
+  | sStr = booleanOperator()
+  )
+  {
+    if (sStr != null)
+      jjtThis.setText (sStr);
+  }
+}
+
+void propertyRuleSimpleExpression() #expr : {}
+{
+  propertyRuleSimpleExpressionTerm()
+}
+
+void propertyRuleExpression() #void : {}
+{
+  ( propertyRuleSimpleExpression()
+  | expr()
+  )
+}
+
+void propertyRuleInvalidDeclaration() #void :
+{ Token prevToken = token; }
+{
+try {
+  ( <IDENT>
+  | LOOKAHEAD(( <ASTERISK> | <DOLLAR> ) <IDENT> )
+    ( <ASTERISK> | <DOLLAR> ) { prevToken = token; }
+    <IDENT>
+  )
+  {
+    throw new ParseException (prevToken,
+                              new int[][] {
+                                new int[] { SYNTAX_SYM },
+                                new int[] { INHERITS_SYM },
+                                new int[] { INITIALVALUE_SYM }
+                              },
+                              tokenImage,
+                              token_source == null ? null : ParserCSS30TokenManager.lexStateNames[token_source.curLexState]);
+  }
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl (ex);
+  else {
+    errorSkipTo (ex, SEMICOLON);
+    token_source.backup(1);
+  }
+}
+}
+
+void propertyRuleDescriptor() : {}
+{
+  ( <SYNTAX_SYM> { jjtThis.setText (token.image); }
+  | <INHERITS_SYM> { jjtThis.setText (token.image); }
+  | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
+  )
+  ( <S> )*
+}
+
+void propertyRuleDeclaration() : {}
+{
+  propertyRuleDescriptor()
+  <COLON>
+  ( <S> )*
+  propertyRuleExpression()
+}
+
+void propertyRuleDeclarationOrInvalid() #void : {}
+{
+  ( propertyRuleDeclaration()
+  | propertyRuleInvalidDeclaration()
+  )
+  ( <S> | <CDO> | <CDC> )*
+}
+
+CSSNode propertyRuleDeclarationList() : {}
+{
+try {
+  ( <S> )*
+  ( propertyRuleDeclarationOrInvalid() )?
+  (
+    <SEMICOLON>
+    ( <S> )*
+    ( propertyRuleDeclarationOrInvalid() )?
+  )*
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipDecl (ex);
+  else {
+    errorSkipTo (ex, RBRACE);
+    token_source.backup(1);
+  }
+}
+  { return jjtThis; }
+}
+
+void propertyRule() : {}
+{
+  <PROPERTY_SYM>
+  ( <S> )*
+  <DASHED_IDENT> { jjtThis.setText (token.image); }
+  ( <S> )*
+  <LBRACE>
+try {
+  propertyRuleDeclarationList()
+  <RBRACE>
+} catch (/*final*/ ParseException ex) {
+  if (m_bBrowserCompliantMode)
+    browserCompliantSkipInRule (ex);
+  else
+    errorSkipTo (ex, RBRACE);
+}
 }
 
 //

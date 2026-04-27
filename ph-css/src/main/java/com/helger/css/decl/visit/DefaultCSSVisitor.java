@@ -34,6 +34,8 @@ import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CSSSupportsRule;
+import com.helger.css.decl.CSSPropertyRule;
+import com.helger.css.decl.CSSPropertyRuleDeclaration;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
 
@@ -63,6 +65,10 @@ public class DefaultCSSVisitor implements ICSSVisitor
 
   @OverrideOnDemand
   public void onDeclaration (@NonNull final CSSDeclaration aDeclaration)
+  {}
+
+  @OverrideOnDemand
+  public void onPropertyRuleDeclaration (@NonNull final CSSPropertyRuleDeclaration aDeclaration)
   {}
 
   @OverrideOnDemand
@@ -157,6 +163,14 @@ public class DefaultCSSVisitor implements ICSSVisitor
   public void onEndNestedDeclarations(@NonNull CSSNestedDeclarations aNestedDeclarations)
   {}
 
+  @OverrideOnDemand
+  public void onBeginPropertyRule (@NonNull final CSSPropertyRule aPropertyRule)
+  {}
+
+  @OverrideOnDemand
+  public void onEndPropertyRule (@NonNull final CSSPropertyRule aLayerRule)
+  {}
+  
   @OverrideOnDemand
   public void onUnknownRule (@NonNull final CSSUnknownRule aUnknownRule)
   {}

@@ -32,6 +32,8 @@ import com.helger.css.decl.CSSPageRule;
 import com.helger.css.decl.CSSSelector;
 import com.helger.css.decl.CSSStyleRule;
 import com.helger.css.decl.CSSSupportsRule;
+import com.helger.css.decl.CSSPropertyRule;
+import com.helger.css.decl.CSSPropertyRuleDeclaration;
 import com.helger.css.decl.CSSUnknownRule;
 import com.helger.css.decl.CSSViewportRule;
 
@@ -74,6 +76,9 @@ public interface ICSSVisitor
    */
   void onDeclaration (@NonNull CSSDeclaration aDeclaration);
 
+
+  void onPropertyRuleDeclaration(@NonNull CSSPropertyRuleDeclaration aDeclaration);
+  
   // style rules:
   /**
    * Called when a style rule starts.<br>
@@ -262,6 +267,23 @@ public interface ICSSVisitor
    *        The layer rule. Never <code>null</code>.
    */
   void onEndLayerRule (@NonNull CSSLayerRule aLayerRule);
+
+  // property rules
+  /**
+   * Called when a property rule starts.
+   *
+   * @param aPropertyRule
+   *        The property rule. Never <code>null</code>.
+   */
+  void onBeginPropertyRule (@NonNull CSSPropertyRule aPropertyRule);
+
+  /**
+   * Called when a property rule ends.
+   *
+   * @param aPropertyRule
+   *        The property rule. Never <code>null</code>.
+   */
+  void onEndPropertyRule (@NonNull CSSPropertyRule aPropertyRule);
 
   /**
    * Called when a nested declarations rule starts.

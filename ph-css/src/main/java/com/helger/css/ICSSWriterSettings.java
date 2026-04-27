@@ -129,6 +129,11 @@ public interface ICSSWriterSettings
   boolean isWriteSupportsRules ();
 
   /**
+   * @return <code>true</code> if {@link CSSPropertyRule @property rules} should be written, <code>false</code> if not
+   */
+  boolean isWritePropertyRules ();
+
+  /**
    * @return <code>true</code> if {@link CSSUnknownRule unknown @ rules} should be written, <code>false</code> if not
    */
   boolean isWriteUnknownRules ();
