@@ -326,7 +326,7 @@ v8.2.0 - 2026-04-27
     * Added support for relative selectors in nested style rules
     * Updated `CSSVisitor` and `ICSSVisitor` with `onBeginNestedDeclarations`/`onEndNestedDeclarations` callbacks
     * Updated the CSS 3.0 grammar to support nested rules and the nesting selector (`&`)
-* Added support for the CSS Houdini `@property` rule. See [#121](https://github.com/phax/ph-css/issues/121) and [#122](https://github.com/phax/ph-css/pull/122) - thx @shagkur and @blutorange
+* Added support for the CSS `@property` rule. See [#121](https://github.com/phax/ph-css/issues/121) and [#122](https://github.com/phax/ph-css/pull/122) - thx @shagkur and @blutorange
     * New class `CSSPropertyRule` representing an `@property` at-rule with its descriptors
     * Invalid descriptors are silently dropped during parsing
 * Allow bare identifiers as values inside `calc()`. This fixes parsing of CSS Color Module 5 relative-color syntax such as `oklch(from var(--c) 0.18 calc(c * 0.3) h)`. See [#125](https://github.com/phax/ph-css/issues/125) - thx @Artur-
