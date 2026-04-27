@@ -730,6 +730,7 @@ void calcValue() :
   ( t = <NUMBER>
   | t = <PERCENTAGE>
   | t = dimension()
+  | t = <IDENT>
   | function()
   | calc()
   | <LROUND>

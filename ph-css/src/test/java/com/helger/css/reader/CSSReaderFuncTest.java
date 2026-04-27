@@ -494,5 +494,20 @@ public final class CSSReaderFuncTest extends AbstractFuncTestCSSReader
     assertNotNull (aCSS);
     assertEquals ("section:not(:has(h1,h2,h3,h4,h5,h6)){color:red}",
                   new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    // Issue 125 - bare identifier inside calc() (CSS Color Module 5
+    // relative-color channel keyword)
+    sCSS = "html{color:calc(c * 0.3)}";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("html{color:calc(c*0.3)}", new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
+
+    // Issue 125 - oklch() with relative-color syntax and calc() using a
+    // channel keyword
+    sCSS = "html {color:oklch(from var(--aura-accent-color-dark) 0.18 calc(c * 0.3) h)}";
+    aCSS = CSSReader.readFromStringReader (sCSS, aReaderSettings);
+    assertNotNull (aCSS);
+    assertEquals ("html{color:oklch(from var(--aura-accent-color-dark) 0.18 calc(c*0.3) h)}",
+                  new CSSWriter (aWriterSettings).getCSSAsString (aCSS));
   }
 }
