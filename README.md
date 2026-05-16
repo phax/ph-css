@@ -165,6 +165,16 @@ In the above example, `aSplittedDecls` will contain 3 elements with the followin
 
 Even though no color value was provided, the default value `black` is returned. For all "sub-declarations", sensible default values are defined.
 
+### Box-model shorthand compaction (optimized output)
+
+Since v8.2.1, the box-model shorthand properties (`margin`, `padding`, `border-width`, `border-style`, `border-color`) collapse redundant values when the writer runs with `setOptimizedOutput(true)`. Formatted output is unchanged. The compaction follows the standard CSS rules for 1/2/3/4-value notation:
+
+* `padding: 10px 10px 10px 10px` &rarr; `padding:10px`
+* `margin: 10px 20px 10px 20px` &rarr; `margin:10px 20px`
+* `border-color: red green blue green` &rarr; `border-color:red green blue`
+
+The hook is generic: any descriptor registered in `CSSShortHandRegistry` can override `CSSShortHandDescriptor.getOptimizedExpression` to participate in optimized-write rewriting.
+
 ## CSS utilities
 
 ph-css contains a multitude of small utility class covering different aspects of CSS
@@ -315,6 +325,11 @@ Configuration items are:
    Defaults to `UTF-8`.  
 
 ## News and noteworthy
+
+v8.2.1 - 2026-05-16
+* Optimized output now compacts the box-model shorthand properties (`margin`, `padding`, `border-width`, `border-style`, `border-color`) so that e.g. `padding:10px 10px 10px 10px` is written as `padding:10px`. See [#126](https://github.com/phax/ph-css/issues/126) - thx @cjohansen
+    * New extension point `CSSShortHandDescriptor.getOptimizedExpression` for descriptors that want to rewrite their expression on optimized write
+    * Formatted (non-optimized) output is unchanged
 
 v8.2.0 - 2026-04-27
 * Updated to ph-commons 12.2.0
