@@ -528,4 +528,118 @@ public final class CSSShortHandDescriptorTest
     assertEquals ("flex-shrink:3", aSplittedDecls.get (1).getAsCSSString (CWS));
     assertEquals ("flex-basis:4em", aSplittedDecls.get (2).getAsCSSString (CWS));
   }
+
+  @Test
+  public void testCompactPaddingOptimized ()
+  {
+    final CSSWriterSettings aCWSOpt = new CSSWriterSettings (true);
+    final CSSWriterSettings aCWSFmt = new CSSWriterSettings (false);
+
+    // 4 equal values -> 1
+    CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("padding:10px 10px 10px 10px")
+                                                   .getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("padding:10px", aDecl.getAsCSSString (aCWSOpt));
+    // Formatted output must remain untouched
+    assertEquals ("padding:10px 10px 10px 10px", aDecl.getAsCSSString (aCWSFmt));
+
+    // T==B, R==L -> 2 values
+    aDecl = CSSReaderDeclarationList.readFromString ("padding:10px 20px 10px 20px").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("padding:10px 20px", aDecl.getAsCSSString (aCWSOpt));
+
+    // R==L only -> 3 values
+    aDecl = CSSReaderDeclarationList.readFromString ("padding:10px 20px 30px 20px").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("padding:10px 20px 30px", aDecl.getAsCSSString (aCWSOpt));
+
+    // No compaction possible
+    aDecl = CSSReaderDeclarationList.readFromString ("padding:10px 20px 30px 40px").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("padding:10px 20px 30px 40px", aDecl.getAsCSSString (aCWSOpt));
+
+    // 3-value form, all equal -> 1
+    aDecl = CSSReaderDeclarationList.readFromString ("padding:10px 10px 10px").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("padding:10px", aDecl.getAsCSSString (aCWSOpt));
+
+    // 3-value form, T==B -> 2
+    aDecl = CSSReaderDeclarationList.readFromString ("padding:10px 20px 10px").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("padding:10px 20px", aDecl.getAsCSSString (aCWSOpt));
+
+    // 2-value form, both equal -> 1
+    aDecl = CSSReaderDeclarationList.readFromString ("padding:10px 10px").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("padding:10px", aDecl.getAsCSSString (aCWSOpt));
+
+    // 1-value form -> unchanged
+    aDecl = CSSReaderDeclarationList.readFromString ("padding:10px").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("padding:10px", aDecl.getAsCSSString (aCWSOpt));
+  }
+
+  @Test
+  public void testCompactMarginOptimized ()
+  {
+    final CSSWriterSettings aCWSOpt = new CSSWriterSettings (true);
+
+    CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("margin:0 0 0 0").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("margin:0", aDecl.getAsCSSString (aCWSOpt));
+
+    aDecl = CSSReaderDeclarationList.readFromString ("margin:auto auto").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("margin:auto", aDecl.getAsCSSString (aCWSOpt));
+
+    aDecl = CSSReaderDeclarationList.readFromString ("margin:1em 2em 1em").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("margin:1em 2em", aDecl.getAsCSSString (aCWSOpt));
+  }
+
+  @Test
+  public void testCompactBorderColorOptimized ()
+  {
+    final CSSWriterSettings aCWSOpt = new CSSWriterSettings (true);
+
+    CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-color:red red red red")
+                                                   .getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("border-color:red", aDecl.getAsCSSString (aCWSOpt));
+
+    aDecl = CSSReaderDeclarationList.readFromString ("border-color:red green red green").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("border-color:red green", aDecl.getAsCSSString (aCWSOpt));
+
+    aDecl = CSSReaderDeclarationList.readFromString ("border-color:red green blue green").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("border-color:red green blue", aDecl.getAsCSSString (aCWSOpt));
+  }
+
+  @Test
+  public void testCompactBorderWidthAndStyleOptimized ()
+  {
+    final CSSWriterSettings aCWSOpt = new CSSWriterSettings (true);
+
+    CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border-width:1px 1px 1px 1px")
+                                                   .getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("border-width:1px", aDecl.getAsCSSString (aCWSOpt));
+
+    aDecl = CSSReaderDeclarationList.readFromString ("border-style:solid solid solid solid").getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("border-style:solid", aDecl.getAsCSSString (aCWSOpt));
+  }
+
+  @Test
+  public void testNonAlignmentShorthandUnaffected ()
+  {
+    final CSSWriterSettings aCWSOpt = new CSSWriterSettings (true);
+
+    // 'border' is a non-alignment shorthand: must not collapse identical tokens
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("border:1px 1px 1px 1px")
+                                                         .getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    assertEquals ("border:1px 1px 1px 1px", aDecl.getAsCSSString (aCWSOpt));
+  }
 }

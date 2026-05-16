@@ -45,19 +45,17 @@ public final class CSSWriterFuncTest
     final CascadingStyleSheet aCSS = CSSReader.readFromFile (aFile);
     assertNotNull (aFile.getAbsolutePath (), aCSS);
 
-    // Both normal and optimized!
-    for (int i = 0; i < 2; ++i)
-    {
-      // write to buffer
-      final String sCSS = new CSSWriter (i == 1).getCSSAsString (aCSS);
-      if (false)
-        System.out.println ("--" + i + "--\n" + sCSS);
+    // Unoptimized roundtrip must preserve the AST exactly.
+    String sCSS = new CSSWriter (false).getCSSAsString (aCSS);
+    assertEquals (aFile.getAbsolutePath () + " unoptimized", aCSS, CSSReader.readFromString (sCSS));
 
-      // read again from buffer
-      assertEquals (aFile.getAbsolutePath () + (i == 0 ? " unoptimized" : " optimized"),
-                    aCSS,
-                    CSSReader.readFromString (sCSS));
-    }
+    // Optimized output may reshape the AST (e.g. compact "10px 10px 10px 10px" to "10px") so
+    // we verify idempotence instead of AST identity.
+    sCSS = new CSSWriter (true).getCSSAsString (aCSS);
+    final CascadingStyleSheet aCSSReRead = CSSReader.readFromString (sCSS);
+    assertNotNull (aFile.getAbsolutePath () + " optimized re-read", aCSSReRead);
+    final String sCSS2 = new CSSWriter (true).getCSSAsString (aCSSReRead);
+    assertEquals (aFile.getAbsolutePath () + " optimized idempotent", sCSS, sCSS2);
   }
 
   @Test

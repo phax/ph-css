@@ -89,7 +89,9 @@ public abstract class AbstractFuncTestCSSReader
       if (m_bDebug)
         m_aLogger.info ("Parse errors: " + aErrorHdl.getAllParseErrors ().toString ());
 
-      // Write optimized version and compare it
+      // Write optimized version and verify the output is a fixed point: writing the re-read
+      // result again must produce the same string. The optimizer may reshape the AST (e.g.
+      // compact "10px 10px 10px 10px" to "10px"), so AST identity is not required.
       String sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (true)).getCSSAsString (aCSS);
       assertNotNull (sFilename, sCSS);
       if (m_bDebug)
@@ -97,7 +99,10 @@ public abstract class AbstractFuncTestCSSReader
 
       final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
       assertNotNull ("Failed to parse " + sFilename + ":\n" + sCSS, aCSSReRead);
-      assertEquals ("Differences in " + sFilename + "\n" + sCSS + "\n" + aCSS + "\n" + aCSSReRead, aCSS, aCSSReRead);
+      final String sCSS2 = new CSSWriter (m_aWriterSettings.setOptimizedOutput (true)).getCSSAsString (aCSSReRead);
+      assertEquals ("Optimized output is not idempotent for " + sFilename + "\n" + sCSS + "\n" + sCSS2,
+                    sCSS,
+                    sCSS2);
 
       // Write non-optimized version and compare it
       sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)).getCSSAsString (aCSS);
@@ -158,7 +163,7 @@ public abstract class AbstractFuncTestCSSReader
       if (m_bDebug)
         m_aLogger.info (aErrorHdl.getAllParseErrors ().toString ());
 
-      // Write optimized version and re-read it
+      // Write optimized version and verify it is a fixed point under re-reading.
       final String sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (true)).getCSSAsString (aCSS);
       assertNotNull (sKey, sCSS);
       if (m_bDebug)
@@ -166,7 +171,8 @@ public abstract class AbstractFuncTestCSSReader
 
       final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
       assertNotNull ("Failed to parse:\n" + sCSS, aCSSReRead);
-      assertEquals (sKey, aCSS, aCSSReRead);
+      final String sCSS2 = new CSSWriter (m_aWriterSettings.setOptimizedOutput (true)).getCSSAsString (aCSSReRead);
+      assertEquals (sKey, sCSS, sCSS2);
     }
   }
 

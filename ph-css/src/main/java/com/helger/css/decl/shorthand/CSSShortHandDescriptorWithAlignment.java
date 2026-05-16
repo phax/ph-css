@@ -20,7 +20,11 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.css.ICSSWriterSettings;
+import com.helger.css.decl.CSSExpression;
+import com.helger.css.decl.ECSSExpressionOperator;
 import com.helger.css.decl.ICSSExpressionMember;
 import com.helger.css.property.ECSSProperty;
 
@@ -67,5 +71,109 @@ public class CSSShortHandDescriptorWithAlignment extends CSSShortHandDescriptor
           aExpressionMembers.add (aMemberX.getClone ());
         }
     // else nothing to do
+  }
+
+  /**
+   * Compact a 1/2/3/4-value box-shorthand expression member list according to the CSS box model
+   * rules:
+   * <ul>
+   * <li>4 values (T R B L): if T==R==B==L &rarr; 1; if T==B and R==L &rarr; 2; if R==L &rarr; 3;
+   * else 4</li>
+   * <li>3 values (T R/L B): if all equal &rarr; 1; if T==B &rarr; 2; else 3</li>
+   * <li>2 values (T/B R/L): if equal &rarr; 1; else 2</li>
+   * <li>1 value: unchanged</li>
+   * </ul>
+   * If any member is an operator (e.g. <code>/</code> or <code>,</code>) the list is returned
+   * unchanged. The comparison uses the rendered CSS string of each member with the provided
+   * settings.
+   *
+   * @param aMembers
+   *        The original expression members. Never <code>null</code>.
+   * @param aSettings
+   *        Writer settings used for rendering the equality comparison. Never <code>null</code>.
+   * @return A new list containing the compacted members or the original list reference if no
+   *         compaction was possible. Never <code>null</code>.
+   * @since 8.2.1
+   */
+  @NonNull
+  public static ICommonsList <ICSSExpressionMember> getCompactedExpressionMembers (@NonNull final ICommonsList <ICSSExpressionMember> aMembers,
+                                                                                   @NonNull final ICSSWriterSettings aSettings)
+  {
+    final int nSize = aMembers.size ();
+    if (nSize < 2 || nSize > 4)
+      return aMembers;
+
+    // Don't compact if any member is an operator (the box shorthands don't use operators, but be
+    // defensive)
+    for (final ICSSExpressionMember aMember : aMembers)
+      if (aMember instanceof ECSSExpressionOperator)
+        return aMembers;
+
+    // Pre-compute rendered strings
+    final String [] aRendered = new String [nSize];
+    for (int i = 0; i < nSize; ++i)
+      aRendered[i] = aMembers.get (i).getAsCSSString (aSettings);
+
+    int nKeep;
+    switch (nSize)
+    {
+      case 2:
+        // T/B R/L
+        nKeep = aRendered[0].equals (aRendered[1]) ? 1 : 2;
+        break;
+      case 3:
+        // T R/L B
+        if (aRendered[0].equals (aRendered[1]) && aRendered[1].equals (aRendered[2]))
+          nKeep = 1;
+        else
+          if (aRendered[0].equals (aRendered[2]))
+            nKeep = 2;
+          else
+            nKeep = 3;
+        break;
+      case 4:
+        // T R B L
+        if (aRendered[0].equals (aRendered[1]) &&
+            aRendered[1].equals (aRendered[2]) &&
+            aRendered[2].equals (aRendered[3]))
+          nKeep = 1;
+        else
+          if (aRendered[0].equals (aRendered[2]) && aRendered[1].equals (aRendered[3]))
+            nKeep = 2;
+          else
+            if (aRendered[1].equals (aRendered[3]))
+              nKeep = 3;
+            else
+              nKeep = 4;
+        break;
+      default:
+        // unreachable due to size check above
+        return aMembers;
+    }
+
+    if (nKeep == nSize)
+      return aMembers;
+
+    final ICommonsList <ICSSExpressionMember> ret = new CommonsArrayList <> (nKeep);
+    for (int i = 0; i < nKeep; ++i)
+      ret.add (aMembers.get (i));
+    return ret;
+  }
+
+  @Override
+  @NonNull
+  public CSSExpression getOptimizedExpression (@NonNull final CSSExpression aExpression,
+                                               @NonNull final ICSSWriterSettings aSettings)
+  {
+    final ICommonsList <ICSSExpressionMember> aOriginal = aExpression.getAllMembers ();
+    final ICommonsList <ICSSExpressionMember> aCompact = getCompactedExpressionMembers (aOriginal, aSettings);
+    if (aCompact == aOriginal || aCompact.size () == aOriginal.size ())
+      return aExpression;
+
+    final CSSExpression aResult = new CSSExpression ();
+    aResult.setSourceLocation (aExpression.getSourceLocation ());
+    for (final ICSSExpressionMember aMember : aCompact)
+      aResult.addMember (aMember);
+    return aResult;
   }
 }

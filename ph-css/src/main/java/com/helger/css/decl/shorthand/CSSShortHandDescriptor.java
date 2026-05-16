@@ -25,6 +25,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.css.ICSSWriterSettings;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.decl.CSSExpression;
 import com.helger.css.decl.CSSExpressionMemberTermSimple;
@@ -88,6 +89,28 @@ public class CSSShortHandDescriptor
   @OverrideOnDemand
   protected void modifyExpressionMembers (@NonNull final ICommonsList <ICSSExpressionMember> aExpressionMembers)
   {}
+
+  /**
+   * Return an optimized version of the passed expression suitable for writing in optimized output
+   * mode. The default implementation returns the input unchanged. Sub-classes may override this to
+   * collapse redundant values (e.g. <code>10px 10px 10px 10px</code> &rarr; <code>10px</code> for
+   * margin and padding).
+   *
+   * @param aExpression
+   *        The original expression of the declaration. Never <code>null</code>.
+   * @param aSettings
+   *        The writer settings used to render the output. Never <code>null</code>.
+   * @return The expression to be rendered. Never <code>null</code>. May be the same instance as
+   *         <code>aExpression</code> when no optimization is applicable.
+   * @since 8.2.1
+   */
+  @NonNull
+  @OverrideOnDemand
+  public CSSExpression getOptimizedExpression (@NonNull final CSSExpression aExpression,
+                                               @NonNull final ICSSWriterSettings aSettings)
+  {
+    return aExpression;
+  }
 
   @NonNull
   @ReturnsMutableCopy

@@ -32,6 +32,8 @@ import com.helger.css.CCSS;
 import com.helger.css.CSSSourceLocation;
 import com.helger.css.ICSSSourceLocationAware;
 import com.helger.css.ICSSWriterSettings;
+import com.helger.css.decl.shorthand.CSSShortHandDescriptor;
+import com.helger.css.decl.shorthand.CSSShortHandRegistry;
 import com.helger.css.property.ECSSProperty;
 
 /**
@@ -232,9 +234,22 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
   @Nonempty
   public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
   {
+    CSSExpression aExpression = m_aExpression;
+    if (aSettings.isOptimizedOutput ())
+    {
+      // Allow registered short hand descriptors to provide an optimized (e.g. compacted)
+      // expression representation. Only kicks in for optimized output.
+      final ECSSProperty eProperty = ECSSProperty.getFromNameOrNull (m_sProperty);
+      if (eProperty != null)
+      {
+        final CSSShortHandDescriptor aDescriptor = CSSShortHandRegistry.getShortHandDescriptor (eProperty);
+        if (aDescriptor != null)
+          aExpression = aDescriptor.getOptimizedExpression (m_aExpression, aSettings);
+      }
+    }
     return m_sProperty +
            CCSS.SEPARATOR_PROPERTY_VALUE +
-           m_aExpression.getAsCSSString (aSettings, nIndentLevel) +
+           aExpression.getAsCSSString (aSettings, nIndentLevel) +
            (m_bIsImportant ? CCSS.IMPORTANT_SUFFIX : "");
   }
 
