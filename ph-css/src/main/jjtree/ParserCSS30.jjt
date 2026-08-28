@@ -321,6 +321,16 @@ TOKEN :
                  ) >
 }
 
+// Media Queries Level 4 range context comparison operators (see mediaRangeOperator).
+// Restricted to the DEFAULT state so that the token stream of unknown rules stays unchanged.
+<DEFAULT>
+TOKEN :
+{
+  < LESS: "<" >
+| < LESS_EQUALS: "<=" >
+| < GREATER_EQUALS: ">=" >
+}
+
 // Single line comments are handled in all states except in unknown rules, because
 // there, tokens are simply chained together to a string
 <DEFAULT, IN_NTH, IN_PROPERTY_RULE>
@@ -1405,16 +1415,86 @@ void mediaFeature() : {}
   <IDENT>  { jjtThis.setText (token.image); }
 }
 
+// Media Queries Level 4 range context: https://www.w3.org/TR/mediaqueries-4/#mq-range-context
+void mediaRangeOperator() : {}
+{
+  ( <LESS>           { jjtThis.setText ("<"); }
+  | <LESS_EQUALS>    { jjtThis.setText ("<="); }
+  | <GREATER>        { jjtThis.setText (">"); }
+  | <GREATER_EQUALS> { jjtThis.setText (">="); }
+  | <EQUALS>         { jjtThis.setText ("="); }
+  )
+}
+
+// Value in front of the media feature ("600px <= width").
+// Deliberately excludes identifiers so that the choice against mediaFeature() is unambiguous.
+void mediaRangeValueTerm() #exprTerm :
+{
+  String sPrefix = null;
+  Token t = null;
+}
+{
+  ( ( sPrefix = unaryOperator() )?
+    ( t = <NUMBER>
+    | t = <PERCENTAGE>
+    | t = dimension()
+    )
+  | calc()
+  | function()
+  )
+  ( <S> )*
+  {
+    if (sPrefix != null)
+      jjtThis.appendText (sPrefix);
+    if (t != null)
+      jjtThis.appendText (t.image);
+  }
+}
+
+// Ratio separator ("16/9")
+void mediaRangeRatioOperator() #exprOperator : {}
+{
+  <SLASH> { jjtThis.setText ("/"); }
+}
+
+void mediaRangeValue() #expr : {}
+{
+  mediaRangeValueTerm()
+  ( mediaRangeRatioOperator()
+    ( <S> )*
+    mediaRangeValueTerm()
+  )?
+}
+
+// Supported forms:
+//   (feature)
+//   (feature: value)
+//   (feature <op> value)
+//   (value <op> feature)
+//   (value <op> feature <op> value)
 void mediaExpr() : {}
 {
   <LROUND>
   ( <S> )*
-  mediaFeature()
-  ( <S> )*
-  ( <COLON>
+  ( mediaFeature()
     ( <S> )*
-    expr()
-  )?
+    ( <COLON>
+      ( <S> )*
+      expr()
+    | mediaRangeOperator()
+      ( <S> )*
+      expr()
+    )?
+  | mediaRangeValue()
+    mediaRangeOperator()
+    ( <S> )*
+    mediaFeature()
+    ( <S> )*
+    ( mediaRangeOperator()
+      ( <S> )*
+      expr()
+    )?
+  )
   <RROUND>
   ( <S> )*
 }
