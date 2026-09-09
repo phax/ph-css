@@ -872,10 +872,17 @@ void exprOperator() : {}
 
 void expr() : {}
 {
+  // No leading ( <S> )* inside the loop: exprTerm() already ends with one, so at this point the
+  // current token can never be <S>. It used to be here, and because <S> can also follow expr() in
+  // the callers it was the last remaining choice conflict in this grammar - a conflict over input
+  // that cannot occur.
   exprTerm()
-  ( ( LOOKAHEAD(1) ( <S> ) )*
+  // LOOKAHEAD(1) for the same reason as everywhere else in this grammar: a term may begin with a
+  // unary "+", and "+" is also in the follow set of expr(), so the loop overlaps with what comes
+  // after it. Greedy is right - in "margin: 1px +2px" the second term belongs to this expression.
+  ( LOOKAHEAD(1)
     ( exprOperator()
-      ( LOOKAHEAD(1) ( <S> ) )* 
+      ( LOOKAHEAD(1) ( <S> ) )*
     )?
     exprTerm()
   )*

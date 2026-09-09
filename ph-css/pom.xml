@@ -149,7 +149,7 @@
           </execution>
         </executions>
         <configuration>
-          <jdkVersion>17</jdkVersion>
+          <jdkVersion>1.8</jdkVersion>
           <javadocFriendlyComments>true</javadocFriendlyComments>
           <outputEncoding>utf-8</outputEncoding>
           <!-- The modern template is quicker! -->
