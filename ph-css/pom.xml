@@ -30,6 +30,7 @@
   <description>Java CSS 3 parser and builder</description>
   <url>https://github.com/phax/ph-css/ph-css</url>
   <inceptionYear>2014</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,10 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -49,10 +52,25 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
+  
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+  
   <properties>
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
   </properties>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -78,6 +96,7 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-text</artifactId>
     </dependency>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -94,18 +113,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central.snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
+
   <build>
     <pluginManagement>
       <plugins>
@@ -127,11 +135,12 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    
     <plugins>
       <plugin>
         <groupId>com.helger.maven</groupId>
         <artifactId>ph-javacc-maven-plugin</artifactId>
-        <version>5.0.1</version>
+        <version>5.0.2</version>
         <executions>
           <execution>
             <goals>
@@ -140,7 +149,7 @@
           </execution>
         </executions>
         <configuration>
-          <jdkVersion>1.8</jdkVersion>
+          <jdkVersion>17</jdkVersion>
           <javadocFriendlyComments>true</javadocFriendlyComments>
           <outputEncoding>utf-8</outputEncoding>
           <!-- The modern template is quicker! -->
