@@ -26,7 +26,10 @@ options {
   // USER_TOKEN_MANAGER = true;
   // SUPPORT_CLASS_VISIBILITY_PUBLIC = false;
   USER_CHAR_STREAM = true;
-  FORCE_LA_CHECK = true;
+  // false: the check re-reports every choice that is already resolved with an explicit
+  // LOOKAHEAD below, which is 19 of the warnings. It only affects warnings - the
+  // generated parser is byte identical either way.
+  FORCE_LA_CHECK = false;
 
 // JJTree options
   // MULTI = true;
@@ -572,23 +575,39 @@ private void browserCompliantSkipDecl(final ParseException ex) throws ParseEOFEx
 }
 
 //
+// A note on the "( LOOKAHEAD(1) ( <S> ) )*" idiom used throughout the productions below.
+//
+// Whitespace is a real token here rather than something SKIPped, because CSS needs it (the
+// descendant combinator). Two such loops separated by an optional construct genuinely overlap: when
+// the optional part is absent, an <S> could belong to either loop, and JavaCC reports a choice
+// conflict. There is no lookahead depth that resolves it - both alternatives are <S> <S> <S>... all
+// the way down - so the generator's suggestion to "use a lookahead of 2 or more" cannot be
+// followed. The only sensible resolution is the greedy one JavaCC already applies: let the first
+// loop eat all the whitespace. LOOKAHEAD(1) states that explicitly, which documents the intent and
+// stops the warning. It does not change the generated parser.
+//
+// Do not put LOOKAHEAD(1) inside a LOOKAHEAD( ... ) argument - a lookahead nested in a lookahead is
+// ignored by the generator and warned about. The three loops in that position are left plain.
+//
+
+//
 // whole stylesheet
 //
 CSSNode styleSheet() #Root : {}
 {
 try{
-  ( <S> | <CDO> | <CDC> )*
+  ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
   ( LOOKAHEAD( <CHARSET_SYM> )
     charsetRule()
-    ( <S> | <CDO> | <CDC> )*
+    ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
   )?
   ( LOOKAHEAD( <IMPORT_SYM> )
     importRule()
-    ( <S> | <CDO> | <CDC> )*
+    ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
   )*
   ( LOOKAHEAD( <NAMESPACE_SYM> )
     namespaceRule()
-    ( <S> | <CDO> | <CDC> )*
+    ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
   )*
   ( ( styleRule()
     | mediaRule()
@@ -604,11 +623,11 @@ try{
     | importRule()    { errorUnexpectedRule ("@import", "import rule in the middle of the file is not allowed!"); }
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of the file is not allowed!"); }
     )
-    ( <S> | <CDO> | <CDC> )*
+    ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
 // ignore too many closing brackets
 // ignore empty semicolons
     ( ( <RBRACE> | <SEMICOLON> )
-      ( <S> | <CDO> | <CDC> )*
+      ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
     )*
     ( syntaxCrap() )?
   )*
@@ -694,7 +713,7 @@ void function() :
 { String sPlain; }
 {
   ( <FUNCTION> { jjtThis.setText (token.image + ")"); }
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     // Support functions without parameters (e.g. "gray ()")
     ( expr() )?
     <RROUND>
@@ -734,9 +753,9 @@ void calcValue() :
   | function()
   | calc()
   | <LROUND>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     calcSum()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     <RROUND>
   )
   {
@@ -757,9 +776,9 @@ void calcProduct() : {}
 {
   calcValue()
   ( LOOKAHEAD(2)
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     calcProductOperator()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     calcValue()
   )*
 }
@@ -775,9 +794,9 @@ void calcSum() #void : {}
 {
   calcProduct()
   ( LOOKAHEAD(2)
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     calcSumOperator()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     calcProduct()
   )*
 }
@@ -785,9 +804,9 @@ void calcSum() #void : {}
 void calc() : {}
 {
   <FUNCTION_CALC>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   calcSum()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   <RROUND>
 }
 
@@ -800,13 +819,13 @@ void lineName() : {}
 void lineNames() : {}
 {
   <LSQUARE>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( lineName()
     ( LOOKAHEAD(2)
-      ( <S> )* 
+      ( LOOKAHEAD(1) ( <S> ) )* 
       lineName()
     )*
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )?
   <RSQUARE>
 }
@@ -833,7 +852,7 @@ void exprTerm() :
   | t = <URANGE>
   | lineNames()
   )
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   {
     if (sPrefix != null)
       jjtThis.appendText (sPrefix);
@@ -854,9 +873,9 @@ void exprOperator() : {}
 void expr() : {}
 {
   exprTerm()
-  ( ( <S> )*
+  ( ( LOOKAHEAD(1) ( <S> ) )*
     ( exprOperator()
-      ( <S> )* 
+      ( LOOKAHEAD(1) ( <S> ) )* 
     )?
     exprTerm()
   )*
@@ -869,9 +888,9 @@ void charsetRule() :
 { String sStr; }
 {
   <CHARSET_SYM>
-  ( <S> )+
+  ( LOOKAHEAD(1) ( <S> ) )+
   sStr = string() { jjtThis.setText (sStr); }
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   <SEMICOLON>
 }
 
@@ -882,11 +901,11 @@ void importRule() :
 { String sUrl; }
 {
   <IMPORT_SYM>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( sUrl = string() { jjtThis.setText (sUrl); }
   | url()
   )
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( mediaList() )?
   <SEMICOLON>
 }
@@ -911,12 +930,12 @@ void namespaceRuleURL() :
 void namespaceRule() : {}
 {
   <NAMESPACE_SYM>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( namespaceRulePrefix()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )?
   namespaceRuleURL()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   <SEMICOLON>
 }
 
@@ -998,36 +1017,36 @@ void attribCase() : {}
 void attributeSelector() : {}
 {
   <LSQUARE>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( LOOKAHEAD(2)
     namespacePrefix()
   )?
   <IDENT> { jjtThis.setText (token.image); }
   /* Hack for html[xmlns*=""] */
   ( <ASTERISK> { jjtThis.appendText ("*"); } )?
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( attribOperator()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     attribValue()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     attribCase()
   )?
-  ( <S> )*  
+  ( LOOKAHEAD(1) ( <S> ) )*  
   <RSQUARE>
 }
 
 void pseudoNth () #nth :
 { Token t; String s; }
 {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( LOOKAHEAD(3)
     ( s = unaryOperator() { jjtThis.appendText (s); } )?
     ( t = <INTEGER> { jjtThis.appendText (t.image); } )?
     t = <N>        { jjtThis.appendText ("n"); }
     ( LOOKAHEAD(2)
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
       s = unaryOperator() { jjtThis.appendText (s); }
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
       t = <INTEGER> { jjtThis.appendText (t.image); }
     )?
   | LOOKAHEAD(2)
@@ -1036,37 +1055,37 @@ void pseudoNth () #nth :
   | t = <EVEN>    { jjtThis.appendText (t.image); }
   | t = <ODD>     { jjtThis.appendText (t.image); }
   )
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
 }
 
 void pseudoHost () #host : {}
 {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( simpleSelectorSequence () 
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )*
 }
 
 void pseudoHostContext () #hostcontext : {}
 {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( simpleSelectorSequence () 
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )*
 }
 
 void pseudoSlotted () #slotted : {}
 {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( simpleSelectorSequence () 
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )*
 }
 
 void relativeSelector() : {}
 {
   ( selectorCombinator()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )?  
   selector ()
 }
@@ -1078,13 +1097,13 @@ void selectorOrRelativeSelector() #void : {}
 
 void relativeSelectorList() #void : {}
 {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( relativeSelector() 
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     ( <COMMA> 
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
       relativeSelector ()
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
     )*
   )
 }
@@ -1096,13 +1115,13 @@ void pseudoHas() #has : {}
 
 void simpleSelectorList() #void : {}
 {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( selector () 
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     ( <COMMA> 
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
       selector ()
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
     )*
   )
 }
@@ -1145,7 +1164,7 @@ void pseudoClassSelector() : {}
     <RROUND> // do not append because of expression!
   | LOOKAHEAD( <FUNCTION> )
     <FUNCTION> { jjtThis.appendText (token.image); }
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     ( expr() )?
     <RROUND>  // do not append because of expression!
   | <IDENT> { jjtThis.appendText (token.image); }
@@ -1155,13 +1174,13 @@ void pseudoClassSelector() : {}
 void funcNot() : {}
 {
   <FUNCTION_NOT> { jjtThis.setText (":not("); }
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( selector ()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     ( <COMMA>
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
       selector()
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
     )*
   )?
   <RROUND>
@@ -1193,13 +1212,13 @@ void simpleSelectorSequence() #void : {}
 void selectorCombinator() : {}
 {
   ( LOOKAHEAD(2)
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     <PLUS>       { jjtThis.setText ("+"); }
   | LOOKAHEAD(2)
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     <GREATER>    { jjtThis.setText (">"); }
   | LOOKAHEAD(2)
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     <TILDE>      { jjtThis.setText ("~"); }
   | <S>          { jjtThis.setText (" "); }
   )
@@ -1210,7 +1229,7 @@ void selector() : {}
   simpleSelectorSequence()
   ( LOOKAHEAD(4)
     selectorCombinator()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     simpleSelectorSequence()
   )*
 }
@@ -1221,7 +1240,7 @@ void property() :
 }
 {
   ( <IDENT> { jjtThis.setText (token.image); }
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   | LOOKAHEAD(2, ( <ASTERISK> | <DOLLAR> ) <IDENT> )
     ( <ASTERISK> | <DOLLAR> ) { aPrefixToken = token; }
     <IDENT>                   { if (m_bKeepDeprecatedProperties)
@@ -1229,14 +1248,14 @@ void property() :
                                 else                                  
                                   errorDeprecatedProperty (aPrefixToken);
                               }
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )
 }
 
 void important() : {}
 {
   <IMPORTANT_SYM> { jjtThis.setText (token.image); }
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
 }
 
 void styleDeclaration() : {}
@@ -1244,7 +1263,7 @@ void styleDeclaration() : {}
 try{
   property()
   <COLON>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   /* Was before version 4 optional ->
      to handle e.g. "background-color:;"
      Rule: ( expr() )? */
@@ -1274,14 +1293,14 @@ void styleDeclarationOrRule() #void : {}
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a rule-set is not allowed!"); }
     | layerRule()     { errorUnexpectedRule ("@layer", "layer rule in the middle of a rule-set is not allowed!"); }
     )
-    ( <S> | <CDO> | <CDC> )*
+    ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
   )
 }
 
 void styleDeclarationOrRuleWithNested() #void : {}
 {
-  ( LOOKAHEAD( property() <COLON> ) styleDeclaration() ( LOOKAHEAD( (<S>)* (<RBRACE> | <EOF>) ) (<S>)* | (<S>)* <SEMICOLON> (<S>)* )
-  | <SEMICOLON> (<S>)* // final semicolon from single line comment
+  ( LOOKAHEAD( property() <COLON> ) styleDeclaration() ( LOOKAHEAD( (<S>)* (<RBRACE> | <EOF>) ) ( LOOKAHEAD(1) ( <S> ) )* | ( LOOKAHEAD(1) ( <S> ) )* <SEMICOLON> ( LOOKAHEAD(1) ( <S> ) )* )
+  | <SEMICOLON> ( LOOKAHEAD(1) ( <S> ) )* // final semicolon from single line comment
   | ( styleRule()
     | mediaRule()     { }
     | pageRule()      { errorUnexpectedRule ("@page", "page rule is not allowed as a nested rule!"); }
@@ -1296,17 +1315,17 @@ void styleDeclarationOrRuleWithNested() #void : {}
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule is not allowed as a nested rule!"); }
     | layerRule()     { }
     )
-    ( <S> | <CDO> | <CDC> )*
+    ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
   )
 }
 
 CSSNode styleDeclarationList() : {}
 {
 try {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( styleDeclarationOrRule() )?
   ( <SEMICOLON>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     ( styleDeclarationOrRule() )?
   )*
 } catch (/*final*/ ParseException ex) {
@@ -1323,7 +1342,7 @@ try {
 CSSNode styleDeclarationListWithNested() : {}
 {
 try {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( styleDeclarationOrRuleWithNested() )*
 } catch (/*final*/ ParseException ex) {
   if (m_bBrowserCompliantMode)
@@ -1368,11 +1387,11 @@ void styleRule() : {}
 {
 try{
   selectorOrRelativeSelector ()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( <COMMA>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     selectorOrRelativeSelector()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )*
   styleDeclarationBlockWithNested()
 } catch (/*final*/ ParseException ex) {
@@ -1408,29 +1427,29 @@ void mediaFeature() : {}
 void mediaExpr() : {}
 {
   <LROUND>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   mediaFeature()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( <COLON>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     expr()
   )?
   <RROUND>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
 }
 
 void mediaQuery() : {}
 {
   ( mediaModifier()
     medium()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     ( <AND_SYM>
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
       mediaExpr()
     )*
   | mediaExpr()
     ( <AND_SYM>
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
       mediaExpr()
     )*
   )
@@ -1439,9 +1458,9 @@ void mediaQuery() : {}
 void mediaList() : {}
 {
   mediaQuery()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( <COMMA>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     mediaQuery()
   )*
 }
@@ -1462,20 +1481,20 @@ void mediaRuleList() #void : {}
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @media rule is not allowed!"); }
     | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @media rule is not allowed!"); }
     )
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )+
 }
 
 void mediaRule() : {}
 {
   <MEDIA_SYM>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( mediaList() 
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )?
   <LBRACE>
 try{
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( mediaRuleList() )?
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
@@ -1504,14 +1523,14 @@ void pageSelector() :
   | <IDENT>          { jjtThis.setText (token.image); }
   )
   ( s = pseudoPage() { jjtThis.appendText (s); } )*
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
 }
 
 void pageSelectorList() #void : {}
 {
   pageSelector()
   ( <COMMA>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     pageSelector()
   )*
 }
@@ -1544,13 +1563,13 @@ void pageBody() #void : {}
 {
 /* the non-empty rule must come first! */
   ( pageMarginSymbol()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     styleDeclarationBlock()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     pageBody()
   | ( styleDeclaration() )?
     ( <SEMICOLON>
-      ( <S> )*
+      ( LOOKAHEAD(1) ( <S> ) )*
       pageBody()
     )?
   )
@@ -1560,7 +1579,7 @@ void pageRuleBlock() : {}
 {
   <LBRACE>
 try{
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   pageBody()
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
@@ -1574,9 +1593,9 @@ try{
 void pageRule() : {}
 {
   <PAGE_SYM>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( pageSelectorList() 
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )?
   pageRuleBlock()
 }
@@ -1589,11 +1608,11 @@ void layerSelector() : {}
 void layerSelectorList() : {}
 {
   layerSelector()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( <COMMA>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     layerSelector()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )*
 }
 
@@ -1610,7 +1629,7 @@ void layerBody() #void : {}
     | namespaceRule() { errorUnexpectedRule ("@namespace", "namespace rule in the middle of a @layer rule is not allowed!"); }
     | propertyRule()  { errorUnexpectedRule ("@property", "property rule in the middle of a @layer rule is not allowed!"); }
     )
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )+
 }
 
@@ -1618,7 +1637,7 @@ void layerRuleBlock() : {}
 {
   <LBRACE>
 try{
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   layerBody()
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
@@ -1632,13 +1651,13 @@ try{
 void layerRule() : {}
 {
   <LAYER_SYM>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( LOOKAHEAD(10, <IDENT> ( <S> )* <COMMA> | <IDENT> ( <S> )* <SEMICOLON>)
     layerSelectorList()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     <SEMICOLON>
   | ( layerSelector() )?
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     layerRuleBlock()
   )
 }
@@ -1649,7 +1668,7 @@ void layerRule() : {}
 void fontfaceRule() : {}
 {
   <FONTFACE_SYM>  { jjtThis.setText (token.image); }
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   styleDeclarationBlock()
 }
 
@@ -1673,20 +1692,20 @@ void singleKeyframeSelector() : {}
 void keyframesSelector() : {}
 {
   singleKeyframeSelector()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( <COMMA>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     singleKeyframeSelector()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )*
 }
 
 void keyframesBlocks() #void : {}
 {
   ( keyframesSelector()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     styleDeclarationBlock()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )*
 }
 
@@ -1695,10 +1714,10 @@ void keyframesRule() : {}
   <KEYFRAMES_SYM> { jjtThis.setText (token.image); }
   <S>
   keyframesIdentifier()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   <LBRACE>
 try{
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   keyframesBlocks()
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
@@ -1716,7 +1735,7 @@ try{
 void viewportRule() : {}
 {
   <VIEWPORT_SYM> { jjtThis.setText (token.image); }
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   styleDeclarationBlock()
 }
 
@@ -1727,7 +1746,7 @@ void viewportRule() : {}
 void supportsConditionInParens() : {}
 {
   "("
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( styleDeclaration()
   | supportsCondition()
   )
@@ -1738,7 +1757,7 @@ void supportsConditionInParens() : {}
 void supportsNegation() : {}
 {
   <NOT_SYM>
-  ( <S> )+
+  ( LOOKAHEAD(1) ( <S> ) )+
   supportsConditionInParens()
 }
 
@@ -1754,13 +1773,13 @@ void supportsCondition() : {}
   ( supportsNegation()
   | supportsConditionInParens()
     ( LOOKAHEAD(2)
-      ( <S> )+
+      ( LOOKAHEAD(1) ( <S> ) )+
       supportsConditionOperator()
-      ( <S> )+
+      ( LOOKAHEAD(1) ( <S> ) )+
       supportsConditionInParens()
     )*
   )
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
 }
 
 void supportsRuleBodyRule() #void : {}
@@ -1785,9 +1804,9 @@ void supportsRuleBody() #void : {}
 {
   <LBRACE>
 try{
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( supportsRuleBodyRule()
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
   )*
   <RBRACE>
 } catch (/*final*/ ParseException ex) {
@@ -1801,9 +1820,9 @@ try{
 void supportsRule() : {}
 {
   <SUPPORTS_SYM>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   supportsCondition()
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   supportsRuleBody()
 }
 
@@ -1866,14 +1885,14 @@ void propertyRuleDescriptor() : {}
   | <INHERITS_SYM> { jjtThis.setText (token.image); }
   | <INITIALVALUE_SYM> { jjtThis.setText (token.image); }
   )
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
 }
 
 void propertyRuleDeclaration() : {}
 {
   propertyRuleDescriptor()
   <COLON>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   propertyRuleExpression()
 }
 
@@ -1882,17 +1901,17 @@ void propertyRuleDeclarationOrInvalid() #void : {}
   ( propertyRuleDeclaration()
   | propertyRuleInvalidDeclaration()
   )
-  ( <S> | <CDO> | <CDC> )*
+  ( LOOKAHEAD(1) ( <S> | <CDO> | <CDC> ) )*
 }
 
 CSSNode propertyRuleDeclarationList() : {}
 {
 try {
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   ( propertyRuleDeclarationOrInvalid() )?
   (
     <SEMICOLON>
-    ( <S> )*
+    ( LOOKAHEAD(1) ( <S> ) )*
     ( propertyRuleDeclarationOrInvalid() )?
   )*
 } catch (/*final*/ ParseException ex) {
@@ -1909,9 +1928,9 @@ try {
 void propertyRule() : {}
 {
   <PROPERTY_SYM>
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   <DASHED_IDENT> { jjtThis.setText (token.image); }
-  ( <S> )*
+  ( LOOKAHEAD(1) ( <S> ) )*
   <LBRACE>
 try {
   propertyRuleDeclarationList()
