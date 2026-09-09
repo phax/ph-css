@@ -285,6 +285,67 @@ public class CSSPropertyRuleTest
   }
 
   @Test
+  public void testReadMultiTermValueStartingWithAString ()
+  {
+    // A descriptor value that starts with a string used to be cut short after that first string:
+    // propertyRuleExpression tried its single term alternative first, and both alternatives can
+    // begin with a string. Whatever followed was then left over and turned into a second child of
+    // the @property rule, which CSSNodeToDomainObject rejects outright.
+    CSSPropertyRule aPR = _parse (false, "@property --x { syntax: \"<length>\" \"<color>\"; }");
+    assertEquals (0, m_aPEH.getParseErrorCount ());
+    assertEquals (1, aPR.getDeclarationCount ());
+    assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
+    assertEquals ("\"<length>\" \"<color>\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
+  }
+
+  @Test
+  public void testReadMultiTermValueStartingWithAStringFollowedByAnIdentifier ()
+  {
+    CSSPropertyRule aPR = _parse (false, "@property --x { initial-value: \"foo\" bar; }");
+    assertEquals (0, m_aPEH.getParseErrorCount ());
+    assertEquals (1, aPR.getDeclarationCount ());
+    assertEquals ("initial-value", aPR.getDeclarationAtIndex (0).getDescriptor ());
+    assertEquals ("\"foo\" bar", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
+  }
+
+  @Test
+  public void testReadCommaSeparatedValueStartingWithAString ()
+  {
+    CSSPropertyRule aPR = _parse (false, "@property --x { initial-value: \"a\", \"b\"; }");
+    assertEquals (0, m_aPEH.getParseErrorCount ());
+    assertEquals (1, aPR.getDeclarationCount ());
+    assertEquals ("initial-value", aPR.getDeclarationAtIndex (0).getDescriptor ());
+    assertEquals ("\"a\",\"b\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
+  }
+
+  @Test
+  public void testReadMultiTermValueEndingWithAString ()
+  {
+    // The mirror image always worked - only a leading string hit the ambiguity - so this is what
+    // the case above is expected to behave like.
+    CSSPropertyRule aPR = _parse (false, "@property --x { initial-value: bar \"foo\"; }");
+    assertEquals (0, m_aPEH.getParseErrorCount ());
+    assertEquals (1, aPR.getDeclarationCount ());
+    assertEquals ("initial-value", aPR.getDeclarationAtIndex (0).getDescriptor ());
+    assertEquals ("bar \"foo\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
+  }
+
+  @Test
+  public void testReadMultiTermValueAmongOtherDeclarations ()
+  {
+    CSSPropertyRule aPR = _parse (false,
+                                  "@property --x { syntax: \"<angle>\"; inherits: false; initial-value: \"a\" \"b\"; }");
+    assertEquals (0, m_aPEH.getParseErrorCount ());
+    assertEquals (3, aPR.getDeclarationCount ());
+    assertEquals ("syntax", aPR.getDeclarationAtIndex (0).getDescriptor ());
+    assertEquals ("\"<angle>\"", aPR.getDeclarationAtIndex (0).getExpression ().getAsCSSString ());
+    assertEquals ("inherits", aPR.getDeclarationAtIndex (1).getDescriptor ());
+    assertEquals ("false", aPR.getDeclarationAtIndex (1).getExpression ().getAsCSSString ());
+    assertEquals ("initial-value", aPR.getDeclarationAtIndex (2).getDescriptor ());
+    assertEquals ("\"a\" \"b\"", aPR.getDeclarationAtIndex (2).getExpression ().getAsCSSString ());
+  }
+
+  @Test
   public void testReadSelectorWithPropertyRuleKeywords ()
   {
     ICommonsList <CSSStyleRule> aRules = _parseStyleRules ("""

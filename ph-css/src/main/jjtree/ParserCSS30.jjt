@@ -1189,21 +1189,30 @@ void funcNot() : {}
 void simpleSelectorSequence() #void : {}
 {
   LOOKAHEAD(4)
+  // The LOOKAHEAD(4) above decides between the three alternatives of this choice; it says nothing
+  // about the loops inside them, which need their own. Both loops overlap with what follows,
+  // because a simple selector sequence is itself called in a loop and the next one can start with
+  // the same token. Greedy is what CSS wants: with no combinator in between, "#a#b" is one
+  // compound selector.
   ( typeSelector()
-    ( idSelector()
-    | classSelector()
-    | attributeSelector()
-    | nestingSelector()
-    | pseudoClassSelector()
-    | funcNot()
+    ( LOOKAHEAD(1)
+      ( idSelector()
+      | classSelector()
+      | attributeSelector()
+      | nestingSelector()
+      | pseudoClassSelector()
+      | funcNot()
+      )
     )*
   )
-  | ( idSelector()
-    | classSelector()
-    | attributeSelector()
-    | nestingSelector()
-    | pseudoClassSelector()
-    | funcNot()
+  | ( LOOKAHEAD(1)
+      ( idSelector()
+      | classSelector()
+      | attributeSelector()
+      | nestingSelector()
+      | pseudoClassSelector()
+      | funcNot()
+      )
     )+
 // Extension for CSS animations (e.g. 50%)
   | <PERCENTAGE>
@@ -1845,7 +1854,12 @@ void propertyRuleSimpleExpression() #expr : {}
 
 void propertyRuleExpression() #void : {}
 {
-  ( propertyRuleSimpleExpression()
+  // Both alternatives can start with a string, so the first one used to win unconditionally and
+  // swallow just the leading term: "initial-value: \"foo\" bar" left "bar" behind and the rule then
+  // came out with two children, which CSSNodeToDomainObject rejects. Take the single term form only
+  // when that term really is the whole value; anything longer is an ordinary expression.
+  ( LOOKAHEAD( propertyRuleSimpleExpressionTerm() ( <S> )* ( <SEMICOLON> | <RBRACE> ) )
+    propertyRuleSimpleExpression()
   | expr()
   )
 }
