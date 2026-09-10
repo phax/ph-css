@@ -48,10 +48,10 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
   public CollectingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
-                                                                                                                throws ParseException
+  public void onCSSParseError (@NonNull final ParseException aParseEx,
+                               @Nullable final Token aLastSkippedToken) throws ParseException
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       if (aParseEx.expectedTokenSequences == null)
         m_aErrors.add (new CSSParseError (aParseEx.getMessage ()));
       else
@@ -66,26 +66,26 @@ public class CollectingCSSParseErrorHandler implements ICSSParseErrorHandler
                                    @NonNull @Nonempty final String sRule,
                                    @NonNull @Nonempty final String sMsg) throws ParseException
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
+    m_aRWLock.writeLocked (() -> m_aErrors.add (CSSParseError.createUnexpectedRule (aCurrentToken, sRule, sMsg)));
   }
 
   public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createDeprecatedProperty (aPrefixToken,
-                                                                                         aIdentifierToken)));
+    m_aRWLock.writeLocked (() -> m_aErrors.add (CSSParseError.createDeprecatedProperty (aPrefixToken,
+                                                                                        aIdentifierToken)));
   }
 
   public void onCSSBrowserCompliantSkip (@Nullable final ParseException ex,
                                          @NonNull final Token aFromToken,
                                          @NonNull final Token aToToken) throws ParseException
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
+    m_aRWLock.writeLocked (() -> m_aErrors.add (CSSParseError.createBrowserCompliantSkip (ex, aFromToken, aToToken)));
   }
 
   @Override
   public void onIllegalCharacter (final char cIllegalChar)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (CSSParseError.createIllegalCharacter (cIllegalChar)));
+    m_aRWLock.writeLocked (() -> m_aErrors.add (CSSParseError.createIllegalCharacter (cIllegalChar)));
   }
 
   /**

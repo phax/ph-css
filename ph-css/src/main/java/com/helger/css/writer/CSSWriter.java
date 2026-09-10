@@ -243,8 +243,8 @@ public class CSSWriter
    *         In case some elements cannot be written in the version supplied in the constructor.
    * @see #getCSSAsString(CascadingStyleSheet)
    */
-  public void writeCSS (@NonNull final CascadingStyleSheet aCSS, @NonNull @WillClose final Writer aWriter)
-                                                                                                           throws IOException
+  public void writeCSS (@NonNull final CascadingStyleSheet aCSS,
+                        @NonNull @WillClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aCSS, "CSS");
     ValueEnforcer.notNull (aWriter, "Writer");

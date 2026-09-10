@@ -38,8 +38,8 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
   public ThrowingCSSParseErrorHandler ()
   {}
 
-  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
-                                                                                                                throws ParseException
+  public void onCSSParseError (@NonNull final ParseException aParseEx,
+                               @Nullable final Token aLastSkippedToken) throws ParseException
   {
     throw aParseEx;
   }
@@ -53,8 +53,8 @@ public class ThrowingCSSParseErrorHandler implements ICSSParseErrorHandler
                                                                                              sMsg));
   }
 
-  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
-                                                                                                                 throws ParseException
+  public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken,
+                                       @NonNull final Token aIdentifierToken) throws ParseException
   {
     throw new ParseException (LoggingCSSParseErrorHandler.createLoggingStringDeprecatedProperty (aPrefixToken,
                                                                                                  aIdentifierToken));

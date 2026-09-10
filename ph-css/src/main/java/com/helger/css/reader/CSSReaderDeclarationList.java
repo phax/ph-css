@@ -92,7 +92,7 @@ public final class CSSReaderDeclarationList
   @Nullable
   public static ICSSParseErrorHandler getDefaultParseErrorHandler ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultParseErrorHandler);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultParseErrorHandler);
   }
 
   /**
@@ -105,7 +105,7 @@ public final class CSSReaderDeclarationList
    */
   public static void setDefaultParseErrorHandler (@Nullable final ICSSParseErrorHandler aDefaultParseErrorHandler)
   {
-    RW_LOCK.writeLocked ( () -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
+    RW_LOCK.writeLocked (() -> s_aDefaultParseErrorHandler = aDefaultParseErrorHandler);
   }
 
   /**
@@ -117,7 +117,7 @@ public final class CSSReaderDeclarationList
   @NonNull
   public static ICSSParseExceptionCallback getDefaultParseExceptionHandler ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultParseExceptionHandler);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultParseExceptionHandler);
   }
 
   /**
@@ -131,7 +131,7 @@ public final class CSSReaderDeclarationList
   {
     ValueEnforcer.notNull (aDefaultParseExceptionHandler, "DefaultParseExceptionHandler");
 
-    RW_LOCK.writeLocked ( () -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
+    RW_LOCK.writeLocked (() -> s_aDefaultParseExceptionHandler = aDefaultParseExceptionHandler);
   }
 
   /**
@@ -142,7 +142,7 @@ public final class CSSReaderDeclarationList
   @NonNull
   public static ICSSInterpretErrorHandler getDefaultInterpretErrorHandler ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultInterpretErrorHandler);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultInterpretErrorHandler);
   }
 
   /**
@@ -157,7 +157,7 @@ public final class CSSReaderDeclarationList
   {
     ValueEnforcer.notNull (aDefaultErrorHandler, "DefaultErrorHandler");
 
-    RW_LOCK.writeLocked ( () -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
+    RW_LOCK.writeLocked (() -> s_aDefaultInterpretErrorHandler = aDefaultErrorHandler);
   }
 
   /**
