@@ -100,9 +100,7 @@ public abstract class AbstractFuncTestCSSReader
       final CascadingStyleSheet aCSSReRead = CSSReader.readFromStringReader (sCSS, m_aReaderSettings);
       assertNotNull ("Failed to parse " + sFilename + ":\n" + sCSS, aCSSReRead);
       final String sCSS2 = new CSSWriter (m_aWriterSettings.setOptimizedOutput (true)).getCSSAsString (aCSSReRead);
-      assertEquals ("Optimized output is not idempotent for " + sFilename + "\n" + sCSS + "\n" + sCSS2,
-                    sCSS,
-                    sCSS2);
+      assertEquals ("Optimized output is not idempotent for " + sFilename + "\n" + sCSS + "\n" + sCSS2, sCSS, sCSS2);
 
       // Write non-optimized version and compare it
       sCSS = new CSSWriter (m_aWriterSettings.setOptimizedOutput (false)).getCSSAsString (aCSS);

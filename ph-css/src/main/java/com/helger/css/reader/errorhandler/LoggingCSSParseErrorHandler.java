@@ -121,8 +121,8 @@ public class LoggingCSSParseErrorHandler implements ICSSParseErrorHandler
     return retval.toString ();
   }
 
-  public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
-                                                                                                                throws ParseException
+  public void onCSSParseError (@NonNull final ParseException aParseEx,
+                               @Nullable final Token aLastSkippedToken) throws ParseException
   {
     if (aParseEx.expectedTokenSequences == null)
       LOGGER.warn (aParseEx.getMessage ());

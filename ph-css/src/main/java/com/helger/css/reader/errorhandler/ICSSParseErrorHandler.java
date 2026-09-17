@@ -90,8 +90,9 @@ public interface ICSSParseErrorHandler
    *         In case the error is fatal and should be propagated.
    * @see com.helger.css.reader.CSSReaderSettings#setBrowserCompliantMode(boolean)
    */
-  void onCSSBrowserCompliantSkip (@Nullable ParseException ex, @NonNull Token aFromToken, @NonNull Token aToToken)
-                                                                                                                   throws ParseException;
+  void onCSSBrowserCompliantSkip (@Nullable ParseException ex,
+                                  @NonNull Token aFromToken,
+                                  @NonNull Token aToToken) throws ParseException;
 
   /**
    * This method is invoked, when an illegal character is encountered (in TokenManager), and the
@@ -120,8 +121,8 @@ public interface ICSSParseErrorHandler
 
     return new ICSSParseErrorHandler ()
     {
-      public void onCSSParseError (@NonNull final ParseException aParseEx, @Nullable final Token aLastSkippedToken)
-                                                                                                                    throws ParseException
+      public void onCSSParseError (@NonNull final ParseException aParseEx,
+                                   @Nullable final Token aLastSkippedToken) throws ParseException
       {
         aThis.onCSSParseError (aParseEx, aLastSkippedToken);
         aOther.onCSSParseError (aParseEx, aLastSkippedToken);
@@ -135,8 +136,8 @@ public interface ICSSParseErrorHandler
         aOther.onCSSUnexpectedRule (aCurrentToken, sRule, sMsg);
       }
 
-      public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken, @NonNull final Token aIdentifierToken)
-                                                                                                                     throws ParseException
+      public void onCSSDeprecatedProperty (@NonNull final Token aPrefixToken,
+                                           @NonNull final Token aIdentifierToken) throws ParseException
       {
         aThis.onCSSDeprecatedProperty (aPrefixToken, aIdentifierToken);
         aOther.onCSSDeprecatedProperty (aPrefixToken, aIdentifierToken);

@@ -192,7 +192,7 @@ public final class CSSShortHandRegistry
     ValueEnforcer.notNull (aDescriptor, "Descriptor");
 
     final ECSSProperty eProperty = aDescriptor.getProperty ();
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       if (MAP.containsKey (eProperty))
         throw new IllegalStateException ("A short hand for property '" +
                                          eProperty.getName () +
@@ -213,7 +213,7 @@ public final class CSSShortHandRegistry
     if (eProperty == null)
       return false;
 
-    return RW_LOCK.readLockedBoolean ( () -> MAP.containsKey (eProperty));
+    return RW_LOCK.readLockedBoolean (() -> MAP.containsKey (eProperty));
   }
 
   @Nullable
@@ -222,6 +222,6 @@ public final class CSSShortHandRegistry
     if (eProperty == null)
       return null;
 
-    return RW_LOCK.readLockedGet ( () -> MAP.get (eProperty));
+    return RW_LOCK.readLockedGet (() -> MAP.get (eProperty));
   }
 }
