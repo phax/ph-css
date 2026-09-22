@@ -328,6 +328,9 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.2.2 - work in progress
+* Requires at least ph-commons 12.5.0
+
 v8.2.1 - 2026-05-16
 * Optimized output now compacts the box-model shorthand properties (`margin`, `padding`, `border-width`, `border-style`, `border-color`) so that e.g. `padding:10px 10px 10px 10px` is written as `padding:10px`. See [#126](https://github.com/phax/ph-css/issues/126) - thx @cjohansen
     * New extension point `CSSShortHandDescriptor.getOptimizedExpression` for descriptors that want to rewrite their expression on optimized write

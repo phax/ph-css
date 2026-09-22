@@ -45,7 +45,7 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
 
   public CSSExpressionMemberMathUnitSimple (@NonNull @Nonempty final String sText)
   {
-    if (StringHelper.isEmptyAfterTrim (sText))
+    if (StringHelper.isBlank (sText))
       throw new IllegalArgumentException ("text may not be empty after trimming");
     m_sText = sText.trim ();
     m_eUnit = CSSNumberHelper.getMatchingUnitExclPercentage (m_sText);
