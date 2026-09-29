@@ -328,7 +328,7 @@ Configuration items are:
 
 ## News and noteworthy
 
-v8.2.2 - work in progress
+v8.2.2 - 2026-09-29
 * Added support for the range context of media queries (Media Queries Level 4) as in `@media (width >= 600px)`.
   See [#139](https://github.com/phax/ph-css/pull/139) - thx @shagkur
     * New enum `ECSSMediaRangeOperator` with the comparison operators `<`, `<=`, `>`, `>=` and `=`
