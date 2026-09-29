@@ -1120,28 +1120,52 @@ final class CSSNodeToDomainObject
   {
     _expectNodeType (aNode, ECSSNodeType.MEDIAEXPR);
     final int nChildCount = aNode.jjtGetNumChildren ();
-    if (nChildCount != 1 && nChildCount != 2)
-      _throwUnexpectedChildrenCount (aNode, "Expected 1 or 2 children but got " + nChildCount + "!");
+    if (nChildCount < 1 || nChildCount > 5)
+      _throwUnexpectedChildrenCount (aNode, "Expected 1 to 5 children but got " + nChildCount + "!");
 
-    final CSSNode aFeatureNode = aNode.jjtGetChild (0);
-    if (!ECSSNodeType.MEDIAFEATURE.isNode (aFeatureNode))
-      throw new IllegalStateException ("Expected a media feature but got " + ECSSNodeType.getNodeName (aFeatureNode));
-    final String sFeature = aFeatureNode.getText ();
+    // Children in document order: [value operator] feature [operator value] resp. [feature value]
+    CSSExpression aLeftValue = null;
+    ECSSMediaRangeOperator eLeftOperator = null;
+    String sFeature = null;
+    ECSSMediaRangeOperator eRightOperator = null;
+    CSSExpression aValue = null;
+    for (final CSSNode aChildNode : aNode)
+    {
+      if (ECSSNodeType.MEDIAFEATURE.isNode (aChildNode))
+        sFeature = aChildNode.getText ();
+      else
+        if (ECSSNodeType.MEDIARANGEOPERATOR.isNode (aChildNode))
+        {
+          final String sText = aChildNode.getText ();
+          final ECSSMediaRangeOperator eOperator = ECSSMediaRangeOperator.getFromNameOrNull (sText);
+          if (eOperator == null)
+            m_aErrorHandler.onCSSInterpretationError ("Failed to parse media range operator '" + sText + "'");
+          else
+            if (sFeature == null)
+              eLeftOperator = eOperator;
+            else
+              eRightOperator = eOperator;
+        }
+        else
+          if (ECSSNodeType.EXPR.isNode (aChildNode))
+          {
+            if (sFeature == null)
+              aLeftValue = _createExpression (aChildNode);
+            else
+              aValue = _createExpression (aChildNode);
+          }
+          else
+            m_aErrorHandler.onCSSInterpretationError ("Unsupported child of " +
+                                                      ECSSNodeType.getNodeName (aNode) +
+                                                      ": " +
+                                                      ECSSNodeType.getNodeName (aChildNode));
+    }
+    if (sFeature == null)
+      throw new IllegalStateException ("Expected a media feature but got none");
     if (ECSSMediaExpressionFeature.getFromNameOrNull (sFeature) == null)
       m_aErrorHandler.onCSSInterpretationWarning ("Media expression uses unknown feature '" + sFeature + "'");
 
-    CSSMediaExpression ret;
-    if (nChildCount == 1)
-    {
-      // Feature only
-      ret = new CSSMediaExpression (sFeature);
-    }
-    else
-    {
-      // Feature + value
-      final CSSNode aValueNode = aNode.jjtGetChild (1);
-      ret = new CSSMediaExpression (sFeature, _createExpression (aValueNode));
-    }
+    final CSSMediaExpression ret = new CSSMediaExpression (aLeftValue, eLeftOperator, sFeature, eRightOperator, aValue);
     if (m_bUseSourceLocation)
       ret.setSourceLocation (aNode.getSourceLocation ());
     return ret;

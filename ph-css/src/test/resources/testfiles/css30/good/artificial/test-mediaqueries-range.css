@@ -1,0 +1,57 @@
+/**
+ * Copyright (C) 2014-2026 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Media Queries Level 4 range context - https://www.w3.org/TR/mediaqueries-4/#mq-range-context */
+@import url("print.css") (width >= 600px);
+
+@media (width >= 600px) {
+  .split { display: flex; }
+}
+
+@media (width>=768px){.container{max-width:720px}}
+@media (width<=576px){.container{max-width:100%}}
+
+@media (400px <= width <= 600px) {
+  .medium { display: block; }
+}
+
+@media (600px > width > 400px) {
+  .medium-exclusive { display: block; }
+}
+
+@media screen and (width > 768px), print and (height < 400px) {
+  .wide { display: block; }
+}
+
+@media only screen and (width>=992px) and (hover: hover) {
+  .hover { display: block; }
+}
+
+@media (aspect-ratio >= 16/9) and (resolution >= 2dppx) {
+  .hd { display: block; }
+}
+
+@media (width >= calc(100px + 2em)) {
+  .calc { display: block; }
+}
+
+@media (width = 600px) {
+  .exact { display: block; }
+}
+
+@media not all and (width >= 600px) {
+  .narrow { display: block; }
+}
