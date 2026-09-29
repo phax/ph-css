@@ -172,7 +172,8 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAwar
    * @param eRightOperator
    *        The comparison operator between the feature and the value. May be <code>null</code>, in
    *        which case a non-<code>null</code> value is written in the classic
-   *        <code>feature: value</code> form.
+   *        <code>feature: value</code> form. That classic form cannot be combined with a left
+   *        operator.
    * @param aValue
    *        The value after the feature. May be <code>null</code> unless <code>eRightOperator</code>
    *        is present.
@@ -187,6 +188,8 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAwar
     ValueEnforcer.isTrue ((aLeftValue == null) == (eLeftOperator == null),
                           "Left value and left operator must be present or absent together");
     ValueEnforcer.isTrue (eRightOperator == null || aValue != null, "A right operator requires a value");
+    ValueEnforcer.isTrue (eLeftOperator == null || eRightOperator != null || aValue == null,
+                          "The classic 'feature: value' form cannot be combined with a left operator");
     m_aRangeLeftValue = aLeftValue;
     m_eRangeLeftOperator = eLeftOperator;
     m_sFeature = sFeature;

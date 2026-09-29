@@ -282,5 +282,15 @@ public final class CSSMediaExpressionTest
     {
       // expected
     }
+    try
+    {
+      // A left operator plus the classic "feature: value" form would create "(600px < width:900px)"
+      new CSSMediaExpression (a600, ECSSMediaRangeOperator.LESS, "width", null, a900);
+      org.junit.Assert.fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
   }
 }

@@ -32,7 +32,7 @@ import com.helger.css.ICSSWriterSettings;
  *
  * @see <a href="https://www.w3.org/TR/mediaqueries-4/#mq-range-context">Media Queries Level 4 -
  *      Range context</a>
- * @since 8.1.2-unblu-4
+ * @since 8.2.2
  */
 public enum ECSSMediaRangeOperator implements ICSSWriteable, IHasName
 {

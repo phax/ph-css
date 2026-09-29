@@ -668,7 +668,13 @@ catch (/* final */ ParseException ex) {
 
 void syntaxCrap() #void : {}
 {
-  <UNKNOWN>
+  // The media range operators are regular tokens in the DEFAULT state, so they no
+  // longer fall through to <UNKNOWN> and must be listed here explicitly
+  ( <UNKNOWN>
+  | <LESS>
+  | <LESS_EQUALS>
+  | <GREATER_EQUALS>
+  )
 //try {
 //} catch (final ParseEOFException ex) {
 //  if (m_bBrowserCompliantMode) {
