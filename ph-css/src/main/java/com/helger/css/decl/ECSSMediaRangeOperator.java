@@ -28,7 +28,8 @@ import com.helger.css.ICSSWriterSettings;
 
 /**
  * Enumeration with the comparison operators of the Media Queries Level 4 range context as in
- * <code>(width <b>&gt;=</b> 600px)</code> or <code>(400px <b>&lt;=</b> width <b>&lt;=</b> 600px)</code>.
+ * <code>(width <b>&gt;=</b> 600px)</code> or
+ * <code>(400px <b>&lt;=</b> width <b>&lt;=</b> 600px)</code>.
  *
  * @see <a href="https://www.w3.org/TR/mediaqueries-4/#mq-range-context">Media Queries Level 4 -
  *      Range context</a>

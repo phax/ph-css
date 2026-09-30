@@ -163,10 +163,11 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAwar
    * <code>(400px &lt;= width &lt;= 600px)</code>.
    *
    * @param aLeftValue
-   *        The value in front of the feature. May be <code>null</code>. Must be present if and only if
-   *        <code>eLeftOperator</code> is present.
+   *        The value in front of the feature. May be <code>null</code>. Must be present if and only
+   *        if <code>eLeftOperator</code> is present.
    * @param eLeftOperator
-   *        The comparison operator between the left value and the feature. May be <code>null</code>.
+   *        The comparison operator between the left value and the feature. May be
+   *        <code>null</code>.
    * @param sFeature
    *        The media feature name. May neither be <code>null</code> nor empty.
    * @param eRightOperator
@@ -208,7 +209,8 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAwar
   }
 
   /**
-   * @return The comparison operator between the left value and the feature. May be <code>null</code>.
+   * @return The comparison operator between the left value and the feature. May be
+   *         <code>null</code>.
    */
   @Nullable
   public final ECSSMediaRangeOperator getRangeLeftOperator ()
@@ -228,8 +230,8 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAwar
 
   /**
    * @return The comparison operator between the feature and the value in the range context
-   *         (<code>&gt;=</code> in <code>(width &gt;= 600px)</code>). <code>null</code> if the value
-   *         is absent or uses the classic <code>feature: value</code> form.
+   *         (<code>&gt;=</code> in <code>(width &gt;= 600px)</code>). <code>null</code> if the
+   *         value is absent or uses the classic <code>feature: value</code> form.
    */
   @Nullable
   public final ECSSMediaRangeOperator getRangeRightOperator ()

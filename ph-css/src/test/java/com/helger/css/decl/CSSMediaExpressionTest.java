@@ -45,9 +45,11 @@ public final class CSSMediaExpressionTest
   private static CSSMediaQuery _parseSingleQuery (@NonNull final String sMediaQuery)
   {
     // Strict mode: the media rule must be parsed, not skipped
-    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader ("@media " + sMediaQuery + " { div { color: red } }",
-                                                               new CSSReaderSettings ().setBrowserCompliantMode (false)
-                                                                                       .setCustomErrorHandler (new DoNothingCSSParseErrorHandler ()));
+    final CascadingStyleSheet aCSS = CSSReader.readFromStringReader ("@media " +
+                                                                     sMediaQuery +
+                                                                     " { div { color: red } }",
+                                                                     new CSSReaderSettings ().setBrowserCompliantMode (false)
+                                                                                             .setCustomErrorHandler (new DoNothingCSSParseErrorHandler ()));
     assertNotNull (sMediaQuery, aCSS);
     assertEquals (sMediaQuery, 1, aCSS.getMediaRuleCount ());
     final CSSMediaRule aMediaRule = aCSS.getMediaRuleAtIndex (0);
@@ -191,7 +193,8 @@ public final class CSSMediaExpressionTest
     assertEquals (1, aCSS.getMediaRuleCount ());
     assertEquals (2, aCSS.getMediaRuleAtIndex (0).getMediaQueryCount ());
     assertEquals ("(width >= 768px)", aCSS.getMediaRuleAtIndex (0).getMediaQueryAtIndex (0).getAsCSSString (WS, 0));
-    assertEquals ("print and (height < 400px)", aCSS.getMediaRuleAtIndex (0).getMediaQueryAtIndex (1).getAsCSSString (WS, 0));
+    assertEquals ("print and (height < 400px)",
+                  aCSS.getMediaRuleAtIndex (0).getMediaQueryAtIndex (1).getAsCSSString (WS, 0));
   }
 
   @Test
@@ -219,7 +222,7 @@ public final class CSSMediaExpressionTest
     final CSSReaderSettings aLenient = new CSSReaderSettings ().setBrowserCompliantMode (true)
                                                                .setCustomErrorHandler (new DoNothingCSSParseErrorHandler ());
     final CascadingStyleSheet aCSS = CSSReader.readFromStringReader ("@media (width >=) { div { color: red } } p { color: blue }",
-                                                               aLenient);
+                                                                     aLenient);
     assertNotNull (aCSS);
     assertEquals (0, aCSS.getMediaRuleCount ());
     assertEquals (1, aCSS.getStyleRuleCount ());
@@ -256,7 +259,8 @@ public final class CSSMediaExpressionTest
                                                              ECSSMediaRangeOperator.LESS_EQUALS,
                                                              a900);
     assertEquals ("(600px <= width <= 900px)", aBoth.getAsCSSString (WS, 0));
-    TestHelper.testDefaultImplementationWithEqualContentObject (aBoth, _parseSingleExpression ("(600px<=width<=900px)"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aBoth,
+                                                                _parseSingleExpression ("(600px<=width<=900px)"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (aBoth, aValueFirst);
 
     // Classic form is untouched
