@@ -134,6 +134,13 @@ public final class CSSParseHelper
     int nReferenceOffset = 0;
     while (nIndex >= 0)
     {
+      if (nIndex + 1 >= sEscapedURL.length ())
+      {
+        // A trailing backslash does not escape anything and is kept as is
+        nIndex = -1;
+        break;
+      }
+
       int nCodePoint = -1;
 
       final char c1 = sEscapedURL.charAt (nIndex + 1);
@@ -205,6 +212,14 @@ public final class CSSParseHelper
           }
 
           nCodePoint = _parseIntFromReference (sEscapedURL, nIndex + 1, f, 16);
+
+          // A surrogate or a value above the maximum code point is not a valid character, so it
+          // is replaced with U+FFFD as described in CSS Syntax Level 3, section 4.3.7
+          if (nCodePoint > Character.MAX_CODE_POINT ||
+              (nCodePoint >= Character.MIN_SURROGATE && nCodePoint <= Character.MAX_SURROGATE))
+          {
+            nCodePoint = 0xFFFD;
+          }
 
           // Fast-forward to the first char after the parsed codepoint
           nReferenceOffset = f - 1;
