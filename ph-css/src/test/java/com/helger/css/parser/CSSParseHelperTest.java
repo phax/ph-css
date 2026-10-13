@@ -65,5 +65,11 @@ public final class CSSParseHelperTest
     assertEquals ("a\uFFFDb", CSSParseHelper.unescapeURL ("a\\d800 b"));
     assertEquals ("\uD83D\uDE00", CSSParseHelper.unescapeURL ("\\1F600"));
     assertEquals ("bla.gif\\", CSSParseHelper.unescapeURL ("bla.gif\\"));
+    assertEquals ("a\uFFFDb", CSSParseHelper.unescapeURL ("a\\0 b"));
+    assertEquals ("a\uFFFDb", CSSParseHelper.unescapeURL ("a\\000000b"));
+    assertEquals ("/a/b", CSSParseHelper.unescapeURL ("\\2f\ta\\2f\nb"));
+    assertEquals ("/a/b", CSSParseHelper.unescapeURL ("\\2f\fa\\2f\r\nb"));
+    assertEquals ("/a/b", CSSParseHelper.unescapeURL ("\\2f\ra\\2f b"));
+    assertEquals ("/ a", CSSParseHelper.unescapeURL ("\\2f  a"));
   }
 }

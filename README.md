@@ -328,6 +328,12 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.2.3 - 2026-10-13
+* Fixed `CSSParseHelper.unescapeURL` for hex escapes above U+10FFFF or in the surrogate range, and for a trailing backslash.
+  See [#140](https://github.com/phax/ph-css/pull/140) - thx @Shaisolaris
+* `CSSParseHelper.unescapeURL` now replaces the hex escape `\0` with U+FFFD as defined in CSS Syntax Level 3
+* `CSSParseHelper.unescapeURL` now consumes a tab, newline (`\n`, `\r\n`, `\r`) or form feed after a hex escape, not only a space
+
 v8.2.2 - 2026-09-29
 * Added support for the range context of media queries (Media Queries Level 4) as in `@media (width >= 600px)`.
   See [#139](https://github.com/phax/ph-css/pull/139) - thx @shagkur
@@ -337,7 +343,8 @@ v8.2.2 - 2026-09-29
 * Requires at least ph-commons 12.5.0
 
 v8.2.1 - 2026-05-16
-* Optimized output now compacts the box-model shorthand properties (`margin`, `padding`, `border-width`, `border-style`, `border-color`) so that e.g. `padding:10px 10px 10px 10px` is written as `padding:10px`. See [#126](https://github.com/phax/ph-css/issues/126) - thx @cjohansen
+* Optimized output now compacts the box-model shorthand properties (`margin`, `padding`, `border-width`, `border-style`, `border-color`) so that e.g. `padding:10px 10px 10px 10px` is written as `padding:10px`.
+  See [#126](https://github.com/phax/ph-css/issues/126) - thx @cjohansen
     * New extension point `CSSShortHandDescriptor.getOptimizedExpression` for descriptors that want to rewrite their expression on optimized write
     * Formatted (non-optimized) output is unchanged
 

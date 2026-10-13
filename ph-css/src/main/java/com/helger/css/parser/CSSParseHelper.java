@@ -163,7 +163,7 @@ public final class CSSParseHelper
         case '*':
         case '+':
         case ',':
-          // hyphen: will only be escaped when identifer starts with '--' or '-{digit}'
+          // hyphen: will only be escaped when identifier starts with '--' or '-{digit}'
         case '-':
         case '.':
         case '/':
@@ -198,7 +198,7 @@ public final class CSSParseHelper
       {
         if ((c1 >= '0' && c1 <= '9') || (c1 >= 'A' && c1 <= 'F') || (c1 >= 'a' && c1 <= 'f'))
         {
-          // This is a hexa escape
+          // This is a hex escape
 
           int f = nIndex + 2;
           while (f < (nIndex + 7) && f < sEscapedURL.length ())
@@ -213,9 +213,10 @@ public final class CSSParseHelper
 
           nCodePoint = _parseIntFromReference (sEscapedURL, nIndex + 1, f, 16);
 
-          // A surrogate or a value above the maximum code point is not a valid character, so it
-          // is replaced with U+FFFD as described in CSS Syntax Level 3, section 4.3.7
-          if (nCodePoint > Character.MAX_CODE_POINT ||
+          // Zero, a surrogate or a value above the maximum code point is not a valid character, so
+          // it is replaced with U+FFFD as described in CSS Syntax Level 3, section 4.3.7
+          if (nCodePoint == 0 ||
+              nCodePoint > Character.MAX_CODE_POINT ||
               (nCodePoint >= Character.MIN_SURROGATE && nCodePoint <= Character.MAX_SURROGATE))
           {
             nCodePoint = 0xFFFD;
@@ -224,10 +225,20 @@ public final class CSSParseHelper
           // Fast-forward to the first char after the parsed codepoint
           nReferenceOffset = f - 1;
 
-          // If there is a whitespace after the escape, just ignore it.
-          if (f < sEscapedURL.length () && sEscapedURL.charAt (f) == ' ')
+          // If there is a whitespace after the escape, just ignore it. "\r\n" counts as a single
+          // whitespace as described in CSS Syntax Level 3, section 3.3
+          if (f < sEscapedURL.length ())
           {
-            nReferenceOffset++;
+            final char cf = sEscapedURL.charAt (f);
+            if (cf == ' ' || cf == '\t' || cf == '\n' || cf == '\f')
+              nReferenceOffset++;
+            else
+              if (cf == '\r')
+              {
+                nReferenceOffset++;
+                if (f + 1 < sEscapedURL.length () && sEscapedURL.charAt (f + 1) == '\n')
+                  nReferenceOffset++;
+              }
           }
 
           // Don't continue here, just let the unescape code below do its job
