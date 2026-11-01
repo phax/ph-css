@@ -62,7 +62,7 @@ public class CSSPropertyNumber extends AbstractCSSProperty
   @OverridingMethodsMustInvokeSuper
   public boolean isValidValue (@Nullable final String sValue)
   {
-    return super.isValidValue (sValue) || CSSNumberHelper.isValueWithUnit (sValue, m_bWithPercentage);
+    return super.isValidValue (sValue) || CSSNumberHelper.isValueWithUnitOrFunction (sValue, m_bWithPercentage);
   }
 
   @NonNull

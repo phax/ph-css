@@ -19,11 +19,12 @@ package com.helger.css.property;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.base.string.StringParser;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
+import com.helger.css.utils.CSSNumberHelper;
 
 /**
  * CSS property that is either an enumeration or a long value without a unit (e.g. flex-grow)
@@ -53,7 +54,9 @@ public class CSSPropertyLong extends AbstractCSSProperty
 
   public static boolean isValidPropertyValue (@Nullable final String sValue)
   {
-    return AbstractCSSProperty.isValidPropertyValue (sValue) || StringParser.parseLongObj (sValue) != null;
+    return AbstractCSSProperty.isValidPropertyValue (sValue) ||
+           StringParser.parseLongObj (sValue) != null ||
+           CSSNumberHelper.isNumericFunction (sValue);
   }
 
   @Override

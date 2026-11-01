@@ -16,6 +16,8 @@
  */
 package com.helger.css.property;
 
+import java.util.Locale;
+
 import java.util.Set;
 
 import org.jspecify.annotations.NonNull;
@@ -135,7 +137,12 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   @OverridingMethodsMustInvokeSuper
   public boolean isValidValue (@Nullable final String sValue)
   {
-    return super.isValidValue (sValue) || m_aEnumValues.contains (sValue);
+    if (super.isValidValue (sValue))
+      return true;
+
+    // CSS keywords are ASCII case insensitive
+    return sValue != null &&
+           (m_aEnumValues.contains (sValue) || m_aEnumValues.contains (sValue.toLowerCase (Locale.ROOT)));
   }
 
   @NonNull

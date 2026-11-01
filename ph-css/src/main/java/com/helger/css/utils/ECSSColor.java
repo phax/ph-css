@@ -154,6 +154,7 @@ public enum ECSSColor implements ICSSNamedColor
   PLUM ("plum", 221, 160, 221),
   POWDERBLUE ("powderblue", 176, 224, 230),
   PURPLE ("purple", 128, 0, 128),
+  REBECCAPURPLE ("rebeccapurple", 102, 51, 153),
   RED ("red", 255, 0, 0),
   ROSYBROWN ("rosybrown", 188, 143, 143),
   ROYALBLUE ("royalblue", 65, 105, 225),

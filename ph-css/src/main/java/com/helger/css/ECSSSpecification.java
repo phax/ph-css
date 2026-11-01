@@ -291,6 +291,103 @@ public enum ECSSSpecification implements IHasID <String>
   CSS4_IMAGES ("css4-images", ECSSSpecificationStatus.EXPLORING, "http://www.w3.org/TR/2012/WD-css4-images-20120911/"),
 
   /*
+   * Taken from the W3C browser-specs list
+   */
+
+  /** Scalable Vector Graphics (SVG) 2 */
+  SVG2 ("SVG2", ECSSSpecificationStatus.TESTING, "https://www.w3.org/TR/SVG2/"),
+  /** Animation Triggers */
+  ANIMATION_TRIGGERS_1 ("animation-triggers-1",
+                        ECSSSpecificationStatus.EXPLORING,
+                        "https://drafts.csswg.org/animation-triggers-1/"),
+  /** CSS Anchor Positioning Module Level 1 */
+  CSS_ANCHOR_POSITION_1 ("css-anchor-position-1",
+                         ECSSSpecificationStatus.EXPLORING,
+                         "https://www.w3.org/TR/css-anchor-position-1/"),
+  /** CSS Animations Level 2 */
+  CSS_ANIMATIONS_2 ("css-animations-2", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-animations-2/"),
+  /** CSS Borders and Box Decorations Module Level 4 */
+  CSS_BORDERS_4 ("css-borders-4", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-borders-4/"),
+  /** CSS Box Model Module Level 3 */
+  CSS_BOX_3 ("css-box-3", ECSSSpecificationStatus.COMPLETED, "https://www.w3.org/TR/css-box-3/"),
+  /** CSS Color Adjustment Module Level 1 */
+  CSS_COLOR_ADJUST_1 ("css-color-adjust-1",
+                      ECSSSpecificationStatus.TESTING,
+                      "https://www.w3.org/TR/css-color-adjust-1/"),
+  /** CSS Color HDR Module Level 1 */
+  CSS_COLOR_HDR_1 ("css-color-hdr-1", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-color-hdr-1/"),
+  /** CSS Conditional Rules Module Level 5 */
+  CSS_CONDITIONAL_5 ("css-conditional-5",
+                     ECSSSpecificationStatus.EXPLORING,
+                     "https://www.w3.org/TR/css-conditional-5/"),
+  /** CSS Containment Module Level 2 */
+  CSS_CONTAIN_2 ("css-contain-2", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-contain-2/"),
+  /** CSS Form Control Styling Level 1 */
+  CSS_FORMS_1 ("css-forms-1", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-forms-1/"),
+  /** CSS Gaps Module Level 1 */
+  CSS_GAPS_1 ("css-gaps-1", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-gaps-1/"),
+  /** CSS Images Module Level 5 */
+  CSS_IMAGES_5 ("css-images-5", ECSSSpecificationStatus.EXPLORING, "https://drafts.csswg.org/css-images-5/"),
+  /** CSS Linked Parameters Module Level 1 */
+  CSS_LINK_PARAMS_1 ("css-link-params-1",
+                     ECSSSpecificationStatus.EXPLORING,
+                     "https://www.w3.org/TR/css-link-params-1/"),
+  /** CSS Logical Properties and Values Module Level 1 */
+  CSS_LOGICAL_1 ("css-logical-1", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-logical-1/"),
+  /** CSS Overflow Module Level 4 */
+  CSS_OVERFLOW_4 ("css-overflow-4", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-overflow-4/"),
+  /** CSS Overflow Module Level 5 */
+  CSS_OVERFLOW_5 ("css-overflow-5", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-overflow-5/"),
+  /** CSS Overscroll Behavior Module Level 1 */
+  CSS_OVERSCROLL_1 ("css-overscroll-1", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-overscroll-1/"),
+  /** CSS Positioned Layout Module Level 4 */
+  CSS_POSITION_4 ("css-position-4", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-position-4/"),
+  /** CSS Scroll Anchoring Module Level 1 */
+  CSS_SCROLL_ANCHORING_1 ("css-scroll-anchoring-1",
+                          ECSSSpecificationStatus.EXPLORING,
+                          "https://www.w3.org/TR/css-scroll-anchoring-1/"),
+  /** CSS Scroll Snap Module Level 2 */
+  CSS_SCROLL_SNAP_2 ("css-scroll-snap-2",
+                     ECSSSpecificationStatus.EXPLORING,
+                     "https://www.w3.org/TR/css-scroll-snap-2/"),
+  /** CSS Scrollbars Styling Module Level 1 */
+  CSS_SCROLLBARS_1 ("css-scrollbars-1", ECSSSpecificationStatus.TESTING, "https://www.w3.org/TR/css-scrollbars-1/"),
+  /** CSS Mobile Text Size Adjustment Module Level 1 */
+  CSS_SIZE_ADJUST_1 ("css-size-adjust-1",
+                     ECSSSpecificationStatus.EXPLORING,
+                     "https://drafts.csswg.org/css-size-adjust-1/"),
+  /** CSS Box Sizing Module Level 4 */
+  CSS_SIZING_4 ("css-sizing-4", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-sizing-4/"),
+  /** CSS Text Module Level 5 */
+  CSS_TEXT_5 ("css-text-5", ECSSSpecificationStatus.EXPLORING, "https://drafts.csswg.org/css-text-5/"),
+  /** CSS Text Decoration Module Level 4 */
+  CSS_TEXT_DECOR_4 ("css-text-decor-4", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-text-decor-4/"),
+  /** CSS Transforms Module Level 2 */
+  CSS_TRANSFORMS_2 ("css-transforms-2", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/css-transforms-2/"),
+  /** CSS Transitions Module Level 2 */
+  CSS_TRANSITIONS_2 ("css-transitions-2",
+                     ECSSSpecificationStatus.EXPLORING,
+                     "https://www.w3.org/TR/css-transitions-2/"),
+  /** CSS View Transitions Module Level 1 */
+  CSS_VIEW_TRANSITIONS_1 ("css-view-transitions-1",
+                          ECSSSpecificationStatus.TESTING,
+                          "https://www.w3.org/TR/css-view-transitions-1/"),
+  /** CSS Fill and Stroke Module Level 3 */
+  FILL_STROKE_3 ("fill-stroke-3", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/fill-stroke-3/"),
+  /** Filter Effects Module Level 2 */
+  FILTER_EFFECTS_2 ("filter-effects-2",
+                    ECSSSpecificationStatus.EXPLORING,
+                    "https://drafts.csswg.org/filter-effects-2/"),
+  /** MathML Core */
+  MATHML_CORE ("mathml-core", ECSSSpecificationStatus.TESTING, "https://www.w3.org/TR/mathml-core/"),
+  /** Scroll-driven Animations */
+  SCROLL_ANIMATIONS_1 ("scroll-animations-1",
+                       ECSSSpecificationStatus.EXPLORING,
+                       "https://www.w3.org/TR/scroll-animations-1/"),
+  /** SVG Strokes */
+  SVG_STROKES ("svg-strokes", ECSSSpecificationStatus.EXPLORING, "https://www.w3.org/TR/svg-strokes/"),
+
+  /*
    * REWRITING
    */
 

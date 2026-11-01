@@ -19,16 +19,17 @@ package com.helger.css.property;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
-import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.cache.regex.RegExHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSColorHelper;
+import com.helger.css.utils.CSSValueHelper;
 
 /**
  * CSS property that is a list of color values (e.g. border-color)
@@ -93,8 +94,8 @@ public class CSSPropertyColors extends AbstractCSSProperty
       return false;
 
     // Split by whitespaces " a b " results in { "a", "b" }
-    final String [] aParts = RegExHelper.getSplitToArray (sValue.trim (), "\\s+");
-    if (aParts.length < getMinimumArgumentCount () || aParts.length > getMaximumArgumentCount ())
+    final ICommonsList <String> aParts = CSSValueHelper.getSplitByWhitespace (sValue.trim ());
+    if (aParts.size () < getMinimumArgumentCount () || aParts.size () > getMaximumArgumentCount ())
       return false;
 
     // Check each value

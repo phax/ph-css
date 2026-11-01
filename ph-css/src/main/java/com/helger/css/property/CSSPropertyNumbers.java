@@ -19,16 +19,17 @@ package com.helger.css.property;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
-import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.cache.regex.RegExHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
+import com.helger.css.utils.CSSValueHelper;
 
 /**
  * CSS property with a list of numbers (e.g. padding)
@@ -98,14 +99,14 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
     if (sValue == null)
       return false;
 
-    // Split by whitespaces
-    final String [] aParts = RegExHelper.getSplitToArray (sValue.trim (), "\\s+");
-    if (aParts.length < m_nMinArgCount || aParts.length > m_nMaxArgCount)
+    // Split by whitespaces " a b " results in { "a", "b" }
+    final ICommonsList <String> aParts = CSSValueHelper.getSplitByWhitespace (sValue.trim ());
+    if (aParts.size () < m_nMinArgCount || aParts.size () > m_nMaxArgCount)
       return false;
 
     // Check if each part is a valid number
     for (final String sPart : aParts)
-      if (!CSSNumberHelper.isValueWithUnit (sPart.trim (), m_bWithPercentage))
+      if (!CSSNumberHelper.isValueWithUnitOrFunction (sPart.trim (), m_bWithPercentage))
         return false;
     return true;
   }

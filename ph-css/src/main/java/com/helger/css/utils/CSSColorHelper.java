@@ -114,6 +114,18 @@ public final class CSSColorHelper
                                              "\\s*\\)$";
   @RegEx
   private static final String PATTERN_HEX = "^" + CCSSValue.PREFIX_HEX + "([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$";
+  private static final String PATTERN_HEX_ALPHA = "^" + CCSSValue.PREFIX_HEX + "([0-9a-fA-F]{4}|[0-9a-fA-F]{8})$";
+  private static final String [] LEGACY_COLOR_FUNCTIONS = { "rgb", "rgba", "hsl", "hsla" };
+  private static final String [] COLOR_FUNCTIONS = { "hwb",
+                                                     "lab",
+                                                     "lch",
+                                                     "oklab",
+                                                     "oklch",
+                                                     "color",
+                                                     "color-mix",
+                                                     "device-cmyk",
+                                                     "contrast-color",
+                                                     "light-dark" };
 
   @PresentForCodeCoverage
   private static final CSSColorHelper INSTANCE = new CSSColorHelper ();
@@ -149,10 +161,43 @@ public final class CSSColorHelper
            isHSLColorValue (sRealValue) ||
            isHSLAColorValue (sRealValue) ||
            isHexColorValue (sRealValue) ||
+           isHexAlphaColorValue (sRealValue) ||
+           isModernColorFunctionValue (sRealValue) ||
            ECSSColor.isDefaultColorName (sRealValue) ||
            ECSSColorName.isDefaultColorName (sRealValue) ||
-           sRealValue.equals (CCSSValue.CURRENTCOLOR) ||
-           sRealValue.equals (CCSSValue.TRANSPARENT);
+           sRealValue.equalsIgnoreCase (CCSSValue.CURRENTCOLOR) ||
+           sRealValue.equalsIgnoreCase (CCSSValue.TRANSPARENT);
+  }
+
+  /**
+   * Check if the passed String is a color function that is not covered by the legacy RGB and HSL
+   * checks. That are the CSS Color Level 4 and 5 functions, the space separated syntax of
+   * <code>rgb()</code> and <code>hsl()</code> and the use of the alpha value in the same functions,
+   * independent of the trailing "a". The function arguments are not checked.
+   *
+   * @param sValue
+   *        The value to check. May be <code>null</code>.
+   * @return <code>true</code> if it is such a color function, <code>false</code> otherwise.
+   * @since 8.2.4
+   */
+  public static boolean isModernColorFunctionValue (@Nullable final String sValue)
+  {
+    if (CSSValueHelper.isFunctionCall (sValue, COLOR_FUNCTIONS))
+      return true;
+    if (!CSSValueHelper.isFunctionCall (sValue, LEGACY_COLOR_FUNCTIONS))
+      return false;
+
+    final String sRealValue = sValue.trim ();
+    if (sRealValue.indexOf (',') < 0)
+      return true;
+
+    // "rgb" and "rgba" as well as "hsl" and "hsla" are aliases
+    final int nOpen = sRealValue.indexOf ('(');
+    final String sArgs = sRealValue.substring (nOpen);
+    return isRGBColorValue (CCSSValue.PREFIX_RGB + sArgs) ||
+           isRGBAColorValue (CCSSValue.PREFIX_RGBA + sArgs) ||
+           isHSLColorValue (CCSSValue.PREFIX_HSL + sArgs) ||
+           isHSLAColorValue (CCSSValue.PREFIX_HSLA + sArgs);
   }
 
   /**
@@ -293,6 +338,23 @@ public final class CSSColorHelper
     return StringHelper.isNotEmpty (sRealValue) &&
            sRealValue.charAt (0) == CCSSValue.PREFIX_HEX &&
            RegExHelper.stringMatchesPattern (PATTERN_HEX, sRealValue);
+  }
+
+  /**
+   * Check if the passed String is a hex color value including the alpha channel. Example value:
+   * <code>#ffffff80</code>
+   *
+   * @param sValue
+   *        The value to check. May be <code>null</code>.
+   * @return <code>true</code> if it is such a value, <code>false</code> otherwise.
+   * @since 8.2.4
+   */
+  public static boolean isHexAlphaColorValue (@Nullable final String sValue)
+  {
+    final String sRealValue = StringHelper.trim (sValue);
+    return StringHelper.isNotEmpty (sRealValue) &&
+           sRealValue.charAt (0) == CCSSValue.PREFIX_HEX &&
+           RegExHelper.stringMatchesPattern (PATTERN_HEX_ALPHA, sRealValue);
   }
 
   @Nonnegative

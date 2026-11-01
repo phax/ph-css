@@ -17,6 +17,7 @@
 package com.helger.css.utils;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 import java.util.Map;
 
 import org.jspecify.annotations.NonNull;
@@ -53,6 +54,33 @@ public final class CSSNumberHelper
     // determined first
     s_aNameToUnitMap = aNameToUnitMap.getSortedByKey (ComparatorHelper.getComparatorStringLongestFirst ());
   }
+
+  // CSS Values math functions, plus the functions that can replace a length
+  private static final String [] NUMERIC_FUNCTIONS = { "calc",
+                                                       "min",
+                                                       "max",
+                                                       "clamp",
+                                                       "round",
+                                                       "mod",
+                                                       "rem",
+                                                       "sin",
+                                                       "cos",
+                                                       "tan",
+                                                       "asin",
+                                                       "acos",
+                                                       "atan",
+                                                       "atan2",
+                                                       "pow",
+                                                       "sqrt",
+                                                       "hypot",
+                                                       "log",
+                                                       "exp",
+                                                       "abs",
+                                                       "sign",
+                                                       "anchor",
+                                                       "anchor-size",
+                                                       "calc-size",
+                                                       "fit-content" };
 
   @PresentForCodeCoverage
   private static final CSSNumberHelper INSTANCE = new CSSNumberHelper ();
@@ -144,6 +172,43 @@ public final class CSSNumberHelper
   public static boolean isValueWithUnit (@Nullable final String sCSSValue, final boolean bWithPerc)
   {
     return getValueWithUnit (sCSSValue, bWithPerc) != null;
+  }
+
+  /**
+   * Check if the passed value is a function that results in a numeric value as in
+   * <code>calc(1px + 2px)</code>.
+   *
+   * @param sCSSValue
+   *        The value to be checked. May be <code>null</code> and is trimmed inside this method.
+   * @return <code>true</code> if the passed value is such a function, <code>false</code> otherwise.
+   * @since 8.2.4
+   */
+  public static boolean isNumericFunction (@Nullable final String sCSSValue)
+  {
+    return CSSValueHelper.isFunctionCall (sCSSValue, NUMERIC_FUNCTIONS);
+  }
+
+  /**
+   * Check if the passed value consists of a numeric value and a unit or if it is a function that
+   * results in a numeric value.
+   *
+   * @param sCSSValue
+   *        The value to be checked. May be <code>null</code> and is trimmed inside this method.
+   * @param bWithPerc
+   *        <code>true</code> to include the percentage unit, <code>false</code> to exclude the
+   *        percentage unit.
+   * @return <code>true</code> if the passed value is valid, <code>false</code> otherwise.
+   * @see #isValueWithUnit(String, boolean)
+   * @see #isNumericFunction(String)
+   * @since 8.2.4
+   */
+  public static boolean isValueWithUnitOrFunction (@Nullable final String sCSSValue, final boolean bWithPerc)
+  {
+    if (sCSSValue == null)
+      return false;
+
+    // CSS units are ASCII case insensitive
+    return isValueWithUnit (sCSSValue.toLowerCase (Locale.ROOT), bWithPerc) || isNumericFunction (sCSSValue);
   }
 
   /**

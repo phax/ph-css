@@ -19,12 +19,13 @@ package com.helger.css.property;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
-import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.string.StringParser;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
+import com.helger.css.utils.CSSNumberHelper;
 
 /**
  * CSS property that is either an enumeration or a numeric value without a unit (e.g. z-index)
@@ -79,7 +80,9 @@ public class CSSPropertyEnumOrInt extends CSSPropertyEnum
   @OverridingMethodsMustInvokeSuper
   public boolean isValidValue (@Nullable final String sValue)
   {
-    return super.isValidValue (sValue) || StringParser.parseIntObj (sValue) != null;
+    return super.isValidValue (sValue) ||
+           StringParser.parseIntObj (sValue) != null ||
+           CSSNumberHelper.isNumericFunction (sValue);
   }
 
   @Override

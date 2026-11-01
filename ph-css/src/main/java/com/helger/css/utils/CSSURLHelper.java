@@ -41,11 +41,37 @@ public final class CSSURLHelper
   /** For compatibility reasons, this is set to false */
   public static final boolean DEFAULT_QUOTE_URLS = false;
 
+  private static final String [] IMAGE_FUNCTIONS = { "linear-gradient",
+                                                     "radial-gradient",
+                                                     "conic-gradient",
+                                                     "repeating-linear-gradient",
+                                                     "repeating-radial-gradient",
+                                                     "repeating-conic-gradient",
+                                                     "image",
+                                                     "image-set",
+                                                     "cross-fade",
+                                                     "element",
+                                                     "paint" };
+
   @PresentForCodeCoverage
   private static final CSSURLHelper INSTANCE = new CSSURLHelper ();
 
   private CSSURLHelper ()
   {}
+
+  /**
+   * Check if the passed CSS value is a function that creates an image, as in
+   * <code>linear-gradient(red, blue)</code>. The function arguments are not checked.
+   *
+   * @param sValue
+   *        The value to be checked. May be <code>null</code>.
+   * @return <code>true</code> if it is such a function, <code>false</code> otherwise.
+   * @since 8.2.4
+   */
+  public static boolean isImageFunctionValue (@Nullable final String sValue)
+  {
+    return CSSValueHelper.isFunctionCall (sValue, IMAGE_FUNCTIONS);
+  }
 
   /**
    * Check if the passed CSS value is an URL value. This is either a URL starting with "url(" or it

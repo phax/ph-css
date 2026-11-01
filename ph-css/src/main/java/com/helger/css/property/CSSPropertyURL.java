@@ -52,7 +52,9 @@ public class CSSPropertyURL extends AbstractCSSProperty
 
   public static boolean isValidPropertyValue (@Nullable final String sValue)
   {
-    return AbstractCSSProperty.isValidPropertyValue (sValue) || CSSURLHelper.isURLValue (sValue);
+    return AbstractCSSProperty.isValidPropertyValue (sValue) ||
+           CSSURLHelper.isURLValue (sValue) ||
+           CSSURLHelper.isImageFunctionValue (sValue);
   }
 
   @Override

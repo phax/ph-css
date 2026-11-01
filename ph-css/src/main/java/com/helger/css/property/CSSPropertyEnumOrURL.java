@@ -79,7 +79,9 @@ public class CSSPropertyEnumOrURL extends CSSPropertyEnum
   @OverridingMethodsMustInvokeSuper
   public boolean isValidValue (@Nullable final String sValue)
   {
-    return super.isValidValue (sValue) || CSSURLHelper.isURLValue (sValue);
+    return super.isValidValue (sValue) ||
+           CSSURLHelper.isURLValue (sValue) ||
+           CSSURLHelper.isImageFunctionValue (sValue);
   }
 
   @Override

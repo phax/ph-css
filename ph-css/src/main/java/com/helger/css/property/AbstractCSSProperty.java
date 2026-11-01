@@ -32,6 +32,7 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.propertyvalue.CCSSValue;
 import com.helger.css.propertyvalue.CSSValue;
 import com.helger.css.propertyvalue.ICSSValue;
+import com.helger.css.utils.CSSValueHelper;
 
 /**
  * Abstract base class for implementing {@link ICSSProperty}
@@ -121,7 +122,8 @@ public abstract class AbstractCSSProperty implements ICSSProperty
            CCSSValue.INITIAL.equals (sValue) ||
            CCSSValue.UNSET.equals (sValue) ||
            CCSSValue.REVERT.equals (sValue) ||
-           CCSSValue.REVERT_LAYER.equals (sValue);
+           CCSSValue.REVERT_LAYER.equals (sValue) ||
+           CSSValueHelper.containsSubstitutionFunction (sValue);
   }
 
   @OverridingMethodsMustInvokeSuper

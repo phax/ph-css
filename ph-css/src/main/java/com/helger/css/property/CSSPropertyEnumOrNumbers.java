@@ -19,17 +19,18 @@ package com.helger.css.property;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
-import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.cache.regex.RegExHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.ECSSVendorPrefix;
 import com.helger.css.property.customizer.ICSSPropertyCustomizer;
 import com.helger.css.utils.CSSNumberHelper;
+import com.helger.css.utils.CSSValueHelper;
 
 /**
  * CSS property that is a list of either an enumeration or a numeric value (e.g. margin)
@@ -145,14 +146,14 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
       return false;
 
     // Split by whitespaces " a b " results in { "a", "b" }
-    final String [] aParts = RegExHelper.getSplitToArray (sValue.trim (), "\\s+");
-    if (aParts.length < m_nMinNumbers || aParts.length > m_nMaxNumbers)
+    final ICommonsList <String> aParts = CSSValueHelper.getSplitByWhitespace (sValue.trim ());
+    if (aParts.size () < m_nMinNumbers || aParts.size () > m_nMaxNumbers)
       return false;
 
     for (final String sPart : aParts)
     {
       final String sTrimmedPart = sPart.trim ();
-      if (!super.isValidValue (sTrimmedPart) && !CSSNumberHelper.isValueWithUnit (sTrimmedPart, m_bWithPercentage))
+      if (!super.isValidValue (sTrimmedPart) && !CSSNumberHelper.isValueWithUnitOrFunction (sTrimmedPart, m_bWithPercentage))
         return false;
     }
     return true;
