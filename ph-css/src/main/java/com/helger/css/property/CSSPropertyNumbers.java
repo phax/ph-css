@@ -77,6 +77,15 @@ public class CSSPropertyNumbers extends AbstractCSSProperty
     m_nMaxArgCount = nMaxArgCount;
   }
 
+  /**
+   * @return <code>true</code> if the percentage unit is allowed, <code>false</code> if not
+   * @since 8.3.0
+   */
+  public final boolean isWithPercentage ()
+  {
+    return m_bWithPercentage;
+  }
+
   @Override
   public int getMinimumArgumentCount ()
   {

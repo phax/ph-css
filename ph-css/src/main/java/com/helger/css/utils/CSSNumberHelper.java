@@ -181,7 +181,7 @@ public final class CSSNumberHelper
    * @param sCSSValue
    *        The value to be checked. May be <code>null</code> and is trimmed inside this method.
    * @return <code>true</code> if the passed value is such a function, <code>false</code> otherwise.
-   * @since 8.2.4
+   * @since 8.3.0
    */
   public static boolean isNumericFunction (@Nullable final String sCSSValue)
   {
@@ -200,7 +200,7 @@ public final class CSSNumberHelper
    * @return <code>true</code> if the passed value is valid, <code>false</code> otherwise.
    * @see #isValueWithUnit(String, boolean)
    * @see #isNumericFunction(String)
-   * @since 8.2.4
+   * @since 8.3.0
    */
   public static boolean isValueWithUnitOrFunction (@Nullable final String sCSSValue, final boolean bWithPerc)
   {
@@ -209,6 +209,29 @@ public final class CSSNumberHelper
 
     // CSS units are ASCII case insensitive
     return isValueWithUnit (sCSSValue.toLowerCase (Locale.ROOT), bWithPerc) || isNumericFunction (sCSSValue);
+  }
+
+  /**
+   * Check if the passed value contains a negative number, with or without a unit. Multiple values
+   * are separated by whitespaces. Functions are not evaluated.
+   *
+   * @param sCSSValue
+   *        The value to be checked. May be <code>null</code>.
+   * @return <code>true</code> if at least one part of the passed value is a negative number,
+   *         <code>false</code> otherwise.
+   * @since 8.3.0
+   */
+  public static boolean containsNegativeValue (@Nullable final String sCSSValue)
+  {
+    if (sCSSValue != null)
+      for (final String sPart : CSSValueHelper.getSplitByWhitespace (sCSSValue))
+      {
+        final CSSSimpleValueWithUnit aValue = getValueWithUnit (sPart.toLowerCase (Locale.ROOT), true);
+        final double dValue = aValue != null ? aValue.getValue () : StringParser.parseDouble (sPart, 0);
+        if (dValue < 0)
+          return true;
+      }
+    return false;
   }
 
   /**

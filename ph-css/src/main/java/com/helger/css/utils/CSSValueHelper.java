@@ -32,7 +32,7 @@ import com.helger.collection.commons.ICommonsList;
  * Helper for the textual structure of CSS property values.
  *
  * @author Philip Helger
- * @since 8.2.4
+ * @since 8.3.0
  */
 @Immutable
 public final class CSSValueHelper

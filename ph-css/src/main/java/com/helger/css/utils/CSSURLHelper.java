@@ -21,11 +21,12 @@ import java.net.URL;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.CCSS;
 import com.helger.css.parser.CSSParseHelper;
 import com.helger.css.propertyvalue.CCSSValue;
@@ -41,17 +42,13 @@ public final class CSSURLHelper
   /** For compatibility reasons, this is set to false */
   public static final boolean DEFAULT_QUOTE_URLS = false;
 
-  private static final String [] IMAGE_FUNCTIONS = { "linear-gradient",
-                                                     "radial-gradient",
-                                                     "conic-gradient",
-                                                     "repeating-linear-gradient",
-                                                     "repeating-radial-gradient",
-                                                     "repeating-conic-gradient",
-                                                     "image",
-                                                     "image-set",
-                                                     "cross-fade",
-                                                     "element",
-                                                     "paint" };
+  private static final String [] GRADIENT_FUNCTIONS = { "linear-gradient",
+                                                        "radial-gradient",
+                                                        "conic-gradient",
+                                                        "repeating-linear-gradient",
+                                                        "repeating-radial-gradient",
+                                                        "repeating-conic-gradient" };
+  private static final String [] IMAGE_FUNCTIONS = { "image", "image-set", "cross-fade", "element", "paint" };
 
   @PresentForCodeCoverage
   private static final CSSURLHelper INSTANCE = new CSSURLHelper ();
@@ -66,11 +63,24 @@ public final class CSSURLHelper
    * @param sValue
    *        The value to be checked. May be <code>null</code>.
    * @return <code>true</code> if it is such a function, <code>false</code> otherwise.
-   * @since 8.2.4
+   * @since 8.3.0
    */
   public static boolean isImageFunctionValue (@Nullable final String sValue)
   {
-    return CSSValueHelper.isFunctionCall (sValue, IMAGE_FUNCTIONS);
+    if (CSSValueHelper.isFunctionCall (sValue, GRADIENT_FUNCTIONS))
+    {
+      // At least two color stops or an additional configuration and a color stop
+      final String sRealValue = sValue.trim ();
+      final String sArgs = sRealValue.substring (sRealValue.indexOf ('(') + 1, sRealValue.length () - 1);
+      final ICommonsList <String> aParts = CSSValueHelper.getSplitByComma (sArgs);
+      return aParts.size () >= 2 && !aParts.contains ("");
+    }
+    if (CSSValueHelper.isFunctionCall (sValue, IMAGE_FUNCTIONS))
+    {
+      final String sRealValue = sValue.trim ();
+      return !sRealValue.substring (sRealValue.indexOf ('(') + 1, sRealValue.length () - 1).isBlank ();
+    }
+    return false;
   }
 
   /**

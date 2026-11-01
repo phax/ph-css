@@ -328,12 +328,29 @@ Configuration items are:
 
 ## News and noteworthy
 
-v8.2.4 - work in progress
+v8.3.0 - 2026-11-01
 * `CCSSProperties.MAX_WIDTH` and `CCSSProperties.MAX_HEIGHT` accept the value `none`
 * Aligned the value ranges of `CCSSProperties` with MDN: added missing keywords and unit-less numbers, and allowed the valid number of values for e.g. `display`, `overflow`, `background-position` and `background-size`
 * Removed the values not valid according to MDN: `auto` from `padding*`, `hidden` from `outline-style`, `invert` from `outline-color`, percentages from `border-spacing`, and more than one value from the `outline-*` properties
 * All properties accept the CSS-wide keywords `unset`, `revert` and `revert-layer`
-* Added the new classes `CSSPropertyDoubleOrPercentage` and `CSSPropertyEnumOrNumberOrDouble`
+* Added the new classes `CSSPropertyDoubleOrPercentage`, `CSSPropertyEnumOrNumberOrDouble`, `CSSPropertyList` and `CSSValueHelper`
+* Added all standard and experimental properties documented on MDN to `ECSSProperty` and `CCSSProperties`, and the specifications they are defined in to `ECSSSpecification`
+* `CCSSProperties` uses dedicated value ranges for all properties where the MDN syntax allows it, instead of `CSSPropertyFree`
+* Renamed the misspelled `JUSITFY_CONTENT`, `JUSITFY_ITEMS` and `JUSITFY_SELF` of `ECSSProperty` and `CCSSProperties` to `JUSTIFY_*`.
+  The old names stay as deprecated references and will be removed in the next major version
+* Deprecated all entries of `ECSSProperty` and `CCSSProperties` that are not documented on MDN
+* Property values accept `var()`, `env()` and `attr()`, numeric values accept math functions like `calc()`, and multiple values with parenthesis or quotes are split correctly
+* `CSSColorHelper.isColorValue` accepts hex colours with alpha, the CSS Color Level 4 and 5 functions and the space separated syntax of `rgb()` and `hsl()`.
+  Added `ECSSColor.REBECCAPURPLE` and the missing system colours to `ECSSColorName`
+* Enumerated property values and units are matched case insensitively
+* `background-image` and `list-style-image` accept image functions like `linear-gradient()`
+* Added the classes `CSSPropertyUnsignedNumber`, `CSSPropertyUnsignedNumbers`, `CSSPropertyEnumOrUnsignedNumber`, `CSSPropertyEnumOrUnsignedNumbers`, `CSSPropertyEnumOrUnsignedNumberOrDouble` and `CSSPropertyUnsignedDouble`.
+  They reject negative values for the properties where MDN does so
+* Added the class `CSSPropertyEnumOrDouble`, and `font-weight` is limited to the range 1 to 1000
+* Added the class `CSSPropertyEnumCombination`, that rejects repeated values and values that must stand alone, like `display: none none`
+* `CSSColorHelper` and `CSSURLHelper` check the structure of the arguments of colour and image functions
+* Added `CSSShortHandDescriptorFont`.
+  The `font` shorthand handles `/ line-height` and comma separated families correctly, and includes `font-stretch`
 * `CSSShortHandDescriptor` assigns optional values of a shorthand to a sub-property, up to its maximum argument count
 * The default value of the sub-properties of the `padding` shorthand is `0` instead of the invalid `auto`
 * Fixed the property name of `ECSSProperty.FLOOD_OPACITY` from `flood-opactiy` to `flood-opacity`

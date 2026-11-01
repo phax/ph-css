@@ -25,6 +25,7 @@ import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.property.ECSSProperty;
@@ -384,6 +385,68 @@ public final class CSSShortHandDescriptorTest
                   "padding-right:2px",
                   "padding-bottom:1px",
                   "padding-left:2px");
+  }
+
+  @Test
+  public void testFontLineHeightAndFamily ()
+  {
+    _assertSplit (ECSSProperty.FONT,
+                  "font: 12px/1.5 Arial",
+                  "font-size:12px",
+                  "line-height:1.5",
+                  "font-family:Arial",
+                  "font-weight:normal");
+    _assertSplit (ECSSProperty.FONT,
+                  "font: 12px/2 Arial",
+                  "font-size:12px",
+                  "line-height:2",
+                  "font-family:Arial",
+                  "font-weight:normal");
+    _assertSplit (ECSSProperty.FONT,
+                  "font: bold 12px/30px Georgia, serif",
+                  "font-weight:bold",
+                  "font-size:12px",
+                  "line-height:30px",
+                  "font-family:Georgia,serif");
+    _assertSplit (ECSSProperty.FONT,
+                  "font: italic small-caps 700 condensed 150%/1.2 \"Times New Roman\", Times, serif",
+                  "font-style:italic",
+                  "font-variant:small-caps",
+                  "font-weight:700",
+                  "font-stretch:condensed",
+                  "font-size:150%",
+                  "line-height:1.2",
+                  "font-family:\"Times New Roman\",Times,serif");
+    _assertSplit (ECSSProperty.FONT,
+                  "font: normal normal 400 12px Arial",
+                  "font-style:normal",
+                  "font-variant:normal",
+                  "font-weight:400",
+                  "font-size:12px",
+                  "font-family:Arial");
+    _assertSplit (ECSSProperty.FONT, "font: bold larger serif", "font-weight:bold", "font-size:larger", "font-family:serif");
+    _assertSplit (ECSSProperty.FONT, "font: 0/0 a", "font-size:0", "line-height:0", "font-family:a");
+    _assertSplit (ECSSProperty.FONT, "font: 12px Arial", "line-height:normal", "font-stretch:normal", "font-family:Arial");
+  }
+
+  @Test
+  public void testFontHasNoBogusValues ()
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (ECSSProperty.FONT);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString ("font: 12px/2 Arial, serif")
+                                                         .getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    final ICommonsList <CSSDeclaration> aSplitted = aSHD.getSplitIntoPieces (aDecl);
+    // All 7 sub properties, each exactly once
+    assertEquals (7, aSplitted.size ());
+    assertEquals (7, new CommonsHashSet <> (aSplitted, CSSDeclaration::getProperty).size ());
+  }
+
+  @Test
+  public void testFontWithoutSize ()
+  {
+    _assertSplit (ECSSProperty.FONT, "font: caption", "font-family:caption");
+    _assertSplit (ECSSProperty.FONT, "font: inherit", "font-style:inherit");
   }
 
   @Test

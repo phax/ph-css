@@ -34,7 +34,7 @@ import com.helger.css.utils.CSSValueHelper;
  * property (e.g. animation-direction)
  *
  * @author Philip Helger
- * @since 8.2.4
+ * @since 8.3.0
  */
 @NotThreadSafe
 public class CSSPropertyList extends AbstractCSSProperty

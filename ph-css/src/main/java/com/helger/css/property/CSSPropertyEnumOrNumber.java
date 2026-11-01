@@ -90,7 +90,7 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
 
   /**
    * @return <code>true</code> if the percentage unit is allowed, <code>false</code> if not
-   * @since 8.2.4
+   * @since 8.3.0
    */
   public final boolean isWithPercentage ()
   {

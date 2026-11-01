@@ -126,6 +126,15 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
     m_nMaxNumbers = nMaxNumbers;
   }
 
+  /**
+   * @return <code>true</code> if the percentage unit is allowed, <code>false</code> if not
+   * @since 8.3.0
+   */
+  public final boolean isWithPercentage ()
+  {
+    return m_bWithPercentage;
+  }
+
   @Override
   public int getMinimumArgumentCount ()
   {

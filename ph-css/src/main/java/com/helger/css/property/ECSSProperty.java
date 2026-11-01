@@ -79,7 +79,7 @@ public enum ECSSProperty implements IHasName
   ANIMATION_TRIGGER ("animation-trigger", ANIMATION_TRIGGERS_1),
   APPEARANCE ("appearance", CSS_UI_4),
   ASPECT_RATIO ("aspect-ratio", CSS_SIZING_4),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   AZIMUTH ("azimuth", CSS2),
   BACKDROP_FILTER ("backdrop-filter", FILTER_EFFECTS_2),
   BACKFACE_VISIBILITY ("backface-visibility", CSS_TRANSFORMS_1),
@@ -98,11 +98,11 @@ public enum ECSSProperty implements IHasName
   BASELINE_SHIFT ("baseline-shift", CSS_INLINE_3),
   BASELINE_SOURCE ("baseline-source", CSS_INLINE_3),
   BLOCK_SIZE ("block-size", CSS_LOGICAL_1, CSS_SIZING_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   BOOKMARK_LABEL ("bookmark-label", CSS_GCPM_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   BOOKMARK_LEVEL ("bookmark-level", CSS_GCPM_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   BOOKMARK_STATE ("bookmark-state", CSS_GCPM_3),
   BORDER ("border", CSS1, CSS2, CSS3_BACKGROUND),
   BORDER_BLOCK ("border-block", CSS_BORDERS_4, CSS_LOGICAL_1),
@@ -170,9 +170,9 @@ public enum ECSSProperty implements IHasName
   BOX_DECORATION_BREAK ("box-decoration-break", CSS_BREAK_3),
   BOX_SHADOW ("box-shadow", CSS3_BACKGROUND),
   BOX_SIZING ("box-sizing", CSS_UI_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   BOX_SNAP ("box-snap", CSS_LINE_GRID_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   BOX_SUPPRESS ("box-suppress", CSS_DISPLAY_3),
   BREAK_AFTER ("break-after", CSS3_MULTICOL, CSS_BREAK_3, CSS_REGIONS_1),
   BREAK_BEFORE ("break-before", CSS3_MULTICOL, CSS_BREAK_3, CSS_REGIONS_1),
@@ -182,7 +182,7 @@ public enum ECSSProperty implements IHasName
   CARET_ANIMATION ("caret-animation", CSS_UI_4),
   CARET_COLOR ("caret-color", CSS_UI_3),
   CARET_SHAPE ("caret-shape", CSS_UI_4),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   CHAINS ("chains", CSS_TEMPLATE_3),
   CLEAR ("clear", CSS1, CSS2),
   CLIP ("clip", CSS2, CSS_POSITION_3, CSS_MASKING_1),
@@ -192,9 +192,9 @@ public enum ECSSProperty implements IHasName
   COLOR_INTERPOLATION_FILTERS ("color-interpolation-filters", FILTER_EFFECTS_1),
   COLOR_SCHEME ("color-scheme", CSS_COLOR_ADJUST_1),
   COLUMNS ("columns", CSS3_MULTICOL),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   COLUMNS_SPAN ("columns-span", CSS3_MULTICOL),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   COLUMNS_WIDTH ("columns-width", CSS3_MULTICOL),
   COLUMN_COUNT ("column-count", CSS3_MULTICOL),
   COLUMN_FILL ("column-fill", CSS3_MULTICOL),
@@ -238,11 +238,11 @@ public enum ECSSProperty implements IHasName
   COUNTER_INCREMENT ("counter-increment", CSS2, CSS_LISTS_3),
   COUNTER_RESET ("counter-reset", CSS2, CSS_LISTS_3),
   COUNTER_SET ("counter-set", CSS_LISTS_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   CUE ("cue", CSS2, CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   CUE_AFTER ("cue-after", CSS2, CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   CUE_BEFORE ("cue-before", CSS2, CSS3_SPEECH),
   CURSOR ("cursor", CSS2, CSS_UI_3),
   CX ("cx", SVG2),
@@ -250,27 +250,27 @@ public enum ECSSProperty implements IHasName
   D ("d", SVG2),
   DIRECTION ("direction", CSS2, CSS_WRITING_MODES_3),
   DISPLAY ("display", CSS1, CSS2, CSS_TEMPLATE_3, CSS_RUBY_1, CSS_DISPLAY_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DISPLAY_INSIDE ("display-inside", CSS_DISPLAY_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DISPLAY_LIST ("display-list", CSS_DISPLAY_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DISPLAY_OUTSIDE ("display-outside", CSS_DISPLAY_3),
   DOMINANT_BASELINE ("dominant-baseline", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DROP_INITIAL_AFTER_ADJUST ("drop-initial-after-adjust", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DROP_INITIAL_AFTER_ALIGN ("drop-initial-after-align", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DROP_INITIAL_BEFORE_ADJUST ("drop-initial-before-adjust", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DROP_INITIAL_BEFORE_ALIGN ("drop-initial-before-align", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DROP_INITIAL_SIZE ("drop-initial-size", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   DROP_INITIAL_VALUE ("drop-initial-value", CSS_INLINE_3),
   DYNAMIC_RANGE_LIMIT ("dynamic-range-limit", CSS_COLOR_HDR_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   ELEVATION ("elevation", CSS2),
   EMPTY_CELLS ("empty-cells", CSS2),
   FIELD_SIZING ("field-sizing", CSS_FORMS_1),
@@ -289,9 +289,9 @@ public enum ECSSProperty implements IHasName
   FLOAT ("float", CSS1, CSS2),
   FLOOD_COLOR ("flood-color", FILTER_EFFECTS_1),
   FLOOD_OPACITY ("flood-opacity", FILTER_EFFECTS_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   FLOW_FROM ("flow-from", CSS_REGIONS_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   FLOW_INTO ("flow-into", CSS_REGIONS_1),
   FONT ("font", CSS1, CSS2, CSS_FONTS_3),
   FONT_FAMILY ("font-family", CSS1, CSS2, CSS_FONTS_3),
@@ -320,14 +320,14 @@ public enum ECSSProperty implements IHasName
   FONT_VARIATION_SETTINGS ("font-variation-settings", CSS_FONTS_4),
   FONT_WEIGHT ("font-weight", CSS1, CSS2, CSS_FONTS_3),
   FONT_WIDTH ("font-width", CSS_FONTS_4),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   FOOTNOTE_DISPLAY ("footnote-display", CSS_GCPM_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   FOOTNOTE_POLICY ("footnote-policy", CSS_GCPM_3),
   FORCED_COLOR_ADJUST ("forced-color-adjust", CSS_COLOR_ADJUST_1),
   FRAME_SIZING ("frame-sizing", CSS_SIZING_4),
   GAP ("gap", CSS_GAPS_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   GLYPH_ORIENTATION_VERTICAL ("glyph-orientation-vertical", CSS_WRITING_MODES_3),
   GRID ("grid", CSS_GRID_1),
   GRID_AREA ("grid-area", CSS_GRID_1),
@@ -349,7 +349,7 @@ public enum ECSSProperty implements IHasName
   HYPHENATE_CHARACTER ("hyphenate-character", CSS_TEXT_4),
   HYPHENATE_LIMIT_CHARS ("hyphenate-limit-chars", CSS_TEXT_4),
   HYPHENS ("hyphens", CSS_TEXT_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   ICON ("icon", CSS_UI_3),
   IMAGE_ORIENTATION ("image-orientation", CSS3_IMAGES),
   IMAGE_RENDERING ("image-rendering", SVG2, CSS3_IMAGES),
@@ -357,7 +357,7 @@ public enum ECSSProperty implements IHasName
   IME_MODE ("ime-mode", CSS_UI_3),
   INITIAL_LETTER ("initial-letter", CSS_INLINE_3),
   INITIAL_LETTER_ALIGN ("initial-letter-align", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   INLINE_BOX_ALIGN ("inline-box-align", CSS_INLINE_3),
   INLINE_SIZE ("inline-size", SVG2, CSS_LOGICAL_1, CSS_SIZING_3),
   INSET ("inset", CSS_LOGICAL_1, CSS_POSITION_3),
@@ -381,19 +381,19 @@ public enum ECSSProperty implements IHasName
   LIGHTING_COLOR ("lighting-color", FILTER_EFFECTS_1),
   LINE_BREAK ("line-break", CSS_TEXT_3),
   LINE_CLAMP ("line-clamp", CSS_OVERFLOW_4),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   LINE_GRID ("line-grid", CSS_LINE_GRID_1),
   LINE_HEIGHT ("line-height", CSS1, CSS2, CSS_INLINE_3),
   LINE_HEIGHT_STEP ("line-height-step", CSS_RHYTHM_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   LINE_SNAP ("line-snap", CSS_LINE_GRID_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   LINE_STACKING ("line-stacking", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   LINE_STACKING_RUBY ("line-stacking-ruby", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   LINE_STACKING_SHIFT ("line-stacking-shift", CSS_INLINE_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   LINE_STACKING_STRATEGY ("line-stacking-strategy", CSS_INLINE_3),
   LINK_PARAMETERS ("link-parameters", CSS_LINK_PARAMS_1),
   LIST_STYLE ("list-style", CSS1, CSS2, CSS_LISTS_3),
@@ -415,7 +415,7 @@ public enum ECSSProperty implements IHasName
   MARKER ("marker", SVG2),
   MARKER_END ("marker-end", SVG2),
   MARKER_MID ("marker-mid", SVG2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   MARKER_SIDE ("marker-side", CSS_LISTS_3),
   MARKER_START ("marker-start", SVG2),
   MASK ("mask", CSS_MASKING_1),
@@ -443,24 +443,24 @@ public enum ECSSProperty implements IHasName
   MAX_INLINE_SIZE ("max-inline-size", CSS_LOGICAL_1, CSS_SIZING_3),
   MAX_LINES ("max-lines", CSS_OVERFLOW_3),
   MAX_WIDTH ("max-width", CSS2, CSS_DEVICE_ADAPT_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   MAX_ZOOM ("max-zoom", CSS_DEVICE_ADAPT_1),
   MIN_BLOCK_SIZE ("min-block-size", CSS_LOGICAL_1, CSS_SIZING_3),
   MIN_HEIGHT ("min-height", CSS2, CSS_DEVICE_ADAPT_1),
   MIN_INLINE_SIZE ("min-inline-size", CSS_LOGICAL_1, CSS_SIZING_3),
   MIN_WIDTH ("min-width", CSS2, CSS_DEVICE_ADAPT_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   MIN_ZOOM ("min-zoom", CSS_DEVICE_ADAPT_1),
   MIX_BLEND_MODE ("mix-blend-mode", COMPOSITING_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   NAV_DOWN ("nav-down", CSS_UI_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   NAV_INDEX ("nav-index", CSS_UI_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   NAV_LEFT ("nav-left", CSS_UI_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   NAV_RIGHT ("nav-right", CSS_UI_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   NAV_UP ("nav-up", CSS_UI_3),
   OBJECT_FIT ("object-fit", CSS3_IMAGES),
   OBJECT_POSITION ("object-position", CSS3_IMAGES),
@@ -473,7 +473,7 @@ public enum ECSSProperty implements IHasName
   OFFSET_ROTATE ("offset-rotate", MOTION_1),
   OPACITY ("opacity", CSS3_COLOR),
   ORDER ("order", CSS_FLEXBOX_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   ORIENTATION ("orientation", CSS_DEVICE_ADAPT_1),
   ORPHANS ("orphans", CSS2, CSS_BREAK_3),
   OUTLINE ("outline", CSS2, CSS_UI_3),
@@ -512,22 +512,22 @@ public enum ECSSProperty implements IHasName
   PAGE_BREAK_INSIDE ("page-break-inside", CSS2),
   PAINT_ORDER ("paint-order", SVG2),
   PATH_LENGTH ("path-length", SVG2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   PAUSE ("pause", CSS2, CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   PAUSE_AFTER ("pause-after", CSS2, CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   PAUSE_BEFORE ("pause-before", CSS2, CSS3_SPEECH),
   PERSPECTIVE ("perspective", CSS_TRANSFORMS_1),
   PERSPECTIVE_ORIGIN ("perspective-origin", CSS_TRANSFORMS_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   PITCH ("pitch", CSS2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   PITCH_RANGE ("pitch-range", CSS2),
   PLACE_CONTENT ("place-content", CSS_ALIGN_3),
   PLACE_ITEMS ("place-items", CSS_ALIGN_3),
   PLACE_SELF ("place-self", CSS_ALIGN_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   PLAY_DURING ("play-during", CSS2),
   POINTER_EVENTS ("pointer-events", SVG2, CSS_UI_4),
   POSITION ("position", CSS2, CSS_POSITION_3, CSS_TEMPLATE_3),
@@ -542,18 +542,18 @@ public enum ECSSProperty implements IHasName
   R ("r", SVG2),
   READING_FLOW ("reading-flow", CSS_DISPLAY_3),
   READING_ORDER ("reading-order", CSS_DISPLAY_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   REGION_FRAGMENT ("region-fragment", CSS_REGIONS_1),
   RESIZE ("resize", CSS_UI_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   RESOLUTION ("resolution", CSS_DEVICE_ADAPT_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   REST ("rest", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   REST_AFTER ("rest-after", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   REST_BEFORE ("rest-before", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   RICHNESS ("richness", CSS2),
   RIGHT ("right", CSS2, CSS_POSITION_3),
   ROTATE ("rotate", CSS_TRANSFORMS_2),
@@ -562,7 +562,7 @@ public enum ECSSProperty implements IHasName
   RUBY_MERGE ("ruby-merge", CSS_RUBY_1),
   RUBY_OVERHANG ("ruby-overhang", CSS_RUBY_1),
   RUBY_POSITION ("ruby-position", CSS_RUBY_1),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   RUNNING ("running", CSS_GCPM_3),
   RX ("rx", SVG2),
   RY ("ry", SVG2),
@@ -608,23 +608,23 @@ public enum ECSSProperty implements IHasName
   SHAPE_MARGIN ("shape-margin", CSS_SHAPES_1),
   SHAPE_RENDERING ("shape-rendering", SVG2),
   SIZE ("size", CSS3_PAGE),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   SPEAK ("speak", CSS2, CSS3_SPEECH),
   SPEAK_AS ("speak-as", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   SPEAK_HEADER ("speak-header", CSS2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   SPEAK_NUMERAL ("speak-numeral", CSS2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   SPEAK_PUNCTUATION ("speak-punctuation", CSS2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   SPEECH_RATE ("speech-rate", CSS2),
   SRC ("src", CSS_FONTS_3),
   STOP_COLOR ("stop-color", SVG2),
   STOP_OPACITY ("stop-opacity", SVG2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   STRESS ("stress", CSS2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   STRING_SET ("string-set", CSS_GCPM_3),
   STROKE ("stroke", SVG2, FILL_STROKE_3, SVG_STROKES),
   STROKE_COLOR ("stroke-color", FILL_STROKE_3),
@@ -658,7 +658,7 @@ public enum ECSSProperty implements IHasName
   TEXT_EMPHASIS_POSITION ("text-emphasis-position", CSS_TEXT_DECOR_3),
   TEXT_EMPHASIS_STYLE ("text-emphasis-style", CSS_TEXT_DECOR_3),
   TEXT_FIT ("text-fit", CSS_TEXT_5),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   TEXT_HEIGHT ("text-height", CSS_INLINE_3),
   TEXT_INDENT ("text-indent", CSS1, CSS2, CSS_TEXT_3),
   TEXT_JUSTIFY ("text-justify", CSS_TEXT_3),
@@ -701,7 +701,7 @@ public enum ECSSProperty implements IHasName
   UNICODE_BIDI ("unicode-bidi", CSS2, CSS_WRITING_MODES_3),
   UNICODE_RANGE ("unicode-range", CSS_FONTS_3),
   USER_SELECT ("user-select", CSS_UI_4),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   USER_ZOOM ("user-zoom", CSS_DEVICE_ADAPT_1),
   VECTOR_EFFECT ("vector-effect", SVG2),
   VERTICAL_ALIGN ("vertical-align", CSS1, CSS2, CSS_INLINE_3),
@@ -713,23 +713,23 @@ public enum ECSSProperty implements IHasName
   VIEW_TRANSITION_NAME ("view-transition-name", CSS_VIEW_TRANSITIONS_1),
   VIEW_TRANSITION_SCOPE ("view-transition-scope", CSS_VIEW_TRANSITIONS_1),
   VISIBILITY ("visibility", CSS2),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOICE_BALANCE ("voice-balance", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOICE_DURATION ("voice-duration", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOICE_FAMILY ("voice-family", CSS2, CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOICE_PITCH ("voice-pitch", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOICE_RANGE ("voice-range", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOICE_RATE ("voice-rate", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOICE_STRESS ("voice-stress", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOICE_VOLUME ("voice-volume", CSS3_SPEECH),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   VOLUME ("volume", CSS2),
   WHITE_SPACE ("white-space", CSS1, CSS2, CSS_TEXT_3),
   WHITE_SPACE_COLLAPSE ("white-space-collapse", CSS_TEXT_4),
@@ -742,9 +742,9 @@ public enum ECSSProperty implements IHasName
   // For legacy reasons, UAs must treat 'word-wrap' as an alternate name for the
   // 'overflow-wrap' property, as if it were a shorthand of 'overflow-wrap'.
   WORD_WRAP ("word-wrap", CSS_TEXT_3),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   WRAP_FLOW ("wrap-flow", CSS3_EXCLUSIONS),
-  @Deprecated (forRemoval = false, since = "8.2.4")
+  @Deprecated (forRemoval = false, since = "8.3.0")
   WRAP_THROUGH ("wrap-through", CSS3_EXCLUSIONS),
   WRITING_MODE ("writing-mode", CSS_WRITING_MODES_3),
   X ("x", SVG2),
@@ -904,17 +904,17 @@ public enum ECSSProperty implements IHasName
   _WEBKIT_USER_DRAG ("-webkit-user-drag");
 
   /** Use {@link #JUSTIFY_CONTENT} instead. */
-  @Deprecated (forRemoval = true, since = "8.2.4")
+  @Deprecated (forRemoval = true, since = "8.3.0")
   @ChangeNextMajorRelease ("Remove this misspelled constant")
   public static final ECSSProperty JUSITFY_CONTENT = JUSTIFY_CONTENT;
 
   /** Use {@link #JUSTIFY_ITEMS} instead. */
-  @Deprecated (forRemoval = true, since = "8.2.4")
+  @Deprecated (forRemoval = true, since = "8.3.0")
   @ChangeNextMajorRelease ("Remove this misspelled constant")
   public static final ECSSProperty JUSITFY_ITEMS = JUSTIFY_ITEMS;
 
   /** Use {@link #JUSTIFY_SELF} instead. */
-  @Deprecated (forRemoval = true, since = "8.2.4")
+  @Deprecated (forRemoval = true, since = "8.3.0")
   @ChangeNextMajorRelease ("Remove this misspelled constant")
   public static final ECSSProperty JUSITFY_SELF = JUSTIFY_SELF;
 

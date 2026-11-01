@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-ph-css is a Java-based CSS 3 parser and builder library (v8.1.2-SNAPSHOT). It parses CSS into a Java object model, supports traversal/modification via the visitor pattern, and can serialize back to CSS. The companion module `ph-csscompress-maven-plugin` provides build-time CSS compression.
+ph-css is a Java-based CSS 3 parser and builder library (v8.3.0-SNAPSHOT). It parses CSS into a Java object model, supports traversal/modification via the visitor pattern, and can serialize back to CSS. The companion module `ph-csscompress-maven-plugin` provides build-time CSS compression.
 
 ## Build Commands
 

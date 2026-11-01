@@ -31,7 +31,7 @@ import com.helger.css.utils.CSSNumberHelper;
  * CSS property that is either a decimal value without a unit or a percentage (e.g. opacity)
  *
  * @author Philip Helger
- * @since 8.2.4
+ * @since 8.3.0
  */
 @NotThreadSafe
 public class CSSPropertyDoubleOrPercentage extends CSSPropertyDouble

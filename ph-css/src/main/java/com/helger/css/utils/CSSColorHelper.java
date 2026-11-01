@@ -19,14 +19,15 @@ package com.helger.css.utils;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
-import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringHex;
 import com.helger.cache.regex.RegExHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.CSSHSL;
 import com.helger.css.decl.CSSHSLA;
 import com.helger.css.decl.CSSRGB;
@@ -116,12 +117,8 @@ public final class CSSColorHelper
   private static final String PATTERN_HEX = "^" + CCSSValue.PREFIX_HEX + "([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$";
   private static final String PATTERN_HEX_ALPHA = "^" + CCSSValue.PREFIX_HEX + "([0-9a-fA-F]{4}|[0-9a-fA-F]{8})$";
   private static final String [] LEGACY_COLOR_FUNCTIONS = { "rgb", "rgba", "hsl", "hsla" };
-  private static final String [] COLOR_FUNCTIONS = { "hwb",
-                                                     "lab",
-                                                     "lch",
-                                                     "oklab",
-                                                     "oklch",
-                                                     "color",
+  private static final String [] CHANNEL_COLOR_FUNCTIONS = { "hwb", "lab", "lch", "oklab", "oklch" };
+  private static final String [] COLOR_FUNCTIONS = { "color",
                                                      "color-mix",
                                                      "device-cmyk",
                                                      "contrast-color",
@@ -169,27 +166,83 @@ public final class CSSColorHelper
            sRealValue.equalsIgnoreCase (CCSSValue.TRANSPARENT);
   }
 
+  @NonNull
+  private static String _getFunctionArgs (@NonNull final String sFunction)
+  {
+    return sFunction.substring (sFunction.indexOf ('(') + 1, sFunction.length () - 1).trim ();
+  }
+
+  /**
+   * Check for the arguments of the space separated color functions: three channels and the optional
+   * alpha value after a slash. Relative colors starting with "from" need the origin color in
+   * addition.
+   */
+  private static boolean _isChannelArgs (@NonNull final String sArgs)
+  {
+    final ICommonsList <String> aParts = CSSValueHelper.getSplitByWhitespace (sArgs.replace ("/", " / "));
+    int nChannels = aParts.size ();
+    if (nChannels >= 2 && "/".equals (aParts.get (nChannels - 2)))
+    {
+      if (!_isChannel (aParts.get (nChannels - 1)))
+        return false;
+      nChannels -= 2;
+    }
+    if (nChannels > 0 && "from".equalsIgnoreCase (aParts.getFirstOrNull ()))
+      return nChannels == 5 && isColorValue (aParts.get (1));
+    if (nChannels != 3)
+      return false;
+    for (int i = 0; i < nChannels; ++i)
+      if (!_isChannel (aParts.get (i)))
+        return false;
+    return true;
+  }
+
+  private static boolean _isChannel (@NonNull final String sPart)
+  {
+    return "none".equalsIgnoreCase (sPart) ||
+           CSSNumberHelper.isNumberValue (sPart) ||
+           CSSNumberHelper.isValueWithUnitOrFunction (sPart, true);
+  }
+
+  private static boolean _isLevel5Function (@NonNull final String sValue)
+  {
+    final String sArgs = _getFunctionArgs (sValue.trim ());
+    final ICommonsList <String> aCommaParts = CSSValueHelper.getSplitByComma (sArgs);
+    if (CSSValueHelper.isFunctionCall (sValue, "color"))
+    {
+      final ICommonsList <String> aParts = CSSValueHelper.getSplitByWhitespace (sArgs);
+      return aParts.size () >= 4;
+    }
+    if (CSSValueHelper.isFunctionCall (sValue, "color-mix"))
+      return aCommaParts.size () >= 2 && aCommaParts.size () <= 3 && !aCommaParts.contains ("");
+    if (CSSValueHelper.isFunctionCall (sValue, "light-dark"))
+      return aCommaParts.size () == 2 && isColorValue (aCommaParts.get (0)) && isColorValue (aCommaParts.get (1));
+    return !sArgs.isEmpty ();
+  }
+
   /**
    * Check if the passed String is a color function that is not covered by the legacy RGB and HSL
    * checks. That are the CSS Color Level 4 and 5 functions, the space separated syntax of
    * <code>rgb()</code> and <code>hsl()</code> and the use of the alpha value in the same functions,
-   * independent of the trailing "a". The function arguments are not checked.
+   * independent of the trailing "a". The structure of the function arguments is checked.
    *
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if it is such a color function, <code>false</code> otherwise.
-   * @since 8.2.4
+   * @since 8.3.0
    */
   public static boolean isModernColorFunctionValue (@Nullable final String sValue)
   {
+    if (CSSValueHelper.isFunctionCall (sValue, CHANNEL_COLOR_FUNCTIONS))
+      return _isChannelArgs (_getFunctionArgs (sValue.trim ()));
     if (CSSValueHelper.isFunctionCall (sValue, COLOR_FUNCTIONS))
-      return true;
+      return _isLevel5Function (sValue);
     if (!CSSValueHelper.isFunctionCall (sValue, LEGACY_COLOR_FUNCTIONS))
       return false;
 
     final String sRealValue = sValue.trim ();
     if (sRealValue.indexOf (',') < 0)
-      return true;
+      return _isChannelArgs (_getFunctionArgs (sRealValue));
 
     // "rgb" and "rgba" as well as "hsl" and "hsla" are aliases
     final int nOpen = sRealValue.indexOf ('(');
@@ -347,7 +400,7 @@ public final class CSSColorHelper
    * @param sValue
    *        The value to check. May be <code>null</code>.
    * @return <code>true</code> if it is such a value, <code>false</code> otherwise.
-   * @since 8.2.4
+   * @since 8.3.0
    */
   public static boolean isHexAlphaColorValue (@Nullable final String sValue)
   {

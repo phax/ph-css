@@ -402,6 +402,123 @@ public final class CCSSPropertiesTest
   }
 
   @Test
+  public void testUnsignedNumbers ()
+  {
+    for (final ICSSProperty aProperty : new ICSSProperty [] { CCSSProperties.WIDTH,
+                                                              CCSSProperties.MAX_HEIGHT,
+                                                              CCSSProperties.PADDING,
+                                                              CCSSProperties.PADDING_LEFT,
+                                                              CCSSProperties.FONT_SIZE,
+                                                              CCSSProperties.BORDER_TOP_LEFT_RADIUS,
+                                                              CCSSProperties.GAP,
+                                                              CCSSProperties.BACKGROUND_SIZE })
+    {
+      _assertValid (aProperty, "0", "1px", "calc(1px - 2px)", "var(--x)");
+      _assertInvalid (aProperty, "-1px", "-0.5em", "-1%");
+    }
+    _assertValid (CCSSProperties.PADDING, "1px 2px 3px 4px");
+    _assertInvalid (CCSSProperties.PADDING, "1px -2px", "1px 2px 3px -4px");
+    _assertInvalid (CCSSProperties.BACKGROUND_SIZE, "cover, -1px");
+    _assertValid (CCSSProperties.BORDER_TOP_WIDTH, "thin", "1px");
+    _assertInvalid (CCSSProperties.BORDER_TOP_WIDTH, "-1px");
+    _assertValid (CCSSProperties.FLEX_GROW, "0", "0.5", "2");
+    _assertInvalid (CCSSProperties.FLEX_GROW, "-1");
+    _assertInvalid (CCSSProperties.FLEX_SHRINK, "-0.5");
+    _assertInvalid (CCSSProperties.TAB_SIZE, "-1", "-1px");
+    _assertInvalid (CCSSProperties.TRANSITION_DURATION, "-1s", "1s, -2s");
+
+    // Negative values stay valid where MDN allows them
+    _assertValid (CCSSProperties.MARGIN, "-1px", "-1px auto");
+    _assertValid (CCSSProperties.TOP, "-1px");
+    _assertValid (CCSSProperties.LETTER_SPACING, "-1px");
+    _assertValid (CCSSProperties.Z_INDEX, "-1");
+
+    // Clones keep the behaviour
+    final ICSSProperty aClone = CCSSProperties.WIDTH.getClone ((ECSSVendorPrefix) null);
+    assertEquals (CCSSProperties.WIDTH, aClone);
+    _assertInvalid (aClone, "-1px");
+    _assertInvalid (CCSSProperties.PADDING.getClone (ECSSProperty.MARGIN), "-1px");
+    _assertInvalid (CCSSProperties.GAP.getClone (ECSSProperty.ROW_GAP), "-1px");
+    _assertInvalid (CCSSProperties.FLEX_GROW.getClone (ECSSProperty.FLEX_SHRINK), "-1");
+  }
+
+  @Test
+  public void testRangedNumbers ()
+  {
+    _assertValid (CCSSProperties.FONT_WEIGHT, "1", "450.5", "1000", "bold", "calc(100 * 4)");
+    _assertInvalid (CCSSProperties.FONT_WEIGHT, "0", "1001", "-100", "5000", "10px");
+    _assertValid (CCSSProperties.ANIMATION_ITERATION_COUNT, "infinite", "0", "1.5", "2, infinite");
+    _assertInvalid (CCSSProperties.ANIMATION_ITERATION_COUNT, "-1", "1px", "1, -1");
+    assertEquals (CCSSProperties.FONT_WEIGHT, CCSSProperties.FONT_WEIGHT.getClone ((ECSSVendorPrefix) null));
+  }
+
+  @Test
+  public void testCombinations ()
+  {
+    _assertValid (CCSSProperties.DISPLAY, "none", "flex", "inline flex", "block flow", "block flow list-item", "contents");
+    _assertInvalid (CCSSProperties.DISPLAY,
+                    "none none",
+                    "none flex",
+                    "flex none",
+                    "flex flex",
+                    "contents block",
+                    "inline-block block",
+                    "inherit block");
+    _assertValid (CCSSProperties.DISPLAY, "var(--a) var(--b)");
+    _assertValid (CCSSProperties.TEXT_DECORATION_LINE, "none", "underline", "underline overline");
+    _assertInvalid (CCSSProperties.TEXT_DECORATION_LINE, "none underline", "underline underline");
+    _assertValid (CCSSProperties.FONT_VARIANT, "normal", "none", "small-caps slashed-zero");
+    _assertInvalid (CCSSProperties.FONT_VARIANT, "normal small-caps", "small-caps small-caps");
+    _assertValid (CCSSProperties.FLEX_FLOW, "row wrap", "column");
+    _assertInvalid (CCSSProperties.FLEX_FLOW, "row row");
+
+    // Repetition is valid for these properties
+    _assertValid (CCSSProperties.OVERFLOW, "hidden hidden");
+    _assertValid (CCSSProperties.BORDER_STYLE, "solid solid");
+    _assertValid (CCSSProperties.PLACE_ITEMS, "center center");
+    _assertValid (CCSSProperties.TEXT_BOX_EDGE, "text text");
+
+    assertEquals (CCSSProperties.DISPLAY, CCSSProperties.DISPLAY.getClone ((ECSSVendorPrefix) null));
+    _assertInvalid (CCSSProperties.DISPLAY.getClone (ECSSProperty.DISPLAY), "none none");
+  }
+
+  @Test
+  public void testFunctionArguments ()
+  {
+    _assertValid (CCSSProperties.COLOR,
+                  "hwb(0 0% 0%)",
+                  "hwb(0 0% 0% / 50%)",
+                  "lab(50% 40 59 / 0.5)",
+                  "oklch(50% 0.1 none)",
+                  "oklch(from red l c h)",
+                  "oklch(from red l c h / 0.5)",
+                  "rgb(from red r g b)",
+                  "rgb(0 0 0/50%)",
+                  "color(display-p3 1 0 0)",
+                  "color(srgb 1 0 0 / 50%)",
+                  "color-mix(in srgb, red, blue)",
+                  "color-mix(in srgb, red 20%, blue)",
+                  "light-dark(white, #000)");
+    _assertInvalid (CCSSProperties.COLOR,
+                    "hwb()",
+                    "hwb(0 0%)",
+                    "hwb(0 0% 0% 0%)",
+                    "lab(a b c)",
+                    "oklch(50% 0.1)",
+                    "rgb(0 0)",
+                    "rgb(0 0 0 0)",
+                    "color(srgb)",
+                    "color-mix(red)",
+                    "light-dark(white)",
+                    "light-dark(white, 1px)");
+    _assertValid (CCSSProperties.BACKGROUND_IMAGE,
+                  "linear-gradient(to right, red, blue)",
+                  "conic-gradient(red, blue)",
+                  "image-set(\"a.png\" 1x)");
+    _assertInvalid (CCSSProperties.BACKGROUND_IMAGE, "linear-gradient()", "linear-gradient(red)", "linear-gradient(red,)", "image-set()");
+  }
+
+  @Test
   public void testMaxWidthAndMaxHeight ()
   {
     for (final ICSSProperty aProperty : new ICSSProperty [] { CCSSProperties.MAX_WIDTH, CCSSProperties.MAX_HEIGHT })

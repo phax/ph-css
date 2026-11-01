@@ -31,7 +31,7 @@ import com.helger.css.property.customizer.ICSSPropertyCustomizer;
  * a unit (e.g. line-height)
  *
  * @author Philip Helger
- * @since 8.2.4
+ * @since 8.3.0
  */
 @NotThreadSafe
 public class CSSPropertyEnumOrNumberOrDouble extends CSSPropertyEnumOrNumber
