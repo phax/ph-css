@@ -116,8 +116,12 @@ public abstract class AbstractCSSProperty implements ICSSProperty
 
   public static boolean isValidPropertyValue (@Nullable final String sValue)
   {
-    // "inherit" and "initial" is valid for all values in CSS 3.0
-    return CCSSValue.INHERIT.equals (sValue) || CCSSValue.INITIAL.equals (sValue);
+    // The CSS-wide keywords are valid for all properties
+    return CCSSValue.INHERIT.equals (sValue) ||
+           CCSSValue.INITIAL.equals (sValue) ||
+           CCSSValue.UNSET.equals (sValue) ||
+           CCSSValue.REVERT.equals (sValue) ||
+           CCSSValue.REVERT_LAYER.equals (sValue);
   }
 
   @OverridingMethodsMustInvokeSuper

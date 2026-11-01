@@ -88,6 +88,15 @@ public class CSSPropertyEnumOrNumber extends CSSPropertyEnum
     m_bWithPercentage = bWithPercentage;
   }
 
+  /**
+   * @return <code>true</code> if the percentage unit is allowed, <code>false</code> if not
+   * @since 8.2.4
+   */
+  public final boolean isWithPercentage ()
+  {
+    return m_bWithPercentage;
+  }
+
   @Override
   @OverridingMethodsMustInvokeSuper
   public boolean isValidValue (@Nullable final String sValue)

@@ -166,12 +166,22 @@ public class CSSShortHandDescriptor
 
             if (aProperty.isValidValue (aSB.toString ()))
             {
-              // We found a match
+              // We found a match - also use all following optional arguments
+              final int nMaxArgs = aProperty.getMaximumArgumentCount ();
+              int nArgs = nMinArgs;
+              while (nArgs < nMaxArgs && nExprMemberIndex + nArgs < nExpressionMembers)
+              {
+                aSB.append (' ').append (aExpressionMembers.get (nExprMemberIndex + nArgs).getAsCSSString (aCWS));
+                if (!aProperty.isValidValue (aSB.toString ()))
+                  break;
+                nArgs++;
+              }
+
               final CSSExpression aExpr = new CSSExpression ();
-              for (int k = 0; k < nMinArgs; ++k)
+              for (int k = 0; k < nArgs; ++k)
                 aExpr.addMember (aExpressionMembers.get (nExprMemberIndex + k));
               ret.add (new CSSDeclaration (aSubProp.getProperty ().getPropertyName (), aExpr));
-              nExprMemberIndex += nMinArgs - 1;
+              nExprMemberIndex += nArgs - 1;
 
               // Remember as handled
               aHandledSubProperties[nSubPropIndex] = true;

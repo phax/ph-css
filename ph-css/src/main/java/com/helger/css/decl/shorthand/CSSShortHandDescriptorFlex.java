@@ -96,7 +96,7 @@ public class CSSShortHandDescriptorFlex extends CSSShortHandDescriptor
 
         final ICSSExpressionMember aMember2 = aExpressionMembers.get (1);
         final String sCSS = aMember2.getAsCSSString ();
-        if (StringParser.isLong (sCSS))
+        if (StringParser.parseDoubleObj (sCSS) != null)
         {
           // All in order - nothing do to
         }

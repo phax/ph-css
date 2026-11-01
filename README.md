@@ -328,6 +328,16 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.2.4 - work in progress
+* `CCSSProperties.MAX_WIDTH` and `CCSSProperties.MAX_HEIGHT` accept the value `none`
+* Aligned the value ranges of `CCSSProperties` with MDN: added missing keywords and unit-less numbers, and allowed the valid number of values for e.g. `display`, `overflow`, `background-position` and `background-size`
+* Removed the values not valid according to MDN: `auto` from `padding*`, `hidden` from `outline-style`, `invert` from `outline-color`, percentages from `border-spacing`, and more than one value from the `outline-*` properties
+* All properties accept the CSS-wide keywords `unset`, `revert` and `revert-layer`
+* Added the new classes `CSSPropertyDoubleOrPercentage` and `CSSPropertyEnumOrNumberOrDouble`
+* `CSSShortHandDescriptor` assigns optional values of a shorthand to a sub-property, up to its maximum argument count
+* The default value of the sub-properties of the `padding` shorthand is `0` instead of the invalid `auto`
+* Fixed the property name of `ECSSProperty.FLOOD_OPACITY` from `flood-opactiy` to `flood-opacity`
+
 v8.2.3 - 2026-10-13
 * Fixed `CSSParseHelper.unescapeURL` for hex escapes above U+10FFFF or in the surrogate range, and for a trailing backslash.
   See [#140](https://github.com/phax/ph-css/pull/140) - thx @Shaisolaris

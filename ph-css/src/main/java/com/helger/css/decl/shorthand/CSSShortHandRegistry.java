@@ -154,13 +154,13 @@ public final class CSSShortHandRegistry
                                                                                                            CCSSValue.AUTO)));
     registerShortHandDescriptor (new CSSShortHandDescriptorWithAlignment (ECSSProperty.PADDING,
                                                                           new CSSPropertyWithDefaultValue (CCSSProperties.PADDING_TOP,
-                                                                                                           CCSSValue.AUTO),
+                                                                                                           ECSSUnit.zero ()),
                                                                           new CSSPropertyWithDefaultValue (CCSSProperties.PADDING_RIGHT,
-                                                                                                           CCSSValue.AUTO),
+                                                                                                           ECSSUnit.zero ()),
                                                                           new CSSPropertyWithDefaultValue (CCSSProperties.PADDING_BOTTOM,
-                                                                                                           CCSSValue.AUTO),
+                                                                                                           ECSSUnit.zero ()),
                                                                           new CSSPropertyWithDefaultValue (CCSSProperties.PADDING_LEFT,
-                                                                                                           CCSSValue.AUTO)));
+                                                                                                           ECSSUnit.zero ())));
     registerShortHandDescriptor (new CSSShortHandDescriptor (ECSSProperty.OUTLINE,
                                                              new CSSPropertyWithDefaultValue (CCSSProperties.OUTLINE_WIDTH,
                                                                                               ECSSUnit.px (3)),

@@ -178,7 +178,7 @@ public enum ECSSProperty implements IHasName
   FLEX_WRAP ("flex-wrap", CSS_FLEXBOX_1),
   FLOAT ("float", CSS1, CSS2),
   FLOOD_COLOR ("flood-color", FILTER_EFFECTS_1),
-  FLOOD_OPACITY ("flood-opactiy", FILTER_EFFECTS_1),
+  FLOOD_OPACITY ("flood-opacity", FILTER_EFFECTS_1),
   FLOW_FROM ("flow-from", CSS_REGIONS_1),
   FLOW_INTO ("flow-into", CSS_REGIONS_1),
   FONT ("font", CSS1, CSS2, CSS_FONTS_3),

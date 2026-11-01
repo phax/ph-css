@@ -21,8 +21,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
+import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.css.decl.CSSDeclaration;
 import com.helger.css.property.ECSSProperty;
@@ -270,6 +272,118 @@ public final class CSSShortHandDescriptorTest
     assertEquals ("padding-right:3px", aSplittedDecls.get (1).getAsCSSString (CWS));
     assertEquals ("padding-bottom:5px", aSplittedDecls.get (2).getAsCSSString (CWS));
     assertEquals ("padding-left:7px", aSplittedDecls.get (3).getAsCSSString (CWS));
+  }
+
+  private static void _assertSplit (@NonNull final ECSSProperty eProperty,
+                                    @NonNull final String sCSS,
+                                    @NonNull final String... aExpected)
+  {
+    final CSSShortHandDescriptor aSHD = CSSShortHandRegistry.getShortHandDescriptor (eProperty);
+    assertNotNull (aSHD);
+    final CSSDeclaration aDecl = CSSReaderDeclarationList.readFromString (sCSS).getDeclarationAtIndex (0);
+    assertNotNull (aDecl);
+    final ICommonsList <String> aActual = new CommonsArrayList <> ();
+    for (final CSSDeclaration aSplitted : aSHD.getSplitIntoPieces (aDecl))
+      aActual.add (aSplitted.getAsCSSString (CWS));
+    for (final String sExpected : aExpected)
+      assertTrue (sCSS + " -> " + aActual, aActual.contains (sExpected));
+  }
+
+  @Test
+  public void testBackgroundOptionalValues ()
+  {
+    _assertSplit (ECSSProperty.BACKGROUND,
+                  "background: center / cover no-repeat",
+                  "background-position:center",
+                  "background-size:cover",
+                  "background-repeat:no-repeat");
+    _assertSplit (ECSSProperty.BACKGROUND,
+                  "background: left 10px top 20px / 50% red",
+                  "background-position:left 10px top 20px",
+                  "background-size:50%",
+                  "background-color:red");
+    _assertSplit (ECSSProperty.BACKGROUND,
+                  "background: url(a.png) 0 0 no-repeat fixed",
+                  "background-position:0 0",
+                  "background-repeat:no-repeat",
+                  "background-attachment:fixed");
+    _assertSplit (ECSSProperty.BACKGROUND,
+                  "background: red",
+                  "background-position:top left",
+                  "background-size:auto auto");
+  }
+
+  @Test
+  public void testBorderValuesStayApart ()
+  {
+    _assertSplit (ECSSProperty.BORDER,
+                  "border: 1px solid red",
+                  "border-width:1px",
+                  "border-style:solid",
+                  "border-color:red");
+    _assertSplit (ECSSProperty.BORDER,
+                  "border: red 1px solid",
+                  "border-width:1px",
+                  "border-style:solid",
+                  "border-color:red");
+  }
+
+  @Test
+  public void testOutline ()
+  {
+    _assertSplit (ECSSProperty.OUTLINE,
+                  "outline: 1px dotted blue",
+                  "outline-width:1px",
+                  "outline-style:dotted",
+                  "outline-color:blue");
+    _assertSplit (ECSSProperty.OUTLINE, "outline: auto 1px", "outline-width:1px", "outline-style:auto");
+  }
+
+  @Test
+  public void testListStyle ()
+  {
+    _assertSplit (ECSSProperty.LIST_STYLE,
+                  "list-style: georgian inside",
+                  "list-style-type:georgian",
+                  "list-style-position:inside",
+                  "list-style-image:none");
+    _assertSplit (ECSSProperty.LIST_STYLE,
+                  "list-style: inside url(a.png)",
+                  "list-style-type:disc",
+                  "list-style-position:inside",
+                  "list-style-image:url(a.png)");
+  }
+
+  @Test
+  public void testFlexFractions ()
+  {
+    _assertSplit (ECSSProperty.FLEX, "flex: 0.5 0.25", "flex-grow:0.5", "flex-shrink:0.25", "flex-basis:auto");
+    _assertSplit (ECSSProperty.FLEX, "flex: 0.5 10px", "flex-grow:0.5", "flex-shrink:1", "flex-basis:10px");
+    _assertSplit (ECSSProperty.FLEX, "flex: 1 1 min-content", "flex-grow:1", "flex-shrink:1", "flex-basis:min-content");
+  }
+
+  @Test
+  public void testFont ()
+  {
+    _assertSplit (ECSSProperty.FONT,
+                  "font: italic small-caps bold 12px Arial",
+                  "font-style:italic",
+                  "font-variant:small-caps",
+                  "font-weight:bold",
+                  "font-size:12px",
+                  "font-family:Arial");
+    _assertSplit (ECSSProperty.FONT, "font: 450 12px Arial", "font-weight:450", "font-size:12px", "font-family:Arial");
+  }
+
+  @Test
+  public void testPaddingKeepsValidValues ()
+  {
+    _assertSplit (ECSSProperty.PADDING,
+                  "padding: 1px 2px",
+                  "padding-top:1px",
+                  "padding-right:2px",
+                  "padding-bottom:1px",
+                  "padding-left:2px");
   }
 
   @Test
