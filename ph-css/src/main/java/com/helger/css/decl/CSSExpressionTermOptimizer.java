@@ -38,9 +38,11 @@ public final class CSSExpressionTermOptimizer
 
   static
   {
-    // Save all "0" formatted unit values
+    // Save all "0" formatted length values. Only a zero length may be written without a unit - e.g.
+    // "0%" in hsl(), "0s" in transition or "0deg" in linear-gradient() must keep their unit
     for (final ECSSUnit eUnit : ECSSUnit.values ())
-      UNIT_VALUES_0.add (eUnit.format (0));
+      if (eUnit.getMetaUnit ().isLength ())
+        UNIT_VALUES_0.add (eUnit.format (0));
   }
 
   @PresentForCodeCoverage

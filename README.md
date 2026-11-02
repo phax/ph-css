@@ -328,6 +328,9 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.3.1 - work in progress
+* Optimised output only removes the unit from zero lengths, so e.g. `0%` in `hsl()` and `0s` in `transition` stay valid - see [issue #141](https://github.com/phax/ph-css/issues/141)
+
 v8.3.0 - 2026-11-01
 * `CCSSProperties.MAX_WIDTH` and `CCSSProperties.MAX_HEIGHT` accept the value `none`
 * Aligned the value ranges of `CCSSProperties` with MDN: added missing keywords and unit-less numbers, and allowed the valid number of values for e.g. `display`, `overflow`, `background-position` and `background-size`
