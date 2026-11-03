@@ -34,7 +34,7 @@ import com.helger.css.ICSSWriterSettings;
  * "font-tech(color-COLRv1)" or "at-rule(@layer)".
  *
  * @author Philip Helger
- * @since 8.3.1
+ * @since 8.4.0
  */
 @NotThreadSafe
 public class CSSSupportsConditionFunction implements ICSSSupportsConditionMember, ICSSSourceLocationAware

@@ -33,7 +33,7 @@ import com.helger.css.ICSSWriterSettings;
  * Represents a single supports condition with a selector. E.g. "selector(h2 &gt; p)"
  *
  * @author Philip Helger
- * @since 8.3.1
+ * @since 8.4.0
  */
 @NotThreadSafe
 public class CSSSupportsConditionSelector implements ICSSSupportsConditionMember, ICSSSourceLocationAware

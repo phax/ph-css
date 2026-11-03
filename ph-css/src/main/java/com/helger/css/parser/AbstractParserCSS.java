@@ -111,7 +111,7 @@ public abstract class AbstractParserCSS
    *        <code>font-tech(</code>. May be <code>null</code>.
    * @return <code>true</code> if it is a known @supports function, <code>false</code> if not.
    * @see ECSSSupportsFunction
-   * @since 8.3.1
+   * @since 8.4.0
    */
   protected static boolean isSupportsFunctionName (@Nullable final String sFunctionImage)
   {

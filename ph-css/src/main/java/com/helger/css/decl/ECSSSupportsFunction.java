@@ -29,7 +29,7 @@ import com.helger.base.name.IHasName;
  * function is handled separately by {@link CSSSupportsConditionSelector}.
  *
  * @author Philip Helger
- * @since 8.3.1
+ * @since 8.4.0
  */
 public enum ECSSSupportsFunction implements IHasName
 {

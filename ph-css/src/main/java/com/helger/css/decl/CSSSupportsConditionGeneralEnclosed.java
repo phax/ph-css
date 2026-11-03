@@ -36,7 +36,7 @@ import com.helger.css.ICSSWriterSettings;
  * false. The content is kept as written.
  *
  * @author Philip Helger
- * @since 8.3.1
+ * @since 8.4.0
  */
 @NotThreadSafe
 public class CSSSupportsConditionGeneralEnclosed implements ICSSSupportsConditionMember, ICSSSourceLocationAware
