@@ -221,9 +221,9 @@ public class CSSPropertyEnumOrNumbers extends CSSPropertyEnum
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("withPercentage", m_bWithPercentage)
-                            .append ("minNumbers", m_nMinNumbers)
-                            .append ("maxNumbers", m_nMaxNumbers)
+                            .append ("WithPercentage", m_bWithPercentage)
+                            .append ("MinNumbers", m_nMinNumbers)
+                            .append ("MaxNumbers", m_nMaxNumbers)
                             .getToString ();
   }
 }

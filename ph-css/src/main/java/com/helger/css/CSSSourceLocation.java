@@ -227,8 +227,8 @@ public class CSSSourceLocation
     // For debug comparison, return empty
     if (false)
       return "";
-    return new ToStringGenerator (null).append ("firstTokenArea", m_aFirstTokenArea)
-                                       .append ("lastTokenArea", m_aLastTokenArea)
+    return new ToStringGenerator (null).append ("FirstTokenArea", m_aFirstTokenArea)
+                                       .append ("LastTokenArea", m_aLastTokenArea)
                                        .getToString ();
   }
 }

@@ -132,11 +132,11 @@ public class CSSParseError
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("lastValidToken", m_aLastValidToken)
-                                       .appendIfNotNull ("expectedTokens", m_sExpectedTokens)
-                                       .appendIfNotNull ("firstSkippedToken", m_aFirstSkippedToken)
-                                       .appendIfNotNull ("lastSkippedToken", m_aLastSkippedToken)
-                                       .append ("errorMessage", m_sErrorMessage)
+    return new ToStringGenerator (this).appendIfNotNull ("LastValidToken", m_aLastValidToken)
+                                       .appendIfNotNull ("ExpectedTokens", m_sExpectedTokens)
+                                       .appendIfNotNull ("FirstSkippedToken", m_aFirstSkippedToken)
+                                       .appendIfNotNull ("LastSkippedToken", m_aLastSkippedToken)
+                                       .append ("ErrorMessage", m_sErrorMessage)
                                        .getToString ();
   }
 

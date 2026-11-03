@@ -236,9 +236,9 @@ public class CSSKeyframesRule implements ICSSTopLevelRule, ICSSSourceLocationAwa
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declaration", m_sDeclaration)
-                                       .append ("animationName", m_sAnimationName)
-                                       .append ("blocks", m_aBlocks)
+    return new ToStringGenerator (this).append ("Declaration", m_sDeclaration)
+                                       .append ("AnimationName", m_sAnimationName)
+                                       .append ("Blocks", m_aBlocks)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

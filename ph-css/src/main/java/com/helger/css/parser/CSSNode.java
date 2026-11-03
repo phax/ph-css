@@ -215,14 +215,14 @@ public class CSSNode implements Node, ICommonsIterable <CSSNode>, IGetterDirectT
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("type", m_nType)
-                                       .appendIfNotNull ("parentType",
+    return new ToStringGenerator (this).append ("Type", m_nType)
+                                       .appendIfNotNull ("ParentType",
                                                          m_aParent == null ? null : Integer.valueOf (m_aParent.m_nType))
-                                       .appendIfNotNull ("value", m_aValue)
-                                       .appendIfNotNull ("text", m_sText)
-                                       .append ("children#", m_aChildren == null ? 0 : m_aChildren.length)
-                                       .appendIfNotNull ("firstToken", m_aFirstToken)
-                                       .appendIfNotNull ("lastToken", m_aLastToken)
+                                       .appendIfNotNull ("Value", m_aValue)
+                                       .appendIfNotNull ("Text", m_sText)
+                                       .append ("Children#", m_aChildren == null ? 0 : m_aChildren.length)
+                                       .appendIfNotNull ("FirstToken", m_aFirstToken)
+                                       .appendIfNotNull ("LastToken", m_aLastToken)
                                        .getToString ();
   }
 }

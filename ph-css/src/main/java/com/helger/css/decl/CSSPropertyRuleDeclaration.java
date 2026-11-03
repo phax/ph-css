@@ -119,8 +119,8 @@ public class CSSPropertyRuleDeclaration implements ICSSSourceLocationAware, ICSS
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("descriptor", m_sDescriptor)
-                                       .append ("expression", m_aExpression)
+    return new ToStringGenerator (this).append ("Descriptor", m_sDescriptor)
+                                       .append ("Expression", m_aExpression)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

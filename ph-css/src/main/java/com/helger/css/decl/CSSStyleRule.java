@@ -460,9 +460,9 @@ public class CSSStyleRule implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("selectors", m_aSelectors)
-                                       .append ("declarations", m_aDeclarations)
-                                       .append ("rules", m_aRules)
+    return new ToStringGenerator (this).append ("Selectors", m_aSelectors)
+                                       .append ("Declarations", m_aDeclarations)
+                                       .append ("Rules", m_aRules)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

@@ -181,8 +181,8 @@ public class CSSPageMarginBlock implements ICSSPageRuleMember, IHasCSSDeclaratio
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("pageMarginSymbol", m_sPageMarginSymbol)
-                                       .append ("declarations", m_aDeclarations)
+    return new ToStringGenerator (this).append ("PageMarginSymbol", m_sPageMarginSymbol)
+                                       .append ("Declarations", m_aDeclarations)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

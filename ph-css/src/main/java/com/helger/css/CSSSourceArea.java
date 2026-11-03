@@ -152,10 +152,10 @@ public class CSSSourceArea
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("beginLine", m_nBeginLineNumber)
-                                       .append ("beginColumn", m_nBeginColumnNumber)
-                                       .append ("endLine", m_nEndLineNumber)
-                                       .append ("endColumn", m_nEndColumnNumber)
+    return new ToStringGenerator (null).append ("BeginLine", m_nBeginLineNumber)
+                                       .append ("BeginColumn", m_nBeginColumnNumber)
+                                       .append ("EndLine", m_nEndLineNumber)
+                                       .append ("EndColumn", m_nEndColumnNumber)
                                        .getToString ();
   }
 }

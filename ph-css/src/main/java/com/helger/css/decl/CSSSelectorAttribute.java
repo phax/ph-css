@@ -212,11 +212,11 @@ public class CSSSelectorAttribute implements ICSSSelectorMember, ICSSSourceLocat
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).appendIfNotNull ("namespacePrefix", m_sNamespacePrefix)
-                                       .append ("attrName", m_sAttrName)
-                                       .appendIfNotNull ("operator", m_eOperator)
-                                       .appendIfNotNull ("attrValue", m_sAttrValue)
-                                       .appendIfNotNull ("caseFlag", m_eAttrCase)
+    return new ToStringGenerator (null).appendIfNotNull ("NamespacePrefix", m_sNamespacePrefix)
+                                       .append ("AttrName", m_sAttrName)
+                                       .appendIfNotNull ("Operator", m_eOperator)
+                                       .appendIfNotNull ("AttrValue", m_sAttrValue)
+                                       .appendIfNotNull ("CaseFlag", m_eAttrCase)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

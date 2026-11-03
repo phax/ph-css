@@ -227,7 +227,7 @@ public class CSSPageRule implements ICSSTopLevelRule, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declarations", m_aMembers)
+    return new ToStringGenerator (this).append ("Declarations", m_aMembers)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

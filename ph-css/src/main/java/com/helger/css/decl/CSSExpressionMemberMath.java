@@ -159,7 +159,7 @@ public class CSSExpressionMemberMath implements ICSSExpressionMember, ICSSExpres
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("members", m_aMembers)
+    return new ToStringGenerator (null).append ("Members", m_aMembers)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

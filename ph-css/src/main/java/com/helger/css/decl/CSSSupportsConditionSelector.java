@@ -93,7 +93,7 @@ public class CSSSupportsConditionSelector implements ICSSSupportsConditionMember
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("selector", m_aSelector)
+    return new ToStringGenerator (this).append ("Selector", m_aSelector)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

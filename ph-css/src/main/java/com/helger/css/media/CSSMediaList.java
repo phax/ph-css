@@ -268,7 +268,7 @@ public class CSSMediaList implements ICSSMediaList, ICloneable <CSSMediaList>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("media", m_aMedia).getToString ();
+    return new ToStringGenerator (this).append ("Media", m_aMedia).getToString ();
   }
 
   @NonNull

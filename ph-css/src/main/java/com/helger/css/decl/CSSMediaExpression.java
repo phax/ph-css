@@ -326,11 +326,11 @@ public class CSSMediaExpression implements ICSSWriteable, ICSSSourceLocationAwar
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("rangeLeftValue", m_aRangeLeftValue)
-                                       .appendIfNotNull ("rangeLeftOperator", m_eRangeLeftOperator)
-                                       .append ("feature", m_sFeature)
-                                       .appendIfNotNull ("rangeRightOperator", m_eRangeRightOperator)
-                                       .appendIfNotNull ("value", m_aValue)
+    return new ToStringGenerator (this).appendIfNotNull ("RangeLeftValue", m_aRangeLeftValue)
+                                       .appendIfNotNull ("RangeLeftOperator", m_eRangeLeftOperator)
+                                       .append ("Feature", m_sFeature)
+                                       .appendIfNotNull ("RangeRightOperator", m_eRangeRightOperator)
+                                       .appendIfNotNull ("Value", m_aValue)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

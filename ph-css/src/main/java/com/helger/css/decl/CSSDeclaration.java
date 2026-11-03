@@ -289,9 +289,9 @@ public class CSSDeclaration implements ICSSSourceLocationAware, ICSSPageRuleMemb
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("property", m_sProperty)
-                                       .append ("expression", m_aExpression)
-                                       .append ("important", m_bIsImportant)
+    return new ToStringGenerator (this).append ("Property", m_sProperty)
+                                       .append ("Expression", m_aExpression)
+                                       .append ("Important", m_bIsImportant)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

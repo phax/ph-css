@@ -205,8 +205,8 @@ public class CSSPropertyRule extends AbstractHasTopLevelRules implements ICSSTop
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("identifier", m_sIdentifier)
-                                       .append ("declaration", m_aDeclarations)
+    return new ToStringGenerator (this).append ("Identifier", m_sIdentifier)
+                                       .append ("Declaration", m_aDeclarations)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

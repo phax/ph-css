@@ -372,11 +372,11 @@ public class CSSDataURL
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("mimeType", m_aMimeType)
-                                       .append ("base64Encoded", m_bBase64Encoded)
-                                       .append ("content.length", m_aContent.length)
-                                       .append ("charset", m_aCharset)
-                                       .append ("hasStringContent", m_sContent != null)
+    return new ToStringGenerator (this).append ("MimeType", m_aMimeType)
+                                       .append ("Base64Encoded", m_bBase64Encoded)
+                                       .append ("Content.length", m_aContent.length)
+                                       .append ("Charset", m_aCharset)
+                                       .append ("HasStringContent", m_sContent != null)
                                        .getToString ();
   }
 }

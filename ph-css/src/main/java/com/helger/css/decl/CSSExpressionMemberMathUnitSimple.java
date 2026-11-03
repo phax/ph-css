@@ -107,8 +107,8 @@ public class CSSExpressionMemberMathUnitSimple implements ICSSExpressionMathMemb
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("text", m_sText)
-                                       .append ("unit", m_eUnit)
+    return new ToStringGenerator (this).append ("Text", m_sText)
+                                       .append ("Unit", m_eUnit)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

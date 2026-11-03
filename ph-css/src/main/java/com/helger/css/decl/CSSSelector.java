@@ -156,7 +156,7 @@ public class CSSSelector implements ICSSSelectorMember, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("members", m_aMembers)
+    return new ToStringGenerator (this).append ("Members", m_aMembers)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

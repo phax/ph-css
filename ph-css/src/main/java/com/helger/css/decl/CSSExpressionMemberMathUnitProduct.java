@@ -88,6 +88,6 @@ public class CSSExpressionMemberMathUnitProduct implements ICSSExpressionMathMem
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("product", m_aProduct).getToString ();
+    return new ToStringGenerator (this).append ("Product", m_aProduct).getToString ();
   }
 }

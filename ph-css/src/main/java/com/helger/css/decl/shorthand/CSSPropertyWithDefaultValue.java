@@ -58,8 +58,8 @@ public final class CSSPropertyWithDefaultValue
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("property", m_aProperty)
-                                       .append ("defaultValue", m_sDefaultValue)
+    return new ToStringGenerator (this).append ("Property", m_aProperty)
+                                       .append ("DefaultValue", m_sDefaultValue)
                                        .getToString ();
   }
 }

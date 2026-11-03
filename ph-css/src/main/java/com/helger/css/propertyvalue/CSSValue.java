@@ -244,9 +244,9 @@ public class CSSValue implements ICSSValue
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("property", m_aProperty)
-                                       .append ("value", m_sValue)
-                                       .append ("important", m_bIsImportant)
+    return new ToStringGenerator (this).append ("Property", m_aProperty)
+                                       .append ("Value", m_sValue)
+                                       .append ("Important", m_bIsImportant)
                                        .getToString ();
   }
 }

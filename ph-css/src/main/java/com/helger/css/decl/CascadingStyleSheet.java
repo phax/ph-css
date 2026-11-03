@@ -330,9 +330,9 @@ public class CascadingStyleSheet extends AbstractHasTopLevelRules implements ICS
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("importRules", m_aImportRules)
-                                       .append ("namespaceRules", m_aNamespaceRules)
-                                       .append ("rules", m_aRules)
+    return new ToStringGenerator (this).append ("ImportRules", m_aImportRules)
+                                       .append ("NamespaceRules", m_aNamespaceRules)
+                                       .append ("Rules", m_aRules)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

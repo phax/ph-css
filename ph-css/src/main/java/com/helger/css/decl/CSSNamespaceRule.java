@@ -154,7 +154,7 @@ public class CSSNamespaceRule implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("prefix", m_sPrefix)
+    return new ToStringGenerator (this).appendIfNotNull ("Prefix", m_sPrefix)
                                        .append ("URL", m_sURL)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();

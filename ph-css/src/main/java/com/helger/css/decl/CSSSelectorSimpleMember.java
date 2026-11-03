@@ -135,7 +135,7 @@ public class CSSSelectorSimpleMember implements ICSSSelectorMember, ICSSSourceLo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("value", m_sValue)
+    return new ToStringGenerator (null).append ("Value", m_sValue)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

@@ -336,6 +336,7 @@ v8.4.0 - work in progress
 * Added support for the Selectors Level 4 syntax `:nth-child(An+B of S)`
 * Selectors like `u+b` are no longer read as a unicode range, so `u+b .foo` can be parsed - see [issue #69](https://github.com/phax/ph-css/issues/69)
 * Added support for the `@page :nth(An+B of <custom-ident>)` page selector of CSS GCPM 3 - see [issue #65](https://github.com/phax/ph-css/issues/65)
+* All `toString ()` implementations use field names starting with an uppercase character
 
 v8.3.0 - 2026-11-01
 * `CCSSProperties.MAX_WIDTH` and `CCSSProperties.MAX_HEIGHT` accept the value `none`

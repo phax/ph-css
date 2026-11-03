@@ -197,8 +197,8 @@ public class CSSViewportRule implements ICSSTopLevelRule, IHasCSSDeclarations <C
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declaration", m_sDeclaration)
-                                       .append ("declarations", m_aDeclarations)
+    return new ToStringGenerator (this).append ("Declaration", m_sDeclaration)
+                                       .append ("Declarations", m_aDeclarations)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

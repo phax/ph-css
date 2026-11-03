@@ -268,8 +268,8 @@ public class CSSMediaRule extends AbstractHasTopLevelRules implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("mediaQueries", m_aMediaQueries)
-                                       .append ("styleRules", m_aRules)
+    return new ToStringGenerator (this).append ("MediaQueries", m_aMediaQueries)
+                                       .append ("StyleRules", m_aRules)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

@@ -106,6 +106,6 @@ public class CSSPropertyNumber extends AbstractCSSProperty
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("withPercentage", m_bWithPercentage).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("WithPercentage", m_bWithPercentage).getToString ();
   }
 }

@@ -169,9 +169,9 @@ public class CSSUnknownRule implements ICSSTopLevelRule, ICSSNestedRule, ICSSSou
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declaration", m_sDeclaration)
-                                       .appendIfNotNull ("parameterList", m_sParameterList)
-                                       .appendIfNotNull ("body", m_sBody)
+    return new ToStringGenerator (this).append ("Declaration", m_sDeclaration)
+                                       .appendIfNotNull ("ParameterList", m_sParameterList)
+                                       .appendIfNotNull ("Body", m_sBody)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

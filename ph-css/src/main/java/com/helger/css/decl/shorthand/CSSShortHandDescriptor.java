@@ -210,8 +210,8 @@ public class CSSShortHandDescriptor
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("property", m_eProperty)
-                                       .append ("subProperties", m_aSubProperties)
+    return new ToStringGenerator (this).append ("Property", m_eProperty)
+                                       .append ("SubProperties", m_aSubProperties)
                                        .getToString ();
   }
 }

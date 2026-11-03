@@ -276,10 +276,10 @@ public class CSSRGBA implements ICSSWriteable, ICSSColor, ICloneable <CSSRGBA>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("red", m_sRed)
-                                       .append ("green", m_sGreen)
-                                       .append ("blue", m_sBlue)
-                                       .append ("opacity", m_sOpacity)
+    return new ToStringGenerator (this).append ("Red", m_sRed)
+                                       .append ("Green", m_sGreen)
+                                       .append ("Blue", m_sBlue)
+                                       .append ("Opacity", m_sOpacity)
                                        .getToString ();
   }
 }

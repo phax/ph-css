@@ -176,8 +176,8 @@ public class CSSExpressionMemberFunction implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("funcName", m_sFunctionName)
-                                       .appendIfNotNull ("expression", m_aExpression)
+    return new ToStringGenerator (null).append ("FuncName", m_sFunctionName)
+                                       .appendIfNotNull ("Expression", m_aExpression)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

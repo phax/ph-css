@@ -220,8 +220,8 @@ public class CSSSupportsRule extends AbstractHasTopLevelRules implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("conditionMembers", m_aConditionMembers)
-                                       .append ("rules", m_aRules)
+    return new ToStringGenerator (this).append ("ConditionMembers", m_aConditionMembers)
+                                       .append ("Rules", m_aRules)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

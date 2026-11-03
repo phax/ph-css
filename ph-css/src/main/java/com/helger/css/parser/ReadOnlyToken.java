@@ -103,12 +103,12 @@ public class ReadOnlyToken
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("kind", m_nKind)
-                                       .append ("beginLine", m_nBeginLine)
-                                       .append ("beginColumn", m_nBeginColumn)
-                                       .append ("endLine", m_nEndLine)
-                                       .append ("endColumn", m_nEndColumn)
-                                       .append ("image", m_sImage)
+    return new ToStringGenerator (this).append ("Kind", m_nKind)
+                                       .append ("BeginLine", m_nBeginLine)
+                                       .append ("BeginColumn", m_nBeginColumn)
+                                       .append ("EndLine", m_nEndLine)
+                                       .append ("EndColumn", m_nEndColumn)
+                                       .append ("Image", m_sImage)
                                        .getToString ();
   }
 }

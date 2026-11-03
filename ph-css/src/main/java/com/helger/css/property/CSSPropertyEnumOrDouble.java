@@ -141,8 +141,8 @@ public class CSSPropertyEnumOrDouble extends CSSPropertyEnum
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("min", m_dMin)
-                            .append ("max", m_dMax)
+                            .append ("Min", m_dMin)
+                            .append ("Max", m_dMax)
                             .getToString ();
   }
 }

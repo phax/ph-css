@@ -224,9 +224,9 @@ public class CSSRGB implements ICSSWriteable, ICSSColor, ICloneable <CSSRGB>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("red", m_sRed)
-                                       .append ("green", m_sGreen)
-                                       .append ("blue", m_sBlue)
+    return new ToStringGenerator (this).append ("Red", m_sRed)
+                                       .append ("Green", m_sGreen)
+                                       .append ("Blue", m_sBlue)
                                        .getToString ();
   }
 }

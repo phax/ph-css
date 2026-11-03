@@ -117,8 +117,8 @@ public class CSSSupportsConditionFunction implements ICSSSupportsConditionMember
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("function", m_eFunction)
-                                       .append ("argument", m_sArgument)
+    return new ToStringGenerator (this).append ("Function", m_eFunction)
+                                       .append ("Argument", m_sArgument)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

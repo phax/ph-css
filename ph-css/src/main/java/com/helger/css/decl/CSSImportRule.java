@@ -268,8 +268,8 @@ public class CSSImportRule implements ICSSWriteable, ICSSSourceLocationAware
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("location", m_aLocation)
-                                       .append ("mediaQueries", m_aMediaQueries)
+    return new ToStringGenerator (this).append ("Location", m_aLocation)
+                                       .append ("MediaQueries", m_aMediaQueries)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

@@ -203,7 +203,7 @@ public class CSSNestedDeclarations implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declarations", m_aDeclarations)
+    return new ToStringGenerator (this).append ("Declarations", m_aDeclarations)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

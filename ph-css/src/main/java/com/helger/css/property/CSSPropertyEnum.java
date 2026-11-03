@@ -177,6 +177,6 @@ public class CSSPropertyEnum extends AbstractCSSProperty
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("enumValues", m_aEnumValues).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("EnumValues", m_aEnumValues).getToString ();
   }
 }

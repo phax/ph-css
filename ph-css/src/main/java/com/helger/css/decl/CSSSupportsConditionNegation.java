@@ -92,7 +92,7 @@ public class CSSSupportsConditionNegation implements ICSSSupportsConditionMember
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("supportsMember", m_aSupportsMember)
+    return new ToStringGenerator (this).append ("SupportsMember", m_aSupportsMember)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

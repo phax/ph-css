@@ -155,8 +155,8 @@ public class CSSExpressionMemberTermSimple implements ICSSExpressionMember, ICSS
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("value", m_sValue)
-                                       .append ("optimizedValue", m_sOptimizedValue)
+    return new ToStringGenerator (null).append ("Value", m_sValue)
+                                       .append ("OptimizedValue", m_sOptimizedValue)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

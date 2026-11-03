@@ -151,7 +151,7 @@ public class CSSPropertyEnumCombination extends CSSPropertyEnums
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("combinableValues", m_aCombinableValues)
+                            .append ("CombinableValues", m_aCombinableValues)
                             .getToString ();
   }
 }

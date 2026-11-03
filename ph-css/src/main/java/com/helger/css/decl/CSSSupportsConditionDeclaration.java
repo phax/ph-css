@@ -98,7 +98,7 @@ public class CSSSupportsConditionDeclaration implements ICSSSupportsConditionMem
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("declaration", m_aDeclaration)
+    return new ToStringGenerator (this).append ("Declaration", m_aDeclaration)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }

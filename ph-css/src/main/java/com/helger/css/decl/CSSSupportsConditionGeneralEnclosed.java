@@ -105,7 +105,7 @@ public class CSSSupportsConditionGeneralEnclosed implements ICSSSupportsConditio
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("text", m_sText)
+    return new ToStringGenerator (this).append ("Text", m_sText)
                                        .appendIfNotNull ("SourceLocation", m_aSourceLocation)
                                        .getToString ();
   }
