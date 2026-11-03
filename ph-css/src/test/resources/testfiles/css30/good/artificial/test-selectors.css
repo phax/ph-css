@@ -132,3 +132,8 @@ UL OL LI.red    /* a=0 b=1 c=3 -> specificity =  13 */ {}
 LI.red.level    /* a=0 b=2 c=1 -> specificity =  21 */ {}
 #x34y           /* a=1 b=0 c=0 -> specificity = 100 */ {}
 #s12:not(FOO)   /* a=1 b=0 c=1 -> specificity = 101 */ {}
+
+/* Selectors 4 "of S" */
+li:nth-child(odd of .important) { color: red; }
+li:nth-child( 2n + 1 of .a, .b > span ) { color: red; }
+li:nth-last-child(-n+3 of :not(.hidden)) > a { color: red; }

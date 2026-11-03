@@ -127,6 +127,8 @@ TOKEN :
 | < ODD: "odd" >
 | < EVEN: "even" >
 | < INTEGER: ( ["0"-"9"] )+ >
+// Selectors 4 ":nth-child(An+B of S)" - the selector list is read in the default state
+| < OF: "of" > : DEFAULT
 }
 
 <IN_PROPERTY_RULE>
@@ -1079,6 +1081,16 @@ void pseudoNth () #nth :
   | t = <ODD>     { jjtThis.appendText (t.image); }
   )
   ( LOOKAHEAD(1) ( <S> ) )*
+  ( <OF>
+    ( LOOKAHEAD(1) ( <S> ) )*
+    selector()
+    ( LOOKAHEAD(1) ( <S> ) )*
+    ( <COMMA>
+      ( LOOKAHEAD(1) ( <S> ) )*
+      selector()
+      ( LOOKAHEAD(1) ( <S> ) )*
+    )*
+  )?
 }
 
 void pseudoHost () #host : {}

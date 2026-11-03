@@ -288,10 +288,25 @@ final class CSSNodeToDomainObject
         final CSSNode aChildNode = aNode.jjtGetChild (0);
         if (ECSSNodeType.NTH.isNode (aChildNode))
         {
-          // Handle nth. E.g. ":nth-child(even)" or ":nth-child(3n+1)"
-          final CSSSelectorSimpleMember ret = new CSSSelectorSimpleMember (aNode.getText () +
-                                                                           aChildNode.getText () +
-                                                                           ")");
+          // Handle nth. E.g. ":nth-child(even)", ":nth-child(3n+1)" or ":nth-child(3n+1 of .foo)"
+          // Text is e.g. ":nth-child("
+          final String sText = aNode.getText ();
+          final String sName = sText.substring (sText.lastIndexOf (':') + 1, sText.length () - 1);
+          final ECSSNthPseudoClass ePseudoClass = ECSSNthPseudoClass.getFromNameCaseInsensitiveOrNull (sName);
+          if (ePseudoClass == null)
+            throw new CSSHandlingException (aNode, "The nth pseudo class '" + sText + "' is unknown!");
+
+          final CSSSelectorMemberNth ret;
+          try
+          {
+            ret = new CSSSelectorMemberNth (ePseudoClass, aChildNode.getText ());
+          }
+          catch (final IllegalArgumentException ex)
+          {
+            throw new CSSHandlingException (aChildNode, ex.getMessage ());
+          }
+          for (final CSSNode aOfSelectorNode : aChildNode)
+            ret.addOfSelector (_createSelector (aOfSelectorNode));
           if (m_bUseSourceLocation)
             ret.setSourceLocation (aNode.getSourceLocation ());
           return ret;
