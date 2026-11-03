@@ -987,7 +987,10 @@ void typeSelector() #void : {}
   ( LOOKAHEAD(2)
     namespacePrefix()
   )?
-  elementName()
+  ( LOOKAHEAD(1, <URANGE>, { isURangeSelector (getToken (1).image) })
+    urangeTypeSelector()
+  | elementName()
+  )
 }
 
 void nestingSelector() #Nesting : {}
@@ -1000,11 +1003,66 @@ void idSelector() : {}
   <HASH> { jjtThis.setText (token.image); }
 }
 
-void classSelector() #Class :
+void classSelectorName() #Class :
 { String sIdentifier; }
 {
   <DOT>
   sIdentifier = anyIdentifier() { jjtThis.setText ("." + sIdentifier); }
+}
+
+//
+// "u+b" is read as a unicode range token. In a selector it is the element or class "u", the "+"
+// combinator and the start of the next element name - see issue #69
+//
+void urangeElementName() #elementName : {}
+{
+  <URANGE> { jjtThis.setText (token.image.substring (0, 1)); }
+}
+
+void urangeClassName() #Class : {}
+{
+  <DOT>
+  <URANGE> { jjtThis.setText ("." + token.image.substring (0, 1)); }
+}
+
+void urangeCombinator() #selectorCombinator : {}
+{
+  { jjtThis.setText ("+"); }
+}
+
+void urangeNextElementName(final Token aURangeToken) #elementName :
+{ String s; }
+{
+  { jjtThis.setText (aURangeToken.image.substring (2)); }
+  // E.g. "u+bold" is read as "u+b" and "old"
+  ( LOOKAHEAD(1, { isAdjacentToken (aURangeToken, getToken (1)) })
+    ( s = anyIdentifier() { jjtThis.appendText (s); }
+    | <NUMBER>            { jjtThis.appendText (token.image); }
+    | <DIMENSION>         { jjtThis.appendText (token.image); }
+    )
+  )?
+}
+
+void urangeTypeSelector() #void : {}
+{
+  urangeElementName()
+  urangeCombinator()
+  urangeNextElementName(token)
+}
+
+void urangeClassSelector() #void : {}
+{
+  urangeClassName()
+  urangeCombinator()
+  urangeNextElementName(token)
+}
+
+void classSelector() #void : {}
+{
+  ( LOOKAHEAD(2, <DOT> <URANGE>, { isURangeSelector (getToken (2).image) })
+    urangeClassSelector()
+  | classSelectorName()
+  )
 }
 
 void attribOperator() : {}

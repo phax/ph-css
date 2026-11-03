@@ -16,6 +16,7 @@
  */
 package com.helger.css.parser;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,6 +120,41 @@ public abstract class AbstractParserCSS
       return false;
     final String sName = sFunctionImage.substring (0, sFunctionImage.length () - 1);
     return ECSSSupportsFunction.getFromNameCaseInsensitiveOrNull (sName) != null;
+  }
+
+  /**
+   * Check if the passed unicode range token image can be read as a selector with a "+" combinator,
+   * e.g. <code>u+b</code> in <code>u+b .foo</code>. This is the case if the part after the
+   * <code>+</code> is a valid start of an element name.
+   *
+   * @param sURangeImage
+   *        The image of the unicode range token, e.g. <code>u+b</code>. May be <code>null</code>.
+   * @return <code>true</code> if it can be read as a selector, <code>false</code> if not.
+   * @since 8.4.0
+   */
+  protected static boolean isURangeSelector (@Nullable final String sURangeImage)
+  {
+    if (sURangeImage == null || sURangeImage.length () < 3 || sURangeImage.indexOf ('?') >= 0)
+      return false;
+    final char c = Character.toLowerCase (sURangeImage.charAt (2));
+    return c >= 'a' && c <= 'f';
+  }
+
+  /**
+   * Check if two tokens directly follow each other, without whitespace or comments in between.
+   *
+   * @param aPrevToken
+   *        The previous token. May not be <code>null</code>.
+   * @param aNextToken
+   *        The next token. May not be <code>null</code>.
+   * @return <code>true</code> if the tokens are adjacent, <code>false</code> if not.
+   * @since 8.4.0
+   */
+  protected static boolean isAdjacentToken (@NonNull final Token aPrevToken, @NonNull final Token aNextToken)
+  {
+    return aNextToken.specialToken == null &&
+           aPrevToken.endLine == aNextToken.beginLine &&
+           aPrevToken.endColumn + 1 == aNextToken.beginColumn;
   }
 
   // Used when NODE_SCOPE_HOOK is true - for debugging only

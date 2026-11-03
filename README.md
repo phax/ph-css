@@ -334,6 +334,7 @@ v8.4.0 - work in progress
 * Added the new classes `CSSSupportsConditionSelector`, `CSSSupportsConditionFunction`, `CSSSupportsConditionGeneralEnclosed` and `ECSSSupportsFunction`
 * `:nth-child()`, `:nth-last-child()`, `:nth-of-type()` and `:nth-last-of-type()` are read as the new class `CSSSelectorMemberNth` (with the integers A and B) instead of `CSSSelectorSimpleMember` - see [issue #89](https://github.com/phax/ph-css/issues/89)
 * Added support for the Selectors Level 4 syntax `:nth-child(An+B of S)`
+* Selectors like `u+b` are no longer read as a unicode range, so `u+b .foo` can be parsed - see [issue #69](https://github.com/phax/ph-css/issues/69)
 
 v8.3.0 - 2026-11-01
 * `CCSSProperties.MAX_WIDTH` and `CCSSProperties.MAX_HEIGHT` accept the value `none`
