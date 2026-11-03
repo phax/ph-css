@@ -113,19 +113,17 @@ span.footnote { float: footnote; }
   content: '. ';
 }
 
-/* :nth not implemented yet
 @page :nth(1) {}
 @page :nth(2n) {}
- */
+@page :nth( -n + 3 ) {}
+@page chapter:nth(odd) {}
 
 div { page: A }
 child { page: B }
 
-/* :nth not implemented yet
-@page :nth(5 of A) {} /* will select 5th page of every <div> *
-@page :nth(1 of B) {} /* will select first page of every <child> *
-@page :nth(5)   {} /* will select 5th page of document *
- */
+@page :nth(5 of A) {} /* will select 5th page of every <div> */
+@page :nth(1 of B) {} /* will select first page of every <child> */
+@page :nth(5)   {} /* will select 5th page of document */
 
 a::after { content: target-counter(attr(href url), page) }
 

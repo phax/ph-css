@@ -312,6 +312,8 @@ TOKEN :
                 | "nth-last-child("
                 | "nth-of-type("
                 | "nth-last-of-type(" > : IN_NTH
+// GCPM 3 "@page :nth(An+B of <custom-ident>)"
+| < FUNCTION_PAGE_NTH: "nth(" > : IN_NTH
 // Expressions were abandoned after IE8
 | < FUNCTION_EXPRESSION: "expression(" >
 // Extension for IE
@@ -1118,26 +1120,34 @@ void attributeSelector() : {}
   <RSQUARE>
 }
 
-void pseudoNth () #nth :
-{ Token t; String s; }
+// The An+B expression without whitespace
+String pseudoNthExpression() #void :
+{ Token t; String s; final StringBuilder aSB = new StringBuilder (); }
 {
-  ( LOOKAHEAD(1) ( <S> ) )*
   ( LOOKAHEAD(3)
-    ( s = unaryOperator() { jjtThis.appendText (s); } )?
-    ( t = <INTEGER> { jjtThis.appendText (t.image); } )?
-    t = <N>        { jjtThis.appendText ("n"); }
+    ( s = unaryOperator() { aSB.append (s); } )?
+    ( t = <INTEGER> { aSB.append (t.image); } )?
+    t = <N>        { aSB.append ('n'); }
     ( LOOKAHEAD(2)
       ( LOOKAHEAD(1) ( <S> ) )*
-      s = unaryOperator() { jjtThis.appendText (s); }
+      s = unaryOperator() { aSB.append (s); }
       ( LOOKAHEAD(1) ( <S> ) )*
-      t = <INTEGER> { jjtThis.appendText (t.image); }
+      t = <INTEGER> { aSB.append (t.image); }
     )?
   | LOOKAHEAD(2)
-    ( s = unaryOperator() { jjtThis.appendText (s); } )?
-    t = <INTEGER> { jjtThis.appendText (t.image); }
-  | t = <EVEN>    { jjtThis.appendText (t.image); }
-  | t = <ODD>     { jjtThis.appendText (t.image); }
+    ( s = unaryOperator() { aSB.append (s); } )?
+    t = <INTEGER> { aSB.append (t.image); }
+  | t = <EVEN>    { aSB.append (t.image); }
+  | t = <ODD>     { aSB.append (t.image); }
   )
+  { return aSB.toString (); }
+}
+
+void pseudoNth () #nth :
+{ String s; }
+{
+  ( LOOKAHEAD(1) ( <S> ) )*
+  s = pseudoNthExpression() { jjtThis.setText (s); }
   ( LOOKAHEAD(1) ( <S> ) )*
   ( <OF>
     ( LOOKAHEAD(1) ( <S> ) )*
@@ -1680,11 +1690,25 @@ try{
 //
 // Page rule
 //
-String pseudoPage() #void : {}
+String pseudoPage() #void :
+{ String s; final StringBuilder aSB = new StringBuilder (":"); }
 {
   <COLON>
-  <IDENT> { return ':' + token.image; }
+  ( <IDENT> { aSB.append (token.image); }
 // Should only be: "left" | "right" | "first" | "blank"
+  | <FUNCTION_PAGE_NTH>         { aSB.append ("nth("); }
+    // GCPM 3: nth() = ( An+B [of <custom-ident>]? )
+    ( LOOKAHEAD(1) ( <S> ) )*
+    s = pseudoNthExpression()   { aSB.append (s); }
+    ( LOOKAHEAD(1) ( <S> ) )*
+    ( <OF>
+      ( LOOKAHEAD(1) ( <S> ) )*
+      s = anyIdentifier()       { aSB.append (" of ").append (s); }
+      ( LOOKAHEAD(1) ( <S> ) )*
+    )?
+    <RROUND>                    { aSB.append (')'); }
+  )
+  { return aSB.toString (); }
 }
 
 // pseudo_page+ | IDENT pseudo_page*
