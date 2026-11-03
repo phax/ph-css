@@ -1,0 +1,125 @@
+/*
+ * Copyright (C) 2014-2026 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.css.decl;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.css.CSSSourceLocation;
+import com.helger.css.ICSSSourceLocationAware;
+import com.helger.css.ICSSWriterSettings;
+
+/**
+ * Represents a single supports condition with a function that has a single argument. E.g.
+ * "font-tech(color-COLRv1)" or "at-rule(@layer)".
+ *
+ * @author Philip Helger
+ * @since 8.3.1
+ */
+@NotThreadSafe
+public class CSSSupportsConditionFunction implements ICSSSupportsConditionMember, ICSSSourceLocationAware
+{
+  private final ECSSSupportsFunction m_eFunction;
+  private final String m_sArgument;
+  private CSSSourceLocation m_aSourceLocation;
+
+  /**
+   * Constructor
+   *
+   * @param eFunction
+   *        The function to use. May not be <code>null</code>.
+   * @param sArgument
+   *        The argument of the function as written in the CSS, e.g. <code>opentype</code>,
+   *        <code>"woff2"</code> or <code>@media</code>. May neither be <code>null</code> nor
+   *        empty.
+   */
+  public CSSSupportsConditionFunction (@NonNull final ECSSSupportsFunction eFunction,
+                                       @NonNull @Nonempty final String sArgument)
+  {
+    m_eFunction = ValueEnforcer.notNull (eFunction, "Function");
+    m_sArgument = ValueEnforcer.notEmpty (sArgument, "Argument");
+  }
+
+  /**
+   * @return The function. Never <code>null</code>.
+   */
+  @NonNull
+  public ECSSSupportsFunction getFunction ()
+  {
+    return m_eFunction;
+  }
+
+  /**
+   * @return The argument as written in the CSS. Neither <code>null</code> nor empty.
+   */
+  @NonNull
+  @Nonempty
+  public String getArgument ()
+  {
+    return m_sArgument;
+  }
+
+  @NonNull
+  @Nonempty
+  public String getAsCSSString (@NonNull final ICSSWriterSettings aSettings, @Nonnegative final int nIndentLevel)
+  {
+    return m_eFunction.getName () + "(" + m_sArgument + ")";
+  }
+
+  @Nullable
+  public final CSSSourceLocation getSourceLocation ()
+  {
+    return m_aSourceLocation;
+  }
+
+  public final void setSourceLocation (@Nullable final CSSSourceLocation aSourceLocation)
+  {
+    m_aSourceLocation = aSourceLocation;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final CSSSupportsConditionFunction rhs = (CSSSupportsConditionFunction) o;
+    return m_eFunction.equals (rhs.m_eFunction) && m_sArgument.equals (rhs.m_sArgument);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_eFunction).append (m_sArgument).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("function", m_eFunction)
+                                       .append ("argument", m_sArgument)
+                                       .appendIfNotNull ("SourceLocation", m_aSourceLocation)
+                                       .getToString ();
+  }
+}

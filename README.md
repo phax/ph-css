@@ -330,6 +330,8 @@ Configuration items are:
 
 v8.3.1 - work in progress
 * Optimised output only removes the unit from zero lengths, so e.g. `0%` in `hsl()` and `0s` in `transition` stay valid - see [issue #141](https://github.com/phax/ph-css/issues/141)
+* `@supports` conditions support `selector()`, `font-tech()`, `font-format()`, `at-rule()`, `named-feature()` and `env()`, and keep unknown content as `<general-enclosed>` - see [issue #90](https://github.com/phax/ph-css/issues/90)
+* Added the new classes `CSSSupportsConditionSelector`, `CSSSupportsConditionFunction`, `CSSSupportsConditionGeneralEnclosed` and `ECSSSupportsFunction`
 
 v8.3.0 - 2026-11-01
 * `CCSSProperties.MAX_WIDTH` and `CCSSProperties.MAX_HEIGHT` accept the value `none`

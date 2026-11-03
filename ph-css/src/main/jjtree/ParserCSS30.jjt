@@ -1844,16 +1844,96 @@ void viewportRule() : {}
 //
 // Supports rule
 // http://www.w3.org/TR/2013/CR-css3-conditional-20130404/#at-supports
+// https://drafts.csswg.org/css-conditional-4/#at-supports-ext
+// https://drafts.csswg.org/css-conditional-5/#at-supports-ext
 //
+void supportsSelector() : {}
+{
+  <FUNCTION>
+  ( LOOKAHEAD(1) ( <S> ) )*
+  selector()
+  ( LOOKAHEAD(1) ( <S> ) )*
+  <RROUND>
+}
+
+void supportsAtKeyword() #void : {}
+{
+  ( <CHARSET_SYM>
+  | <IMPORT_SYM>
+  | <NAMESPACE_SYM>
+  | <PAGE_SYM>
+  | <TOPLEFTCORNER_SYM>
+  | <TOPLEFT_SYM>
+  | <TOPCENTER_SYM>
+  | <TOPRIGHT_SYM>
+  | <TOPRIGHTCORNER_SYM>
+  | <BOTTOMLEFTCORNER_SYM>
+  | <BOTTOMLEFT_SYM>
+  | <BOTTOMCENTER_SYM>
+  | <BOTTOMRIGHT_SYM>
+  | <BOTTOMRIGHTCORNER_SYM>
+  | <LEFTTOP_SYM>
+  | <LEFTMIDDLE_SYM>
+  | <LEFTBOTTOM_SYM>
+  | <RIGHTTOP_SYM>
+  | <RIGHTMIDDLE_SYM>
+  | <RIGHTBOTTOM_SYM>
+  | <FOOTNOTE_SYM>
+  | <MEDIA_SYM>
+  | <LAYER_SYM>
+  | <FONTFACE_SYM>
+  | <KEYFRAMES_SYM>
+  | <VIEWPORT_SYM>
+  | <SUPPORTS_SYM>
+  | <PROPERTY_SYM>
+  | <AT_UNKNOWN>
+  )
+  // "@property" and unknown at-keywords switch the lexical state
+  { token_source.SwitchTo (DEFAULT); }
+}
+
+// font-tech(), font-format(), at-rule(), named-feature() and env()
+void supportsFunction() :
+{ String s; }
+{
+  <FUNCTION> { jjtThis.setText (token.image); }
+  ( LOOKAHEAD(1) ( <S> ) )*
+  ( s = anyIdentifier() { jjtThis.appendText (s); }
+  | s = string()        { jjtThis.appendText (s); }
+  | supportsAtKeyword() { jjtThis.appendText (token.image); }
+  )
+  ( LOOKAHEAD(1) ( <S> ) )*
+  <RROUND>
+}
+
+// Unknown functions or parenthesised content - always evaluates to false
+void supportsGeneralEnclosed() :
+{ String s; }
+{
+  ( <FUNCTION> { jjtThis.setText (token.image); }
+  | <LROUND>   { jjtThis.setText (token.image); }
+  )
+  s = javaSkipToClosingParantheses() { jjtThis.appendText (s); }
+  // The content may contain at-keywords that switch the lexical state
+  { token_source.SwitchTo (DEFAULT); }
+}
+
 void supportsConditionInParens() : {}
 {
-  "("
-  ( LOOKAHEAD(1) ( <S> ) )*
-  ( styleDeclaration()
-  | supportsCondition()
+  ( LOOKAHEAD( "(" ( <S> )* ( property() <COLON> | "(" | <NOT_SYM> | <FUNCTION> ) )
+    "("
+    ( LOOKAHEAD(1) ( <S> ) )*
+    ( LOOKAHEAD( property() <COLON> ) styleDeclaration()
+    | supportsCondition()
+    )
+    ")"
+  | LOOKAHEAD({ getToken(1).kind == FUNCTION && "selector(".equalsIgnoreCase (getToken(1).image) })
+    supportsSelector()
+  | LOOKAHEAD(<FUNCTION> ( <S> )* ( anyIdentifier() | string() | supportsAtKeyword() ) ( <S> )* ")",
+              { getToken(1).kind == FUNCTION && isSupportsFunctionName (getToken(1).image) })
+    supportsFunction()
+  | supportsGeneralEnclosed()
   )
-  ")"
-/* | general_enclosed */
 }
 
 void supportsNegation() : {}

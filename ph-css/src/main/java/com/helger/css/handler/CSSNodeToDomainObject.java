@@ -1440,6 +1440,43 @@ final class CSSNodeToDomainObject
         return ret;
       }
 
+      if (ECSSNodeType.SUPPORTSSELECTOR.isNode (aChildNode))
+      {
+        final int nSelectorChildCount = aChildNode.jjtGetNumChildren ();
+        if (nSelectorChildCount != 1)
+          _throwUnexpectedChildrenCount (aChildNode,
+                                         "Expected at exactly 1 child but got " + nSelectorChildCount + "!");
+
+        final CSSSupportsConditionSelector ret = new CSSSupportsConditionSelector (_createSelector (aChildNode.jjtGetChild (0)));
+        if (m_bUseSourceLocation)
+          ret.setSourceLocation (aChildNode.getSourceLocation ());
+        return ret;
+      }
+
+      if (ECSSNodeType.SUPPORTSFUNCTION.isNode (aChildNode))
+      {
+        // Text is e.g. "font-tech(color-COLRv1"
+        final String sText = aChildNode.getText ();
+        final int nIndex = sText.indexOf ('(');
+        final ECSSSupportsFunction eFunction = ECSSSupportsFunction.getFromNameCaseInsensitiveOrNull (sText.substring (0,
+                                                                                                                      nIndex));
+        if (eFunction == null)
+          throw new CSSHandlingException (aChildNode, "The function in the @supports rule is unknown!");
+        final CSSSupportsConditionFunction ret = new CSSSupportsConditionFunction (eFunction,
+                                                                                   sText.substring (nIndex + 1));
+        if (m_bUseSourceLocation)
+          ret.setSourceLocation (aChildNode.getSourceLocation ());
+        return ret;
+      }
+
+      if (ECSSNodeType.SUPPORTSGENERALENCLOSED.isNode (aChildNode))
+      {
+        final CSSSupportsConditionGeneralEnclosed ret = new CSSSupportsConditionGeneralEnclosed (aChildNode.getText ());
+        if (m_bUseSourceLocation)
+          ret.setSourceLocation (aChildNode.getSourceLocation ());
+        return ret;
+      }
+
       m_aErrorHandler.onCSSInterpretationError ("Unsupported supportsConditionInParents child: " +
                                                 ECSSNodeType.getNodeName (aChildNode));
       return null;

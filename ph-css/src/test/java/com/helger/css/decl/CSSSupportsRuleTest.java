@@ -168,4 +168,69 @@ public final class CSSSupportsRuleTest
     assertEquals (1, rule12.getDeclarationCount ());
     assertEquals ("color:black", rule12.getDeclarationAtIndex (0).getAsCSSString ());
   }
+
+  @Test
+  public void testReadSelector ()
+  {
+    final CSSSupportsRule aSR = _parse ("@supports not selector( h2 > p ) { div { color:red; } }");
+    assertEquals (1, aSR.getSupportsConditionMemberCount ());
+    assertEquals ("not selector(h2>p)", aSR.getSupportsConditionMemberAtIndex (0).getAsCSSString ());
+
+    // Create the same rule by application
+    final CSSSupportsRule aCreated = new CSSSupportsRule ();
+    aCreated.addSupportConditionMember (new CSSSupportsConditionNegation (new CSSSupportsConditionSelector (new CSSSelector ().addMember (new CSSSelectorSimpleMember ("h2"))
+                                                                                                                              .addMember (ECSSSelectorCombinator.GREATER)
+                                                                                                                              .addMember (new CSSSelectorSimpleMember ("p")))));
+    aCreated.addRule (new CSSStyleRule ().addSelector (new CSSSelectorSimpleMember ("div"))
+                                         .addDeclaration ("color", CSSExpression.createSimple ("red"), false));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+
+    assertEquals ("selector(:has(.f))",
+                  _parse ("@supports selector(:has(.f)) {}").getSupportsConditionMemberAtIndex (0).getAsCSSString ());
+  }
+
+  @Test
+  public void testReadFunction ()
+  {
+    final CSSSupportsRule aSR = _parse ("@supports font-tech( color-COLRv1 ) or at-rule(@media) {}");
+    assertEquals (3, aSR.getSupportsConditionMemberCount ());
+    assertEquals ("font-tech(color-COLRv1)", aSR.getSupportsConditionMemberAtIndex (0).getAsCSSString ());
+    assertSame (ECSSSupportsConditionOperator.OR, aSR.getSupportsConditionMemberAtIndex (1));
+    assertEquals ("at-rule(@media)", aSR.getSupportsConditionMemberAtIndex (2).getAsCSSString ());
+
+    // Create the same rule by application
+    final CSSSupportsRule aCreated = new CSSSupportsRule ();
+    aCreated.addSupportConditionMember (new CSSSupportsConditionFunction (ECSSSupportsFunction.FONT_TECH,
+                                                                          "color-COLRv1"));
+    aCreated.addSupportConditionMember (ECSSSupportsConditionOperator.OR);
+    aCreated.addSupportConditionMember (new CSSSupportsConditionFunction (ECSSSupportsFunction.AT_RULE, "@media"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aSR, aCreated);
+
+    assertEquals (new CSSSupportsConditionFunction (ECSSSupportsFunction.FONT_FORMAT, "\"woff2\""),
+                  _parse ("@supports font-format(\"woff2\") {}").getSupportsConditionMemberAtIndex (0));
+    assertEquals (new CSSSupportsConditionFunction (ECSSSupportsFunction.AT_RULE, "@property"),
+                  _parse ("@supports at-rule(@property) {}").getSupportsConditionMemberAtIndex (0));
+    assertEquals (new CSSSupportsConditionFunction (ECSSSupportsFunction.NAMED_FEATURE, "gamut-mapping"),
+                  _parse ("@supports named-feature(gamut-mapping) {}").getSupportsConditionMemberAtIndex (0));
+    assertEquals (new CSSSupportsConditionFunction (ECSSSupportsFunction.ENV, "safe-area-inset-top"),
+                  _parse ("@supports env(safe-area-inset-top) {}").getSupportsConditionMemberAtIndex (0));
+  }
+
+  @Test
+  public void testReadGeneralEnclosed ()
+  {
+    final CSSSupportsRule aSR = _parse ("@supports foo(bar baz) or (foo bar) or font-tech(a b) or () { div { color:red; } }");
+    assertEquals (7, aSR.getSupportsConditionMemberCount ());
+    assertEquals (new CSSSupportsConditionGeneralEnclosed ("foo(bar baz)"), aSR.getSupportsConditionMemberAtIndex (0));
+    assertEquals (new CSSSupportsConditionGeneralEnclosed ("(foo bar)"), aSR.getSupportsConditionMemberAtIndex (2));
+    assertEquals (new CSSSupportsConditionGeneralEnclosed ("font-tech(a b)"), aSR.getSupportsConditionMemberAtIndex (4));
+    assertEquals (new CSSSupportsConditionGeneralEnclosed ("()"), aSR.getSupportsConditionMemberAtIndex (6));
+    assertEquals (1, aSR.getRuleCount ());
+
+    // The lexical state is restored after an at-keyword
+    final CSSSupportsRule aSR2 = _parse ("@supports unknown(@property x) { div { color:red; } }");
+    assertEquals (new CSSSupportsConditionGeneralEnclosed ("unknown(@property x)"),
+                  aSR2.getSupportsConditionMemberAtIndex (0));
+    assertEquals ("div { color:red; }", aSR2.getRuleAtIndex (0).getAsCSSString ());
+  }
 }

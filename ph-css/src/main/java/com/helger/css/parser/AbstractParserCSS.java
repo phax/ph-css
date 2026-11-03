@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.css.decl.ECSSSupportsFunction;
 import com.helger.css.reader.CSSReaderSettings;
 import com.helger.css.reader.errorhandler.ICSSParseErrorHandler;
 
@@ -99,6 +100,25 @@ public abstract class AbstractParserCSS
   public final void setKeepDeprecatedProperties (final boolean bKeepDeprecatedProperties)
   {
     m_bKeepDeprecatedProperties = bKeepDeprecatedProperties;
+  }
+
+  /**
+   * Check if the passed function token image is the name of a known @supports function with a
+   * single argument.
+   *
+   * @param sFunctionImage
+   *        The image of the function token including the opening parenthesis, e.g.
+   *        <code>font-tech(</code>. May be <code>null</code>.
+   * @return <code>true</code> if it is a known @supports function, <code>false</code> if not.
+   * @see ECSSSupportsFunction
+   * @since 8.3.1
+   */
+  protected static boolean isSupportsFunctionName (@Nullable final String sFunctionImage)
+  {
+    if (sFunctionImage == null || !sFunctionImage.endsWith ("("))
+      return false;
+    final String sName = sFunctionImage.substring (0, sFunctionImage.length () - 1);
+    return ECSSSupportsFunction.getFromNameCaseInsensitiveOrNull (sName) != null;
   }
 
   // Used when NODE_SCOPE_HOOK is true - for debugging only

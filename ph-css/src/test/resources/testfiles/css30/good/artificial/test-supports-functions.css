@@ -1,0 +1,43 @@
+/**
+ * Copyright (C) 2014-2026 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@supports () { div { color:red; } }
+@supports not () { div { color:red; } }
+/* Conditional 4 selector() */
+@supports selector(h2 > p) { div { color:red; } }
+@supports selector(:has(.f)) { div { color:red; } }
+@supports selector( a  b ) { div { color:red; } }
+@supports SELECTOR(ul ~ li) { div { color:red; } }
+@supports not selector(:focus-visible) { div { color:red; } }
+@supports selector(:is(a, b)) and (display: grid) { div { color:red; } }
+
+/* Conditional 5 functions */
+@supports font-tech(color-COLRv1) { div { color:red; } }
+@supports font-format(opentype) { div { color:red; } }
+@supports font-format("woff2") { div { color:red; } }
+@supports at-rule(@media) { div { color:red; } }
+@supports at-rule(@layer) { div { color:red; } }
+@supports at-rule(@property) { div { color:red; } }
+@supports at-rule(@container) { div { color:red; } }
+@supports named-feature(gamut-mapping) { div { color:red; } }
+@supports env(safe-area-inset-top) { div { color:red; } }
+@supports (font-tech(variations) or font-format( woff )) and (not at-rule(@scope)) { div { color:red; } }
+
+/* General enclosed */
+@supports foo(bar baz) { div { color:red; } }
+@supports font-tech(a b) { div { color:red; } }
+@supports (foo bar) or (display: grid) { div { color:red; } }
+@supports at-rule(@foo) or unknown(@property x) { div { color:red; } }
