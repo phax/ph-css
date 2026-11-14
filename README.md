@@ -328,6 +328,9 @@ Configuration items are:
 
 ## News and noteworthy
 
+v8.4.1 - 2026-11-14
+* Updated to ph-commons 12.7.1 - including the BOM usage
+
 v8.4.0 - 2026-11-03
 * Optimised output only removes the unit from zero lengths, so e.g. `0%` in `hsl()` and `0s` in `transition` stay valid - see [issue #141](https://github.com/phax/ph-css/issues/141)
 * `@supports` conditions support `selector()`, `font-tech()`, `font-format()`, `at-rule()`, `named-feature()` and `env()`, and keep unknown content as `<general-enclosed>` - see [issue #90](https://github.com/phax/ph-css/issues/90)
